@@ -1,0 +1,239 @@
+@font-face {
+    font-family: "opensans-r";    
+    src: url( '../fonts/opensans-r.ttf') format("truetype");           
+    font-style: normal;
+    font-weight: 200;
+}
+body,html
+{
+   overflow:hidden;
+   height:100%;
+   margin:0px;
+   padding:0px;
+}
+#screen
+{
+   position:fixed;
+   width:100%;
+   height:100%;
+   top:0px;   
+   left:0px;
+   right:70px;
+   bottom:0px;   
+   margin-right:100px;
+}
+#screen.intro
+{
+   display:inline-block;
+}
+#screen.intro .title
+{
+   position:absolute;
+   display:inline-block;
+   font-family:Tahoma;
+   font-size:25px;
+   font-size:10vmin;
+}
+#screen.epilogue
+{
+   display:inline-block;
+}
+#screen.epilogue .title
+{
+   position:absolute;
+   display:inline-block;
+   font-family:Tahoma;
+   font-size:25px;
+   font-size:10vmin;
+}
+#screen .top, #screen .bottom,#screen .divider
+{
+   width:100%;
+}
+#screen .divider
+{
+  background-color:#ededed;
+}
+
+.m.character
+{
+   background:transparent url("../images/svg/m.svg") no-repeat;
+   width:46px;
+   height:100px;
+   position:relative;
+   left:0px;
+}
+.f.character
+{
+   background:transparent url("../images/svg/f.svg") no-repeat;
+   width:46px;
+   height:100px;
+   position:relative;
+   left:0px;
+}
+/* screen 2 end */
+/* info bar start */
+#info
+{
+   width:65px;
+   height:100%;
+   position:fixed;
+   right:0px;
+   top:0px;
+
+   background-color:#ededed;      
+}
+#info .female
+{
+   position:absolute;   
+   bottom:20px; 
+   width:65px;
+   text-align:center;
+}
+#info .male
+{
+   position:absolute;
+   top:20px;   
+   width:65px;
+   text-align:center;
+}
+#info .male .piggy_happy
+{
+   background:transparent url("../images/piggyhappy.png") no-repeat;
+   background-size:76px;
+   position:absolute;
+   top:-34px;
+   width:177px;
+   height:191px;
+   -ms-transform: rotate(-7deg); /* IE 9 */
+   -webkit-transform: rotate(-7deg); /* Chrome, Safari, Opera */
+   transform: rotate(-7deg);
+   left:3px;
+}
+#info .female .piggy_unhappy
+{
+   background:transparent url("../images/piggyhappy.png") no-repeat;
+   background-size:76px;
+   position:absolute;
+   top:-41px;
+   width:177px;
+   height:191px;
+   -ms-transform: rotate(5deg); /* IE 9 */
+   -webkit-transform: rotate(5deg); /* Chrome, Safari, Opera */
+   transform: rotate(5deg);
+   left:-14px;
+}
+#info .fdiff
+{
+   position: relative;
+   top: 0px;
+   left: 0px;
+}
+#info .mdiff
+{
+   position: relative;
+   top: 15px;
+   left: 11px;
+}
+#info .y
+{
+   position:absolute;
+   width:63px;
+   text-align:center;
+   border:1px;
+}
+/* year ticker */
+#info .y > div
+{
+   position:relative;
+   top:0px;
+   left:0px;
+}
+#info .mask
+{
+   position:absolute;
+   top:0px;
+   left:0px;
+   width:63px;
+   height:31px;
+   background:transparent url('../images/year_mask.png') no-repeat;
+   background-size:63px 21px;
+   background-position:0px 5px;
+}
+#info .y .year
+{
+   position:absolute;
+   top:0px;
+   left:0px;
+   height:31px;
+   line-height:31px;
+   width:63px;
+   text-align:center;
+   z-index:1102;
+}
+/* info bar end */
+
+.mchar,.fchar
+{
+   width:200px;
+   height:200px;
+   position:absolute;
+   left:0px;
+   border-radius: 200px 200px 200px 200px;
+   -moz-border-radius: 200px 200px 200px 200px;
+   -webkit-border-radius: 200px 200px 200px 200px;  
+}
+#age_picker
+{
+
+   position:absolute;
+   left:0px;   
+   top:0px;
+   overflow:visible;
+}
+#age_picker path
+{
+   stroke:#d4d4d4;
+}
+#age_mover
+{
+   /*opacity:0.5;*/
+   stroke:black;
+   stroke-width:0;
+   fill:#add2ff;
+}
+#age_mover:hover
+{
+   cursor:pointer;
+}
+#age_counter
+{
+   fill:#add2ff;
+   font-size:45px;
+   font-family:opensans-r;
+}
+.mchar
+{
+   background:transparent url("../images/svg/m.svg") no-repeat;
+   background-size:46px 100px;
+   background-position:77px 50px; 
+   border:1px solid #ff94f8;
+
+}
+.mchar:hover,.mchar.selected
+{
+   cursor:pointer;
+   background-color:#ff94f8;
+}
+.fchar
+{
+   background:transparent url("../images/svg/f.svg") no-repeat;
+   background-size:46px 100px;
+   background-position:77px 50px; 
+   border:1px solid #add2ff;
+}
+.fchar:hover,.fchar.selected
+{
+   cursor:pointer;
+   background-color:#add2ff;
+}
