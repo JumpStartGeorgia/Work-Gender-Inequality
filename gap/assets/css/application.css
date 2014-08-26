@@ -206,7 +206,13 @@ body,html
 {
    cursor:pointer;
 }
-#age_counter
+.f #age_counter
+{
+   fill:#ff94f8;
+   font-size:45px;
+   font-family:opensans-r;
+}
+.m #age_counter
 {
    fill:#add2ff;
    font-size:45px;

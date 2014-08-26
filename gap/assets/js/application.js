@@ -8,38 +8,26 @@ $(document).ready(function(){
     // normalize the wheel delta -1 down, 1 up
     delta = delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120;
 
+    if(func(onscrollbefore)) onscrollbefore();
+
+    if(delta < 0) // forward up next
+    {      
+      if(func(onscrollup)) onscrollup();
+    }
+    else // backward down previous
+    {
+      if(func(onscrolldown)) onscrolldown();
+    }
+
     if(ingame)
     {
       prev_pos = pos;      
-      if(delta < 0)
-      {
-        if(pos < pos_max) ++pos;
-      }       
-      else
-      {
-       if(pos > pos_min) --pos;
-      }
-
+      if(delta < 0 && pos < pos_max) ++pos;
+      else if(delta >= 0 && pos > pos_min) --pos;
       if(pos != prev_pos) tick();
     }
-    //pos = $(this).scrollTop();  
 
-    // magnetoAnchor.each(function(i){    
-    //   if(cp >= magnetoHeights[i]) magnetoIndex = i;           
-    // }); 
-
-
-    // increase the anchor magnetoIndex based on wheel direction
-    // magnetoIndex = (magnetoIndex-delta) % (magnetoHeights.length);
-
-    // animate the scrolling if scrolling from header to bottom
-    // if(magnetoIndex == 0 && delta < 0)
-    // {
-    //   $("html,body").stop().animate({
-    //       scrollTop: magnetoHeights[1]
-    //   }, 1000);
-    //   e.preventDefault();        
-    // }
+    if(func(onscrollafter)) onscrollafter()
   });
 
   // on resize redraw game   
@@ -59,6 +47,8 @@ $(document).ready(function(){
 var t = null; // variable for testing
 var w = 0; // viewport width
 var h = 0; // viewport height
+var h2 = 0; // half of height viewport 
+var w2 = 0; // half of width viewport 
 var s = null; // screen jquery object
 var i = null; // info jquery object
 var pos = 0; // position of life
@@ -75,14 +65,19 @@ var diff_step = 244; // gap difference in $
 var fdiff = 0; // female money calculated with diff_step based on current year
 var curr_screen = 1; // current screen intro is 1
 var cnt_screen = 2; // screens count calculated from sframe array plus 2(intro,epilogue)
+var def_age = 21;
 var min_age = 18;
 var max_age = 60;
 var male_max_age = 65;
 var female_max_age = 60;
-
+var onscrollbefore = null;
+var onscrollup = null;
+var onscrolldown = null;
+var onscrollafter = null;
 var fade_time = 0; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
 var tick_count = 4; // year ticks to show in info bar
+
 var human = 
 {
  age : 21,
@@ -94,7 +89,7 @@ var human =
 var user =
 {
   gender : 'f',
-  age : 0,
+  age : 21,
   category : 0,
   interest : []
 }
@@ -121,7 +116,8 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
 
      w = $(this).width();
      h = $(this).height(); 
-
+     w2 = w/2;
+     h2 = h/2;
     // pos = $(window).scrollTop();  
      log("w:" + w + "/ h:" + h + " / pos:" + pos);
 
@@ -288,34 +284,36 @@ function ticker_tick()
   }
   ticker.find('.curr .year').text(curr_year);
 }
+
+/***************************************************************
+                  Utility Functions
+***************************************************************/
 function fstart(v) { console.log("< " + v); }
 function fend(v) { console.log(v + " >"); }
 function log(v) { console.log("\t" + v); }
 function exist(v){ return typeof v !== 'undefined' && v !== null && v !== '';}
-function age_group(v)
+function empty(){log('empty');};
+function ism(){ return user.gender=='m' }
+function isf(){ return user.gender=='f' }
+var func = jQuery.isFunction;
+function quadrant(x,y)
 {
-  for(var i = 0; i < age_groups.length; ++i)
-  {
-    if(v >= age_groups[i].min && v <= age_groups[i].max)
-      return i+1;
-  }
+  if(x>=0 && y>=0) return 1;
+  else if(x<0 && y >= 0) return 2;
+  else if(x<=0 && y<0) return 3;
+  else return 4;
 }
-function t(v,o){
- v.css(o);
- t = null;
+function degree_from_radian(rad)
+{
+  return (rad/Math.PI*180) + (rad > 0 ? 0 : 360);
 }
+function t(v,o){ v.css(o); t = null; }
 function sample()
 {
- fstart(arguments.callee.name);
-   // code todo
-   fend(arguments.callee.name);
- }
-// function getData()
-// {
-//   $.getJSON("assets/js/data.json", function( data ) {  
-//     d = data;
-//   });
-// }
+  fstart(arguments.callee.name);
+  // code todo
+  fend(arguments.callee.name);
+} 
 (function($) {
   $.fn.invisible = function() {
     return this.each(function() {
@@ -328,16 +326,62 @@ function sample()
     });
   };
 }(jQuery));
+/***************************************************************
+                  Utility Functions End
+***************************************************************/
+/***************************************************************
+                  General Functions
+***************************************************************/
+function agegroup_by_age(v)
+{
+  for(var i = 0; i < age_groups.length; ++i)
+  {
+    if(v >= age_groups[i].min && v <= age_groups[i].max)
+      return i+1;
+  }
+}
+/***************************************************************
+                  General Functions End
+***************************************************************/
 
 
 var poll = {
   ftmp : null,
   mtmp : null,
+  offsetX : 0,
+  offsetY : 0,
+
+
+
+
+
+  knobCX : 210,
+  knobCY : 210,
+  knobR : 210,
+  knobC : "green",
+  indicatorRadius : 8,
+
+  degrees_male : [1,47,313], // first and last point in degrees for male , 1 means invert arc 
+  degrees_female : [0,133,227], // first and last point in degrees for male , 0 means general arc
+  degrees : null,
+  degree_steps : [],
+  degree_step : 0,
+
+
+  // rad_max : 0.815, // this is range top value, bottom is -rad_max, for age picker not to move on circle
+  // rad_female : 2.322,
+  // rad_male : 0.815,
+
+  // age_radian : [], // element with 0 index is min_age
+  // age_radian_step : 0,
+
+
+
   show:function show()
   {
     fstart(arguments.callee.name);
 
-    poll.gender();
+    this.gender();
 
     fend(arguments.callee.name);
   },
@@ -349,67 +393,34 @@ var poll = {
 
     var p = $('<div class="poll"></div>').appendTo(s);
     var gender = $('<div class="gender"></div>').appendTo(p);
-    var ftmp = poll.ftmp = $('<div class="fchar"></div>').appendTo(gender);
-    var mtmp = poll.mtmp = $('<div class="mchar"></div>').appendTo(gender);
+    var ftmp = this.ftmp = $('<div class="fchar"></div>').appendTo(gender);
+    var mtmp = this.mtmp = $('<div class="mchar"></div>').appendTo(gender);
 
     ftmp.on('click',function(){ 
+      mtmp.removeClass('selected').off('click').fadeOut(1000,"linear");
+      max_age = female_max_age;
 
-        ftmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
-        {
+      ftmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
+      {
           tmp_width = ftmp.width();
           tmp_height = ftmp.height();
           ftmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           ftmp.css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      }});
-
-      mtmp.removeClass('selected').off('click').fadeOut(1000,"linear");
-    
-      poll.age('f');
+      },complete:poll.age_picker_show('f')});
 
     });
     mtmp.on('click',function(){ 
       ftmp.removeClass('selected').off('click').fadeOut(1000,"linear");
-  max_age = male_max_age;
+      max_age = male_max_age;
 
-      mtmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:0, progress:function(a,b,c)
+      mtmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
         {
           tmp_width = mtmp.width();
           tmp_height = mtmp.height();
           mtmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           mtmp.css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-          //log("start from here");log(a);log(b);log(c);
-      },complete:function(){
-    
-    // age picker
-      var ap = $('<svg version="1.1" id="age_picker" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-400/2}).appendTo(gender);
-      var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
-      var ap_text = ' <text id="age_counter" x="250" y="150"></text>';
-      var ap_knob = '<circle id="age_mover" cx="100" cy="100" r="'+indicatorRadius+'" draggable="true" ondrag="drag(event)" class="age_mover"/>';
-
-        ap.html(ap_path + ap_text + ap_knob);        
-
-        offsetX = ap.offset().left;
-        offsetY = ap.offset().top;
-        draw_age_mover_by_radian(-rad_max);
-        $('#age_mover').draggable();
-        $("#age_picker").mousedown(function (e) {
-            handleMouseDown(e);
-        });
-          $("#age_picker").mouseup(function (e) {
-            ingame = true; tick(); game();
-        });
-        
-        //draw_age_mover(ap.width() / 2, 1); // just to get started
-
-
-// <p>Drag the W3Schools image into the rectangle:</p>
-
-// <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-// <br>
-// <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
-
-      }});
-      poll.age('m');
+      },complete:poll.age_picker_show('m')});
+   
     });
 
     var margin_between = 100;
@@ -422,12 +433,6 @@ var poll = {
   {
     fstart(arguments.callee.name);
     user.gender = v;
-
-
-    // 
-
-
-
     fend(arguments.callee.name);
   },
   category:function category()
@@ -439,117 +444,229 @@ var poll = {
   {
     fstart(arguments.callee.name);
     fend(arguments.callee.name);
-  }  
+  },
+  age_picker_show:function age_picker_show(v)
+  {
+      poll.age(v);
 
+      var gender = $(".gender");
+      var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(gender);
+      var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.663,358.045c-40.734-38.327-66.17-92.732-66.17-153.077c0-60.346,25.435-114.75,66.169-153.077"/>';
+      if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
+
+      var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
+      var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
+      ap.html(ap_path + ap_text + ap_knob);        
+      var diff = max_age-min_age;
+      if(v=='m')poll.degree = poll.degrees_male;
+      else poll.degree = poll.degrees_female;
+      
+
+      var degree_sum = 0;
+      if(poll.degree[0] == 0) degree_sum = (poll.degree[2]-poll.degree[1]);
+      else degree_sum = poll.degree[1] + 360 - poll.degree[2];
+      poll.degree_step = degree_sum / diff;
+      
+      for(var i = 0; i <= diff; ++i)
+      {
+        if(poll.degree[0] == 0)
+        {            
+          poll.degree_steps.push(poll.degree[1] + (i)*poll.degree_step);            
+        }
+        else
+        {
+          poll.degree_steps.push(poll.degree[1] - (i)*poll.degree_step);       
+        }
+      }           
+
+      $('#age_mover').draggable();
+
+        // $("#age_picker").mousedown(function (e) {
+        //     poll.agemousedown(e);
+        // });
+
+      onscrollup = function(){
+        poll.age_up();
+      };
+      onscrolldown = function(){
+        poll.age_down();
+      };
+
+      poll.by_age(def_age);
+  },
+  age_check:function age_check()
+  {      
+      if(user.age<min_age) user.age = min_age;
+      else if(user.age>max_age) user.age = max_age;   
+  },
+  age_up:function age_up()
+  {
+    this.age_check();
+    if(user.age<max_age) ++user.age;
+    this.agepicker_draw();    
+  }, 
+  age_down:function age_down()
+  {
+    this.age_check();
+    if(user.age>min_age) --user.age;
+    this.agepicker_draw();
+  },
+  by_age:function by_age(v)
+  {        
+    user.age = v;    
+    this.age_check();
+    this.agepicker_draw();
+  },
+  agepicker_draw:function agepicker_draw()
+  {
+    var rad = this.get_radian_by_age(user.age);
+   
+      var c = Math.cos(rad);
+      var s = Math.sin(rad);
+
+      var cx = this.knobR * c + this.knobCX;
+      var cy = this.knobCY - this.knobR * s;      
+      $(".age_mover").attr("cx",cx).attr("cy",cy);
+      $('#age_counter').text(user.age + "(" +agegroup_by_age(user.age)+")");
+  },
+  agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
+
+    // given mousePosition, what is the nearest point on the knob
+    // result = atan2 (y,x) * 180 / PI;
+    var rad = Math.atan2(y,x);
+    //console.log();
+    var degree = Math.degrees(rad);//degree_from_radian(Math.atan2(y,x)); //rad * 180 / PI;
+   // if(degree < 0 ) degree = 360 + degree;
+ console.log(degree);
+    //if(rad>=-this.rad_max && rad <= this.rad_max)
+    //{      
+        for(var i = 0; i <= max_age-min_age; ++i)
+        {
+          if(degree < this.degree_steps[i] && degree >= this.degree_steps[i+1])
+          {   
+            var index = i;      
+            if(this.degree_steps[i]-degree > degree-this.degree_steps[i+1]) ++index;
+
+            if(index==1) index = 0;
+            else --index;
+            //conlose.log(min_age,index);
+            this.by_age(min_age+index);  
+          }
+        }      
+  },
+  get_degree_by_age:function get_degree_by_age(v)
+  {
+    var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
+    if(tmp < 0) tmp = 360 + tmp;      
+    return tmp;
+  },
+  get_radian_by_age:function get_radian_by_age(v)
+  {    
+    var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
+    if(tmp < 0) tmp = 360 + tmp;    
+    return Math.radians(tmp);
+  },
+  drag_age:function drag_age(e) {
+    var x = parseInt(e.x-w2);
+    var y = parseInt(h2-e.y);
+    this.agepicker_age_by_coord(x, y);
+  },
+  agemousedown:function agemousedown(e) {
+    fstart(arguments.callee.name);
+
+    this.agepicker_age_by_coord(parseInt(e.clientX - this.offsetX), parseInt(e.clientY - this.offsetY));
+
+    fend(arguments.callee.name);
+  }
 };
 
 
 
+// function allowDrop(ev) {
+//     ev.preventDefault();
+// }
+
+
+// function drop(ev) {
+//     ev.preventDefault();
+//     var data = ev.dataTransfer.getData("Text");
+//     ev.target.appendChild(document.getElementById(data));
+// }
+
+// wheel move
+  //pos = $(this).scrollTop();  
+
+    // magnetoAnchor.each(function(i){    
+    //   if(cp >= magnetoHeights[i]) magnetoIndex = i;           
+    // }); 
+
+
+    // increase the anchor magnetoIndex based on wheel direction
+    // magnetoIndex = (magnetoIndex-delta) % (magnetoHeights.length);
+
+    // animate the scrolling if scrolling from header to bottom
+    // if(magnetoIndex == 0 && delta < 0)
+    // {
+    //   $("html,body").stop().animate({
+    //       scrollTop: magnetoHeights[1]
+    //   }, 1000);
+    //   e.preventDefault();        
+    // }
 
 
 
 
-var offsetX;
-var offsetY;
-//var circleArc = Math.PI * 2;
-
-// drawing design properties
-var knobCX = 210;
-var knobCY = 210;
-var knobR = 210;
-var knobC = "green";
-var indicatorRadius = 8;
-var indicatorColor = "yellow";
-
-var rad_max = 0.815;
-var ages = [];
-var age_range = 2*rad_max/(max_age-min_age+1);
-console.log(age_range);
-for(var i = 0; i < max_age-min_age+1; ++i)
-{
-  ages.push((rad_max - i*age_range).toPrecision(5));
-}
-ages.push(-rad_max);
-log(ages);
-function draw_age_mover(mx, my) {
+        //   $("#age_picker").mouseup(function (e) {
+        //     ingame = true; tick(); game();
+                // });
 
 
-// given mousePosition, what is the nearest point on the knob
-  var rads = Math.atan2(my - knobCY, mx - knobCX);
+// function draw_age_mover_by_radian(rad) {
 
-  if(rads>-rad_max && rads < rad_max)
-  {
-      for(var i = 0; i < max_age-min_age+1; ++i)
-      {
-        console.log(max_age-min_age);
-        if(rads <= ages[i] && rads > ages[i+1])
-        {   
-          if(ages[i] + rads > rads+ages[i+1]) rads = ages[i+1];
-          else rads = ages[i];
-          user.age = max_age-i;
-           $('#age_counter').text(user.age + "(" +age_group(user.age)+")");
-          break;                            
+//   $('#age_counter').text(min_age);
+//   if(rad>=-rad_max && rad <= rad_max)
+//   {
+//     var c = Math.cos(rad);
+//     var s = Math.sin(rad);
 
-        }
-      }
+//     var cx = knobR * c + knobCX;
+//     var cy = knobR * s + knobCY;
+//     $(".age_mover").attr("cx",cx).attr("cy",cy);
+//   }
+// }
 
-    log(rads);
-    var c = Math.cos(rads);
-    var s = Math.sin(rads);
 
-    var cx = knobR * c + knobCX;
-    var cy = knobR * s + knobCY;
-    $(".age_mover").attr("cx",cx).attr("cy",cy);
-  }
-}
-function draw_age_mover_by_radian(rads) {
 
-  $('#age_counter').text(min_age);
-  if(rads>=-0.83 && rads <= 0.83)
-  {
-    var c = Math.cos(rads);
-    var s = Math.sin(rads);
 
-    var cx = knobR * c + knobCX;
-    var cy = knobR * s + knobCY;
-    $(".age_mover").attr("cx",cx).attr("cy",cy);
-  }
-}
-function quadrant(x,y)
-{
-  if(x>=0 && y>=0) return 1;
-  else if(x<0 && y >= 0) return 2;
-  else if(x<=0 && y<0) return 3;
-  else return 4;
-}
+        // ap.html(ap_path + ap_text + ap_knob);        
 
-function handleMouseDown(e) {
-  fstart(arguments.callee.name);
+        // poll.offsetX = ap.offset().left;
+        // poll.offsetY = ap.offset().top;
+        // var diff = max_age-min_age;
+        // poll.rad_max = poll.rad_male;
+        // poll.age_radian_step = 2*poll.rad_max/(diff);
 
-  x = parseInt(e.clientX - offsetX);
-  y = parseInt(e.clientY - offsetY);
-  draw_age_mover(x, y);
+        // poll.age_radian.push(-999);
+        // for(var i = 0; i < diff; ++i)
+        // {
+        //   poll.age_radian.push(Math.round10(-poll.rad_max + i*poll.age_radian_step,-5));
+        // }
+        // poll.age_radian.push(poll.rad_max);
+        // poll.age_radian.push(999);
 
-  fend(arguments.callee.name);
-}
-function allowDrop(ev) {
-    ev.preventDefault();
-}
+       
 
-function drag(e) {
-  //fstart(arguments.callee.name);
+        // $('#age_mover').draggable();
 
-  x = parseInt(e.x - offsetX);
-  y = parseInt(e.y - offsetY);
-  draw_age_mover(x, y);
+        // // $("#age_picker").mousedown(function (e) {
+        // //     poll.agemousedown(e);
+        // // });
 
-  //fend(arguments.callee.name);
-}
+        // onscrollup = function(){
+        //   poll.age_up();
+        // };
+        // onscrolldown = function(){
+        //   poll.age_down();
+        // };
 
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("Text");
-    ev.target.appendChild(document.getElementById(data));
-}
-
-      // var age_picker = $('<svg id="age_picker" height="200" width="200"><circle cx="100" cy="100" r="100" stroke="black" stroke-width="1" fill="none" /><circle cx="0" cy="0" r="5" stroke="black" stroke-width="1" fill="green" class="age_mover"/></svg>').appendTo(gender);
+        // poll.by_age(def_age);
