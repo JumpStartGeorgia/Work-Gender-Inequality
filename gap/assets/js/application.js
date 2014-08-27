@@ -80,7 +80,7 @@ var tick_count = 4; // year ticks to show in info bar
 
 var human = 
 {
- age : 21,
+ age : 0,
  height : 100,
  width: 46,
  x:30,
@@ -88,8 +88,8 @@ var human =
 }; // human object with basic properties
 var user =
 {
-  gender : 'f',
-  age : 21,
+  gender : 'n',
+  age : 0,
   category : 0,
   interest : []
 }
@@ -366,6 +366,7 @@ var poll = {
   degrees : null,
   degree_steps : [],
   degree_step : 0,
+  next_function : null,
 
 
   // rad_max : 0.815, // this is range top value, bottom is -rad_max, for age picker not to move on circle
@@ -382,13 +383,25 @@ var poll = {
     fstart(arguments.callee.name);
 
     this.gender();
+    this.create_next_button();
 
     fend(arguments.callee.name);
   },
   gender:function gender()
   {
     fstart(arguments.callee.name);
-
+    this.next_function = function(){ 
+      if(user.gender != "n") 
+      { 
+        if(user.gender == 'f') $('.fchar').trigger('click') ;
+        else $('.mchar').trigger('click') ;       
+      } 
+      else 
+      {
+         $('.mchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );        
+         $('.fchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );  
+      }
+    };
     scr_clean();
 
     var p = $('<div class="poll"></div>').appendTo(s);
@@ -399,7 +412,7 @@ var poll = {
     ftmp.on('click',function(){ 
       mtmp.removeClass('selected').off('click').fadeOut(1000,"linear");
       max_age = female_max_age;
-
+      ftmp.removeClass('selected');
       ftmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
       {
           tmp_width = ftmp.width();
@@ -412,16 +425,36 @@ var poll = {
     mtmp.on('click',function(){ 
       ftmp.removeClass('selected').off('click').fadeOut(1000,"linear");
       max_age = male_max_age;
-
+      mtmp.removeClass('selected');
       mtmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
         {
           tmp_width = mtmp.width();
           tmp_height = mtmp.height();
           mtmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           mtmp.css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      },complete:poll.age_picker_show('m')});
-   
+      },complete:poll.age_picker_show('m')});   
     });
+    onscrollafter=function(){ 
+      if(ftmp.hasClass('selected'))
+      {
+        ftmp.toggleClass('selected'); 
+        mtmp.toggleClass('selected');
+        user.gender = 'm';
+
+      } 
+      else if(mtmp.hasClass('selected')) 
+      {
+        ftmp.toggleClass('selected'); 
+        mtmp.toggleClass('selected');
+        user.gender = 'f';
+
+      }
+      else 
+      {
+          ftmp.toggleClass('selected');
+          user.gender = 'f';
+      }
+    };
 
     var margin_between = 100;
     ftmp.css({top:h/2-ftmp.height()/2,left:w/2-margin_between/2-ftmp.width()});
@@ -433,11 +466,43 @@ var poll = {
   {
     fstart(arguments.callee.name);
     user.gender = v;
+    this.next_function = function(){ $('#age_picker').empty(); poll.category_show(); };
+      //ingame = true; tick(); game(); }
     fend(arguments.callee.name);
   },
-  category:function category()
+  category_show:function category_show()
   {
     fstart(arguments.callee.name);
+
+    this.next_function = null;// function(){    ingame = true; tick(); game(); };
+
+    var cat_length = category.length;
+    var outer_radius = 280;
+    var cat_radius = 30;
+    var cat_step = 360/cat_length;
+
+    var catElem = $("<div id='category_picker'></div>").appendTo(".gender");
+    var cat = "";
+
+    for(var i = 0; i < cat_length; ++i)
+    {
+                
+        wx = w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;
+        wy = h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius;      
+
+        var size = cat_radius*2;        
+       cat += '<svg class="category_item '+user.gender+'" width="'+size+'px" height="'+size+
+       'px" style="top:'+wy+'px;left:'+wx+
+       ';" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><circle cx="'+
+       cat_radius+'" cy="'+cat_radius+'" r="'+cat_radius+'" class="cat_circle"/><text class="cat_name" x="10" y="35">'+
+       category[i].name.substr(0,4)+'</text></svg>';
+       // log(cat);
+        
+    }
+
+    catElem.html(cat);
+//TODO
+    catElem.find('.category_item').attr('class','selected');
     fend(arguments.callee.name);
   },
   interest:function interest()
@@ -447,43 +512,44 @@ var poll = {
   },
   age_picker_show:function age_picker_show(v)
   {
+      onscrollafter=null;  
+
       poll.age(v);
 
       var gender = $(".gender");
       var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(gender);
-      var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.663,358.045c-40.734-38.327-66.17-92.732-66.17-153.077c0-60.346,25.435-114.75,66.169-153.077"/>';
+      var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
       if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
 
       var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
       var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
       ap.html(ap_path + ap_text + ap_knob);        
       var diff = max_age-min_age;
-      if(v=='m')poll.degree = poll.degrees_male;
-      else poll.degree = poll.degrees_female;
+      if(v=='m')poll.degrees = poll.degrees_male;
+      else poll.degrees = poll.degrees_female;
       
 
       var degree_sum = 0;
-      if(poll.degree[0] == 0) degree_sum = (poll.degree[2]-poll.degree[1]);
-      else degree_sum = poll.degree[1] + 360 - poll.degree[2];
+      if(poll.degrees[0] == 0) degree_sum = (poll.degrees[2]-poll.degrees[1]);
+      else degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
       poll.degree_step = degree_sum / diff;
-      
       for(var i = 0; i <= diff; ++i)
       {
-        if(poll.degree[0] == 0)
+        if(poll.degrees[0] == 0)
         {            
-          poll.degree_steps.push(poll.degree[1] + (i)*poll.degree_step);            
+          poll.degree_steps.push(poll.degrees[1] + (i)*poll.degree_step);            
         }
         else
         {
-          poll.degree_steps.push(poll.degree[1] - (i)*poll.degree_step);       
+          poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
         }
       }           
-
+log(poll.degree_steps);
       $('#age_mover').draggable();
 
-        // $("#age_picker").mousedown(function (e) {
-        //     poll.agemousedown(e);
-        // });
+        $(document).mousedown(function (e) {
+            poll.agemousedown(e);
+        });
 
       onscrollup = function(){
         poll.age_up();
@@ -513,9 +579,13 @@ var poll = {
   },
   by_age:function by_age(v)
   {        
-    user.age = v;    
-    this.age_check();
-    this.agepicker_draw();
+    if(user.age != v) //draw only if age changed
+    {
+      user.age = v;        
+      this.age_check();
+      this.agepicker_draw();
+      
+    }
   },
   agepicker_draw:function agepicker_draw()
   {
@@ -536,23 +606,79 @@ var poll = {
     var rad = Math.atan2(y,x);
     //console.log();
     var degree = Math.degrees(rad);//degree_from_radian(Math.atan2(y,x)); //rad * 180 / PI;
-   // if(degree < 0 ) degree = 360 + degree;
- console.log(degree);
+    if(degree < 0 ) degree = 360 + degree;
+    
+
     //if(rad>=-this.rad_max && rad <= this.rad_max)
     //{      
+        var inside = false;
         for(var i = 0; i <= max_age-min_age; ++i)
         {
-          if(degree < this.degree_steps[i] && degree >= this.degree_steps[i+1])
-          {   
-            var index = i;      
-            if(this.degree_steps[i]-degree > degree-this.degree_steps[i+1]) ++index;
-
-            if(index==1) index = 0;
-            else --index;
-            //conlose.log(min_age,index);
-            this.by_age(min_age+index);  
+          var d1 = (360+this.degree_steps[i])%360;
+          var d2 = (360+this.degree_steps[i+1])%360;
+          console.log(d1,degree,d2);
+          if(poll.degrees[0]==0)
+          {
+              if(degree >= this.degree_steps[i] && degree < this.degree_steps[i+1])
+              {   
+                var index = i;      
+                if(degree-this.degree_steps[i] > this.degree_steps[i+1]-degree) ++index;
+                this.by_age(min_age+index);  
+                inside = true;
+              }
+          }
+          else
+          {
+            if(same_sign(this.degree_steps[i],this.degree_steps[i+1]))
+            {
+              if(degree >= d1 && degree < d2)
+              {   
+                log('here');
+                var index = i;      
+                if(degree-d1 > d2-degree) ++index;
+                this.by_age(max_age-index);  
+                inside = true;
+              }
+            }
+            else
+            {
+              if((degree >= d1 && degree < 360)||(degree >= 0 && degree < d2))
+              {   
+                var index = i;      
+                if(degree >= 0 && degree < d2) ++index;
+                this.by_age(max_age-index);  
+                inside = true;
+              }             
+            }
           }
         }      
+        if(!inside)
+        {
+          var d1 = (360+this.degrees[1])%360;
+          var d2 = (360+this.degrees[2])%360;
+          if(this.degrees[0]==0)
+          {            
+            this.by_age((degree < d1 ? min_age : max_age));
+          }
+          else 
+          {        
+            this.by_age((degree-this.degrees[1]<this.degrees[2]-degree ? min_age : max_age));
+          }
+        }
+
+        // for(var i = 0; i <= max_age-min_age; ++i)
+        // {
+        //   if(degree < this.degree_steps[i] && degree >= this.degree_steps[i+1])
+        //   {   
+        //     var index = i;      
+        //     if(this.degree_steps[i]-degree > degree-this.degree_steps[i+1]) ++index;
+
+        //     if(index==1) index = 0;
+        //     else --index;
+        //     //conlose.log(min_age,index);
+        //     this.by_age(min_age+index);  
+        //   }
+        // }      
   },
   get_degree_by_age:function get_degree_by_age(v)
   {
@@ -561,8 +687,13 @@ var poll = {
     return tmp;
   },
   get_radian_by_age:function get_radian_by_age(v)
-  {    
-    var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
+  {   
+    var index = v-min_age; 
+    //console.log(v, index,max_age-min_age,v-min_age);
+    if(poll.degrees[0] == 1)  index = max_age-min_age-(v-min_age);
+    //console.log(index);
+
+    var tmp = (v>=min_age && v<=max_age) ?  this.degree_steps[index] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp;    
     return Math.radians(tmp);
   },
@@ -572,11 +703,70 @@ var poll = {
     this.agepicker_age_by_coord(x, y);
   },
   agemousedown:function agemousedown(e) {
+    console.log(e);
     fstart(arguments.callee.name);
+    var x = parseInt(e.clientX-w2);
+    var y = parseInt(h2-e.clientY);
+    this.agepicker_age_by_coord(x, y);
 
-    this.agepicker_age_by_coord(parseInt(e.clientX - this.offsetX), parseInt(e.clientY - this.offsetY));
+    //this.agepicker_age_by_coord(parseInt(e.clientX - this.offsetX), parseInt(e.clientY - this.offsetY));
 
     fend(arguments.callee.name);
+  },
+  create_next_button:function create_next_button()
+  {
+    $('.poll').append($("<div class='next-slider slider' data-steps-for-on='3'><div class='off'>></div><div class='on'>Next</div></div>").on('DOMMouseScroll mousewheel', function(e, delta) {
+    var t = $(this);
+
+
+    var stepstillon = +t.attr('data-steps-for-on');
+    var off = t.find('.off');
+    var on = t.find('.on'); 
+    var todo = false;
+    if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
+    {      
+        if(stepstillon > 1 && stepstillon <= 3)
+        {
+          --stepstillon;
+          todo = true;
+        }
+        else 
+        {
+          --stepstillon;
+            var step = 3-stepstillon;         
+      var width_step = off.width()/3;
+      var opacity_step = 0.7/3;    
+      on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+      off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+
+          poll.next_function();
+          on.animate({'color': "#939393"});        
+          off.animate({left:0, "background-color":"rgba(19, 166, 17," + 0.3 + ")"},{complete:function(){off.text(">");}})
+          t.attr('data-steps-for-on',3);
+        }
+    }
+    else if(stepstillon < 3) // backward down previous
+    {      
+       ++stepstillon; todo = true;
+    }
+
+    if(todo)
+    {
+      var step = 3-stepstillon;         
+      var width_step = off.width()/3;
+      var opacity_step = 0.7/3;    
+      on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+      off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+      t.attr('data-steps-for-on',stepstillon);
+    }
+    e.stopPropagation();
+  
+  }));
+
+ var slider = $('.slider');
+ 
+  slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-200});
+  slider.find('.on').on('click',function(){   poll.next_function(); });
   }
 };
 

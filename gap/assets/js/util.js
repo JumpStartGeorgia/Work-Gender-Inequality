@@ -59,3 +59,7 @@
     }
   }
 })();
+function same_sign(a,b)
+{
+  return (a ^ b) >= 0;
+}

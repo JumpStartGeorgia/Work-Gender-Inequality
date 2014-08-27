@@ -17,7 +17,7 @@ var category =
         { "name": "Other community, social and personal service activities" }
 ];
 
-var sintro = { "class":"intro", "title":"Gap Game"};
+var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
 var poll = {
         gender:{},
         age:{},
@@ -28,7 +28,7 @@ var sframe =
 [
         {}
 ];
-var sepilogue = { "class":"epilogue", "title":"Game Over (You lost)"};
+var sepilogue = { "class":"epilogue", "title":"Game Over"};
 var age_groups = 
 [
         { "name":"adolescence", "min":18, "max":29},

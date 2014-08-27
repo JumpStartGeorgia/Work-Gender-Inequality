@@ -243,3 +243,68 @@ body,html
    cursor:pointer;
    background-color:#add2ff;
 }
+.poll .slider
+{
+   background-color:#ededed;
+   position:absolute;
+   width:210px;
+   height:55px;
+   border:1px solid #eaeaea;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   overflow:hidden;
+   margin:0px 100px 0px 100px;
+
+}
+.poll .on,.poll .off
+{
+   width:105px;
+   height:55px;
+   vertical-align:middle;
+   text-align:center;
+   line-height:55px;
+   display:inline-block;
+   font-family:opensans-r;
+   position:relative;
+
+}
+.poll .on
+{
+   overflow:hidden;
+   font-size:18px;
+   color:#939393;
+}
+.poll .off
+{
+   background-color:rgba(19, 166, 17, 0.3);
+   overflow:hidden;
+   font-size:25px;
+   color:#ededed;
+}
+
+#category_picker 
+{
+
+   left:0px;   
+   top:0px;
+   overflow:visible;
+}
+.category_item
+{
+   position:absolute;
+}
+.category_item.selected circle
+{   
+   fill:#ff94f8;
+   stroke-width:1;
+   stroke:green;
+}
+.category_item.f circle
+{   
+   fill:#ff94f8;
+}
+.category_item.m circle
+{   
+   fill:#add2ff;
+}
