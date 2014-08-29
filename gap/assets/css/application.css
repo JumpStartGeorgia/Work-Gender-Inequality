@@ -257,6 +257,14 @@ body,html
    margin:0px 100px 0px 100px;
 
 }
+.poll-label
+{
+   position: absolute;
+   top: 10%;
+   left: 5%;
+   font-size: 50px;
+   font-family: Arial;
+}
 .poll .on,.poll .off
 {
    width:105px;
@@ -295,6 +303,32 @@ body,html
    position:absolute;
    overflow:visible;
 }
+
+.category_item text
+{
+   fill:#7c7c7c;
+}
+
+.category_item.f.selected text
+{
+   fill:#7c7c7c;
+}
+.category_item.m.selected text
+{
+   fill:#7c7c7c;
+}
+.category_item:hover circle,.category_item:focus circle
+{
+   cursor:pointer;
+}
+.category_item.f circle
+{   
+   fill:#ff94f8;
+}
+.category_item.m circle
+{   
+   fill:#add2ff;
+}
 .category_item.f.selected circle
 {      
    stroke-width:1;
@@ -307,24 +341,16 @@ body,html
    stroke:#cfcfcf;
    fill:#ff94f8;
 }
-.category_item text
+#salary_picker 
 {
-   fill:#7c7c7c;
+   position:absolute;
 }
-.category_item.f.selected text
+#salary_picker input
 {
-   fill:#7c7c7c;
-}
-.category_item.m.selected text
-{
-   fill:#7c7c7c;
-}
-
-.category_item.f circle
-{   
-   fill:#ff94f8;
-}
-.category_item.m circle
-{   
-   fill:#add2ff;
+   height: 55px;
+font-size: 40px;
+color: #A7A7A7;
+font-family: opensans-r;
+width: 111px;
+text-align: center;
 }

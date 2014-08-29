@@ -1,20 +1,20 @@
 var category = 
 [
-        { "name": "Agriculture, hunting and forestry" },
-        { "name": "Fishing" },
-        { "name": "Mining and quarrying" },
-        { "name": "Manufacturing" },
-        { "name": "Production and distribution of electricity, gas and water" },
-        { "name": "Construction" },
-        { "name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods" },
-        { "name": "Hotels and restaurants" },
-        { "name": "Transport and communication" },
-        { "name": "Financial intermediation" },
-        { "name": "Real estate, renting and business activities" },
-        { "name": "Public administration" },
-        { "name": "Education" },
-        { "name": "Health and social work" },
-        { "name": "Other community, social and personal service activities" }
+        { "id": "cat1", "name": "Agriculture, hunting and forestry" },
+        { "id": "cat2","name": "Fishing" },
+        { "id": "cat3","name": "Mining and quarrying" },
+        { "id": "cat4","name": "Manufacturing" },
+        { "id": "cat5","name": "Production and distribution of electricity, gas and water" },
+        { "id": "cat6","name": "Construction" },
+        { "id": "cat7","name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods" },
+        { "id": "cat8","name": "Hotels and restaurants" },
+        { "id": "cat9","name": "Transport and communication" },
+        { "id": "cat10","name": "Financial intermediation" },
+        { "id": "cat11","name": "Real estate, renting and business activities" },
+        { "id": "cat12","name": "Public administration" },
+        { "id": "cat13","name": "Education" },
+        { "id": "cat14","name": "Health and social work" },
+        { "id": "cat15","name": "Other community, social and personal service activities" }
 ];
 
 var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};

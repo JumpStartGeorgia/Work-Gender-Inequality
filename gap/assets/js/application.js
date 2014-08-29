@@ -90,7 +90,7 @@ var user =
 {
   gender : 'n',
   age : 0,
-  category : 0,
+  category : 1,
   interest : []
 }
 
@@ -102,8 +102,7 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   function init()
   {
     fstart(arguments.callee.name);
-    s = $('#screen');
-    i = $('#info');
+    s = $('#screen');    
     cnt_screen += sframe.length;
     redraw(); // calculate all dimensions  
     intro();  // play game intro
@@ -225,6 +224,7 @@ function epilogue()
 }
 function info()
 {
+  i = $('<div id="info"></div>').appendTo('#content');
   i.append($('<div class="male">').append('<span class="mdiff">0</span><div class="piggy_happy"></div>').append());
   i.append($('<div class="y"></div>'));
   i.append($('<div class="female">').append('<span class="fdiff">0</span><div class="piggy_unhappy"></div>').append());      
@@ -367,8 +367,7 @@ var poll = {
   degree_steps : [],
   degree_step : 0,
   next_function : null,
-
-  curr_category : 0,
+  
 
   // rad_max : 0.815, // this is range top value, bottom is -rad_max, for age picker not to move on circle
   // rad_female : 2.322,
@@ -406,9 +405,11 @@ var poll = {
     scr_clean();
 
     var p = $('<div class="poll"></div>').appendTo(s);
+    var label = $('<div class="poll-label"></div>').appendTo(p);    
+    poll.label("Choose Gender"); 
     var gender = $('<div class="gender"></div>').appendTo(p);
-    var ftmp = this.ftmp = $('<div class="fchar"></div>').appendTo(gender);
-    var mtmp = this.mtmp = $('<div class="mchar"></div>').appendTo(gender);
+    var ftmp = this.ftmp = $('<div class="fchar" title="Female"></div>').appendTo(gender);
+    var mtmp = this.mtmp = $('<div class="mchar" title="Male"></div>').appendTo(gender);
 
     ftmp.on('click',function(){ 
       mtmp.removeClass('selected').off('click').fadeOut(1000,"linear");
@@ -467,53 +468,22 @@ var poll = {
   {
     fstart(arguments.callee.name);
     user.gender = v;
-    this.next_function = function(){ $('#age_picker').empty(); poll.category_show(); };
+    poll.label("Choose the Age"); 
+    this.next_function = function()
+    {
+      $('#age_picker').empty();
+      $(document).mousedown(null);
+      poll.category_show(); };
       //ingame = true; tick(); game(); }
     fend(arguments.callee.name);
   },
   category_show:function category_show()
   {
     fstart(arguments.callee.name);
-
-    this.next_function = null;// function(){    ingame = true; tick(); game(); };
-    
-    var outer_radius = 280;
-    var cat_radius = 30;
-    var size = cat_radius*2; 
-    var cat_step = 360/category.length;
-
-    var cat_picker = d3.select(".gender").append('div').attr("id","category_picker");
-
-    var svg_cats = cat_picker
-    .selectAll("svg")
-    .data(category)
-    .enter()
-    .append("svg")
-    .attr("class",function(d){return "category_item " + user.gender; }) 
-    .attr("id",function(d,i){return "cat" + (i+1);})   
-    .attr({"width":size, "height":size})
-    .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius })
-    .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;});
-
-    svg_cats.append("circle").classed('cat_circle',true).attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
-    svg_cats.append("text").classed('cat_name',true).text(function(d){return d.name.substr(0,4);})
-    .attr({x:12,y:35});
-
-    cat_picker.select('.category_item').classed('selected',true);
-
-    onscrollup=function(){
-      d3.selectAll('.category_item').classed('selected',false); 
-      if(poll.curr_category < category.length)
-      { 
-        ++poll.curr_category; 
-        d3.select('#cat'+poll.curr_category).classed('selected',true);
-      }
-    };
-
-
-    onscrolldown=function(){d3.selectAll('.category_item').classed('selected',false); if(poll.curr_category > 1){ --poll.curr_category; 
-      d3.select('#cat'+poll.curr_category).classed('selected',true);
-    }};
+    poll.label("Choose Category"); 
+    this.next_function = null;
+    poll.category_picker_show();
+    // function(){    ingame = true; tick(); game(); };
 
     fend(arguments.callee.name);
   },
@@ -521,93 +491,165 @@ var poll = {
   {
     fstart(arguments.callee.name);
     fend(arguments.callee.name);
+  }, 
+
+  category_picker_show:function category_picker_show()
+  {
+    fstart(arguments.callee.name);
+
+    var outer_radius = 280;
+    var cat_radius = 30;
+    var size = cat_radius*2; 
+    var cat_step = 360/category.length;
+
+    var cat_picker = d3.select(".gender").append('div').attr("id","category_picker");
+    var sal_picker = d3.select(".gender").append('div').attr("id","salary_picker").style({'top':h2, 'left':w2}).append('input').attr('type','text');
+//TODO
+    var svg_cats = cat_picker
+    .selectAll("svg")
+    .data(category)
+    .enter()
+    .append("svg")
+    .attr("class",function(d){return "category_item " + user.gender; }) 
+    .attr("id",function(d){return d.id;})   
+    .attr({"width":size, "height":size})
+    .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius })
+    .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;})
+    .on('click',function(d){ poll.by_category(+(d.id.substr(3)));});
+
+    svg_cats.append("circle").classed('cat_circle',true).attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
+    svg_cats.append("text").classed('cat_name',true).text(function(d){return d.name.substr(0,4);})
+    .attr({x:12,y:35});
+
+    cat_picker.select('.category_item').classed('selected',true);
+
+
+    onscrollup=function(){ poll.category_down(); };
+    onscrolldown=function(){ poll.category_up(); };
+    fend(arguments.callee.name);
+  },  
+  category_draw:function category_draw()
+  {
+    fstart(arguments.callee.name);
+    //console.log(d3.selectAll('#category_picker .category_item').filter(function(d){d.id==user.category}));
+    d3.selectAll('#category_picker .category_item').classed('selected',false); 
+    d3.selectAll('#category_picker .category_item#cat'+user.category).classed('selected',true);   
+    fend(arguments.callee.name);   
   },
   category_check:function category_check()
   {      
-      if(user.age<min_age) user.age = min_age;
-      else if(user.age>max_age) user.age = max_age;   
+    fstart(arguments.callee.name);    
+    if(user.category<1) user.category = category.length;
+    else if(user.category>category.length) user.category = 1;
+    fend(arguments.callee.name);
   },
   category_up:function category_up()
   {
-    this.age_check();
-    if(user.age<max_age) ++user.age;
-    this.agepicker_draw();    
+    fstart(arguments.callee.name); 
+    ++user.category;
+    this.category_check();    
+    this.category_draw();   
+    fend(arguments.callee.name); 
   }, 
   category_down:function category_down()
   {
-    this.age_check();
-    if(user.age>min_age) --user.age;
-    this.agepicker_draw();
+    fstart(arguments.callee.name);     
+    --user.category;
+    this.category_check();
+    this.category_draw();
+    fend(arguments.callee.name);
   },
+  by_category:function by_category(v)
+  {        
+    fstart(arguments.callee.name);   
+    if(user.category != v)
+    {
+        console.log("category",v);
+      user.category = v;        
+      this.category_check();
+      this.category_draw();
+    }
+    fend(arguments.callee.name);
+  },
+
   age_picker_show:function age_picker_show(v)
   {
-      onscrollafter=null;  
+    fstart(arguments.callee.name);
+    onscrollafter=null;  
 
-      poll.age(v);
+    poll.age(v);
 
-      var gender = $(".gender");
-      var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(gender);
-      var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
-      if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
+    var gender = $(".gender");
+    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(gender);
+    var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
+    if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
 
-      var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
-      var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
-      ap.html(ap_path + ap_text + ap_knob);        
-      var diff = max_age-min_age;
-      if(v=='m')poll.degrees = poll.degrees_male;
-      else poll.degrees = poll.degrees_female;
-      
+    var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
+    var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
+    ap.html(ap_path + ap_text + ap_knob);        
+    var diff = max_age-min_age;
+    if(v=='m')poll.degrees = poll.degrees_male;
+    else poll.degrees = poll.degrees_female;
+    
 
-      var degree_sum = 0;
-      if(poll.degrees[0] == 0) degree_sum = (poll.degrees[2]-poll.degrees[1]);
-      else degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
-      poll.degree_step = degree_sum / diff;
-      for(var i = 0; i <= diff; ++i)
+    var degree_sum = 0;
+    if(poll.degrees[0] == 0) degree_sum = (poll.degrees[2]-poll.degrees[1]);
+    else degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
+    poll.degree_step = degree_sum / diff;
+    for(var i = 0; i <= diff; ++i)
+    {
+      if(poll.degrees[0] == 0)
+      {            
+        poll.degree_steps.push(poll.degrees[1] + (i)*poll.degree_step);            
+      }
+      else
       {
-        if(poll.degrees[0] == 0)
-        {            
-          poll.degree_steps.push(poll.degrees[1] + (i)*poll.degree_step);            
-        }
-        else
-        {
-          poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
-        }
-      }           
+        poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
+      }
+    }           
 log(poll.degree_steps);
-      $('#age_mover').draggable();
+    $('#age_mover').draggable();
 
-        $(document).mousedown(function (e) {
-            poll.agemousedown(e);
-        });
+      $(document).mousedown(function (e) {
+          poll.agemousedown(e);
+      });
 
-      onscrollup = function(){
-        poll.age_up();
-      };
-      onscrolldown = function(){
-        poll.age_down();
-      };
+    onscrollup = function(){
+      poll.age_up();
+    };
+    onscrolldown = function(){
+      poll.age_down();
+    };
 
-      poll.by_age(def_age);
+    poll.by_age(def_age);
+    fend(arguments.callee.name);
   },
   age_check:function age_check()
-  {      
+  {     
+    fstart(arguments.callee.name); 
       if(user.age<min_age) user.age = min_age;
       else if(user.age>max_age) user.age = max_age;   
+    fend(arguments.callee.name);
   },
   age_up:function age_up()
   {
+    fstart(arguments.callee.name); 
     this.age_check();
     if(user.age<max_age) ++user.age;
-    this.agepicker_draw();    
+    this.agepicker_draw();  
+    fend(arguments.callee.name);  
   }, 
   age_down:function age_down()
   {
+    fstart(arguments.callee.name); 
     this.age_check();
     if(user.age>min_age) --user.age;
     this.agepicker_draw();
+    fend(arguments.callee.name);
   },
   by_age:function by_age(v)
-  {        
+  {      
+    fstart(arguments.callee.name);   
     if(user.age != v) //draw only if age changed
     {
       user.age = v;        
@@ -615,9 +657,11 @@ log(poll.degree_steps);
       this.agepicker_draw();
       
     }
+    fend(arguments.callee.name);
   },
   agepicker_draw:function agepicker_draw()
   {
+    fstart(arguments.callee.name); 
     var rad = this.get_radian_by_age(user.age);
    
       var c = Math.cos(rad);
@@ -627,9 +671,10 @@ log(poll.degree_steps);
       var cy = this.knobCY - this.knobR * s;      
       $(".age_mover").attr("cx",cx).attr("cy",cy);
       $('#age_counter').text(user.age + "(" +agegroup_by_age(user.age)+")");
+    fend(arguments.callee.name);
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
-
+    fstart(arguments.callee.name); 
     // given mousePosition, what is the nearest point on the knob
     // result = atan2 (y,x) * 180 / PI;
     var rad = Math.atan2(y,x);
@@ -645,7 +690,7 @@ log(poll.degree_steps);
         {
           var d1 = (360+this.degree_steps[i])%360;
           var d2 = (360+this.degree_steps[i+1])%360;
-          console.log(d1,degree,d2);
+          //console.log(d1,degree,d2);
           if(poll.degrees[0]==0)
           {
               if(degree >= this.degree_steps[i] && degree < this.degree_steps[i+1])
@@ -693,6 +738,7 @@ log(poll.degree_steps);
           {        
             this.by_age((degree-this.degrees[1]<this.degrees[2]-degree ? min_age : max_age));
           }
+          fend(arguments.callee.name);
         }
 
         // for(var i = 0; i <= max_age-min_age; ++i)
@@ -711,28 +757,43 @@ log(poll.degree_steps);
   },
   get_degree_by_age:function get_degree_by_age(v)
   {
+    fstart(arguments.callee.name); 
+
     var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
-    if(tmp < 0) tmp = 360 + tmp;      
+    if(tmp < 0) tmp = 360 + tmp;   
+
+    fend(arguments.callee.name);   
+
     return tmp;
   },
   get_radian_by_age:function get_radian_by_age(v)
   {   
+    fstart(arguments.callee.name); 
+
     var index = v-min_age; 
     //console.log(v, index,max_age-min_age,v-min_age);
     if(poll.degrees[0] == 1)  index = max_age-min_age-(v-min_age);
     //console.log(index);
 
     var tmp = (v>=min_age && v<=max_age) ?  this.degree_steps[index] : this.degrees[1];
-    if(tmp < 0) tmp = 360 + tmp;    
+    if(tmp < 0) tmp = 360 + tmp; 
+
+    fend(arguments.callee.name);
+
     return Math.radians(tmp);
   },
   drag_age:function drag_age(e) {
+
+    fstart(arguments.callee.name); 
+
     var x = parseInt(e.x-w2);
     var y = parseInt(h2-e.y);
     this.agepicker_age_by_coord(x, y);
+
+    fend(arguments.callee.name);
   },
   agemousedown:function agemousedown(e) {
-    console.log(e);
+    //console.log(e);
     fstart(arguments.callee.name);
     var x = parseInt(e.clientX-w2);
     var y = parseInt(h2-e.clientY);
@@ -744,6 +805,7 @@ log(poll.degree_steps);
   },
   create_next_button:function create_next_button()
   {
+    fstart(arguments.callee.name); 
     $('.poll').append($("<div class='next-slider slider' data-steps-for-on='3'><div class='off'>></div><div class='on'>Next</div></div>").on('DOMMouseScroll mousewheel', function(e, delta) {
     var t = $(this);
 
@@ -796,7 +858,13 @@ log(poll.degree_steps);
  
   slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-200});
   slider.find('.on').on('click',function(){   poll.next_function(); });
+    fend(arguments.callee.name);
+  },
+  label:function label(v)
+  {
+    $('.poll-label').text(v);    
   }
+
 };
 
 
