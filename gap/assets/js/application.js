@@ -368,6 +368,7 @@ var poll = {
   degree_step : 0,
   next_function : null,
 
+  curr_category : 0,
 
   // rad_max : 0.815, // this is range top value, bottom is -rad_max, for age picker not to move on circle
   // rad_female : 2.322,
@@ -475,40 +476,68 @@ var poll = {
     fstart(arguments.callee.name);
 
     this.next_function = null;// function(){    ingame = true; tick(); game(); };
-
-    var cat_length = category.length;
+    
     var outer_radius = 280;
     var cat_radius = 30;
-    var cat_step = 360/cat_length;
+    var size = cat_radius*2; 
+    var cat_step = 360/category.length;
 
-    var catElem = $("<div id='category_picker'></div>").appendTo(".gender");
-    var cat = "";
+    var cat_picker = d3.select(".gender").append('div').attr("id","category_picker");
 
-    for(var i = 0; i < cat_length; ++i)
-    {
-                
-        wx = w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;
-        wy = h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius;      
+    var svg_cats = cat_picker
+    .selectAll("svg")
+    .data(category)
+    .enter()
+    .append("svg")
+    .attr("class",function(d){return "category_item " + user.gender; }) 
+    .attr("id",function(d,i){return "cat" + (i+1);})   
+    .attr({"width":size, "height":size})
+    .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius })
+    .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;});
 
-        var size = cat_radius*2;        
-       cat += '<svg class="category_item '+user.gender+'" width="'+size+'px" height="'+size+
-       'px" style="top:'+wy+'px;left:'+wx+
-       ';" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><circle cx="'+
-       cat_radius+'" cy="'+cat_radius+'" r="'+cat_radius+'" class="cat_circle"/><text class="cat_name" x="10" y="35">'+
-       category[i].name.substr(0,4)+'</text></svg>';
-       // log(cat);
-        
-    }
+    svg_cats.append("circle").classed('cat_circle',true).attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
+    svg_cats.append("text").classed('cat_name',true).text(function(d){return d.name.substr(0,4);})
+    .attr({x:12,y:35});
 
-    catElem.html(cat);
-//TODO
-    catElem.find('.category_item').attr('class','selected');
+    cat_picker.select('.category_item').classed('selected',true);
+
+    onscrollup=function(){
+      d3.selectAll('.category_item').classed('selected',false); 
+      if(poll.curr_category < category.length)
+      { 
+        ++poll.curr_category; 
+        d3.select('#cat'+poll.curr_category).classed('selected',true);
+      }
+    };
+
+
+    onscrolldown=function(){d3.selectAll('.category_item').classed('selected',false); if(poll.curr_category > 1){ --poll.curr_category; 
+      d3.select('#cat'+poll.curr_category).classed('selected',true);
+    }};
+
     fend(arguments.callee.name);
   },
   interest:function interest()
   {
     fstart(arguments.callee.name);
     fend(arguments.callee.name);
+  },
+  category_check:function category_check()
+  {      
+      if(user.age<min_age) user.age = min_age;
+      else if(user.age>max_age) user.age = max_age;   
+  },
+  category_up:function category_up()
+  {
+    this.age_check();
+    if(user.age<max_age) ++user.age;
+    this.agepicker_draw();    
+  }, 
+  category_down:function category_down()
+  {
+    this.age_check();
+    if(user.age>min_age) --user.age;
+    this.agepicker_draw();
   },
   age_picker_show:function age_picker_show(v)
   {
