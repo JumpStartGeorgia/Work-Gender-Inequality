@@ -91,7 +91,9 @@ var user =
   gender : 'n',
   age : 0,
   category : 1,
-  interest : []
+  interest : 1,
+  salary : 100,
+  salary_percent : 10
 }
 
 var male = human; // male human object
@@ -356,7 +358,6 @@ var poll = {
   knobR : 210,
   knobC : "green",
   indicatorRadius : 8,
-  def_salary : 100,
   degrees_male : [1,47,313], // first and last point in degrees for male , 1 means invert arc 
   degrees_female : [0,133,227], // first and last point in degrees for male , 0 means general arc
   degrees : null,
@@ -465,8 +466,8 @@ var poll = {
     $('.poll').addClass(user.gender);
     this.next_function = function()
     {
-      $('#age_picker').empty();
-      $(document).mousedown(null);
+      $('#age_picker').remove();
+      $(document).off('mousedown');
       poll.category_show(); };
       //ingame = true; tick(); game(); }
     fend(arguments.callee.name);
@@ -475,7 +476,12 @@ var poll = {
   {
     fstart(arguments.callee.name);
     poll.label("Choose Category"); 
-    this.next_function = null;
+    this.next_function = function(){
+      user.salary = poll.category_get_salary();
+      poll.poll_container.find('#category_picker').remove();
+      poll.poll_container.find('#salary_picker').remove();
+      poll.interest();
+    };
     poll.category_picker_show();
     // function(){    ingame = true; tick(); game(); };
 
@@ -484,9 +490,13 @@ var poll = {
   interest:function interest()
   {
     fstart(arguments.callee.name);
+
+    poll.label("Choose Interest");
+    this.next_function = null;
+    poll.interest_picker_show();
+
     fend(arguments.callee.name);
   }, 
-  fast_scroll_count : 0,
   category_picker_show:function category_picker_show()
   {
     fstart(arguments.callee.name);
@@ -498,13 +508,9 @@ var poll = {
 
     var cat_picker = poll.poll_container_d3.append('div').attr("id","category_picker");
     var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").style({'top':h2+'px', 'left':w2+'px'});
-
-    poll.category_set_salary(poll.def_salary);
-    
     sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
-
-    sal_picker.append('input').attr({'type':'text','value': poll.def_salary, 'max':9999, 'size':4, 'maxlength':4}).style('display','none');
-    poll.category_set_salary(poll.def_salary);
+    sal_picker.append('input').attr({'type':'text','value': user.salary, 'max':9999, 'size':4, 'maxlength':4}).style('display','none');
+    poll.category_set_salary(user.salary);
 
     poll.poll_container.find("#salary_picker input").on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
     .focusout(function(){ $(this).hide(); $('#salary_picker div').show(); }).change(function(){ poll.category_set_salary($(this).val()); });
@@ -603,7 +609,7 @@ var poll = {
   category_set_salary:function category_set_salary(v)
   {
       var sal = poll.poll_container.find('#salary_picker');
-      if(!Number.isInteger(+v)) v = poll.def_salary;
+      if(!Number.isInteger(+v)) v = user.salary;
       sal.find('input').val(v); 
       v = v.toString().lpad('0',4);
       sal.find('div[data-pos=4]').text(v[0]);
@@ -646,10 +652,10 @@ var poll = {
         poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
       }
     }           
-log(poll.degree_steps);
+
     $('#age_mover').draggable();
 
-      $(document).mousedown(function (e) {
+      $(document).on('mousedown',function (e) {
           poll.agemousedown(e);
       });
 
@@ -843,6 +849,145 @@ log(poll.degree_steps);
 
     fend(arguments.callee.name);
   },
+  interest_picker_show:function interest_picker_show()
+  {
+    fstart(arguments.callee.name);
+
+    var outer_radius = 280;
+    var item_radius = 30;
+    var size = item_radius*2; 
+    var item_step = 360/interest.length;
+
+    var picker = poll.poll_container_d3.append('div').attr("id","interest_picker");
+    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").style({'top':h2+'px', 'left':w2+'px'});
+
+    sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
+
+    sal_picker.append('input').attr({'type':'range','value': user.salary_percent, 'min':10, 'max':100, 'size':4, 'maxlength':4}).style('display','inline-block');
+    poll.interest_set_salary(user.salary);
+
+    // poll.poll_container.find("#salary_picker input").on('DOMMouseScroll mousewheel', function(e, delta) {
+
+    //    var t = $(this);  
+    //    var tmax = +t.attr('max');
+    //    var tmin = +t.attr('min');
+    //    var tval = +t.val();
+    //    console.log(tmax,tmin,tval);
+    //   if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
+    //   {      
+    //     if(tval < tmax) ++tval;    
+    //   }
+    //   else  // backward down previous
+    //   {    
+    //     if(tval > tmin) --tval;    
+    //   }
+    //   t.val(tval);      
+    //   user.salary_percent = tval;
+    //   e.stopPropagation();  
+    // }).on('change',function(){user.salary_percent = $(this).val();});    
+
+
+    var svg_cats = picker
+    .selectAll("svg")
+    .data(interest)
+    .enter()
+    .append("svg")
+    .attr("class",function(d){return "interest_item " + user.gender; }) 
+    .attr("id",function(d){return d.id;})   
+    .attr({"width":size, "height":size, "data-percent":10})
+    .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
+    .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
+    .on('click',function(d){ poll.by_interest(+(d.id.substr(3)));});
+
+    poll.poll_container_d3.append('svg').append('defs').append('clipPath').attr('id','clip111').append('rect').attr({'width':60,'height':60,'x':0,'y':60});
+
+
+
+
+
+
+    svg_cats.append("circle").classed('int_circle',true).attr({"cx":item_radius,"cy":item_radius,"r":item_radius});
+    svg_cats.append("circle").classed('int_circle_clip',true).attr({"cx":item_radius,"cy":item_radius,"r":item_radius , "clip-path":'url(#clip111)'});
+
+    svg_cats.append("text").classed('int_name',true).text(function(d){return d.name.substr(0,4);})
+    .attr({x:12,y:35});
+
+    poll.sublabel(picker.select('.interest_item').classed('selected',true).select('text').text());
+    
+
+    poll.poll_container.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
+     var tval = +$('.interest_item.selected').attr('data-percent');
+     if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
+      {   
+      
+        if(tval < 100) ++tval;    
+      }
+      else  // backward down previous
+      {    
+        if(tval > 0) --tval;    
+      }
+      $('.interest_item.selected').attr('data-percent',tval);
+      poll.salary_percent_draw(tval/100);
+      e.stopPropagation();  
+    });
+
+
+    onscrollup=function(){ poll.interest_down(); };
+    onscrolldown=function(){ poll.interest_up(); };
+    fend(arguments.callee.name);
+  },
+  interest_draw:function interest_draw()
+  {
+    fstart(arguments.callee.name);
+    //console.log(d3.selectAll('#category_picker .category_item').filter(function(d){d.id==user.category}));
+    d3.selectAll('#interest_picker .interest_item').classed('selected',false); 
+    poll.sublabel(d3.selectAll('#interest_picker .interest_item#int'+user.interest).classed('selected',true).text()); 
+
+    fend(arguments.callee.name);   
+  },
+  interest_check:function interest_check()
+  {      
+    fstart(arguments.callee.name);    
+    if(user.interest<1) user.interest = interest.length;
+    else if(user.interest>interest.length) user.interest = 1;
+    fend(arguments.callee.name);
+  },
+  interest_up:function interest_up()
+  {
+    fstart(arguments.callee.name); 
+    ++user.interest;
+    this.interest_check();    
+    this.interest_draw();   
+    fend(arguments.callee.name); 
+  }, 
+  interest_down:function interest_down()
+  {
+    fstart(arguments.callee.name);     
+    --user.interest;
+    this.interest_check();
+    this.interest_draw();
+    fend(arguments.callee.name);
+  },
+  by_interest:function by_interest(v)
+  {        
+    fstart(arguments.callee.name);   
+    if(user.interest != v)
+    {
+      user.interest = v;        
+      this.interest_check();
+      this.interest_draw();
+    }
+    fend(arguments.callee.name);
+  },
+  interest_set_salary:function interest_set_salary(v)
+  {
+      var sal = poll.poll_container.find('#salary_picker');
+      v = v.toString().lpad('0',4);
+      sal.find('div[data-pos=4]').text(v[0]);
+      sal.find('div[data-pos=3]').text(v[1]);
+      sal.find('div[data-pos=2]').text(v[2]);
+      sal.find('div[data-pos=1]').text(v[3]);      
+  },
   create_next_button:function create_next_button()
   {
     fstart(arguments.callee.name); 
@@ -910,97 +1055,39 @@ log(poll.degree_steps);
     var t = $('.poll-sub-label').text(v);    
     t.css({top:h2-t.height()/2 - poll.poll_size_half*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.poll_size_half*0.45});    
     fend(arguments.callee.name);
+  },
+
+  salary_percent_draw:function salary_percent_draw(k)
+  {
+      var r = 30;
+
+    var //line = d3.select("#percenter #line"),
+    //path = d3.select("#percenter #path"),
+   // text = d3.select("#percenter #text"),
+    //textValue = d3.select("#percenter #height"),
+    clip = d3.select("#clip111 rect");
+
+      // var t0, t1 = k * 2 * Math.PI;
+
+      // // Solve for theta numerically.
+      // if (k > 0 && k < 1) {
+      //   t1 = Math.pow(12 * k * Math.PI, 1 / 3);
+      //   for (var i = 0; i < 10; ++i) {
+      //     t0 = t1;
+      //     t1 = (Math.sin(t0) - t0 * Math.cos(t0) + 2 * k * Math.PI) / (1 - Math.cos(t0));
+      //   }
+      //   k = (1 - Math.cos(t1 / 2)) / 2;
+      // }
+      var h = 2 * r * k,
+          y = 2*r - h;
+          console.log(h,y);
+          //a = (Math.PI - t1) / 2;
+      clip.attr("y", y).attr("height", h);
+      //line.attr("x2", -r * Math.cos(a)).attr("y1", y).attr("y2", y);
+      //text.attr("transform", "translate(280," + (r - h / 2) + ")");
+      //textValue.text((h / (2 * r)).toFixed(3));
+     //path.attr("d", "M280," + r + "V" + y);
+    
   }
 
 };
-
-
-
-// function allowDrop(ev) {
-//     ev.preventDefault();
-// }
-
-
-// function drop(ev) {
-//     ev.preventDefault();
-//     var data = ev.dataTransfer.getData("Text");
-//     ev.target.appendChild(document.getElementById(data));
-// }
-
-// wheel move
-  //pos = $(this).scrollTop();  
-
-    // magnetoAnchor.each(function(i){    
-    //   if(cp >= magnetoHeights[i]) magnetoIndex = i;           
-    // }); 
-
-
-    // increase the anchor magnetoIndex based on wheel direction
-    // magnetoIndex = (magnetoIndex-delta) % (magnetoHeights.length);
-
-    // animate the scrolling if scrolling from header to bottom
-    // if(magnetoIndex == 0 && delta < 0)
-    // {
-    //   $("html,body").stop().animate({
-    //       scrollTop: magnetoHeights[1]
-    //   }, 1000);
-    //   e.preventDefault();        
-    // }
-
-
-
-
-        //   $("#age_picker").mouseup(function (e) {
-        //     ingame = true; tick(); game();
-                // });
-
-
-// function draw_age_mover_by_radian(rad) {
-
-//   $('#age_counter').text(min_age);
-//   if(rad>=-rad_max && rad <= rad_max)
-//   {
-//     var c = Math.cos(rad);
-//     var s = Math.sin(rad);
-
-//     var cx = knobR * c + knobCX;
-//     var cy = knobR * s + knobCY;
-//     $(".age_mover").attr("cx",cx).attr("cy",cy);
-//   }
-// }
-
-
-
-
-        // ap.html(ap_path + ap_text + ap_knob);        
-
-        // poll.offsetX = ap.offset().left;
-        // poll.offsetY = ap.offset().top;
-        // var diff = max_age-min_age;
-        // poll.rad_max = poll.rad_male;
-        // poll.age_radian_step = 2*poll.rad_max/(diff);
-
-        // poll.age_radian.push(-999);
-        // for(var i = 0; i < diff; ++i)
-        // {
-        //   poll.age_radian.push(Math.round10(-poll.rad_max + i*poll.age_radian_step,-5));
-        // }
-        // poll.age_radian.push(poll.rad_max);
-        // poll.age_radian.push(999);
-
-       
-
-        // $('#age_mover').draggable();
-
-        // // $("#age_picker").mousedown(function (e) {
-        // //     poll.agemousedown(e);
-        // // });
-
-        // onscrollup = function(){
-        //   poll.age_up();
-        // };
-        // onscrolldown = function(){
-        //   poll.age_down();
-        // };
-
-        // poll.by_age(def_age);

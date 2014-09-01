@@ -16,6 +16,17 @@ var category =
         { "id": "cat14","name": "Health and social work" },
         { "id": "cat15","name": "Other community, social and personal service activities" }
 ];
+var interest = 
+[
+        { "id": "int1", "name": "Vacation" },
+        { "id": "int2","name": "Gadgets" },
+        { "id": "int3","name": "Education" },
+        { "id": "int4","name": "Owning Home" },
+        { "id": "int5","name": "Owning Car" },
+        { "id": "int6","name": "Sports" },
+        { "id": "int7","name": "Fashion" },
+        { "id": "int8","name": "Agriculture" }
+];
 
 var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
 var poll = {

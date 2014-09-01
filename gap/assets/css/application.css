@@ -298,55 +298,68 @@ body,html
    color:#ededed;
 }
 
-#category_picker 
+#category_picker , #interest_picker
 {
 
    left:0px;   
    top:0px;
    overflow:visible;
 }
-.category_item
+.category_item, .interest_item
 {
    position:absolute;
    overflow:visible;
 }
 
-.category_item text
+.category_item text, .interest_item text
 {
    fill:#7c7c7c;
 }
 
-.category_item.f.selected text
+.category_item.f.selected text, .interest_item.f.selected text
 {
    fill:#7c7c7c;
 }
-.category_item.m.selected text
+.category_item.m.selected text, .interest_item.m.selected text
 {
    fill:#7c7c7c;
 }
-.category_item:hover circle,.category_item:focus circle
+.category_item:hover circle,.category_item:focus circle,
+.interest_item:hover circle,.interest_item:focus circle
 {
    cursor:pointer;
 }
-.category_item.f circle
+.category_item.f circle,.interest_item.f circle
 {   
    fill:#ff94f8;
 }
-.category_item.m circle
+.category_item.m circle,.interest_item.m circle
 {   
    fill:#add2ff;
 }
-.category_item.f.selected circle
+.category_item.f.selected circle,.interest_item.f.selected circle
 {      
    stroke-width:1;
    stroke:#cfcfcf;
    fill:#add2ff;
 }
-.category_item.m.selected circle
+.interest_item.f.selected .int_circle_clip
+{      
+   stroke-width:1;
+   stroke:#cfcfcf;
+   fill:red;
+}
+.category_item.m.selected circle,.interest_item.m.selected circle
 {      
    stroke-width:1;
    stroke:#cfcfcf;
    fill:#ff94f8;
+}
+.interest_item.m.selected .int_circle_clip
+{      
+   stroke-width:1;
+   stroke:#cfcfcf;
+   fill:red;
 }
 #salary_picker 
 {
