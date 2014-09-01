@@ -346,42 +346,29 @@ function agegroup_by_age(v)
 
 
 var poll = {
+  poll_container :null,
+  poll_container_d3 :null,
   ftmp : null,
   mtmp : null,
-  offsetX : 0,
-  offsetY : 0,
-
-
-
-
-
+  previous_scroll_time : 0,
   knobCX : 210,
   knobCY : 210,
   knobR : 210,
   knobC : "green",
   indicatorRadius : 8,
-
+  def_salary : 100,
   degrees_male : [1,47,313], // first and last point in degrees for male , 1 means invert arc 
   degrees_female : [0,133,227], // first and last point in degrees for male , 0 means general arc
   degrees : null,
   degree_steps : [],
   degree_step : 0,
   next_function : null,
-  
-
-  // rad_max : 0.815, // this is range top value, bottom is -rad_max, for age picker not to move on circle
-  // rad_female : 2.322,
-  // rad_male : 0.815,
-
-  // age_radian : [], // element with 0 index is min_age
-  // age_radian_step : 0,
-
-
-
+  poll_size:400,
+  poll_size_half: 0,
   show:function show()
   {
     fstart(arguments.callee.name);
-
+    poll.poll_size_half = poll.poll_size/2;
     this.gender();
     this.create_next_button();
 
@@ -407,12 +394,14 @@ var poll = {
     var p = $('<div class="poll"></div>').appendTo(s);
     var label = $('<div class="poll-label"></div>').appendTo(p);    
     poll.label("Choose Gender"); 
-    var gender = $('<div class="gender"></div>').appendTo(p);
-    var ftmp = this.ftmp = $('<div class="fchar" title="Female"></div>').appendTo(gender);
-    var mtmp = this.mtmp = $('<div class="mchar" title="Male"></div>').appendTo(gender);
+    poll.poll_container = $('<div class="poll-container"></div>').appendTo(p);
+    poll.poll_container_d3 = d3.select('.poll-container');
+    var ftmp = this.ftmp = $('<div class="fchar character" title="Female"></div>').appendTo(poll.poll_container);
+    var mtmp = this.mtmp = $('<div class="mchar character" title="Male"></div>').appendTo(poll.poll_container);
 
     ftmp.on('click',function(){ 
-      mtmp.removeClass('selected').off('click').fadeOut(1000,"linear");
+      mtmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
+      
       max_age = female_max_age;
       ftmp.removeClass('selected');
       ftmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
@@ -421,11 +410,13 @@ var poll = {
           tmp_height = ftmp.height();
           ftmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           ftmp.css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      },complete:poll.age_picker_show('f')});
+      },complete:function(){
+        poll.poll_container.prepend($('<div class="poll-sub-label"></div>'));
+        poll.age_picker_show('f');}});
 
     });
     mtmp.on('click',function(){ 
-      ftmp.removeClass('selected').off('click').fadeOut(1000,"linear");
+      ftmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       max_age = male_max_age;
       mtmp.removeClass('selected');
       mtmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
@@ -434,7 +425,9 @@ var poll = {
           tmp_height = mtmp.height();
           mtmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           mtmp.css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      },complete:poll.age_picker_show('m')});   
+      },complete:function(){
+        poll.poll_container.prepend('<div class="poll-sub-label"></div>');
+        poll.age_picker_show('m');}});   
     });
     onscrollafter=function(){ 
       if(ftmp.hasClass('selected'))
@@ -469,6 +462,7 @@ var poll = {
     fstart(arguments.callee.name);
     user.gender = v;
     poll.label("Choose the Age"); 
+    $('.poll').addClass(user.gender);
     this.next_function = function()
     {
       $('#age_picker').empty();
@@ -492,7 +486,7 @@ var poll = {
     fstart(arguments.callee.name);
     fend(arguments.callee.name);
   }, 
-
+  fast_scroll_count : 0,
   category_picker_show:function category_picker_show()
   {
     fstart(arguments.callee.name);
@@ -502,9 +496,38 @@ var poll = {
     var size = cat_radius*2; 
     var cat_step = 360/category.length;
 
-    var cat_picker = d3.select(".gender").append('div').attr("id","category_picker");
-    var sal_picker = d3.select(".gender").append('div').attr("id","salary_picker").style({'top':h2, 'left':w2}).append('input').attr('type','text');
-//TODO
+    var cat_picker = poll.poll_container_d3.append('div').attr("id","category_picker");
+    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").style({'top':h2+'px', 'left':w2+'px'});
+
+    poll.category_set_salary(poll.def_salary);
+    
+    sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
+
+    sal_picker.append('input').attr({'type':'text','value': poll.def_salary, 'max':9999, 'size':4, 'maxlength':4}).style('display','none');
+    poll.category_set_salary(poll.def_salary);
+
+    poll.poll_container.find("#salary_picker input").on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
+    .focusout(function(){ $(this).hide(); $('#salary_picker div').show(); }).change(function(){ poll.category_set_salary($(this).val()); });
+  
+    $('#salary_picker div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
+    var t = $(this);  
+    var tval = +t.text();
+    if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
+    {      
+      if(tval < 9) ++tval;    
+    }
+    else  // backward down previous
+    {    
+      if(tval > 0) --tval;    
+    }
+    t.text(tval);
+    poll.poll_container.find('#salary_picker input').val(poll.category_get_salary());
+
+    e.stopPropagation();  
+  }).on('click',function(){poll.poll_container.find('#salary_picker input').show().focus();
+  poll.poll_container.find('#salary_picker div').hide();});
+
+
     var svg_cats = cat_picker
     .selectAll("svg")
     .data(category)
@@ -521,7 +544,7 @@ var poll = {
     svg_cats.append("text").classed('cat_name',true).text(function(d){return d.name.substr(0,4);})
     .attr({x:12,y:35});
 
-    cat_picker.select('.category_item').classed('selected',true);
+    poll.sublabel(cat_picker.select('.category_item').classed('selected',true).select('text').text());
 
 
     onscrollup=function(){ poll.category_down(); };
@@ -533,7 +556,8 @@ var poll = {
     fstart(arguments.callee.name);
     //console.log(d3.selectAll('#category_picker .category_item').filter(function(d){d.id==user.category}));
     d3.selectAll('#category_picker .category_item').classed('selected',false); 
-    d3.selectAll('#category_picker .category_item#cat'+user.category).classed('selected',true);   
+    poll.sublabel(d3.selectAll('#category_picker .category_item#cat'+user.category).classed('selected',true).text()); 
+
     fend(arguments.callee.name);   
   },
   category_check:function category_check()
@@ -571,7 +595,22 @@ var poll = {
     }
     fend(arguments.callee.name);
   },
-
+  category_get_salary:function category_get_salary()
+  {
+    var sal = poll.poll_container.find('#salary_picker');    
+    return +(sal.find('div[data-pos=4]').text()+sal.find('div[data-pos=3]').text()+sal.find('div[data-pos=2]').text()+sal.find('div[data-pos=1]').text());
+  },  
+  category_set_salary:function category_set_salary(v)
+  {
+      var sal = poll.poll_container.find('#salary_picker');
+      if(!Number.isInteger(+v)) v = poll.def_salary;
+      sal.find('input').val(v); 
+      v = v.toString().lpad('0',4);
+      sal.find('div[data-pos=4]').text(v[0]);
+      sal.find('div[data-pos=3]').text(v[1]);
+      sal.find('div[data-pos=2]').text(v[2]);
+      sal.find('div[data-pos=1]').text(v[3]);      
+  },
   age_picker_show:function age_picker_show(v)
   {
     fstart(arguments.callee.name);
@@ -579,14 +618,14 @@ var poll = {
 
     poll.age(v);
 
-    var gender = $(".gender");
-    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(gender);
+
+    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(poll.poll_container);
     var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
     if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
 
-    var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
+    //var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
     var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
-    ap.html(ap_path + ap_text + ap_knob);        
+    ap.html(ap_path + /*ap_text +*/ ap_knob);        
     var diff = max_age-min_age;
     if(v=='m')poll.degrees = poll.degrees_male;
     else poll.degrees = poll.degrees_female;
@@ -670,7 +709,8 @@ log(poll.degree_steps);
       var cx = this.knobR * c + this.knobCX;
       var cy = this.knobCY - this.knobR * s;      
       $(".age_mover").attr("cx",cx).attr("cy",cy);
-      $('#age_counter').text(user.age + "(" +agegroup_by_age(user.age)+")");
+      //$('#age_counter').text(user.age + "(" +agegroup_by_age(user.age)+")");
+      poll.sublabel(user.age + "(" +agegroup_by_age(user.age)+")");
     fend(arguments.callee.name);
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
@@ -863,6 +903,13 @@ log(poll.degree_steps);
   label:function label(v)
   {
     $('.poll-label').text(v);    
+  },
+  sublabel:function sublabel(v)
+  {
+    fstart(arguments.callee.name);
+    var t = $('.poll-sub-label').text(v);    
+    t.css({top:h2-t.height()/2 - poll.poll_size_half*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.poll_size_half*0.45});    
+    fend(arguments.callee.name);
   }
 
 };

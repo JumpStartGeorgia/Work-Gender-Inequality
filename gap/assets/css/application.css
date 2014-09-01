@@ -206,14 +206,16 @@ body,html
 {
    cursor:pointer;
 }
-.f #age_counter
+.f #age_counter,.f .poll-sub-label
 {
+   color:#ff94f8;
    fill:#ff94f8;
    font-size:45px;
    font-family:opensans-r;
 }
-.m #age_counter
+.m #age_counter,.m .poll-sub-label
 {
+   color:#add2ff;
    fill:#add2ff;
    font-size:45px;
    font-family:opensans-r;
@@ -256,6 +258,11 @@ body,html
    overflow:hidden;
    margin:0px 100px 0px 100px;
 
+}
+.poll-sub-label
+{
+   position:absolute;
+   z-index:31;
 }
 .poll-label
 {
@@ -347,10 +354,34 @@ body,html
 }
 #salary_picker input
 {
-   height: 55px;
-font-size: 40px;
-color: #A7A7A7;
-font-family: opensans-r;
-width: 111px;
-text-align: center;
+   height: 65px;
+   width: 183px;
+   font-family: opensans-r;
+   font-size: 40px;
+   color: #A7A7A7;
+   line-height:65px;
+   text-align: center;
+   border:1px solid #cfcfcf;
+}
+#salary_picker div:first-of-type
+{
+   border-left:1px solid #cfcfcf;
+}
+#salary_picker div:last-of-type
+{
+   border-right:1px solid #cfcfcf;
+}
+#salary_picker div
+{
+   height: 65px;
+   width: 45px;
+   font-family: opensans-r;
+   font-size: 40px;
+   color: #A7A7A7;
+   line-height:65px;
+   text-align: center;
+   border-top:1px solid #cfcfcf;
+   border-bottom:1px solid #cfcfcf;
+   border-left:1px dashed #cfcfcf;
+   display:inline-block;
 }
