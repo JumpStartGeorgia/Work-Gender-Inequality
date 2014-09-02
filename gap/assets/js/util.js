@@ -81,3 +81,7 @@ function validateNumber(event) {
     }
     else return true;
 };
+// forward up next
+function up(e,delta) { return delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0; }
+// backward down previous
+function down(e,delta) { return !(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0); }

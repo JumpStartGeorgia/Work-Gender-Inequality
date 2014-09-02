@@ -348,8 +348,8 @@ function agegroup_by_age(v)
 
 
 var poll = {
-  poll_container :null,
-  poll_container_d3 :null,
+  stage :null,
+  stage_d3 :null,
   ftmp : null,
   mtmp : null,
   previous_scroll_time : 0,
@@ -364,10 +364,12 @@ var poll = {
   degree_steps : [],
   degree_step : 0,
   next_function : null,
+  npicker_function : null,
   poll_size:400,
   poll_size_half: 0,  
   stage_w: 400,
   stage_h: 400,
+  npicker_sal_size:5,
   show:function show()
   {
     fstart(arguments.callee.name);
@@ -400,26 +402,26 @@ var poll = {
     var p = $('<div class="poll"></div>').appendTo(s);
     var label = $('<div class="poll-label"></div>').appendTo(p);    
     poll.label("Choose Gender"); 
-    poll.poll_container = $('<div class="poll-container"></div>').appendTo(p);
-    poll.poll_container_d3 = d3.select('.poll-container');
-    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(poll.poll_container);
-    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(poll.poll_container);
+    poll.stage = $('<div class="stage"></div>').appendTo(p);
+    poll.stage_d3 = d3.select('.stage');
+    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(poll.stage);
+    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(poll.stage);
 
     ftmp.on('click',function(){ 
       is = true;
       mtmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       
       max_age = female_max_age;      
-      ftmp.addClass('selected').removeClass('mb').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
+      $(this).addClass('selected').removeClass('fb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
       {
           tmp_width = ftmp.width();
           tmp_height = ftmp.height();
-          ftmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
-          ftmp.css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
+          $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
+          $(this).css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
         $(this).css('background-color','transparent');
-        poll.poll_container_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-        poll.poll_container.prepend($('<div class="poll-sub-label abs"></div>'));
+        poll.stage_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+        poll.stage.prepend($('<div class="poll-sub-label abs"></div>'));
         poll.age_picker_show('f');
         is = false;
       }});
@@ -430,16 +432,16 @@ var poll = {
       ftmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       max_age = male_max_age;
       
-      mtmp.addClass('selected').removeClass('mb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
-        {
+      $(this).addClass('selected').removeClass('mb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
+      {
           tmp_width = mtmp.width();
           tmp_height = mtmp.height();
-          mtmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
-          mtmp.css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
+          $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
+          $(this).css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
         $(this).css('background-color','transparent');
-        poll.poll_container_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-        poll.poll_container.prepend('<div class="poll-sub-label abs"></div>');
+        poll.stage_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+        poll.stage.prepend('<div class="poll-sub-label abs"></div>');
         poll.age_picker_show('m');
         is = false;
       }});   
@@ -492,9 +494,9 @@ var poll = {
     fstart(arguments.callee.name);
     poll.label("Choose Category"); 
     this.next_function = function(){
-      user.salary = poll.category_get_salary();
-      poll.poll_container.find('#category_picker').remove();
-      poll.poll_container.find('#salary_picker').remove();
+      user.salary = poll.category_salary();
+      poll.stage.find('.category-picker').remove();
+      poll.stage.find('.salary-picker').remove();
       poll.interest();
     };
     poll.category_picker_show();
@@ -526,35 +528,11 @@ var poll = {
     var size = cat_radius*2; 
     var cat_step = 360/category.length;
 
-    var cat_picker = poll.poll_container_d3.append('div').attr("id","category_picker");
-    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").classed('abs',true).style({'top':h2+'px', 'left':(w2+(isf()?-180:0))+'px'});
-    sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
-    sal_picker.append('input').attr({'type':'text','value': user.salary, 'max':9999, 'size':4, 'maxlength':4}).style('display','none');
-    poll.category_set_salary(user.salary);
+    var picker = poll.stage_d3.append('div').classed("category-picker",true);
 
-    poll.poll_container.find("#salary_picker input").on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
-    .focusout(function(){ $(this).hide(); $('#salary_picker div').show(); }).change(function(){ poll.category_set_salary($(this).val()); });
-  
-    $('#salary_picker div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
-    var t = $(this);  
-    var tval = +t.text();
-    if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
-    {      
-      if(tval < 9) ++tval;    
-    }
-    else  // backward down previous
-    {    
-      if(tval > 0) --tval;    
-    }
-    t.text(tval);
-    poll.poll_container.find('#salary_picker input').val(poll.category_get_salary());
+    poll.npicker_create('.stage','.salary-picker',99999,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),user.salary);
 
-    e.stopPropagation();  
-  }).on('click',function(){poll.poll_container.find('#salary_picker input').show().focus();
-  poll.poll_container.find('#salary_picker div').hide();});
-
-
-    var svg_cats = cat_picker
+    var pick_items = picker
     .selectAll("svg")
     .data(category)
     .enter()
@@ -566,23 +544,23 @@ var poll = {
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;})
     .on('click',function(d){ poll.by_category(+(d.id.substr(3)));});
 
-    svg_cats.append("circle").classed('cat_circle',true).attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
-    svg_cats.append("text").classed('cat_name',true).text(function(d){return d.name.substr(0,4);})
-    .attr({x:12,y:35});
+    pick_items.append("circle").attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
+    pick_items.append("text").text(function(d){return d.name.substr(0,4);}).attr({x:12,y:35});
 
-    poll.sublabel(cat_picker.select('.category_item').classed('selected',true).select('text').text());
+    poll.sublabel(picker.select('.category_item').classed('selected',true).select('text').text());
 
 
     onscrollup=function(){ poll.category_down(); };
     onscrolldown=function(){ poll.category_up(); };
+
     fend(arguments.callee.name);
   },  
   category_draw:function category_draw()
   {
     fstart(arguments.callee.name);
-    //console.log(d3.selectAll('#category_picker .category_item').filter(function(d){d.id==user.category}));
-    d3.selectAll('#category_picker .category_item').classed('selected',false); 
-    poll.sublabel(d3.selectAll('#category_picker .category_item#cat'+user.category).classed('selected',true).text()); 
+
+    d3.selectAll('.category-picker .category_item').classed('selected',false); 
+    poll.sublabel(d3.selectAll('.category-picker .category_item#cat'+user.category).classed('selected',true).text()); 
 
     fend(arguments.callee.name);   
   },
@@ -614,40 +592,110 @@ var poll = {
     fstart(arguments.callee.name);   
     if(user.category != v)
     {
-        console.log("category",v);
       user.category = v;        
       this.category_check();
       this.category_draw();
     }
     fend(arguments.callee.name);
   },
-  category_get_salary:function category_get_salary()
+  category_salary:function category_salary(v)
   {
-    var sal = poll.poll_container.find('#salary_picker');    
-    return +(sal.find('div[data-pos=4]').text()+sal.find('div[data-pos=3]').text()+sal.find('div[data-pos=2]').text()+sal.find('div[data-pos=1]').text());
-  },  
-  category_set_salary:function category_set_salary(v)
+    if(exist(v)) poll.npicker_set('.salary-picker',v,poll.npicker_sal_size);
+    else return poll.npicker_get('.salary-picker.npicker',poll.npicker_sal_size);
+  },
+  npicker_create:function npicker_create(p,t,max,size,top,left,def)
+  {    
+    //d3
+    var td = d3.select(p).append('div')
+                      .classed(t.replace(".","") + " abs npicker",true)
+                      .attr({"max":max})
+                      .style({'top':top+'px', 'left':left+'px'});
+    //jQuery
+    var tj = poll.stage.find(t);    
+    var tmpd = [];
+    tmpd.length = size;
+
+    td.selectAll('div').data(tmpd).enter().append('div').attr('data-pos',function(d,i){ return size-i;}).text(0);
+    td.append('input').attr({'type':'text','value': 0, 'max':max, 'size':size, 'maxlength':size}).style('display','none');
+
+    tj.find('input').on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
+    .focusout(function(){ $(this).hide(); tj.find('div').show(); }).change(function(){  poll.npicker_set(t,+$(this).val(),size); });
+  
+    tj.find('div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
+      
+      var t = $(this);  
+      var p = t.parent('.npicker');
+      var tval = +t.text();
+
+      if(up(e,delta)) { if(tval < 9) ++tval; }
+      else { if(tval > 0) --tval; }
+    
+      if(poll.npicker_check(p,+t.attr('data-pos'),tval,size))
+      {        
+        t.text(tval);
+        poll.npicker_set(p,poll.npicker_get(p,size),size);        
+      }
+      e.stopPropagation();  
+    });
+
+    tj.on('click',function(){
+      $(this).find('div').hide();
+      $(this).find('input').show().focus();      
+    });
+    poll.npicker_set(t,def,size);
+  },
+  npicker_check:function npicker_check(t,n,v,size)
   {
-      var sal = poll.poll_container.find('#salary_picker');
-      if(!Number.isInteger(+v)) v = user.salary;
-      sal.find('input').val(v); 
-      v = v.toString().lpad('0',4);
-      sal.find('div[data-pos=4]').text(v[0]);
-      sal.find('div[data-pos=3]').text(v[1]);
-      sal.find('div[data-pos=2]').text(v[2]);
-      sal.find('div[data-pos=1]').text(v[3]);      
+
+    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
+    var vt = "";
+    for(var i = 0; i < size; ++i)
+    {
+      if(size-i != n)
+        vt+=t.find('div[data-pos='+(size-i)+']').text();
+      else vt+=v;
+    }
+    return vt <= max;
+  },
+  npicker_get:function npicker_get(t,size)
+  {
+    t = poll.stage.find(t);
+    var v = "";
+    for(var i = 0; i < size; ++i)
+    {
+      v+=t.find('div[data-pos='+(size-i)+']').text();
+    }
+    return +v;
+  },
+  npicker_set:function setnpicker(t,v,size)
+  {    
+    t = poll.stage.find(t);
+
+    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
+    if(v < 0 || v > max) return false;
+
+    v = v.toString().lpad('0',size);
+    for(var i = 0; i < size; ++i)
+    {
+      t.find('div[data-pos='+(size-i)+']').text(v[i]);
+    }
+    t.find('input').val(v);
+
+    if(func(poll.npicker_function)) poll.npicker_function(v);
+
+    return true;
   },
   age_picker_show:function age_picker_show(v)
   {
     fstart(arguments.callee.name);
     onscrollafter=null;  
     //console.log('adding');
-    //poll.poll_container.find('.character').addClass('selected');
+    //poll.stage.find('.character').addClass('selected');
 //console.log('adding end');
     poll.age(v);
 
 
-    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(poll.poll_container);
+    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(poll.stage);
     var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
     if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
 
@@ -746,13 +794,9 @@ var poll = {
     // given mousePosition, what is the nearest point on the knob
     // result = atan2 (y,x) * 180 / PI;
     var rad = Math.atan2(y,x);
-    //console.log();
     var degree = Math.degrees(rad);//degree_from_radian(Math.atan2(y,x)); //rad * 180 / PI;
     if(degree < 0 ) degree = 360 + degree;
-    
-
-    //if(rad>=-this.rad_max && rad <= this.rad_max)
-    //{      
+      
         var inside = false;
         for(var i = 0; i <= max_age-min_age; ++i)
         {
@@ -808,20 +852,6 @@ var poll = {
           }
           fend(arguments.callee.name);
         }
-
-        // for(var i = 0; i <= max_age-min_age; ++i)
-        // {
-        //   if(degree < this.degree_steps[i] && degree >= this.degree_steps[i+1])
-        //   {   
-        //     var index = i;      
-        //     if(this.degree_steps[i]-degree > degree-this.degree_steps[i+1]) ++index;
-
-        //     if(index==1) index = 0;
-        //     else --index;
-        //     //conlose.log(min_age,index);
-        //     this.by_age(min_age+index);  
-        //   }
-        // }      
   },
   get_degree_by_age:function get_degree_by_age(v)
   {
@@ -879,71 +909,72 @@ var poll = {
     var item_radius = 30;
     var size = item_radius*2; 
     var item_step = 360/interest.length;
-    poll.poll_container_d3.select('.character').attr('data-percent',user.salary_percent);
-    var picker = poll.poll_container_d3.append('div').attr("id","interest_picker");
-    var sal_picker = poll.poll_container_d3.append('div').classed("salary-label abs",true).style({'top':h2+'px', 'left':(w2+(isf()?-180:0))+'px'});
+    poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
+    var picker = poll.stage_d3.append('div').classed('interest_picker',true);
+    
 
-    sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
-
-    poll.interest_set_salary(0);
-
-    var svg_cats = picker
+    var pick_items = picker
     .selectAll("svg")
     .data(interest)
     .enter()
     .append("svg")
     .attr("class",function(d){return "interest_item " + user.gender; }) 
     .attr("id",function(d){return d.id;})   
-    .attr({"width":size, "height":size})//, "data-percent":10
+    .attr({"width":size, "height":size})
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
     .on('click',function(d){ poll.by_interest(+(d.id.substr(3)));});
 
-    poll.poll_container_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
-    poll.poll_container_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});
+
+ 
 
 
+    poll.stage_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
+    poll.stage_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});    
 
-
-    svg_cats.append("circle").classed('int_circle',true).attr({"cx":item_radius,"cy":item_radius,"r":item_radius});
-
-    
-
-    svg_cats.append("text").classed('int_name',true).text(function(d){return d.name.substr(0,4);})
-    .attr({x:12,y:35});
+    pick_items.append("circle").attr({"cx":item_radius,"cy":item_radius,"r":item_radius});
+    pick_items.append("text").text(function(d){return d.name.substr(0,4);}).attr({x:12,y:35});
 
     poll.sublabel(picker.select('.interest_item').classed('selected',true).select('text').text());
-    
 
-    poll.poll_container.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
+
+   poll.npicker_function = function(v){ v=+v; 
+      if(user.salary >= v) {
+        user.salary_percent = Math.round10((v*100)/user.salary);
+        poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
+        poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#int'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
+        poll.interest_percent_draw((v*100)/user.salary/100);
+      }  
+    }
+    poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
+
+
+    poll.stage.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
       var tval = +$('.character').attr('data-percent');
-     if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
-      {   
-        if(tval < 100) ++tval;    
-      }
-      else  // backward down previous
-      {    
-        if(tval > 0) --tval;    
-      }
+
+      if(up(e,delta)) { if(tval < 100) ++tval; }
+      else { if(tval > 0) --tval; }
+
       $('.character').attr('data-percent',tval);
 
-      poll.salary_percent_draw(tval/100);
+      poll.interest_percent_draw(tval/100);
       user.salary_percent = tval;
-      poll.interest_set_salary(Math.round10(user.salary*tval/100));
+      
+      poll.npicker_set('.percent_picker',Math.round10(user.salary*tval/100),poll.npicker_sal_size);      
       e.stopPropagation();  
     });
 
-
     onscrollup=function(){ poll.interest_down(); };
     onscrolldown=function(){ poll.interest_up(); };
+
     fend(arguments.callee.name);
   },
   interest_draw:function interest_draw()
   {
     fstart(arguments.callee.name);
-    //console.log(d3.selectAll('#category_picker .category_item').filter(function(d){d.id==user.category}));
-    d3.selectAll('#interest_picker .interest_item').classed('selected',false); 
-    poll.sublabel(d3.selectAll('#interest_picker .interest_item#int'+user.interest).classed('selected',true).text()); 
+
+    d3.selectAll('.interest_picker .interest_item').classed('selected',false); 
+    poll.sublabel(d3.selectAll('.interest_picker .interest_item#int'+user.interest).classed('selected',true).text() + " (" +user.salary_percent + "%)"); 
 
     fend(arguments.callee.name);   
   },
@@ -980,115 +1011,76 @@ var poll = {
       this.interest_draw();
     }
     fend(arguments.callee.name);
+  },  
+  interest_percent_draw:function interest_percent_draw(k)
+  {  
+    var r = 200; 
+    var h = 2 * r * k, y = 2*r - h;  
+    d3.select("#clip-mask rect").attr("y", y).attr("height", h);
   },
-  interest_set_salary:function interest_set_salary(v)
-  {
-      var sal = poll.poll_container.find('.salary-label');
-      v = v.toString().lpad('0',4);
-      sal.find('div[data-pos=4]').text(v[0]);
-      sal.find('div[data-pos=3]').text(v[1]);
-      sal.find('div[data-pos=2]').text(v[2]);
-      sal.find('div[data-pos=1]').text(v[3]);      
-  },
-  create_next_button:function create_next_button()
-  {
+  create_next_button:function create_next_button(){
+
     fstart(arguments.callee.name); 
     $('.poll').append($("<div class='next-slider slider' data-steps-for-on='3'><div class='off'>></div><div class='on'>Next</div></div>").on('DOMMouseScroll mousewheel', function(e, delta) {
-    var t = $(this);
+      var t = $(this);
 
 
-    var stepstillon = +t.attr('data-steps-for-on');
-    var off = t.find('.off');
-    var on = t.find('.on'); 
-    var todo = false;
-    if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
-    {      
-        if(stepstillon > 1 && stepstillon <= 3)
-        {
-          --stepstillon;
-          todo = true;
-        }
-        else 
-        {
-          --stepstillon;
-          var step = 3-stepstillon;         
-          var width_step = off.width()/3;
-          var opacity_step = 0.7/3;    
-          on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
-          off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+      var stepstillon = +t.attr('data-steps-for-on');
+      var off = t.find('.off');
+      var on = t.find('.on'); 
+      var todo = false;
+      if(up(e,delta)) // forward up next
+      {      
+          if(stepstillon > 1 && stepstillon <= 3)
+          {
+            --stepstillon;
+            todo = true;
+          }
+          else 
+          {
+            --stepstillon;
+            var step = 3-stepstillon;         
+            var width_step = off.width()/3;
+            var opacity_step = 0.7/3;    
+            on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+            off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
 
-          poll.next_function();
-          on.animate({'color': "#939393"});        
-          off.animate({left:0, "background-color":"rgba(19, 166, 17," + 0.3 + ")"},{complete:function(){off.text(">");}})
-          t.attr('data-steps-for-on',3);
-        }
-    }
-    else if(stepstillon < 3) // backward down previous
-    {      
-       ++stepstillon; todo = true;
-    }
+            poll.next_function();
+            on.animate({'color': "#939393"});        
+            off.animate({left:0, "background-color":"rgba(19, 166, 17," + 0.3 + ")"},{complete:function(){off.text(">");}})
+            t.attr('data-steps-for-on',3);
+          }
+      }
+      else if(stepstillon < 3) // backward down previous
+      {      
+         ++stepstillon; todo = true;
+      }
 
-    if(todo)
-    {
-      var step = 3-stepstillon;         
-      var width_step = off.width()/3;
-      var opacity_step = 0.7/3;    
-      on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
-      off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
-      t.attr('data-steps-for-on',stepstillon);
-    }
-    e.stopPropagation();
-  
-  }));
+      if(todo)
+      {
+        var step = 3-stepstillon;         
+        var width_step = off.width()/3;
+        var opacity_step = 0.7/3;    
+        on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+        off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+        t.attr('data-steps-for-on',stepstillon);
+      }
+      e.stopPropagation();
+    
+    }));
 
- var slider = $('.slider');
+    var slider = $('.slider');
  
-  slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-200});
-  slider.find('.on').on('click',function(){   poll.next_function(); });
+    slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-200});
+    slider.find('.on').on('click',function(){   poll.next_function(); });
+
     fend(arguments.callee.name);
+
   },
-  label:function label(v)
-  {
-    $('.poll-label').text(v);    
-  },
+  label:function label(v){ $('.poll-label').text(v); },
   sublabel:function sublabel(v)
   {
-    fstart(arguments.callee.name);
     var t = $('.poll-sub-label').text(v);    
     t.css({top:h2-t.height()/2 - poll.poll_size_half*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.poll_size_half*0.45});    
-    fend(arguments.callee.name);
-  },
-
-  salary_percent_draw:function salary_percent_draw(k)
-  {
-      var r = 200;
-
-    var //line = d3.select("#percenter #line"),
-    //path = d3.select("#percenter #path"),
-   // text = d3.select("#percenter #text"),
-    //textValue = d3.select("#percenter #height"),
-    clip = d3.select("#clip-mask rect");
-
-      // var t0, t1 = k * 2 * Math.PI;
-
-      // // Solve for theta numerically.
-      // if (k > 0 && k < 1) {
-      //   t1 = Math.pow(12 * k * Math.PI, 1 / 3);
-      //   for (var i = 0; i < 10; ++i) {
-      //     t0 = t1;
-      //     t1 = (Math.sin(t0) - t0 * Math.cos(t0) + 2 * k * Math.PI) / (1 - Math.cos(t0));
-      //   }
-      //   k = (1 - Math.cos(t1 / 2)) / 2;
-      // }
-      var h = 2 * r * k,
-          y = 2*r - h;          
-          //a = (Math.PI - t1) / 2;
-      clip.attr("y", y).attr("height", h);
-      //line.attr("x2", -r * Math.cos(a)).attr("y1", y).attr("y2", y);
-      //text.attr("transform", "translate(280," + (r - h / 2) + ")");
-      //textValue.text((h / (2 * r)).toFixed(3));
-     //path.attr("d", "M280," + r + "V" + y);
-    
   }
-
 };

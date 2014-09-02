@@ -72,13 +72,14 @@ body,html
    left:0px;
 }*/
 /* poll z-index */
-#salary_picker { z-index:310; }
+.salary-picker,
+.percent_picker 
+{ z-index:310; }
 .character { z-index:309; }
 .poll-sub-label,
 .age_picker,
-#category_picker,
-.interest_picker,
-.salary-label
+.category-picker,
+.interest_picker
 { z-index:305; } 
 
 svg.stage-bk .mask{ z-index:301; }
@@ -342,7 +343,7 @@ svg.stage-bk { z-index:300; }
    color:#ededed;
 }
 
-#category_picker , #interest_picker
+.category-picker , .interest_picker
 {
 
    left:0px;   
@@ -396,10 +397,10 @@ svg.stage-bk { z-index:300; }
    fill:#ff94f8;
 }
 
-#salary_picker input
+.npicker input
 {
-   height: 65px;
-   width: 183px;
+   height: 55px;
+   width: 181px;
    font-family: opensans-r;
    font-size: 40px;
    color: #006EF3;
@@ -407,25 +408,22 @@ svg.stage-bk { z-index:300; }
    text-align: center;
    border:1px solid #006EF3;
 }
-#salary_picker div:first-of-type,
-.salary-label div:first-of-type
+.npicker div:first-of-type
 {
    border-left:1px solid #006EF3;
 }
-#salary_picker div:last-of-type,
-.salary-label div:last-of-type
+.npicker div:last-of-type
 {
    border-right:1px solid #006EF3;
 }
-#salary_picker div,
-.salary-label div
+.npicker div
 {
-   height: 65px;
-   width: 45px;
+   height: 55px;
+   width: 35px;
    font-family: opensans-r;
    font-size: 40px;
    color: #006EF3;
-   line-height:65px;
+   line-height:55px;
    text-align: center;
    border-top:1px solid #006EF3;
    border-bottom:1px solid #006EF3;
