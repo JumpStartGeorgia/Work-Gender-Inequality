@@ -77,7 +77,7 @@ var onscrollafter = null;
 var fade_time = 0; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
 var tick_count = 4; // year ticks to show in info bar
-
+var is = false;
 var human = 
 {
  age : 0,
@@ -93,7 +93,7 @@ var user =
   category : 1,
   interest : 1,
   salary : 100,
-  salary_percent : 10
+  salary_percent : 0
 }
 
 var male = human; // male human object
@@ -365,7 +365,9 @@ var poll = {
   degree_step : 0,
   next_function : null,
   poll_size:400,
-  poll_size_half: 0,
+  poll_size_half: 0,  
+  stage_w: 400,
+  stage_h: 400,
   show:function show()
   {
     fstart(arguments.callee.name);
@@ -379,15 +381,18 @@ var poll = {
   {
     fstart(arguments.callee.name);
     this.next_function = function(){ 
-      if(user.gender != "n") 
-      { 
-        if(user.gender == 'f') $('.fchar').trigger('click') ;
-        else $('.mchar').trigger('click') ;       
-      } 
-      else 
+      if(!is)
       {
-         $('.mchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );        
-         $('.fchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );  
+        if(user.gender != "n") 
+        { 
+          if(user.gender == 'f') $('.fchar').trigger('click') ;
+          else $('.mchar').trigger('click') ;       
+        } 
+        else 
+        {
+           $('.mchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );        
+           $('.fchar').switchClass("", "selected", 1000, "easeInSine" ).switchClass("selected", "", 500, "easeOutSine" );  
+        }
       }
     };
     scr_clean();
@@ -397,38 +402,48 @@ var poll = {
     poll.label("Choose Gender"); 
     poll.poll_container = $('<div class="poll-container"></div>').appendTo(p);
     poll.poll_container_d3 = d3.select('.poll-container');
-    var ftmp = this.ftmp = $('<div class="fchar character" title="Female"></div>').appendTo(poll.poll_container);
-    var mtmp = this.mtmp = $('<div class="mchar character" title="Male"></div>').appendTo(poll.poll_container);
+    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(poll.poll_container);
+    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(poll.poll_container);
 
     ftmp.on('click',function(){ 
+      is = true;
       mtmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       
-      max_age = female_max_age;
-      ftmp.removeClass('selected');
-      ftmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
+      max_age = female_max_age;      
+      ftmp.addClass('selected').removeClass('mb').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
       {
           tmp_width = ftmp.width();
           tmp_height = ftmp.height();
           ftmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           ftmp.css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
-        poll.poll_container.prepend($('<div class="poll-sub-label"></div>'));
-        poll.age_picker_show('f');}});
+        $(this).css('background-color','transparent');
+        poll.poll_container_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+        poll.poll_container.prepend($('<div class="poll-sub-label abs"></div>'));
+        poll.age_picker_show('f');
+        is = false;
+      }});
 
     });
     mtmp.on('click',function(){ 
+       is = true;
       ftmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       max_age = male_max_age;
-      mtmp.removeClass('selected');
-      mtmp.toggleClass('selected').off('click').animate({ width: 400, height: 400, top: h/2-400/2, left: w/2-400/2},{duration:1000, progress:function(a,b,c)
+      
+      mtmp.addClass('selected').removeClass('mb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
         {
           tmp_width = mtmp.width();
           tmp_height = mtmp.height();
           mtmp.css("background-size", b*46*4 + "px " + b*100*4+ "px");
           mtmp.css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
-        poll.poll_container.prepend('<div class="poll-sub-label"></div>');
-        poll.age_picker_show('m');}});   
+        $(this).css('background-color','transparent');
+        poll.poll_container_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+        poll.poll_container.prepend('<div class="poll-sub-label abs"></div>');
+        poll.age_picker_show('m');
+        is = false;
+      }});   
+      
     });
     onscrollafter=function(){ 
       if(ftmp.hasClass('selected'))
@@ -483,7 +498,7 @@ var poll = {
       poll.interest();
     };
     poll.category_picker_show();
-    // function(){    ingame = true; tick(); game(); };
+    // function(){    };
 
     fend(arguments.callee.name);
   },
@@ -492,7 +507,12 @@ var poll = {
     fstart(arguments.callee.name);
 
     poll.label("Choose Interest");
-    this.next_function = null;
+    this.next_function = function(){
+       ingame = true;
+       tick();
+       game();
+       console.log(user);
+    };
     poll.interest_picker_show();
 
     fend(arguments.callee.name);
@@ -507,7 +527,7 @@ var poll = {
     var cat_step = 360/category.length;
 
     var cat_picker = poll.poll_container_d3.append('div').attr("id","category_picker");
-    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").style({'top':h2+'px', 'left':w2+'px'});
+    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").classed('abs',true).style({'top':h2+'px', 'left':(w2+(isf()?-180:0))+'px'});
     sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
     sal_picker.append('input').attr({'type':'text','value': user.salary, 'max':9999, 'size':4, 'maxlength':4}).style('display','none');
     poll.category_set_salary(user.salary);
@@ -621,7 +641,9 @@ var poll = {
   {
     fstart(arguments.callee.name);
     onscrollafter=null;  
-
+    //console.log('adding');
+    //poll.poll_container.find('.character').addClass('selected');
+//console.log('adding end');
     poll.age(v);
 
 
@@ -857,35 +879,13 @@ var poll = {
     var item_radius = 30;
     var size = item_radius*2; 
     var item_step = 360/interest.length;
-
+    poll.poll_container_d3.select('.character').attr('data-percent',user.salary_percent);
     var picker = poll.poll_container_d3.append('div').attr("id","interest_picker");
-    var sal_picker = poll.poll_container_d3.append('div').attr("id","salary_picker").style({'top':h2+'px', 'left':w2+'px'});
+    var sal_picker = poll.poll_container_d3.append('div').classed("salary-label abs",true).style({'top':h2+'px', 'left':(w2+(isf()?-180:0))+'px'});
 
     sal_picker.selectAll('div').data([4,3,2,1]).enter().append('div').attr('data-pos',function(d){ return d;});
 
-    sal_picker.append('input').attr({'type':'range','value': user.salary_percent, 'min':10, 'max':100, 'size':4, 'maxlength':4}).style('display','inline-block');
-    poll.interest_set_salary(user.salary);
-
-    // poll.poll_container.find("#salary_picker input").on('DOMMouseScroll mousewheel', function(e, delta) {
-
-    //    var t = $(this);  
-    //    var tmax = +t.attr('max');
-    //    var tmin = +t.attr('min');
-    //    var tval = +t.val();
-    //    console.log(tmax,tmin,tval);
-    //   if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
-    //   {      
-    //     if(tval < tmax) ++tval;    
-    //   }
-    //   else  // backward down previous
-    //   {    
-    //     if(tval > tmin) --tval;    
-    //   }
-    //   t.val(tval);      
-    //   user.salary_percent = tval;
-    //   e.stopPropagation();  
-    // }).on('change',function(){user.salary_percent = $(this).val();});    
-
+    poll.interest_set_salary(0);
 
     var svg_cats = picker
     .selectAll("svg")
@@ -894,20 +894,20 @@ var poll = {
     .append("svg")
     .attr("class",function(d){return "interest_item " + user.gender; }) 
     .attr("id",function(d){return d.id;})   
-    .attr({"width":size, "height":size, "data-percent":10})
+    .attr({"width":size, "height":size})//, "data-percent":10
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
     .on('click',function(d){ poll.by_interest(+(d.id.substr(3)));});
 
-    poll.poll_container_d3.append('svg').append('defs').append('clipPath').attr('id','clip111').append('rect').attr({'width':60,'height':60,'x':0,'y':60});
-
-
+    poll.poll_container_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
+    poll.poll_container_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});
 
 
 
 
     svg_cats.append("circle").classed('int_circle',true).attr({"cx":item_radius,"cy":item_radius,"r":item_radius});
-    svg_cats.append("circle").classed('int_circle_clip',true).attr({"cx":item_radius,"cy":item_radius,"r":item_radius , "clip-path":'url(#clip111)'});
+
+    
 
     svg_cats.append("text").classed('int_name',true).text(function(d){return d.name.substr(0,4);})
     .attr({x:12,y:35});
@@ -916,18 +916,20 @@ var poll = {
     
 
     poll.poll_container.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
-     var tval = +$('.interest_item.selected').attr('data-percent');
+      var tval = +$('.character').attr('data-percent');
      if(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0) // forward up next
       {   
-      
         if(tval < 100) ++tval;    
       }
       else  // backward down previous
       {    
         if(tval > 0) --tval;    
       }
-      $('.interest_item.selected').attr('data-percent',tval);
+      $('.character').attr('data-percent',tval);
+
       poll.salary_percent_draw(tval/100);
+      user.salary_percent = tval;
+      poll.interest_set_salary(Math.round10(user.salary*tval/100));
       e.stopPropagation();  
     });
 
@@ -981,7 +983,7 @@ var poll = {
   },
   interest_set_salary:function interest_set_salary(v)
   {
-      var sal = poll.poll_container.find('#salary_picker');
+      var sal = poll.poll_container.find('.salary-label');
       v = v.toString().lpad('0',4);
       sal.find('div[data-pos=4]').text(v[0]);
       sal.find('div[data-pos=3]').text(v[1]);
@@ -1009,11 +1011,11 @@ var poll = {
         else 
         {
           --stepstillon;
-            var step = 3-stepstillon;         
-      var width_step = off.width()/3;
-      var opacity_step = 0.7/3;    
-      on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
-      off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+          var step = 3-stepstillon;         
+          var width_step = off.width()/3;
+          var opacity_step = 0.7/3;    
+          on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+          off.text(step != 0 ? "" : ">").css({left:step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
 
           poll.next_function();
           on.animate({'color': "#939393"});        
@@ -1059,13 +1061,13 @@ var poll = {
 
   salary_percent_draw:function salary_percent_draw(k)
   {
-      var r = 30;
+      var r = 200;
 
     var //line = d3.select("#percenter #line"),
     //path = d3.select("#percenter #path"),
    // text = d3.select("#percenter #text"),
     //textValue = d3.select("#percenter #height"),
-    clip = d3.select("#clip111 rect");
+    clip = d3.select("#clip-mask rect");
 
       // var t0, t1 = k * 2 * Math.PI;
 
@@ -1079,8 +1081,7 @@ var poll = {
       //   k = (1 - Math.cos(t1 / 2)) / 2;
       // }
       var h = 2 * r * k,
-          y = 2*r - h;
-          console.log(h,y);
+          y = 2*r - h;          
           //a = (Math.PI - t1) / 2;
       clip.attr("y", y).attr("height", h);
       //line.attr("x2", -r * Math.cos(a)).attr("y1", y).attr("y2", y);
