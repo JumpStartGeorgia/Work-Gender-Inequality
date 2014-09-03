@@ -38,18 +38,22 @@ $(document).ready(function(){
   // ***********************************************  
   // init game engine 
 
-    init();
+  params_init();
+
+  init();
 
   // ***********************************************  
 });
 
-
+var params = {};
+var steptogo = 0;
 var t = null; // variable for testing
 var w = 0; // viewport width
 var h = 0; // viewport height
 var h2 = 0; // half of height viewport 
 var w2 = 0; // half of width viewport 
 var s = null; // screen jquery object
+var s3 = null; // screen jquery object
 var i = null; // info jquery object
 var pos = 0; // position of life
 var pos_min = 0; // years for life
@@ -78,6 +82,7 @@ var fade_time = 0; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
 var tick_count = 4; // year ticks to show in info bar
 var is = false;
+var max_salary = 99999;
 var human = 
 {
  age : 0,
@@ -90,12 +95,19 @@ var user =
 {
   gender : 'n',
   age : 0,
-  category : 1,
-  interest : 1,
+  category : null,
   salary : 100,
+  interest : null,
   salary_percent : 0
 }
-
+var hash_map = [ // for hash build from user object(simplifies creating with loop)
+  {"name":"gender","alias":"g","nf":"poll.age"},
+  {"name":"age","alias":"a","nf":"poll.category"},
+  {"name":"category","alias":"c","nf":"poll.category"},
+  {"name":"salary","alias":"s","nf":"poll.interest"},
+  {"name":"interest","alias":"i","nf":"poll.interest"},
+  {"name":"salary_percent","alias":"p","nf":"play"}
+];
 var male = human; // male human object
 var female = human; // female human object
 //flags
@@ -105,9 +117,11 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   {
     fstart(arguments.callee.name);
     s = $('#screen');    
+    s3 = d3.select('#screen');    
     cnt_screen += sframe.length;
-    redraw(); // calculate all dimensions  
-    intro();  // play game intro
+    redraw(); // calculate all dimensions 
+
+    intro();  // play game intro and choose where to go based on params poll part or game itself     
 
     fend(arguments.callee.name);
   }
@@ -181,13 +195,24 @@ function intro()
   scr_clean();
   s.toggleClass(sintro.class);
   var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
-
-  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){   scr_clean(s.toggleClass(sintro.class)); 
-    poll.show(); });
-  // ingame = true; tick(); game(); } );
-   
+  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
+    scr_clean(s.toggleClass(sintro.class)); 
+    if(steptogo < 6) 
+      poll.show();
+    else 
+    {
+      play();
+    }
+  });
 
   fend(arguments.callee.name);
+}
+
+function gameon() { ingame = true; }
+function gameoff() { ingame = false; }
+function play()
+{
+  gameon(); tick(); game();
 }
 function game()
 {
@@ -215,7 +240,7 @@ function epilogue()
 {
   fstart(arguments.callee.name);
 
-  ingame = false;
+  gameoff();
   scr_clean();
   s.toggleClass(sepilogue.class);
   var t = $('<div class="title">'+sepilogue.title+'</div>').appendTo(s);
@@ -293,8 +318,12 @@ function ticker_tick()
 function fstart(v) { console.log("< " + v); }
 function fend(v) { console.log(v + " >"); }
 function log(v) { console.log("\t" + v); }
-function exist(v){ return typeof v !== 'undefined' && v !== null && v !== '';}
-function empty(){log('empty');};
+function exist(v) { return typeof v !== 'undefined' && v !== null && v !== '';}
+function empty() {log('empty');};
+function m(){ user.gender = 'm'; max_age = male_max_age; }
+function f(){ user.gender = 'f'; max_age = female_max_age;  }
+function g(v) { return user.gender; }
+function gender(v) { v=='m' ? m() : f(); }
 function ism(){ return user.gender=='m' }
 function isf(){ return user.gender=='f' }
 var func = jQuery.isFunction;
@@ -342,12 +371,82 @@ function agegroup_by_age(v)
       return i+1;
   }
 }
+function params_init()
+{
+  var hash = window.location.hash.trimLeft('#'); 
+  params = {}; 
+  steptogo = 0;
+  if(exist(hash))
+  {
+    if(hash[0]=='#') hash=hash.substr(1);
+    var ahash = hash.split("&");
+    for(var i = 0; i < ahash.length; ++i)
+    {
+      
+      var kv = ahash[i].split("=");
+      if(kv.length==2)
+      {
+        params[kv[0]] = isDecimal(kv[1]) ? +kv[1] : kv[1];      
+      }
+    }
+    params_validate();
+  } 
+}
+function params_validate()
+{
+  if(steptogo == 0 && exist(params.g) && (params.g=="f" || params.g=="m"))
+  {  
+    steptogo = 1;   
+    gender(params.g);
+  }
+  if(steptogo == 1 && exist(params.a) && params.a >= min_age && 
+      ((params.g=="f" && params.a <= female_max_age) || (params.g=="m" && params.a <= male_max_age)))
+  {
+    steptogo = 2;
+    user.age = params.a;
+  }
+  if(steptogo == 2 && exist(params.c) && cat_ids.indexOf(params.c)!=-1)
+  {
+    steptogo = 3;
+    user.category = params.c;
+  }
+  if(steptogo == 3 && exist(params.s) && isNumber(params.s) && params.s > 0 && params.s <= max_salary)
+  {   
+      steptogo = 4;
+      user.salary = params.s;
+  }
+  if(steptogo == 4 && exist(params.i) && int_ids.indexOf(params.i)!=-1)
+  {
+    steptogo = 5;
+    user.interest = params.i;
+  }
+  if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
+  {   
+      steptogo = 6;
+      user.salary_percent = params.p;
+  }
+}
+function params_set(v)
+{
+  if(exist(v) && v > 0 && v <= 6) steptogo = v;
+  var hash = "";
+  if(steptogo > 0 && steptogo <= 6)
+  {
+    for(var i = 0; i < steptogo; ++i)
+      hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
+    if(hash[0]=='&') hash=hash.substr(1);
+    window.location.hash = hash; 
+  }
+}
 /***************************************************************
                   General Functions End
 ***************************************************************/
-
+/***************************************************************
+                  Poll Part Start
+***************************************************************/
 
 var poll = {
+  p : null,
   stage :null,
   stage_d3 :null,
   ftmp : null,
@@ -365,29 +464,68 @@ var poll = {
   degree_step : 0,
   next_function : null,
   npicker_function : null,
-  poll_size:400,
-  poll_size_half: 0,  
+  stage_size:400,
+  stage_size2: 0,  
   stage_w: 400,
   stage_h: 400,
   npicker_sal_size:5,
   show:function show()
   {
     fstart(arguments.callee.name);
-    poll.poll_size_half = poll.poll_size/2;
-    this.gender();
+    poll.stage_size2 = poll.stage_size/2;
+
+    scr_clean();
+    this.init();
+
+    if(steptogo == 0)
+      this.gender();
+    else 
+    {
+      fn(hash_map[steptogo-1].nf);      
+    };
+
     this.create_next_button();
 
     fend(arguments.callee.name);
   },
+  init:function init()
+  {    
+    fstart(arguments.callee.name);
+
+    s3.append('div')
+      .classed('poll',true)
+        .selectAll('div')
+        .data(['poll-label','stage'])
+        .enter()
+        .append('div')
+        .attr('class',function(d){return d;});
+
+    this.stage = s.find('.stage');
+    this.stage_d3 = s3.select('.stage');
+
+    fend(arguments.callee.name);
+  },
+  add_layer:function add_layer()
+  {
+    poll.stage_d3.select('.character').style('background-color','transparent');
+    poll.stage_d3.insert('svg')
+      .classed({'stage-bk':true,'abs':true})
+      .style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1})
+      .append("circle")
+        .classed('bk',true)
+        .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+    poll.stage_d3.insert('<div').classed('poll-sub-label abs',true);
+  },
   gender:function gender()
   {
     fstart(arguments.callee.name);
+    this.label("Choose Gender"); 
     this.next_function = function(){ 
       if(!is)
       {
-        if(user.gender != "n") 
+        if(g() != "n") 
         { 
-          if(user.gender == 'f') $('.fchar').trigger('click') ;
+          if(isf()) $('.fchar').trigger('click') ;
           else $('.mchar').trigger('click') ;       
         } 
         else 
@@ -397,21 +535,15 @@ var poll = {
         }
       }
     };
-    scr_clean();
-
-    var p = $('<div class="poll"></div>').appendTo(s);
-    var label = $('<div class="poll-label"></div>').appendTo(p);    
-    poll.label("Choose Gender"); 
-    poll.stage = $('<div class="stage"></div>').appendTo(p);
-    poll.stage_d3 = d3.select('.stage');
-    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(poll.stage);
-    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(poll.stage);
+   
+    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(this.stage);
+    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(this.stage);
 
     ftmp.on('click',function(){ 
       is = true;
+      f();
       mtmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
       
-      max_age = female_max_age;      
       $(this).addClass('selected').removeClass('fb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
       {
           tmp_width = ftmp.width();
@@ -419,18 +551,17 @@ var poll = {
           $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
           $(this).css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
-        $(this).css('background-color','transparent');
-        poll.stage_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-        poll.stage.prepend($('<div class="poll-sub-label abs"></div>'));
-        poll.age_picker_show('f');
+        poll.add_layer();
+        poll.age();
         is = false;
       }});
 
     });
     mtmp.on('click',function(){ 
        is = true;
+       m();
       ftmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
-      max_age = male_max_age;
+     
       
       $(this).addClass('selected').removeClass('mb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
       {
@@ -439,10 +570,8 @@ var poll = {
           $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
           $(this).css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
       },complete:function(){
-        $(this).css('background-color','transparent');
-        poll.stage_d3.insert('svg').classed({'stage-bk':true,'abs':true}).style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1}).append("circle").classed('bk',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-        poll.stage.prepend('<div class="poll-sub-label abs"></div>');
-        poll.age_picker_show('m');
+        poll.add_layer();
+        poll.age();
         is = false;
       }});   
       
@@ -452,20 +581,20 @@ var poll = {
       {
         ftmp.toggleClass('selected'); 
         mtmp.toggleClass('selected');
-        user.gender = 'm';
+        m();
 
       } 
       else if(mtmp.hasClass('selected')) 
       {
         ftmp.toggleClass('selected'); 
         mtmp.toggleClass('selected');
-        user.gender = 'f';
+        f();
 
       }
       else 
       {
           ftmp.toggleClass('selected');
-          user.gender = 'f';
+          f();
       }
     };
 
@@ -475,24 +604,29 @@ var poll = {
 
     fend(arguments.callee.name);
   },
-  age:function age(v)
+  age:function age()
   {
     fstart(arguments.callee.name);
-    user.gender = v;
+    
+    params_set(1);    
     poll.label("Choose the Age"); 
-    $('.poll').addClass(user.gender);
+    $('.poll').addClass(g());
     this.next_function = function()
     {
       $('#age_picker').remove();
       $(document).off('mousedown');
-      poll.category_show(); };
-      //ingame = true; tick(); game(); }
+      poll.category_show(); 
+    };
+
+    poll.age_picker_show();
     fend(arguments.callee.name);
   },
   category_show:function category_show()
   {
     fstart(arguments.callee.name);
+
     poll.label("Choose Category"); 
+    user.category = cat_ids[0];
     this.next_function = function(){
       user.salary = poll.category_salary();
       poll.stage.find('.category-picker').remove();
@@ -500,7 +634,6 @@ var poll = {
       poll.interest();
     };
     poll.category_picker_show();
-    // function(){    };
 
     fend(arguments.callee.name);
   },
@@ -509,10 +642,9 @@ var poll = {
     fstart(arguments.callee.name);
 
     poll.label("Choose Interest");
+    user.interest = int_ids[0];
     this.next_function = function(){
-       ingame = true;
-       tick();
-       game();
+       play();
        console.log(user);
     };
     poll.interest_picker_show();
@@ -537,12 +669,12 @@ var poll = {
     .data(category)
     .enter()
     .append("svg")
-    .attr("class",function(d){return "category_item " + user.gender; }) 
-    .attr("id",function(d){return d.id;})   
+    .attr("class",function(d){return "category_item " + g(); }) 
+    .attr("id",function(d){return "c"+d.id;})   
     .attr({"width":size, "height":size})
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;})
-    .on('click',function(d){ poll.by_category(+(d.id.substr(3)));});
+    .on('click',function(d){ poll.by_category(+(d.id));});
 
     pick_items.append("circle").attr({"cx":cat_radius,"cy":cat_radius,"r":cat_radius});
     pick_items.append("text").text(function(d){return d.name.substr(0,4);}).attr({x:12,y:35});
@@ -560,30 +692,30 @@ var poll = {
     fstart(arguments.callee.name);
 
     d3.selectAll('.category-picker .category_item').classed('selected',false); 
-    poll.sublabel(d3.selectAll('.category-picker .category_item#cat'+user.category).classed('selected',true).text()); 
+    poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
 
     fend(arguments.callee.name);   
-  },
-  category_check:function category_check()
-  {      
-    fstart(arguments.callee.name);    
-    if(user.category<1) user.category = category.length;
-    else if(user.category>category.length) user.category = 1;
-    fend(arguments.callee.name);
   },
   category_up:function category_up()
   {
     fstart(arguments.callee.name); 
-    ++user.category;
-    this.category_check();    
+
+    var ind = cat_ids.indexOf(user.category);
+    if(ind != -1)
+    {
+      user.category = ind < category.length-1 ? cat_ids[ind+1] : cat_ids[0];
+    }
     this.category_draw();   
     fend(arguments.callee.name); 
   }, 
   category_down:function category_down()
   {
     fstart(arguments.callee.name);     
-    --user.category;
-    this.category_check();
+    var ind = cat_ids.indexOf(user.category);
+    if(ind != -1)
+    {
+      user.category =  ind > 0 ? cat_ids[ind-1] : cat_ids[category.length-1];
+    }
     this.category_draw();
     fend(arguments.callee.name);
   },
@@ -593,7 +725,6 @@ var poll = {
     if(user.category != v)
     {
       user.category = v;        
-      this.category_check();
       this.category_draw();
     }
     fend(arguments.callee.name);
@@ -603,107 +734,21 @@ var poll = {
     if(exist(v)) poll.npicker_set('.salary-picker',v,poll.npicker_sal_size);
     else return poll.npicker_get('.salary-picker.npicker',poll.npicker_sal_size);
   },
-  npicker_create:function npicker_create(p,t,max,size,top,left,def)
-  {    
-    //d3
-    var td = d3.select(p).append('div')
-                      .classed(t.replace(".","") + " abs npicker",true)
-                      .attr({"max":max})
-                      .style({'top':top+'px', 'left':left+'px'});
-    //jQuery
-    var tj = poll.stage.find(t);    
-    var tmpd = [];
-    tmpd.length = size;
-
-    td.selectAll('div').data(tmpd).enter().append('div').attr('data-pos',function(d,i){ return size-i;}).text(0);
-    td.append('input').attr({'type':'text','value': 0, 'max':max, 'size':size, 'maxlength':size}).style('display','none');
-
-    tj.find('input').on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
-    .focusout(function(){ $(this).hide(); tj.find('div').show(); }).change(function(){  poll.npicker_set(t,+$(this).val(),size); });
-  
-    tj.find('div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
-      
-      var t = $(this);  
-      var p = t.parent('.npicker');
-      var tval = +t.text();
-
-      if(up(e,delta)) { if(tval < 9) ++tval; }
-      else { if(tval > 0) --tval; }
-    
-      if(poll.npicker_check(p,+t.attr('data-pos'),tval,size))
-      {        
-        t.text(tval);
-        poll.npicker_set(p,poll.npicker_get(p,size),size);        
-      }
-      e.stopPropagation();  
-    });
-
-    tj.on('click',function(){
-      $(this).find('div').hide();
-      $(this).find('input').show().focus();      
-    });
-    poll.npicker_set(t,def,size);
-  },
-  npicker_check:function npicker_check(t,n,v,size)
-  {
-
-    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
-    var vt = "";
-    for(var i = 0; i < size; ++i)
-    {
-      if(size-i != n)
-        vt+=t.find('div[data-pos='+(size-i)+']').text();
-      else vt+=v;
-    }
-    return vt <= max;
-  },
-  npicker_get:function npicker_get(t,size)
-  {
-    t = poll.stage.find(t);
-    var v = "";
-    for(var i = 0; i < size; ++i)
-    {
-      v+=t.find('div[data-pos='+(size-i)+']').text();
-    }
-    return +v;
-  },
-  npicker_set:function setnpicker(t,v,size)
-  {    
-    t = poll.stage.find(t);
-
-    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
-    if(v < 0 || v > max) return false;
-
-    v = v.toString().lpad('0',size);
-    for(var i = 0; i < size; ++i)
-    {
-      t.find('div[data-pos='+(size-i)+']').text(v[i]);
-    }
-    t.find('input').val(v);
-
-    if(func(poll.npicker_function)) poll.npicker_function(v);
-
-    return true;
-  },
-  age_picker_show:function age_picker_show(v)
+  age_picker_show:function age_picker_show()
   {
     fstart(arguments.callee.name);
     onscrollafter=null;  
-    //console.log('adding');
-    //poll.stage.find('.character').addClass('selected');
-//console.log('adding end');
-    poll.age(v);
 
 
-    var ap = $('<svg version="1.1" id="age_picker" class="'+v+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(poll.stage);
+    var ap = $('<svg version="1.1" id="age_picker" class="'+g()+'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="420px" width="420px" viewBox="0 0 420 420" enable-background="new 0 0 420 420" xml:space="preserve">').css({top: h/2-420/2, left: w/2-420/2}).appendTo(poll.stage);
     var ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M66.726,363.473c-40.734-38.326-66.17-92.732-66.17-153.076c0-60.347,25.435-114.751,66.169-153.078""/>';
-    if(v == 'm') ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
+    if(ism()) ap_path = '<path fill="none" stroke="#231F20" stroke-miterlimit="10" d="M353.304,57.544c40.734,38.328,66.17,92.732,66.17,153.078c0,60.346-25.435,114.75-66.169,153.077"/>';
 
     //var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
     var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
     ap.html(ap_path + /*ap_text +*/ ap_knob);        
     var diff = max_age-min_age;
-    if(v=='m')poll.degrees = poll.degrees_male;
+    if(ism())poll.degrees = poll.degrees_male;
     else poll.degrees = poll.degrees_female;
     
 
@@ -729,12 +774,8 @@ var poll = {
           poll.agemousedown(e);
       });
 
-    onscrollup = function(){
-      poll.age_up();
-    };
-    onscrolldown = function(){
-      poll.age_down();
-    };
+    onscrollup = function(){ poll.age_up(); };
+    onscrolldown = function(){ poll.age_down(); };
 
     poll.by_age(def_age);
     fend(arguments.callee.name);
@@ -918,8 +959,8 @@ var poll = {
     .data(interest)
     .enter()
     .append("svg")
-    .attr("class",function(d){return "interest_item " + user.gender; }) 
-    .attr("id",function(d){return d.id;})   
+    .attr("class",function(d){return "interest_item " + g(); }) 
+    .attr("id",function(d){return "i"+d.id;})   
     .attr({"width":size, "height":size})
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
@@ -942,12 +983,12 @@ var poll = {
       if(user.salary >= v) {
         user.salary_percent = Math.round10((v*100)/user.salary);
         poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
-        poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#int'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
+        poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
         poll.interest_percent_draw((v*100)/user.salary/100);
       }  
     }
-    poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
 
+    poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
 
     poll.stage.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
       var tval = +$('.character').attr('data-percent');
@@ -974,40 +1015,40 @@ var poll = {
     fstart(arguments.callee.name);
 
     d3.selectAll('.interest_picker .interest_item').classed('selected',false); 
-    poll.sublabel(d3.selectAll('.interest_picker .interest_item#int'+user.interest).classed('selected',true).text() + " (" +user.salary_percent + "%)"); 
+    poll.sublabel(d3.select('.interest_picker .interest_item#i'+user.interest).classed('selected',true).select('text').text() + " (" +user.salary_percent + "%)"); 
 
     fend(arguments.callee.name);   
-  },
-  interest_check:function interest_check()
-  {      
-    fstart(arguments.callee.name);    
-    if(user.interest<1) user.interest = interest.length;
-    else if(user.interest>interest.length) user.interest = 1;
-    fend(arguments.callee.name);
   },
   interest_up:function interest_up()
   {
     fstart(arguments.callee.name); 
-    ++user.interest;
-    this.interest_check();    
+
+    var ind = int_ids.indexOf(user.interest);
+    if(ind != -1)
+    {
+      user.interest = ind < interest.length-1 ? int_ids[ind+1] : int_ids[0];
+    }
     this.interest_draw();   
+
     fend(arguments.callee.name); 
   }, 
   interest_down:function interest_down()
   {
     fstart(arguments.callee.name);     
-    --user.interest;
-    this.interest_check();
+    var ind = int_ids.indexOf(user.interest);
+    if(ind != -1)
+    {
+      user.interest =  ind > 0 ? int_ids[ind-1] : int_ids[interest.length-1];
+    }
     this.interest_draw();
     fend(arguments.callee.name);
-  },
+  },  
   by_interest:function by_interest(v)
   {        
     fstart(arguments.callee.name);   
     if(user.interest != v)
     {
       user.interest = v;        
-      this.interest_check();
       this.interest_draw();
     }
     fend(arguments.callee.name);
@@ -1077,10 +1118,95 @@ var poll = {
     fend(arguments.callee.name);
 
   },
+  npicker_create:function npicker_create(p,t,max,size,top,left,def)
+  {    
+    //d3
+    var td = d3.select(p).append('div')
+                      .classed(t.replace(".","") + " abs npicker",true)
+                      .attr({"max":max})
+                      .style({'top':top+'px', 'left':left+'px'});
+    //jQuery
+    var tj = poll.stage.find(t);    
+    var tmpd = [];
+    tmpd.length = size;
+
+    td.selectAll('div').data(tmpd).enter().append('div').attr('data-pos',function(d,i){ return size-i;}).text(0);
+    td.append('input').attr({'type':'text','value': 0, 'max':max, 'size':size, 'maxlength':size}).style('display','none');
+
+    tj.find('input').on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
+    .focusout(function(){ $(this).hide(); tj.find('div').show(); }).change(function(){  poll.npicker_set(t,+$(this).val(),size); });
+  
+    tj.find('div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
+      
+      var t = $(this);  
+      var p = t.parent('.npicker');
+      var tval = +t.text();
+
+      if(up(e,delta)) { if(tval < 9) ++tval; }
+      else { if(tval > 0) --tval; }
+    
+      if(poll.npicker_check(p,+t.attr('data-pos'),tval,size))
+      {        
+        t.text(tval);
+        poll.npicker_set(p,poll.npicker_get(p,size),size);        
+      }
+      e.stopPropagation();  
+    });
+
+    tj.on('click',function(){
+      $(this).find('div').hide();
+      $(this).find('input').show().focus();      
+    });
+    poll.npicker_set(t,def,size);
+  },
+  npicker_check:function npicker_check(t,n,v,size)
+  {
+
+    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
+    var vt = "";
+    for(var i = 0; i < size; ++i)
+    {
+      if(size-i != n)
+        vt+=t.find('div[data-pos='+(size-i)+']').text();
+      else vt+=v;
+    }
+    return vt <= max;
+  },
+  npicker_get:function npicker_get(t,size)
+  {
+    t = poll.stage.find(t);
+    var v = "";
+    for(var i = 0; i < size; ++i)
+    {
+      v+=t.find('div[data-pos='+(size-i)+']').text();
+    }
+    return +v;
+  },
+  npicker_set:function setnpicker(t,v,size)
+  {    
+    t = poll.stage.find(t);
+
+    var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
+    if(v < 0 || v > max) return false;
+
+    v = v.toString().lpad('0',size);
+    for(var i = 0; i < size; ++i)
+    {
+      t.find('div[data-pos='+(size-i)+']').text(v[i]);
+    }
+    t.find('input').val(v);
+
+    if(func(poll.npicker_function)) poll.npicker_function(v);
+
+    return true;
+  },
   label:function label(v){ $('.poll-label').text(v); },
   sublabel:function sublabel(v)
   {
     var t = $('.poll-sub-label').text(v);    
-    t.css({top:h2-t.height()/2 - poll.poll_size_half*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.poll_size_half*0.45});    
+    t.css({top:h2-t.height()/2 - poll.stage_size2*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.stage_size2*0.45});    
   }
 };
+/***************************************************************
+                  Poll Part End
+***************************************************************/

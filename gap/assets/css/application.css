@@ -335,12 +335,17 @@ svg.stage-bk { z-index:300; }
    font-size:18px;
    color:#939393;
 }
+.poll .on:hover
+{
+   cursor:pointer;
+}
 .poll .off
 {
    background-color:rgba(19, 166, 17, 0.3);
    overflow:hidden;
    font-size:25px;
    color:#ededed;
+   cursor:e-resize;
 }
 
 .category-picker , .interest_picker

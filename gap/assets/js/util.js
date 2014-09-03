@@ -85,3 +85,16 @@ function validateNumber(event) {
 function up(e,delta) { return delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0; }
 // backward down previous
 function down(e,delta) { return !(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0); }
+function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/.test(v); }
+function isNumber(v) { return /^\d+$/.test(v); }
+function fn(v)
+{
+  var fn = null;
+  if(v.indexOf('.') != -1)
+  {
+    fn = window[v.split('.')[0]][v.split('.')[1]];
+  }
+  else fn = window[nf]
+
+  if (typeof fn === "function") fn();
+}

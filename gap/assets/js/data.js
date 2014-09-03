@@ -1,32 +1,34 @@
 var category = 
 [
-        { "id": "cat1", "name": "Agriculture, hunting and forestry" },
-        { "id": "cat2","name": "Fishing" },
-        { "id": "cat3","name": "Mining and quarrying" },
-        { "id": "cat4","name": "Manufacturing" },
-        { "id": "cat5","name": "Production and distribution of electricity, gas and water" },
-        { "id": "cat6","name": "Construction" },
-        { "id": "cat7","name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods" },
-        { "id": "cat8","name": "Hotels and restaurants" },
-        { "id": "cat9","name": "Transport and communication" },
-        { "id": "cat10","name": "Financial intermediation" },
-        { "id": "cat11","name": "Real estate, renting and business activities" },
-        { "id": "cat12","name": "Public administration" },
-        { "id": "cat13","name": "Education" },
-        { "id": "cat14","name": "Health and social work" },
-        { "id": "cat15","name": "Other community, social and personal service activities" }
+        { "id": "45bS4GyC", "name": "Agriculture, hunting and forestry" },
+        { "id": "FWrgJx0N","name": "Fishing" },
+        { "id": "TxbZicXP","name": "Mining and quarrying" },
+        { "id": "Zyb2KhON","name": "Manufacturing" },
+        { "id": "8IkQeUfg","name": "Production and distribution of electricity, gas and water" },
+        { "id": "eibtNMge","name": "Construction" },
+        { "id": "jDYS_Z1V","name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods" },
+        { "id": "I52aZAVX","name": "Hotels and restaurants" },
+        { "id": "rn4bDK0j","name": "Transport and communication" },
+        { "id": "EmbBcc5x","name": "Financial intermediation" },
+        { "id": "oxKq-H8w","name": "Real estate, renting and business activities" },
+        { "id": "dT-LWuT4","name": "Public administration" },
+        { "id": "HxhM0Ejd","name": "Education" },
+        { "id": "dJdfgktK","name": "Health and social work" },
+        { "id": "DqFfYVGZ","name": "Other community, social and personal service activities" }
 ];
+var cat_ids = category.map(function(d,i){return d.id;});
 var interest = 
 [
-        { "id": "int1", "name": "Vacation" },
-        { "id": "int2","name": "Gadgets" },
-        { "id": "int3","name": "Education" },
-        { "id": "int4","name": "Owning Home" },
-        { "id": "int5","name": "Owning Car" },
-        { "id": "int6","name": "Sports" },
-        { "id": "int7","name": "Fashion" },
-        { "id": "int8","name": "Agriculture" }
+        { "id": "gfNDXD1g", "name": "Vacation" },
+        { "id": "Rs2Uml6w","name": "Gadgets" },
+        { "id": "KI3EFRI3","name": "Education" },
+        { "id": "7fdCIojZ","name": "Owning Home" },
+        { "id": "3QDbCRrq","name": "Owning Car" },
+        { "id": "Cc8WWUmB","name": "Sports" },
+        { "id": "31bZn8Du","name": "Fashion" },
+        { "id": "V1IOw5N5","name": "Agriculture" }
 ];
+var int_ids = interest.map(function(d,i){return d.id;});
 
 var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
 var poll = {
