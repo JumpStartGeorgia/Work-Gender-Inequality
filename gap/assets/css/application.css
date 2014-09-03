@@ -275,7 +275,7 @@ svg.stage-bk { z-index:300; }
 
 
 }
-.mb { border:1px solid #ff94f8; }
+.mchar.b { border:1px solid #ff94f8; }
 .mchar:hover,.mchar.selected
 {
    cursor:pointer;
@@ -288,7 +288,7 @@ svg.stage-bk { z-index:300; }
    background-position:77px 50px; 
    
 }
-.fb { border:1px solid #add2ff; }
+.fchar.b { border:1px solid #add2ff; }
 .fchar:hover,.fchar.selected
 {
    cursor:pointer;

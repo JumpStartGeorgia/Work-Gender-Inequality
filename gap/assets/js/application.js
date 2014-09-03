@@ -88,6 +88,7 @@ var human =
  age : 0,
  height : 100,
  width: 46,
+ canvas:200,
  x:30,
  y:0
 }; // human object with basic properties
@@ -231,8 +232,6 @@ function game()
 
   m.css({top:male.y}).animate({ left: male.x});
   f.css({top:female.y}).animate({ left: female.x});
-
-  
 
   fend(arguments.callee.name);
 }
@@ -481,9 +480,10 @@ var poll = {
       this.gender();
     else 
     {
+      poll.draw_character();
       fn(hash_map[steptogo-1].nf);      
     };
-
+  
     this.create_next_button();
 
     fend(arguments.callee.name);
@@ -507,6 +507,7 @@ var poll = {
   },
   add_layer:function add_layer()
   {
+    fstart(arguments.callee.name);
     poll.stage_d3.select('.character').style('background-color','transparent');
     poll.stage_d3.insert('svg')
       .classed({'stage-bk':true,'abs':true})
@@ -514,7 +515,59 @@ var poll = {
       .append("circle")
         .classed('bk',true)
         .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-    poll.stage_d3.insert('<div').classed('poll-sub-label abs',true);
+    poll.stage_d3.insert('div').classed('poll-sub-label abs',true);
+    fend(arguments.callee.name);
+  },
+  draw_character:function draw_character()
+  {     
+    $('<div class="'+g()+'char character" title="Female"></div>').appendTo(this.stage);
+    poll.add_layer();
+             
+    var b = isf();
+    var ch = document.getElementsByClassName("character")[0];
+    var chh = ch.clientHeight;
+    var chw = ch.clientWidth;
+    var ch = s3.select('.character')
+      .style(
+      {
+              'width': poll.stage_w + "px",
+              'height': poll.stage_h + "px",
+              'top': h/2-poll.stage_h/2 + "px",
+              'left': w/2-poll.stage_w/2 + "px",
+              'background-size': 46*4 + "px " + 100*4+ "px",
+              'background-position': (b ? (poll.stage_w-chw) : (chw - 46*4)) + "px " + (chh - chh/1.5)+ "px"
+      });  
+  },
+  character_picked:function character_picked() // v selected gender, o oposite
+  {
+      is = true;   
+      var char_animation_options = { width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2};
+      var bool = isf();
+      var picked = bool ? $('.fchar') : $('.mchar');
+      var other =  bool ? $('.mchar') : $('.fchar');
+
+      other.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
+         
+      picked.addClass('selected').removeClass('b').off('click')
+        .animate(char_animation_options,
+          { duration:1000, 
+            progress:function(a,b,c)
+            {             
+                tmp_width = picked.width();
+                tmp_height = picked.height();
+                $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
+                $(this).css("background-position", 
+                (bool 
+                ? (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px"
+                : (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px"));
+            },
+            complete:function()
+            {
+              poll.add_layer();
+              poll.age();
+              is = false;
+            }
+          });
   },
   gender:function gender()
   {
@@ -525,8 +578,8 @@ var poll = {
       {
         if(g() != "n") 
         { 
-          if(isf()) $('.fchar').trigger('click') ;
-          else $('.mchar').trigger('click') ;       
+          if(isf()) poll.stage_d3.select('.fchar').on('click')();
+          else poll.stage_d3.select('.mchar').on('click')();    
         } 
         else 
         {
@@ -535,79 +588,45 @@ var poll = {
         }
       }
     };
-   
-    var ftmp = this.ftmp = $('<div class="fchar character fb" title="Female"></div>').appendTo(this.stage);
-    var mtmp = this.mtmp = $('<div class="mchar character mb" title="Male"></div>').appendTo(this.stage);
+    
+    var margin_between = 100;
 
-    ftmp.on('click',function(){ 
-      is = true;
-      f();
-      mtmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
-      
-      $(this).addClass('selected').removeClass('fb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
-      {
-          tmp_width = ftmp.width();
-          tmp_height = ftmp.height();
-          $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
-          $(this).css("background-position", (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      },complete:function(){
-        poll.add_layer();
-        poll.age();
-        is = false;
-      }});
+    var ftmp = poll.stage_d3.append('div').classed("fchar character b", true).attr('title','Female')
+      .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
+      .on('click',function(){ f(); poll.character_picked(); });
+    var mtmp = poll.stage_d3.append('div').classed("mchar character b", true).attr('title','Male')
+      .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
+      .on('click',function(){ m(); poll.character_picked(); });
 
-    });
-    mtmp.on('click',function(){ 
-       is = true;
-       m();
-      ftmp.removeClass('selected').off('click').fadeOut(1000,"linear",function(){this.remove();});
-     
-      
-      $(this).addClass('selected').removeClass('mb').off('click').animate({ width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2},{duration:1000, progress:function(a,b,c)
-      {
-          tmp_width = mtmp.width();
-          tmp_height = mtmp.height();
-          $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
-          $(this).css("background-position", (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px");
-      },complete:function(){
-        poll.add_layer();
-        poll.age();
-        is = false;
-      }});   
-      
-    });
+
+
     onscrollafter=function(){ 
-      if(ftmp.hasClass('selected'))
+
+      if(ftmp.classed('selected'))
       {
-        ftmp.toggleClass('selected'); 
-        mtmp.toggleClass('selected');
+        ftmp.classed('selected',false);
+        mtmp.classed('selected',true);
         m();
-
-      } 
-      else if(mtmp.hasClass('selected')) 
+      }
+      else if(mtmp.classed('selected'))
       {
-        ftmp.toggleClass('selected'); 
-        mtmp.toggleClass('selected');
+        mtmp.classed('selected',false);
+        ftmp.classed('selected',true);
         f();
-
       }
       else 
       {
-          ftmp.toggleClass('selected');
-          f();
-      }
+        ftmp.classed('selected',true);
+        f();
+      }     
     };
-
-    var margin_between = 100;
-    ftmp.css({top:h/2-ftmp.height()/2,left:w/2-margin_between/2-ftmp.width()});
-    mtmp.css({top:h/2-mtmp.height()/2,left:w/2+margin_between/2});
 
     fend(arguments.callee.name);
   },
   age:function age()
   {
     fstart(arguments.callee.name);
-    
+    console.log("------------------------------");   
     params_set(1);    
     poll.label("Choose the Age"); 
     $('.poll').addClass(g());
@@ -615,13 +634,13 @@ var poll = {
     {
       $('#age_picker').remove();
       $(document).off('mousedown');
-      poll.category_show(); 
+      poll.category(); 
     };
 
     poll.age_picker_show();
     fend(arguments.callee.name);
   },
-  category_show:function category_show()
+  category:function category()
   {
     fstart(arguments.callee.name);
 
@@ -737,6 +756,7 @@ var poll = {
   age_picker_show:function age_picker_show()
   {
     fstart(arguments.callee.name);
+
     onscrollafter=null;  
 
 
@@ -746,9 +766,11 @@ var poll = {
 
     //var ap_text = '<text id="age_counter" x="'+ (ism() ? 250 : 70) +'" y="150"></text>';
     var ap_knob = '<circle id="age_mover" cx="0" cy="0" r="'+poll.indicatorRadius+'" draggable="true" ondrag="poll.drag_age(event)" class="age_mover"/>';
-    ap.html(ap_path + /*ap_text +*/ ap_knob);        
+    ap.html(ap_path + /*ap_text +*/ ap_knob); 
+
     var diff = max_age-min_age;
-    if(ism())poll.degrees = poll.degrees_male;
+
+    if(ism()) poll.degrees = poll.degrees_male;
     else poll.degrees = poll.degrees_female;
     
 
