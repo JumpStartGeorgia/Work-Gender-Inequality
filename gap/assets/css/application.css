@@ -259,9 +259,6 @@ svg.stage-bk { z-index:300; }
    background:#ffffff url("../images/svg/m.svg") no-repeat;
    background-size:46px 100px;
    background-position:77px 50px;
-
-
-
 }
 .mchar.b { border:1px solid #ff94f8; }
 .mcharh:hover,.mcharh.selected
@@ -432,3 +429,13 @@ svg.stage-bk { z-index:300; }
    border-left:1px dashed #006EF3;
    display:inline-block;
 }
+
+
+svg.thumbnail 
+{
+   margin:10px;
+   overflow:visible;
+}
+
+svg.thumbnail path
+{fill:red;}

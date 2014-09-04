@@ -1280,6 +1280,25 @@ var poll = {
   {
     var t = $('.poll-sub-label').text(v);    
     t.css({top:h2-t.height()/2 - poll.stage_size2*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.stage_size2*0.45});    
+  },
+  gender_thumbnail:function gender_thumbnail(klass)
+  {
+    klass='gender';
+    var thumb_r = 21, thumb_cx = 22;
+
+    var thumbnail = d3.select('svg.thumbnail');
+    if (thumbnail.empty()) thumbnail = s3.append('svg').classed('thumbnail',true);
+    var thumb_count = thumbnail.selectAll('g').size();
+
+    var g = thumbnail.append('g').classed(klass+'-thumbnail',true);      
+
+    g.append('circle').attr({cx:thumb_cx,cy:2*thumb_cx*(thumb_count+1),r:thumb_r,'stroke-width':1,stroke:'lightblue',fill:color.white})
+      .transition().duration(500).ease('circle-in').attr({fill:'lightblue'});
+
+   
+    g.append('svg:image').attr({
+      x:4,y:27,width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
+    });       
   }
 };
 /***************************************************************
