@@ -77,7 +77,7 @@ body,html
 { z-index:310; }
 .character { z-index:309; }
 .poll-sub-label,
-.age_picker,
+.age-picker,
 .category-picker,
 .interest_picker
 { z-index:305; } 
@@ -230,7 +230,7 @@ svg.stage-bk { z-index:300; }
    -moz-border-radius: 200px 200px 200px 200px;
    -webkit-border-radius: 200px 200px 200px 200px;  
 }
-#age_picker
+.age-picker
 {
 
    position:absolute;
@@ -238,61 +238,49 @@ svg.stage-bk { z-index:300; }
    top:0px;
    overflow:visible;
 }
-#age_picker path
+.age-picker path
 {
    stroke:#d4d4d4;
 }
-#age_mover
+.age-mover
 {
    /*opacity:0.5;*/
    stroke:black;
    stroke-width:0;
    fill:#add2ff;
 }
-#age_mover:hover
+.age-mover:hover
 {
    cursor:pointer;
 }
-.f #age_counter,.f .poll-sub-label
-{
-   color:#006EF3;
-   fill:#006EF3;
-   font-size:45px;
-   font-family:opensans-r;
-}
-.m #age_counter,.m .poll-sub-label
-{
-   color:#006EF3;
-   fill:#006EF3;
-   font-size:45px;
-   font-family:opensans-r;
-}
+
 .mchar
 {
-   background:transparent url("../images/svg/m.svg") no-repeat;
+   background:#ffffff url("../images/svg/m.svg") no-repeat;
    background-size:46px 100px;
-   background-position:77px 50px; 
+   background-position:77px 50px;
+
 
 
 }
 .mchar.b { border:1px solid #ff94f8; }
-.mchar:hover,.mchar.selected
+.mcharh:hover,.mcharh.selected
 {
    cursor:pointer;
-   background-color:#ff94f8;
+   background-color:#ff94f8 !important;
 }
 .fchar
 {
-   background:transparent url("../images/svg/f.svg") no-repeat;
+   background:#ffffff url("../images/svg/f.svg") no-repeat;
    background-size:46px 100px;
    background-position:77px 50px; 
    
 }
 .fchar.b { border:1px solid #add2ff; }
-.fchar:hover,.fchar.selected
+.fcharh:hover,.fcharh.selected
 {
    cursor:pointer;
-   background-color:#add2ff;
+   background-color:#add2ff !important;
 }
 .poll .slider
 {
@@ -316,6 +304,13 @@ svg.stage-bk { z-index:300; }
    left: 5%;
    font-size: 50px;
    font-family: Arial;
+}
+.poll-sub-label
+{
+   color:#006EF3;
+   fill:#006EF3;
+   font-size:45px;
+   font-family:opensans-r;
 }
 .poll .on,.poll .off
 {
@@ -360,10 +355,12 @@ svg.stage-bk { z-index:300; }
    position:absolute;
    overflow:visible;
 }
-
+/*.category_item text::selection { background: none; }*/
 .category_item text, .interest_item text
 {
    fill:#7c7c7c;
+   cursor:pointer;
+
 }
 
 .category_item.f.selected text, .interest_item.f.selected text

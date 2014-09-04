@@ -98,3 +98,9 @@ function fn(v)
 
   if (typeof fn === "function") fn();
 }
+function switchStyle(selector,dur,dur1,ease,ease1,css,val,val1)
+{
+    d3.select(selector)
+            .transition().duration(dur).ease(ease).style(css,val)
+           .transition().duration(dur1).ease(ease1).style(css,val1);
+}
