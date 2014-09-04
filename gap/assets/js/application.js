@@ -31,35 +31,20 @@ $(document).ready(function(){
   });
 
   // on resize redraw game   
-    $( window ).resize(function() {
-      redraw();
-    });
+    $( window ).resize(function() { init(); });
 
+    history.replaceState({},'',window.location.href)
 
   // ***********************************************  
-  // init game engine 
-    
+  // init game engine
 
-    params_init();
     init();
 
   // ***********************************************  
 
 });
 
-window.onpopstate = function(e){
-
-  
-    if(e.state !== null) { 
-        tt();console.log("popstateeeeeeeeeeeeeeeeeeee");    
-       params_init();
-       init();   
-
-    } else { // no state data available
-        // load initial page which was there at first page load
-    }
-}
-
+var hist = false;
 var params = {};
 var steptogo = 0;
 var t = null; // variable for testing
@@ -138,10 +123,15 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   function init()
   {
     fstart(arguments.callee.name);
+
+    redraw(); // calculate all dimensions 
+
+    params_init();
+
     s = $('#screen');    
     s3 = d3.select('#screen');    
     cnt_screen += sframe.length;
-    redraw(); // calculate all dimensions 
+   
 
     intro();  // play game intro and choose where to go based on params poll part or game itself     
 
@@ -155,11 +145,9 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
      h = $(this).height(); 
      w2 = w/2;
      h2 = h/2;
-    // pos = $(window).scrollTop();  
-     log("w:" + w + "/ h:" + h + " / pos:" + pos);
 
-     if(ingame) game();
-
+     //log("w:" + w + "/ h:" + h + " / pos:" + pos);
+ 
      fend(arguments.callee.name);
   }
   function game_redraw()
@@ -184,6 +172,7 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   function scr_clean(klass)
   {
     s.empty();
+    if(exist(i)) i.remove();
     if(exist(klass)) s.removeClass(klass);
   }
 function tick()
@@ -455,15 +444,19 @@ function params_set(v)
     for(var i = 0; i < steptogo; ++i)
       hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
     if(hash[0]=='&') hash=hash.substr(1);
-    if(window.location.hash != hash)
-      window.location.hash = hash; 
-    log(window.location.href);
-    history.pushState({'steptogo':hash},'',window.location.href);
-  }
-  else
-  {
-    history.pushState({'steptogo':'Gap Game'},'',window.location.href);
-  }
+    // if(window.location.hash != hash)
+    //   window.location.hash = hash; 
+    if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
+  }  
+}
+window.onpopstate = function(e){
+    if(e.state !== null) 
+    { 
+       hist = true;       
+       init();   
+       hist = false;
+    } 
+    //else { // no state data availableload initial page which was there at first page load }
 }
 /***************************************************************
                   General Functions End
@@ -675,6 +668,7 @@ var poll = {
       $(document).off('mousedown');
       $('.age-mover').draggable('destroy');    
       poll.stage_d3.select('.age-picker').remove();
+      
 
       poll.category(); 
     };
@@ -692,7 +686,7 @@ var poll = {
     params_set(2); 
 
     user.category = user.category == null ? cat_ids[0] : user.category;
-  
+    poll.npicker_function = null;
     poll.next_function = function(){
 
       onscrolldown = null;
@@ -1049,10 +1043,6 @@ var poll = {
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
     .on('click',function(d){ poll.by_interest(d.id);});
-
-
- 
-
 
     poll.stage_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
     poll.stage_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});    
