@@ -46,16 +46,21 @@ body,html
    font-size:25px;
    font-size:10vmin;
 }
-#screen .top, #screen .bottom,#screen .divider
+#screen .top, #screen .bottom,#screen .timeline
 {
    width:100%;
 }
-#screen .divider
+#screen .timeline
 {
   background-color:#ededed;
 }
+#screen .timeline .point-in-time
+{ 
+   height: 30px;
+   line-height: 30px;
+}
 
-/*.m.character
+.m.character
 {
    background:transparent url("../images/svg/m.svg") no-repeat;
    width:46px;
@@ -70,7 +75,7 @@ body,html
    height:100px;
    position:relative;
    left:0px;
-}*/
+}
 /* poll z-index */
 .salary-picker,
 .percent_picker 

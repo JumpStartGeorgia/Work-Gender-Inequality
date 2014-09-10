@@ -21,10 +21,36 @@ $(document).ready(function(){
 
     if(ingame)
     {
-      prev_pos = pos;      
-      if(delta < 0 && pos < pos_max) ++pos;
-      else if(delta >= 0 && pos > pos_min) --pos;
-      if(pos != prev_pos) tick();
+        console.log(timeline_scroll_to_tick_value);  
+      if(delta < 0)
+      {  
+
+        ++timeline_scroll_to_tick_value;
+        if(timeline_scroll_to_tick_value % timeline_scroll_to_tick == 0)
+        {          
+          timeline_tick('3m');
+        }
+        calculate('u');
+      }
+      else 
+      {
+        
+        if(timeline_scroll_to_tick_value > 0)
+        {
+          --timeline_scroll_to_tick_value;
+          if(timeline_scroll_to_tick_value != 0 && timeline_scroll_to_tick_value % timeline_scroll_to_tick == 0)
+          {
+            timeline_tick('-3m');
+          }
+        }
+        calculate('d');
+      }
+        console.log(timeline_scroll_to_tick_value);  
+
+      //prev_pos = pos;      
+      //if(delta < 0 && pos < pos_max) ++pos;
+     // else if(delta >= 0 && pos > pos_min) --pos;
+     // if(pos != prev_pos) tick();
     }
 
     if(func(onscrollafter)) onscrollafter()
@@ -59,8 +85,16 @@ var pos = 0; // position of life
 var pos_min = 0; // years for life
 var pos_max = 45; // years until the end
 var prev_pos = pos; // previous life step
-var divider_height = 6; // screen divider height in px
 var curr_date = new Date(); // current date
+var timeline_height = 30; // timeline height in px
+var timeline_point = new Date(curr_date.getFullYear(),curr_date.getMonth(),1,0,0,0,0);
+var timeline_end_point = new Date();
+timeline_end_point.setTime(timeline_point.getTime());
+timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
+var time_step = "3m"; // increment for on each scroll is 3 months, available formats m:month, y:year
+var time_scale = 1; // each time interval will occupy time_scale*viewport_width
+var timeline_scroll_to_tick_value = 0;
+var timeline_scroll_to_tick = 10;
 var start_year = curr_date.getFullYear(); // start year
 var end_year = start_year + pos_max; // year to end the game
 var prev_year = start_year-1; // previous year
@@ -152,10 +186,10 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   }
   function game_redraw()
   {
-    info();    
-    var half = h/2-divider_height/2;
+   // info();    
+    var half = h/2-timeline_height/2;
     $("#screen .top").each(function(i,d){ $(d).height(half); });
-    $("#screen .divider").each(function(i,d){ $(d).height(divider_height); });
+    $("#screen .timeline").each(function(i,d){ $(d).height(timeline_height); });
     $("#screen .bottom").each(function(i,d){ $(d).height(half); });
     screen(curr_screen);
 
@@ -175,26 +209,37 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
     if(exist(i)) i.remove();
     if(exist(klass)) s.removeClass(klass);
   }
+  jwerty.key('space', function(){ 
+
+  
+  //male.y = male.y + (v=='u' ? 10 : -10);
+  //female.x = female.x + (v=='u' ? 10 : -10);
+
+  s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
+  s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
+
+  });
 function tick()
 {
  fstart(arguments.callee.name);
- prev_year = curr_year;
- curr_year = start_year + pos;
 
- ticker_tick();
- if(curr_year == end_year) epilogue();
+ //prev_year = curr_year;
+ //curr_year = start_year + pos;
 
+ //ticker_tick();
+ //if(curr_year == end_year) epilogue();
+  
  calculate();
 
  fend(arguments.callee.name);
 }
-function calculate()
+function calculate(v)
 {
   fdiff = diff_step * pos;
-  $('#info .mdiff').text(fdiff);
+  //$('#info .mdiff').text(fdiff);
 
-  male.x = male.x + (curr_year > prev_year ? 10 : -10);
-  female.x = female.x + (curr_year > prev_year ? 10 : -10);
+  male.x = male.x + (v=='u' ? 10 : -10);
+  female.x = female.x + (v=='u' ? 10 : -10);
 
   s.find(".m.character").css({ left: male.x });  
   s.find(".f.character").css({ left: female.x });  
@@ -223,7 +268,7 @@ function gameon() { ingame = true; }
 function gameoff() { ingame = false; }
 function play()
 {
-  gameon(); tick(); game();
+  gameon(); game();  tick();
 }
 function game()
 {
@@ -232,7 +277,9 @@ function game()
   scr_clean();
 
   var top = $('<div class="top"></div>').appendTo(s);
-  s.append($('<div class="divider"></div>'));
+  var timeline = $('<div class="timeline"><div class="point-in-time" data-time="'+timeline_point.getTime()+'">'+getMonthS(timeline_point)+ " " + timeline_point.getFullYear() + '</div></div>').appendTo(s);
+  timeline.find('.point-in-time').css({heigth:timeline_height,line_height:timeline_height});
+
   var bottom = $('<div class="bottom"></div>').appendTo(s);
 
   var m = $('<div class="m character"></div>').appendTo(top);
@@ -244,6 +291,44 @@ function game()
   f.css({top:female.y}).animate({ left: female.x});
 
   fend(arguments.callee.name);
+}
+function timeline_tick(v)
+{
+  if(exist(v))
+  {    
+    if(typeof v === "number") v = Math.round10(v);
+    if(typeof v === "string" && v.length >= 2 && v.match(/[my]/g).length == 1) 
+    {
+      if(v.indexOf('m') != -1) 
+      {
+        v = v.replace('m','');
+        if(isNumberWithSign(v)) v=+v;
+      }
+      else if(v.indexOf('y') != -1)
+      {
+        v = v.replace('y','');
+        if(isNumberWithSign(v)) v=+v*12; 
+      }
+    }
+    if(isNumberWithSign(v)) 
+    {
+      var point = $('.point-in-time');
+      var curTimeString = point.attr('data-time');
+
+      var curTime = new Date();
+      curTime.setTime(+curTimeString);
+      curTime.setMonth(curTime.getMonth() + v);
+
+      console.log(curTime,timeline_end_point);
+      if(curTime > timeline_end_point) epilogue();
+
+      timeline_point = curTime;
+      point.text(getMonthS(curTime) + " " + curTime.getFullYear());
+      point.attr('data-time',curTime.getTime());
+
+    }
+    else console.log("timeline step is incorrect");  
+  }
 }
 function epilogue()
 {
@@ -496,7 +581,7 @@ var poll = {
 
     scr_clean();
     this.init();
-
+    this.show_thumbnails();
     if(steptogo == 0)
       this.gender();
     else 
@@ -1290,6 +1375,7 @@ var poll = {
     if (thumbnail.empty()) thumbnail = s3.append('svg').classed('thumbnail',true);
     var thumb_count = thumbnail.selectAll('g').size();
 
+
     var g = thumbnail.append('g').classed(klass+'-thumbnail',true);      
 
     g.append('circle').attr({cx:thumb_cx,cy:2*thumb_cx*(thumb_count+1),r:thumb_r,'stroke-width':1,stroke:'lightblue',fill:color.white})
@@ -1299,7 +1385,39 @@ var poll = {
     g.append('svg:image').attr({
       x:4,y:27,width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
     });       
+  },
+  show_thumbnails:function show_thumbnails()
+  {
+     var thumb_r = 21, thumb_cx = 22;
+    var klass = ["gender","age","category","salary","interest","percent"];
+
+    var thumbnail = d3.select('svg.thumbnail');
+    if (thumbnail.empty()) thumbnail = s3.append('svg').classed('thumbnail',true);
+    //var thumb_count = thumbnail.selectAll('g').size();
+
+
+    var g = thumbnail.selectAll('g').data(klass).enter().append('g').attr('class',function(d){ return d+'-thumbnail'; });      
+
+    g.append('circle')
+      .attr('cy',function(d,i){return 2*thumb_cx*(i+1); })
+      .attr({cx:thumb_cx,r:thumb_r,'stroke-width':1,stroke:'lightblue',fill:color.white});
+      //.transition().duration(500).ease('circle-in').attr({fill:'lightblue'});
+
+  g.append('text').text(function(d,i){return i+1;})  
+    .style('font-size','15px')  
+    .attr('y',function(d,i){return 2*thumb_cx*(i+1)+5; })
+    .attr({
+      x:16, width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
+    });    
+
+    // g.append('svg:image')
+    // .attr('y',function(d,i){return 2*thumb_cx*(i+1)-18; })
+    // .attr({
+    //   x:4, width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
+    // });       
   }
+
+
 };
 /***************************************************************
                   Poll Part End
