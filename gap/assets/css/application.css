@@ -46,19 +46,11 @@ body,html
    font-size:25px;
    font-size:10vmin;
 }
-#screen .top, #screen .bottom,#screen .timeline
+#screen .top, #screen .bottom
 {
-   width:100%;
+     width:100%;
 }
-#screen .timeline
-{
-  background-color:#ededed;
-}
-#screen .timeline .point-in-time
-{ 
-   height: 30px;
-   line-height: 30px;
-}
+
 
 .m.character
 {
@@ -200,6 +192,59 @@ svg.stage-bk { z-index:300; }
    position:relative;
    top:0px;
    left:0px;
+}
+
+#screen .timeline
+{
+   position:absolute;
+   background-color:#ededed;
+   width:100%;
+}
+.timeline .canvas
+{
+   position: relative;
+   background-color: transparent;
+   left: 100px;
+   width: 100%;
+   height: 30px;
+   overflow: hidden; 
+}
+#screen .timeline .point-in-time
+{ 
+   position:absolute;
+   height: 30px;
+   line-height: 30px;
+   display:inline-block;
+   top:0px;
+}
+
+.point-in-time .point
+{
+   width:81px;
+   display:inline-block;
+   text-align:center;
+}
+.point-in-time .mask
+{
+   position:relative;
+   top:-30px;
+   left:0px;
+   width:81px;
+   height:30px;
+   background:transparent url('../images/svg/point_mask.svg') no-repeat;
+   background-size:81px 30px;
+   background-position:0px 0px;
+}
+.timeline .serif
+{
+   position:relative;
+   top:0px;   
+   width:1px;
+   height:30px;
+   background:transparent url('../images/png/timeline_tick.png') no-repeat;
+   background-size:1px 30px;
+   background-position:0px 0px;
+   display:inline-block;
 }
 #info .mask
 {

@@ -116,3 +116,11 @@ function getMonthS(v,lang)
     lang = lang ? lang : 'en-us';
     return v.toLocaleString(lang, { month: "short" });
 }
+function monthDiff(from, to) {
+    var d1 = from;
+    var d2 = to;
+    if(d1 > d2) { d1 = to; d2 = from; }
+    
+    var months = ((d2.getFullYear() - d1.getFullYear()) * 12) - (d1.getMonth()) + (d2.getMonth()); // (years) - (from months) + (to months)
+    return months <= 0 ? 0 : months;
+}
