@@ -109,6 +109,7 @@ var timeline_end_point = new Date();
 timeline_end_point.setTime(timeline_point.getTime());
 timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
 var time_step = "3m"; // increment for on each scroll is 3 months, available formats m:month, y:year
+var time_step_number = 3;
 var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewport_width
 var timeline_scroll_to_tick_value = 0;
 var timeline_scroll_to_tick = 10;
@@ -141,8 +142,10 @@ function human()
   this.height = 100;
   this.width = 46;
   this.canvas = 200;
-  this.x = 30;
+  this.x = 0;
   this.y = 0;
+  this.land = 0;
+  this.angle = 0;
   //this.getInfo = function getInfo() {
         //return 'A ' + this.color + ' ' + this.desc + '.';
   //};
@@ -209,15 +212,18 @@ var ingame = false; // if you are in game true, else false (intro, epilogue, etc
   function game_redraw()
   {
     //info();    
-    var half = h2-timeline_height/2;
-    $("#screen .top").each(function(i,d){ $(d).height(half); });
-    $("#screen .timeline").each(function(i,d){ $(d).height(timeline_height); });
-    $("#screen .bottom").each(function(i,d){ $(d).height(half); });
+    var half = (h-timeline_height)/2;
+    $("#screen .top").each(function(i,d){ $(d).height(half).css('top',0); });
+    $("#screen .timeline").each(function(i,d){ $(d).height(timeline_height).css('top',h2-timeline_height/2); });
+    $("#screen .bottom").each(function(i,d){ $(d).height(half).css('top',half+timeline_height); });
     screen(curr_screen);
 
-    land = half;
-    male.y = land - male.height;
-    female.y = land - female.height + timeline_height;
+    male.land = half;
+    female.land = half + timeline_height;
+
+
+    male.y = male.land - male.height;
+    female.y = female.land - female.height;
   }
   function screen(v)
   {
@@ -257,14 +263,33 @@ function tick()
 }
 function calculate(v)
 {
-  fdiff = diff_step * pos;
+  //fdiff = diff_step * pos;
   //$('#info .mdiff').text(fdiff);
 
-  male.x = male.x + (v=='u' ? 10 : -10);
-  female.x = female.x + (v=='u' ? 10 : -10);
 
-  s.find(".m.character").css({ left: male.x });  
-  s.find(".f.character").css({ left: female.x });  
+  
+
+  var life = (max_age - user.age) * 12;
+  var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
+  var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
+  var coord = pathCoordinateByPercent(lifePercent*8);
+
+  var scaleX = $(document).width()/100;
+  var scaleY = (h2-timeline_height/2)/56;
+
+  console.log(lifePercent,male.land,"coord.y",coord.y,coord.y*scaleY,male.height,scaleY);
+
+  male.y = male.land - (male.land - coord.y*scaleY + male.height);
+  female.y = female.land - (female.land - coord.y*scaleY + female.height);
+
+  male.x = coord.x*scaleX;
+  female.x = coord.x*scaleX;
+  male.angle = coord.a;
+  female.angle = coord.a;
+    
+
+  s.find(".m.character").css({ left: male.x, top: male.y ,transform:"rotate(" + male.angle + "deg)","-webkit-transform":"rotate(" +  male.angle + "deg)" });  
+  s.find(".f.character").css({ left: female.x, top:female.y, transform:"rotate(" + female.angle + "deg)","-webkit-transform":"rotate(" +  female.angle + "deg)" });  
 }
 function intro()
 {  
@@ -364,16 +389,16 @@ function timeline_point_draw(v)
 {
   var startOffset = w/2;
   var offset = w*timeline_scale;
-  console.log(offset,timeline_points);
+  //console.log(offset,timeline_points);
   timeline_points.forEach(function(d,i){
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
     {
-      console.log(i);
+      //console.log(i);
       var point = $('<div class="point-in-time" data-time="'+ d.getTime()+'"><div class="point">'+getMonthS(d)+ " " + d.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
       point.css({heigth:timeline_height,line_height:timeline_height});
       if(i == 0) 
       { 
-        console.log('first');
+        //console.log('first');
         prevPosition = startOffset;
         prevPositionLeft = startOffset - point.width()/2;
         point.css({left: prevPositionLeft });
@@ -387,7 +412,7 @@ function timeline_point_draw(v)
       
       var ticks = v;//monthDiff(timeline_points[i],timeline_points[i-1]);
       var scaler = w*timeline_scale/ticks;
-      console.log(ticks,scaler);
+      //console.log(ticks,scaler);
       for(var j = 0; j < ticks-1; ++j)
       {
          $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:timeline_height,line_height:timeline_height }).appendTo(timeline);        
@@ -1492,3 +1517,54 @@ var poll = {
 /***************************************************************
                   Poll Part End
 ***************************************************************/
+
+  var path_data = "M0.538,55.373c0,0,4.148-5.646,9.213-11.218c0.928-1.021,1.742-2.083,3.062-2.633c1.167-0.485,2.316-0.437,3.48-0.435c6.979,0.012,12.423,0.052,19.646,0.062c1.104,0.002,2.253-0.003,3.333,0.519c0.922,0.443,1.38,1.092,2,1.891c6.737,8.681,12.645,16.525,22.126,8.415c5.08-4.345,10.668-13.485,18.482-10.994c7.814,2.49,7.98,14.396,11.785,14.396c3.126,0,5.771,0,5.771,0";
+
+//  "M1,54.645c0,0,10.893-18.687,21.765-18.12s14.723,5.096,21.291,16.874s15.289,10.079,19.343,6.124c4.784-4.668,10.668-13.485,18.482-10.994c7.814,2.491,7.701,9.4,11.108,11.091c2.14,1.063,6.511-0.453,6.511-0.453";
+  
+  //"M6.426,79.957c0,11.458,1.996,19,14.175,19s14.513,3.233,14.513,13.992 c0,6.656-0.397,14.008-13.284,14.008c-9.987,0-15.716,7.74-15.716,13.369c0,21.011,0,61.556,0,82.832 c0,5.765,4.383,13.8,15.54,13.8c8.249,0,18.337,0,26.498,0c7.93,0,14.962,6.735,14.962,13.752c0,21.643,0,63.35,0,84.411 c0,6.236,6.625,12.837,13.29,12.837c26.493,0,85.584,0,111.78,0c8.115,0,12.93-6.952,12.93-13.364c0-21.212,0-62.342,0-83.445 c0-8.199,3.521-13.191,13.918-13.191c10.265,0,14.082,6.601,14.082,13.103c0,26.36,0,85.56,0,112.314 c0,5.3-3.583,13.583-12.941,13.583c-21.146,0-62.868,0-84.055,0c-5.23,0-13.004,4.118-13.004,12.652 c0,8.372,3.064,16.348,13.18,16.348c8.367,0,19.188,0,27.726,0c8.527,0,14.095,4.659,14.095,11.292 c0,7.924,5.049,13.708,14.07,13.708c31.402,0,106.853,0,137.575,0c9.209,0,13.355,8.605,13.355,13.932c0,26.855,0,85.454,0,111.787 c0,7.003,5.738,13.281,15.16,13.281c27.004,0,83.071,0,109.484,0c8.844,0,14.355,6.448,14.355,14.589 c0,10.933-5.415,16.411-13.775,16.411c-8.578,0-14.225,5.688-14.225,10.997c-1,21.253,16.501,34.67,39.834,32.67 s59.72-19.334,63.333-77.334s-38.419-58.724-2.876-143.362c35.543-84.637-31.851-132.554-23.66-194.708 c9.375-71.142,49.203-73.929,66.536-149.263c0-54.333-59.469-55.664-95.734-48.665s-48.265-18.999-91.599-20s-30,31-99.667,31 s-44.05-26.665-103.191-31c-59.142-4.335-38.976,40.167-121.642,41.832c-23.568,0-54.487-17.882-63.333-10.333 C12.211,47.827,7.582,70.632,6.53,77.041C6.376,77.978,6.426,79.895,6.426,79.957z";
+//     var pathAnimator = new PathAnimator( path );    // initiate a new pathAnimator object
+// var    speed = 5,              // seconds that will take going through the whole path
+//     reverse = false,        // go back or forward along the path
+//     startOffset = null,        // between 0% to 100%
+//     easing = '';//function(t){ return t*(2-t); };//    // optional easing function
+
+
+
+
+  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', path_data);    
+  var pathl = path.getTotalLength();
+
+
+function pathCoordinateByPercent(percent) // input percent of whole path
+{
+  var p1 = pointAt(percent-1);
+  var p2 = pointAt(percent+1);
+  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+  var p = pointAt(percent);
+  return { x:p.x,y:p.y, a:a };
+}      
+function pointAt(p){
+
+    return path.getPointAtLength( pathl * p/100 );
+}
+
+
+
+// pathAnimator.start( speed, step, reverse, startOffset, finish, easing);
+
+// function step( point, angle ){
+//   $('#tester').css({
+//                     left:point.x*$(document).width()/100+'px',
+//                     top:point.y+'px',
+//                     transform:"rotate(" + angle + "deg)",
+//                     "-webkit-transform":"rotate(" +  angle + "deg)" });
+//  // console.log("step",point, angle);
+//     // do something every "frame" with: point.x, point.y & angle
+// }
+
+// function finish(){
+//   //this.stop();
+//     // do something when animation is done
+// }

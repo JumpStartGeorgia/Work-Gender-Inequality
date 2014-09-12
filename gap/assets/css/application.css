@@ -49,6 +49,7 @@ body,html
 #screen .top, #screen .bottom
 {
      width:100%;
+     position:absolute;
 }
 
 
@@ -63,6 +64,14 @@ body,html
 .f.character
 {
    background:transparent url("../images/svg/f.svg") no-repeat;
+   width:46px;
+   height:100px;
+   position:relative;
+   left:0px;
+}
+#tester
+{
+    background:transparent url("../images/svg/f.svg") no-repeat;
    width:46px;
    height:100px;
    position:relative;
