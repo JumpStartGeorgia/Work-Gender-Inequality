@@ -51,8 +51,16 @@ body,html
      width:100%;
      position:absolute;
 }
-
-
+#screen .top .top-score, #screen .bottom .bottom-score
+{     
+  position: relative;
+  top: 20px;
+  display:inline-block;
+}
+#screen .top .top-score div, #screen .bottom .bottom-score div
+{
+   display:inline-block;
+}
 .m.character
 {
    background:transparent url("../images/svg/m.svg") no-repeat;

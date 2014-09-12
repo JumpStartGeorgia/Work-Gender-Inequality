@@ -1,0 +1,86 @@
+
+
+var pos = 0; // position of life
+var pos_min = 0; // years for life
+var pos_max = 45; // years until the end
+var prev_pos = pos; // previous life step
+
+var start_year = curr_date.getFullYear(); // start year
+var end_year = start_year + pos_max; // year to end the game
+var prev_year = start_year-1; // previous year
+var curr_year = start_year; // current year
+var diff_step = 244; // gap difference in $
+var fdiff = 0; // female money calculated with diff_step based on current year
+
+
+ if(ingame)
+    {    
+      //prev_pos = pos;      
+      //if(delta < 0 && pos < pos_max) ++pos;
+     // else if(delta >= 0 && pos > pos_min) --pos;
+     // if(pos != prev_pos) tick();
+}
+
+
+function info()
+{
+  i = $('<div id="info"></div>').appendTo('#content');
+  i.append($('<div class="male">').append('<span class="mdiff">0</span><div class="piggy_happy"></div>').append());
+  i.append($('<div class="y"></div>'));
+  i.append($('<div class="female">').append('<span class="fdiff">0</span><div class="piggy_unhappy"></div>').append());      
+  ticker_init();
+}
+function ticker_init()
+{
+  fstart(arguments.callee.name);
+
+  var ticker = $('#info .y');
+  var th = 31;
+  var opacity_step = 1 / (tick_count + 1);
+
+  for(var i = tick_count; i > 0; --i)
+  {
+    var item = $('<div class="prev'+i+' prev"></div>').appendTo(ticker);
+    item.append('<div class="year"></div>');
+    item.append('<div class="mask"></div>'); 
+    var tmp = th*(tick_count-i);
+    if(tmp != 0) ++tmp;
+    item.css({top:tmp,opacity:1-opacity_step*i});
+
+  }
+  ticker.append($('<div class="curr"></div>').append('<div class="year"></div>').append('<div class="mask"></div>').css({top:tick_count*th+1}));
+
+  for(var i = 1; i <= tick_count; ++i)
+  {
+    var item = $('<div class="next'+i+' next"></div>').appendTo(ticker);
+    item.append('<div class="year"></div>');
+    item.append('<div class="mask"></div>');   
+    var tmp = th*(tick_count+i) + 1;
+
+    item.css({top:tmp,opacity:(1-opacity_step*i)});
+  }
+
+  ticker.css({ height: th*(tick_count*2+1)});
+  ticker.css({ top: h/2-ticker.height()/2-1});
+
+  ticker_tick();
+  fend(arguments.callee.name);
+}
+function ticker_tick()
+{
+  var ticker = $('#info .y');
+  for(var i = 1; i <= tick_count; ++i)
+  {
+    var prev = ticker.find('.prev'+i);
+    if(curr_year-start_year >= i) prev.show();
+    else prev.hide();
+    prev.find(".year").text(curr_year-i);
+
+
+    var next = ticker.find('.next'+i);
+    if(end_year - curr_year >= i) next.show();
+    else next.hide();
+    next.find(".year").text(curr_year+i);
+  }
+  ticker.find('.curr .year').text(curr_year);
+}
