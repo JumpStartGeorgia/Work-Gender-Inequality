@@ -19,37 +19,7 @@ $(document).ready(function(){
       if(func(onscrolldown)) onscrolldown();
     }
 
-    if(ingame)
-    {        
-      if(delta < 0)
-      {  
-
-        ++timeline_scroll_to_tick_value;
-        var scaler = w*timeline_scale;
-        var t1 = (scaler)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
-       
-        var len = timeline_points.length;
-         console.log(t1,len*scaler);
-        if(t1 > len*scaler) 
-        {
-          var toadd = Math.round10(t1/(scaler)) + 1 - len;
-           timeline_tick(time_step,toadd);
-        }
-        calculate('u');
-      }
-      else 
-      {
-        
-        if(timeline_scroll_to_tick_value > 0)
-        {
-          --timeline_scroll_to_tick_value;      
-           calculate('d');
-        }
-       
-      }
-      $('.canvas').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
-
-    }
+    walk(delta < 0 ? 1 : 0);
 
     if(func(onscrollafter)) onscrollafter()
   });
@@ -84,11 +54,11 @@ var h2 = 0; // half of height viewport
 var w2 = 0; // half of width viewport 
 var s = null; // screen jquery object
 var s3 = null; // screen jquery object
-
+var lh = 0; // screen part height, land for character
 var curr_date = new Date(); // current date
 
 var timeline = null; // timeline jq pointer
-var timeline_height = 30; // timeline height in px
+var th = 30; // timeline height in px
 var timeline_point = new Date(curr_date.getFullYear(),curr_date.getMonth(),1,0,0,0,0);
 var timeline_end_point = new Date();
 timeline_end_point.setTime(timeline_point.getTime());
@@ -136,24 +106,23 @@ function human(selector,title)
 
   this.position = function position(coord) {
       var scaleX = $(document).width()/100;
-      var scaleY = (h2-timeline_height/2)/56;
+      var scaleY = (h2-th/2)/56;
 
       if(exist(coord))
       {
         if(exist(coord.x)) this.x = coord.x*scaleX;
         if(exist(coord.y)) this.y = this.land - (this.land - coord.y*scaleY + this.height);
         if(exist(coord.a)) this.angle = coord.a;
-      }
-
+      }      
       $(this.selector).css({ left: this.x, top: this.y ,transform:"rotate(" + this.angle + "deg)","-webkit-transform":"rotate(" +  this.angle + "deg)" });  
 
       //console.log({ human:this.title ,x:this.x, y:this.y, a:this.angle });
       return { human:this.title ,x:this.x, y:this.y, a:this.angle };
   };
 
-  this.positionXYA = function position(x,y,a) {
+  this.positionXYA = function positionXYA(x,y,a) {
       var scaleX = $(document).width()/100;
-      var scaleY = (h2-timeline_height/2)/56;
+      var scaleY = (h2-th/2)/56;
 
       if(exist(coord))
       {
@@ -169,9 +138,8 @@ function human(selector,title)
   };
   this.toground = function toground() 
   {
-    var half = (h-timeline_height)/2;
+    var half = (h-th)/2;
     this.y = half - this.height;
-    //this.position({ x:this.x, y:this.y });
   };
 }; // human object with basic properties
 
@@ -206,7 +174,7 @@ var female = new human('.f.character','Female'); // female human object
   function init()
   {
     fstart(arguments.callee.name);
-
+    
     redraw(); // calculate all dimensions 
 
     params_init();
@@ -217,34 +185,36 @@ var female = new human('.f.character','Female'); // female human object
 
     intro();  // play game intro and choose where to go based on params poll part or game itself     
 
+    // start preloading data while playing, by stage loading 
+    // for each stage collect data, switch flag for stage if not show progress bar 
+    // manipulate layers in stage, with positions and points to start and end, transition delay, duration
+
     fend(arguments.callee.name);
   }
   function redraw()
   {
+    console.trace();
     fstart(arguments.callee.name);
 
      w = $(this).width();
      h = $(this).height(); 
      w2 = w/2;
      h2 = h/2; //log("w:" + w + "/ h:" + h);
- 
-    game_redraw();
+     lh = (h - th)/2;
+    if(ingame) game_redraw();
 
     fend(arguments.callee.name);
   }
   function game_redraw()
   {      
-    var half = (h-timeline_height)/2;
+    var half = (h-th)/2;
     $("#screen .top").each(function(i,d){ $(d).height(half).css('top',0); });
-    $("#screen .timeline").each(function(i,d){ $(d).height(timeline_height).css('top',h2-timeline_height/2); });
-    $("#screen .bottom").each(function(i,d){ $(d).height(half).css('top',half+timeline_height); });
+    $("#screen .timeline").each(function(i,d){ $(d).height(th).css('top',h2-th/2); });
+    $("#screen .bottom").each(function(i,d){ $(d).height(half).css('top',half+th); });
     screen(curr_screen);
 
-   // male.land = half - male.height;
-    //female.land = half - female.height;//+ timeline_height;
-
-    male.position();
-    female.position();
+    redraw_human();
+    
 
   }
   function screen(v){ cur_screen = v; }
@@ -255,15 +225,53 @@ var female = new human('.f.character','Female'); // female human object
     s.empty();
     if(exist(klass)) s.removeClass(klass);
   }  
-function calculate(v)
+function calculate()
 {
   var life = (max_age - user.age) * 12;
   var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
   var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
   var coord = pathCoordinateByPercent(lifePercent*8);
+  redraw_human(coord);
+}
+function walk(v)
+{
+   if(ingame)
+    {        
+      if(v==1)
+      {  
 
-  male.position(coord);
-  female.position(coord)
+        ++timeline_scroll_to_tick_value;
+        var scaler = w*timeline_scale;
+        var t1 = (scaler)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
+       
+        var len = timeline_points.length;
+         console.log(t1,len*scaler);
+        if(t1 > len*scaler) 
+        {
+          var toadd = Math.round10(t1/(scaler)) + 1 - len;
+           timeline_tick(time_step,toadd);
+        }
+        calculate();
+      }
+      else 
+      {
+        
+        if(timeline_scroll_to_tick_value > 0)
+        {
+          --timeline_scroll_to_tick_value;      
+           calculate();
+        }
+       
+      }
+      $('.canvas').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
+
+    }
+}
+function redraw_human(v)
+{
+  if(typeof v === undefined) v = null;
+  male.position(v);
+  female.position(v);
 }
 function intro()
 {  
@@ -297,7 +305,9 @@ function game()
   var top = $('<div class="top"></div>').appendTo(s);
   var top_score = $('<div class="top-score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">30</div></div></div>').appendTo(top);  
-  top_score.css({ left: w-top_score.width()-30});
+  top_score.css({ left: w-top_score.width()-30});  
+
+  top_stage_draw();
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
   timeline = timeline.find('.canvas');
@@ -310,7 +320,7 @@ function game()
 
   var m = $('<div class="m character"></div>').appendTo(top);
   var f = $('<div class="f character"></div>').appendTo(bottom);
-
+  
   male.toground();
   female.toground();
   game_redraw();
@@ -319,6 +329,75 @@ function game()
 
   fend(arguments.callee.name);
 }
+   var bk_offset = 0;
+   var bk_offset_prev = 0;
+   var last_image_width = 0;
+   var stage_index = 0;
+   var layer_index = 0;
+  // var new_stage = true;
+   var stage_first = true;
+
+function top_stage_draw()
+{
+    var tmp = null; 
+    var top = $('.top');
+
+   var layers = stages[stage_index].layers; 
+   //console.log(layers,layer_index,stage_index,stages.length);
+  
+console.log('new stage- ----',layer_index, layers.length, stage_index,stages.length-1);
+   if(stage_first || (layer_index == layers.length && stage_index <= stages.length-1))
+   {      
+
+      if(!stage_first) ++stage_index;
+      layer_index = 0;
+      layers =  stages[stage_index].layers; 
+      $('<div class="stage stage-id-'+(stage_index+1)+'"></div>').appendTo(top) ;  
+      stage_first = false;
+   }
+    var stage_id = '.stage.stage-id-'+(stage_index+1);
+   tmp = $(stage_id);
+
+   var li = layer_index;
+   for(var i = li; i < layers.length; ++i)
+   {
+    layer_index = i+1;
+    var l = layers[i];
+    l.i = i+1;
+
+    var img = $('<img src="'+l.image+'"/>');
+    var item = $('<div class="layer '+(i+1)+'"></div>').appendTo(tmp) ; 
+    item.append(img);
+
+    if(l.scale)
+    {      
+      //onimageload(l)
+      var sss = 10;
+      img.data(l);
+      img.load(function(){
+        bk_offset+=bk_offset_prev;
+        var img = $(this);
+        var l = img.data();
+        //console.log(img,img.length,"asdfsdf",bk_offset_prev,bk_offset,(bk_offset + v.position.x*w/100), v.position.y*lh/100 );
+        img.css({ height:lh , left: (bk_offset + l.position.x*w/100), top:l.position.y*lh/100 });
+        if(exist(l.bk) && l.bk)  bk_offset_prev=img.width();      
+        last_image_width = img.width();
+        top_stage_draw();
+      });
+      break;
+    }
+    else 
+    {      
+      var wtmp = (exist(l.fullscreen) && l.fullscreen) ? w : last_image_width;
+      img.css({left:bk_offset + l.position.x*wtmp/100, top:l.position.y*lh/100});
+    }  
+   
+   }
+   if(layer_index == layers.length)    top_stage_draw(); 
+}
+        //$(this).css({ transform:"scale(" + t1 + "," + t2 + ")"
+     // });
+
 function timeline_tick(v,n)
 {
   if(exist(v))
@@ -369,7 +448,7 @@ function timeline_point_draw(v)
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
     {
       var point = $('<div class="point-in-time" data-time="'+ d.getTime()+'"><div class="point">'+getMonthS(d)+ " " + d.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
-      point.css({heigth:timeline_height,line_height:timeline_height});
+      point.css({heigth:th,line_height:th});
       if(i == 0) 
       { 
         prevPosition = startOffset;
@@ -387,7 +466,7 @@ function timeline_point_draw(v)
       var scaler = w*timeline_scale/ticks;
       for(var j = 0; j < ticks-1; ++j)
       {
-         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:timeline_height,line_height:timeline_height }).appendTo(timeline);        
+         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);        
       }
 
       point.find('.point').text(getMonthS(d) + " " + d.getFullYear());    
@@ -415,8 +494,8 @@ function epilogue()
 /***************************************************************
                   Utility Functions
 ***************************************************************/
-function fstart(v) { console.log("< " + v); }
-function fend(v) { console.log(v + " >"); }
+function fstart(v) { console.time(v); console.log("< " + v); }
+function fend(v) { console.timeEnd(v); console.log(v + " >");  }
 function log(v) { console.log("\t" + v); }
 function tt(){ console.log("------------------test-------------------"); }
 function exist(v) { return typeof v !== 'undefined' && v !== null && v !== '';}
@@ -1429,19 +1508,7 @@ var poll = {
                   Poll Part End
 ***************************************************************/
 
-  var path_data = "M0.538,55.373c0,0,4.148-5.646,9.213-11.218c0.928-1.021,1.742-2.083,3.062-2.633c1.167-0.485,2.316-0.437,3.48-0.435c6.979,0.012,12.423,0.052,19.646,0.062c1.104,0.002,2.253-0.003,3.333,0.519c0.922,0.443,1.38,1.092,2,1.891c6.737,8.681,12.645,16.525,22.126,8.415c5.08-4.345,10.668-13.485,18.482-10.994c7.814,2.49,7.98,14.396,11.785,14.396c3.126,0,5.771,0,5.771,0";
-
-//  "M1,54.645c0,0,10.893-18.687,21.765-18.12s14.723,5.096,21.291,16.874s15.289,10.079,19.343,6.124c4.784-4.668,10.668-13.485,18.482-10.994c7.814,2.491,7.701,9.4,11.108,11.091c2.14,1.063,6.511-0.453,6.511-0.453";
-  
-  //"M6.426,79.957c0,11.458,1.996,19,14.175,19s14.513,3.233,14.513,13.992 c0,6.656-0.397,14.008-13.284,14.008c-9.987,0-15.716,7.74-15.716,13.369c0,21.011,0,61.556,0,82.832 c0,5.765,4.383,13.8,15.54,13.8c8.249,0,18.337,0,26.498,0c7.93,0,14.962,6.735,14.962,13.752c0,21.643,0,63.35,0,84.411 c0,6.236,6.625,12.837,13.29,12.837c26.493,0,85.584,0,111.78,0c8.115,0,12.93-6.952,12.93-13.364c0-21.212,0-62.342,0-83.445 c0-8.199,3.521-13.191,13.918-13.191c10.265,0,14.082,6.601,14.082,13.103c0,26.36,0,85.56,0,112.314 c0,5.3-3.583,13.583-12.941,13.583c-21.146,0-62.868,0-84.055,0c-5.23,0-13.004,4.118-13.004,12.652 c0,8.372,3.064,16.348,13.18,16.348c8.367,0,19.188,0,27.726,0c8.527,0,14.095,4.659,14.095,11.292 c0,7.924,5.049,13.708,14.07,13.708c31.402,0,106.853,0,137.575,0c9.209,0,13.355,8.605,13.355,13.932c0,26.855,0,85.454,0,111.787 c0,7.003,5.738,13.281,15.16,13.281c27.004,0,83.071,0,109.484,0c8.844,0,14.355,6.448,14.355,14.589 c0,10.933-5.415,16.411-13.775,16.411c-8.578,0-14.225,5.688-14.225,10.997c-1,21.253,16.501,34.67,39.834,32.67 s59.72-19.334,63.333-77.334s-38.419-58.724-2.876-143.362c35.543-84.637-31.851-132.554-23.66-194.708 c9.375-71.142,49.203-73.929,66.536-149.263c0-54.333-59.469-55.664-95.734-48.665s-48.265-18.999-91.599-20s-30,31-99.667,31 s-44.05-26.665-103.191-31c-59.142-4.335-38.976,40.167-121.642,41.832c-23.568,0-54.487-17.882-63.333-10.333 C12.211,47.827,7.582,70.632,6.53,77.041C6.376,77.978,6.426,79.895,6.426,79.957z";
-//     var pathAnimator = new PathAnimator( path );    // initiate a new pathAnimator object
-// var    speed = 5,              // seconds that will take going through the whole path
-//     reverse = false,        // go back or forward along the path
-//     startOffset = null,        // between 0% to 100%
-//     easing = '';//function(t){ return t*(2-t); };//    // optional easing function
-
-
-
+  var path_data = stages[0].path;// "M0.538,55.373c0,0,4.148-5.646,9.213-11.218c0.928-1.021,1.742-2.083,3.062-2.633c1.167-0.485,2.316-0.437,3.48-0.435c6.979,0.012,12.423,0.052,19.646,0.062c1.104,0.002,2.253-0.003,3.333,0.519c0.922,0.443,1.38,1.092,2,1.891c6.737,8.681,12.645,16.525,22.126,8.415c5.08-4.345,10.668-13.485,18.482-10.994c7.814,2.49,7.98,14.396,11.785,14.396c3.126,0,5.771,0,5.771,0";
 
   var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   path.setAttribute('d', path_data);    
@@ -1467,6 +1534,18 @@ function pointAt(p){
 jwerty.key('space', function(){ 
     s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
     s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
+});
+jwerty.key('arrow-right', function(){
+  walk(1); 
+});
+jwerty.key('W', function(){
+  walk(1); 
+});
+jwerty.key('arrow-left', function(){
+  walk(0); 
+});
+jwerty.key('S', function(){
+  walk(0); 
 });
 /***************************************************************
                   Key Hooks End

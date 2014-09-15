@@ -49,3 +49,68 @@ var age_groups =
         { "name":"middle_adulthood", "min":40, "max":49},
         { "name":"advanced_adulthood", "min":50, "max":65}      
 ]; 
+
+
+var stages = 
+[
+        {
+                group: 1, // 1 - category, 2 intermediate, 3 interest
+                layers : 
+                [
+                        {
+                                image : "assets/images/svg/field/education/bk.svg", // field/imagename
+                                scale : true,
+                                position: { x: 0, y : 0, a:0 }, // x,y in percent, a in angles     
+                                bk : true   
+                        },
+                        {
+                                image : "assets/images/svg/common/sun.svg", // field/imagename
+                                scale : false,
+                                position: { x: 90, y : 10, a:0 }, // x,y in percent, a in angles    
+                                fullscreen : true    
+                        },
+                        {
+                                image : "assets/images/svg/common/bird.svg", // field/imagename
+                                scale : false,
+                                position: { x: 32, y : 40, a:0 } // x,y in percent, a in angles        
+                        }
+                        // {
+                        //         image : "education/environ2.svg", // field/imagename
+                        //         scale : false,
+                        //         position: { x: 0, y : 0, a:90 } // x,y in percent, a in angles        
+                        // }
+                ],               
+                path : "M -0.12626907,54.232233 C 4.2931483,52.843273 28.284271,49.307739 29.925769,49.560278 c 1.641498,0.252538 8.586297,1.010152 13.510791,1.010152 4.924493,0 13.763328,-0.126269 20.455589,0.757614 6.69226,0.883884 12.626906,3.661803 18.435284,4.16688 C 88.13581,56 97.732259,54.484771 98.742411,54.358502 c 1.010153,-0.126269 2.146579,-0.378807 2.146579,-0.378807",
+                character : [ {p:1,s:10}] // by step data p - percent, speed for character
+        },
+        {
+                group: 1, // 1 - category, 2 intermediate, 3 interest
+                layers : 
+                [
+                        {
+                                image : "assets/images/svg/field/education/bk.svg", // field/imagename
+                                scale : true,
+                                position: { x: 0, y : 0, a:0 }, // x,y in percent, a in angles     
+                                bk : true   
+                        },           
+                        {
+                                image : "assets/images/svg/common/bird.svg", // field/imagename
+                                scale : false,
+                                position: { x: 32, y : 40, a:0 } // x,y in percent, a in angles        
+                        },
+                        {
+                                image : "assets/images/svg/common/bird.svg", // field/imagename
+                                scale : false,
+                                position: { x: 52, y : 40, a:0 } // x,y in percent, a in angles        
+                        },
+                    
+                        // {
+                        //         image : "education/environ2.svg", // field/imagename
+                        //         scale : false,
+                        //         position: { x: 0, y : 0, a:90 } // x,y in percent, a in angles        
+                        // }
+                ],               
+                path : "M -0.12626907,54.232233 C 4.2931483,52.843273 28.284271,49.307739 29.925769,49.560278 c 1.641498,0.252538 8.586297,1.010152 13.510791,1.010152 4.924493,0 13.763328,-0.126269 20.455589,0.757614 6.69226,0.883884 12.626906,3.661803 18.435284,4.16688 C 88.13581,56 97.732259,54.484771 98.742411,54.358502 c 1.010153,-0.126269 2.146579,-0.378807 2.146579,-0.378807",
+                character : [ {p:1,s:10}] // by step data p - percent, speed for character
+        }
+];

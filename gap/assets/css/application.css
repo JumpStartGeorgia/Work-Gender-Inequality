@@ -53,13 +53,17 @@ body,html
 }
 #screen .top .top-score, #screen .bottom .bottom-score
 {     
-  position: relative;
+  position: fixed;
   top: 20px;
   display:inline-block;
 }
 #screen .top .top-score div, #screen .bottom .bottom-score div
 {
    display:inline-block;
+}
+#screen .top .layer,#screen .top .layer > img
+{
+   position:absolute;
 }
 .m.character
 {
