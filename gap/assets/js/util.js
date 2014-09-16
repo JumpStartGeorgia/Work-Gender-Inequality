@@ -87,6 +87,7 @@ function up(e,delta) { return delta || -e.originalEvent.detail / 3 || e.original
 function down(e,delta) { return !(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0); }
 function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/.test(v); }
 function isNumber(v) { return /^\d+$/.test(v); }
+function isNumberWithSign(v) { return /^-?\d+$/.test(v); }
 function fn(v)
 {
   var fn = null;
@@ -103,4 +104,23 @@ function switchStyle(selector,dur,dur1,ease,ease1,css,val,val1)
     d3.select(selector)
             .transition().duration(dur).ease(ease).style(css,val)
            .transition().duration(dur1).ease(ease1).style(css,val1);
+}
+
+function getMonth(v,lang)
+{
+    lang = lang ? lang : 'en-us';
+    return v.toLocaleString(lang, { month: "long" });
+}
+function getMonthS(v,lang)
+{
+    lang = lang ? lang : 'en-us';
+    return v.toLocaleString(lang, { month: "short" });
+}
+function monthDiff(from, to) {
+    var d1 = from;
+    var d2 = to;
+    if(d1 > d2) { d1 = to; d2 = from; }
+    
+    var months = ((d2.getFullYear() - d1.getFullYear()) * 12) - (d1.getMonth()) + (d2.getMonth()); // (years) - (from months) + (to months)
+    return months <= 0 ? 0 : months;
 }
