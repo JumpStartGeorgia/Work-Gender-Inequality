@@ -24,6 +24,13 @@ $(document).ready(function(){
     if(func(onscrollafter)) onscrollafter()
   });
 
+
+  $(window).on("swipeleft",function(){
+    walk(1); //alert('asdf');
+  });
+  $(window).on("swiperight",function(){
+    walk(0);
+  });
   // on resize redraw game   
     $( window ).resize(function() { init(); });
 
@@ -89,6 +96,11 @@ var land = 0; // y position for land in each screen part(top, bottom)
 var tick_count = 4; // year ticks to show in info bar
 var is = false;
 var max_salary = 99999;
+var current_path_width = 0;
+var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+var pathl = 0;
+var stage_offset = 0;
+
 
 function human(selector,title) 
 {
@@ -103,10 +115,15 @@ function human(selector,title)
   this.angle = 0;
   this.land = 0;  
   this.selector = selector;
+  _tsalary = 0; // total salary
+  _tsaved = 0; // total saved
+  _stage = [];
+
 
   this.position = function position(coord) {
-      var scaleX = $(document).width()/100;
-      var scaleY = (h2-th/2)/56;
+      console.log(current_path_width,this.land,coord);
+      var scaleX = current_path_width/100;
+      var scaleY = this.land/56;
 
       if(exist(coord))
       {
@@ -114,7 +131,7 @@ function human(selector,title)
         if(exist(coord.y)) this.y = this.land - (this.land - coord.y*scaleY + this.height);
         if(exist(coord.a)) this.angle = coord.a;
       }      
-      $(this.selector).css({ left: this.x, top: this.y ,transform:"rotate(" + this.angle + "deg)","-webkit-transform":"rotate(" +  this.angle + "deg)" });  
+      $(this.selector).css({ left: this.x + stage_offset, top: this.y ,transform:"rotate(" + this.angle + "deg)","-webkit-transform":"rotate(" +  this.angle + "deg)" });  
 
       //console.log({ human:this.title ,x:this.x, y:this.y, a:this.angle });
       return { human:this.title ,x:this.x, y:this.y, a:this.angle };
@@ -139,8 +156,40 @@ function human(selector,title)
   this.toground = function toground() 
   {
     var half = (h-th)/2;
+    this.land = half;
     this.y = half - this.height;
   };
+  
+  //setters and getters
+  this.__defineGetter__("tsalary", function(){
+      return _tsalary;
+  });
+ 
+  this.__defineSetter__("tsalary", function(val){
+      _tsalary = val;
+      if(val > 0)
+        $(this.selector).parent().find('.score .tsalary .value').text(val);
+  });
+
+this.__defineGetter__("tsaved", function(){
+      return _tsaved;
+  });
+ 
+  this.__defineSetter__("tsaved", function(val){
+      _tsaved = val;
+      if(val > 0)
+        $(this.selector).parent().find('.score .tsaved .value').text(val);
+  });
+
+  this.__defineGetter__("stage", function(){
+      return _stage;
+  });
+ 
+  this.__defineSetter__("stage", function(val){
+      _stage = val;
+  });
+
+
 }; // human object with basic properties
 
 var user =
@@ -225,12 +274,29 @@ var female = new human('.f.character','Female'); // female human object
     s.empty();
     if(exist(klass)) s.removeClass(klass);
   }  
+  var prev_stage_id = -1;
+  var stage_id = -1;
 function calculate()
 {
   var life = (max_age - user.age) * 12;
   var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
   var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
-  var coord = pathCoordinateByPercent(lifePercent*8);
+  stage_id = Math.floor10(timeline_scroll_to_tick_value/timeline_scroll_to_tick)%2;
+  pathSwitch(stages[stage_id].path);
+
+  if(stage_id != prev_stage_id)
+  {
+    stage_offset = 0;
+    for(var i = 1; i <= stage_id; ++i)
+      stage_offset += stages[i].w;  
+  }
+
+  //console.log(stage_id);
+  var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
+  var coord = pathCoordinateByPercent(percent);
+  
+
+  //var coord = pathCoordinateByPercent(lifePercent*8);
   redraw_human(coord);
 }
 function walk(v)
@@ -239,7 +305,11 @@ function walk(v)
     {        
       if(v==1)
       {  
-
+        if(timeline_scroll_to_tick_value%1==0)
+        {
+          var stage = $('.stage');
+          stage.css('left', stage.position().left-50);
+        }
         ++timeline_scroll_to_tick_value;
         var scaler = w*timeline_scale;
         var t1 = (scaler)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
@@ -255,9 +325,18 @@ function walk(v)
       }
       else 
       {
-        
+  
+
         if(timeline_scroll_to_tick_value > 0)
         {
+
+        if(timeline_scroll_to_tick_value%1==0)
+        {
+          var stage = $('.stage');
+          stage.css('left', stage.position().left+50);
+        }
+
+
           --timeline_scroll_to_tick_value;      
            calculate();
         }
@@ -303,9 +382,11 @@ function game()
   scr_clean();
 
   var top = $('<div class="top"></div>').appendTo(s);
-  var top_score = $('<div class="top-score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
+  var top_score = $('<div class="top-score score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">30</div></div></div>').appendTo(top);  
   top_score.css({ left: w-top_score.width()-30});  
+
+  top.append('<div class="stage"></div>');
 
   top_stage_draw();
 
@@ -314,9 +395,9 @@ function game()
   timeline_tick(time_step);
 
   var bottom = $('<div class="bottom"></div>').appendTo(s);
-  var bottom_score = $('<div class="bottom-score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
+  var bottom_score = $('<div class="bottom-score score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">30</div></div></div>').appendTo(bottom);
-  bottom_score.css({ left: w-bottom_score.width()-30});
+  bottom_score.css({ left: w-bottom_score.width()-30, top: lh + th + 20});
 
   var m = $('<div class="m character"></div>').appendTo(top);
   var f = $('<div class="f character"></div>').appendTo(bottom);
@@ -336,64 +417,80 @@ function game()
    var layer_index = 0;
   // var new_stage = true;
    var stage_first = true;
-
+var img_scaler = 1;
 function top_stage_draw()
 {
-    var tmp = null; 
-    var top = $('.top');
 
-   var layers = stages[stage_index].layers; 
-   //console.log(layers,layer_index,stage_index,stages.length);
-  
-console.log('new stage- ----',layer_index, layers.length, stage_index,stages.length-1);
-   if(stage_first || (layer_index == layers.length && stage_index <= stages.length-1))
-   {      
+  var tmp = null; 
+  var top = $('.top .stage');
 
-      if(!stage_first) ++stage_index;
-      layer_index = 0;
-      layers =  stages[stage_index].layers; 
-      $('<div class="stage stage-id-'+(stage_index+1)+'"></div>').appendTo(top) ;  
-      stage_first = false;
-   }
-    var stage_id = '.stage.stage-id-'+(stage_index+1);
-   tmp = $(stage_id);
+  var layers = stages[stage_index].layers; 
 
-   var li = layer_index;
-   for(var i = li; i < layers.length; ++i)
-   {
-    layer_index = i+1;
-    var l = layers[i];
-    l.i = i+1;
+  if(layer_index == layers.length && stage_index+1==stages.length) { current_path_width = $('.stage-id-1 .layer.1 img').width(); return;}
 
-    var img = $('<img src="'+l.image+'"/>');
-    var item = $('<div class="layer '+(i+1)+'"></div>').appendTo(tmp) ; 
-    item.append(img);
+    //console.log(layers,layer_index,stage_index,stages.length);  
+    //console.log('layer_index',layer_index, 'layers.length',layers.length, 'stage_index',stage_index, 'stage.length',stages.length);
+    //console.log(stage_first , (layer_index == layers.length ),  stage_index != stages.length , stage_index <= stages.length-1);
 
-    if(l.scale)
-    {      
-      //onimageload(l)
-      var sss = 10;
-      img.data(l);
-      img.load(function(){
-        bk_offset+=bk_offset_prev;
-        var img = $(this);
-        var l = img.data();
-        //console.log(img,img.length,"asdfsdf",bk_offset_prev,bk_offset,(bk_offset + v.position.x*w/100), v.position.y*lh/100 );
-        img.css({ height:lh , left: (bk_offset + l.position.x*w/100), top:l.position.y*lh/100 });
-        if(exist(l.bk) && l.bk)  bk_offset_prev=img.width();      
-        last_image_width = img.width();
-        top_stage_draw();
-      });
-      break;
-    }
-    else 
-    {      
-      var wtmp = (exist(l.fullscreen) && l.fullscreen) ? w : last_image_width;
-      img.css({left:bk_offset + l.position.x*wtmp/100, top:l.position.y*lh/100});
-    }  
-   
-   }
-   if(layer_index == layers.length)    top_stage_draw(); 
+  if(stage_first || (layer_index == layers.length && stage_index <= stages.length-1))
+  {      
+
+    if(!stage_first) ++stage_index;
+    layer_index = 0;
+    //console.log(stages,stage_index);
+    layers =  stages[stage_index].layers;     
+    $('<div class="stage-id-'+(stage_index+1)+'"></div>').appendTo(top) ;  
+    stage_first = false;
+  }
+  var stage_id = '.stage-id-'+(stage_index+1);
+  tmp = $(stage_id);
+
+  var li = layer_index;
+  ++layer_index;
+  var l = layers[li];
+  l.i = li+1;
+
+  var img = $('<img src="'+l.image+'"/>');
+  tmp.append($('<div class="layer '+(li+1)+'"></div>').css('z-index',(exist(l.z) ? l.z : 20)).append(img));
+  img.data(l);
+
+  img.load((exist(l.bk) && l.bk) ? image_background : image_object);
+}
+function image_background()
+{
+    var img = $(this);
+    var init_img_height = img.height();
+
+    bk_offset+=bk_offset_prev;        
+    var l = img.data();
+    console.log(l);
+    //console.log(img,img.length,"asdfsdf",bk_offset_prev,bk_offset,(bk_offset + v.position.x*w/100), v.position.y*lh/100 );
+
+    img.css({ 
+      height:lh, 
+      left: (bk_offset + l.position.x*w/100),
+      top:l.position.y*lh/100 
+    });
+    last_image_width=bk_offset_prev=img.width();     
+
+    img_scaler =  img.height() / init_img_height ;
+    stages[stage_index].w = img.width();
+
+
+    //console.log(init_img_height, img.height());
+    top_stage_draw();
+}
+function image_object()
+{
+  var img = $(this);
+  var l = img.data();
+
+  var wtmp = (exist(l.fullscreen) && l.fullscreen) ? w : last_image_width;      
+  img.css({ height:img.height()*img_scaler });
+  img.css({ 
+    left:bk_offset + l.position.x*wtmp/100,
+    top: Math.abs(l.position.y*lh/100 - img.height()) });
+  top_stage_draw();
 }
         //$(this).css({ transform:"scale(" + t1 + "," + t2 + ")"
      // });
@@ -1508,13 +1605,14 @@ var poll = {
                   Poll Part End
 ***************************************************************/
 
-  var path_data = stages[0].path;// "M0.538,55.373c0,0,4.148-5.646,9.213-11.218c0.928-1.021,1.742-2.083,3.062-2.633c1.167-0.485,2.316-0.437,3.48-0.435c6.979,0.012,12.423,0.052,19.646,0.062c1.104,0.002,2.253-0.003,3.333,0.519c0.922,0.443,1.38,1.092,2,1.891c6.737,8.681,12.645,16.525,22.126,8.415c5.08-4.345,10.668-13.485,18.482-10.994c7.814,2.49,7.98,14.396,11.785,14.396c3.126,0,5.771,0,5.771,0";
-
-  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  path.setAttribute('d', path_data);    
-  var pathl = path.getTotalLength();
+  // "M0.538,55.373c0,0,4.148-5.646,9.213-11.218c0.928-1.021,1.742-2.083,3.062-2.633c1.167-0.485,2.316-0.437,3.48-0.435c6.979,0.012,12.423,0.052,19.646,0.062c1.104,0.002,2.253-0.003,3.333,0.519c0.922,0.443,1.38,1.092,2,1.891c6.737,8.681,12.645,16.525,22.126,8.415c5.08-4.345,10.668-13.485,18.482-10.994c7.814,2.49,7.98,14.396,11.785,14.396c3.126,0,5.771,0,5.771,0";
 
 
+function pathSwitch(v)
+{
+  path.setAttribute('d', v);    
+  pathl = path.getTotalLength();
+}
 function pathCoordinateByPercent(percent) // input percent of whole path
 {
   var p1 = pointAt(percent-1);
@@ -1550,6 +1648,18 @@ jwerty.key('S', function(){
 /***************************************************************
                   Key Hooks End
 ***************************************************************/
+// function Field(val){
+//     var v = val;
+   
+//     this.__defineGetter__("value", function(){
+//         return v;
+//     });
+   
+//     this.__defineSetter__("value", function(val){
+//         v = val;
+//     });
+// }
+
 // pathAnimator.start( speed, step, reverse, startOffset, finish, easing);
 
 // function step( point, angle ){

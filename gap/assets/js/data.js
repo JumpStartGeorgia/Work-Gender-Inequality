@@ -72,7 +72,8 @@ var stages =
                         {
                                 image : "assets/images/svg/common/bird.svg", // field/imagename
                                 scale : false,
-                                position: { x: 32, y : 40, a:0 } // x,y in percent, a in angles        
+                                position: { x: 32, y : 40, a:0 },
+                                speed:1 // x,y in percent, a in angles        
                         }
                         // {
                         //         image : "education/environ2.svg", // field/imagename
@@ -91,17 +92,24 @@ var stages =
                                 image : "assets/images/svg/field/education/bk.svg", // field/imagename
                                 scale : true,
                                 position: { x: 0, y : 0, a:0 }, // x,y in percent, a in angles     
-                                bk : true   
-                        },           
+                                bk : true,
+                                z:20
+                        },    
+                        {
+                                image : "assets/images/svg/field/education/school.svg", // field/imagename
+                                scale : true,
+                                position: { x: 0, y : 100, a:0 }, // x,y in percent, a in angles        
+                                z:40
+                        },       
                         {
                                 image : "assets/images/svg/common/bird.svg", // field/imagename
                                 scale : false,
-                                position: { x: 32, y : 40, a:0 } // x,y in percent, a in angles        
+                                position: { x: 32, y : 30, a:0 } // x,y in percent, a in angles        
                         },
                         {
                                 image : "assets/images/svg/common/bird.svg", // field/imagename
                                 scale : false,
-                                position: { x: 52, y : 40, a:0 } // x,y in percent, a in angles        
+                                position: { x: 52, y : 25, a:0 } // x,y in percent, a in angles        
                         },
                     
                         // {
@@ -110,7 +118,7 @@ var stages =
                         //         position: { x: 0, y : 0, a:90 } // x,y in percent, a in angles        
                         // }
                 ],               
-                path : "M -0.12626907,54.232233 C 4.2931483,52.843273 28.284271,49.307739 29.925769,49.560278 c 1.641498,0.252538 8.586297,1.010152 13.510791,1.010152 4.924493,0 13.763328,-0.126269 20.455589,0.757614 6.69226,0.883884 12.626906,3.661803 18.435284,4.16688 C 88.13581,56 97.732259,54.484771 98.742411,54.358502 c 1.010153,-0.126269 2.146579,-0.378807 2.146579,-0.378807",
+                path : "M 0,54.035714 21.964286,54.214286 21.785714,31.357143 7.3214286,31.357143 3.9285714,33.678571 6.25,29.214286 25.535714,29.035714 25.892857,54.214286 40.892857,53.857143 48.75,55.464286 72.857143,55.285714 81.607143,52.25 96.25,52.071429 100.17857,55.107143",
                 character : [ {p:1,s:10}] // by step data p - percent, speed for character
         }
 ];
