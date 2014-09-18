@@ -519,3 +519,51 @@ svg.thumbnail
 
 svg.thumbnail path
 {fill:red;}
+
+
+/* Progress Bar */
+#svg circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear;
+  stroke: #666;
+  stroke-width: 20px;
+
+}
+
+#svg .bk
+{
+   stroke:#add2ff;
+}
+
+#svg #bar {
+  stroke: #ff94f8;
+  stroke-dashoffset: 314.16; 
+}
+#cont {
+  display: block;
+  height: 120px;
+  width: 120px;
+  margin: 2em auto;
+  /*box-shadow: 0 0 1em black;*/
+  border-radius: 100%;
+  position: relative;
+
+}
+#cont:after {
+  position: absolute;
+  display: block;
+  height: 120px;
+  width: 120px;
+  left: 0%;
+  top: 0%;
+  /*box-shadow: inset 0 0 1em black;*/
+  content: attr(data-pct)"%";
+/*  margin-top: -80px;
+  margin-left: -40px;*/
+  border-radius: 100%;
+  line-height: 120px;
+  font-size: 2em;
+  text-align:center;
+  /*text-shadow: 0 0 0.5em black;*/
+}
+/* Progress Bar */

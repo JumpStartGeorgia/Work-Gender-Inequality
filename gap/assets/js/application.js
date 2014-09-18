@@ -1,3 +1,27 @@
+var imageLoaderCount = 0;
+var imageLoadedCount = 0;
+function app_validity_check()
+{
+  for(var i = 0; i < stages.length; ++i)
+  {
+    var bk = 0;
+    var layer = stages[i].layers;
+    imageLoaderCount += layer.length;
+    for(var j = 0; j < layer.length; ++j)
+    {     
+      if(layer[j].type == 1) ++bk;
+    }
+    if(bk != 1) {
+      throw { name: 'FatalError', message: 'Something went badly wrong' };
+      console.error('Each stage have only one layer with type 1(background)'); 
+    }
+  }
+}
+
+
+app_validity_check();
+//console.log(imageLoaderCount);
+
 $(document).ready(function(){
 
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
@@ -25,21 +49,17 @@ $(document).ready(function(){
   });
 
 
-  $(window).on("swipeleft",function(){
-    walk(1); //alert('asdf');
-  });
-  $(window).on("swiperight",function(){
-    walk(0);
-  });
+  $(window).on("swipeleft",function(){ walk(1); });
+  $(window).on("swiperight",function(){ walk(0); });
   // on resize redraw game   
-    $( window ).resize(function() { init(); });
+  $( window ).resize(function() { init(); });
 
-    history.replaceState({},'',window.location.href)
+  history.replaceState({},'',window.location.href)
 
   // ***********************************************  
   // init game engine
 
-    init();
+  init();
 
   // ***********************************************  
 
@@ -223,7 +243,7 @@ var female = new human('.f.character','Female'); // female human object
   function init()
   {
     fstart(arguments.callee.name);
-    
+
     redraw(); // calculate all dimensions 
 
     params_init();
@@ -239,6 +259,10 @@ var female = new human('.f.character','Female'); // female human object
     // manipulate layers in stage, with positions and points to start and end, transition delay, duration
 
     fend(arguments.callee.name);
+  }
+  function loadResources()
+  {
+
   }
   function redraw()
   {
@@ -359,8 +383,22 @@ function intro()
   scr_clean();
   s.toggleClass(sintro.class);
   var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
-  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
+  var prg = $('<div id="cont" data-pct="0">'+
+                '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
+                  '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+                  '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+                '</svg>'+
+              '</div>').appendTo(s);  
+  intro_fade();
+
+  fend(arguments.callee.name);
+}
+function intro_fade()
+{
+    var t = $('.title');
+    t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
     scr_clean(s.toggleClass(sintro.class)); 
+ 
     if(steptogo < 6) 
       poll.show();
     else 
@@ -368,8 +406,6 @@ function intro()
       play();
     }
   });
-
-  fend(arguments.callee.name);
 }
 
 function gameon() { ingame = true; }
@@ -455,7 +491,8 @@ function top_stage_draw()
   img.data(l);
 
   img.load((exist(l.bk) && l.bk) ? image_background : image_object);
-}
+
+};
 function image_background()
 {
     var img = $(this);
@@ -476,9 +513,10 @@ function image_background()
     img_scaler =  img.height() / init_img_height ;
     stages[stage_index].w = img.width();
 
+  ++imageLoadedCount;  
+  progress(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
 
-    //console.log(init_img_height, img.height());
-    top_stage_draw();
+  top_stage_draw();
 }
 function image_object()
 {
@@ -490,6 +528,11 @@ function image_object()
   img.css({ 
     left:bk_offset + l.position.x*wtmp/100,
     top: Math.abs(l.position.y*lh/100 - img.height()) });
+
+  ++imageLoadedCount;
+  progress(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
+  //console.log(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
+
   top_stage_draw();
 }
         //$(this).css({ transform:"scale(" + t1 + "," + t2 + ")"
@@ -1627,7 +1670,35 @@ function pointAt(p){
 }
 
 /***************************************************************
-                  Key Hooks
+                  Progress Bar
+***************************************************************/
+function progress(val)
+{
+  if(val==100) 
+  {
+    intro_fade();
+  }
+  var $circle = $('#svg #bar');
+  
+  if (isNaN(val)) {
+   val = 0; 
+  }
+  else{
+    var r = $circle.attr('r');
+    var c = Math.PI*(r*2);
+   
+    if (val < 0) { val = 0;}
+    if (val > 100) { val = 100;}
+    
+    var pct = ((100-val)/100)*c;
+    
+    $circle.css({ strokeDashoffset: pct});
+    
+    $('#cont').attr('data-pct',val);
+  }
+}
+/***************************************************************
+                  Progress Bar
 ***************************************************************/
 jwerty.key('space', function(){ 
     s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
