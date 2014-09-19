@@ -63,31 +63,36 @@ function same_sign(a,b)
 {
   return (a ^ b) >= 0;
 }
-String.prototype.lpad = function(padString, length) {
-    var str = this;
-    while (str.length < length)
-        str = padString + str;
-    return str;
-}
-if(!String.prototype.trimLeft)
+
+if(!String.prototype.lpad)
 {
-  String.prototype.trimLeft = function(a) { console.log('asdfasdfasd asd fasf -----------------',a);};
-  "asdfads".trimLeft('11111');
-
-
-  // trim, rtrim, ltrim
-function trim(str, chr) {
-  var rgxtrim = (!chr) ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^'+chr+'+|'+chr+'+$', 'g');
-  return str.replace(rgxtrim, '');
+  String.prototype.lpad = function(p, l) { // string to pad, length of padding string
+      var s = this;
+      while (s.length < l)
+          s = p + s;
+      return s;
+  }
 }
-function rtrim(str, chr) {
-  var rgxtrim = (!chr) ? new RegExp('\\s+$') : new RegExp(chr+'+$');
-  return str.replace(rgxtrim, '');
+if(!String.prototype._trim)
+{
+  String.prototype._trim = function(c) { 
+    var r = (!c) ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^'+c+'+|'+c+'+$', 'g');
+    return this.replace(r, '');
+  };
 }
-function ltrim(str, chr) {
-  var rgxtrim = (!chr) ? new RegExp('^\\s+') : new RegExp('^'+chr+'+');
-  return str.replace(rgxtrim, '');
+if(!String.prototype._trimLeft)
+{
+  String.prototype._trimLeft = function(c) { 
+    var r = (!c) ? new RegExp('^\\s+') : new RegExp('^'+c+'+');
+    return this.replace(r, '');
+  };
 }
+if(!String.prototype._trimRight)
+{
+  String.prototype._trimRight = function(c) { 
+    var r = (!c) ? new RegExp('\\s+$') : new RegExp(c+'+$');
+    return this.replace(r, '');
+  };
 }
 
 function validateNumber(event) {

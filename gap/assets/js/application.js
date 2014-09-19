@@ -43,8 +43,11 @@ $(document).ready(function(){
       if(func(onscrolldown)) onscrolldown();
     }
 
-    collision(delta < 0 ? 1 : -1);
-    walk(delta < 0 ? 1 : 0);
+    if(ingame) 
+    { 
+      collision(delta < 0 ? 1 : -1);
+      walk(delta < 0 ? 1 : 0);
+    }
 
     if(func(onscrollafter)) onscrollafter()
   });
@@ -68,7 +71,7 @@ $(document).ready(function(){
 function collision(v)
 {
   //var cleft = $('.m.character').position().left;
-  //var cright = cleft + $('.m.character').width();
+  //var cright = cleft + $('.m.character').width();  
   var pleft = $('.layer.fg .part[data-part-id=1] img').parent().position().left;
   var pright = pleft + $('.layer.fg .part[data-part-id=1] img').parent().width();
   //console.log("---------------------------",timeline_scroll_to_tick_value,timeline_scroll_to_tick_value+v);
@@ -85,7 +88,7 @@ function collision(v)
 
   if((cleft >= pleft && cleft <= pright) || (cright >= pleft && cright <= pright))
   { 
-    transform('.m.character','scale(0.5,0.5)');
+    transform.scale('.m.character', 0.5, 0.5);
    // $('.m.character').css('transform','scale(0.5,0.5)');
     //console.log("inside");
   }
@@ -177,6 +180,7 @@ function human(selector,title)
     //  console.log(current_path_width,this.land,coord);
       var scaleX = current_path_width/100;
       var scaleY = this.land/56;
+      
 console.log("width",current_path_width);
       if(exist(coord))
       {
@@ -314,7 +318,7 @@ var female = new human('.f.character','Female'); // female human object
   }
   function redraw()
   {
-    console.trace();
+    //console.trace();
     fstart(arguments.callee.name);
 
      w = $(this).width();
@@ -743,7 +747,7 @@ function agegroup_by_age(v)
 }
 function params_init()
 {
-  var hash = window.location.hash.trimLeft('#'); 
+  var hash = window.location.hash._trimLeft('#'); 
   params = {}; 
   steptogo = 0;
   if(exist(hash))

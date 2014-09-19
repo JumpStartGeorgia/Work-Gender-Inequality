@@ -5,33 +5,33 @@ var transform = {
 		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
 		css = this.toString(n);
-
+		
 		$(selector).css({ transform: css });
 	},
 	move: function(selector,x,y)
 	{		 
-		t = translateM(x,y),
-		c = fromString($(selector).css('transform')),
+		t = this.translateM(x,y),
+		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
-		css = toString(n);
+		css = this.toString(n);
 
 		$(selector).css({ transform: css });
 	},
 	scale: function(selector,x,y)
 	{		 
-		t = scale(x,y),
-		c = fromString($(selector).css('transform')),
+		t = this.scaleM(x,y),
+		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
-		css = toString(n);
-
+		css = this.toString(n);
+		console.log(window.getComputedStyle(document.getElementsByClassName('m')[0]));//['transform']
 		$(selector).css({ transform: css });
 	},
 	skew: function(selector,x,y)
 	{		 
-		t = skew(x,y),
-		c = fromString($(selector).css('transform')),
+		t = this.skewM(x,y),
+		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
-		css = toString(n);
+		css = this.toString(n);
 
 		$(selector).css({ transform: css });
 	},

@@ -108,7 +108,7 @@ var poll = {
       var picked = bool ? $('.fchar') : $('.mchar');
       var other =  bool ? $('.mchar') : $('.fchar');
 
-      other.removeClass('selected').fadeOut(1000,"linear",function(){this.remove();});
+      other.removeClass('selected').fadeOut(1000,"linear",function(){ console.log('removing class',this); $(this).remove();});
       picked.addClass('selected').removeClass('b')
         .animate(opts,
           { duration:1000, 
@@ -149,6 +149,7 @@ var poll = {
 
     onscrollafter = function(){ 
 
+console.log('asd');
       if(ftmp.classed('selected'))
       {
         ftmp.classed('selected',false);
