@@ -1,12 +1,62 @@
 var transform = {
+	queue:{},
+	transform: function(type, selector, params)
+	{
+		var t = this;
+		if(!this.queue.hasOwnProperty(selector))
+		{			
+			this.queue[selector] = { count:0, callstack:[], waiting:false };		
+		}
+		++this.queue[selector].count;			
+		this.queue[selector].callstack.push({ type:type, selector:selector, params:params });	
+		if(!this.queue[selector].waiting && this.queue[selector].count == 1) 
+		{				
+			this.queue[selector].waiting = true;		
+			setTimeout( function() { t.next(selector); }, 500);
+		}
+	},
+	next: function(selector)
+	{
+
+			this.queue[selector].waiting = false;
+			var p = this.queue[selector].callstack.shift();
+//console.log("--------------------------------------------",p.type);
+			var par = p.params;
+			var t = this;
+			var delay = 500;
+			
+			--this.queue[selector].count;
+			switch(p.type)
+			{
+				case 'rotate':
+					this.rotate(selector,par.a);
+				break;
+				case 'move':
+					this.move(selector,par.x,par.y);
+				break;
+				case 'scale':
+					this.scale(selector,par.x,par.y);
+				break;
+				case 'skew':
+					this.skew(selector,par.x,par.y);
+				break;
+			}
+			console.log(this.queue[selector].count)
+			if(this.queue[selector].count >= 1) 
+			{
+				this.queue[selector].waiting = true;
+				setTimeout( function(){ t.next(selector); }, delay);
+
+			}
+	},
 	rotate: function(selector,a)
 	{		 
+		//console.log(selector,a,"rotatinggggggggggggggggggggggggg");
 		t = this.rotateM(a),
 		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
 		css = this.toString(n);
-		
-		$(selector).css({ transform: css });
+		$(selector).css({ transform: css });	
 	},
 	move: function(selector,x,y)
 	{		 
@@ -18,13 +68,13 @@ var transform = {
 		$(selector).css({ transform: css });
 	},
 	scale: function(selector,x,y)
-	{		 
+	{		 		
+		//console.log(selector,x,y);
 		t = this.scaleM(x,y),
 		c = this.fromString($(selector).css('transform')),
 		n = c.x(t),
 		css = this.toString(n);
-		console.log(window.getComputedStyle(document.getElementsByClassName('m')[0]));//['transform']
-		$(selector).css({ transform: css });
+		$(selector).css('transform',css);
 	},
 	skew: function(selector,x,y)
 	{		 
@@ -128,6 +178,16 @@ var transform = {
 		   [b, d, f],
 		   [0, 0, 1]
 		 ]);
-	}
+	},
+	//css:function(v)
+	//{
+
+	  // -webkit-transform:rotate(39deg);
+	  //  -moz-transform:rotate(39deg);
+	  //   -ms-transform:rotate(39deg);
+	  //    -o-transform:rotate(39deg);
+	  //       transform:rotate(39deg);
+	//}
+
 };
 

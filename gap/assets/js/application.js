@@ -84,16 +84,29 @@ function collision(v)
 
   var cleft = pos.x;
   var cright = pos.x + $('.m.character').width();
-  console.log(cleft,cright,pleft,pright);
+  //console.log(cleft,cright,pleft,pright);
 
-  if((cleft >= pleft && cleft <= pright) || (cright >= pleft && cright <= pright))
+
+  //if((cleft >= pleft && cleft <= pright) || (cright >= pleft && cright <= pright))
+  if(cleft >= pleft && cright <= pright)
   { 
-    transform.scale('.m.character', 0.5, 0.5);
-   // $('.m.character').css('transform','scale(0.5,0.5)');
-    //console.log("inside");
+    console.log('colission detector inside');
+    if(!male.inside)
+    {
+      console.log('colissing shrinking');
+      transform.transform('scale', '.m.character', { x:0.5,y:0.5 });  
+      male.inside = true;
+    //  console.log("inside");
+      //console.log("-------------------------------------------duf");
+    }
   }
-    //console.log("-------------------------------------------duf");
-
+  else if(male.inside)
+  {
+    console.log('colissing to default');
+    male.inside = false;
+    //console.log('rescaling to default');
+    transform.transform('scale', '.m.character', { x:2,y:2 });  
+  }
 }
 // function transform(selector,value)
 // {
@@ -174,6 +187,8 @@ function human(selector,title)
   _tsalary = 0; // total salary
   _tsaved = 0; // total saved
   _stage = [];
+  this.inside = false;
+  this.items = [];
 
 
   this.position = function position(coord) {
@@ -181,14 +196,20 @@ function human(selector,title)
       var scaleX = current_path_width/100;
       var scaleY = this.land/56;
       
-console.log("width",current_path_width);
+      //console.log("width",current_path_width);
       if(exist(coord))
       {
         if(exist(coord.x)) this.x = coord.x*scaleX;
         if(exist(coord.y)) this.y = this.land - (this.land - coord.y*scaleY + this.height);
         if(exist(coord.a)) this.angle = coord.a;
       }      
-      $(this.selector).css({ left: this.x + stage_offset, top: this.y ,transform:"rotate(" + this.angle + "deg)","-webkit-transform":"rotate(" +  this.angle + "deg)" });  
+      $(this.selector).css({ left: this.x + stage_offset, top: this.y });
+      //var t = this;
+      //if(this.title=='Male')
+       // transform.transform('rotate', this.selector, { a: this.angle });
+      //$(this.selector).queue(function(){  }).dequeue();
+
+      //,transform:"rotate(" + this.angle + "deg)","-webkit-transform":"rotate(" +  this.angle + "deg)" });  
 
       //console.log({ human:this.title ,x:this.x, y:this.y, a:this.angle });
       return { human:this.title ,x:this.x, y:this.y, a:this.angle };
@@ -251,6 +272,27 @@ this.__defineGetter__("tsaved", function(){
       _tsaved = val;
       if(val > 0)
         $(this.selector).parent().find('.score .tsaved .value').text(val);
+
+
+      var tmp = _tsaved;    
+      this.items = [];  
+      for(var i = 0; i < current_interest.length; ++i)
+      {
+        tmpInterest = current_interest[i];        
+        if(tmp >= tmpInterest.cost)
+        {
+          var cnt = Math.floor10(tmp/tmpInterest.cost);
+          this.items.push({ id:tmpInterest.id, count: cnt });
+          tmp = tmp - (cnt*tmpInterest.cost);
+        }
+      }
+
+      // seeking for current_interest that human can have for this moment
+      for(var i = 0; i < this.items.length; ++i)
+      {
+         var it = this.items[i];
+         var ret = current_interest.filter(function(a) { return a.id == it.id });
+      }
   });
 
   this.__defineGetter__("stage", function(){
@@ -670,6 +712,12 @@ function timeline_point_draw(v)
   });
   timeline.css({width:timeline_points.length*w});
 
+}
+function curtain()
+{
+  var curtain = $('<div class="curtain"><div class="left"></div><div class="right"></div></div>').appendTo('body');
+  curtain.find('.left').height(h).width(w/2).css({left:0,top:0});
+  curtain.find('.right').height(h).width(w/2).css({left:w/2+1,top:0});
 }
 function epilogue()
 {

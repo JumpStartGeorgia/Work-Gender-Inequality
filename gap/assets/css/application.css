@@ -574,3 +574,16 @@ svg.thumbnail path
   /*text-shadow: 0 0 0.5em black;*/
 }
 /* Progress Bar */
+
+.curtain
+{
+  position:absolute;
+
+}
+.curtain div
+{
+  position:absolute;
+  top:0px;
+  background-color:red;
+  border:1px solid green;
+}

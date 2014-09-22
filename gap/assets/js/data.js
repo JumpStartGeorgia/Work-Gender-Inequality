@@ -76,3 +76,56 @@ var stages =
                  //character : [ {p:1,s:10}] // by step data p - percent, speed for character        
 ];
 //                                 fullscreen : true    
+
+
+var interest_items = 
+{
+        vacation:[
+
+        ],
+        gadgets: [
+                { "id": "Q3eeT2j9", "type": "mobile", "title":"SAMSUNG I9300 Galaxy S3 White", "cost":700, "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White", "source_date":"22.09.2014" },
+                { "id": "NeRMinwu", "type": "mobile", "title":"Nokia 1280 Black/G", "cost":41.99, "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG", "source_date":"22.09.2014" },
+                { "id": "eLkVnL8n", "type": "mobile", "title":"Apple Iphone 5S 64GB Gold", "cost":1765, "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/", "source_date":"22.09.2014" },
+                { "id": "kV1jvNlr", "type": "mobile", "title":"Vertu Signature Diamond", "cost":154000, "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/", "source_date":"22.09.2014" },
+                { "id": "USLng33Z", "type": "mobile", "title":"", "cost":1, "source":"", "source_date":"" },
+                { "id": "4JAffVD6", "type": "mobile", "title":"", "cost":2, "source":"", "source_date":"" }
+        ],
+        education: [],
+        housing: [],
+        transportation: [],
+        health_beauty: []
+};
+var current_interest = interest_items.gadgets.sort(function(a,b){ return b.cost - a.cost; });
+/*
+
+
+
+
+
+
+77A79Lr_
+Pe23w2Lz
+j7hrF24w
+LE-xVn5T
+8BHSiiS3
+p_bINCPp
+y_eZkaEO
+cuabVv82
+mE3tEvWc
+nGgaI1SL
+egtsYjwP
+k17y863W
+6MhsbW7j
+FRyVRVZf
+-ke7QwpJ
+ODRpktbx
+2HIuYW5a
+5pTaH-Si
+grHOtIbx
+fndmDZlb
+_ejo7U7H
+Te6f2mYy
+PcNAyqxL
+KOpdBfBy
+*/
