@@ -47,6 +47,7 @@ $(document).ready(function(){
     { 
       collision(delta < 0 ? 1 : -1);
       walk(delta < 0 ? 1 : 0);
+      lookinfuture(delta < 0 ? 1 : -1);
     }
 
     if(func(onscrollafter)) onscrollafter()
@@ -68,6 +69,66 @@ $(document).ready(function(){
   // ***********************************************  
 
 });
+function lookinfuture()
+{
+  male.tsaved += 150;
+  female.tsaved += 100;
+
+
+  var first = f.leader ? female : male;
+  var second = f.leader ? male : female;
+
+  var cnt = Math.floor10(second.tsaved / interest[0].cost);
+  var treasures = [0,0,0,0,0,0];
+  var tre = 0;
+  for(var i = interest_level_map.length-1; i >= 0; --i)
+  {
+    var tmp = Math.floor10(cnt/interest_level_map[i]);  
+
+    if(tmp >= 1) 
+    {
+      treasures[i+1] = tmp;
+      tre += interest_level_map[i]*tmp;
+      cnt -= interest_level_map[i]*tmp;
+    }
+  }
+  treasures[0] = cnt;
+  tre += cnt;
+  var treasures_leading = treasures.slice();
+
+  var cnt1 = Math.floor10(first.tsaved / interest[0].cost) - tre;
+  for(var i = interest_level_map.length-1; i >= 0; --i)
+  {
+    var tmp = Math.floor10(cnt1/interest_level_map[i]);  
+    if(tmp >= 1) 
+    {
+      treasures_leading[i+1] += tmp;
+      cnt1 -= interest_level_map[i]*tmp;
+    }
+  }
+  treasures_leading[0] += cnt1;
+
+  console.log("first", treasures_leading);
+  console.log("second", treasures);
+
+
+  var tp = "";
+  var bt = "";
+  for(var i = 0; i < interest.length; ++i)
+  {
+    tp+=interest[i].title[0]+treasures_leading[i] + " - ";
+    bt+=interest[i].title[0]+treasures[i] + " - ";
+  }
+  $('.top .treasure').text(tp);
+  $('.bottom .treasure').text(bt);
+
+  // to see if next savings are enough for new item
+  // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
+  // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
+  // stop sign for both humans independetly, slow down timeline, put present on timeline on specific date
+  // move human to award place wait till present will have collision after that move person and present to its home place
+  // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
+}
 function collision(v)
 {
   //var cleft = $('.m.character').position().left;
@@ -90,10 +151,10 @@ function collision(v)
   //if((cleft >= pleft && cleft <= pright) || (cright >= pleft && cright <= pright))
   if(cleft >= pleft && cright <= pright)
   { 
-    console.log('colission detector inside');
+    //console.log('colission detector inside');
     if(!male.inside)
     {
-      console.log('colissing shrinking');
+      //console.log('colissing shrinking');
       transform.transform('scale', '.m.character', { x:0.5,y:0.5 });  
       male.inside = true;
     //  console.log("inside");
@@ -102,7 +163,7 @@ function collision(v)
   }
   else if(male.inside)
   {
-    console.log('colissing to default');
+    //console.log('colissing to default');
     male.inside = false;
     //console.log('rescaling to default');
     transform.transform('scale', '.m.character', { x:2,y:2 });  
@@ -124,13 +185,27 @@ var hist = false;
 var params = {};
 var steptogo = 0;
 var t = null; // variable for testing
-var w = 0; // viewport width
-var h = 0; // viewport height
-var h2 = 0; // half of height viewport 
-var w2 = 0; // half of width viewport 
-var s = null; // screen jquery object
-var s3 = null; // screen jquery object
-var lh = 0; // screen part height, land for character
+/** description browser viewport width
+ * @type double */
+var w = 0;
+/** description browser viewport height
+ * @type double */ 
+var h = 0;
+/** browser viewport height half
+ * @type double */
+var h2 = 0;                 
+/** browser viewport width half 
+  * @type double */
+var w2 = 0;                 
+/** screen jquery object 
+  * @type jQuery */
+var s = null;
+/** screen jquery object 
+  * @type d3*/
+var s3 = null;
+/** height of land for human, based on viewport height and timeline height 
+* @type double */
+var lh = 0; 
 var curr_date = new Date(); // current date
 
 var timeline = null; // timeline jq pointer
@@ -149,7 +224,7 @@ var timeline_scroll_to_tick_value = 0;
 var timeline_scroll_to_tick = 10;
 var timeline_scroll_curr_size = 0;
 
-var curr_screen = 1; // current screen intro is 1
+//var curr_screen = 1; // current screen intro is 1
 var cnt_screen = 2; // screens count calculated from sframe array plus 2(intro,epilogue)
 var def_age = 21;
 var min_age = 18;
@@ -170,8 +245,15 @@ var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 var pathl = 0;
 var stage_offset = 0;
 
+  var prev_stage_id = -1;
+  var stage_id = -1;
 
-function human(selector,title) 
+var interest = null;
+var interest_level_map = [];
+
+
+
+function human(selector,title,leader) 
 {
 
   this.title = exist(title) ? title : "Human";
@@ -184,11 +266,12 @@ function human(selector,title)
   this.angle = 0;
   this.land = 0;  
   this.selector = selector;
-  _tsalary = 0; // total salary
-  _tsaved = 0; // total saved
-  _stage = [];
+  this._tsalary = 0; // total salary
+  this._tsaved = 0; // total saved
+  this._stage = [];
   this.inside = false;
   this.items = [];
+  this.leader = (leader !== undefined && (leader == true || leader == false)) ? leader : false;
 
 
   this.position = function position(coord) {
@@ -255,52 +338,54 @@ function human(selector,title)
   
   //setters and getters
   this.__defineGetter__("tsalary", function(){
-      return _tsalary;
+      return this._tsalary;
   });
  
   this.__defineSetter__("tsalary", function(val){
-      _tsalary = val;
+      this._tsalary = val;
       if(val > 0)
         $(this.selector).parent().find('.score .tsalary .value').text(val);
   });
 
 this.__defineGetter__("tsaved", function(){
-      return _tsaved;
+  //console.log("getter tsaved ", this._tsaved);
+      return this._tsaved;
   });
  
   this.__defineSetter__("tsaved", function(val){
-      _tsaved = val;
+    //console.log("setterrrrrrrrrrr tsaved",this._tsaved,val);
+      this._tsaved = val;
       if(val > 0)
         $(this.selector).parent().find('.score .tsaved .value').text(val);
 
 
-      var tmp = _tsaved;    
-      this.items = [];  
-      for(var i = 0; i < current_interest.length; ++i)
-      {
-        tmpInterest = current_interest[i];        
-        if(tmp >= tmpInterest.cost)
-        {
-          var cnt = Math.floor10(tmp/tmpInterest.cost);
-          this.items.push({ id:tmpInterest.id, count: cnt });
-          tmp = tmp - (cnt*tmpInterest.cost);
-        }
-      }
+      // var tmp = this._tsaved;    
+      // this.items = [];  
+      // for(var i = 0; i < interest.length; ++i)
+      // {
+      //   tmpInterest = interest[i];        
+      //   if(tmp >= tmpInterest.cost)
+      //   {
+      //     var cnt = Math.floor10(tmp/tmpInterest.cost);
+      //     this.items.push({ id:tmpInterest.id, count: cnt });
+      //     tmp = tmp - (cnt*tmpInterest.cost);
+      //   }
+      // }
 
-      // seeking for current_interest that human can have for this moment
-      for(var i = 0; i < this.items.length; ++i)
-      {
-         var it = this.items[i];
-         var ret = current_interest.filter(function(a) { return a.id == it.id });
-      }
+      // // seeking for current_interest that human can have for this moment
+      // for(var i = 0; i < this.items.length; ++i)
+      // {
+      //    var it = this.items[i];
+      //    var ret = interest.filter(function(a) { return a.id == it.id });
+      // }
   });
 
   this.__defineGetter__("stage", function(){
-      return _stage;
+      return this._stage;
   });
  
   this.__defineSetter__("stage", function(val){
-      _stage = val;
+      this._stage = val;
   });
 
 
@@ -330,15 +415,20 @@ var color = {
   'white':'rgb(255,255,255)',
   'black':'rgb(0,0,0)'
 };
-var male = new human('.m.character','Male'); // male human object
+var male = new human('.m.character','Male',true); // male human object
 var female = new human('.f.character','Female'); // female human object
 
+console.log(male,female);
 
+
+
+
+/**
+ * @description application initialization step, called after DOM elements and resources are loaded
+ */
   function init()
   {
-    fstart(arguments.callee.name);
-
-    redraw(); // calculate all dimensions 
+    redraw(); // recalculate all dimensions 
 
     params_init();
 
@@ -351,51 +441,43 @@ var female = new human('.f.character','Female'); // female human object
     // start preloading data while playing, by stage loading 
     // for each stage collect data, switch flag for stage if not show progress bar 
     // manipulate layers in stage, with positions and points to start and end, transition delay, duration
-
-    fend(arguments.callee.name);
   }
-  function loadResources()
-  {
-
-  }
+  /**
+   * @description recalculate all critical dimensions on resize or if redraw is needed
+  */
   function redraw()
-  {
-    //console.trace();
-    fstart(arguments.callee.name);
-
-     w = $(this).width();
-     h = $(this).height(); 
-     w2 = w/2;
-     h2 = h/2; //log("w:" + w + "/ h:" + h);
-     lh = (h - th)/2;
-    if(ingame) game_redraw();
-
-    fend(arguments.callee.name);
+  {    
+    w = $(window).width();   
+    h = $(window).height();
+    w2 = w/2;
+    h2 = h/2;
+    lh = (h - th)/2;
+    if(ingame) redraw_game();
   }
-  function game_redraw()
-  {      
-    var half = (h-th)/2;
-    $("#screen .top").each(function(i,d){ $(d).height(half).css('top',0); });
-    $("#screen .timeline").each(function(i,d){ $(d).height(th).css('top',h2-th/2); });
-    $("#screen .bottom").each(function(i,d){ $(d).height(half).css('top',half+th); });
-    screen(curr_screen);
-
+  function redraw_game()
+  {          
+    $("#screen .top").height(lh).css('top',0);
+    $("#screen .timeline").height(th).css('top',h2-th/2);
+    $("#screen .bottom").height(lh).css('top',lh+th);
+    //screen(curr_screen);
     redraw_human();
-    
-
   }
-  function screen(v){ cur_screen = v; }
-  function nexts(){ screen(++curr_screen); }
-  function prevs(){ screen(--curr_screen); } 
+  function redraw_human(v)
+  {
+    if(typeof v === undefined) v = null;
+    male.position(v);
+    female.position(v);
+  }
+  //function screen(v){ cur_screen = v; }
+  //function nexts(){ screen(++curr_screen); }
+  //function prevs(){ screen(--curr_screen); } 
   function scr_clean(klass)
   {
     s.empty();
     if(exist(klass)) s.removeClass(klass);
   }  
-  var prev_stage_id = -1;
-  var stage_id = -1;
-function calculate()
-{
+
+function calculate(){
   var life = (max_age - user.age) * 12;
   var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
   var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
@@ -413,14 +495,13 @@ function calculate()
 
   //console.log(stage_id);
   var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
-    console.log("not collision ------------", percent);
+  //  console.log("not collision ------------", percent);
   var coord = pathCoordinateByPercent(percent);  
 
   //var coord = pathCoordinateByPercent(lifePercent*8);
   redraw_human(coord);
 }
-function walk(v)
-{
+function walk(v){
    if(ingame)
     {        
       if(v==1)
@@ -466,16 +547,7 @@ function walk(v)
 
     }
 }
-function redraw_human(v)
-{
-  if(typeof v === undefined) v = null;
-  male.position(v);
-  female.position(v);
-}
-function intro()
-{  
-  fstart(arguments.callee.name);
-
+function intro(){  
   scr_clean();
   s.toggleClass(sintro.class);
   var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
@@ -486,15 +558,12 @@ function intro()
                 '</svg>'+
               '</div>').appendTo(s);  
   intro_fade();
-
-  fend(arguments.callee.name);
 }
-function intro_fade()
-{
-    var t = $('.title');
-    t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
-    scr_clean(s.toggleClass(sintro.class)); 
- 
+function intro_fade(){
+  var t = $('.title');
+  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
+  scr_clean(s.toggleClass(sintro.class)); 
+
     if(steptogo < 6) 
       poll.show();
     else 
@@ -507,8 +576,7 @@ function intro_fade()
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; }
 function play() { gameon(); game(); }
-function game()
-{
+function game() {
   fstart(arguments.callee.name);
 
   scr_clean();
@@ -517,7 +585,8 @@ function game()
   var top_score = $('<div class="top-score score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">30</div></div></div>').appendTo(top);  
   top_score.css({ left: w-top_score.width()-30});  
-
+  top_score.css({ left: w-top_score.width()-30});  
+  var top_treasure_bar = $('<div class="top-treasure treasure"></div>').appendTo(top);  
   top.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   top_stage_draw();
@@ -530,25 +599,27 @@ function game()
   var bottom_score = $('<div class="bottom-score score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">30</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">30</div></div></div>').appendTo(bottom);
   bottom_score.css({ left: w-bottom_score.width()-30, top: lh + th + 20});
-
+  var bottom_treasure_bar = $('<div class="bottom-treasure treasure"></div>').appendTo(bottom);  
   var m = $('<div class="m character"></div>').appendTo(top);
   var f = $('<div class="f character"></div>').appendTo(bottom);
   
   male.toground();
   female.toground();
-  game_redraw();
+  redraw_game();
 
 
 
   fend(arguments.callee.name);
 }
-   var bk_offset = 0;
-   var bk_offset_prev = 0;
-   var last_image_width = 0;
-   var stage_index = 0;
-   var layer_index = 0;
-  // var new_stage = true;
-   var stage_first = true;
+
+
+var bk_offset = 0;
+var bk_offset_prev = 0;
+var last_image_width = 0;
+var stage_index = 0;
+var layer_index = 0;
+// var new_stage = true;
+var stage_first = true;
 var img_scaler = 1;
 var bg_i = 1;
 var fg_i = 1;
@@ -713,12 +784,6 @@ function timeline_point_draw(v)
   timeline.css({width:timeline_points.length*w});
 
 }
-function curtain()
-{
-  var curtain = $('<div class="curtain"><div class="left"></div><div class="right"></div></div>').appendTo('body');
-  curtain.find('.left').height(h).width(w/2).css({left:0,top:0});
-  curtain.find('.right').height(h).width(w/2).css({left:w/2+1,top:0});
-}
 function epilogue()
 {
   fstart(arguments.callee.name);
@@ -841,6 +906,7 @@ function params_validate()
   {
     steptogo = 5;
     user.interest = params.i;
+    poll.choose_interest();
   }
   if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
   {   
@@ -926,7 +992,10 @@ function progress(val)
   }
 }
 /***************************************************************
-                  Progress Bar
+                  Progress Bar End
+***************************************************************/
+/***************************************************************
+                  Key Hooks
 ***************************************************************/
 jwerty.key('space', function(){ 
     s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  

@@ -251,7 +251,8 @@ console.log('asd');
     user.interest = user.interest == null ? int_ids[0] : user.interest;
 
     poll.next_function = function(){
-
+      
+      poll.choose_interest();
       onscrolldown = null;
       onscrollup = null;
       poll.npicker_function = null;
@@ -670,6 +671,16 @@ console.log('asd');
     var r = 200; 
     var h = 2 * r * k, y = 2*r - h;  
     d3.select("#clip-mask rect").attr("y", y).attr("height", h);
+  },
+  choose_interest: function choose_interest()
+  {
+    interest = interests.filter(function(a){ return a.id == user.interest; })[0].items.sort(function(a,b){ return a.cost - b.cost; });
+
+    interest_level_map = [];
+    for(var i = 1; i < interest.length; ++i)
+    {        
+            interest_level_map.push(Math.ceil10(interest[i].cost/interest[0].cost));
+    }
   },
   create_next_button:function create_next_button(){
 
