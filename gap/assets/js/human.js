@@ -1,7 +1,7 @@
 
 function human(selector,title) 
 {
-
+//****************************var**********************************
   this.title = exist(title) ? title : "Human";
   this.age = 0;
   this.height = 100;
@@ -17,12 +17,60 @@ function human(selector,title)
   this._tsalary = 0; // total salary
   this._tsaved = 0; // total saved
   this._stage = [];
-  this.inside = false;
-  this.items = [];
+  //this.inside = false;
+ // this.items = [];
   this.outrun = false;
   this.gap_percent = 0;
   this.saving_for_tick = 0;
+  this.animated = false;
 
+  this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  this.path_length = 0;
+//*************************set & get**********************************
+	this.__defineGetter__("salary", function(){
+	   return this._salary;
+	});
+	this.__defineSetter__("salary", function(val){
+	   this._salary = val;      
+	});
+	this.__defineGetter__("saved", function(){
+	   return this._saved;
+	});
+	this.__defineSetter__("saved", function(val){
+	   this._saved = val;
+	});
+	this.__defineGetter__("tsalary", function(){
+	   return this._tsalary;
+	});
+	this.__defineSetter__("tsalary", function(val){
+	   this._tsalary = val;
+	   if(val > 0)
+	     $(this.selector).parent().find('.score .tsalary .value').text(val);
+	});
+	this.__defineGetter__("tsaved", function(){
+	 //console.log("getter tsaved ", this._tsaved);
+	     return this._tsaved;
+	 });
+	this.__defineSetter__("tsaved", function(val){
+	 //console.log("setterrrrrrrrrrr tsaved",this._tsaved,val);
+	   this._tsaved = val;
+	   if(val > 0)
+	     $(this.selector).parent().find('.score .tsaved .value').text(val);
+	});
+	this.__defineGetter__("stage", function(){
+	   return this._stage;
+	});
+	this.__defineSetter__("stage", function(val){
+	   this._stage = val;
+	});
+	this.__defineGetter__("path", function(){
+	   return this._path;
+	});
+	this.__defineSetter__("path", function(val){
+	   this._path.setAttribute('d',val);
+	   this.path_length = this._path.getTotalLength();
+	});
+//*************************methods**********************************
 
   this.position = function position(coord) {
     //  console.log(current_path_width,this.land,coord);
@@ -69,44 +117,38 @@ function human(selector,title)
     this.y = half - this.height;
   };
 
-  //setters and getters  
-  this.__defineGetter__("salary", function(){
-      return this._salary;
-  });
-  this.__defineSetter__("salary", function(val){
-      this._salary = val;      
-  });
-  this.__defineGetter__("saved", function(){
-      return this._saved;
-  });
-  this.__defineSetter__("saved", function(val){
-      this._saved = val;
-  });
-  this.__defineGetter__("tsalary", function(){
-      return this._tsalary;
-  });
-  this.__defineSetter__("tsalary", function(val){
-      this._tsalary = val;
-      if(val > 0)
-        $(this.selector).parent().find('.score .tsalary .value').text(val);
-  });
-  this.__defineGetter__("tsaved", function(){
-    //console.log("getter tsaved ", this._tsaved);
-        return this._tsaved;
-    });
-  this.__defineSetter__("tsaved", function(val){
-    //console.log("setterrrrrrrrrrr tsaved",this._tsaved,val);
-      this._tsaved = val;
-      if(val > 0)
-        $(this.selector).parent().find('.score .tsaved .value').text(val);
-  });
-  this.__defineGetter__("stage", function(){
-      return this._stage;
-  });
-  this.__defineSetter__("stage", function(val){
-      this._stage = val;
-  });
+  this.animate = function animate(v)
+  {
+  		this.animated = true;
+  		
+  		this.path = v.path;
+  		var parent = this;
+//  		console.log(this._path,this.path_length);
+  		$(this.selector).animate({"color":'white'},{ duration:v.duration*1000, 
+  			progress:function(a,b,c) 
+  			{ 
+  				//console.log(a,b,c); 
+  				parent.position(parent.getpathcoordinates(b));
+  			},
+  			complete:function() 
+  			{
+  				this.animated = false;
+  			}
+  		});
+  		//console.log(this,v);
+  };
+  this.getpathcoordinates = function getpathcoordinates(progress)
+  {	
+  		var percent = Math.round10(progress*100);
+		var p1 = this.path.getPointAtLength(this.path_length * (percent-1)/100);
+		var p2 = this.path.getPointAtLength(this.path_length * (percent+1)/100);
+		var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+		var p =  this.path.getPointAtLength(this.path_length * percent/100);
+		return { x:p.x,y:p.y, a:a };
+  };
 }; // human object with basic properties
+
+
 var male = new human('.m.character','Male'); // male human object
 var female = new human('.f.character','Female'); // female human object
 

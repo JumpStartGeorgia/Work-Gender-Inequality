@@ -286,3 +286,9 @@ function ticker_tick()
 //     transform.transform('scale', '.m.character', { x:2,y:2 });  
 //   }
 // }
+
+
+
+  //function screen(v){ cur_screen = v; }
+  //function nexts(){ screen(++curr_screen); }
+  //function prevs(){ screen(--curr_screen); } 

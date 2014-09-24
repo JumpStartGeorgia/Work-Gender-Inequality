@@ -38,6 +38,10 @@ $(document).ready(function(){
   $( window ).resize(function() { init(); });
 
   history.replaceState({},'',window.location.href);
+
+
+
+
 // ***************************************************************************************************************
 // ***********************************************  
   // ***********************************************    
@@ -45,4 +49,14 @@ $(document).ready(function(){
   // ***********************************************  
 // ***********************************************  
 
-});
+}); 
+
+ window.onpopstate = function(e){
+      if(e.state !== null) 
+      { 
+         hist = true;       
+         init();   
+         hist = false;
+      } 
+      //else { // no state data availableload initial page which was there at first page load }
+  }

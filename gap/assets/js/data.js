@@ -11,7 +11,7 @@ var categories =
                 foreground:{ interior:"assets/images/svg/field/education/school_int.svg", exterior:"assets/images/svg/field/education/school_ext.svg"}, // should be of same size
                 frame:
                 {
-                    on_load:{ a:true, path:"", duration:5},
+                    on_load:{ a:true, path:"M0 0 L75 75 L225 200 Z", duration:5},
                     //on_work_before:{},
                     on_work:{},
                     //on_work_after:{},

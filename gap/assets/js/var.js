@@ -76,6 +76,10 @@ var interest = null;
 var interest_level_map = [];
 var category = null;
 
+
+var prevPositionLeft = 0; // used in timeline draw function
+var prevPosition = 0; // used in timeline draw function
+
 var user =
 {
   gender : 'n',

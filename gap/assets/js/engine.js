@@ -1,57 +1,52 @@
 /**
- * @description application initialization step, called after DOM elements and resources are loaded
- */
-  function init()
-  {
-    redraw(); // recalculate all dimensions 
+* @description application initialization step, called after DOM elements and resources are loaded
+*/
+function init()
+{
+  redraw(); // recalculate all dimensions 
 
-    params_init();
+  params_init();
 
-    s = $('#screen');    
-    s3 = d3.select('#screen');    
-    //cnt_screen += sframe.length;
+  s = $('#screen');    
+  s3 = d3.select('#screen');    
 
-    intro();  // play game intro and choose where to go based on params poll part or game itself     
+  intro();  // play game intro and choose where to go based on params poll part or game itself     
 
-    // start preloading data while playing, by stage loading 
-    // for each stage collect data, switch flag for stage if not show progress bar 
-    // manipulate layers in stage, with positions and points to start and end, transition delay, duration
-  }
-  /**
-   * @description recalculate all critical dimensions on resize or if redraw is needed
-  */
-  function redraw()
-  {    
-    w = $(window).width();   
-    h = $(window).height();
-    w2 = w/2;
-    h2 = h/2;
-    lh = (h - th)/2;
-    if(ingame) redraw_game();
-  }
-  function redraw_game()
-  {          
-    $("#screen .top").height(lh).css('top',0);
-    $("#screen .timeline").height(th).css('top',h2-th/2);
-    $("#screen .bottom").height(lh).css('top',lh+th);
-    //screen(curr_screen);
-    redraw_human();
-  }
-  function redraw_human(v)
-  {
-    if(typeof v === undefined) v = null;
-    male.position(v);
-    female.position(v);
-  }
-  //function screen(v){ cur_screen = v; }
-  //function nexts(){ screen(++curr_screen); }
-  //function prevs(){ screen(--curr_screen); } 
-  function scr_clean(klass)
-  {
-    s.empty();
-    if(exist(klass)) s.removeClass(klass);
-  }  
-
+  // start preloading data while playing, by stage loading 
+  // for each stage collect data, switch flag for stage if not show progress bar 
+  // manipulate layers in stage, with positions and points to start and end, transition delay, duration
+}
+/**
+* @description recalculate all critical dimensions on resize or if redraw is needed
+*/
+function redraw()
+{    
+  w = $(window).width();   
+  h = $(window).height();
+  w2 = w/2;
+  h2 = h/2;
+  lh = (h - th)/2;
+  if(ingame) redraw_game();
+}
+function redraw_game()
+{          
+  $("#screen .top").height(lh).css('top',0);
+  $("#screen .timeline").height(th).css('top',h2-th/2);
+  $("#screen .bottom").height(lh).css('top',lh+th);
+  //screen(curr_screen);
+  redraw_human();
+}
+function redraw_human(v)
+{
+  if(typeof v === undefined) v = null;
+  male.position(v);
+  female.position(v);
+}
+function scr_clean(klass)
+{
+  s.empty();
+  if(exist(klass)) s.removeClass(klass);
+}  
 function calculate(){
   var life = (max_age - user.age) * 12;
   var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
@@ -134,7 +129,6 @@ function intro(){
               '</div>').appendTo(s);  
   intro_fade();
 }
-
 function intro_fade(){
   var t = $('.title');
   t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
@@ -144,21 +138,18 @@ function intro_fade(){
       poll.show();
     else 
     {
-      play(); get_ready();
+      play(); game_on_load();
     }
   });
 }
-
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; }
-function get_ready()
+function game_on_load()
 {
-  animated = true;
-  console.log(category);
-  console.log("animating on start");
+  var tools = category.stage.frame.on_load;
+  male.animate(tools);
+  female.animate(tools);
   // animate humans to starting position (inside object where they work)
-
-  animated = false;
 }
 function play() { gameon(); game(); }
 function game() {
@@ -217,7 +208,7 @@ function game() {
   $('<div class="treasure"></div>').css({ left: 30, top: lh + th + 30 }).appendTo(b);  
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
-  top_stage_draw(0);
+  draw_stage(0);
 
   var m = $('<div class="m character"></div>').appendTo(t);
   var f = $('<div class="f character"></div>').appendTo(b);
@@ -226,10 +217,7 @@ function game() {
   female.toground();
   redraw_game();
 }
-
-
-
-function top_stage_draw(v)
+function draw_stage(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.fg');
@@ -267,7 +255,7 @@ function top_stage_draw(v)
 
   }).attr('src',stage.background);
 
-  if(v==0) top_stage_draw(1);
+  if(v==0) draw_stage(1);
 };
 function timeline_tick(v,n)
 {
@@ -309,8 +297,6 @@ function timeline_tick(v,n)
     else console.log("timeline step is incorrect");  
   }
 }
-var prevPositionLeft = 0;
-var prevPosition = 0;
 function timeline_point_draw(v)
 {
   var startOffset = w/2;
@@ -429,7 +415,7 @@ function lookinfuture(v)
 }
 
 
-
+/*
 function pathSwitch(v)
 {
   path.setAttribute('d', v);    
@@ -447,6 +433,18 @@ function pointAt(p){
 
     return path.getPointAtLength( pathl * p/100 );
 }
+
+
+function getPathCoordinateByPercent(path,pathl,percent) // input percent of whole path
+{
+  var p1 = path.getPointAtLength(pathl * (percent-1)/100);
+  var p2 = path.getPointAtLength(pathl * (percent+1)/100);
+  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+  var p =  path.getPointAtLength(pathl * (percent/100);
+  return { x:p.x,y:p.y, a:a };
+}      
+*/
+
 /***************************************************************
                       TODO END
 ***************************************************************/
@@ -543,15 +541,6 @@ function params_set(v)
     //   window.location.hash = hash; 
     if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
   }  
-}
-window.onpopstate = function(e){
-    if(e.state !== null) 
-    { 
-       hist = true;       
-       init();   
-       hist = false;
-    } 
-    //else { // no state data availableload initial page which was there at first page load }
 }
 /***************************************************************
                   General Functions End
