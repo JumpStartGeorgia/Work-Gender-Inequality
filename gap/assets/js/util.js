@@ -150,3 +150,47 @@ function monthDiff(from, to) {
     var months = ((d2.getFullYear() - d1.getFullYear()) * 12) - (d1.getMonth()) + (d2.getMonth()); // (years) - (from months) + (to months)
     return months <= 0 ? 0 : months;
 }
+
+
+/***************************************************************
+                  Utility Functions
+***************************************************************/
+function fstart(v) { console.time(v); console.log("< " + v); }
+function fend(v) { console.timeEnd(v); console.log(v + " >");  }
+function log(v) { console.log("\t" + v); }
+function tt(){ console.log("------------------test-------------------"); }
+function exist(v) { return typeof v !== 'undefined' && v !== null && v !== '';}
+function empty() {log('empty');};
+var func = jQuery.isFunction;
+function quadrant(x,y)
+{
+  if(x>=0 && y>=0) return 1;
+  else if(x<0 && y >= 0) return 2;
+  else if(x<=0 && y<0) return 3;
+  else return 4;
+}
+function degree_from_radian(rad)
+{
+  return (rad/Math.PI*180) + (rad > 0 ? 0 : 360);
+}
+function sample()
+{
+  fstart(arguments.callee.name);
+  // code todo
+  fend(arguments.callee.name);
+} 
+(function($) {
+  $.fn.invisible = function() {
+    return this.each(function() {
+      $(this).css("visibility", "hidden");
+    });
+  };
+  $.fn.visible = function() {
+    return this.each(function() {
+      $(this).css("visibility", "visible");
+    });
+  };
+}(jQuery));
+/***************************************************************
+                  Utility Functions End
+***************************************************************/

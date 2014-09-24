@@ -51,17 +51,27 @@ body,html
      width:100%;
      position:absolute;
 }
-#screen .top .top-score, #screen .bottom .bottom-score
+.treasure
+{
+  position:fixed;
+  display:inline-block;
+  top:0px;
+  left:0px;
+}
+#screen .top .score, #screen .bottom .score
 {     
   position: fixed;
   top: 20px;
   display:inline-block;
 }
-#screen .top .top-score div, #screen .bottom .bottom-score div
+#screen .top .score div, #screen .bottom .score div
 {
    display:inline-block;
 }
-#screen .top .layer,#screen .top .layer > img
+#screen .top .layer,
+#screen .top .layer > img,
+#screen .bottom .layer,
+#screen .bottom .layer > img
 {
    position:absolute;
 }
@@ -73,10 +83,14 @@ body,html
 }
 #screen .top .stage .layer.bg,
 #screen .top .stage .layer.fg,
-#screen .top .stage .layer.bg .part,
-#screen .top .stage .layer.fg .part
+#screen .bottom .stage .layer.bg,
+#screen .bottom .stage .layer.fg
 {
   position:absolute;
+}
+.character
+{
+  z-index:35;
 }
 .m.character
 {
@@ -86,7 +100,7 @@ body,html
    position:absolute;
    left:0px;
    transition: all 0.5s ease-out;
-   z-index:33;
+
 }
 .f.character
 {
@@ -95,7 +109,6 @@ body,html
    height:100px;
    position:absolute;
    left:0px;
-   z-index:33;
 }
 #tester
 {
@@ -574,16 +587,3 @@ svg.thumbnail path
   /*text-shadow: 0 0 0.5em black;*/
 }
 /* Progress Bar */
-
-.curtain
-{
-  position:absolute;
-
-}
-.curtain div
-{
-  position:absolute;
-  top:0px;
-  background-color:red;
-  border:1px solid green;
-}

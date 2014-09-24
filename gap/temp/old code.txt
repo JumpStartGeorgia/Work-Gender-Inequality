@@ -84,3 +84,205 @@ function ticker_tick()
   }
   ticker.find('.curr .year').text(curr_year);
 }
+
+
+
+
+
+
+
+// function Field(val){
+//     var v = val;
+   
+//     this.__defineGetter__("value", function(){
+//         return v;
+//     });
+   
+//     this.__defineSetter__("value", function(val){
+//         v = val;
+//     });
+// }
+
+// pathAnimator.start( speed, step, reverse, startOffset, finish, easing);
+
+// function step( point, angle ){
+//   $('#tester').css({
+//                     left:point.x*$(document).width()/100+'px',
+//                     top:point.y+'px',
+//                     transform:"rotate(" + angle + "deg)",
+//                     "-webkit-transform":"rotate(" +  angle + "deg)" });
+//  // console.log("step",point, angle);
+//     // do something every "frame" with: point.x, point.y & angle
+// }
+
+// function finish(){
+//   //this.stop();
+//     // do something when animation is done
+// }
+
+
+
+// -- checking image loading but for old version with layers and horizontal scrolling
+// var imageLoaderCount = 0;
+// var imageLoadedCount = 0;
+// function app_validity_check()
+// {
+//   for(var i = 0; i < stages.length; ++i)
+//   {
+//     var bk = 0;
+//     var layer = stages[i].layers;
+//     imageLoaderCount += layer.length;
+//     for(var j = 0; j < layer.length; ++j)
+//     {     
+//       if(layer[j].type == 1) ++bk;
+//     }
+//     if(bk != 1) {
+//       throw { name: 'FatalError', message: 'Something went badly wrong' };
+//       console.error('Each stage have only one layer with type 1(background)'); 
+//     }
+//   }
+// }
+
+
+// app_validity_check();
+
+
+
+// var bk_offset = 0;
+// var bk_offset_prev = 0;
+// var last_image_width = 0;
+// var stage_index = 0;
+// var layer_index = 0;
+// // var new_stage = true;
+// var stage_first = true;
+// var img_scaler = 1;
+// var bg_i = 1;
+// var fg_i = 1;
+// function top_stage_draw()
+// {
+
+//   var tmp = null; 
+//   var bg = $('.top .stage .layer.bg');
+//   var fg = $('.top .stage .layer.fg');
+
+  
+//   //var init_img_height = bg_image.height();
+//   // img_scaler =  img.height() / init_img_height ;
+//   // var layers = stages[stage_index].layers; 
+
+//   // if(layer_index == layers.length && stage_index+1==stages.length) { current_path_width = $('.stage .layer.bg img').width(); return; }
+
+//   //   //console.log(layers,layer_index,stage_index,stages.length);  
+//   //   //console.log('layer_index',layer_index, 'layers.length',layers.length, 'stage_index',stage_index, 'stage.length',stages.length);
+//   //   //console.log(stage_first , (layer_index == layers.length ),  stage_index != stages.length , stage_index <= stages.length-1);
+//   // var layer = fg;
+//   // var index = fg_i;
+//   // if(stage_first || (layer_index == layers.length && stage_index <= stages.length-1))
+//   // {      
+//   //   if(!stage_first) ++stage_index;
+//   //   layer_index = 0;
+//   //   layers =  stages[stage_index].layers;     
+//   //   stage_first = false;
+//   //   layer = bg;
+//   //   index = bg_i++;
+//   // }
+//   // else ++fg_i;
+//   // var li = layer_index++;
+//   // var l = layers[li];
+//   // l.i = li+1;
+
+//   // var img = $('<img src="'+l.image+'"/>');
+//   // layer.append($('<div class="part" data-part-id="'+index+'"></div>').css('z-index', 20).append(img));
+//   // img.data(l);
+
+//   // img.load( l.type == 1 ? image_background : image_object );
+
+// };
+
+// function image_background()
+// {
+//     var img = $(this);
+//     var init_img_height = img.height();
+
+//     bk_offset+=bk_offset_prev;        
+//    // var l = img.data();
+//  //   console.log(l);
+//     //console.log(img,img.length,"asdfsdf",bk_offset_prev,bk_offset,(bk_offset + v.position.x*w/100), v.position.y*lh/100 );
+
+//     img.css({ 
+//       height:lh, 
+//       left: (bk_offset),
+//       top:0 
+//     });
+//     last_image_width=bk_offset_prev=img.width();     
+
+//     img_scaler =  img.height() / init_img_height ;
+//     stages[stage_index].w = img.width();
+
+//   ++imageLoadedCount;  
+//   progress(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
+
+//   top_stage_draw();
+// }
+// function image_object()
+// {
+//   var img = $(this);
+//   var l = img.data();
+
+//   var wtmp = (exist(l.fullscreen) && l.fullscreen) ? w : last_image_width;      
+//   img.css({ height:img.height()*img_scaler });
+//   //console.log('image_object',l,wtmp);
+//   img.parent('.part').css({ 
+//     left:bk_offset + l.position.x*wtmp/100-img.width()/2,
+//     top: Math.abs((100-l.position.y)*lh/100 - img.height()) });
+
+//   ++imageLoadedCount;
+//   progress(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
+//   //console.log(Math.ceil10(imageLoadedCount*100/imageLoaderCount));
+
+//   top_stage_draw();
+// }
+
+
+
+
+// function collision(v)
+// {
+//   //var cleft = $('.m.character').position().left;
+//   //var cright = cleft + $('.m.character').width();  
+//   var pleft = $('.layer.fg .part[data-part-id=1] img').parent().position().left;
+//   var pright = pleft + $('.layer.fg .part[data-part-id=1] img').parent().width();
+//   //console.log("---------------------------",timeline_scroll_to_tick_value,timeline_scroll_to_tick_value+v);
+//   var percent = ((timeline_scroll_to_tick_value+v)%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
+//   //console.log("collision ------------", percent);
+//   var coord = pathCoordinateByPercent(percent);  
+
+//   var pos = male.lookinfuture(coord);
+// //  console.log("------------------------__",pos,v);
+
+//   var cleft = pos.x;
+//   var cright = pos.x + $('.m.character').width();
+//   //console.log(cleft,cright,pleft,pright);
+
+
+//   //if((cleft >= pleft && cleft <= pright) || (cright >= pleft && cright <= pright))
+//   if(cleft >= pleft && cright <= pright)
+//   { 
+//     //console.log('colission detector inside');
+//     if(!male.inside)
+//     {
+//       //console.log('colissing shrinking');
+//       transform.transform('scale', '.m.character', { x:0.5,y:0.5 });  
+//       male.inside = true;
+//     //  console.log("inside");
+//       //console.log("-------------------------------------------duf");
+//     }
+//   }
+//   else if(male.inside)
+//   {
+//     //console.log('colissing to default');
+//     male.inside = false;
+//     //console.log('rescaling to default');
+//     transform.transform('scale', '.m.character', { x:2,y:2 });  
+//   }
+// }

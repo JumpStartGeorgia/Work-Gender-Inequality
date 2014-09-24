@@ -227,6 +227,7 @@ console.log('asd');
     poll.npicker_function = null;
     poll.next_function = function(){
 
+      poll.choose_category();
       onscrolldown = null;
       onscrollup = null;
       user.salary = poll.category_salary();
@@ -275,7 +276,7 @@ console.log('asd');
     var outer_radius = 280;
     var cat_radius = 30;
     var size = cat_radius*2; 
-    var cat_step = 360/category.length;
+    var cat_step = 360/categories.length;
 
     var picker = poll.stage_d3.append('div').classed("category-picker",true);
 
@@ -283,7 +284,7 @@ console.log('asd');
 
     var pick_items = picker
     .selectAll("svg")
-    .data(category)
+    .data(categories)
     .enter()
     .append("svg")
     .attr("class",function(d){return "category_item " + g(); }) 
@@ -319,7 +320,7 @@ console.log('asd');
     var ind = cat_ids.indexOf(user.category);
     if(ind != -1)
     {
-      user.category = ind < category.length-1 ? cat_ids[ind+1] : cat_ids[0];
+      user.category = ind < categories.length-1 ? cat_ids[ind+1] : cat_ids[0];
     }
     this.category_draw();   
     fend(arguments.callee.name); 
@@ -330,7 +331,7 @@ console.log('asd');
     var ind = cat_ids.indexOf(user.category);
     if(ind != -1)
     {
-      user.category =  ind > 0 ? cat_ids[ind-1] : cat_ids[category.length-1];
+      user.category =  ind > 0 ? cat_ids[ind-1] : cat_ids[categories.length-1];
     }
     this.category_draw();
     fend(arguments.callee.name);
@@ -566,14 +567,14 @@ console.log('asd');
     var outer_radius = 280;
     var item_radius = 30;
     var size = item_radius*2; 
-    var item_step = 360/interest.length;
+    var item_step = 360/interests.length;
     poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
     var picker = poll.stage_d3.append('div').classed('interest_picker',true);
     
 
     var pick_items = picker
     .selectAll("svg")
-    .data(interest)
+    .data(interests)
     .enter()
     .append("svg")
     .attr("class",function(d){return "interest_item " + g(); }) 
@@ -639,7 +640,7 @@ console.log('asd');
     var ind = int_ids.indexOf(user.interest);
     if(ind != -1)
     {
-      user.interest = ind < interest.length-1 ? int_ids[ind+1] : int_ids[0];
+      user.interest = ind < interests.length-1 ? int_ids[ind+1] : int_ids[0];
     }
     this.interest_draw();   
 
@@ -651,7 +652,7 @@ console.log('asd');
     var ind = int_ids.indexOf(user.interest);
     if(ind != -1)
     {
-      user.interest =  ind > 0 ? int_ids[ind-1] : int_ids[interest.length-1];
+      user.interest =  ind > 0 ? int_ids[ind-1] : int_ids[interests.length-1];
     }
     this.interest_draw();
     fend(arguments.callee.name);
@@ -671,6 +672,20 @@ console.log('asd');
     var r = 200; 
     var h = 2 * r * k, y = 2*r - h;  
     d3.select("#clip-mask rect").attr("y", y).attr("height", h);
+  },
+  choose_category: function choose_category()
+  {
+    category = categories.filter(function(a){ return a.id == user.category; })[0];
+    if(category.outrun == 0)
+    {
+      male.outrun = true;
+      male.gap_percent = category.percent;
+    }
+    else
+    {
+     female.outrun = true;
+     female.gap_percent = category.percent;
+    }
   },
   choose_interest: function choose_interest()
   {
