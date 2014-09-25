@@ -11,13 +11,13 @@ var categories =
                 foreground:{ interior:"assets/images/svg/field/education/school_int.svg", exterior:"assets/images/svg/field/education/school_ext.svg"}, // should be of same size
                 frame:
                 {
-                    on_load:{ a:true, path:"M0 0 L75 75 L225 200 Z", duration:5},
+                    on_load:{ a:true, duration:1, path:"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
                     //on_work_before:{},
-                    on_work:{},
+                    on_work:{ a:false, loop: true, path:"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
                     //on_work_after:{},
                     on_tap:{},
                     on_jump:{},
-                    on_reward_before:{},
+                    on_reward_before:{ a:false, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
                     on_reward:{},
                     on_reward_after:{},
                     on_after:{}
@@ -40,6 +40,10 @@ var categories =
         { "id": "dJdfgktK","name": "Health and social work", "outrun":0, "percent":11 },
         { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11 }
 ];
+var frame_sequence = [
+    'on_load','on_work','on_reward_before','on_reward','on_reward_after','on_after'
+];
+var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
 var interests = 
 [

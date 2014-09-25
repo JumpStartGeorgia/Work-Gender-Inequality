@@ -93,22 +93,29 @@ body,html
   z-index:35;
 }
 .m.character
-{
-   background:transparent url("../images/svg/m.svg") no-repeat;
+{  
+   background-image:url("../images/svg/m.svg");
+   background-color:transparent;
+   background-size:46px 100px;
+   background-repeat:no-repeat;
    width:46px;
    height:100px;
    position:absolute;
    left:0px;
-   transition: all 0.5s ease-out;
-
+   /*transition: all 0.5s ease-out;*/
+   display:none;
 }
 .f.character
 {
    background:transparent url("../images/svg/f.svg") no-repeat;
+    background-color:transparent;
+   background-size:46px 100px;
+   background-repeat:no-repeat;
    width:46px;
    height:100px;
    position:absolute;
    left:0px;
+ display:none;
 }
 #tester
 {
@@ -121,16 +128,16 @@ body,html
 /* poll z-index */
 .salary-picker,
 .percent_picker 
-{ z-index:310; }
-.character { z-index:309; }
+{ z-index:40; }
+.character { z-index:35; }
 .poll-sub-label,
 .age-picker,
 .category-picker,
 .interest_picker
-{ z-index:305; } 
+{ z-index:32; } 
 
-svg.stage-bk .mask{ z-index:301; }
-svg.stage-bk { z-index:300; }
+svg.stage-bk .mask{ z-index:31; }
+svg.stage-bk { z-index:30; }
 
 .abs { position:absolute; }
 .rel { position:relative; }

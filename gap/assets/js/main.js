@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
-
 // bind events
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
 
+   
     // do nothing if is already animating
     //if($("html,body").is(":animated")) return false;
 
@@ -23,12 +23,17 @@ $(document).ready(function(){
 
     if(ingame && !animated) 
     { 
+      clearInterval(noscrollTimerId); // clear last noscroll catcher
+
       //collision(delta < 0 ? 1 : -1);
       walk(delta < 0 ? 1 : 0);
       lookinfuture(delta < 0 ? 1 : -1);
+
+      noscrollTimerId = setInterval(function(){ console.log("Tap"); },noscrollEventTime); // create new noscroll interval trigger
     }
 
     if(func(onscrollafter)) onscrollafter()
+    
   });
 
 
@@ -45,7 +50,7 @@ $(document).ready(function(){
 // ***************************************************************************************************************
 // ***********************************************  
   // ***********************************************    
-      init(); // start game 
+      init(); // start game       
   // ***********************************************  
 // ***********************************************  
 

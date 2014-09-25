@@ -56,17 +56,17 @@ function calculate(){
 
   //pathSwitch(stages[stage_id].layers[0].path);
 
-  if(stage_id != prev_stage_id)
-  {
-    stage_offset = 0;
-    for(var i = 1; i <= stage_id; ++i)
-      stage_offset += stages[i].w;  
-  }
+  //if(stage_id != prev_stage_id)
+  //{
+  //  stage_offset = 0;
+  //  for(var i = 1; i <= stage_id; ++i)
+  //    stage_offset += stages[i].w;  
+  //}
 
   //console.log(stage_id);
-  var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
+  //var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
   //  console.log("not collision ------------", percent);
-  var coord = pathCoordinateByPercent(percent);  
+  //var coord = pathCoordinateByPercent(percent);  
 
   //var coord = pathCoordinateByPercent(lifePercent*8);
   //redraw_human(coord);
@@ -88,13 +88,15 @@ function walk(v){
         var t1 = (scaler)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
        
         var len = timeline_points.length;
-         console.log(t1,len*scaler);
+        // console.log(t1,len*scaler);
         if(t1 > len*scaler) 
         {
           var toadd = Math.round10(t1/(scaler)) + 1 - len;
            timeline_tick(time_step,toadd);
         }
-          calculate();
+          //calculate();
+          male.step_right();
+          female.step_right();
       }
       else 
       {
@@ -106,10 +108,11 @@ function walk(v){
         //   var stage = $('.stage .layer.bg');
         //   stage.css('left', stage.position().left+50);
         // }
-
+           male.step_left();
+           female.step_left();
 
           --timeline_scroll_to_tick_value;      
-           calculate();
+           //calculate();
         }
        
       }
@@ -143,15 +146,22 @@ function intro_fade(){
   });
 }
 function gameon() { ingame = true; }
-function gameoff() { ingame = false; }
+function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
+
+  animated = true;
   var tools = category.stage.frame.on_load;
   male.animate(tools);
   female.animate(tools);
   // animate humans to starting position (inside object where they work)
 }
-function play() { gameon(); game(); }
+function play() { gameon(); game(); game_path(); }
+function game_path()
+{
+  male.prepare_for_game();
+  female.prepare_for_game();
+}
 function game() {
 
   if(isf())
@@ -213,17 +223,20 @@ function game() {
   var m = $('<div class="m character"></div>').appendTo(t);
   var f = $('<div class="f character"></div>').appendTo(b);
   
-  male.toground();
-  female.toground();
+  //male.tosky();
+  //female.tosky();
   redraw_game();
 }
+var img_scaler =  1;
+var bg_width = 0;
+var stage_offset = 0;
 function draw_stage(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.fg');
 
   var stage = category.stage;
-  var img_scaler =  1;
+  
 
   $('<img/>').appendTo(bg).load(function(){
 
@@ -232,7 +245,9 @@ function draw_stage(v)
 
     bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
 
-    var bg_width = bg_image.width();
+    bg_width = bg_image.width();
+    stage_offset = (w - bg_width)/2;
+
     var bg_to_viewport = bg_width;
     while(bg_to_viewport < w)
     {
@@ -350,20 +365,26 @@ function epilogue()
 /***************************************************************
                         TODO
 ***************************************************************/
-
+var reward = false;
 function lookinfuture(v)
 {
+  console.log("lookinfuture");
   male.tsalary += v*male.salary;
   female.tsalary += v*female.salary;
-  male.tsaved += male.saving_for_tick;
-  female.tsaved += female.saving_for_tick;
+  male.tsaved += v*male.saving_for_tick;
+  female.tsaved += v*female.saving_for_tick;
 
 
   var first = f.outrun ? female : male;
   var second = f.outrun ? male : female;
 
   var cnt = Math.floor10(second.tsaved / interest[0].cost);
-  var treasures = [0,0,0,0,0,0];
+  //console.log(first, second, interest[0].cost);
+  //
+  var first_before = first.treasure_count;
+  var second_before = second.treasure_count;
+
+  second.treasure = [0,0,0,0,0,0];
   var tre = 0;
   for(var i = interest_level_map.length-1; i >= 0; --i)
   {
@@ -371,14 +392,15 @@ function lookinfuture(v)
 
     if(tmp >= 1) 
     {
-      treasures[i+1] = tmp;
+      second.treasure[i+1] = tmp;
       tre += interest_level_map[i]*tmp;
       cnt -= interest_level_map[i]*tmp;
     }
   }
-  treasures[0] = cnt;
+  second.treasure[0] = cnt;
+
   tre += cnt;
-  var treasures_leading = treasures.slice();
+  first.treasure = second.treasure.slice();
 
   var cnt1 = Math.floor10(first.tsaved / interest[0].cost) - tre;
   for(var i = interest_level_map.length-1; i >= 0; --i)
@@ -386,25 +408,45 @@ function lookinfuture(v)
     var tmp = Math.floor10(cnt1/interest_level_map[i]);  
     if(tmp >= 1) 
     {
-      treasures_leading[i+1] += tmp;
+      first.treasure[i+1] += tmp;
       cnt1 -= interest_level_map[i]*tmp;
     }
   }
-  treasures_leading[0] += cnt1;
+  first.treasure[0] += cnt1;
 
-  console.log("first", treasures_leading);
-  console.log("second", treasures);
+  var first_after = first.treasure_count;
+  var second_after = second.treasure_count;
+
+
+  if(!reward && (first_before != first_after || second_before != second_after))
+  {
+    if(first_before != first_after)
+    {
+      first.next_frame();
+    }
+    if(second_before != second_after)
+    {
+       second.next_frame();
+    }
+    reward = true;
+  } 
+  
+   //console.log("Next frame - Reward is coming");
+  //console.log("first", treasures_leading);
+  //console.log("second", treasures);
 
 
   var tp = "";
   var bt = "";
   for(var i = 0; i < interest.length; ++i)
   {
-    tp+=interest[i].title[0]+treasures_leading[i] + " - ";
-    bt+=interest[i].title[0]+treasures[i] + " - ";
+    tp+=interest[i].title[0]+first.treasure[i] + " - ";
+    bt+=interest[i].title[0]+second.treasure[i] + " - ";
   }
   $('.top .treasure').text(tp);
   $('.bottom .treasure').text(bt);
+
+
 
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level

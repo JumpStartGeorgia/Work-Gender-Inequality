@@ -98,3 +98,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   {"name":"interest","alias":"i","nf":"poll.interest"},
   {"name":"salary_percent","alias":"p","nf":"play"}
 ];
+
+// timerInterval values for noscrolling event
+  var noscrollEventTime = 60000;
+  var noscrollTimerId = null;
