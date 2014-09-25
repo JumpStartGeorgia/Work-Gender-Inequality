@@ -63,12 +63,38 @@ function same_sign(a,b)
 {
   return (a ^ b) >= 0;
 }
-String.prototype.lpad = function(padString, length) {
-    var str = this;
-    while (str.length < length)
-        str = padString + str;
-    return str;
+
+if(!String.prototype.lpad)
+{
+  String.prototype.lpad = function(p, l) { // string to pad, length of padding string
+      var s = this;
+      while (s.length < l)
+          s = p + s;
+      return s;
+  }
 }
+if(!String.prototype._trim)
+{
+  String.prototype._trim = function(c) { 
+    var r = (!c) ? new RegExp('^\\s+|\\s+$', 'g') : new RegExp('^'+c+'+|'+c+'+$', 'g');
+    return this.replace(r, '');
+  };
+}
+if(!String.prototype._trimLeft)
+{
+  String.prototype._trimLeft = function(c) { 
+    var r = (!c) ? new RegExp('^\\s+') : new RegExp('^'+c+'+');
+    return this.replace(r, '');
+  };
+}
+if(!String.prototype._trimRight)
+{
+  String.prototype._trimRight = function(c) { 
+    var r = (!c) ? new RegExp('\\s+$') : new RegExp(c+'+$');
+    return this.replace(r, '');
+  };
+}
+
 function validateNumber(event) {
     var key = window.event ? event.keyCode : event.which;
 
@@ -124,3 +150,47 @@ function monthDiff(from, to) {
     var months = ((d2.getFullYear() - d1.getFullYear()) * 12) - (d1.getMonth()) + (d2.getMonth()); // (years) - (from months) + (to months)
     return months <= 0 ? 0 : months;
 }
+
+
+/***************************************************************
+                  Utility Functions
+***************************************************************/
+function fstart(v) { console.time(v); console.log("< " + v); }
+function fend(v) { console.timeEnd(v); console.log(v + " >");  }
+function log(v) { console.log("\t" + v); }
+function tt(){ console.log("------------------test-------------------"); }
+function exist(v) { return typeof v !== 'undefined' && v !== null && v !== '';}
+function empty() {log('empty');};
+var func = jQuery.isFunction;
+function quadrant(x,y)
+{
+  if(x>=0 && y>=0) return 1;
+  else if(x<0 && y >= 0) return 2;
+  else if(x<=0 && y<0) return 3;
+  else return 4;
+}
+function degree_from_radian(rad)
+{
+  return (rad/Math.PI*180) + (rad > 0 ? 0 : 360);
+}
+function sample()
+{
+  fstart(arguments.callee.name);
+  // code todo
+  fend(arguments.callee.name);
+} 
+(function($) {
+  $.fn.invisible = function() {
+    return this.each(function() {
+      $(this).css("visibility", "hidden");
+    });
+  };
+  $.fn.visible = function() {
+    return this.each(function() {
+      $(this).css("visibility", "visible");
+    });
+  };
+}(jQuery));
+/***************************************************************
+                  Utility Functions End
+***************************************************************/
