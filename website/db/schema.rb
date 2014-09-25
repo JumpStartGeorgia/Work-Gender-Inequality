@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140901120040) do
+ActiveRecord::Schema.define(:version => 20140925074523) do
 
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"
@@ -32,6 +32,28 @@ ActiveRecord::Schema.define(:version => 20140901120040) do
   end
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
+
+  create_table "survey_answers", :force => true do |t|
+    t.string   "code",       :limit => 50
+    t.integer  "value",      :limit => 2
+    t.string   "text",       :limit => 1024
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "survey_answers", ["code", "value"], :name => "index_survey_answers_on_code_and_value"
+  add_index "survey_answers", ["code"], :name => "index_survey_answers_on_code"
+
+  create_table "survey_questions", :force => true do |t|
+    t.string   "code",             :limit => 50
+    t.string   "text",             :limit => 1024
+    t.boolean  "has_code_answers",                 :default => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
+  end
+
+  add_index "survey_questions", ["code", "has_code_answers"], :name => "index_survey_questions_on_code_and_has_code_answers"
+  add_index "survey_questions", ["text"], :name => "index_survey_questions_on_text", :length => {"text"=>255}
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
