@@ -1,0 +1,59 @@
+<% title "Test" %>
+
+<% if @questions.present? %>
+  <%= form_tag(root_path) do %>
+    <div class="row">
+      <div class="col-sm-4">
+        Variable 1:
+        <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :style => 'width:200px;' %>
+      </div>
+      <div class="col-sm-4">
+        Variable 2:
+        <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col]), :style => 'width:200px;' %>
+      </div>
+      <div class="col-sm-4">
+      <%= submit_tag 'Get Data' %>
+      </div>
+    </div>
+
+
+    <% if @data.present? %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th colspan="<%= (@data[:column_answers].length + 1) %>" style="text-align: center;"><%= @data[:column_question] %></th>
+          </tr>
+          <tr>
+            <th><%= @data[:row_question] %></th>
+            <% @data[:column_answers].each do |answer| %>
+              <th><%= answer[1] %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% (0..@data[:row_answers].length-1).each do |row_index| %>
+            <tr>
+              <td><%= @data[:row_answers][row_index][1] %></td>
+              <% @data[:percents][row_index].each do |percent| %>
+                <td><%= number_to_percentage(percent) %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+
+    <% end %>
+
+
+  <% end %>
+
+
+<% else %>
+
+  <p>
+  questions are not on file yet - have you run rake db:seed yet?
+  </p>
+
+<% end %>
