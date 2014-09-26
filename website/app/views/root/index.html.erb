@@ -43,6 +43,40 @@
         </tbody>
       </table>
 
+      <div class="row">
+        <div class="col-sm-6">
+          <p>
+            <strong>Question:</strong>
+            <%= @data[:row_question] %>
+          </p>
+          <p>
+            <strong>Possible Answers:</strong>
+          </p>
+          <ul>
+            <% @data[:row_answers].each do |answer| %>
+              <li>
+                <%= answer[1] %>
+              </li>
+            <% end %>
+          </ul> 
+        </div>
+        <div class="col-sm-6">
+          <p>
+            <strong>Question:</strong>
+            <%= @data[:column_question] %>
+          </p>
+          <p>
+            <strong>Possible Answers:</strong>
+          </p>
+          <ul>
+            <% @data[:column_answers].each do |answer| %>
+              <li>
+                <%= answer[1] %>
+              </li>
+            <% end %>
+          </ul> 
+        </div>
+      </div>
 
     <% end %>
 
