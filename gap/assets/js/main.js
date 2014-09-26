@@ -20,14 +20,12 @@ $(document).ready(function(){
     {
       if(func(onscrolldown)) onscrolldown();
     }
-
     if(ingame && !animated) 
     { 
       clearInterval(noscrollTimerId); // clear last noscroll catcher
-
       //collision(delta < 0 ? 1 : -1);
-      walk(delta < 0 ? 1 : 0);
-      lookinfuture(delta < 0 ? 1 : -1);
+      walk(delta < 0 ? 1 : -1);
+//      lookinfuture(delta < 0 ? 1 : -1);
 
       noscrollTimerId = setInterval(function(){ console.log("Tap"); },noscrollEventTime); // create new noscroll interval trigger
     }
@@ -38,7 +36,7 @@ $(document).ready(function(){
 
 
   $(window).on("swipeleft",function(){ walk(1); });
-  $(window).on("swiperight",function(){ walk(0); });
+  $(window).on("swiperight",function(){ walk(-1); });
   // on resize redraw game   
   $( window ).resize(function() { init(); });
 

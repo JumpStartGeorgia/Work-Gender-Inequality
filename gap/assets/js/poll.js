@@ -174,8 +174,16 @@ console.log('asd');
       {
         if(g() != "n") 
         {       
-          if(isf()) poll.stage_d3.select('.fchar').on('click')();
-          else poll.stage_d3.select('.mchar').on('click')();  
+            
+          poll.place_human_based_on_gender();
+          if(isf()) 
+          {
+            poll.stage_d3.select('.fchar').on('click')();            
+          }
+          else 
+          {
+            poll.stage_d3.select('.mchar').on('click')();  
+          }
         } 
         else 
         {
@@ -688,7 +696,7 @@ console.log('asd');
     }
   },
   choose_interest: function choose_interest()
-  {
+  {    
     interest = interests.filter(function(a){ return a.id == user.interest; })[0].items.sort(function(a,b){ return a.cost - b.cost; });
 
     interest_level_map = [];
@@ -894,8 +902,20 @@ console.log('asd');
     // .attr({
     //   x:4, width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
     // });       
+  },
+  place_human_based_on_gender:function place_human_based_on_gender(t,n,v,size)
+  {
+    if(isf()) 
+    {
+      female.place = 'top';
+      male.place = 'bottom';
+    }
+    else 
+    {
+      female.place = 'bottom';
+      male.place = 'top';
+    }
   }
-
 
 };
 /***************************************************************

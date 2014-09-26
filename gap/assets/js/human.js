@@ -30,7 +30,8 @@ function human(selector,title)
   this.traversed_path = 0;
   this.path_loop = false;
   this.movement = 0;
-  this.event_by_month = [];
+  this.event_by_month = [];  
+  this.place = 't';
 
 
 
@@ -200,7 +201,7 @@ function human(selector,title)
     var frame = category.stage.frame[frame_sequence[this.current_frame]];
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
-    console.log(frame);
+    //console.log(frame);
   };
   this.getpathcoordinates = function getpathcoordinates(progress)
   {	
@@ -227,7 +228,7 @@ function human(selector,title)
       }
       else this.event_by_month.push(0);
     }
-
+    console.log(this.event_by_month);
 
     for (var i = 1; i <= 10; ++i) {
       var img = new Image();

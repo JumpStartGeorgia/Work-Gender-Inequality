@@ -47,7 +47,7 @@ var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
 var interests = 
 [
-        { "id": "gfNDXD1g", "name": "Vacation" },
+        { "id": "gfNDXD1g", "name": "Vacation", items:[] },
         { "id": "Rs2Uml6w","name": "Gadgets", 
                 items:
                 [
@@ -59,10 +59,10 @@ var interests =
                         { "id": "4JAffVD6", "type": "mobile", "title":"C", "cost":1100, "source":"", "source_date":"" }
                 ]
         },
-        { "id": "KI3EFRI3","name": "Education" },
-        { "id": "7fdCIojZ","name": "Housing" },
-        { "id": "3QDbCRrq","name": "Transportation" },
-        { "id": "Cc8WWUmB","name": "Health & Beauty" }
+        { "id": "KI3EFRI3","name": "Education", items:[] },
+        { "id": "7fdCIojZ","name": "Housing", items:[] },
+        { "id": "3QDbCRrq","name": "Transportation", items:[] },
+        { "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
 ];
 var int_ids = interests.map(function(d,i){return d.id;});
 /*

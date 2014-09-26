@@ -57,7 +57,39 @@ body,html
   display:inline-block;
   top:0px;
   left:0px;
+  z-index:40;
+  width:100%;
+  height:30px;
 }
+.treasure div
+{
+  display:inline-block;
+}
+.treasure .pedestal
+{
+  background-color: rgb(5, 143, 252);
+  margin-left: 30px;
+  padding: 0px 10px;
+  color: white;
+  height: 30px;
+  line-height: 30px;
+}
+.treasure .red-carpet
+{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height: 30px;
+  line-height: 30px;
+  transition: all 0.2s ease-out;
+}
+.treasure .red-carpet .reward
+{
+  position:absolute;
+  top:0px;
+}
+
 #screen .top .score, #screen .bottom .score
 {     
   position: fixed;
@@ -261,10 +293,11 @@ svg.stage-bk { z-index:30; }
 {
    position: relative;
    background-color: transparent;
-   left: 100px;
+   left: 0px; /*100px;*/
    width: 100%;
    height: 30px;
    overflow: hidden; 
+   transition: all 0.2s ease-out;
 }
 #screen .timeline .point-in-time
 { 
