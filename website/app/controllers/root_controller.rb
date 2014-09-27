@@ -11,6 +11,7 @@ class RootController < ApplicationController
         @data = SurveyResult.crosstab_count(params[:row], params[:col])
         if @data[:map].present?
           gon.map_data = @data[:map]
+          gon.map_filters = @data[:map_filters] # this is array of arrays: [[code, name], [code, name],...]
         end
       else
         #### DO SOMETHING?
