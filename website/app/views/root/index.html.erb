@@ -43,9 +43,9 @@
         </tbody>
       </table>
 
-
-      <div id="map"></div>
-    
+      <% if @data[:map].present? %>
+        <div id="map"></div>
+      <% end %>     
 
       <div class="row">
         <div class="col-sm-6">

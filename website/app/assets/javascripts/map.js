@@ -16,14 +16,7 @@ if (gon.map_data){
     onEachFeature: onEachFeature
   }).addTo(map);
   
-  // method that we will use to update the control based on feature properties passed
-  info.update = function (props) {
-      this._div.innerHTML = '<h4>props.name</h4>' +  (props ?
-          '<b>' + props.name + '</b><br />' + props.data + ' %<sup>2</sup>'
-          : 'Hover over a state');
-  };
-  
-    // add info box to the map
+  // add info box to the map
   var info = L.control();
 
   info.onAdd = function (map) {
@@ -31,6 +24,16 @@ if (gon.map_data){
       this.update();
       return this._div;
   };
+  
+  // method that we will use to update the control based on feature properties passed
+  info.update = function (props) {
+      this._div.innerHTML = '<h4>props.name</h4>' +  (props ?
+          '<b>' + props.name + '</b><br />' + props.data + ' %<sup>2</sup>'
+          : 'Hover over a state');
+  };
+  
+  
+  
 
 
 
