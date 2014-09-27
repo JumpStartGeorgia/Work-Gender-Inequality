@@ -84,6 +84,50 @@ class SurveyResult < ActiveRecord::Base
           end
         end
 
+        # if row or column is the region variable, create the map data
+        if row.downcase == 'reg' || column.downcase == 'reg'
+          result[:map] = {}
+
+          # if the row is the region, recompute percents so columns add up to 100%
+          if row.downcase == 'reg'
+            counts = result[:counts].transpose
+            percents = []
+            counts.each do |count_row|
+              total = count_row.inject(:+)
+              if total > 0
+                percent_row = []
+                count_row.each do |item|
+                  percent_row << (item.to_f/total*100).round(2)
+                end
+                percents << percent_row
+              else
+                percents << Array.new(count_row.length){0}
+              end
+            end
+
+            result[:column_answers].each_with_index do |col_answer, col_index|
+              # create hash to store the data for this answer
+              result[:map][col_answer[0].to_s] = Hash.new
+
+              # now store the results for each region
+              (0..result[:row_answers].length-1).each do |index|
+                result[:map][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
+              end 
+            end
+
+          else
+            result[:row_answers].each_with_index do |row_answer, row_index|
+              # create hash to store the data for this answer
+              result[:map][row_answer[0].to_s] = Hash.new
+
+              # now store the results for each region
+              (0..result[:column_answers].length-1).each do |index|
+                result[:map][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
+              end 
+            end
+          end
+
+        end
       end
     end
 
