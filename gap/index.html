@@ -8,7 +8,42 @@
    </head>
    <body>
       <div class="wrapper" id="content">
-         <div id="screen"></div>
+         <div id="screen">
+            
+         </div>
+      </div>
+      <div class="tester">
+     <svg height="100" width="100">
+      <defs>
+    <linearGradient id="myLinearGradient1"
+                    x1="0%" y1="0%"
+                    x2="100%" y2="0%"
+                    spreadMethod="pad">
+      <stop offset="0%"   stop-color="red" stop-opacity="1"/>
+      <stop offset="100%" stop-color="green" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="50" cy="50" rx="40" ry="40" stroke="black" class="circle" data-id="1" stroke-width="1" fill="green" />
+  <ellipse cx="150" cy="50" rx="40" ry="40" stroke="black" class="circle" data-id="2" stroke-width="1"  fill="white" />
+  <ellipse cx="250" cy="50" rx="40" ry="40" stroke="black" class="circle" data-id="3" stroke-width="1" fill="red" />
+</svg>
+<input type="button" class="repeat" value="Repeat">
+<style>
+.tester svg
+{overflow:visible; position:fixed;}
+.tester ellipse
+{
+   display:inline-block;
+   z-index:7;
+}
+.tester .repeat 
+{
+   position:absolute;
+   z-index:6;
+   top:400px;
+}
+</style>
+
       </div>
       <!-- vendor libraries -->
       <script src="assets/js/jquery-1.11.1.min.js"></script>          

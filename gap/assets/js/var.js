@@ -44,6 +44,7 @@ var timeline_points = [timeline_point];
 var time_step = "3m"; // increment for on each scroll is 3 months, available formats m:month, y:year
 var time_step_number = 3;
 var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewport_width
+var tls = 1; // time line scaler calculated on redraw = width * timeline_scale
 var timeline_scroll_to_tick_value = 0;
 var timeline_scroll_to_tick = 10;
 var timeline_scroll_curr_size = 0;
