@@ -1,5 +1,9 @@
 
 <% if @questions.present? %>
+  <div id="container" style="width:100%; height:400px;"></div>
+<% end %>
+
+<% if @questions.present? %>
   <%= form_tag(root_path) do %>
     <div class="row">
       <div class="col-sm-4">
