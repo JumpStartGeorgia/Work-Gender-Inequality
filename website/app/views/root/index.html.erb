@@ -71,7 +71,7 @@
         <div class="col-sm-6">
           <p>
             <strong>Question:</strong>
-            <%= @data[:row_question] %>
+            <%= @data[:row_question].titlecase %>
           </p>
           <p>
             <strong>Possible Answers:</strong>
@@ -87,7 +87,7 @@
         <div class="col-sm-6">
           <p>
             <strong>Question:</strong>
-            <%= @data[:column_question] %>
+            <%= @data[:column_question].titlecase %>
           </p>
           <p>
             <strong>Possible Answers:</strong>
@@ -112,7 +112,7 @@
 <% else %>
 
   <p>
-  questions are not on file yet - have you run rake db:seed yet?
+  Questions are not on file yet - have you run rake db:seed yet?
   </p>
 
 <% end %>
