@@ -1,43 +1,45 @@
 $(document).ready(function() {
-  // bar charts
-  $('#chart').highcharts({
-      chart: {
-          type: 'bar'
-      },
-      title: {
-          text: gon.chart_title,
-          useHTML: true,
-          style: {'text-align': 'center'}
-      },
-      xAxis: {
-          categories: gon.chart_labels,
-          title: {
-              text: gon.chart_col_label
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'Percent'
-          }
-      },
-      legend: {
-          title: {
-              text: gon.chart_row_label
-          },
-          reversed: true
-      },
-      tooltip: {
-          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-          shared: true
-      },
-      plotOptions: {
-          bar: {
-              stacking: 'percent'
-          }
-      },
-      series: gon.chart_data.reverse()
-  });
+  if (gon.chart_data != undefined){
+    // bar charts
+    $('#chart').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: gon.chart_title,
+            useHTML: true,
+            style: {'text-align': 'center'}
+        },
+        xAxis: {
+            categories: gon.chart_labels,
+            title: {
+                text: gon.chart_col_label
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percent'
+            }
+        },
+        legend: {
+            title: {
+                text: gon.chart_row_label
+            },
+            reversed: true
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            bar: {
+                stacking: 'percent'
+            }
+        },
+        series: gon.chart_data.reverse()
+    });
+  }
 
 
 if (gon.map_data){
