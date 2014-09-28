@@ -4,17 +4,20 @@ if (gon.map_data){
 
   // initiate map
   var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
-  var map = L.map('map').setView([42.2529, 43.8300], 8);
+  var map = L.map('map').setView([42.2529, 43.8300], 7);
 
   L.tileLayer(url).addTo(map);
   
-  // for testing only
+  // default map filter
   merge_data_shapes(data_picker(1, data), shapes)
   
+  var geojson;
   geojson = L.geoJson(shapes, {
     style: style,
     onEachFeature: onEachFeature
-  }).addTo(map);
+  });
+  
+  geojson.addTo(map);
   
   // add info box to the map
   var info = L.control();
@@ -60,7 +63,41 @@ if (gon.map_data){
 
   legend.addTo(map);
   
-}
+  // map filter
+  var data_id;
+  
+  $(document).ready(function() {
+    $('#datatable').dataTable({"paging": false,
+      "info": false});
+    $('li.map_filter a').click(function(e)  {
+      e.preventDefault();
+      
+      var name = $(this).html();
+      data_id = $(this).data("id");
+      $('span#default_id').text(name);
+      merge_data_shapes(data_picker(data_id, data), shapes)
+      console.log(geojson);
+      map.removeLayer(geojson);
+      
+      L.geoJson(shapes, {
+        style: style,
+        onEachFeature: onEachFeature
+      }).addTo(map);
+      
+      
+    });
+  });
+
+  
+  
+} // end if
+
+$(document).ready(function() {
+    $('#datatable').dataTable({
+      "paging": false,
+      "info": false
+    });    
+});
 
 // pick the column of data to display on choropleth map
 var picked_data;
@@ -122,7 +159,7 @@ function highlightFeature(e) {
   }
 }
 
-var geojson;
+
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
