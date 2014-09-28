@@ -75,12 +75,14 @@ class SurveyResult < ActiveRecord::Base
 
         # format data for charts
         result[:chart] = {}
-        result[:chart][:labels] = result[:column_answers].map{|x| x[1]}
+        result[:chart][:labels] = result[:row_answers].map{|x| x[1]}
         result[:chart][:data] = []
-        (0..result[:row_answers].length-1).each do |index|
+        counts = result[:counts].transpose
+
+        (0..result[:column_answers].length-1).each do |index|
           item = {}
-          item[:name] = result[:row_answers][index][1]
-          item[:data] = result[:counts][index]
+          item[:name] = result[:column_answers][index][1]
+          item[:data] = counts[index]
           result[:chart][:data] << item
         end
 
