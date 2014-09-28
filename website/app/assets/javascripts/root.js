@@ -13,7 +13,7 @@ $(document).ready(function() {
         xAxis: {
             categories: gon.chart_labels,
             title: {
-                text: gon.chart_col_label
+                text: gon.chart_row_label
             }
         },
         yAxis: {
@@ -24,7 +24,7 @@ $(document).ready(function() {
         },
         legend: {
             title: {
-                text: gon.chart_row_label
+                text: gon.chart_col_label
             },
             reversed: true
         },
