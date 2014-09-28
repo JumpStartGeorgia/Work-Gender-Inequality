@@ -1,6 +1,6 @@
 $(document).ready(function() {
   // bar charts
-  $('#container').highcharts({
+  $('#chart').highcharts({
       chart: {
           type: 'bar'
       },
