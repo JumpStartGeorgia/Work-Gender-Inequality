@@ -1,133 +1,131 @@
-// bar charts
-$(function () { 
-    $('#container').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Fruit Consumption'
-        },
-        xAxis: {
-            categories: ['Apples', 'Bananas', 'Oranges']
-        },
-        yAxis: {
-            title: {
-                text: 'Fruit eaten'
-            }
-        },
-        series: [{
-            name: 'Jane',
-            data: [1, 0, 4]
-        }, {
-            name: 'John',
-            data: [5, 7, 3]
-        }]
-    });
-});
-
-if (gon.map_data){
-
-  var data = gon.map_data
-
-  // initiate map
-  var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
-  var map = L.map('map').setView([42.2529, 43.8300], 7);
-
-  L.tileLayer(url, {
-              maxZoom: 13,
-              minZoom: 5,
-              opacity: 0.5
-          }).addTo(map);
-  
-  // default map filter
-  merge_data_shapes(data_picker(1, data), shapes)
-  
-  var geojson;
-  geojson = L.geoJson(shapes, {
-    style: style,
-    onEachFeature: onEachFeature
-  });
-  
-  geojson.addTo(map);
-  
-  // add info box to the map
-  var info = L.control();
-
-  info.onAdd = function (map) {
-      this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-      this.update();
-      return this._div;
-  };
-  
-  // method that we will use to update the control based on feature properties passed
-  info.update = function (props) {
-      this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
-          ('<b>' + props.name + '</b>: ' + (props.data == undefined ? 'N/A' : props.data + ' %'))
-          : 'Hover over a Region');
-  };
-  
-  
-  
-
-
-
-  info.addTo(map);
-
-  // add legend to the map
-  var legend = L.control({position: 'bottomright'});
-
-  legend.onAdd = function (map) {
-
-      var div = L.DomUtil.create('div', 'info legend'),
-//          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
-          grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
-          labels = [];  
-
-      // loop through our density intervals and generate a label with a colored square for each interval
-      for (var i = 0; i < grades.length; i++) {
-          div.innerHTML +=
-              '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-              grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-      }
-
-      return div;
-  };
-
-  legend.addTo(map);
-  
-  // map filter
-  var data_id;
-  
-  $(document).ready(function() {
-    $('li.map_filter a').click(function(e)  {
-      e.preventDefault();
-      
-      var name = $(this).html();
-      data_id = $(this).data("id");
-      $('span#default_id').text(name);
-      merge_data_shapes(data_picker(data_id, data), shapes)
-      console.log(geojson);
-      map.removeLayer(geojson);
-      
-      L.geoJson(shapes, {
-        style: style,
-        onEachFeature: onEachFeature
-      }).addTo(map);
-      
-      
-    });
-  });
-
-  
-  
-} // end if
-
 $(document).ready(function() {
-    $('#datatable').dataTable({
-      "dom": '<"top"f>t<"clear">'
-    });    
+  // bar charts
+  $('#container').highcharts({
+      chart: {
+          type: 'bar'
+      },
+      title: {
+          text: 'Fruit Consumption'
+      },
+      xAxis: {
+          categories: ['Apples', 'Bananas', 'Oranges']
+      },
+      yAxis: {
+          title: {
+              text: 'Fruit eaten'
+          }
+      },
+      series: [{
+          name: 'Jane',
+          data: [1, 0, 4]
+      }, {
+          name: 'John',
+          data: [5, 7, 3]
+      }]
+  });
 
-    $('.selectpicker').selectpicker();    
+  if (gon.map_data){
+
+    var data = gon.map_data
+
+    // initiate map
+    var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
+    var map = L.map('map').setView([42.2529, 43.8300], 7);
+
+    L.tileLayer(url, {
+                maxZoom: 13,
+                minZoom: 5,
+                opacity: 0.5
+            }).addTo(map);
+    
+    // default map filter
+    merge_data_shapes(data_picker(1, data), shapes)
+    
+    var geojson;
+    geojson = L.geoJson(shapes, {
+      style: style,
+      onEachFeature: onEachFeature
+    });
+    
+    geojson.addTo(map);
+    
+    // add info box to the map
+    var info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
+            ('<b>' + props.name + '</b>: ' + (props.data == undefined ? 'N/A' : props.data + ' %'))
+            : 'Hover over a Region');
+    };
+    
+    
+    
+
+
+
+    info.addTo(map);
+
+    // add legend to the map
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+  //          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
+            grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            labels = [];  
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+
+    legend.addTo(map);
+    
+    // map filter
+    var data_id;
+    
+    $(document).ready(function() {
+      $('li.map_filter a').click(function(e)  {
+        e.preventDefault();
+        
+        var name = $(this).html();
+        data_id = $(this).data("id");
+        $('span#default_id').text(name);
+        merge_data_shapes(data_picker(data_id, data), shapes)
+        console.log(geojson);
+        map.removeLayer(geojson);
+        
+        L.geoJson(shapes, {
+          style: style,
+          onEachFeature: onEachFeature
+        }).addTo(map);
+        
+        
+      });
+    });
+
+    
+    
+  } // end if
+
+  $('#datatable').dataTable({
+    "dom": '<"top"f>t<"clear">'
+  });    
+
+  $('.selectpicker').selectpicker();    
 });
 
 // pick the column of data to display on choropleth map
