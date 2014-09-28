@@ -3,13 +3,18 @@ $(document).ready(function() {
 $(function () {
     $('#chart').highcharts({
         chart: {
-            type: 'column'
+            type: 'bar'
         },
         title: {
-            text: 'Stacked Column Chart'
+            text: gon.chart_title,
+            useHTML: true,
+            style: {'text-align': 'center'}
         },
         xAxis: {
-            categories: gon.chart_labels
+            categories: gon.chart_labels,
+            title: {
+                text: gon.chart_col_label
+            }
         },
         yAxis: {
             min: 0,
@@ -17,16 +22,22 @@ $(function () {
                 text: 'Percent'
             }
         },
+        legend: {
+            title: {
+                text: gon.chart_row_label
+            },
+            reversed: true
+        },
         tooltip: {
             pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
             shared: true
         },
         plotOptions: {
-            column: {
+            bar: {
                 stacking: 'percent'
             }
         },
-        series: gon.chart_data
+        series: gon.chart_data.reverse()
     });
 });
 
