@@ -29,14 +29,17 @@ $(function () {
         series: gon.chart_data
     });
 });
-  if (gon.map_data){
+
+
+if (gon.map_data){
 
     var data = gon.map_data
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
     var map = L.map('map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
-
+    map.dragging.disable();
+    
     L.tileLayer(url, {
                 maxZoom: 7,
                 minZoom: 7,
@@ -71,12 +74,81 @@ $(function () {
             : 'Hover over a Region');
     };
     
-    
-    
-
-
-
     info.addTo(map);
+    
+// merge the picked data into the shapes so can map choropleth of data
+function merge_data_shapes(data, shapes){
+  $.each(shapes.features, function(index, feature){
+    feature.properties["data"] = data[feature.properties.name]
+  });
+};
+
+
+
+// set color range for choropleth map
+function getColor(d) {
+  return  d > 90 ? '#08306b' :
+          d > 80 ? '#08519c' :
+          d > 70 ? '#2171b5' :
+          d > 60 ? '#4292c6' :
+          d > 50 ? '#6baed6' :
+          d > 40 ? '#9ecae1' :
+          d > 30 ? '#c6dbef' :
+          d > 20 ? '#deebf7' :
+          d > 10 ? '#f7fbff' :
+          d >  0 ? '#FFFFFF' :
+                   '#CCCCCC' ;
+}
+
+
+//
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.data),
+        weight: 2,
+        opacity: 1,
+        color: '#999',
+        dashArray: '3',
+        fillOpacity: 0.8
+    };
+}
+
+
+
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+}
+
+//function zoomToFeature(e) {
+//    map.fitBounds(e.target.getBounds());
+//}
+
+function onEachFeature(feature, layer) {
+  layer.on({
+      mouseover: highlightFeature,
+      mouseout: resetHighlight
+      //click: zoomToFeature
+  });
+}
+
+    function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 2,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    info.update(layer.feature.properties);
+
+  if (!L.Browser.ie && !L.Browser.opera) {
+      layer.bringToFront();
+  }
+}
 
     // add legend to the map
     var legend = L.control({position: 'bottomright'});
@@ -125,7 +197,7 @@ $(function () {
 
     
     
-  } // end if
+} // end if
 
   $('#datatable').dataTable({
     "dom": '<"top"f>t<"clear">'
@@ -140,77 +212,7 @@ function data_picker(name, data){
   return data[name]
 }
 
-// merge the picked data into the shapes so can map choropleth of data
-function merge_data_shapes(data, shapes){
-  $.each(shapes.features, function(index, feature){
-    feature.properties["data"] = data[feature.properties.name]
-  });
-};
 
-
-
-// set color range for choropleth map
-function getColor(d) {
-  return  d > 90 ? '#08306b' :
-          d > 80 ? '#08519c' :
-          d > 70 ? '#2171b5' :
-          d > 60 ? '#4292c6' :
-          d > 50 ? '#6baed6' :
-          d > 40 ? '#9ecae1' :
-          d > 30 ? '#c6dbef' :
-          d > 20 ? '#deebf7' :
-          d > 10 ? '#f7fbff' :
-          d >  0 ? '#FFFFFF' :
-                   '#CCCCCC' ;
-}
-
-
-//
-function style(feature) {
-    return {
-        fillColor: getColor(feature.properties.data),
-        weight: 2,
-        opacity: 1,
-        color: '#999',
-        dashArray: '3',
-        fillOpacity: 0.8
-    };
-}
-
-function highlightFeature(e) {
-  var layer = e.target;
-
-  layer.setStyle({
-      weight: 2,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
-  });
-
-  info.update(layer.feature.properties);
-
-  if (!L.Browser.ie && !L.Browser.opera) {
-      layer.bringToFront();
-  }
-}
-
-
-function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-    info.update();
-}
-
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-}
-
-function onEachFeature(feature, layer) {
-  layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: zoomToFeature
-  });
-}
 
 
 
