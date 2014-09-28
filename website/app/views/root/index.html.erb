@@ -20,7 +20,7 @@
     <hr />
 
     <% if @data.present? %>
-      <div id="chart" style="width:100%; height:400px;"></div>
+      <div id="chart"></div>
 
       <hr />
 
@@ -28,7 +28,7 @@
         <thead>
           <tr>
             <th class="var1-col"></th>
-            <th colspan="<%= (@data[:column_answers].length + 1) %>" style="text-align: center;"><%= @data[:column_question].titlecase %></th>
+            <th colspan="<%= (@data[:column_answers].length + 1) %>"><%= @data[:column_question].titlecase %></th>
           </tr>
           <tr>
             <th class="var1-col"><%= @data[:row_question].titlecase %></th>

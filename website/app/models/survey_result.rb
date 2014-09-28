@@ -15,6 +15,10 @@ class SurveyResult < ActiveRecord::Base
   #   - each array represents each row answer
   #   - each item in the array represents the count of the match of row to column
   # - precents: same as counts, but converted into percents
+  # - chart: data formatted for highcharts
+  #   - labels: axis lables
+  #   - data: series data
+  # - map: data formatted for leaflet
   def self.crosstab_count(row, column)
     result = {}
     # get the question/answers for these items

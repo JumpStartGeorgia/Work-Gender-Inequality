@@ -9,10 +9,9 @@ class RootController < ApplicationController
       # check to make sure row and col param is in list of questions
       if @questions.index{|x| x.code == params[:row]}.present? && @questions.index{|x| x.code == params[:col]}.present?
         @data = SurveyResult.crosstab_count(params[:row], params[:col])
-        @result = SurveyResult.crosstab_count('h1', 'h8')
-        if @result[:chart]
-          gon.chart_data = @result[:chart][:data]
-          gon.chart_labels = @result[:chart][:labels]
+        if @data[:chart]
+          gon.chart_data = @data[:chart][:data]
+          gon.chart_labels = @data[:chart][:labels]
         end
         if @data[:map].present?
           gon.map_data = @data[:map]
