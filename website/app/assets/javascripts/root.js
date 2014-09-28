@@ -206,6 +206,13 @@ function onEachFeature(feature, layer) {
   
   } // end if
 
+  // pick the column of data to display on choropleth map
+  var picked_data;
+  function data_picker(name, data){
+    return data[name]
+  }
+      
+
   $('#datatable').dataTable({
     "dom": '<"top"f>t<"clear">'
   });    
@@ -217,15 +224,5 @@ function onEachFeature(feature, layer) {
   $('.tab-content .tab-pane').removeClass('active');
   $('.tab-content .tab-pane:first').addClass('active');
 });
-
-// pick the column of data to display on choropleth map
-var picked_data;
-function data_picker(name, data){
-  return data[name]
-}
-
-
-
-
 
 
