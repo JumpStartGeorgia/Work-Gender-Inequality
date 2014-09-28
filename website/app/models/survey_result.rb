@@ -69,6 +69,17 @@ class SurveyResult < ActiveRecord::Base
 
         end
 
+        # format data for charts
+        result[:chart] = {}
+        result[:chart][:labels] = result[:column_answers].map{|x| x[1]}
+        result[:chart][:data] = []
+        (0..result[:row_answers].length-1).each do |index|
+          item = {}
+          item[:name] = result[:row_answers][index][1]
+          item[:data] = result[:counts][index]
+          result[:chart][:data] << item
+        end
+
         # take counts and turn into percents
         result[:percents] = []
         result[:counts].each do |count_row|
