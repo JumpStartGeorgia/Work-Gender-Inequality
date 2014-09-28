@@ -6,7 +6,11 @@ if (gon.map_data){
   var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
   var map = L.map('map').setView([42.2529, 43.8300], 7);
 
-  L.tileLayer(url).addTo(map);
+  L.tileLayer(url, {
+              maxZoom: 13,
+              minZoom: 5,
+              opacity: 0.5
+          }).addTo(map);
   
   // default map filter
   merge_data_shapes(data_picker(1, data), shapes)
@@ -30,9 +34,9 @@ if (gon.map_data){
   
   // method that we will use to update the control based on feature properties passed
   info.update = function (props) {
-      this._div.innerHTML = '<h4>props.name</h4>' +  (props ?
-          '<b>' + props.name + '</b><br />' + props.data + ' %<sup>2</sup>'
-          : 'Hover over a state');
+      this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
+          ('<b>' + props.name + '</b>: ' + (props.data == undefined ? 'N/A' : props.data + ' %'))
+          : 'Hover over a Region');
   };
   
   
@@ -48,7 +52,8 @@ if (gon.map_data){
   legend.onAdd = function (map) {
 
       var div = L.DomUtil.create('div', 'info legend'),
-          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
+//          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
+          grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
           labels = [];  
 
       // loop through our density intervals and generate a label with a colored square for each interval
@@ -67,8 +72,6 @@ if (gon.map_data){
   var data_id;
   
   $(document).ready(function() {
-    $('#datatable').dataTable({"paging": false,
-      "info": false});
     $('li.map_filter a').click(function(e)  {
       e.preventDefault();
       
@@ -94,9 +97,10 @@ if (gon.map_data){
 
 $(document).ready(function() {
     $('#datatable').dataTable({
-      "paging": false,
-      "info": false
+      "dom": '<"top"f>t<"clear">'
     });    
+
+    $('.selectpicker').selectpicker();    
 });
 
 // pick the column of data to display on choropleth map
@@ -116,15 +120,15 @@ function merge_data_shapes(data, shapes){
 
 // set color range for choropleth map
 function getColor(d) {
-  return  d > 90 ? '#f7fbff' :
-          d > 80 ? '#deebf7' :
-          d > 70 ? '#c6dbef' :
-          d > 60 ? '#9ecae1' :
+  return  d > 90 ? '#08306b' :
+          d > 80 ? '#08519c' :
+          d > 70 ? '#2171b5' :
+          d > 60 ? '#4292c6' :
           d > 50 ? '#6baed6' :
-          d > 40 ? '#4292c6' :
-          d > 30 ? '#2171b5' :
-          d > 20 ? '#08519c' :
-          d > 10 ? '#08306b' :
+          d > 40 ? '#9ecae1' :
+          d > 30 ? '#c6dbef' :
+          d > 20 ? '#deebf7' :
+          d > 10 ? '#f7fbff' :
           d >  0 ? '#FFFFFF' :
                    '#CCCCCC' ;
 }
@@ -136,9 +140,9 @@ function style(feature) {
         fillColor: getColor(feature.properties.data),
         weight: 2,
         opacity: 1,
-        color: 'white',
+        color: '#999',
         dashArray: '3',
-        fillOpacity: 0.7
+        fillOpacity: 0.8
     };
 }
 
