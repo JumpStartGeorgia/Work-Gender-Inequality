@@ -1,40 +1,46 @@
 $(document).ready(function() {
   // bar charts
-  $('#chart').highcharts({
-      chart: {
-          type: 'bar'
-      },
-      title: {
-          text: 'Fruit Consumption'
-      },
-      xAxis: {
-          categories: ['Apples', 'Bananas', 'Oranges']
-      },
-      yAxis: {
-          title: {
-              text: 'Fruit eaten'
-          }
-      },
-      series: [{
-          name: 'Jane',
-          data: [1, 0, 4]
-      }, {
-          name: 'John',
-          data: [5, 7, 3]
-      }]
-  });
-
+$(function () {
+    $('#chart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Stacked Column Chart'
+        },
+        xAxis: {
+            categories: gon.chart_labels
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percent'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+        series: gon.chart_data
+    });
+});
   if (gon.map_data){
 
     var data = gon.map_data
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
-    var map = L.map('map').setView([42.2529, 43.8300], 7);
+    var map = L.map('map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
 
     L.tileLayer(url, {
-                maxZoom: 13,
-                minZoom: 5,
+                maxZoom: 7,
+                minZoom: 7,
+                zoomControl: false,
                 opacity: 0.5
             }).addTo(map);
     
