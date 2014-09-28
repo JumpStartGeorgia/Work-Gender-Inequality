@@ -195,6 +195,11 @@ function onEachFeature(feature, layer) {
       });
     });
 
+// pick the column of data to display on choropleth map
+var picked_data;
+function data_picker(name, data){
+  return data[name]
+}
     
     
 } // end if
