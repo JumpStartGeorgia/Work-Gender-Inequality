@@ -21,16 +21,19 @@
 
     <% if @data.present? %>
       <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#tab-map" role="tab" data-toggle="tab">Choropleth Map</a></li>
-        <li><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
+        <% if @data[:map].present? %>
+          <li class="active"><a href="#tab-map" role="tab" data-toggle="tab">Choropleth Map</a></li>
+          <li><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
+        <% else %>
+          <li class="active"><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
+        <% end %>
         <li><a href="#tab-table" role="tab" data-toggle="tab">Data Table</a></li>
         <li><a href="#tab-details" role="tab" data-toggle="tab">Details</a></li>
       </ul>      
 
       <div class="tab-content">
-        <div class="tab-pane active" id="tab-map">
-          <% if @data[:map].present? %>
-
+        <% if @data[:map].present? %>
+          <div class="tab-pane active" id="tab-map">
             <span>Filter Map By:</span>
             <div id="map_filter" class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -45,8 +48,8 @@
 
             <div id="map"></div>
 
-          <% end %>
-        </div>
+          </div>
+        <% end %>
         <div class="tab-pane active" id="tab-chart">
           <div id="chart"></div>
         </div>
