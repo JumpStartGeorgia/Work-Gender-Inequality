@@ -42,10 +42,10 @@ class SurveyResult < ActiveRecord::Base
         # put all of the data together
 
         # save the questions and answers
-        result[:row_question] = q_row.text
-        result[:row_answers] = q_row.answers.map{|x| [x.value, x.text]}
-        result[:column_question] = q_col.text
-        result[:column_answers] = q_col.answers.map{|x| [x.value, x.text]}
+        result[:row_question] = q_row.text.titlecase
+        result[:row_answers] = q_row.answers.map{|x| [x.value, x.text.titlecase]}
+        result[:column_question] = q_col.text.titlecase
+        result[:column_answers] = q_col.answers.map{|x| [x.value, x.text.titlecase]}
 
         # put the counts into a new array to make sure all row and column answers are included
         result[:counts] = []

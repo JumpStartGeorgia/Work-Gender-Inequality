@@ -32,6 +32,13 @@
       <div class="tab-content">
         <% if @data[:map].present? %>
           <div class="tab-pane active" id="tab-map">
+            <h3>
+              <%= @data[:row_question] %>
+              <br />
+              by
+              <br />
+              <%= @data[:column_question] %>
+            </h3>
             <span>Filter Map By:</span>
             <div id="map_filter" class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
