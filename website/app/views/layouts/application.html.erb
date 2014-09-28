@@ -16,8 +16,6 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
     
-    <script src="/regions.js"></script>
-    
     <% if @use_map %>
       <link rel="stylesheet" href="/leaflet/leaflet.css" />
       <script src="/regions.js"></script>
@@ -113,8 +111,10 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <% if @use_map %>
       <script type="text/javascript" src="/leaflet/leaflet.js"></script>
-      <script type="text/javascript" src=""></script>
     <% end %>
+    
+    
+    <script src="/highcharts/js/highcharts.js"></script>
     <%= javascript_include_tag "application" %>
 		<script type="text/javascript">
 			I18n.defaultLocale = "<%= I18n.default_locale %>";
