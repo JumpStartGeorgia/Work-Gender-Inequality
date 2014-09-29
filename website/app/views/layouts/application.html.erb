@@ -15,6 +15,12 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all" %>
+    
+    <% if @use_map %>
+      <link rel="stylesheet" href="/leaflet/leaflet.css" />
+      <script src="/regions.js"></script>
+    <% end %>
+    
 		<!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
 	  <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
 
@@ -34,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to(t('app.common.app_name'), root_path(:locale => I18n.locale),:class=>"navbar-brand font")%>
+          <img src=xtraktr_logo.png width="50" style="float: left; padding: 5px" /><%= link_to(t('app.common.app_name'), root_path(:locale => I18n.locale),:class=>"navbar-brand font")%>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
@@ -103,17 +109,21 @@
     <!-- Javascripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <% if @use_map %>
+      <script type="text/javascript" src="/leaflet/leaflet.js"></script>
+    <% end %>
+    
+    
     <%= javascript_include_tag "application" %>
 		<script type="text/javascript">
 			I18n.defaultLocale = "<%= I18n.default_locale %>";
 			I18n.locale = "<%= I18n.locale %>";
 		</script>
-
 		<% if Rails.env.production? %>
 			<!-- insert google analytics for production site here -->
 		<% elsif Rails.env.staging? %>
 			<!-- insert google analytics for staging site here -->
 		<% end %>
-
+  
   </body>
 </html>
