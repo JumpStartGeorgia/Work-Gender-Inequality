@@ -216,3 +216,128 @@ function ellipse()
         });
 
 }
+     <svg height="100" width="100">
+      <defs>
+    <linearGradient id="myLinearGradient1"
+                    x1="0%" y1="0%"
+                    x2="100%" y2="0%"
+                    spreadMethod="pad">
+      <stop offset="0%"   stop-color="red" stop-opacity="1"/>
+      <stop offset="100%" stop-color="green" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+ <g class="static_before" style="width:auto">
+      <circle cx="20" cy="250" r="20"  stroke="black" class="circle" data-id="0" stroke-width="1" fill="lightgreen" />
+  </g>
+  <g class="for_mutation" style="width:auto">
+  <circle cx="70" cy="250" r="20"stroke="black" class="circle" data-id="1" stroke-width="1" fill="green" />
+  <circle cx="120" cy="250" r="20"  stroke="black" class="circle" data-id="2" stroke-width="1"  fill="red" />
+  <circle cx="170" cy="250" r="20"  stroke="black" class="circle" data-id="3" stroke-width="1" fill="white" />
+  <circle cx="220" cy="250" r="20"  stroke="black" class="circle" data-id="4" stroke-width="1" fill="purple" />
+   <circle cx="270" cy="250" r="20"  stroke="black" class="circle" data-id="5" stroke-width="1" fill="blue" /> 
+  </g>
+  <g class="static_after" style="width:auto">
+      <circle cx="320" cy="250" r="20"  stroke="black" class="circle" data-id="6" stroke-width="1" fill="lightblue" />
+  </g>
+    <!-- <ellipse cx="50" cy="250" rx="40" ry="40" stroke="black" class="circle" data-id="1" stroke-width="1" fill="green" />
+  <ellipse cx="150" cy="250" rx="40" ry="40" stroke="black" class="circle" data-id="2" stroke-width="1"  fill="white" />
+  <ellipse cx="250" cy="250" rx="40" ry="40" stroke="black" class="circle" data-id="3" stroke-width="1" fill="red" /> -->
+</svg>
+<style>
+.tester svg
+{overflow:visible; position:fixed;}
+.tester circle
+{
+   display:inline-block;
+   z-index:7;
+}
+.tester .repeat 
+{
+   position:absolute;
+   z-index:6;
+   top:400px;
+}
+</style>
+
+
+
+    var cir_offset = 10;
+  var static_after = $('.tester g.static_after circle');
+  var st_after_len = static_after.length;
+  var start_offset = st_after_len*40+(st_after_len)*cir_offset;
+  var static_before = $('.tester g.static_before circle');
+  var st_before_len = static_before.length;
+
+  var circles = $('.tester g.for_mutation circle');
+  var cir_count = circles.length;
+  var cir_medium = cir_count%2 == 0 ? [cir_count/2,cir_count/2+1] : [Math.ceil10(cir_count/2)];
+
+  var cir_dur = 100;
+  var cir_radius = 20;
+  //console.log(cir_count,cir_medium);
+  //
+  //
+  var interest_count = 6;
+  var interest_icons = ["bag.svg","boat.svg","coconut.svg","compass.svg","credit.svg","directions.svg","earth.svg","passport.svg","photo.svg","place.svg","plane.svg","plate.svg","sun.svg","taxi.svg","wallet.svg"];
+$('.repeat').on('click', spiral_redraw);
+//spiral_redraw();
+var test = $("<div class='test_block'></div>").appendTo('.tester');
+test = $('<ul>').appendTo(test);
+ interest_icons.forEach(function(d,i){
+  if(i<interest_count)
+    test.append($("<li>").css('background-image',"url(assets/images/svg/interests/"+ d + ")"));  
+ });
+
+
+function spiral_redraw()
+{
+
+  var centerX = initCenterX = (cir_count*cir_radius*2+(cir_count-1)*cir_offset)/2 + start_offset;
+  var centerY = 250;
+console.log(centerX,centerY);
+  circles.each(function(i,d)
+  {     
+    var t = $(d); 
+    t.attr({'cx':2*cir_radius*(i+1)+(cir_offset*(i))+start_offset-cir_radius}).show(); 
+
+
+    if(i+1 <= cir_medium[0])          
+     t.attr({'br':centerX - +t.attr('cx'),'ibr':centerX - +t.attr('cx') });
+    else  t.attr({'br':+t.attr('cx')-centerX,'ibr':+t.attr('cx')-centerX  });
+    console.log(t.attr('br'),centerX,+t.attr('cx'),i+1 <= cir_medium[0]);
+  });
+  var centerDistance = centerX - start_offset - cir_radius;
+  
+  $('.tester g.static_after circle').each(function(i,d){
+    $(d).attr('cx',320);
+    $(d).attr({'icx':$(d).attr('cx'), 'distance':$(d).attr('cx') - centerX - (20 + 10 + 20) + centerDistance });
+   // console.log($(d).attr('cx'),$(d).attr('cx') - centerX + 20 + 10 + 20 );
+   });
+      circles.each(function(i,d)
+      {    
+       
+        var t = $(d);
+
+          t.animate({'color':'white'},{duration:1000,
+            progress:function(a,b,c){
+              var th = $(this);  
+              x = centerX + +th.attr('br') * Math.cos(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
+              y = centerY - +th.attr('br') * Math.sin(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
+              th.attr('br',+th.attr('ibr')-+th.attr('ibr')*b);
+              th.attr({'cx':x, 'cy':y});
+              centerX = initCenterX - centerDistance*b;
+              //$(circles[cir_medium-1]).attr('cx',centerX);
+              $('.static_after circle').each(function(i,d){
+                  $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
+                });
+            }
+          });
+      });
+}
+
+
+
+
+
+
+

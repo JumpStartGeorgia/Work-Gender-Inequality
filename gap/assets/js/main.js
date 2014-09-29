@@ -2,68 +2,170 @@ $(document).ready(function(){
 
 
 
-    var cir_offset = 10;
-  var static_after = $('.tester g.static_after circle');
-  var st_after_len = static_after.length;
-  var start_offset = st_after_len*40+(st_after_len)*cir_offset;
-  var static_before = $('.tester g.static_before circle');
-  var st_before_len = static_before.length;
+   
+  // var static_after = $('.tester g.static_after circle');
+  // var st_after_len = static_after.length;
+  // var start_offset = 0;//st_after_len*40+(st_after_len)*cir_offset;
+  // var static_before = $('.tester g.static_before circle');
+  // var st_before_len = static_before.length;
 
-  var circles = $('.tester g.for_mutation circle');
-  var cir_count = circles.length;
-  var cir_medium = cir_count%2 == 0 ? [cir_count/2,cir_count/2+1] : [Math.ceil10(cir_count/2)];
-
+  //var circles = $('.tester g.for_mutation circle');
+ // var cir_count = circles.length;
+ 
+  var cir_offset = 20;
   var cir_dur = 100;
-  var cir_radius = 20;
-  //console.log(cir_count,cir_medium);
+  var cir_radius = 16;
+  var start_offset = 0;
+  var interest_count = 10;
+  var medium_point =  Math.ceil10(interest_count/2);
+  var interest_icons = ["bag.svg","boat.svg","coconut.svg","compass.svg","credit.svg","directions.svg"];//,"earth.svg","passport.svg","photo.svg","place.svg","plane.svg","plate.svg","sun.svg","taxi.svg","wallet.svg"];
 
-$('.repeat').on('click', spiral_redraw);
+
+  var centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset;
+  var centerY = 0;
+  var intere = [6,3,1,0,0,0];
+  var mapper = [4,2,2,3,3,3];
+  var test = $("<div class='test_block'></div>").appendTo('.tester');
+  [1,2,3,4,5,6].forEach(function(d,i){
+    test.append('<div class="int_group" data-id="'+i+'">');
+  });
+
+    
+
+  
+  var index = 1;
+  interest_icons.forEach(function(d,i){
+
+    if(i<interest_count && intere[i] > 0 )
+    {
+      var map = mapper[i];
+      var tmp = 0;
+      //var started = false;
+      var started = false;
+      //var started_pos = 0;
+      var started_pos = 0;
+      var cur_intere_val = intere[i];
+      var cur_offset = cur_intere_val % map;
+
+      var parent = $('.tester .test_block > div.int_group[data-id=' + (i+1) + ']');
+      for(var j = 0; j < cur_intere_val; ++j)
+      {
+
+        var item = $('<div data-id=' + (j+1) + '>').css({
+          'background-image':"url(assets/images/svg/interests/"+ d + ")",
+          'left':2*cir_radius*index - cir_radius + cir_offset * (index-1) + start_offset,
+          'top':0
+        });  
+        if(!started && j >= cur_offset && j+map <= intere[i])
+        {
+          started_pos = j;
+          item.attr({'data-mut-startpoint':true,'data-mut-count':map});
+          started = true;
+        }
+        else
+        {
+          if(started_pos+map-1 == j)
+          {
+              //item.attr('data-end',true);
+              started = false;
+          }
+        }
+
+        parent.append(item);
+
+        var left = item.position().left;
+        var data_left = (index <= medium_point ? centerX - left : left - centerX);
+        item.attr({'data-left':data_left, 'data-ileft':data_left});
+        ++index;
+      }
+    }
+  });
+
 //spiral_redraw();
 function spiral_redraw()
 {
 
-  var centerX = initCenterX = (cir_count*cir_radius*2+(cir_count-1)*cir_offset)/2 + start_offset;
-  var centerY = 250;
-console.log(centerX,centerY);
-  circles.each(function(i,d)
-  {     
-    var t = $(d); 
-    t.attr({'cx':2*cir_radius*(i+1)+(cir_offset*(i))+start_offset-cir_radius}).show(); 
+    $('.tester div[data-mut-startpoint=true]').each(function(i,d){
+       var t = $(d);
+       var id = +t.attr('data-id');
+       var par = t.parent();
+      var mut_count = +t.attr('data-mut-count');
+      var mut_cx = (mut_count*cir_radius*2 + (mut_count-1)*cir_offset)/2 + t.position().left;
+      t.attr({'data-mut-cx': mut_cx});
+      t.attr({'data-mut-distance': mut_cx-t.position().left - cir_radius });
+      //console.log(t,id,par,mut_count,mut_cx);
+      for(var j = id; j < id + mut_count; ++j)
+      {
+        console.log(par,j);
+        var item = par.find('.div[data-id='+j+']');
+        item.animate({'color':'white'},{ duration:1000,
+          process:function(a,b,c){
+            console.log(b);
+          }
+        });
+        console.log(item.attr('data-left'));
+      }
+    });
+ //  centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset; 
+ //  var centerDistance = centerX - start_offset - cir_radius;
+ // //$('.test_block > div.int_group > div').removeAttr('data-start data-end');
 
-
-    if(i+1 <= cir_medium[0])          
-     t.attr({'br':centerX - +t.attr('cx'),'ibr':centerX - +t.attr('cx') });
-    else  t.attr({'br':+t.attr('cx')-centerX,'ibr':+t.attr('cx')-centerX  });
-    console.log(t.attr('br'),centerX,+t.attr('cx'),i+1 <= cir_medium[0]);
-  });
-  var centerDistance = centerX - start_offset - cir_radius;
-  
-  $('.tester g.static_after circle').each(function(i,d){
-    $(d).attr('cx',320);
-    $(d).attr({'icx':$(d).attr('cx'), 'distance':$(d).attr('cx') - centerX - (20 + 10 + 20) + centerDistance });
-   // console.log($(d).attr('cx'),$(d).attr('cx') - centerX + 20 + 10 + 20 );
-   });
-      circles.each(function(i,d)
-      {    
-       
-        var t = $(d);
-
-          t.animate({'color':'white'},{duration:1000,
-            progress:function(a,b,c){
-              var th = $(this);  
-              x = centerX + +th.attr('br') * Math.cos(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
-              y = centerY - +th.attr('br') * Math.sin(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
-              th.attr('br',+th.attr('ibr')-+th.attr('ibr')*b);
-              th.attr({'cx':x, 'cy':y});
-              centerX = initCenterX - centerDistance*b;
-              //$(circles[cir_medium-1]).attr('cx',centerX);
-              $('.static_after circle').each(function(i,d){
-                  $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
-                });
-            }
-          });
-      });
+ // $('.test_block > div.int_group > div').each(function(i,d)
+ //  {  
+ //    var t = $(d);
+ //     t.css({  'left':2*cir_radius*(i+1) - cir_radius + cir_offset * i + start_offset, 'top':0 });  
+ //      t.attr({'data-left': t.attr('data-ileft') });
+ //      t.animate({'color':'white'},{duration:1000,
+ //        progress:function(a,b,c){
+ //          var th = $(this);  
+ //          console.log(th.attr('data-left'));
+ //          x = centerX + +th.attr('data-left') * Math.cos(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+ //          y = centerY - +th.attr('data-left') * Math.sin(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+ //          th.attr('data-left',+th.attr('data-ileft')-+th.attr('data-ileft')*b);
+ //          th.css({'left':x, 'top':y});
+ //          //console.log(x,y);
+ //          centerX = initCenterX - centerDistance*b;
+ //          //$(circles[cir_medium-1]).attr('cx',centerX);
+ //          // $('.static_after circle').each(function(i,d){
+ //          //     $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
+ //          //   });
+ //        }
+ //      });
+ //  });          
 }
+function spiral_redraw1()
+{
+  centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset; 
+  var centerDistance = centerX - start_offset - cir_radius;
+ //$('.test_block > div.int_group > div').removeAttr('data-start data-end');
+
+ $('.test_block > div.int_group > div').each(function(i,d)
+  {  
+    var t = $(d);
+     t.css({  'left':2*cir_radius*(i+1) - cir_radius + cir_offset * i + start_offset, 'top':0 });  
+      t.attr({'data-left': t.attr('data-ileft') });
+      t.animate({'color':'white'},{duration:1000,
+        progress:function(a,b,c){
+          var th = $(this);  
+          console.log(th.attr('data-left'));
+          x = centerX + +th.attr('data-left') * Math.cos(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+          y = centerY - +th.attr('data-left') * Math.sin(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+          th.attr('data-left',+th.attr('data-ileft')-+th.attr('data-ileft')*b);
+          th.css({'left':x, 'top':y});
+          //console.log(x,y);
+          centerX = initCenterX - centerDistance*b;
+          //$(circles[cir_medium-1]).attr('cx',centerX);
+          // $('.static_after circle').each(function(i,d){
+          //     $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
+          //   });
+        }
+      });
+  });          
+}
+
+$('.repeat').on('click', spiral_redraw);
+//spiral_redraw();
+//
 
 // bind events
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
