@@ -1,80 +1,70 @@
 $(document).ready(function(){
-  var circles = $('.tester ellipse');
+
+
+
+    var cir_offset = 10;
+  var static_after = $('.tester g.static_after circle');
+  var st_after_len = static_after.length;
+  var start_offset = st_after_len*40+(st_after_len)*cir_offset;
+  var static_before = $('.tester g.static_before circle');
+  var st_before_len = static_before.length;
+
+  var circles = $('.tester g.for_mutation circle');
   var cir_count = circles.length;
   var cir_medium = cir_count%2 == 0 ? [cir_count/2,cir_count/2+1] : [Math.ceil10(cir_count/2)];
-  var cir_offset = 50;
+
   var cir_dur = 100;
-  console.log(cir_count,cir_medium);
+  var cir_radius = 20;
+  //console.log(cir_count,cir_medium);
 
-$('.repeat').on('click',circle_redraw);
-circle_redraw();
-  function circle_redraw()
-  {
-
-    var vl = [50,150,250];
-    circles.each(function(i,d){ $(d).attr('cx',vl[i]).attr('rx',40).show(); });
-
-    circles.each(function(i,d){    
-      var t = $(d);
-      t.attr('data-cx',t.attr('cx'));
-
-      if(i+1 < cir_medium) 
-      {
-        //console.log(i,"left");
-        t.animate({'color':'white'},{duration:cir_dur,
-          progress:function(a,b,c){
-            $(this).attr('cx',+$(this).attr('data-cx')-cir_offset*b);
-          },
-          complete:function()
-          {
-            $(this).attr('data-cx',t.attr('cx')).animate({'color':'white'},{duration:500,
-              progress:function(a,b,c){
-                $(this).attr('cx',+$(this).attr('data-cx')+130*b);
-              }
-            });          
-          }
-        });
-      }
-      else if(i+1 > cir_medium)
-      {
-        //console.log(i,"right");
-        t.animate({'color':'white'},{duration:cir_dur,
-          progress:function(a,b,c){
-            $(this).attr('cx',+$(this).attr('data-cx')+cir_offset*b);
-          },
-          complete:function()
-          {
-            $(this).attr('data-cx',t.attr('cx')).animate({'color':'white'},{duration:500,
-              progress:function(a,b,c){
-                $(this).attr('cx',+$(this).attr('data-cx')-130*b);
-               
-              },
-              complete:function()
-              {
-                 ellipse();
-              }
-            });   
-          }
-        });
-      }
-    });
-}
-function ellipse()
+$('.repeat').on('click', spiral_redraw);
+//spiral_redraw();
+function spiral_redraw()
 {
-  $('.tester ellipse[data-id=1]').hide();
-  $('.tester ellipse[data-id=3]').hide();
 
-   $('.tester ellipse[data-id=2]').animate({'color':'white'},{duration:150,
-          progress:function(a,b,c){
-            $(this).attr('rx',20*b+40).attr("fill","url(#myLinearGradient1)");
-          },
-          complete:function()
-          {
-            $(this).attr('rx',40);
-          }    
-        });
+  var centerX = initCenterX = (cir_count*cir_radius*2+(cir_count-1)*cir_offset)/2 + start_offset;
+  var centerY = 250;
+console.log(centerX,centerY);
+  circles.each(function(i,d)
+  {     
+    var t = $(d); 
+    t.attr({'cx':2*cir_radius*(i+1)+(cir_offset*(i))+start_offset-cir_radius}).show(); 
 
+
+    if(i+1 <= cir_medium[0])          
+     t.attr({'br':centerX - +t.attr('cx'),'ibr':centerX - +t.attr('cx') });
+    else  t.attr({'br':+t.attr('cx')-centerX,'ibr':+t.attr('cx')-centerX  });
+    console.log(t.attr('br'),centerX,+t.attr('cx'),i+1 <= cir_medium[0]);
+  });
+  var centerDistance = centerX - start_offset - cir_radius;
+  
+  $('.tester g.static_after circle').each(function(i,d){
+    $(d).attr('cx',320);
+    $(d).attr({'icx':$(d).attr('cx'), 'distance':$(d).attr('cx') - centerX - (20 + 10 + 20) + centerDistance });
+   // console.log($(d).attr('cx'),$(d).attr('cx') - centerX + 20 + 10 + 20 );
+   });
+      circles.each(function(i,d)
+      {    
+       
+        var t = $(d);
+
+          t.animate({'color':'white'},{duration:1000,
+            progress:function(a,b,c){
+              var th = $(this);  
+              x = centerX + +th.attr('br') * Math.cos(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
+              y = centerY - +th.attr('br') * Math.sin(Math.radians(360-360*b + (i+1 <= cir_medium[0] ? 180 : 0 )));
+              th.attr('br',+th.attr('ibr')-+th.attr('ibr')*b);
+              th.attr({'cx':x, 'cy':y});
+              centerX = initCenterX - centerDistance*b;
+              //$(circles[cir_medium-1]).attr('cx',centerX);
+              $('.static_after circle').each(function(i,d){
+                  $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
+                });
+            }
+          });
+      });
 }
+
 // bind events
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
 
