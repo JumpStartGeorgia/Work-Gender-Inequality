@@ -339,5 +339,123 @@ console.log(centerX,centerY);
 
 
 
+var centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset;
+  var centerY = 0;
+
+ //  centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset; 
+ //  var centerDistance = centerX - start_offset - cir_radius;
+ // //$('.test_block > div.int_group > div').removeAttr('data-start data-end');
+
+ // $('.test_block > div.int_group > div').each(function(i,d)
+ //  {  
+ //    var t = $(d);
+ //     t.css({  'left':2*cir_radius*(i+1) - cir_radius + cir_offset * i + start_offset, 'top':0 });  
+ //      t.attr({'data-left': t.attr('data-ileft') });
+ //      t.animate({'color':'white'},{duration:1000,
+ //        progress:function(a,b,c){
+ //          var th = $(this);  
+ //          console.log(th.attr('data-left'));
+ //          x = centerX + +th.attr('data-left') * Math.cos(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+ //          y = centerY - +th.attr('data-left') * Math.sin(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
+ //          th.attr('data-left',+th.attr('data-ileft')-+th.attr('data-ileft')*b);
+ //          th.css({'left':x, 'top':y});
+ //          //console.log(x,y);
+ //          centerX = initCenterX - centerDistance*b;
+ //          //$(circles[cir_medium-1]).attr('cx',centerX);
+ //          // $('.static_after circle').each(function(i,d){
+ //          //     $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
+ //          //   });
+ //        }
+ //      });
+ //  });  
 
 
+/*
+  interest.map(function(d,i){ return d.image;}).forEach(function(d,i){
+
+    if(index<current_interests_count && current_interests[i] > 0 )
+    {
+      var map = mapper[i];
+      var tmp = 0;
+      var started = false;
+      var started_pos = 0;
+      var cur_intere_val = current_interests[i];
+      var cur_offset = cur_intere_val % map;
+
+      var parent = $('.tester .test_block > div.int_group[data-id=' + (i+1) + ']');
+      for(var j = 0; j < cur_intere_val; ++j)
+      {
+        var item = $('<div data-id=' + (j+1) + '>').css({
+          'background-image':"url(assets/images/svg/interests/"+ d + ")",
+          'left':2*interest_w2*index - interest_w2 + interest_offset * (index-1) + interest_start_offset,
+          'top':0
+        });  
+        if(!started && j >= cur_offset && j+map <= current_interests[i])
+        {
+          started_pos = j;
+          item.attr({'data-mut-startpoint':true,'data-mut-count':map});
+          started = true;
+        }
+        else
+        {
+          if(started_pos+map-1 == j)
+          {
+              //item.attr('data-end',true);
+              started = false;
+          }
+        }
+
+        parent.append(item);
+        ++index;
+      }
+    }
+  });
+*/
+
+function spiral_redraw()
+{
+  mp.play_mutation();
+
+    $('.tester div[data-mut-startpoint=true]').each(function(i,d){
+       var t = $(d);
+       var id = +t.attr('data-id');
+       var par = t.parent();
+      var mut_count = +t.attr('data-mut-count');
+      var mut_cx = (mut_count*interest_w2*2 + (mut_count-1)*interest_offset)/2 + t.position().left;
+      var mut_icx = mut_cx;
+      var meridian = id + Math.floor10(mut_count/2) + (mut_count % 2 == 0 ? -0.5 : 0);
+      var mut_distance = mut_cx-t.position().left - interest_w2;
+
+      t.attr({'data-mut-cx': mut_cx});
+      t.attr({'data-mut-icx': mut_icx});
+      t.attr({'data-mut-meridian': meridian});
+      t.attr({'data-mut-distance':mut_distance });
+
+      //console.log(t,id,par,mut_count,mut_cx);
+      for(var j = id; j < id + mut_count; ++j)
+      {
+        
+        var item = par.find('div[data-id='+j+']');        
+        var left = item.position().left;
+        var data_r = (j <= meridian ? mut_cx - left - interest_w2 : left - mut_cx + interest_w2);
+
+        //console.log(meridian,left,j, data_r);
+        item.attr({'data-r':data_r, 'data-ir':data_r});
+
+        
+        item.animate({'color':'white'},{ duration:1000,
+          progress:function(a,b,c){
+            var th = $(this); 
+            var pr = th.parent(); 
+            x = +pr.attr('data-mut-cx') + +th.attr('data-r') * Math.cos(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
+            y = +pr.attr('data-mut-cx') - +th.attr('data-r') * Math.sin(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
+            th.attr('data-r',+th.attr('data-ir')-+th.attr('data-ir')*b);
+            th.css({'left':x, 'top':y});
+            pr.attr('data-mut-cx',+pr.attr('data-mut-icx') - +pr.attr('data-mut-distance')*b);
+          }
+        });
+        
+      }
+    });
+        
+}

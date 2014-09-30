@@ -53,6 +53,7 @@ function walk(v){
  
       if(v==1)
       {  
+          
         ++timeline_scroll_to_tick_value;
         var t1 = (tls)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
        
@@ -74,6 +75,7 @@ function walk(v){
           --timeline_scroll_to_tick_value;      
         }
       }
+
       $('.canvas').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
       $('.treasure .red-carpet').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
     }
@@ -266,6 +268,7 @@ function timeline_tick(v,n)
     {
       //var point = $('.point-in-time');
       //var curTimeString = point.attr('data-time');
+      
       for(var i = 0; i < n; ++i)
       {
         var curTime = new Date();
@@ -278,7 +281,7 @@ function timeline_tick(v,n)
 
         timeline_point = curTime;
         timeline_points.push(curTime);  
-      }
+      }      
       timeline_point_draw(v);  
     }
     else console.log("timeline step is incorrect");  
@@ -286,6 +289,7 @@ function timeline_tick(v,n)
 }
 function timeline_point_draw(v)
 {
+
   timeline_points.forEach(function(d,i){
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
     {
@@ -310,20 +314,20 @@ function timeline_point_draw(v)
       { 
         if(male.event_by_month[i]>=0)
         {
-          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.position+' .treasure .red-carpet'));
+          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - rew.width()/2 });
         }
         if(female.event_by_month[i]>=0)
         {
-          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.position+' .treasure .red-carpet'));
+          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - rew.width()/2 });
         }
       }
 
       var ticks = v;//monthDiff(timeline_points[i],timeline_points[i-1]);
-      console.log(w*timeline_scale,tls,w*timeline_scale/ticks,tls/ticks);
+      //console.log(w*timeline_scale,tls,w*timeline_scale/ticks,tls/ticks);
       var scaler = w*timeline_scale/ticks;
       for(var j = 0; j < ticks-1; ++j)
       {
@@ -334,12 +338,11 @@ function timeline_point_draw(v)
       point.attr('data-time',d.getTime());
     }
   });
-  $('.treasure .red-carpet').css({width:timeline_points.length*w});
-  timeline.css({width:timeline_points.length*w});
+ 
+  $('.treasure .red-carpet').css({width:timeline_points.length*w}); 
+  timeline.css({width:timeline_points.length*w}); 
 
 }
-
-
 /***************************************************************
                         TODO
 ***************************************************************/
@@ -411,7 +414,7 @@ function lookinfuture(v)
       reward = true;
     } 
     
-     //console.log("Next frame - Reward is coming");
+    // console.log("Next frame - Reward is coming");
     //console.log("first", treasures_leading);
     //console.log("second", treasures);
 
@@ -428,6 +431,7 @@ function lookinfuture(v)
 
     $('.top .treasure .pedestal').text(f.outrun ? top : bottom);
     $('.bottom .treasure .pedestal').text(f.outrun ? bottom : top);   
+   
   }
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level

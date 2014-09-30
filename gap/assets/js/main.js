@@ -1,171 +1,7 @@
+var mp = null;
 $(document).ready(function(){
 
 
-
-   
-  // var static_after = $('.tester g.static_after circle');
-  // var st_after_len = static_after.length;
-  // var start_offset = 0;//st_after_len*40+(st_after_len)*cir_offset;
-  // var static_before = $('.tester g.static_before circle');
-  // var st_before_len = static_before.length;
-
-  //var circles = $('.tester g.for_mutation circle');
- // var cir_count = circles.length;
- 
-  var cir_offset = 20;
-  var cir_dur = 100;
-  var cir_radius = 16;
-  var start_offset = 0;
-  var interest_count = 10;
-  var medium_point =  Math.ceil10(interest_count/2);
-  var interest_icons = ["bag.svg","boat.svg","coconut.svg","compass.svg","credit.svg","directions.svg"];//,"earth.svg","passport.svg","photo.svg","place.svg","plane.svg","plate.svg","sun.svg","taxi.svg","wallet.svg"];
-
-
-  var centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset;
-  var centerY = 0;
-  var intere = [6,3,1,0,0,0];
-  var mapper = [4,2,2,3,3,3];
-  var test = $("<div class='test_block'></div>").appendTo('.tester');
-  [1,2,3,4,5,6].forEach(function(d,i){
-    test.append('<div class="int_group" data-id="'+i+'">');
-  });
-
-    
-
-  
-  var index = 1;
-  interest_icons.forEach(function(d,i){
-
-    if(i<interest_count && intere[i] > 0 )
-    {
-      var map = mapper[i];
-      var tmp = 0;
-      //var started = false;
-      var started = false;
-      //var started_pos = 0;
-      var started_pos = 0;
-      var cur_intere_val = intere[i];
-      var cur_offset = cur_intere_val % map;
-
-      var parent = $('.tester .test_block > div.int_group[data-id=' + (i+1) + ']');
-      for(var j = 0; j < cur_intere_val; ++j)
-      {
-
-        var item = $('<div data-id=' + (j+1) + '>').css({
-          'background-image':"url(assets/images/svg/interests/"+ d + ")",
-          'left':2*cir_radius*index - cir_radius + cir_offset * (index-1) + start_offset,
-          'top':0
-        });  
-        if(!started && j >= cur_offset && j+map <= intere[i])
-        {
-          started_pos = j;
-          item.attr({'data-mut-startpoint':true,'data-mut-count':map});
-          started = true;
-        }
-        else
-        {
-          if(started_pos+map-1 == j)
-          {
-              //item.attr('data-end',true);
-              started = false;
-          }
-        }
-
-        parent.append(item);
-
-        var left = item.position().left;
-        var data_left = (index <= medium_point ? centerX - left : left - centerX);
-        item.attr({'data-left':data_left, 'data-ileft':data_left});
-        ++index;
-      }
-    }
-  });
-
-//spiral_redraw();
-function spiral_redraw()
-{
-
-    $('.tester div[data-mut-startpoint=true]').each(function(i,d){
-       var t = $(d);
-       var id = +t.attr('data-id');
-       var par = t.parent();
-      var mut_count = +t.attr('data-mut-count');
-      var mut_cx = (mut_count*cir_radius*2 + (mut_count-1)*cir_offset)/2 + t.position().left;
-      t.attr({'data-mut-cx': mut_cx});
-      t.attr({'data-mut-distance': mut_cx-t.position().left - cir_radius });
-      //console.log(t,id,par,mut_count,mut_cx);
-      for(var j = id; j < id + mut_count; ++j)
-      {
-        console.log(par,j);
-        var item = par.find('.div[data-id='+j+']');
-        item.animate({'color':'white'},{ duration:1000,
-          process:function(a,b,c){
-            console.log(b);
-          }
-        });
-        console.log(item.attr('data-left'));
-      }
-    });
- //  centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset; 
- //  var centerDistance = centerX - start_offset - cir_radius;
- // //$('.test_block > div.int_group > div').removeAttr('data-start data-end');
-
- // $('.test_block > div.int_group > div').each(function(i,d)
- //  {  
- //    var t = $(d);
- //     t.css({  'left':2*cir_radius*(i+1) - cir_radius + cir_offset * i + start_offset, 'top':0 });  
- //      t.attr({'data-left': t.attr('data-ileft') });
- //      t.animate({'color':'white'},{duration:1000,
- //        progress:function(a,b,c){
- //          var th = $(this);  
- //          console.log(th.attr('data-left'));
- //          x = centerX + +th.attr('data-left') * Math.cos(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
- //          y = centerY - +th.attr('data-left') * Math.sin(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
- //          th.attr('data-left',+th.attr('data-ileft')-+th.attr('data-ileft')*b);
- //          th.css({'left':x, 'top':y});
- //          //console.log(x,y);
- //          centerX = initCenterX - centerDistance*b;
- //          //$(circles[cir_medium-1]).attr('cx',centerX);
- //          // $('.static_after circle').each(function(i,d){
- //          //     $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
- //          //   });
- //        }
- //      });
- //  });          
-}
-function spiral_redraw1()
-{
-  centerX = initCenterX = (interest_count*cir_radius*2+(interest_count-1)*cir_offset)/2 + start_offset; 
-  var centerDistance = centerX - start_offset - cir_radius;
- //$('.test_block > div.int_group > div').removeAttr('data-start data-end');
-
- $('.test_block > div.int_group > div').each(function(i,d)
-  {  
-    var t = $(d);
-     t.css({  'left':2*cir_radius*(i+1) - cir_radius + cir_offset * i + start_offset, 'top':0 });  
-      t.attr({'data-left': t.attr('data-ileft') });
-      t.animate({'color':'white'},{duration:1000,
-        progress:function(a,b,c){
-          var th = $(this);  
-          console.log(th.attr('data-left'));
-          x = centerX + +th.attr('data-left') * Math.cos(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
-          y = centerY - +th.attr('data-left') * Math.sin(Math.radians(360-360*b + (i+1 <= medium_point ? 180 : 0 )));
-          th.attr('data-left',+th.attr('data-ileft')-+th.attr('data-ileft')*b);
-          th.css({'left':x, 'top':y});
-          //console.log(x,y);
-          centerX = initCenterX - centerDistance*b;
-          //$(circles[cir_medium-1]).attr('cx',centerX);
-          // $('.static_after circle').each(function(i,d){
-          //     $(d).attr('cx',+$(d).attr('icx') - +$(d).attr('distance') * b);
-          //   });
-        }
-      });
-  });          
-}
-
-$('.repeat').on('click', spiral_redraw);
-//spiral_redraw();
-//
 
 // bind events
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
@@ -218,6 +54,164 @@ $('.repeat').on('click', spiral_redraw);
       init(); // start game       
   // ***********************************************  
 // ***********************************************  
+
+  var interest_offset = 10;
+  var interest_animation_duration = 100;
+  var interest_w = 32;
+  var interest_w2 = interest_w/2;
+  var interest_start_offset = 0;
+  var current_interests = [6,3,1,0,0,0];
+  var mutation_step = [4,2,2,3,3,3];
+  var index = 1;
+  var current_interests_count = 0;
+  current_interests.forEach(function(d,i){current_interests_count+=d;});
+
+  function pedestal_object()
+  {
+    this.ach = [0,0,0,0,0,0]; // achievements per item in interest
+    this.ach_count = 0;   
+    this.mutation = [[],[],[],[],[],[]]; 
+    this.mutation_empty = [[],[],[],[],[],[]]; 
+    this.mutation_count = 0;
+    this.up = function(which,how)
+    {
+      if(this.inrange(which) && how > 0)
+      {
+        var zIndex = which - 1;
+        //console.log("ach_up",which,how);
+        var from = this.ach[zIndex];
+        var parent = $('.tester .test_block > div.int_group[data-id=' + which + ']');
+        for(var i = from+1; i <= from+how; ++i)
+        {
+          var item = $('<div data-id=' + i + '>').css(
+          {
+            'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
+            'left':0,//2*interest_w2*i - interest_w2 + interest_offset * (i-1) + interest_start_offset,
+            'top':0
+          });  
+          parent.append(item);
+        }
+        this.ach[zIndex] += how;
+        if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
+          this.mutate(zIndex);
+      }
+    };
+    this.down = function(which,how) // which 1 based
+    {
+      console.log("ach_down");
+    };
+    this.inrange = function(which)
+    {
+      if(which >=1 && which < this.ach.length)
+        return true;
+      return false;
+    };
+    this.init = function()
+    {
+      var test = $("<div class='test_block'></div>").appendTo('.tester');
+      this.ach.forEach(function(d,i){
+        test.append('<div class="int_group" data-id="'+(i+1)+'">');
+      }); 
+    }
+    this.mutate = function(which)
+    {
+      var t = this;        
+      var ca = t.ach[which];
+      var cm = mutation_step[which];
+      var mut_count = Math.floor10(ca/cm);
+      t.mutation = t.mutation_empty;
+      if(mut_count >= 1)
+      {
+
+        var looper = mut_count;
+        var tmpA = [];
+        var tca = ca;        
+        while(looper != 0)
+        {
+          var centTmp = tca-cm + Math.floor10(cm/2);
+          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2);
+          var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==1 ? -0.5 : 0);
+          var distTmp = cxTmp - (tca-cm)*interest_w - (tca-cm-1)*interest_offset - interest_w2;
+          tmpA = { start: tca-cm+1, end: tca, cx: cxTmp, cxi: cxTmp, meridian : merTmp, distance : distTmp }; //,
+          tca-=cm;
+          t.mutation[which].push(tmpA);
+          --looper;
+        }    
+      }
+      console.log(t.mutation);
+    };
+    this.play_mutation = function()
+    {
+      mp.mutation.forEach(function(d,i)
+      { 
+        if(d.length > 0)
+        {
+          d.forEach(function(dd,ii)
+          {
+            console.log(dd,ii);     
+          });
+          
+        }
+        
+      });
+    };
+    this.init();
+  }
+
+  mp = new pedestal_object(); // male pedestal object  
+  current_interests.forEach(function(d,i){ mp.up(i+1,d); });
+
+
+$('.repeat').on('click', mp.play_mutation);
+
+function spiral_redraw()
+{
+  mp.play_mutation();
+
+    $('.tester div[data-mut-startpoint=true]').each(function(i,d){
+       var t = $(d);
+       var id = +t.attr('data-id');
+       var par = t.parent();
+      var mut_count = +t.attr('data-mut-count');
+      var mut_cx = (mut_count*interest_w2*2 + (mut_count-1)*interest_offset)/2 + t.position().left;
+      var mut_icx = mut_cx;
+      var meridian = id + Math.floor10(mut_count/2) + (mut_count % 2 == 0 ? -0.5 : 0);
+      var mut_distance = mut_cx-t.position().left - interest_w2;
+
+      t.attr({'data-mut-cx': mut_cx});
+      t.attr({'data-mut-icx': mut_icx});
+      t.attr({'data-mut-meridian': meridian});
+      t.attr({'data-mut-distance':mut_distance });
+
+      //console.log(t,id,par,mut_count,mut_cx);
+      for(var j = id; j < id + mut_count; ++j)
+      {
+        
+        var item = par.find('div[data-id='+j+']');        
+        var left = item.position().left;
+        var data_r = (j <= meridian ? mut_cx - left - interest_w2 : left - mut_cx + interest_w2);
+
+        //console.log(meridian,left,j, data_r);
+        item.attr({'data-r':data_r, 'data-ir':data_r});
+
+        
+        item.animate({'color':'white'},{ duration:1000,
+          progress:function(a,b,c){
+            var th = $(this); 
+            var pr = th.parent(); 
+            x = +pr.attr('data-mut-cx') + +th.attr('data-r') * Math.cos(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
+            y = +pr.attr('data-mut-cx') - +th.attr('data-r') * Math.sin(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
+            th.attr('data-r',+th.attr('data-ir')-+th.attr('data-ir')*b);
+            th.css({'left':x, 'top':y});
+            pr.attr('data-mut-cx',+pr.attr('data-mut-icx') - +pr.attr('data-mut-distance')*b);
+          }
+        });
+        
+      }
+    });
+        
+}
+
 
 }); 
 
