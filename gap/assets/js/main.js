@@ -60,7 +60,7 @@ $(document).ready(function(){
   var interest_w = 32;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  var current_interests = [6,3,1,0,0,0];
+  var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
   var mutation_step = [4,2,2,3,3,3];
   var index = 1;
   var current_interests_count = 0;
@@ -81,15 +81,20 @@ $(document).ready(function(){
         //console.log("ach_up",which,how);
         var from = this.ach[zIndex];
         var parent = $('.tester .test_block > div.int_group[data-id=' + which + ']');
+
+        var before_which = 0;
+        this.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
+        //console.log(before_which);
         for(var i = from+1; i <= from+how; ++i)
         {
           var item = $('<div data-id=' + i + '>').css(
           {
             'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
-            'left':0,//2*interest_w2*i - interest_w2 + interest_offset * (i-1) + interest_start_offset,
-            'top':0
+            'left':interest_w*before_which + interest_offset * before_which + interest_start_offset,
+            'top':200
           });  
           parent.append(item);
+          ++before_which;
         }
         this.ach[zIndex] += how;
         if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
@@ -129,28 +134,57 @@ $(document).ready(function(){
         while(looper != 0)
         {
           var centTmp = tca-cm + Math.floor10(cm/2);
-          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2);
+          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2) - interest_w2;
+          var cyTmp = 200;
           var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==1 ? -0.5 : 0);
-          var distTmp = cxTmp - (tca-cm)*interest_w - (tca-cm-1)*interest_offset - interest_w2;
-          tmpA = { start: tca-cm+1, end: tca, cx: cxTmp, cxi: cxTmp, meridian : merTmp, distance : distTmp }; //,
+          var distTmp = cxTmp - (tca-cm)*interest_w - (tca-cm)*interest_offset;
+          tmpA = { from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp }; //,
           tca-=cm;
           t.mutation[which].push(tmpA);
           --looper;
         }    
       }
-      console.log(t.mutation);
+      //console.log(t.mutation);
     };
     this.play_mutation = function()
     {
+      //console.log(mp.mutation);
       mp.mutation.forEach(function(d,i)
       { 
         if(d.length > 0)
         {
+          var par = $('.tester .test_block > div.int_group[data-id='+(i+1)+']');
           d.forEach(function(dd,ii)
-          {
-            console.log(dd,ii);     
+          {   
+            for(var j = dd.from; j <= dd.to; ++j)
+            {
+              //console.log(dd.from,dd.to);           
+              var item = par.find('div[data-id=' + j + ']');
+              var left = item.position().left;
+              
+              //console.log(left,dd.cx,left-dd.cx,j,dd.meridian);
+              var r = (j <= dd.meridian ? dd.cx - left - interest_w2 : left - dd.cx + interest_w2);
+              //console.log(r,j <= dd.meridian ? 180 : 0);
+              //console.log(left);
+              item.data({'r':r, 'ir':r});
+
+              item.animate({"color":"white"},{duration:1000, 
+                progress:function(a,b,c){
+                  var th = $(this); 
+                  console.log(dd.cx,dd.cy,th.data('id'),th.data('r'),th.data('ir'));
+                  x = dd.cx + +th.data('r') * Math.cos(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
+                  y = dd.cy - +th.data('r') * Math.sin(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
+                  th.data('r',th.data('ir')*(1-b));
+                  th.css({'left':x, 'top':y});
+                  dd.cx = dd.cxi - dd.distance*b;                
+                },
+                complete:function()
+                {
+                  //$(this).remove();
+                }
+              });
+            }
           });
-          
         }
         
       });
@@ -160,59 +194,7 @@ $(document).ready(function(){
 
   mp = new pedestal_object(); // male pedestal object  
   current_interests.forEach(function(d,i){ mp.up(i+1,d); });
-
-
-$('.repeat').on('click', mp.play_mutation);
-
-function spiral_redraw()
-{
-  mp.play_mutation();
-
-    $('.tester div[data-mut-startpoint=true]').each(function(i,d){
-       var t = $(d);
-       var id = +t.attr('data-id');
-       var par = t.parent();
-      var mut_count = +t.attr('data-mut-count');
-      var mut_cx = (mut_count*interest_w2*2 + (mut_count-1)*interest_offset)/2 + t.position().left;
-      var mut_icx = mut_cx;
-      var meridian = id + Math.floor10(mut_count/2) + (mut_count % 2 == 0 ? -0.5 : 0);
-      var mut_distance = mut_cx-t.position().left - interest_w2;
-
-      t.attr({'data-mut-cx': mut_cx});
-      t.attr({'data-mut-icx': mut_icx});
-      t.attr({'data-mut-meridian': meridian});
-      t.attr({'data-mut-distance':mut_distance });
-
-      //console.log(t,id,par,mut_count,mut_cx);
-      for(var j = id; j < id + mut_count; ++j)
-      {
-        
-        var item = par.find('div[data-id='+j+']');        
-        var left = item.position().left;
-        var data_r = (j <= meridian ? mut_cx - left - interest_w2 : left - mut_cx + interest_w2);
-
-        //console.log(meridian,left,j, data_r);
-        item.attr({'data-r':data_r, 'data-ir':data_r});
-
-        
-        item.animate({'color':'white'},{ duration:1000,
-          progress:function(a,b,c){
-            var th = $(this); 
-            var pr = th.parent(); 
-            x = +pr.attr('data-mut-cx') + +th.attr('data-r') * Math.cos(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
-            y = +pr.attr('data-mut-cx') - +th.attr('data-r') * Math.sin(Math.radians(360-360*b + (i+1 <= +pr.attr('data-mut-meridian') ? 180 : 0 )));
-            th.attr('data-r',+th.attr('data-ir')-+th.attr('data-ir')*b);
-            th.css({'left':x, 'top':y});
-            pr.attr('data-mut-cx',+pr.attr('data-mut-icx') - +pr.attr('data-mut-distance')*b);
-          }
-        });
-        
-      }
-    });
-        
-}
-
-
+  $('.repeat').on('click', mp.play_mutation);
 }); 
 
  window.onpopstate = function(e){
