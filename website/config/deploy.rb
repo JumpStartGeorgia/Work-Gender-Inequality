@@ -103,4 +103,10 @@ namespace :deploy do
     end
   end
 
+  desc "Copy code application to level up due to app being in sub-folder"
+  task :copy_to_level_up do
+    run "mv -R #{release_path}/website/* #{release_path}/" 
+  end
+  after "deploy:update_code", "deploy:copy_to_level_up"
+
 end
