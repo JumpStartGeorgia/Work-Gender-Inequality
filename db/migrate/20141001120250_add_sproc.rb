@@ -8,7 +8,7 @@ class AddSproc < ActiveRecord::Migration
     puts "This app uses a stored procedure."
     puts "In order to install this stored procedure,"
     puts "please run the following:"
-    puts "mysql -u root -p #{Rails.configuration.database_configuration[Rails.env]["database"]} < ./db/crosstab_count_sproc.sql"
+    puts "mysql -u #{Rails.configuration.database_configuration[Rails.env]["username"]} -p #{Rails.configuration.database_configuration[Rails.env]["database"]} < ./db/crosstab_count_sproc.sql"
     puts "##############################################"
     puts "##############################################"
     puts ''
