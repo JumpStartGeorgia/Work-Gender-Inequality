@@ -82,7 +82,7 @@ ka:
       confirm: დარწმუნებული ხართ?
       new: ახალი            
     common:
-      app_name: Tanastsoroba
+      app_name: თანასწორობა
       added_on: "დამატებულია: %{date}" 
       jumpstart: “ჯამპსტარტ ჯორჯია”
       js_link_title: “ჯამპსტარტ ჯორჯია” - ჩვენ გაწვდით მონაცემებს უკეთ!

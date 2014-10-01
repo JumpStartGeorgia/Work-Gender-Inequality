@@ -71,14 +71,6 @@ namespace :deploy do
   end
   after "deploy:cleanup", "deploy:folder_cleanup"
 
-  desc "Copy code application to level up due to app being in sub-folder"
-  task :copy_to_level_up, roles: :app do
-    puts "********** copying rails app in subfolder up level"
-    run "mv -R #{release_path}/website/* #{release_path}/" 
-  end
-  after "deploy:update_code", "deploy:copy_to_level_up"
-
-
 	# the code to test whether or not assets have changed and therefore need to be compiled was taken from answer at:
 	# - http://stackoverflow.com/questions/12919509/capistrano-deploy-assets-precompile-never-compiles-assets-why
 	# the code that builds assets locally and then copies to server was taken from:
