@@ -31,7 +31,7 @@ function human(selector,title)
   this.path_loop = false;
   this.movement = 0;
   this.event_by_month = [];  
-  this.place = 't';
+  this.place = '';
 
 
 

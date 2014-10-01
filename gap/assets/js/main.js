@@ -1,80 +1,8 @@
+var mp = null;
 $(document).ready(function(){
-  var circles = $('.tester ellipse');
-  var cir_count = circles.length;
-  var cir_medium = cir_count%2 == 0 ? [cir_count/2,cir_count/2+1] : [Math.ceil10(cir_count/2)];
-  var cir_offset = 50;
-  var cir_dur = 100;
-  console.log(cir_count,cir_medium);
 
-$('.repeat').on('click',circle_redraw);
-circle_redraw();
-  function circle_redraw()
-  {
 
-    var vl = [50,150,250];
-    circles.each(function(i,d){ $(d).attr('cx',vl[i]).attr('rx',40).show(); });
 
-    circles.each(function(i,d){    
-      var t = $(d);
-      t.attr('data-cx',t.attr('cx'));
-
-      if(i+1 < cir_medium) 
-      {
-        //console.log(i,"left");
-        t.animate({'color':'white'},{duration:cir_dur,
-          progress:function(a,b,c){
-            $(this).attr('cx',+$(this).attr('data-cx')-cir_offset*b);
-          },
-          complete:function()
-          {
-            $(this).attr('data-cx',t.attr('cx')).animate({'color':'white'},{duration:500,
-              progress:function(a,b,c){
-                $(this).attr('cx',+$(this).attr('data-cx')+130*b);
-              }
-            });          
-          }
-        });
-      }
-      else if(i+1 > cir_medium)
-      {
-        //console.log(i,"right");
-        t.animate({'color':'white'},{duration:cir_dur,
-          progress:function(a,b,c){
-            $(this).attr('cx',+$(this).attr('data-cx')+cir_offset*b);
-          },
-          complete:function()
-          {
-            $(this).attr('data-cx',t.attr('cx')).animate({'color':'white'},{duration:500,
-              progress:function(a,b,c){
-                $(this).attr('cx',+$(this).attr('data-cx')-130*b);
-               
-              },
-              complete:function()
-              {
-                 ellipse();
-              }
-            });   
-          }
-        });
-      }
-    });
-}
-function ellipse()
-{
-  $('.tester ellipse[data-id=1]').hide();
-  $('.tester ellipse[data-id=3]').hide();
-
-   $('.tester ellipse[data-id=2]').animate({'color':'white'},{duration:150,
-          progress:function(a,b,c){
-            $(this).attr('rx',20*b+40).attr("fill","url(#myLinearGradient1)");
-          },
-          complete:function()
-          {
-            $(this).attr('rx',40);
-          }    
-        });
-
-}
 // bind events
   $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
 
@@ -127,6 +55,146 @@ function ellipse()
   // ***********************************************  
 // ***********************************************  
 
+  var interest_offset = 10;
+  var interest_animation_duration = 100;
+  var interest_w = 32;
+  var interest_w2 = interest_w/2;
+  var interest_start_offset = 0;
+  var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
+  var mutation_step = [4,2,2,3,3,3];
+  var index = 1;
+  var current_interests_count = 0;
+  current_interests.forEach(function(d,i){current_interests_count+=d;});
+
+  function pedestal_object()
+  {
+    this.ach = [0,0,0,0,0,0]; // achievements per item in interest
+    this.ach_count = 0;   
+    this.mutation = [[],[],[],[],[],[]]; 
+    this.mutation_empty = [[],[],[],[],[],[]]; 
+    this.mutation_count = 0;
+    this.up = function(which,how)
+    {
+      if(this.inrange(which) && how > 0)
+      {
+        var zIndex = which - 1;
+        //console.log("ach_up",which,how);
+        var from = this.ach[zIndex];
+        var parent = $('.tester .test_block > div.int_group[data-id=' + which + ']');
+
+        var before_which = 0;
+        this.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
+        //console.log(before_which);
+        for(var i = from+1; i <= from+how; ++i)
+        {
+          var item = $('<div data-id=' + i + '>').css(
+          {
+            'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
+            'left':interest_w*before_which + interest_offset * before_which + interest_start_offset,
+            'top':200
+          });  
+          parent.append(item);
+          ++before_which;
+        }
+        this.ach[zIndex] += how;
+        if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
+          this.mutate(zIndex);
+      }
+    };
+    this.down = function(which,how) // which 1 based
+    {
+      console.log("ach_down");
+    };
+    this.inrange = function(which)
+    {
+      if(which >=1 && which < this.ach.length)
+        return true;
+      return false;
+    };
+    this.init = function()
+    {
+      var test = $("<div class='test_block'></div>").appendTo('.tester');
+      this.ach.forEach(function(d,i){
+        test.append('<div class="int_group" data-id="'+(i+1)+'">');
+      }); 
+    }
+    this.mutate = function(which)
+    {
+      var t = this;        
+      var ca = t.ach[which];
+      var cm = mutation_step[which];
+      var mut_count = Math.floor10(ca/cm);
+      t.mutation = t.mutation_empty;
+      if(mut_count >= 1)
+      {
+
+        var looper = mut_count;
+        var tmpA = [];
+        var tca = ca;        
+        while(looper != 0)
+        {
+          var centTmp = tca-cm + Math.floor10(cm/2);
+          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2) - interest_w2;
+          var cyTmp = 200;
+          var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==1 ? -0.5 : 0);
+          var distTmp = cxTmp - (tca-cm)*interest_w - (tca-cm)*interest_offset;
+          tmpA = { from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp }; //,
+          tca-=cm;
+          t.mutation[which].push(tmpA);
+          --looper;
+        }    
+      }
+      //console.log(t.mutation);
+    };
+    this.play_mutation = function()
+    {
+      //console.log(mp.mutation);
+      mp.mutation.forEach(function(d,i)
+      { 
+        if(d.length > 0)
+        {
+          var par = $('.tester .test_block > div.int_group[data-id='+(i+1)+']');
+          d.forEach(function(dd,ii)
+          {   
+            for(var j = dd.from; j <= dd.to; ++j)
+            {
+              //console.log(dd.from,dd.to);           
+              var item = par.find('div[data-id=' + j + ']');
+              var left = item.position().left;
+              
+              //console.log(left,dd.cx,left-dd.cx,j,dd.meridian);
+              var r = (j <= dd.meridian ? dd.cx - left - interest_w2 : left - dd.cx + interest_w2);
+              //console.log(r,j <= dd.meridian ? 180 : 0);
+              //console.log(left);
+              item.data({'r':r, 'ir':r});
+
+              item.animate({"color":"white"},{duration:1000, 
+                progress:function(a,b,c){
+                  var th = $(this); 
+                  console.log(dd.cx,dd.cy,th.data('id'),th.data('r'),th.data('ir'));
+                  x = dd.cx + +th.data('r') * Math.cos(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
+                  y = dd.cy - +th.data('r') * Math.sin(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
+                  th.data('r',th.data('ir')*(1-b));
+                  th.css({'left':x, 'top':y});
+                  dd.cx = dd.cxi - dd.distance*b;                
+                },
+                complete:function()
+                {
+                  //$(this).remove();
+                }
+              });
+            }
+          });
+        }
+        
+      });
+    };
+    this.init();
+  }
+
+  mp = new pedestal_object(); // male pedestal object  
+  current_interests.forEach(function(d,i){ mp.up(i+1,d); });
+  $('.repeat').on('click', mp.play_mutation);
 }); 
 
  window.onpopstate = function(e){

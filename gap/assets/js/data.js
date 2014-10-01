@@ -51,14 +51,26 @@ var interests =
         { "id": "Rs2Uml6w","name": "Gadgets", 
                 items:
                 [
-                        { "id": "Q3eeT2j9", "type": "mobile", "title":"BSAMSUNG I9300 Galaxy S3 White", "cost":700, "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White", "source_date":"22.09.2014" },
-                        { "id": "NeRMinwu", "type": "mobile", "title":"ANokia 1280 Black/G", "cost":41.99, "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG", "source_date":"22.09.2014" },
-                        { "id": "eLkVnL8n", "type": "mobile", "title":"DApple Iphone 5S 64GB Gold", "cost":1765, "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/", "source_date":"22.09.2014" },
-                        { "id": "kV1jvNlr", "type": "mobile", "title":"FVertu Signature Diamond", "cost":154000, "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/", "source_date":"22.09.2014" },
-                        { "id": "USLng33Z", "type": "mobile", "title":"E", "cost":2000, "source":"", "source_date":"" },
-                        { "id": "4JAffVD6", "type": "mobile", "title":"C", "cost":1100, "source":"", "source_date":"" }
+                        { "id": "Q3eeT2j9", "type": "mobile", "title":"BSAMSUNG I9300 Galaxy S3 White", "cost":700, 
+                          "image":"bag.svg",
+                          "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White", "source_date":"22.09.2014" },
+                        { "id": "NeRMinwu", "type": "mobile", "title":"ANokia 1280 Black/G", "cost":41.99,
+                          "image":"boat.svg",
+                          "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG", "source_date":"22.09.2014" },
+                        { "id": "eLkVnL8n", "type": "mobile", "title":"DApple Iphone 5S 64GB Gold", "cost":1765,
+                          "image":"coconut.svg",
+                          "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/", "source_date":"22.09.2014" },
+                        { "id": "kV1jvNlr", "type": "mobile", "title":"FVertu Signature Diamond", "cost":154000,
+                          "image":"compass.svg",
+                          "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/", "source_date":"22.09.2014" },
+                        { "id": "USLng33Z", "type": "mobile", "title":"E", "cost":2000,
+                          "image":"credit.svg",
+                          "source":"", "source_date":"" },
+                        { "id": "4JAffVD6", "type": "mobile", "title":"C", "cost":1100,
+                          "image":"directions.svg",
+                          "source":"", "source_date":"" }
                 ]
-        },
+        },   
         { "id": "KI3EFRI3","name": "Education", items:[] },
         { "id": "7fdCIojZ","name": "Housing", items:[] },
         { "id": "3QDbCRrq","name": "Transportation", items:[] },

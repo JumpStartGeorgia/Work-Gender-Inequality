@@ -627,3 +627,35 @@ svg.thumbnail path
   /*text-shadow: 0 0 0.5em black;*/
 }
 /* Progress Bar */
+
+
+/*.tester .test_block
+{
+  position:absolute;
+  top:200px;
+  left:50px;
+}*/
+/*.tester .test_block > div.int_group
+{  
+  display:inline-block;
+  position:absolute;
+}*/
+.tester .test_block > div.int_group > div
+{
+display: inline-block;
+list-style-type: none;
+/*padding-right: 10px;*/
+background-size:32px;
+background-repeat:no-repeat;
+background-position:0px;
+height:32px;
+width:32px;
+position:absolute;
+top:0px;
+}
+.tester .repeat 
+{
+   position:absolute;
+   z-index:6;
+   top:400px;
+}
