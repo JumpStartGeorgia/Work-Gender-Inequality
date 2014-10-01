@@ -25,7 +25,7 @@ puts "Loading survey questions"
 SurveyQuestion.delete_all
 questions = CSV.read("#{Rails.root}/db/spreadsheets/survey_questions.csv")
 sql = "insert into survey_questions (code, text) values "
-sql << questions.map{|x| "(\"#{x[0]}\", \"#{x[1]}\")"}.join(', ')
+sql << questions.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\")"}.join(', ')
 ActiveRecord::Base.connection.execute(sql)
 
 #####################
@@ -35,7 +35,7 @@ puts "Loading survey answers"
 SurveyAnswer.delete_all
 answers = CSV.read("#{Rails.root}/db/spreadsheets/survey_answers.csv")
 sql = "insert into survey_answers (code, value, text) values "
-sql << answers.map{|x| "(\"#{x[0]}\", \"#{x[1]}\", \"#{x[2]}\")"}.join(', ')
+sql << answers.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\", \"#{x[2].strip}\")"}.join(', ')
 ActiveRecord::Base.connection.execute(sql)
 
 #####################
@@ -56,7 +56,7 @@ CSV.foreach("#{Rails.root}/db/spreadsheets/survey_results.csv") do |row|
   row.each_with_index do |item, item_index|
     if item.present?
       sql << "\""
-      sql << item.to_s
+      sql << item.to_s.strip
       sql << "\""
     else
       sql << "null"
