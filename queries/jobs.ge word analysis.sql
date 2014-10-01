@@ -5,7 +5,7 @@
 select 'jobs.ge', 'სასიამოვნო გარეგნობ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -17,7 +17,7 @@ union
 select 'jobs.ge', 'გაწონასწორებულ* და არაკონფლიქტურ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -29,7 +29,7 @@ union
 select 'jobs.ge', 'გაწონასწორებულ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -41,7 +41,7 @@ union
 select 'jobs.ge', 'არაკონფლიქტურ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -53,7 +53,7 @@ union
 select 'jobs.ge', 'დაოჯახებულ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -65,7 +65,7 @@ union
 select 'jobs.ge', 'დასაოჯახებელ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -77,7 +77,7 @@ union
 select 'jobs.ge', 'გათხოვილ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -89,7 +89,7 @@ union
 select 'jobs.ge', 'გასათხოვარ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -101,7 +101,7 @@ union
 select 'jobs.ge', 'უშვილო*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -113,7 +113,7 @@ union
 select 'jobs.ge', 'ქალიშვილ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -125,7 +125,7 @@ union
 select 'jobs.ge', 'ქალბატონ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -137,7 +137,7 @@ union
 select 'jobs.ge', 'ახალგაზრდა გოგონა*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -149,7 +149,7 @@ union
 select 'jobs.ge', 'ახალგაზრდა მამაკაც*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -161,7 +161,7 @@ union
 select 'jobs.ge', 'მამაკაც*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -173,7 +173,7 @@ union
 select 'jobs.ge', 'ლამაზ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -185,7 +185,7 @@ union
 select 'jobs.ge', 'სიმპატიურ*/სიმპათიურ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -197,7 +197,7 @@ union
 select 'jobs.ge', 'მომხიბვლელ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -209,7 +209,7 @@ union
 select 'jobs.ge', 'სტაბილურ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -221,7 +221,7 @@ union
 select 'jobs.ge', 'სტაბილურ* თანამშრომელ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -233,7 +233,7 @@ union
 select 'jobs.ge', 'დაუოჯახებელ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
@@ -245,7 +245,7 @@ union
 select 'jobs.ge', 'გაუთხოვარ*', id, title_ge, employer_ge, date(published), 
 concat(if(cat_law = 1, 'Law, ', ''), if(cat_finance = 1, 'Finance, ', ''), if(cat_admin = 1, 'Administration/Management, ', ''), 
   if(cat_it = 1, 'Informaton Technologies, ', ''), if(cat_technical = 1, 'Technical/Logistics, ', ''), if(cat_prmarketing = 1, 'PR/Marketing, ', ''), 
-	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category,
+	if(cat_sales = 1, 'Sales, ', ''), if(cat_healthcare = 1, 'Health, ', ''), if(cat_other = 1, 'Other, ', '')) as category, location_ge,
 replace(replace(replace(replace(replace(replace(jobtext_ge, '"', '\''), '\r\n', ' '), '\n', ' '), '<b>', ''), '</b>', ''), '<br />', '') as job_text
 from jobs
 where year(published) >= 2010
