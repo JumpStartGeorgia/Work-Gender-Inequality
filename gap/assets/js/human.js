@@ -228,7 +228,7 @@ function human(selector,title)
       }
       else this.event_by_month.push(0);
     }
-    console.log(this.event_by_month);
+    //console.log(this.event_by_month);
 
     for (var i = 1; i <= 10; ++i) {
       var img = new Image();

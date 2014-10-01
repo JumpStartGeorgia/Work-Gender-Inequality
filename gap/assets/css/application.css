@@ -644,7 +644,7 @@ svg.thumbnail path
 {
 display: inline-block;
 list-style-type: none;
-/*padding-right: 10px;*/
+
 background-size:32px;
 background-repeat:no-repeat;
 background-position:0px;
@@ -676,7 +676,7 @@ top:0px;
   {
      display:inline-block;
      height:32px;
-     overflow:hidden;
+     overflow:visible;
      white-space: nowrap;
   }
   .treasureB .interestB > div.item,
@@ -690,6 +690,8 @@ top:0px;
      background-repeat:no-repeat;
      background-position:0px;
      position:relative;
+     top:0px;
+     left:0px;
   }
 
   .boxA > div.item,.boxA > div.mutationB > div.item { background-color:blue;}
