@@ -91,6 +91,8 @@ ka:
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.
       success_created: "%{obj} შექმნილია."
       success_updated: "%{obj} განახლებულია."
+    menu:
+      explore_data: Explore Data
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -125,3 +127,8 @@ ka:
         link_title: პაროლის შეცვლა
         p2: "თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, გთხოვთ, არ მიაქციოთ ყურადღება ამ შეტყობინებას."
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
+  root:
+    index:
+      title: Welcome to Tanastsoroba
+    explore_data:
+      title: Explore the Data

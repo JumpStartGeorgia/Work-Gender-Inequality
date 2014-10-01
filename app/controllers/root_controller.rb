@@ -1,6 +1,13 @@
 class RootController < ApplicationController
 
   def index
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  def explore_data
     @use_map = true
     
     @questions = SurveyQuestion.can_crosstab
