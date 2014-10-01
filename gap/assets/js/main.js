@@ -61,7 +61,7 @@ $(document).ready(function(){
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
   var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
-  var mutation_step = [4,2,2,3,3,3];
+  var mutation_step = [5,2,2,3,3,3];
   var index = 1;
   var current_interests_count = 0;
   current_interests.forEach(function(d,i){current_interests_count+=d;});
@@ -69,36 +69,40 @@ $(document).ready(function(){
   function pedestal_object()
   {
     this.ach = [0,0,0,0,0,0]; // achievements per item in interest
-    this.ach_count = 0;   
+    this.ach_count = this.ach.length;   
     this.mutation = [[],[],[],[],[],[]]; 
     this.mutation_empty = [[],[],[],[],[],[]]; 
     this.mutation_count = 0;
+
     this.up = function(which,how)
     {
+      var zIndex = which++;  // change from zero based
       if(this.inrange(which) && how > 0)
       {
-        var zIndex = which - 1;
-        //console.log("ach_up",which,how);
         var from = this.ach[zIndex];
-        var parent = $('.tester .test_block > div.int_group[data-id=' + which + ']');
+        var parent = $('.tester .treasureB > div.interestB[data-id=' + which + ']');
 
         var before_which = 0;
         this.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
         //console.log(before_which);
         for(var i = from+1; i <= from+how; ++i)
         {
-          var item = $('<div data-id=' + i + '>').css(
-          {
-            'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
-            'left':interest_w*before_which + interest_offset * before_which + interest_start_offset,
-            'top':200
-          });  
+          var item = $('<div data-id=' + i + '>').addClass('item i' + interest[zIndex].class); 
+          //.css({
+            //'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
+            //'left':0,//interest_w*before_which + interest_offset * before_which + interest_start_offset,
+            //'top':0
+          //})
+
           parent.append(item);
+          item.data('ileft',item.position().left);
+          //console.log(item.data());
+
           ++before_which;
         }
-        this.ach[zIndex] += how;
-        if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
-          this.mutate(zIndex);
+         this.ach[zIndex] += how;
+         if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
+           this.mutate(zIndex);
       }
     };
     this.down = function(which,how) // which 1 based
@@ -113,47 +117,79 @@ $(document).ready(function(){
     };
     this.init = function()
     {
-      var test = $("<div class='test_block'></div>").appendTo('.tester');
+      var test = $("<div class='treasureB'></div>").appendTo('.tester');
       this.ach.forEach(function(d,i){
-        test.append('<div class="int_group" data-id="'+(i+1)+'">');
+        test.append('<div class="interestB" data-id="'+(i+1)+'">');
       }); 
     }
     this.mutate = function(which)
     {
+
       var t = this;        
       var ca = t.ach[which];
       var cm = mutation_step[which];
       var mut_count = Math.floor10(ca/cm);
+      var before_which = 0;
+      this.ach.forEach(function(d,i){ if(i < which) before_which += d; });
       t.mutation = t.mutation_empty;
+
       if(mut_count >= 1)
       {
 
         var looper = mut_count;
         var tmpA = [];
         var tca = ca;        
+        var interestBTmp = $('.tester .treasureB .interestB[data-id='+(which+1)+']');
+        //console.log(interestBTmp);
         while(looper != 0)
         {
-          var centTmp = tca-cm + Math.floor10(cm/2);
-          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2) - interest_w2;
-          var cyTmp = 200;
-          var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==1 ? -0.5 : 0);
-          var distTmp = cxTmp - (tca-cm)*interest_w - (tca-cm)*interest_offset;
-          tmpA = { from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp }; //,
-          tca-=cm;
-          t.mutation[which].push(tmpA);
-          --looper;
+          var from = tca - cm;
+          var to = tca;
+          var beforeItem = interestBTmp.find('.item[data-id=' + (from++) + ']');
+          console.log(beforeItem);
+          var wrapper = $('<div class="mutationB"></div>').insertAfter(beforeItem);
+          for(var i = from; i <= to; ++i)
+          {
+            var det = interestBTmp.find('.item[data-id=' + i + ']').detach();
+            wrapper.append(det);
+          }
+// v3 = v3.detach();
+
+          //wrapper.append(v2).append(v3);
+
+          // var centTmp = tca-cm + Math.floor10(cm/2);
+          // var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2)
+          // + before_which*interest_w + before_which*interest_offset;// - interest_w2;
+          // var cyTmp = 200;
+          // var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==0 ? 0.5 : 0);
+          // var fl = Math.floor10(cm/2);
+          // var even = cm%2==0 ? true : false;
+          // var distTmp = fl*interest_w  + fl*interest_offset - (even ? interest_offset/2 : 0);  //cxTmp - Math.ceil10(cm/2)*interest_w - (Math.ceil10(cm/2)-1)*interest_offset;
+          // var distForParent = (cm-1)*interest_w + (cm-1)*interest_offset;  
+          // //console.log(fl,even,(even ? interest_w2 : -interest_w2),fl*interest_offset,interest_offset/2,distTmp);
+          // tmpA = { from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp, progress : 0, distance_for_parent:distForParent, which: which }; //,
+          // tca-=cm;
+          // if(which > 0)
+          // {
+          //   //console.log("prev distance",t.mutation, which-1, t.mutation[which-1][0].distance_for_parent);
+          //   tmpA.distance_to_child = t.mutation[which-1][0].distance_for_parent;
+
+          // }
+          // t.mutation[which].push(tmpA);
+           --looper;
         }    
       }
-      //console.log(t.mutation);
+      console.log(t.mutation);
     };
     this.play_mutation = function()
     {
       //console.log(mp.mutation);
+      var t = this;
       mp.mutation.forEach(function(d,i)
       { 
         if(d.length > 0)
         {
-          var par = $('.tester .test_block > div.int_group[data-id='+(i+1)+']');
+          var par = $('.tester .treasureB > div.interestB[data-id='+(i+1)+']');
           d.forEach(function(dd,ii)
           {   
             for(var j = dd.from; j <= dd.to; ++j)
@@ -161,22 +197,49 @@ $(document).ready(function(){
               //console.log(dd.from,dd.to);           
               var item = par.find('div[data-id=' + j + ']');
               var left = item.position().left;
-              
-              //console.log(left,dd.cx,left-dd.cx,j,dd.meridian);
+                            
               var r = (j <= dd.meridian ? dd.cx - left - interest_w2 : left - dd.cx + interest_w2);
+              //console.log(left,dd.cx,j,dd.meridian,r,dd.distance);
               //console.log(r,j <= dd.meridian ? 180 : 0);
               //console.log(left);
               item.data({'r':r, 'ir':r});
-
+              //console.log(item,r,dd.cx);
               item.animate({"color":"white"},{duration:1000, 
                 progress:function(a,b,c){
                   var th = $(this); 
-                  console.log(dd.cx,dd.cy,th.data('id'),th.data('r'),th.data('ir'));
+                  //console.log(dd.cx,dd.cy,th.data('id'),th.data('r'),th.data('ir'));
                   x = dd.cx + +th.data('r') * Math.cos(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
                   y = dd.cy - +th.data('r') * Math.sin(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
-                  th.data('r',th.data('ir')*(1-b));
+                  th.data('r',+th.data('ir')*(1-b));
                   th.css({'left':x, 'top':y});
-                  dd.cx = dd.cxi - dd.distance*b;                
+                  //console.log(r,dd.cxi);
+                  dd.cx = dd.cxi - dd.distance*b;
+                  //console.log(dd.cxi,dd.distance,dd.distance*b, dd.cx,th.data('r'));   
+                  if(dd.progress < b)
+                  { 
+                    dd.progress = b;
+
+                    //console.log("move all parent to left",b,dd.progress,dd.which,mp.ach_count);
+                    var str = dd.which;
+                    for(var ind = dd.which+1; ind <= mp.ach_count; ++ind)  
+                    {
+                      var toMoveParent = $('.tester .treasureB > div.interestB[data-id='+(ind+1)+']');
+                      str += ind + "-";
+                      for(var ind_i = 1; ind_i <= mp.ach[ind]; ++ind_i)
+                      {
+
+                        var toMove = toMoveParent.find('div[data-id='+ind_i+']');                        
+                        toMove.css('left', toMove.data('ileft') - dd.distance_to_child*dd.progress);
+
+                        str += ind_i + ",";
+                      }
+                      str += "\n";
+                    }
+                    console.log("move",str);
+                  }
+                  
+
+                  //move other parent objects to the left 
                 },
                 complete:function()
                 {
@@ -193,8 +256,20 @@ $(document).ready(function(){
   }
 
   mp = new pedestal_object(); // male pedestal object  
-  current_interests.forEach(function(d,i){ mp.up(i+1,d); });
+  current_interests.forEach(function(d,i){ mp.up(i,d); });
   $('.repeat').on('click', mp.play_mutation);
+
+
+// var v1 = $('.box .boxA div.item[data-id=1]');
+// var v2 = $('.box .boxA div.item[data-id=2]');
+// var v3 = $('.box .boxA div.item[data-id=3]');
+// var ins = $('<div class="mB"></div>').insertAfter(v1);
+
+// v2=v2.detach();
+// v3 = v3.detach();
+
+// ins.append(v2).append(v3);
+// //ins.remove();
 }); 
 
  window.onpopstate = function(e){

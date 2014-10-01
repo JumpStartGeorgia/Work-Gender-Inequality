@@ -629,18 +629,18 @@ svg.thumbnail path
 /* Progress Bar */
 
 
-/*.tester .test_block
+/*.tester .treasureB
 {
   position:absolute;
   top:200px;
   left:50px;
 }*/
-/*.tester .test_block > div.int_group
+/*.tester .treasureB > div.int_group
 {  
   display:inline-block;
   position:absolute;
 }*/
-.tester .test_block > div.int_group > div
+/*.tester .treasureB > div.int_group > div
 {
 display: inline-block;
 list-style-type: none;
@@ -652,10 +652,70 @@ height:32px;
 width:32px;
 position:absolute;
 top:0px;
-}
+}*/
 .tester .repeat 
 {
    position:absolute;
    z-index:6;
    top:400px;
+}
+
+  .treasureB
+  {
+     width:auto;
+     position:fixed;
+     left:100px;
+     top:100px;
+  }
+  .treasureB .interestB
+  {
+     display:inline-block;
+     position:relative;
+  }
+  .treasureB .interestB > div.mutationB
+  {
+     display:inline-block;
+     height:32px;
+     overflow:hidden;
+     white-space: nowrap;
+  }
+  .treasureB .interestB > div.item,
+  .treasureB .interestB > div.mutationB > div.item
+  {
+     width:32px;
+     height:32px;
+     display:inline-block;
+     margin-left:10px;
+     background-size:32px;
+     background-repeat:no-repeat;
+     background-position:0px;
+     position:relative;
+  }
+
+  .boxA > div.item,.boxA > div.mutationB > div.item { background-color:blue;}
+  .boxB > div.item,.boxB > div.mutationB > div.item { background-color:lightblue;}
+
+.ibag
+{
+  background-image:url("../images/svg/interests/bag.svg");
+}
+.icoconut
+{
+  background-image:url("../images/svg/interests/coconut.svg");
+}
+.icompass
+{
+  background-image:url("../images/svg/interests/compass.svg");
+}
+.icredit
+{
+  background-image:url("../images/svg/interests/credit.svg");
+}
+.idirections
+{
+  background-image:url("../images/svg/interests/directions.svg");
+}
+.iboat
+{
+  background-image:url("../images/svg/interests/boat.svg");
 }
