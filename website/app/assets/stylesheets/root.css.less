@@ -2,6 +2,23 @@ select{
   width: 200px;
 }
 
+/* allow the text to wrap in the drop downs for long text will make the drop down too wide */
+.dropdown-menu > li > a{
+  white-space: normal;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+
+#datatable_wrapper .dataTables_filter {
+  width: 50%;
+  float: left;
+  text-align: left;
+  label{
+    float: left;
+  }
+}
+
 #datatable{
   thead tr:first-of-type th{
     border-bottom: 4px solid #333;

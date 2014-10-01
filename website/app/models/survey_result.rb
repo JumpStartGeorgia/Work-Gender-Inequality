@@ -107,6 +107,7 @@ class SurveyResult < ActiveRecord::Base
 
           # if the row is the region, recompute percents so columns add up to 100%
           if row.downcase == 'reg'
+            result[:map_filter] = result[:column_question]
             result[:map_filters] = result[:column_answers]
 
             counts = result[:counts].transpose
@@ -135,6 +136,7 @@ class SurveyResult < ActiveRecord::Base
             end
 
           else
+            result[:map_filter] = result[:row_question]
             result[:map_filters] = result[:row_answers]
 
             result[:row_answers].each_with_index do |row_answer, row_index|

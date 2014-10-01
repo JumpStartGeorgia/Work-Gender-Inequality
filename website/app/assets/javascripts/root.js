@@ -215,16 +215,41 @@ function onEachFeature(feature, layer) {
   }
       
 
+  // initalize the datatable
+  // - set the swf path so can use the download buttons
   $('#datatable').dataTable({
-    "dom": '<"top"f>t<"clear">'
+    "dom": '<"top"fT>t<"clear">',
+    "tableTools": {
+      "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
+    }
   });    
 
   $('.selectpicker').selectpicker();    
 
-  // turn off all but first active tab
-  // - this is hack so map and charts load properly
-  $('.tab-content .tab-pane').removeClass('active');
-  $('.tab-content .tab-pane:first').addClass('active');
+  // due to using tabs, the map, chart and table cannot be properly drawn
+  // because they may be hidden. 
+  // this event catches when a tab is being shown to make sure 
+  // the item is properly drawn
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    switch($(this).attr('href')){
+      case '#tab-map':
+        console.log('showing map');
+        map.invalidateSize(false);
+        break;
+      case '#tab-chart':
+        console.log('showing chart');
+        $('#chart').highcharts().reflow();        
+        break;
+      case '#tab-table':
+        console.log('showing table');
+        var ttInstances = TableTools.fnGetMasters();
+        for (i in ttInstances) {
+        if (ttInstances[i].fnResizeRequired()) 
+          ttInstances[i].fnResizeButtons();
+        }
+        break;
+    }
+  })
 });
 
 
