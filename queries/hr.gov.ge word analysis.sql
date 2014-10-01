@@ -3,7 +3,7 @@
 
 
 # სასიამოვნო გარეგნობ*
-select 'hr.gov.ge', 'სასიამოვნო გარეგნობ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'სასიამოვნო გარეგნობ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]სასიამოვნო გარეგნობ.*[[:>:]]' or additional_requirements regexp '[[:<:]]სასიამოვნო გარეგნობ.*[[:>:]]' 
@@ -12,7 +12,7 @@ and (job_description regexp '[[:<:]]სასიამოვნო გარე�
 union
 
 # გაწონასწორებულ* და არაკონფლიქტურ*
-select 'hr.gov.ge', 'გაწონასწორებულ* და არაკონფლიქტურ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'გაწონასწორებულ* და არაკონფლიქტურ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]გაწონასწორებულ.* და არაკონფლიქტურ.*[[:>:]]' or additional_requirements regexp '[[:<:]]გაწონასწორებულ.* და არაკონფლიქტურ.*[[:>:]]' 
@@ -21,7 +21,7 @@ and (job_description regexp '[[:<:]]გაწონასწორებულ.*
 union
 
 # გაწონასწორებულ*
-select 'hr.gov.ge', 'გაწონასწორებულ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'გაწონასწორებულ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]გაწონასწორებულ.*[[:>:]]' or additional_requirements regexp '[[:<:]]გაწონასწორებულ.*[[:>:]]' 
@@ -30,7 +30,7 @@ and (job_description regexp '[[:<:]]გაწონასწორებულ.*
 union
 
 # არაკონფლიქტურ*
-select 'hr.gov.ge', 'არაკონფლიქტურ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'არაკონფლიქტურ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]არაკონფლიქტურ.*[[:>:]]' or additional_requirements regexp '[[:<:]]არაკონფლიქტურ.*[[:>:]]' 
@@ -39,7 +39,7 @@ and (job_description regexp '[[:<:]]არაკონფლიქტურ.*[[:
 union
 
 # დაოჯახებულ*
-select 'hr.gov.ge', 'დაოჯახებულ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'დაოჯახებულ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]დაოჯახებულ.*[[:>:]]' or additional_requirements regexp '[[:<:]]დაოჯახებულ.*[[:>:]]' 
@@ -48,7 +48,7 @@ and (job_description regexp '[[:<:]]დაოჯახებულ.*[[:>:]]' or 
 union
 
 # დასაოჯახებელ*
-select 'hr.gov.ge', 'დასაოჯახებელ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'დასაოჯახებელ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]დასაოჯახებელ.*[[:>:]]' or additional_requirements regexp '[[:<:]]დასაოჯახებელ.*[[:>:]]' 
@@ -57,7 +57,7 @@ and (job_description regexp '[[:<:]]დასაოჯახებელ.*[[:>:]
 union
 
 # გათხოვილ*
-select 'hr.gov.ge', 'გათხოვილ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'გათხოვილ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]გათხოვილ.*[[:>:]]' or additional_requirements regexp '[[:<:]]გათხოვილ.*[[:>:]]' 
@@ -66,7 +66,7 @@ and (job_description regexp '[[:<:]]გათხოვილ.*[[:>:]]' or additi
 union
 
 # გასათხოვარ*
-select 'hr.gov.ge', 'გასათხოვარ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'გასათხოვარ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]გასათხოვარ.*[[:>:]]' or additional_requirements regexp '[[:<:]]გასათხოვარ.*[[:>:]]' 
@@ -75,7 +75,7 @@ and (job_description regexp '[[:<:]]გასათხოვარ.*[[:>:]]' or 
 union
 
 # უშვილო*
-select 'hr.gov.ge', 'უშვილო*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'უშვილო*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]უშვილო.*[[:>:]]' or additional_requirements regexp '[[:<:]]უშვილო.*[[:>:]]' 
@@ -84,7 +84,7 @@ and (job_description regexp '[[:<:]]უშვილო.*[[:>:]]' or additional_r
 union
 
 # ქალიშვილ*
-select 'hr.gov.ge', 'ქალიშვილ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'ქალიშვილ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]ქალიშვილ.*[[:>:]]' or additional_requirements regexp '[[:<:]]ქალიშვილ.*[[:>:]]' 
@@ -93,7 +93,7 @@ and (job_description regexp '[[:<:]]ქალიშვილ.*[[:>:]]' or additi
 union
 
 # ქალბატონ*
-select 'hr.gov.ge', 'ქალბატონ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'ქალბატონ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]ქალბატონ.*[[:>:]]' or additional_requirements regexp '[[:<:]]ქალბატონ.*[[:>:]]' 
@@ -102,7 +102,7 @@ and (job_description regexp '[[:<:]]ქალბატონ.*[[:>:]]' or additi
 union
 
 # ახალგაზრდა გოგონა*
-select 'hr.gov.ge', 'ახალგაზრდა გოგონა*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'ახალგაზრდა გოგონა*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]ახალგაზრდა გოგონა.*[[:>:]]' or additional_requirements regexp '[[:<:]]ახალგაზრდა გოგონა.*[[:>:]]' 
@@ -111,7 +111,7 @@ and (job_description regexp '[[:<:]]ახალგაზრდა გოგო�
 union
 
 # ახალგაზრდა მამაკაც*
-select 'hr.gov.ge', 'ახალგაზრდა მამაკაც*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'ახალგაზრდა მამაკაც*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]ახალგაზრდა მამაკაც.*[[:>:]]' or additional_requirements regexp '[[:<:]]ახალგაზრდა მამაკაც.*[[:>:]]' 
@@ -120,7 +120,7 @@ and (job_description regexp '[[:<:]]ახალგაზრდა მამა�
 union
 
 # მამაკაც*
-select 'hr.gov.ge', 'მამაკაც*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'მამაკაც*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]მამაკაც.*[[:>:]]' or additional_requirements regexp '[[:<:]]მამაკაც.*[[:>:]]' 
@@ -129,7 +129,7 @@ and (job_description regexp '[[:<:]]მამაკაც.*[[:>:]]' or additiona
 union
 
 # ლამაზ*
-select 'hr.gov.ge', 'ლამაზ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'ლამაზ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]ლამაზ.*[[:>:]]' or additional_requirements regexp '[[:<:]]ლამაზ.*[[:>:]]' 
@@ -138,7 +138,7 @@ and (job_description regexp '[[:<:]]ლამაზ.*[[:>:]]' or additional_requ
 union
 
 # სიმპატიურ*/სიმპათიურ*
-select 'hr.gov.ge', 'სიმპატიურ*/სიმპათიურ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'სიმპატიურ*/სიმპათიურ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]სიმპატიურ.*[[:>:]]' or additional_requirements regexp '[[:<:]]სიმპატიურ.*[[:>:]]' 
@@ -149,7 +149,7 @@ and (job_description regexp '[[:<:]]სიმპატიურ.*[[:>:]]' or add
 union
 
 # მომხიბვლელ*
-select 'hr.gov.ge', 'მომხიბვლელ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'მომხიბვლელ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]მომხიბვლელ.*[[:>:]]' or additional_requirements regexp '[[:<:]]მომხიბვლელ.*[[:>:]]' 
@@ -158,7 +158,7 @@ and (job_description regexp '[[:<:]]მომხიბვლელ.*[[:>:]]' or 
 union
 
 # სტაბილურ*
-select 'hr.gov.ge', 'სტაბილურ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'სტაბილურ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]სტაბილურ.*[[:>:]]' or additional_requirements regexp '[[:<:]]სტაბილურ.*[[:>:]]' 
@@ -167,7 +167,7 @@ and (job_description regexp '[[:<:]]სტაბილურ.*[[:>:]]' or additi
 union
 
 # სტაბილურ* თანამშრომელ*
-select 'hr.gov.ge', 'სტაბილურ* თანამშრომელ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'სტაბილურ* თანამშრომელ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]სტაბილურ.* თანამშრომელ.*[[:>:]]' or additional_requirements regexp '[[:<:]]სტაბილურ.* თანამშრომელ.*[[:>:]]' 
@@ -176,7 +176,7 @@ and (job_description regexp '[[:<:]]სტაბილურ.* თანამ�
 union
 
 # დაუოჯახებელ*
-select 'hr.gov.ge', 'დაუოჯახებელ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'დაუოჯახებელ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]დაუოჯახებელ.*[[:>:]]' or additional_requirements regexp '[[:<:]]დაუოჯახებელ.*[[:>:]]' 
@@ -185,7 +185,7 @@ and (job_description regexp '[[:<:]]დაუოჯახებელ.*[[:>:]]' 
 union
 
 # გაუთხოვარ*
-select 'hr.gov.ge', 'გაუთხოვარ*', job_id, position, provided_by, deadline, category,
+select 'hr.gov.ge', 'გაუთხოვარ*', job_id, position, provided_by, deadline, category, location,
 replace(replace(replace(CONCAT_WS('; ', job_description, additional_requirements, additional_info, qualifications_knowledge_legal_acts), '"', '\''), '\r\n', ' '), '\n', ' ') as job_text 
 from jobs where locale = 'geo' and year(deadline) >= 2010
 and (job_description regexp '[[:<:]]გაუთხოვარ.*[[:>:]]' or additional_requirements regexp '[[:<:]]გაუთხოვარ.*[[:>:]]' 
