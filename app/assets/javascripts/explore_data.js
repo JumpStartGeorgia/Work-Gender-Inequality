@@ -30,7 +30,9 @@ $(document).ready(function() {
         },
         tooltip: {
             pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+            shared: true,
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            followPointer: true
         },
         plotOptions: {
             bar: {
@@ -220,14 +222,14 @@ function onEachFeature(feature, layer) {
   // to be able to sort the jquery datatable build in the function below
   // - coming in as: xx (xx.xx%); want to only keep first number
   jQuery.fn.dataTableExt.oSort['formatted-num-asc'] = function ( a, b ) {
-    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
-    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
     return parseFloat(x) - parseFloat(y);
   };
 
   jQuery.fn.dataTableExt.oSort['formatted-num-desc'] = function ( a, b ) {
-    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
-    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
     return parseFloat(y) - parseFloat(x);
   };
 
@@ -236,7 +238,7 @@ function onEachFeature(feature, layer) {
   for(var i=1; i<$('#datatable > thead tr:last-of-type th').length; i++){
     sort_array.push(i);
   }
-  
+
   // initalize the datatable
   $('#datatable').dataTable({
     "dom": '<"top"fT>t<"clear">',

@@ -26,7 +26,7 @@
         <% else %>
           <li class="active"><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
         <% end %>
-        <li><a href="#tab-table" role="tab" data-toggle="tab">Data Table</a></li>
+        <li><a href="#tab-table" role="tab" data-toggle="tab">Crosstab Table</a></li>
         <li><a href="#tab-details" role="tab" data-toggle="tab">Details</a></li>
       </ul>      
 
@@ -90,7 +90,9 @@
                   <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
                   <% (0..@data[:counts][row_index].length-1).each do |index| %>
                     <td>
-                      <%= "#{@data[:counts][row_index][index]} (#{number_to_percentage(@data[:percents][row_index][index])})" %>
+                      <%= @data[:counts][row_index][index] %>
+                      &nbsp;&nbsp;
+                      <%= "(#{number_to_percentage(@data[:percents][row_index][index])})" %>
                     </td>
                   <% end %>
                 </tr>
