@@ -53,8 +53,8 @@ function walk(v){
  
       if(v==1)
       {  
-          
         ++timeline_scroll_to_tick_value;
+        ++pos;
         var t1 = (tls)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
        
         var len = timeline_points.length;
@@ -72,7 +72,8 @@ function walk(v){
         {
            male.step_left();
            female.step_left();
-          --timeline_scroll_to_tick_value;      
+          --timeline_scroll_to_tick_value;    
+          --pos;  
         }
       }
 
@@ -176,7 +177,7 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 }).appendTo(t);  
+  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
@@ -187,7 +188,7 @@ function game() {
   var bs = $('<div class="score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(b);
   bs.css({ left: w-bs.width()-30, top: lh + th + 20});
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: h - 30 }).appendTo(b);  
+  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: h - 30 - 10 }).appendTo(b);  
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline_tick(time_step);
@@ -310,7 +311,7 @@ function timeline_point_draw(v)
       }
       point.css({left: prevPositionLeft });
 
-      if(i!=0 && i%3==0)
+      if(i!=0 && (i+1)%3==0)
       { 
         if(male.event_by_month[i]>=0)
         {
@@ -331,7 +332,20 @@ function timeline_point_draw(v)
       var scaler = w*timeline_scale/ticks;
       for(var j = 0; j < ticks-1; ++j)
       {
-         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);        
+         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
+
+       /*  if(male.event_by_month[i]>=0)
+          {
+            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - rew.width()/2 + (j+1)*scaler });
+          }
+          if(female.event_by_month[i]>=0)
+          {
+            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - rew.width()/2  + (j+1)*scaler});
+          }    */   
       }
 
       point.find('.point').text(getMonthS(d) + " " + d.getFullYear());    
@@ -349,7 +363,8 @@ function timeline_point_draw(v)
 var reward = false;
 function lookinfuture(v)
 {
-  console.log("lookinfuture");
+  //console.log("lookinfuture");
+
   if(timeline_scroll_to_tick_value+v > 0)
   {
     male.tsalary += v*male.salary;
@@ -413,25 +428,17 @@ function lookinfuture(v)
       }
       reward = true;
     } 
-    
-    // console.log("Next frame - Reward is coming");
-    //console.log("first", treasures_leading);
-    //console.log("second", treasures);
 
-
-    var tp = "";
-    var bt = "";
-    for(var i = 0; i < interest.length; ++i)
-    {
-      tp+=interest[i].title[0]+first.treasure[i] + " - ";
-      bt+=interest[i].title[0]+second.treasure[i] + " - ";
+    if(female.outrun)
+    {      
+      mp.up(1,male.event_by_month[pos+1]);
+      fp.up(1,female.event_by_month[pos+1]);  
     }
-    var top = tp.substr(0,tp.length-3);
-    var bottom = bt.substr(0,bt.length-3);
-
-    $('.top .treasure .pedestal').text(f.outrun ? top : bottom);
-    $('.bottom .treasure .pedestal').text(f.outrun ? bottom : top);   
-   
+    else 
+    {      
+      fp.up(1,female.event_by_month[pos+1]);  
+      mp.up(1,male.event_by_month[pos+1]);
+    }
   }
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level

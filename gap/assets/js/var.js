@@ -40,7 +40,6 @@ timeline_end_point.setTime(timeline_point.getTime());
 timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
 
 var timeline_points = [timeline_point];
-
 var time_step = "3m"; // increment for on each scroll is 3 months, available formats m:month, y:year
 var time_step_number = 3;
 var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewport_width
@@ -103,3 +102,5 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
 // timerInterval values for noscrolling event
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
+
+  var pos = 1;

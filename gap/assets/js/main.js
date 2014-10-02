@@ -1,4 +1,5 @@
 var mp = null;
+var fp = null;
 $(document).ready(function(){
 
 
@@ -66,24 +67,40 @@ $(document).ready(function(){
   var current_interests_count = 0;
   current_interests.forEach(function(d,i){current_interests_count+=d;});
 
-  function pedestal_object()
+  var mutation_restriction = [0,0,0,0,0,0];
+
+  function pedestal_object(human)
   {
     this.ach = [0,0,0,0,0,0]; // achievements per item in interest
     this.ach_count = this.ach.length;   
-    this.mutation = [[],[],[],[],[],[]]; 
+    this.mutation = [{},{},{},{},{},{}]; 
     this.mutation_empty = [{},{},{},{},{},{}]; 
     this.mutation_count = 0;
+    this.human = human;
+    this.par = $('.' + this.human.place + ' .treasure .pedestal');
+    this.mutationDone = true;
+    this.up_stack = [];
 
     this.up = function(which,how,hidden)
     {
-      var t = this;
-      //console.log(which,how,hidden);
+
+      
       if(typeof hidden === undefined) hidden = false;
+      var t = this;
+
+      if(!t.mutationDone) // todo delaying up till previous end
+      {
+        t.up_stack.push({which:which,how:how,hidden:hidden});
+        t.delay();
+        return;
+      }
+      //console.log(which,how,hidden);
+      
       var zIndex = which-1;  // change from zero based
       if(t.inrange(which) && how > 0)
       {
         var from = t.ach[zIndex];
-        var parent = $('.tester .treasureB > div.interestB[data-id=' + which + ']');
+        var parent = t.par.find('> div.interestB[data-id=' + which + ']');
 
         var before_which = 0;
         t.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
@@ -99,70 +116,60 @@ $(document).ready(function(){
           ++before_which;
         }
         t.ach[zIndex] += how;
-        if(!hidden)
-        {
-          setTimeout(function(){t.prepare_for_mutation();},1000);
-        }
+       
       }
-    };
-    this.down = function(which,how) // which 1 based
-    {
-      console.log("ach_down");
-    };
-    this.inrange = function(which)
-    {
-      if(which >=1 && which < 6)
-        return true;
-      return false;
-    };
-    this.init = function()
-    {
-      var test = $("<div class='treasureB'></div>").appendTo('.tester');
-      this.ach.forEach(function(d,i){
-        test.append('<div class="interestB" data-id="'+(i+1)+'">');
-      }); 
-    };
-    this.resume = function(states)
-    {
-      if(typeof states !== Array && states.length != 6) return;
-
-      for(var i = 0; i < 6; ++i)
+      if(!hidden)
       {
-        var state = states[i];
-        if(i != 5)        
-        {
-          var sm = states_mutation[i]; // state mutation for current interest item                 
-          state -= Math.floor10(state/sm) * sm;
-        }
-        var parent = $('.tester .treasureB > div.interestB[data-id=' + (i+1) + ']').empty();
-        for(var j = 0; j < state; ++j)
-        {
-           var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
-           parent.append(item);
-        }
-        this.ach[i] = state;
+        t.prepare_mutator();          
       }
-    };
-    this.prepare_for_mutation = function()
+    };  
+    this.delay = function()
+    {
+      console.log("delaying");
+      var t = this;
+      setTimeout(function()
+      {        
+        if(t.mutationDone)
+        {
+          var item = t.up_stack.shift();
+          t.up(item.which,item.how,item.hidden);
+        }
+        else
+        {
+          t.delay();
+        }          
+      },500);      
+    }; 
+    this.prepare_mutator = function()
     {
       // preparations
       var t = this;
+      //console.log(mutation_restriction,t.human.outrun);
       var mutation_count = 0;
       t.mutation = t.mutation_empty;
       for(var i = 0; i < 5; ++i)
       {
         var ca = t.ach[i];
         var sm = states_mutation[i];
-        var smc = Math.floor10(ca/sm);
-        console.log(ca,sm,smc);
+        var smc = Math.floor10(ca/sm); 
+            
         t.mutation[i] = { count: 0 };
+        if(!t.human.outrun) mutation_restriction[i] = 0;
         if(smc >= 1)
         {
+         
+          if(t.human.outrun && smc > mutation_restriction[i]) 
+          {
+            smc =  mutation_restriction[i];
+            mutation_restriction[i] = 0;
+          }
           var looper = smc;
           var tmpA = [];
           var tca = ca;        
-          var interestB = $('.tester .treasureB .interestB[data-id='+(i+1)+']');
+          var interestB = t.par.find('.interestB[data-id='+(i+1)+']');
           t.mutation[i] = { count: smc };
+
+          if(!t.human.outrun) mutation_restriction[i] = smc;
 
           while(looper != 0)
           {
@@ -181,6 +188,7 @@ $(document).ready(function(){
               wrapper.append(item.detach());
             }
             t.up(i+2,1,true);
+            //console.log(smc);
             tca-=sm;        
             --looper;
           }
@@ -188,10 +196,17 @@ $(document).ready(function(){
         }
       }
       // play mutation
-      var dur = 2000;
+      t.mutationDone = false;
+      setTimeout(function(){ t.mutate();},1000);
+      //console.log(t.ach);
+    }; 
+    this.mutate = function()
+    {
+      var t = this;
+      var dur = 2000;     
       t.mutation.forEach(function(d,i)
       { 
-        var hiddens = $('.tester .treasureB .interestB[data-id='+(i+1)+'] .item.hidden');
+        var hiddens = t.par.find('.interestB[data-id='+(i+1)+'] .item.hidden');
         if(d.count > 0)
         {
           if(hiddens.length != 0)
@@ -199,7 +214,7 @@ $(document).ready(function(){
             hiddens.delay(i*dur).removeClass('hidden').fadeIn(dur,function(){
               for(var j = 1; j <= d.count; ++j)
               {
-                $('.tester .treasureB > div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
+                t.par.find('> div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
                   this.remove();
                 });            
               }          
@@ -209,7 +224,7 @@ $(document).ready(function(){
           {
             for(var j = 1; j <= d.count; ++j)
             {
-                $('.tester .treasureB > div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
+                t.par.find('> div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
                   this.remove();
                 });            
             }  
@@ -218,19 +233,60 @@ $(document).ready(function(){
         }
         else 
         {
-           hiddens.delay(i*dur).removeClass('hidden').fadeIn(dur);
+           hiddens.delay(i*dur).removeClass('hidden').fadeIn(dur,function(){t.mutationDone = true;});
         }
       });
+    };
 
-      //console.log(t.ach);
-    };  
+     this.down = function(states) // which 1 based
+    {
+     this.resume(states);
+    };
+    this.inrange = function(which)
+    {
+      if(which >=1 && which < 6)
+        return true;
+      return false;
+    };
+    this.init = function()
+    {    
+      var t = this;  //$("<div class='treasureB'></div>").appendTo('.tester');
+      //console.log(t,t.par);
+      t.ach.forEach(function(d,i){
+        t.par.append('<div class="interestB" data-id="'+(i+1)+'">');
+      }); 
+    };
+    this.resume = function(states)
+    {
+      var t = this;
+      if(typeof states !== Array && states.length != 6) return;
+
+      for(var i = 0; i < 6; ++i)
+      {
+        var state = states[i];
+        if(i != 5)        
+        {
+          var sm = states_mutation[i]; // state mutation for current interest item                 
+          state -= Math.floor10(state/sm) * sm;
+        }
+        var parent = t.par.find('> div.interestB[data-id=' + (i+1) + ']').empty();
+        for(var j = 0; j < state; ++j)
+        {
+          var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
+          parent.append(item);
+        }
+        this.ach[i] = state;
+      }
+    }; 
     this.init();
   }
 
-  mp = new pedestal_object(); // male pedestal object  
-  mp.resume(current_interests);
-  $('.repeat').on('click', function() { mp.up(1,6); });
+  mp = new pedestal_object(male); // male pedestal object 
+  fp = new pedestal_object(female); 
+ // mp.resume(current_interests);
+ // fp.resume(current_interests);
 
+  //$('.repeat').on('click', function() { mp.up(1,6); });
 }); 
 
  window.onpopstate = function(e){
