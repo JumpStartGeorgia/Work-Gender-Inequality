@@ -216,10 +216,36 @@ function onEachFeature(feature, layer) {
   }
       
 
-  // initalize the datatable
   // - set the swf path so can use the download buttons
+  // to be able to sort the jquery datatable build in the function below
+  // - coming in as: xx (xx.xx%); want to only keep first number
+  jQuery.fn.dataTableExt.oSort['formatted-num-asc'] = function ( a, b ) {
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    return parseFloat(x) - parseFloat(y);
+  };
+
+  jQuery.fn.dataTableExt.oSort['formatted-num-desc'] = function ( a, b ) {
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.\d{0,}\%\)/g, "" ) : 0;
+    return parseFloat(y) - parseFloat(x);
+  };
+
+  // compute how many columns need to have this sort
+  var sort_array = [];
+  for(var i=1; i<$('#datatable > thead tr:last-of-type th').length; i++){
+    sort_array.push(i);
+  }
+  
+  // initalize the datatable
   $('#datatable').dataTable({
     "dom": '<"top"fT>t<"clear">',
+    "language": {
+      "url": gon.datatable_i18n_url
+    },
+    "columnDefs": [
+        { "type": "formatted-num", targets: sort_array }
+    ],
     "tableTools": {
       "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
     }

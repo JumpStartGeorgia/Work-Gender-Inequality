@@ -24,7 +24,7 @@ class RootController < ApplicationController
     if @data[:chart]
       gon.chart_data = @data[:chart][:data]
       gon.chart_labels = @data[:chart][:labels]
-      gon.chart_title = "#{@data[:row_question].titlecase} <br /> by <br /> #{@data[:column_question].titlecase}"
+      gon.chart_title = "#{@data[:row_question].titlecase} <br /> by <br /> #{@data[:column_question].titlecase} <br /> <span class='total_responses'>(Total Responses: #{@data[:total_responses]})</span>"
       gon.chart_col_label = @data[:column_question].titlecase
       gon.chart_row_label = @data[:row_question].titlecase
     end

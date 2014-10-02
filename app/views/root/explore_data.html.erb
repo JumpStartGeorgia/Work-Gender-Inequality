@@ -39,6 +39,8 @@
               by
               <br />
               <%= @data[:column_question] %>
+              <br />
+              <span class="total_responses">(Total Responses: <%= @data[:total_responses] %>)</span>
             </h3>
             <div>Filter map by selecting an answer to '<%= @data[:map_filter] %>':</div>
             <div id="map_filter" class="btn-group">
@@ -60,7 +62,16 @@
           <div id="chart"></div>
         </div>
         <div class="tab-pane" id="tab-table">
-          <table id="datatable" class="table table-striped table-hover">
+          <h3>
+            <%= @data[:row_question] %>
+            <br />
+            by
+            <br />
+            <%= @data[:column_question] %>
+            <br />
+            <span class="total_responses">(Total Responses: <%= @data[:total_responses] %>)</span>
+          </h3>
+          <table id="datatable" class="table table-striped table-hover table-nonfluid">
             <thead>
               <tr>
                 <th class="var1-col"></th>
@@ -77,8 +88,10 @@
               <% (0..@data[:row_answers].length-1).each do |row_index| %>
                 <tr>
                   <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
-                  <% @data[:percents][row_index].each do |percent| %>
-                    <td><%= number_to_percentage(percent) %></td>
+                  <% (0..@data[:counts][row_index].length-1).each do |index| %>
+                    <td>
+                      <%= "#{@data[:counts][row_index][index]} (#{number_to_percentage(@data[:percents][row_index][index])})" %>
+                    </td>
                   <% end %>
                 </tr>
               <% end %>

@@ -10,6 +10,7 @@ class SurveyResult < ActiveRecord::Base
   # - row_answers: array of [value, text] for each answer in this question
   # - col_question: text of question for columns
   # - col_answers: array of [value, text] for each answer in this question
+  # - total_responses: total number of responses (sum of all counts)
   # - counts: array of arrays of counts
   #   - this is just numbers, headings for rows and answers are in row/col_answers in same order
   #   - each array represents each row answer
@@ -88,8 +89,10 @@ class SurveyResult < ActiveRecord::Base
 
         # take counts and turn into percents
         result[:percents] = []
+        totals = []
         result[:counts].each do |count_row|
           total = count_row.inject(:+)
+          totals << total
           if total > 0
             percent_row = []
             count_row.each do |item|
@@ -100,6 +103,9 @@ class SurveyResult < ActiveRecord::Base
             result[:percents] << Array.new(count_row.length){0}
           end
         end
+
+        # record the total number of responses
+        result[:total_responses] = totals.inject(:+)
 
         # if row or column is the region variable, create the map data
         if row.downcase == 'reg' || column.downcase == 'reg'
