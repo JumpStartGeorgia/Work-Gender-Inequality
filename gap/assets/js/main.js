@@ -61,7 +61,7 @@ $(document).ready(function(){
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
   var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
-  var mutation_step = [5,2,2,3,3,3];
+  var mutation_step = [4,4,2,3,3,3];
   var index = 1;
   var current_interests_count = 0;
   current_interests.forEach(function(d,i){current_interests_count+=d;});
@@ -95,7 +95,8 @@ $(document).ready(function(){
           //})
 
           parent.append(item);
-          item.data('ileft',item.position().left);
+        
+          //console.log(item.position().left);
           //console.log(item.data());
 
           ++before_which;
@@ -146,40 +147,41 @@ $(document).ready(function(){
           var from = tca - cm;
           var to = tca;
           var beforeItem = interestBTmp.find('.item[data-id=' + (from++) + ']');
-          console.log(beforeItem);
-          var wrapper = $('<div class="mutationB"></div>').insertAfter(beforeItem);
+          //console.log(beforeItem);
+          var wrapper = $('<div class="mutationB" data-id="'+looper+'"></div>').insertAfter(beforeItem);
           for(var i = from; i <= to; ++i)
           {
-            var det = interestBTmp.find('.item[data-id=' + i + ']').detach();
-            wrapper.append(det);
+            var item = interestBTmp.find('.item[data-id=' + i + ']');
+            item.data('ileft',item.position().left - wrapper.position().left); 
+            //console.log(item.data());    
+            wrapper.append(item.detach());
           }
-// v3 = v3.detach();
 
-          //wrapper.append(v2).append(v3);
+          var centTmp = Math.floor10(cm/2);
 
-          // var centTmp = tca-cm + Math.floor10(cm/2);
-          // var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2)
-          // + before_which*interest_w + before_which*interest_offset;// - interest_w2;
-          // var cyTmp = 200;
-          // var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==0 ? 0.5 : 0);
-          // var fl = Math.floor10(cm/2);
-          // var even = cm%2==0 ? true : false;
-          // var distTmp = fl*interest_w  + fl*interest_offset - (even ? interest_offset/2 : 0);  //cxTmp - Math.ceil10(cm/2)*interest_w - (Math.ceil10(cm/2)-1)*interest_offset;
-          // var distForParent = (cm-1)*interest_w + (cm-1)*interest_offset;  
-          // //console.log(fl,even,(even ? interest_w2 : -interest_w2),fl*interest_offset,interest_offset/2,distTmp);
-          // tmpA = { from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp, progress : 0, distance_for_parent:distForParent, which: which }; //,
-          // tca-=cm;
-          // if(which > 0)
-          // {
-          //   //console.log("prev distance",t.mutation, which-1, t.mutation[which-1][0].distance_for_parent);
-          //   tmpA.distance_to_child = t.mutation[which-1][0].distance_for_parent;
+          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2);
+          //+ before_which*interest_w + before_which*interest_offset;// - interest_w2;
+          //console.log(centTmp,cxTmp);
+          var cyTmp = 0;
+          var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==0 ? 0.5 : 0);
+          var fl = Math.floor10(cm/2);
+          var even = cm%2==0 ? true : false;
+          var distTmp = cxTmp - interest_w2;// = fl*interest_w  + fl*interest_offset - (even ? interest_offset/2 : 0);  //cxTmp - Math.ceil10(cm/2)*interest_w - (Math.ceil10(cm/2)-1)*interest_offset;
+          var distForParent = (cm-1)*interest_w + (cm-1)*interest_offset;  
+          //console.log(fl,even,(even ? interest_w2 : -interest_w2),fl*interest_offset,interest_offset/2,distTmp);
+          tmpA = { mid: looper, from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp, progress : 0, distance_for_parent:distForParent, which: which }; //,
+          tca-=cm;
+          if(which > 0)
+          {
+            //console.log("prev distance",t.mutation, which-1, t.mutation[which-1][0].distance_for_parent);
+            tmpA.distance_to_child = t.mutation[which-1][0].distance_for_parent;
 
-          // }
-          // t.mutation[which].push(tmpA);
+          }
+          t.mutation[which].push(tmpA);
            --looper;
         }    
       }
-      console.log(t.mutation);
+     // console.log(t.mutation);
     };
     this.play_mutation = function()
     {
@@ -189,57 +191,64 @@ $(document).ready(function(){
       { 
         if(d.length > 0)
         {
-          var par = $('.tester .treasureB > div.interestB[data-id='+(i+1)+']');
           d.forEach(function(dd,ii)
           {   
+            var par = $('.tester .treasureB > div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + dd.mid + ']');
+            //console.log(par);
+            var par_left = par.position().left;
             for(var j = dd.from; j <= dd.to; ++j)
             {
-              //console.log(dd.from,dd.to);           
-              var item = par.find('div[data-id=' + j + ']');
-              var left = item.position().left;
-                            
+            //   //console.log(dd.from,dd.to);           
+              var item = par.find('div.item[data-id=' + j + ']');
+              var left = item.position().left - par_left;
+              //console.log(left,item.position().left,par_left);
               var r = (j <= dd.meridian ? dd.cx - left - interest_w2 : left - dd.cx + interest_w2);
-              //console.log(left,dd.cx,j,dd.meridian,r,dd.distance);
-              //console.log(r,j <= dd.meridian ? 180 : 0);
-              //console.log(left);
               item.data({'r':r, 'ir':r});
-              //console.log(item,r,dd.cx);
-              item.animate({"color":"white"},{duration:1000, 
+              //console.log(item.data(),left,dd);
+
+              item.animate({"color":"white"},{duration:7000, 
                 progress:function(a,b,c){
                   var th = $(this); 
-                  //console.log(dd.cx,dd.cy,th.data('id'),th.data('r'),th.data('ir'));
-                  x = dd.cx + +th.data('r') * Math.cos(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
-                  y = dd.cy - +th.data('r') * Math.sin(Math.radians(360-360*b + (+th.data('id') <= dd.meridian ? 180 : 0 )));
+               
+                  var less = +th.data('id') <= dd.meridian;
+                  var rad = +th.data('r');
+                  x = rad * Math.cos(Math.radians(360-360*b + (less ? 180 : 0 )));
+                  y = rad * Math.sin(Math.radians(360-360*b + (less ? 180 : 0 )));
+// todo here
+                    console.log(x,y);
+                  var xx = x - (+th.data('ileft')*b);
+                  //console.log(th.data('ileft'),rad,2*rad, 2*rad -x,interest_w2,+th.data('ileft') + 2*rad - (2*rad - x) - interest_w2);
+                  //dd.cx = th.data('ileft') - dd.distance*b;
+                  th.css({'left':xx});//, 'top':y});
                   th.data('r',+th.data('ir')*(1-b));
-                  th.css({'left':x, 'top':y});
-                  //console.log(r,dd.cxi);
-                  dd.cx = dd.cxi - dd.distance*b;
-                  //console.log(dd.cxi,dd.distance,dd.distance*b, dd.cx,th.data('r'));   
-                  if(dd.progress < b)
-                  { 
-                    dd.progress = b;
 
-                    //console.log("move all parent to left",b,dd.progress,dd.which,mp.ach_count);
-                    var str = dd.which;
-                    for(var ind = dd.which+1; ind <= mp.ach_count; ++ind)  
-                    {
-                      var toMoveParent = $('.tester .treasureB > div.interestB[data-id='+(ind+1)+']');
-                      str += ind + "-";
-                      for(var ind_i = 1; ind_i <= mp.ach[ind]; ++ind_i)
-                      {
-
-                        var toMove = toMoveParent.find('div[data-id='+ind_i+']');                        
-                        toMove.css('left', toMove.data('ileft') - dd.distance_to_child*dd.progress);
-
-                        str += ind_i + ",";
-                      }
-                      str += "\n";
-                    }
-                    console.log("move",str);
-                  }
+                  //console.log(x);
                   
+                  //console.log(dd.cx);
+                  //console.log(dd.cx);
+                  //console.log(dd.cxi,dd.distance,dd.distance*b, dd.cx,th.data('r'));   
+                  // if(dd.progress < b)
+                  // { 
+                  //   dd.progress = b;
 
-                  //move other parent objects to the left 
+                  //   //console.log("move all parent to left",b,dd.progress,dd.which,mp.ach_count);
+                  //   var str = dd.which;
+                  //   for(var ind = dd.which+1; ind <= mp.ach_count; ++ind)  
+                  //   {
+                  //     var toMoveParent = $('.tester .treasureB > div.interestB[data-id='+(ind+1)+']');
+                  //     str += ind + "-";
+                  //     for(var ind_i = 1; ind_i <= mp.ach[ind]; ++ind_i)
+                  //     {
+
+                  //       var toMove = toMoveParent.find('div[data-id='+ind_i+']');                        
+                  //       toMove.css('left', toMove.data('ileft') - dd.distance_to_child*dd.progress);
+
+                  //       str += ind_i + ",";
+                  //     }
+                  //     str += "\n";
+                  //   }
+                  //   console.log("move",str);
+                  // }
                 },
                 complete:function()
                 {
