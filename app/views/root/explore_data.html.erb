@@ -6,11 +6,11 @@
     <div class="row">
       <div class="col-sm-4">
         Variable 1:
-        <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text.titlecase}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true", :'data-size' => "7" %>
+        <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true", :'data-size' => "7" %>
       </div>
       <div class="col-sm-4">
         Variable 2:
-        <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text.titlecase}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
+        <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
           :'data-live-search' => "true", :'data-size' => "7" %>
       </div>
       <div class="col-sm-4">
@@ -20,18 +20,18 @@
 
     <% if @data.present? %>
       <ul class="nav nav-tabs" role="tablist">
-        <% if @data[:map].present? %>
+        <% if @data[:map_percents].present? %>
           <li class="active"><a href="#tab-map" role="tab" data-toggle="tab">Choropleth Map</a></li>
           <li><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
         <% else %>
           <li class="active"><a href="#tab-chart" role="tab" data-toggle="tab">Crosstab Chart</a></li>
         <% end %>
-        <li><a href="#tab-table" role="tab" data-toggle="tab">Data Table</a></li>
+        <li><a href="#tab-table" role="tab" data-toggle="tab">Crosstab Table</a></li>
         <li><a href="#tab-details" role="tab" data-toggle="tab">Details</a></li>
       </ul>      
 
       <div class="tab-content">
-        <% if @data[:map].present? %>
+        <% if @data[:map_percents].present? %>
           <div class="tab-pane active" id="tab-map">
             <h3>
               <%= @data[:row_question] %>
@@ -39,6 +39,8 @@
               by
               <br />
               <%= @data[:column_question] %>
+              <br />
+              <span class="total_responses">(Total Responses: <%= @data[:total_responses] %>)</span>
             </h3>
             <div>Filter map by selecting an answer to '<%= @data[:map_filter] %>':</div>
             <div id="map_filter" class="btn-group">
@@ -56,18 +58,27 @@
 
           </div>
         <% end %>
-        <div class="tab-pane <%= 'active' if @data[:map].blank? %>" id="tab-chart">
+        <div class="tab-pane <%= 'active' if @data[:map_percents].blank? %>" id="tab-chart">
           <div id="chart"></div>
         </div>
         <div class="tab-pane" id="tab-table">
-          <table id="datatable" class="table table-striped table-hover">
+          <h3>
+            <%= @data[:row_question] %>
+            <br />
+            by
+            <br />
+            <%= @data[:column_question] %>
+            <br />
+            <span class="total_responses">(Total Responses: <%= @data[:total_responses] %>)</span>
+          </h3>
+          <table id="datatable" class="table table-striped table-hover table-nonfluid">
             <thead>
               <tr>
                 <th class="var1-col"></th>
-                <th colspan="<%= (@data[:column_answers].length + 1) %>"><%= @data[:column_question].titlecase %></th>
+                <th colspan="<%= (@data[:column_answers].length + 1) %>"><%= @data[:column_question] %></th>
               </tr>
               <tr>
-                <th class="var1-col"><%= @data[:row_question].titlecase %></th>
+                <th class="var1-col"><%= @data[:row_question] %></th>
                 <% @data[:column_answers].each do |answer| %>
                   <th><%= answer[1] %></th>
                 <% end %>
@@ -77,8 +88,12 @@
               <% (0..@data[:row_answers].length-1).each do |row_index| %>
                 <tr>
                   <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
-                  <% @data[:percents][row_index].each do |percent| %>
-                    <td><%= number_to_percentage(percent) %></td>
+                  <% (0..@data[:counts][row_index].length-1).each do |index| %>
+                    <td>
+                      <%= @data[:counts][row_index][index] %>
+                      &nbsp;&nbsp;
+                      <%= "(#{number_to_percentage(@data[:percents][row_index][index])})" %>
+                    </td>
                   <% end %>
                 </tr>
               <% end %>
@@ -90,7 +105,7 @@
             <div class="col-sm-6">
               <p>
                 <strong>Question:</strong>
-                <%= @data[:row_question].titlecase %>
+                <%= @data[:row_question] %>
               </p>
               <p>
                 <strong>Possible Answers:</strong>
@@ -106,7 +121,7 @@
             <div class="col-sm-6">
               <p>
                 <strong>Question:</strong>
-                <%= @data[:column_question].titlecase %>
+                <%= @data[:column_question] %>
               </p>
               <p>
                 <strong>Possible Answers:</strong>

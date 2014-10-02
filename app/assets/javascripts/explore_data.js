@@ -30,7 +30,9 @@ $(document).ready(function() {
         },
         tooltip: {
             pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+            shared: true,
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            followPointer: true
         },
         plotOptions: {
             bar: {
@@ -42,9 +44,10 @@ $(document).ready(function() {
   }
 
 
-if (gon.map_data){
+if (gon.map_counts && gon.map_percents){
 
-    var data = gon.map_data
+    var map_counts = gon.map_counts;
+    var map_percents = gon.map_percents;
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
@@ -59,7 +62,7 @@ if (gon.map_data){
             }).addTo(map);
     
     // default map filter
-    merge_data_shapes(data_picker(1, data), shapes)
+    merge_data_shapes(data_picker(1, map_percents), data_picker(1, map_counts), shapes)
     
     var geojson;
     geojson = L.geoJson(shapes, {
@@ -81,16 +84,17 @@ if (gon.map_data){
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
-            ('<b>' + props.name + '</b>: ' + (props.data == undefined ? 'N/A' : props.data + ' %'))
+            ('<b>' + props.name + '</b>: ' + (props.count == undefined ? 'N/A' : props.count + ' ') + (props.percent == undefined ? '' : '(' + props.percent + '%)'))
             : 'Hover over a Region');
     };
     
     info.addTo(map);
     
 // merge the picked data into the shapes so can map choropleth of data
-function merge_data_shapes(data, shapes){
+function merge_data_shapes(percents, counts, shapes){
   $.each(shapes.features, function(index, feature){
-    feature.properties["data"] = data[feature.properties.name]
+    feature.properties["percent"] = percents[feature.properties.name]
+    feature.properties["count"] = counts[feature.properties.name]
   });
 };
 
@@ -115,7 +119,7 @@ function getColor(d) {
 //
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.data),
+        fillColor: getColor(feature.properties.percent),
         weight: 2,
         opacity: 1,
         color: '#999',
@@ -175,7 +179,7 @@ function onEachFeature(feature, layer) {
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '%<br>' : '+%');
         }
 
         return div;
@@ -193,8 +197,7 @@ function onEachFeature(feature, layer) {
         var name = $(this).html();
         data_id = $(this).data("id");
         $('span#default_id').text(name);
-        merge_data_shapes(data_picker(data_id, data), shapes)
-        console.log(geojson);
+        merge_data_shapes(data_picker(data_id, map_percents), data_picker(data_id, map_counts), shapes)
         map.removeLayer(geojson);
         
         L.geoJson(shapes, {
@@ -215,10 +218,36 @@ function onEachFeature(feature, layer) {
   }
       
 
-  // initalize the datatable
   // - set the swf path so can use the download buttons
+  // to be able to sort the jquery datatable build in the function below
+  // - coming in as: xx (xx.xx%); want to only keep first number
+  jQuery.fn.dataTableExt.oSort['formatted-num-asc'] = function ( a, b ) {
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    return parseFloat(x) - parseFloat(y);
+  };
+
+  jQuery.fn.dataTableExt.oSort['formatted-num-desc'] = function ( a, b ) {
+    var x = a.match(/\d/) ? a.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    var y = b.match(/\d/) ? b.replace( /\s\(\d{0,}.?\d{0,}\%\)/g, "" ) : 0;
+    return parseFloat(y) - parseFloat(x);
+  };
+
+  // compute how many columns need to have this sort
+  var sort_array = [];
+  for(var i=1; i<$('#datatable > thead tr:last-of-type th').length; i++){
+    sort_array.push(i);
+  }
+
+  // initalize the datatable
   $('#datatable').dataTable({
     "dom": '<"top"fT>t<"clear">',
+    "language": {
+      "url": gon.datatable_i18n_url
+    },
+    "columnDefs": [
+        { "type": "formatted-num", targets: sort_array }
+    ],
     "tableTools": {
       "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
     }
@@ -233,15 +262,12 @@ function onEachFeature(feature, layer) {
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     switch($(this).attr('href')){
       case '#tab-map':
-        console.log('showing map');
         map.invalidateSize(false);
         break;
       case '#tab-chart':
-        console.log('showing chart');
         $('#chart').highcharts().reflow();        
         break;
       case '#tab-table':
-        console.log('showing table');
         var ttInstances = TableTools.fnGetMasters();
         for (i in ttInstances) {
         if (ttInstances[i].fnResizeRequired()) 
