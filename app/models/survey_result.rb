@@ -42,10 +42,10 @@ class SurveyResult < ActiveRecord::Base
         # put all of the data together
 
         # save the questions and answers
-        result[:row_question] = q_row.text.titlecase
-        result[:row_answers] = q_row.answers.map{|x| [x.value, x.text.titlecase]}
-        result[:column_question] = q_col.text.titlecase
-        result[:column_answers] = q_col.answers.map{|x| [x.value, x.text.titlecase]}
+        result[:row_question] = q_row.text
+        result[:row_answers] = q_row.answers.map{|x| [x.value, x.text]}
+        result[:column_question] = q_col.text
+        result[:column_answers] = q_col.answers.map{|x| [x.value, x.text]}
 
         # put the counts into a new array to make sure all row and column answers are included
         result[:counts] = []
@@ -103,7 +103,8 @@ class SurveyResult < ActiveRecord::Base
 
         # if row or column is the region variable, create the map data
         if row.downcase == 'reg' || column.downcase == 'reg'
-          result[:map] = {}
+          result[:map_percents] = {}
+          result[:map_counts] = {}
 
           # if the row is the region, recompute percents so columns add up to 100%
           if row.downcase == 'reg'
@@ -127,11 +128,13 @@ class SurveyResult < ActiveRecord::Base
 
             result[:column_answers].each_with_index do |col_answer, col_index|
               # create hash to store the data for this answer
-              result[:map][col_answer[0].to_s] = Hash.new
+              result[:map_percents][col_answer[0].to_s] = Hash.new
+              result[:map_counts][col_answer[0].to_s] = Hash.new
 
               # now store the results for each region
               (0..result[:row_answers].length-1).each do |index|
-                result[:map][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
+                result[:map_percents][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
+                result[:map_counts][col_answer[0].to_s][result[:row_answers][index][1].to_s] = counts[col_index][index]
               end 
             end
 
@@ -141,11 +144,13 @@ class SurveyResult < ActiveRecord::Base
 
             result[:row_answers].each_with_index do |row_answer, row_index|
               # create hash to store the data for this answer
-              result[:map][row_answer[0].to_s] = Hash.new
+              result[:map_percents][row_answer[0].to_s] = Hash.new
+              result[:map_counts][row_answer[0].to_s] = Hash.new
 
               # now store the results for each region
               (0..result[:column_answers].length-1).each do |index|
-                result[:map][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
+                result[:map_percents][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
+                result[:map_counts][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:counts][row_index][index]
               end 
             end
           end

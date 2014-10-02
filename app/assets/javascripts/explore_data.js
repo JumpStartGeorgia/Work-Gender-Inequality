@@ -42,9 +42,10 @@ $(document).ready(function() {
   }
 
 
-if (gon.map_data){
+if (gon.map_counts && gon.map_percents){
 
-    var data = gon.map_data
+    var map_counts = gon.map_counts;
+    var map_percents = gon.map_percents;
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
@@ -59,7 +60,7 @@ if (gon.map_data){
             }).addTo(map);
     
     // default map filter
-    merge_data_shapes(data_picker(1, data), shapes)
+    merge_data_shapes(data_picker(1, map_percents), data_picker(1, map_counts), shapes)
     
     var geojson;
     geojson = L.geoJson(shapes, {
@@ -81,16 +82,17 @@ if (gon.map_data){
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
         this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
-            ('<b>' + props.name + '</b>: ' + (props.data == undefined ? 'N/A' : props.data + ' %'))
+            ('<b>' + props.name + '</b>: ' + (props.count == undefined ? 'N/A' : props.count + ' ') + (props.percent == undefined ? '' : '(' + props.percent + '%)'))
             : 'Hover over a Region');
     };
     
     info.addTo(map);
     
 // merge the picked data into the shapes so can map choropleth of data
-function merge_data_shapes(data, shapes){
+function merge_data_shapes(percents, counts, shapes){
   $.each(shapes.features, function(index, feature){
-    feature.properties["data"] = data[feature.properties.name]
+    feature.properties["percent"] = percents[feature.properties.name]
+    feature.properties["count"] = counts[feature.properties.name]
   });
 };
 
@@ -115,7 +117,7 @@ function getColor(d) {
 //
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.data),
+        fillColor: getColor(feature.properties.percent),
         weight: 2,
         opacity: 1,
         color: '#999',
@@ -175,7 +177,7 @@ function onEachFeature(feature, layer) {
         for (var i = 0; i < grades.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '%<br>' : '+%');
         }
 
         return div;
@@ -193,8 +195,7 @@ function onEachFeature(feature, layer) {
         var name = $(this).html();
         data_id = $(this).data("id");
         $('span#default_id').text(name);
-        merge_data_shapes(data_picker(data_id, data), shapes)
-        console.log(geojson);
+        merge_data_shapes(data_picker(data_id, map_percents), data_picker(data_id, map_counts), shapes)
         map.removeLayer(geojson);
         
         L.geoJson(shapes, {
@@ -233,15 +234,12 @@ function onEachFeature(feature, layer) {
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     switch($(this).attr('href')){
       case '#tab-map':
-        console.log('showing map');
         map.invalidateSize(false);
         break;
       case '#tab-chart':
-        console.log('showing chart');
         $('#chart').highcharts().reflow();        
         break;
       case '#tab-table':
-        console.log('showing table');
         var ttInstances = TableTools.fnGetMasters();
         for (i in ttInstances) {
         if (ttInstances[i].fnResizeRequired()) 
