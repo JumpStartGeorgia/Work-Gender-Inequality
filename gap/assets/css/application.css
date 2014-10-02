@@ -666,11 +666,13 @@ top:0px;
      position:fixed;
      left:100px;
      top:100px;
+      transition: all 0.2s ease-out;
   }
   .treasureB .interestB
   {
      display:inline-block;
      position:relative;
+    transition: all 2s ease-out;
   }
   .treasureB .interestB > div.mutationB
   {
@@ -693,10 +695,6 @@ top:0px;
      top:0px;
      left:0px;
   }
-
-  .boxA > div.item,.boxA > div.mutationB > div.item { background-color:blue;}
-  .boxB > div.item,.boxB > div.mutationB > div.item { background-color:lightblue;}
-
 .ibag
 {
   background-image:url("../images/svg/interests/bag.svg");
