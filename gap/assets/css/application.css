@@ -67,12 +67,12 @@ body,html
 }
 .treasure .pedestal
 {
-  background-color: rgb(5, 143, 252);
+/*  background-color: rgb(5, 143, 252);
   margin-left: 30px;
   padding: 0px 10px;
   color: white;
   height: 30px;
-  line-height: 30px;
+  line-height: 30px;*/
 }
 .treasure .red-carpet
 {
@@ -80,14 +80,20 @@ body,html
   left:0px;
   top:0px;
   width:100%;
-  height: 30px;
-  line-height: 30px;
+  height: 32px;
+  line-height: 32px;
   transition: all 0.2s ease-out;
 }
 .treasure .red-carpet .reward
 {
   position:absolute;
   top:0px;
+  width:32px;
+  height:32px;
+  display:inline-block;     
+  background-size:32px;
+  background-repeat:no-repeat;
+  background-position:0px;     
 }
 
 #screen .top .score, #screen .bottom .score
@@ -660,27 +666,26 @@ top:0px;
    top:400px;
 }
 
-  .treasureB
+  .treasure .pedestal
   {
      width:auto;
      position:fixed;
-     left:100px;
-     top:100px;
   }
-  .treasureB .interestB
+  .treasure .pedestal .interestB
   {
      display:inline-block;
      position:relative;
+    transition: all 2s ease-out;
   }
-  .treasureB .interestB > div.mutationB
+   .treasure .pedestal > div.mutationB
   {
      display:inline-block;
      height:32px;
      overflow:visible;
      white-space: nowrap;
   }
-  .treasureB .interestB > div.item,
-  .treasureB .interestB > div.mutationB > div.item
+  .treasure .pedestal .interestB > div.item,
+  .treasure .pedestal .interestB > div.mutationB > div.item
   {
      width:32px;
      height:32px;
@@ -693,10 +698,6 @@ top:0px;
      top:0px;
      left:0px;
   }
-
-  .boxA > div.item,.boxA > div.mutationB > div.item { background-color:blue;}
-  .boxB > div.item,.boxB > div.mutationB > div.item { background-color:lightblue;}
-
 .ibag
 {
   background-image:url("../images/svg/interests/bag.svg");

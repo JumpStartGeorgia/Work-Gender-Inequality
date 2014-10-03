@@ -292,3 +292,150 @@ function ticker_tick()
   //function screen(v){ cur_screen = v; }
   //function nexts(){ screen(++curr_screen); }
   //function prevs(){ screen(--curr_screen); } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+//function calculate(){
+  // var life = (max_age - user.age) * 12;
+  // var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
+  // var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
+  // stage_id = Math.floor10(timeline_scroll_to_tick_value/timeline_scroll_to_tick)%1;
+
+
+  //pathSwitch(stages[stage_id].layers[0].path);
+
+  //if(stage_id != prev_stage_id)
+  //{
+  //  stage_offset = 0;
+  //  for(var i = 1; i <= stage_id; ++i)
+  //    stage_offset += stages[i].w;  
+  //}
+
+  //console.log(stage_id);
+  //var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
+  //  console.log("not collision ------------", percent);
+  //var coord = pathCoordinateByPercent(percent);  
+
+  //var coord = pathCoordinateByPercent(lifePercent*8);
+  //redraw_human(coord);
+//}
+
+
+
+/*
+function pathSwitch(v)
+{
+  path.setAttribute('d', v);    
+  pathl = path.getTotalLength();
+}
+function pathCoordinateByPercent(percent) // input percent of whole path
+{
+  var p1 = pointAt(percent-1);
+  var p2 = pointAt(percent+1);
+  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+  var p = pointAt(percent);  
+  return { x:p.x,y:p.y, a:a };
+}      
+function pointAt(p){
+
+    return path.getPointAtLength( pathl * p/100 );
+}
+
+
+function getPathCoordinateByPercent(path,pathl,percent) // input percent of whole path
+{
+  var p1 = path.getPointAtLength(pathl * (percent-1)/100);
+  var p2 = path.getPointAtLength(pathl * (percent+1)/100);
+  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+  var p =  path.getPointAtLength(pathl * (percent/100);
+  return { x:p.x,y:p.y, a:a };
+}      
+*/
+
+
+
+
+// 03.10.2014 changed to be pos and new time calculations
+      // if(v==1)
+      // {  
+      //   ++timeline_scroll_to_tick_value;
+      //   var t1 = (timeline_period_w)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
+       
+      //   var len = timeline_points.length;
+      //   if(t1 > len*timeline_period_w) 
+      //   {
+      //     var toadd = Math.round10(t1/(timeline_period_w)) + 1 - len;
+      //      timeline_tick(time_step,toadd);
+      //   }          
+      // }
+      // else 
+      // {
+      //   if(timeline_scroll_to_tick_value > 0)
+      //   {
+          
+      //     --timeline_scroll_to_tick_value;    
+      //   }
+      // }
+      //  //$('.canvas').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
+      //$('.treasure .red-carpet').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
+
+variable refactoring plus no need some code anymore, month format wasn't used anywhere so deleted
+      function timeline_tick(n)
+{
+  /*if(exist(v))
+  {    
+    if(typeof v === "number") v = Math.round10(v);
+    if(typeof v === "string" && v.length >= 2 && v.match(/[my]/g).length == 1) 
+    {
+      if(v.indexOf('m') != -1) 
+      {
+        v = v.replace('m','');
+        if(isNumberWithSign(v)) v=+v;
+      }
+      else if(v.indexOf('y') != -1)
+      {
+        v = v.replace('y','');
+        if(isNumberWithSign(v)) v=+v*12; 
+      }
+    }
+  }*/
+  //if(isNumberWithSign(v)) 
+  //{  
+    for(var i = 0; i < n; ++i)
+    {
+      var curTime = new Date();
+      size = timeline_points.length;
+      curTime.setTime(timeline_points[size-1].getTime());
+
+      curTime.setMonth(curTime.getMonth() + reward_period);
+
+      if(curTime > timeline_end_point) epilogue();
+
+      timeline_point = curTime;
+      timeline_points.push(curTime);  
+    }      
+    timeline_point_draw(reward_period);  
+  //}
+  else console.log("timeline step is incorrect");  
+  
+}

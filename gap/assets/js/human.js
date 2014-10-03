@@ -170,7 +170,7 @@ function human(selector,title)
   this.step_right = function step_right()
   {
     
-    var tmp = (this.traversed_path + (100/timeline_scroll_to_tick));
+    var tmp = (this.traversed_path + (100/scrolls_for_reward));
     if(this.path_loop)
        tmp = tmp == 100 ? 100 : tmp%100;
     else if(tmp > 100) return;
@@ -181,7 +181,7 @@ function human(selector,title)
   };
   this.step_left = function step_left()
   {    
-    var tmp = (this.traversed_path - (100/timeline_scroll_to_tick));
+    var tmp = (this.traversed_path - (100/scrolls_for_reward));
     if(this.path_loop)
        tmp =  tmp <= 0 ? 100 : tmp%100;
     else if(tmp <= 0) return;
@@ -246,9 +246,16 @@ var male = new human('.m.character','Male'); // male human object
 var female = new human('.f.character','Female'); // female human object
 
 
-
-
-
+function h_go_right()
+{
+  male.step_right();
+  female.step_right();
+}
+function h_go_left()
+{
+  male.step_right();
+  female.step_right();
+}
   // this.positionXYA = function positionXYA(x,y,a) {
   //     var scaleX = $(document).width()/100;
   //     var scaleY = (h2-th/2)/56;

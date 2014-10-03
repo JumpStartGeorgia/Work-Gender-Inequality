@@ -1,4 +1,4 @@
-/**
+/*
 * @description application initialization step, called after DOM elements and resources are loaded
 */
 function init()
@@ -25,7 +25,9 @@ function redraw()
   w2 = w/2;
   h2 = h/2;
   lh = (h - th)/2;
-  tls = w*timeline_scale;
+
+  timeline_period_w = w*timeline_scale;
+  timeline_month_w = timeline_period_w/reward_period;
   if(ingame) redraw_game();
 }
 function redraw_game()
@@ -49,36 +51,40 @@ function scr_clean(klass)
 function walk(v){
    if(ingame /*&& !reward*/)
     {     
-      lookinfuture(v);
- 
-      if(v==1)
-      {  
-          
-        ++timeline_scroll_to_tick_value;
-        var t1 = (tls)/timeline_scroll_to_tick * (timeline_scroll_to_tick_value + 1) + w;
-       
-        var len = timeline_points.length;
-        if(t1 > len*tls) 
-        {
-          var toadd = Math.round10(t1/(tls)) + 1 - len;
-           timeline_tick(time_step,toadd);
-        }
-          male.step_right();
-          female.step_right();
-      }
-      else 
-      {
-        if(timeline_scroll_to_tick_value > 0)
-        {
-           male.step_left();
-           female.step_left();
-          --timeline_scroll_to_tick_value;      
-        }
-      }
+      if(!can_scroll(total_scrolls+v)) return;
 
-      $('.canvas').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
-      $('.treasure .red-carpet').css({left:-timeline_scroll_to_tick_value* (w*timeline_scale/timeline_scroll_to_tick)});
+      total_scrolls+=v;
+      if(v==1)
+      {        
+        if(total_scrolls % scrolls_for_reward == 0)
+        {
+          ++pos;
+        }
+        // checking if width of timeline should be resized
+        var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+        var len = timeline_points.length;
+        if(t1 > len*timeline_month_w) 
+        {
+          var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+          timeline_tick(toadd);
+        }          
+        h_go_right();
+      }
+      else
+      {
+        if(total_scrolls % scrolls_for_reward == 0)
+        {
+          h_go_left();          
+          --pos;  
+        }        
+      }
+      if(pos_changed) { pos_changed = false; lookinfuture(v); }  
+     $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
     }
+}
+function can_scroll(v)
+{  
+  return v >= 0 && v < life_scroll_count;
 }
 function intro(){  
   scr_clean();
@@ -176,7 +182,7 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 }).appendTo(t);  
+  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
@@ -187,10 +193,10 @@ function game() {
   var bs = $('<div class="score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(b);
   bs.css({ left: w-bs.width()-30, top: lh + th + 20});
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: h - 30 }).appendTo(b);  
+  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + 30 + 10 }).appendTo(b);  
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
-  timeline_tick(time_step);
+  timeline_tick();
   draw_stage(0);
 
 
@@ -246,50 +252,25 @@ function draw_stage(v)
 
   if(v==0) draw_stage(1);
 };
-function timeline_tick(v,n)
+function timeline_tick(n)
 {
-  if(exist(v))
-  {    
-    if(typeof v === "number") v = Math.round10(v);
-    if(typeof v === "string" && v.length >= 2 && v.match(/[my]/g).length == 1) 
-    {
-      if(v.indexOf('m') != -1) 
-      {
-        v = v.replace('m','');
-        if(isNumberWithSign(v)) v=+v;
-      }
-      else if(v.indexOf('y') != -1)
-      {
-        v = v.replace('y','');
-        if(isNumberWithSign(v)) v=+v*12; 
-      }
-    }
-    if(isNumberWithSign(v)) 
-    {
-      //var point = $('.point-in-time');
-      //var curTimeString = point.attr('data-time');
-      
-      for(var i = 0; i < n; ++i)
-      {
-        var curTime = new Date();
-        size = timeline_points.length;
-        curTime.setTime(timeline_points[size-1].getTime());
+  for(var i = 0; i < n; ++i)
+  {
+    var curTime = new Date();
+    size = timeline_points.length;
+    curTime.setTime(timeline_points[size-1].getTime());
 
-        curTime.setMonth(curTime.getMonth() + v);
+    curTime.setMonth(curTime.getMonth() + reward_period);
 
-        if(curTime > timeline_end_point) epilogue();
+    if(curTime > timeline_end_point) epilogue();
 
-        timeline_point = curTime;
-        timeline_points.push(curTime);  
-      }      
-      timeline_point_draw(v);  
-    }
-    else console.log("timeline step is incorrect");  
-  }
+    timeline_point = curTime;
+    timeline_points.push(curTime);  
+  }      
+  timeline_point_draw(reward_period);   
 }
 function timeline_point_draw(v)
 {
-
   timeline_points.forEach(function(d,i){
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
     {
@@ -305,33 +286,46 @@ function timeline_point_draw(v)
       }
       else 
       {       
-        prevPosition += tls;
+        prevPosition += timeline_period_w;
         prevPositionLeft = prevPosition - point.width()/2;
       }
       point.css({left: prevPositionLeft });
 
-      if(i!=0 && i%3==0)
+      if(i!=0 && (i+1)%3==0)
       { 
         if(male.event_by_month[i]>=0)
-        {
-          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+        {        
+          var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - rew.width()/2 });
         }
         if(female.event_by_month[i]>=0)
         {
-          var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
+          var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - rew.width()/2 });
         }
       }
 
       var ticks = v;//monthDiff(timeline_points[i],timeline_points[i-1]);
-      //console.log(w*timeline_scale,tls,w*timeline_scale/ticks,tls/ticks);
+      //console.log(w*timeline_scale,timeline_period_w,w*timeline_scale/ticks,timeline_period_w/ticks);
       var scaler = w*timeline_scale/ticks;
       for(var j = 0; j < ticks-1; ++j)
       {
-         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);        
+         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
+
+       /*  if(male.event_by_month[i]>=0)
+          {
+            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - rew.width()/2 + (j+1)*scaler });
+          }
+          if(female.event_by_month[i]>=0)
+          {
+            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - rew.width()/2  + (j+1)*scaler});
+          }    */   
       }
 
       point.find('.point').text(getMonthS(d) + " " + d.getFullYear());    
@@ -349,8 +343,9 @@ function timeline_point_draw(v)
 var reward = false;
 function lookinfuture(v)
 {
-  console.log("lookinfuture");
-  if(timeline_scroll_to_tick_value+v > 0)
+  //console.log("lookinfuture");
+
+  if(pos >= 0)
   {
     male.tsalary += v*male.salary;
     female.tsalary += v*female.salary;
@@ -412,27 +407,22 @@ function lookinfuture(v)
          second.next_frame();
       }
       reward = true;
-    } 
-    
-    // console.log("Next frame - Reward is coming");
-    //console.log("first", treasures_leading);
-    //console.log("second", treasures);
-
-
-    var tp = "";
-    var bt = "";
-    for(var i = 0; i < interest.length; ++i)
+    }     
+    if(pos != prev_pos)
     {
-      tp+=interest[i].title[0]+first.treasure[i] + " - ";
-      bt+=interest[i].title[0]+second.treasure[i] + " - ";
-    }
-    var top = tp.substr(0,tp.length-3);
-    var bottom = bt.substr(0,bt.length-3);
-
-    $('.top .treasure .pedestal').text(f.outrun ? top : bottom);
-    $('.bottom .treasure .pedestal').text(f.outrun ? bottom : top);   
-   
-  }
+        var c = pos > prev_pos;
+        if(female.outrun)
+        {          
+          mp.move(c,pos+1);
+          fp.move(c,pos+1);      
+        }
+        else 
+        {    
+          fp.move(c,pos+1);      
+          mp.move(c,pos+1);                  
+        }
+      }     
+    }  
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
   // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
@@ -449,8 +439,8 @@ function lookinfuture(v)
 /***************************************************************
                   Utility Functions
 ***************************************************************/
-function m(){ user.gender = 'm'; max_age = male_max_age; }
-function f(){ user.gender = 'f'; max_age = female_max_age;  }
+function m(){ user.gender = 'm'; max_age = male_max_age; life_scroll_count = (max_age - min_age)*12*scroll_per_month; }
+function f(){ user.gender = 'f'; max_age = female_max_age; life_scroll_count = (max_age - min_age)*12*scroll_per_month;  }
 function g(v) { return user.gender; }
 function gender(v) { v=='m' ? m() : f(); }
 function ism(){ return user.gender=='m' }
@@ -597,61 +587,3 @@ jwerty.key('S', function(){
 /***************************************************************
                   Key Hooks End
 ***************************************************************/
-
-
-//function calculate(){
-  // var life = (max_age - user.age) * 12;
-  // var tickCount = (life / time_step_number) * timeline_scroll_to_tick;
-  // var lifePercent = (timeline_scroll_to_tick_value*100)/tickCount;
-  // stage_id = Math.floor10(timeline_scroll_to_tick_value/timeline_scroll_to_tick)%1;
-
-
-  //pathSwitch(stages[stage_id].layers[0].path);
-
-  //if(stage_id != prev_stage_id)
-  //{
-  //  stage_offset = 0;
-  //  for(var i = 1; i <= stage_id; ++i)
-  //    stage_offset += stages[i].w;  
-  //}
-
-  //console.log(stage_id);
-  //var percent = (timeline_scroll_to_tick_value%timeline_scroll_to_tick)*100/timeline_scroll_to_tick;
-  //  console.log("not collision ------------", percent);
-  //var coord = pathCoordinateByPercent(percent);  
-
-  //var coord = pathCoordinateByPercent(lifePercent*8);
-  //redraw_human(coord);
-//}
-
-
-
-/*
-function pathSwitch(v)
-{
-  path.setAttribute('d', v);    
-  pathl = path.getTotalLength();
-}
-function pathCoordinateByPercent(percent) // input percent of whole path
-{
-  var p1 = pointAt(percent-1);
-  var p2 = pointAt(percent+1);
-  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
-  var p = pointAt(percent);  
-  return { x:p.x,y:p.y, a:a };
-}      
-function pointAt(p){
-
-    return path.getPointAtLength( pathl * p/100 );
-}
-
-
-function getPathCoordinateByPercent(path,pathl,percent) // input percent of whole path
-{
-  var p1 = path.getPointAtLength(pathl * (percent-1)/100);
-  var p2 = path.getPointAtLength(pathl * (percent+1)/100);
-  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
-  var p =  path.getPointAtLength(pathl * (percent/100);
-  return { x:p.x,y:p.y, a:a };
-}      
-*/

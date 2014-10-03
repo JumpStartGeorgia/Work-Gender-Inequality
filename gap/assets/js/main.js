@@ -1,4 +1,5 @@
 var mp = null;
+var fp = null;
 $(document).ready(function(){
 
 
@@ -61,224 +62,277 @@ $(document).ready(function(){
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
   var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
-  var mutation_step = [4,4,2,3,3,3];
+  var states_mutation = [4,4,2,3,3,0];
   var index = 1;
   var current_interests_count = 0;
   current_interests.forEach(function(d,i){current_interests_count+=d;});
 
-  function pedestal_object()
+  var mutation_restriction = [0,0,0,0,0,0];
+
+  function pedestal_object(human)
   {
     this.ach = [0,0,0,0,0,0]; // achievements per item in interest
     this.ach_count = this.ach.length;   
-    this.mutation = [[],[],[],[],[],[]]; 
-    this.mutation_empty = [[],[],[],[],[],[]]; 
+    this.mutation = [{},{},{},{},{},{}]; 
+    this.mutation_empty = [{},{},{},{},{},{}]; 
     this.mutation_count = 0;
+    this.human = human;
+    this.par = $('.' + this.human.place + ' .treasure .pedestal');
+    this.mutationDone = true;
+    this.up_stack = [];
 
-    this.up = function(which,how)
-    {
-      var zIndex = which++;  // change from zero based
-      if(this.inrange(which) && how > 0)
+    this.up = function(which,how,hidden)
+    { 
+      console.log("up");
+      //console.log(which,how);
+      if(typeof hidden === undefined) hidden = false;
+      var t = this;
+      //console.log(t.mutationDone);
+      if(!t.mutationDone) // todo delaying up till previous end
       {
-        var from = this.ach[zIndex];
-        var parent = $('.tester .treasureB > div.interestB[data-id=' + which + ']');
+        t.up_stack.push({which:which,how:how,hidden:hidden});
+        t.delay();
+        return;
+      }
+      var zIndex = which-1;  // change from zero based
+      if(t.inrange(which) && how > 0)
+      {
+        var from = t.ach[zIndex];
+        var parent = t.par.find('> div.interestB[data-id=' + which + ']');
 
         var before_which = 0;
-        this.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
-        //console.log(before_which);
+        t.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
+      
         for(var i = from+1; i <= from+how; ++i)
         {
           var item = $('<div data-id=' + i + '>').addClass('item i' + interest[zIndex].class); 
-          //.css({
-            //'background-image':"url(assets/images/svg/interests/"+ interest[zIndex].image + ")",
-            //'left':0,//interest_w*before_which + interest_offset * before_which + interest_start_offset,
-            //'top':0
-          //})
-
+          if(hidden) 
+          {
+            item.addClass('hidden').hide();
+          }
           parent.append(item);
-        
-          //console.log(item.position().left);
-          //console.log(item.data());
-
           ++before_which;
         }
-         this.ach[zIndex] += how;
-         if(this.ach[zIndex]/mutation_step[zIndex] >= 1)
-           this.mutate(zIndex);
+        t.ach[zIndex] += how;
+       
       }
-    };
-    this.down = function(which,how) // which 1 based
+      if(!hidden)
+      {
+        t.prepare_mutator();          
+      }
+    };     
+    this.down = function() // go back one step calculate data based on pos
     {
-      console.log("ach_down");
+      var t = this;
+      var states = [0,0,0,0,0,0];
+      t.mutation = t.mutation_empty;
+      var treasure_count = 0;
+      for(var i = 0; i < pos; ++i)
+        treasure_count += this.human.event_by_month[i];
+
+      var state_cost = 0; 
+      states_mutation.forEach(function(d,i){ state_cost+=d; });
+      for(var i = 5; i > 0; --i)
+      {
+        state_cost-=states_mutation[i];
+        console.log(state_cost);
+        var tmp =  Math.floor10(treasure_count/state_cost);
+        if(t.human.outrun && tmp > mutation_restriction[i])
+        {
+          tmp =  mutation_restriction[i];
+          mutation_restriction[i] = 0;      
+        }
+        if(tmp >= 1)
+        {
+          states[i] = tmp;
+          treasure_count -= tmp * state_cost;
+        }
+      }
+      states[0] = treasure_count;
+
+      if(!t.human.outrun) mutation_restriction = states;
+
+      this.resume(states);
     };
+    this.next = function(v)
+    {     
+      this.up(1,this.human.event_by_month[v]);
+    };
+    this.prev = function(v)
+    {     
+      this.down(1,this.human.event_by_month[v]);
+    };
+    this.move = function(c,v)
+    {     
+      if(c)
+        this.up(1,this.human.event_by_month[v]);
+      else 
+        this.down(1,this.human.event_by_month[v]);
+    };
+    this.delay = function()
+    {
+      //console.log("delaying");
+      var t = this;
+      setTimeout(function()
+      {        
+        if(t.mutationDone)
+        {
+          var item = t.up_stack.shift();
+          t.up(item.which,item.how,item.hidden);
+        }
+        else
+        {
+          t.delay();
+        }          
+      },1000);      
+    }; 
+    this.prepare_mutator = function()
+    {
+      // preparations
+      var t = this;
+      //console.log(mutation_restriction,t.human.outrun);
+      var mutation_count = 0;
+      t.mutation = t.mutation_empty;
+      for(var i = 0; i < 5; ++i)
+      {
+        var ca = t.ach[i];
+        var sm = states_mutation[i];
+        var smc = Math.floor10(ca/sm); 
+            
+        t.mutation[i] = { count: 0 };
+        if(!t.human.outrun) mutation_restriction[i] = 0;
+        if(smc >= 1)
+        {
+         
+          if(t.human.outrun && smc > mutation_restriction[i]) 
+          {
+            smc =  mutation_restriction[i];
+            mutation_restriction[i] = 0;
+          }
+          mutation_count+=smc;
+          var looper = smc;
+          var tmpA = [];
+          var tca = ca;        
+          var interestB = t.par.find('.interestB[data-id='+(i+1)+']');
+          t.mutation[i] = { count: smc };
+
+          if(!t.human.outrun) mutation_restriction[i] = smc;
+
+          while(looper != 0)
+          {
+            var from = tca - sm;
+            var to = tca;
+
+            var beforeItem = interestB.find('.item[data-id=' + (from++) + ']');
+            var wrapper = $('<div class="mutationB" data-id="'+looper+'"></div>');
+            if(beforeItem.length == 0) 
+               interestB.prepend(wrapper);
+            else wrapper.insertAfter(beforeItem);
+
+            for(var j = from; j <= to; ++j)
+            {
+              var item = interestB.find('.item[data-id=' + j + ']');            
+              wrapper.append(item.detach());
+            }
+            t.up(i+2,1,true);
+            //console.log(smc);
+            tca-=sm;        
+            --looper;
+          }
+         
+        }
+      }
+      // play mutation
+      if(mutation_count > 0)
+      {
+        t.mutationDone = false;
+        setTimeout(function(){ t.mutate();},1000);
+      }
+      //console.log(t.ach);
+    }; 
+    this.mutate = function()
+    {
+      var t = this;
+      var dur = 2000;     
+      t.mutation.forEach(function(d,i)
+      { 
+        var hiddens = t.par.find('.interestB[data-id='+(i+1)+'] .item.hidden');
+        if(d.count > 0)
+        {
+          if(hiddens.length != 0)
+          {
+            hiddens.delay(i*dur).removeClass('hidden').fadeIn(dur,function(){
+              for(var j = 1; j <= d.count; ++j)
+              {
+                t.par.find('> div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
+                  this.remove();
+                });            
+              }          
+            });              
+          }      
+          else
+          {
+            for(var j = 1; j <= d.count; ++j)
+            {
+                t.par.find('> div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + j + ']').fadeOut(dur,function(){
+                  this.remove();
+                });            
+            }  
+          }  
+          t.ach[i]-=d.count*states_mutation[i];          
+        }
+        else 
+        {
+           hiddens.delay(i*dur).removeClass('hidden').fadeIn(dur,function(){t.mutationDone = true;});
+        }
+      });
+    };
+
     this.inrange = function(which)
     {
-      if(which >=1 && which < this.ach.length)
+      if(which >=1 && which < 6)
         return true;
       return false;
     };
     this.init = function()
-    {
-      var test = $("<div class='treasureB'></div>").appendTo('.tester');
-      this.ach.forEach(function(d,i){
-        test.append('<div class="interestB" data-id="'+(i+1)+'">');
+    {    
+      var t = this;  //$("<div class='treasureB'></div>").appendTo('.tester');
+      //console.log(t,t.par);
+      t.ach.forEach(function(d,i){
+        t.par.append('<div class="interestB" data-id="'+(i+1)+'">');
       }); 
-    }
-    this.mutate = function(which)
-    {
-
-      var t = this;        
-      var ca = t.ach[which];
-      var cm = mutation_step[which];
-      var mut_count = Math.floor10(ca/cm);
-      var before_which = 0;
-      this.ach.forEach(function(d,i){ if(i < which) before_which += d; });
-      t.mutation = t.mutation_empty;
-
-      if(mut_count >= 1)
-      {
-
-        var looper = mut_count;
-        var tmpA = [];
-        var tca = ca;        
-        var interestBTmp = $('.tester .treasureB .interestB[data-id='+(which+1)+']');
-        //console.log(interestBTmp);
-        while(looper != 0)
-        {
-          var from = tca - cm;
-          var to = tca;
-          var beforeItem = interestBTmp.find('.item[data-id=' + (from++) + ']');
-          //console.log(beforeItem);
-          var wrapper = $('<div class="mutationB" data-id="'+looper+'"></div>').insertAfter(beforeItem);
-          for(var i = from; i <= to; ++i)
-          {
-            var item = interestBTmp.find('.item[data-id=' + i + ']');
-            item.data('ileft',item.position().left - wrapper.position().left); 
-            //console.log(item.data());    
-            wrapper.append(item.detach());
-          }
-
-          var centTmp = Math.floor10(cm/2);
-
-          var cxTmp = centTmp*interest_w + (centTmp-1)*interest_offset + (cm%2==0?interest_offset/2:interest_w2);
-          //+ before_which*interest_w + before_which*interest_offset;// - interest_w2;
-          //console.log(centTmp,cxTmp);
-          var cyTmp = 0;
-          var merTmp = tca-cm + Math.ceil10(cm/2) + (cm%2==0 ? 0.5 : 0);
-          var fl = Math.floor10(cm/2);
-          var even = cm%2==0 ? true : false;
-          var distTmp = cxTmp - interest_w2;// = fl*interest_w  + fl*interest_offset - (even ? interest_offset/2 : 0);  //cxTmp - Math.ceil10(cm/2)*interest_w - (Math.ceil10(cm/2)-1)*interest_offset;
-          var distForParent = (cm-1)*interest_w + (cm-1)*interest_offset;  
-          //console.log(fl,even,(even ? interest_w2 : -interest_w2),fl*interest_offset,interest_offset/2,distTmp);
-          tmpA = { mid: looper, from: tca-cm+1, to: tca, cx: cxTmp, cxi: cxTmp, cy: cyTmp, cyi: cyTmp, meridian : merTmp, distance : distTmp, progress : 0, distance_for_parent:distForParent, which: which }; //,
-          tca-=cm;
-          if(which > 0)
-          {
-            //console.log("prev distance",t.mutation, which-1, t.mutation[which-1][0].distance_for_parent);
-            tmpA.distance_to_child = t.mutation[which-1][0].distance_for_parent;
-
-          }
-          t.mutation[which].push(tmpA);
-           --looper;
-        }    
-      }
-     // console.log(t.mutation);
     };
-    this.play_mutation = function()
+    this.resume = function(states)
     {
-      //console.log(mp.mutation);
       var t = this;
-      mp.mutation.forEach(function(d,i)
-      { 
-        if(d.length > 0)
+      if(typeof states !== Array && states.length != 6) return;
+
+      for(var i = 0; i < 6; ++i)
+      {
+        var state = states[i];
+        // if(i != 5)        
+        // {
+        //   var sm = states_mutation[i]; // state mutation for current interest item                 
+        //   state -= Math.floor10(state/sm) * sm;
+        // }
+        var parent = t.par.find('> div.interestB[data-id=' + (i+1) + ']').empty();
+        for(var j = 0; j < state; ++j)
         {
-          d.forEach(function(dd,ii)
-          {   
-            var par = $('.tester .treasureB > div.interestB[data-id='+(i+1)+'] > div.mutationB[data-id=' + dd.mid + ']');
-            //console.log(par);
-            var par_left = par.position().left;
-            for(var j = dd.from; j <= dd.to; ++j)
-            {
-            //   //console.log(dd.from,dd.to);           
-              var item = par.find('div.item[data-id=' + j + ']');
-              var left = item.position().left - par_left;
-              //console.log(left,item.position().left,par_left);
-              var r = (j <= dd.meridian ? dd.cx - left - interest_w2 : left - dd.cx + interest_w2);
-              item.data({'r':r, 'ir':r});
-              //console.log(item.data(),left,dd);
-
-              item.animate({"color":"white"},{duration:7000, 
-                progress:function(a,b,c){
-                  var th = $(this); 
-               
-                  var less = +th.data('id') <= dd.meridian;
-                  var rad = +th.data('r');
-                  x = rad * Math.cos(Math.radians(360-360*b + (less ? 180 : 0 )));
-                  y = rad * Math.sin(Math.radians(360-360*b + (less ? 180 : 0 )));
-// todo here
-                    console.log(x,y);
-                  var xx = x - (+th.data('ileft')*b);
-                  //console.log(th.data('ileft'),rad,2*rad, 2*rad -x,interest_w2,+th.data('ileft') + 2*rad - (2*rad - x) - interest_w2);
-                  //dd.cx = th.data('ileft') - dd.distance*b;
-                  th.css({'left':xx});//, 'top':y});
-                  th.data('r',+th.data('ir')*(1-b));
-
-                  //console.log(x);
-                  
-                  //console.log(dd.cx);
-                  //console.log(dd.cx);
-                  //console.log(dd.cxi,dd.distance,dd.distance*b, dd.cx,th.data('r'));   
-                  // if(dd.progress < b)
-                  // { 
-                  //   dd.progress = b;
-
-                  //   //console.log("move all parent to left",b,dd.progress,dd.which,mp.ach_count);
-                  //   var str = dd.which;
-                  //   for(var ind = dd.which+1; ind <= mp.ach_count; ++ind)  
-                  //   {
-                  //     var toMoveParent = $('.tester .treasureB > div.interestB[data-id='+(ind+1)+']');
-                  //     str += ind + "-";
-                  //     for(var ind_i = 1; ind_i <= mp.ach[ind]; ++ind_i)
-                  //     {
-
-                  //       var toMove = toMoveParent.find('div[data-id='+ind_i+']');                        
-                  //       toMove.css('left', toMove.data('ileft') - dd.distance_to_child*dd.progress);
-
-                  //       str += ind_i + ",";
-                  //     }
-                  //     str += "\n";
-                  //   }
-                  //   console.log("move",str);
-                  // }
-                },
-                complete:function()
-                {
-                  //$(this).remove();
-                }
-              });
-            }
-          });
+          var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
+          parent.append(item);
         }
-        
-      });
-    };
+        this.ach[i] = state;
+      }
+    }; 
     this.init();
   }
 
-  mp = new pedestal_object(); // male pedestal object  
-  current_interests.forEach(function(d,i){ mp.up(i,d); });
-  $('.repeat').on('click', mp.play_mutation);
+  mp = new pedestal_object(male); // male pedestal object 
+  fp = new pedestal_object(female); 
+ // mp.resume(current_interests);
+ // fp.resume(current_interests);
 
-
-// var v1 = $('.box .boxA div.item[data-id=1]');
-// var v2 = $('.box .boxA div.item[data-id=2]');
-// var v3 = $('.box .boxA div.item[data-id=3]');
-// var ins = $('<div class="mB"></div>').insertAfter(v1);
-
-// v2=v2.detach();
-// v3 = v3.detach();
-
-// ins.append(v2).append(v3);
-// //ins.remove();
+  //$('.repeat').on('click', function() { mp.up(1,6); });
 }); 
 
  window.onpopstate = function(e){
