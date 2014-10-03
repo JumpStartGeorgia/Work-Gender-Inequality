@@ -32,6 +32,8 @@ var s3 = null;
 var lh = 0; 
 var curr_date = new Date(); // current date
 
+
+var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
 var timeline_point = new Date(curr_date.getFullYear(),curr_date.getMonth(),1,0,0,0,0);
@@ -40,16 +42,20 @@ timeline_end_point.setTime(timeline_point.getTime());
 timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
 
 var timeline_points = [timeline_point];
-var time_step = "3m"; // increment for on each scroll is 3 months, available formats m:month, y:year
-var time_step_number = 3;
-var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewport_width
-var tls = 1; // time line scaler calculated on redraw = width * timeline_scale
-var timeline_scroll_to_tick_value = 0;
-var timeline_scroll_to_tick = 10;
-var timeline_scroll_curr_size = 0;
+//var time_step = "1m"; // increment for on each scroll is 3 months, available formats m:month, y:year
 
-//var curr_screen = 1; // current screen intro is 1
-//var cnt_screen = 2; // screens count calculated from sframe array plus 2(intro,epilogue)
+//var timeline_format = 'm';
+//var time_step_number = 3;
+var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewport_width
+
+// time line scaler calculated on redraw = width * timeline_scale
+var timeline_period_w = 0;
+var timeline_month_w = 0;
+var scroll_per_month = 3; // scroll number for month to change
+var reward_period = 3;// month that show how often rewarding process will be shown, ex: 3 means every third month rewarding process occures
+var scrolls_for_reward = scroll_per_month * reward_period;
+var life_scroll_count = 0;
+
 var def_age = 21;
 var min_age = 18;
 var max_age = 60;
@@ -103,4 +109,14 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var pos = 1;
+  var _pos = 0;
+  var prev_pos = 0;
+  var pos_changed = false;
+  __defineGetter__("pos", function(){
+     return _pos;
+  });
+  __defineSetter__("pos", function(val){
+    prev_pos = _pos;
+     _pos = val;
+     pos_changed = true;
+  });

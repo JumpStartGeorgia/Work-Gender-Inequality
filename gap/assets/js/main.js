@@ -82,20 +82,18 @@ $(document).ready(function(){
     this.up_stack = [];
 
     this.up = function(which,how,hidden)
-    {
-
-      
+    { 
+      console.log("up");
+      //console.log(which,how);
       if(typeof hidden === undefined) hidden = false;
       var t = this;
-
+      //console.log(t.mutationDone);
       if(!t.mutationDone) // todo delaying up till previous end
       {
         t.up_stack.push({which:which,how:how,hidden:hidden});
         t.delay();
         return;
       }
-      //console.log(which,how,hidden);
-      
       var zIndex = which-1;  // change from zero based
       if(t.inrange(which) && how > 0)
       {
@@ -122,10 +120,58 @@ $(document).ready(function(){
       {
         t.prepare_mutator();          
       }
-    };  
+    };     
+    this.down = function() // go back one step calculate data based on pos
+    {
+      var t = this;
+      var states = [0,0,0,0,0,0];
+      t.mutation = t.mutation_empty;
+      var treasure_count = 0;
+      for(var i = 0; i < pos; ++i)
+        treasure_count += this.human.event_by_month[i];
+
+      var state_cost = 0; 
+      states_mutation.forEach(function(d,i){ state_cost+=d; });
+      for(var i = 5; i > 0; --i)
+      {
+        state_cost-=states_mutation[i];
+        console.log(state_cost);
+        var tmp =  Math.floor10(treasure_count/state_cost);
+        if(t.human.outrun && tmp > mutation_restriction[i])
+        {
+          tmp =  mutation_restriction[i];
+          mutation_restriction[i] = 0;      
+        }
+        if(tmp >= 1)
+        {
+          states[i] = tmp;
+          treasure_count -= tmp * state_cost;
+        }
+      }
+      states[0] = treasure_count;
+
+      if(!t.human.outrun) mutation_restriction = states;
+
+      this.resume(states);
+    };
+    this.next = function(v)
+    {     
+      this.up(1,this.human.event_by_month[v]);
+    };
+    this.prev = function(v)
+    {     
+      this.down(1,this.human.event_by_month[v]);
+    };
+    this.move = function(c,v)
+    {     
+      if(c)
+        this.up(1,this.human.event_by_month[v]);
+      else 
+        this.down(1,this.human.event_by_month[v]);
+    };
     this.delay = function()
     {
-      console.log("delaying");
+      //console.log("delaying");
       var t = this;
       setTimeout(function()
       {        
@@ -138,7 +184,7 @@ $(document).ready(function(){
         {
           t.delay();
         }          
-      },500);      
+      },1000);      
     }; 
     this.prepare_mutator = function()
     {
@@ -163,6 +209,7 @@ $(document).ready(function(){
             smc =  mutation_restriction[i];
             mutation_restriction[i] = 0;
           }
+          mutation_count+=smc;
           var looper = smc;
           var tmpA = [];
           var tca = ca;        
@@ -196,8 +243,11 @@ $(document).ready(function(){
         }
       }
       // play mutation
-      t.mutationDone = false;
-      setTimeout(function(){ t.mutate();},1000);
+      if(mutation_count > 0)
+      {
+        t.mutationDone = false;
+        setTimeout(function(){ t.mutate();},1000);
+      }
       //console.log(t.ach);
     }; 
     this.mutate = function()
@@ -238,10 +288,6 @@ $(document).ready(function(){
       });
     };
 
-     this.down = function(states) // which 1 based
-    {
-     this.resume(states);
-    };
     this.inrange = function(which)
     {
       if(which >=1 && which < 6)
@@ -264,11 +310,11 @@ $(document).ready(function(){
       for(var i = 0; i < 6; ++i)
       {
         var state = states[i];
-        if(i != 5)        
-        {
-          var sm = states_mutation[i]; // state mutation for current interest item                 
-          state -= Math.floor10(state/sm) * sm;
-        }
+        // if(i != 5)        
+        // {
+        //   var sm = states_mutation[i]; // state mutation for current interest item                 
+        //   state -= Math.floor10(state/sm) * sm;
+        // }
         var parent = t.par.find('> div.interestB[data-id=' + (i+1) + ']').empty();
         for(var j = 0; j < state; ++j)
         {
