@@ -16,7 +16,7 @@ print(paste('csv file for questions labels = ', args[3]))
 
 # read in spss
 # - need value.label to be true so that label values are available on export
-data <- read.spss(args[1], use.value.label=T, to.data.frame=T)
+data <- read.spss(args[1], use.value.label=T, to.data.frame=F)
 
 # basic spss export
 #write.foreign(data, 'out.csv', 'code.sps', package="SPSS")
