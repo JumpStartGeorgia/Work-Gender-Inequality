@@ -439,3 +439,26 @@ variable refactoring plus no need some code anymore, month format wasn't used an
   else console.log("timeline step is incorrect");  
   
 }
+
+
+
+
+function timeline_point_draw()
+      //   for(var j = i*reward_period-1; j >= i*reward_period-reward_period; --j)
+      //   {
+      //     if(male.event_by_month[j]>0)
+      //     {        
+      //       var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+      //       rew.css({heigth:th,line_height:th});
+      //       rew.css({left: prevPosition - rew.width()/2 + indm*rew.width()+(indm>0?10:0)});
+      //       ++indm;
+      //     }
+      //     if(female.event_by_month[j]>0)
+      //     {
+      //       var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
+      //       rew.css({heigth:th,line_height:th});
+      //       rew.css({left: prevPosition - rew.width()/2 + indf*rew.width()+(indf>0?10:0)});
+      //       ++indf;
+      //     }
+      //   }
+      

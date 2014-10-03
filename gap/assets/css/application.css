@@ -88,12 +88,17 @@ body,html
 {
   position:absolute;
   top:0px;
+}
+.treasure .red-carpet .reward .item
+{
+
   width:32px;
   height:32px;
   display:inline-block;     
   background-size:32px;
   background-repeat:no-repeat;
-  background-position:0px;     
+  background-position:0px;   
+  margin-right:10px;  
 }
 
 #screen .top .score, #screen .bottom .score
