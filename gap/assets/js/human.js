@@ -218,7 +218,7 @@ function human(selector,title)
     var overall = 0;
     this.event_by_month = [];
 
-    for (var i = 1; i <= life; ++i) {
+    for (var i = 0; i <= life; ++i) {
       overall += this.saving_for_tick;    
       var tmp = Math.floor10(overall / interest[0].cost);
       if(tmp > 0)
@@ -238,6 +238,17 @@ function human(selector,title)
     };
 
     //console.log(this.event_by_month);
+  };
+  this.has_future_reward = function has_future_reward()
+  {    
+    var to = (pos + 1)*reward_period;
+    var from = to - reward_period; 
+    var rewCount = 0;
+    for(var i = from; i < to; ++i)
+    {
+      rewCount += this.event_by_month[i];
+    }
+    return rewCount;
   };
 }; // human object with basic properties
 

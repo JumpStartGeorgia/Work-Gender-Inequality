@@ -49,38 +49,42 @@ function scr_clean(klass)
   if(exist(klass)) s.removeClass(klass);
 }  
 function walk(v){
-   if(ingame /*&& !reward*/)
-    {     
-      if(!can_scroll(total_scrolls+v)) return;
 
-      total_scrolls+=v;
-      if(v==1)
-      {        
-        if(total_scrolls % scrolls_for_reward == 0)
-        {
-          ++pos;
-        }
-        // checking if width of timeline should be resized
-        var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-        var len = timeline_points.length;
-        if(t1 > len*timeline_month_w) 
-        {
-          var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-          timeline_tick(toadd);
-        }          
-        h_go_right();
-      }
-      else
+  if(ingame /*&& !reward*/)
+  {     
+    if(!can_scroll(total_scrolls+v)) return;
+
+    total_scrolls+=v;
+    if(v==1)
+    {        
+      if(total_scrolls % scrolls_for_reward == 0)
       {
-        if(total_scrolls % scrolls_for_reward == 0)
-        {
-          h_go_left();          
-          --pos;  
-        }        
+        ++pos;
+        
+        lookinfuture();
       }
-      if(pos_changed) { pos_changed = false; lookinfuture(v); }  
-     $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
+      // checking if width of timeline should be resized
+      var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+      var len = timeline_points.length;
+      if(t1 > len*timeline_month_w) 
+      {
+        var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+        timeline_tick(toadd);
+      }          
+
+      h_go_right();
     }
+    else
+    {
+      if(pos > 0 && total_scrolls % scrolls_for_reward == 0)
+      {
+        --pos;  
+      }  
+      h_go_left();          
+    }
+    if(pos_changed) { pos_changed = false; walk_process(v); }  
+    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
+  }
 }
 function can_scroll(v)
 {  
@@ -134,7 +138,7 @@ function game_on_load()
   female.animate(tools);
   // animate humans to starting position (inside object where they work)
 }
-function play() { gameon(); game(); prepare_humans(); }
+function play() { gameon(); game(); prepare_humans(); lookinfuture(); }
 function prepare_humans()
 {
   male.prepare_for_game();
@@ -182,7 +186,9 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
+  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
+  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').appendTo(treasure);
+
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
@@ -206,6 +212,7 @@ function game() {
   //male.tosky();
   //female.tosky();
   redraw_game();
+
 }
 var img_scaler =  1;
 var bg_width = 0;
@@ -267,9 +274,9 @@ function timeline_tick(n)
     timeline_point = curTime;
     timeline_points.push(curTime);  
   }      
-  timeline_point_draw(reward_period);   
+  timeline_point_draw();   
 }
-function timeline_point_draw(v)
+function timeline_point_draw()
 {
   timeline_points.forEach(function(d,i){
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
@@ -291,41 +298,47 @@ function timeline_point_draw(v)
       }
       point.css({left: prevPositionLeft });
 
-      if(i!=0 && (i+1)%3==0)
+      if(i!=0)
       { 
-        if(male.event_by_month[i]>=0)
-        {        
-          var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
-          rew.css({heigth:th,line_height:th});
-          rew.css({left: prevPosition - rew.width()/2 });
-        }
-        if(female.event_by_month[i]>=0)
+        
+        var mCountTmp = 0;
+        var fCountTmp = 0;
+       // var indm = 0;
+        //var indf = 0;
+        var from = i * reward_period - 1;
+        var to = i*reward_period-reward_period;
+        for(var j = from; j >= to; --j)
         {
-          var rew = $('<div class="reward i' + interest[0].class  + '"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
-          rew.css({heigth:th,line_height:th});
-          rew.css({left: prevPosition - rew.width()/2 });
+          mCountTmp += male.event_by_month[j];
+          fCountTmp += female.event_by_month[j];
+        }
+        if(mCountTmp > 0)
+        {
+           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
+          
+          for(var j = 0; j < mCountTmp; ++j)
+          { 
+             $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
+          }
+        }
+        if(fCountTmp > 0)
+        {
+           var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
+            rew.css({heigth:th,line_height:th});
+            rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
+          
+          for(var j = 0; j < fCountTmp; ++j)
+          { 
+             $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
+          }
         }
       }
-
-      var ticks = v;//monthDiff(timeline_points[i],timeline_points[i-1]);
-      //console.log(w*timeline_scale,timeline_period_w,w*timeline_scale/ticks,timeline_period_w/ticks);
-      var scaler = w*timeline_scale/ticks;
-      for(var j = 0; j < ticks-1; ++j)
+      var scaler = timeline_period_w/reward_period;
+      for(var j = 0; j < reward_period-1; ++j)
       {
          $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
-
-       /*  if(male.event_by_month[i]>=0)
-          {
-            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
-            rew.css({heigth:th,line_height:th});
-            rew.css({left: prevPosition - rew.width()/2 + (j+1)*scaler });
-          }
-          if(female.event_by_month[i]>=0)
-          {
-            var rew = $('<div class="reward">' + i + '</div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
-            rew.css({heigth:th,line_height:th});
-            rew.css({left: prevPosition - rew.width()/2  + (j+1)*scaler});
-          }    */   
       }
 
       point.find('.point').text(getMonthS(d) + " " + d.getFullYear());    
@@ -340,89 +353,81 @@ function timeline_point_draw(v)
 /***************************************************************
                         TODO
 ***************************************************************/
-var reward = false;
-function lookinfuture(v)
-{
-  //console.log("lookinfuture");
 
+function walk_process(v)
+{
   if(pos >= 0)
   {
-    male.tsalary += v*male.salary;
-    female.tsalary += v*female.salary;
-    male.tsaved += v*male.saving_for_tick;
-    female.tsaved += v*female.saving_for_tick;
-
-
-    var first = f.outrun ? female : male;
-    var second = f.outrun ? male : female;
-
-    var cnt = Math.floor10(second.tsaved / interest[0].cost);
-    //console.log(first, second, interest[0].cost);
-    //
-    var first_before = first.treasure_count;
-    var second_before = second.treasure_count;
-
-    second.treasure = [0,0,0,0,0,0];
-    var tre = 0;
-    for(var i = interest_level_map.length-1; i >= 0; --i)
-    {
-      var tmp = Math.floor10(cnt/interest_level_map[i]);  
-
-      if(tmp >= 1) 
-      {
-        second.treasure[i+1] = tmp;
-        tre += interest_level_map[i]*tmp;
-        cnt -= interest_level_map[i]*tmp;
-      }
-    }
-    second.treasure[0] = cnt;
-
-    tre += cnt;
-    first.treasure = second.treasure.slice();
-
-    var cnt1 = Math.floor10(first.tsaved / interest[0].cost) - tre;
-    for(var i = interest_level_map.length-1; i >= 0; --i)
-    {
-      var tmp = Math.floor10(cnt1/interest_level_map[i]);  
-      if(tmp >= 1) 
-      {
-        first.treasure[i+1] += tmp;
-        cnt1 -= interest_level_map[i]*tmp;
-      }
-    }
-    first.treasure[0] += cnt1;
-
-    var first_after = first.treasure_count;
-    var second_after = second.treasure_count;
-
-
-    if(!reward && (first_before != first_after || second_before != second_after))
-    {
-      if(first_before != first_after)
-      {
-        first.next_frame();
-      }
-      if(second_before != second_after)
-      {
-         second.next_frame();
-      }
-      reward = true;
-    }     
     if(pos != prev_pos)
     {
-        var c = pos > prev_pos;
-        if(female.outrun)
-        {          
-          mp.move(c,pos+1);
-          fp.move(c,pos+1);      
-        }
-        else 
-        {    
-          fp.move(c,pos+1);      
-          mp.move(c,pos+1);                  
-        }
-      }     
+      var tmp = v*reward_period;
+      console.log(tmp);
+      male.tsalary += tmp*male.salary;
+      female.tsalary += tmp*female.salary;
+      male.tsaved += tmp*male.saving_for_tick;
+      female.tsaved += tmp*female.saving_for_tick;
+      var c = pos > prev_pos;
+      if(c)
+      {
+        var rewm = $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
+        var rewm2 = rewm.clone();
+        rewm.hide();
+        $('.'+male.place + ' .treasure .blank .coin').empty().append(rewm2);
+
+
+        $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+pos+']').toggle();
+      }
+      else
+      {
+        $('.'+male.place + ' .treasure .blank .coin').empty();
+        $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').show();
+        $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').toggle();
+      }
+      if(female.outrun)
+      {          
+        mp.move(c,pos);
+        fp.move(c,pos);      
+      }
+      else 
+      {    
+        fp.move(c,pos);      
+        mp.move(c,pos);                  
+      }
+    }     
+  }  
+}
+var reward = false;
+function lookinfuture()
+{
+  console.log("lookinfuture");
+  var mCountTmp = 0;
+  var fCountTmp = 0;
+  var fpos = pos+1;
+
+  var from = fpos * reward_period - 1;
+  var to = fpos*reward_period-reward_period;
+ 
+  for(var j = from; j >= to; --j)
+  {
+    mCountTmp += male.event_by_month[j];
+    fCountTmp += female.event_by_month[j];
+  }
+  if(mCountTmp > 0 || fCountTmp > 0)
+  {
+    reward = true;
+    console.log("reward point move background catch price move background back");
+    if(mCountTmp > 0)
+    {
+      //prepare_bk_for_reward(male);
+      male.next_frame();
     }  
+    if(fCountTmp > 0) 
+    {
+      //prepare_bk_for_reward(female);
+      female.next_frame();
+    }
+  }
+ 
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
   // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
@@ -430,7 +435,24 @@ function lookinfuture(v)
   // move human to award place wait till present will have collision after that move person and present to its home place
   // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
 }
-
+var move_size = 300;
+function prepare_bk_for_reward(t)
+{
+console.log("here");
+  var bk = $('.' + t.place + ' .stage').animate({'left':'-=' + move_size},{duration:3000,
+    complete:function()
+    { 
+      setTimeout(function(){ prepare_bk_for_work(t); },5000);
+    }
+  });
+  //console.log(t,bk);
+ 
+}
+function prepare_bk_for_work(t)
+{
+  console.log("prepare_bk_for_work");
+  var bk = $('.' + t.place + ' .stage').css('left','+=' + move_size);
+}
 
 
 /***************************************************************
@@ -586,4 +608,4 @@ jwerty.key('S', function(){
 });
 /***************************************************************
                   Key Hooks End
-***************************************************************/
+***************************************************************/;

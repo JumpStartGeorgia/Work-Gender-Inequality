@@ -481,7 +481,7 @@ function spiral_redraw()
   var interest_w = 32;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
+  var current_interests = [6,3,1,0,0,0];
   var mutation_step = [5,2,2,3,3,3];
   var index = 1;
   var current_interests_count = 0;

@@ -1,5 +1,15 @@
 var mp = null;
 var fp = null;
+  var interest_offset = 10;
+  var interest_animation_duration = 100;
+  var interest_w = 32;
+  var interest_w2 = interest_w/2;
+  var interest_start_offset = 0;
+  var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
+  var states_mutation = [4,4,2,3,3,0];
+  var index = 1;
+  var current_interests_count = 0;
+  var mutation_restriction = [0,0,0,0,0,0];
 $(document).ready(function(){
 
 
@@ -56,18 +66,10 @@ $(document).ready(function(){
   // ***********************************************  
 // ***********************************************  
 
-  var interest_offset = 10;
-  var interest_animation_duration = 100;
-  var interest_w = 32;
-  var interest_w2 = interest_w/2;
-  var interest_start_offset = 0;
-  var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
-  var states_mutation = [4,4,2,3,3,0];
-  var index = 1;
-  var current_interests_count = 0;
+
   current_interests.forEach(function(d,i){current_interests_count+=d;});
 
-  var mutation_restriction = [0,0,0,0,0,0];
+
 
   function pedestal_object(human)
   {
@@ -83,7 +85,7 @@ $(document).ready(function(){
 
     this.up = function(which,how,hidden)
     { 
-      console.log("up");
+      //console.log("up");
       //console.log(which,how);
       if(typeof hidden === undefined) hidden = false;
       var t = this;
@@ -127,7 +129,7 @@ $(document).ready(function(){
       var states = [0,0,0,0,0,0];
       t.mutation = t.mutation_empty;
       var treasure_count = 0;
-      for(var i = 0; i < pos; ++i)
+      for(var i = 0; i < pos*reward_period; ++i)
         treasure_count += this.human.event_by_month[i];
 
       var state_cost = 0; 
@@ -135,7 +137,7 @@ $(document).ready(function(){
       for(var i = 5; i > 0; --i)
       {
         state_cost-=states_mutation[i];
-        console.log(state_cost);
+        //console.log(state_cost);
         var tmp =  Math.floor10(treasure_count/state_cost);
         if(t.human.outrun && tmp > mutation_restriction[i])
         {
@@ -160,14 +162,23 @@ $(document).ready(function(){
     };
     this.prev = function(v)
     {     
-      this.down(1,this.human.event_by_month[v]);
+      this.down();
     };
     this.move = function(c,v)
-    {     
+    {  
+      //console.log("something should happen");
       if(c)
-        this.up(1,this.human.event_by_month[v]);
+      {
+        var cur_pos = pos*reward_period;
+        var tmp = 0; 
+        //console.log(cur_pos)
+        for(var i = cur_pos-1; i >= cur_pos-reward_period;--i)
+          tmp+=this.human.event_by_month[i];   
+
+        this.up(1,tmp);
+      }
       else 
-        this.down(1,this.human.event_by_month[v]);
+        this.down();
     };
     this.delay = function()
     {
