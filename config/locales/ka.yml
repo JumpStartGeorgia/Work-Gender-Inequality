@@ -4,6 +4,8 @@ ka:
     models:
       user: მომხმარებელი
       page: ტექსტი გვერდებისთვის
+      faq_category: FAQ Category
+      Faq: FAQ
     attributes:
       user:
         email: ელ.ფოსტა
@@ -17,6 +19,16 @@ ka:
       page_translation:
         title: სათაური, რომელიც გამოჩნდება კონტენტის ზემოთ
         content: კონტენტი
+      faq_category:
+        sort: Sort Order
+      faq_category_translation:
+        name: Category Name
+      faq:
+        sort: Sort Order
+        faq_category_id: FAQ Category
+      faq_translation:
+        question: Question
+        answer: Answer
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -93,6 +105,7 @@ ka:
       success_updated: "%{obj} განახლებულია."
     menu:
       explore_data: Explore Data
+      faq: FAQ
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -110,6 +123,8 @@ ka:
       title: ადმინისტრატორის განყოფილება
       users: მომხმარებლები
       pages: საიტზე ტექსტის რედაქტირება
+      faq_categories: FAQ Categories
+      faqs: FAQs
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
@@ -156,3 +171,7 @@ ka:
       details:
         variable: Variable
         answers: Possible Answers      
+    faq:
+      title: ხშირად დასმული კითხვები (FAQ)
+      no_faqs: Sorry, at this time no FAQs have been created.
+      top: top      

@@ -7,6 +7,15 @@ class RootController < ApplicationController
     end
   end
 
+  def faq
+    @faq_categories = FaqCategory.sorted
+    @faqs = Faq.sorted
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
   def explore_data
     @use_map = true
     

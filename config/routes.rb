@@ -11,9 +11,12 @@ BootstrapStarter::Application.routes.draw do
 		namespace :admin do
       resources :pages
 			resources :users
+		  resources :faq_categories
+		  resources :faqs
 		end
 
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => [:get, :post]
+		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 
 		root :to => 'root#index'
 	  match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever

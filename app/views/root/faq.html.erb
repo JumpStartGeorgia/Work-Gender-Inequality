@@ -1,0 +1,47 @@
+<% title t('.title') %>
+
+<% if @faq_categories.present? && @faqs.present? %>
+
+  <div id="faqs">
+    <ul id="faq-links" class="list-unstyled">
+      <% @faq_categories.each do |category| %>
+        <li>
+          <%= link_to category.name, "#faq_category_#{category.id}" %>
+          <ul>
+            <% @faqs.select{|x| x.faq_category_id == category.id}.each do |faq| %>
+              <li>
+                <%= link_to faq.question, "#faq_#{faq.id}" %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+
+    <div id="faq-list">
+      <% @faq_categories.each do |category| %>
+        <div class="faq-list-category">
+          <h2 id="<%= "faq_category_#{category.id}" %>"><%= category.name %></h2>
+          <% @faqs.select{|x| x.faq_category_id == category.id}.each do |faq| %>
+            <div class="faq-list-item">
+              <h3 id="faq_<%= faq.id %>"><%= faq.question %></h3>
+              <div class="tinymce_format">
+                <%= simple_format_no_tags(faq.answer, {}, {sanitize: false}) %>
+              </div>
+              <div class="link-to-top">
+                <%= link_to '#' do %>
+                  <span class="glyphicon glyphicon-arrow-up"></span><%= t('.top') %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% else %>
+  <p>
+    <%= t('.no_faqs') %>
+  </p>  
+<% end %>
