@@ -239,6 +239,17 @@ function human(selector,title)
 
     //console.log(this.event_by_month);
   };
+  this.has_future_reward = function has_future_reward()
+  {    
+    var to = (pos + 1)*reward_period;
+    var from = to - reward_period; 
+    var rewCount = 0;
+    for(var i = from; i < to; ++i)
+    {
+      rewCount += this.event_by_month[i];
+    }
+    return rewCount;
+  };
 }; // human object with basic properties
 
 

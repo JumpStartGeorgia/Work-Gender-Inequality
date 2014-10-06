@@ -462,3 +462,107 @@ function timeline_point_draw()
       //     }
       //   }
       
+
+
+
+
+
+
+function lookinfuture()
+{
+  console.log("lookinfuture");
+  var mCountTmp = 0;
+  var fCountTmp = 0;
+  var fpos = pos+1;
+
+
+  var from = fpos * reward_period - 1;
+  var to = fpos*reward_period-reward_period;
+ 
+  for(var j = from; j >= to; --j)
+  {
+    mCountTmp += male.event_by_month[j];
+    fCountTmp += female.event_by_month[j];
+  }
+  if(mCountTmp > 0 || fCountTmp > 0)
+  {
+   
+    reward = true;
+    console.log("reward point move background catch price move background back");
+    if(mCountTmp > 0)
+      male.next_frame();
+    if(fCountTmp > 0) 
+      female.next_frame();
+  }
+ 
+  
+    // male.tsalary += v*male.salary;
+    // female.tsalary += v*female.salary;
+    // male.tsaved += v*male.saving_for_tick;
+    // female.tsaved += v*female.saving_for_tick;
+
+
+    // var first = f.outrun ? female : male;
+    // var second = f.outrun ? male : female;
+
+    // var cnt = Math.floor10(second.tsaved / interest[0].cost);
+    // //console.log(first, second, interest[0].cost);
+    // //
+    // var first_before = first.treasure_count;
+    // var second_before = second.treasure_count;
+
+    // second.treasure = [0,0,0,0,0,0];
+    // var tre = 0;
+    // for(var i = interest_level_map.length-1; i >= 0; --i)
+    // {
+    //   var tmp = Math.floor10(cnt/interest_level_map[i]);  
+
+    //   if(tmp >= 1) 
+    //   {
+    //     second.treasure[i+1] = tmp;
+    //     tre += interest_level_map[i]*tmp;
+    //     cnt -= interest_level_map[i]*tmp;
+    //   }
+    // }
+    // second.treasure[0] = cnt;
+
+    // tre += cnt;
+    // first.treasure = second.treasure.slice();
+
+    // var cnt1 = Math.floor10(first.tsaved / interest[0].cost) - tre;
+    // for(var i = interest_level_map.length-1; i >= 0; --i)
+    // {
+    //   var tmp = Math.floor10(cnt1/interest_level_map[i]);  
+    //   if(tmp >= 1) 
+    //   {
+    //     first.treasure[i+1] += tmp;
+    //     cnt1 -= interest_level_map[i]*tmp;
+    //   }
+    // }
+    // first.treasure[0] += cnt1;
+
+    // var first_after = first.treasure_count;
+    // var second_after = second.treasure_count;
+
+
+    // if(!reward && (first_before != first_after || second_before != second_after))
+    // {
+    //   if(first_before != first_after)
+    //   {
+    //     first.next_frame();
+    //   }
+    //   if(second_before != second_after)
+    //   {
+    //      second.next_frame();
+    //   }
+    //   reward = true;
+    // }     
+
+
+  // to see if next savings are enough for new item
+  // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
+  // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
+  // stop sign for both humans independetly, slow down timeline, put present on timeline on specific date
+  // move human to award place wait till present will have collision after that move person and present to its home place
+  // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
+}

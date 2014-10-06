@@ -186,7 +186,9 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
+  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
+  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').appendTo(treasure);
+
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
@@ -312,7 +314,7 @@ function timeline_point_draw()
         }
         if(mCountTmp > 0)
         {
-           var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
             rew.css({heigth:th,line_height:th});
             rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
           
@@ -367,12 +369,18 @@ function walk_process(v)
       var c = pos > prev_pos;
       if(c)
       {
-        $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+pos+']').toggle();
+        var rewm = $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
+        var rewm2 = rewm.clone();
+        rewm.hide();
+        $('.'+male.place + ' .treasure .blank .coin').empty().append(rewm2);
+
+
         $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+pos+']').toggle();
       }
       else
       {
-        $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').toggle();
+        $('.'+male.place + ' .treasure .blank .coin').empty();
+        $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').show();
         $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').toggle();
       }
       if(female.outrun)
@@ -396,7 +404,6 @@ function lookinfuture()
   var fCountTmp = 0;
   var fpos = pos+1;
 
-
   var from = fpos * reward_period - 1;
   var to = fpos*reward_period-reward_period;
  
@@ -407,79 +414,20 @@ function lookinfuture()
   }
   if(mCountTmp > 0 || fCountTmp > 0)
   {
-   
     reward = true;
     console.log("reward point move background catch price move background back");
     if(mCountTmp > 0)
+    {
+      //prepare_bk_for_reward(male);
       male.next_frame();
+    }  
     if(fCountTmp > 0) 
+    {
+      //prepare_bk_for_reward(female);
       female.next_frame();
+    }
   }
  
-  
-    // male.tsalary += v*male.salary;
-    // female.tsalary += v*female.salary;
-    // male.tsaved += v*male.saving_for_tick;
-    // female.tsaved += v*female.saving_for_tick;
-
-
-    // var first = f.outrun ? female : male;
-    // var second = f.outrun ? male : female;
-
-    // var cnt = Math.floor10(second.tsaved / interest[0].cost);
-    // //console.log(first, second, interest[0].cost);
-    // //
-    // var first_before = first.treasure_count;
-    // var second_before = second.treasure_count;
-
-    // second.treasure = [0,0,0,0,0,0];
-    // var tre = 0;
-    // for(var i = interest_level_map.length-1; i >= 0; --i)
-    // {
-    //   var tmp = Math.floor10(cnt/interest_level_map[i]);  
-
-    //   if(tmp >= 1) 
-    //   {
-    //     second.treasure[i+1] = tmp;
-    //     tre += interest_level_map[i]*tmp;
-    //     cnt -= interest_level_map[i]*tmp;
-    //   }
-    // }
-    // second.treasure[0] = cnt;
-
-    // tre += cnt;
-    // first.treasure = second.treasure.slice();
-
-    // var cnt1 = Math.floor10(first.tsaved / interest[0].cost) - tre;
-    // for(var i = interest_level_map.length-1; i >= 0; --i)
-    // {
-    //   var tmp = Math.floor10(cnt1/interest_level_map[i]);  
-    //   if(tmp >= 1) 
-    //   {
-    //     first.treasure[i+1] += tmp;
-    //     cnt1 -= interest_level_map[i]*tmp;
-    //   }
-    // }
-    // first.treasure[0] += cnt1;
-
-    // var first_after = first.treasure_count;
-    // var second_after = second.treasure_count;
-
-
-    // if(!reward && (first_before != first_after || second_before != second_after))
-    // {
-    //   if(first_before != first_after)
-    //   {
-    //     first.next_frame();
-    //   }
-    //   if(second_before != second_after)
-    //   {
-    //      second.next_frame();
-    //   }
-    //   reward = true;
-    // }     
-
-
   // to see if next savings are enough for new item
   // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
   // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
@@ -487,7 +435,24 @@ function lookinfuture()
   // move human to award place wait till present will have collision after that move person and present to its home place
   // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
 }
-
+var move_size = 300;
+function prepare_bk_for_reward(t)
+{
+console.log("here");
+  var bk = $('.' + t.place + ' .stage').animate({'left':'-=' + move_size},{duration:3000,
+    complete:function()
+    { 
+      setTimeout(function(){ prepare_bk_for_work(t); },5000);
+    }
+  });
+  //console.log(t,bk);
+ 
+}
+function prepare_bk_for_work(t)
+{
+  console.log("prepare_bk_for_work");
+  var bk = $('.' + t.place + ' .stage').css('left','+=' + move_size);
+}
 
 
 /***************************************************************
