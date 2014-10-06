@@ -275,7 +275,27 @@ function onEachFeature(feature, layer) {
         }
         break;
     }
-  })
+  });
+
+  // swap vars button
+  // - when clicked, swap the values and then submit the form
+  $('button#btn-swap-vars').click(function(){
+    // get the vals
+    var var1 = $('select#row').val();
+    var var2 = $('select#col').val();
+
+    // swap the vals
+    $('select#row').selectpicker('val', var2);
+    $('select#col').selectpicker('val', var1);
+
+    // submit the form
+    $('input#btn-submit').trigger('click');
+
+
+
+  });
+
+
 });
 
 

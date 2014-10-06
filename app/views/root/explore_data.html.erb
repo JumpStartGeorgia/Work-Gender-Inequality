@@ -8,13 +8,18 @@
         Variable 1:
         <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true", :'data-size' => "7" %>
       </div>
+      <div class="col-sm-1">
+        <button id="btn-swap-vars" type="button" class="btn btn-default" title="Swap Variable 1 and Variable 2">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </button>        
+      </div>  
       <div class="col-sm-4">
         Variable 2:
         <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
           :'data-live-search' => "true", :'data-size' => "7" %>
       </div>
-      <div class="col-sm-4">
-      <%= submit_tag 'Get Data', :class => 'btn btn-default' %>
+      <div class="col-sm-3">
+      <%= submit_tag 'Get Data', :class => 'btn btn-default', :id => 'btn-submit' %>
       </div>
     </div>
 
