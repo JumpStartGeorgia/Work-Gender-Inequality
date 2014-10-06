@@ -74,6 +74,7 @@ $(document).ready(function(){
   function pedestal_object(human)
   {
     this.ach = [0,0,0,0,0,0]; // achievements per item in interest
+    this.achTmp = [0,0,0,0,0,0];
     this.ach_count = this.ach.length;   
     this.mutation = [{},{},{},{},{},{}]; 
     this.mutation_empty = [{},{},{},{},{},{}]; 
@@ -85,25 +86,229 @@ $(document).ready(function(){
 
     this.up = function(which,how,hidden)
     { 
-      //console.log("up");
-      //console.log(which,how);
+
       if(typeof hidden === undefined) hidden = false;
+      //console.log(which,how,hidden);
       var t = this;
-      //console.log(t.mutationDone);
-      if(!t.mutationDone) // todo delaying up till previous end
-      {
-        t.up_stack.push({which:which,how:how,hidden:hidden});
-        t.delay();
-        return;
-      }
+      // if(!t.mutationDone) // todo delaying up till previous end
+      // {
+      //   t.up_stack.push({which:which,how:how,hidden:hidden});
+      //   t.delay();
+      //   return;
+      // }
+
       var zIndex = which-1;  // change from zero based
       if(t.inrange(which) && how > 0)
       {
+        //this.achTmp = this.ach.slice();
+        //this.achTmp[0] += how;
+
+        var ca = this.ach[zIndex] + how;
+        var sm = states_mutation[zIndex];
+        var smc = Math.floor10(ca/sm); 
+        var mutation_count = 0;
+        t.mutation = t.mutation_empty.slice();
+        //console.log(ca,sm,smc);
+
+        if(!t.human.outrun) mutation_restriction[zIndex] = 0;
+
+        if(smc >= 1)
+        {
+          if(t.human.outrun && smc > mutation_restriction[which]) 
+          {
+            //this.add(which,t.ach[zIndex],(smc - mutation_restriction[which]) * how);
+            smc =  mutation_restriction[zIndex];
+            mutation_restriction[zIndex] = 0;
+          }
+          mutation_count+=smc;
+          t.mutation[zIndex] = { count: smc };
+
+          var looper = smc;
+          var tmpA = [];
+          var tca = this.ach[zIndex]+how;        
+          var interestB = t.par.find('.interestB[data-id='+which+']');
+
+          if(!t.human.outrun) mutation_restriction[zIndex] = smc;
+          while(looper != 0)
+          {
+            var from = tca - sm;
+            var to = tca - how;
+
+            var beforeItem = interestB.find('.item[data-id=' + (from++) + ']');
+            var wrapper = $('<div class="mutationB" data-id="'+looper+'" data-from="'+from+'" data-to="'+to+'"></div>');
+            if(beforeItem.length == 0) 
+               interestB.prepend(wrapper);
+            else wrapper.insertAfter(beforeItem);
+
+            for(var j = from; j <= to; ++j)
+            {
+              var item = interestB.find('.item[data-id=' + j + ']');            
+              wrapper.append(item.detach());
+            }
+            tca-=sm;        
+            --looper;
+          }
+          if(mutation_count > 0)
+          {
+            var tocardpath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
+            var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathTmp.setAttribute('d', tocardpath);
+            var pathTmpLength = pathTmp.getTotalLength();
+
+
+             var delay = 300;
+             var muts = interestB.find('.mutationB');
+             //console.log(muts.length-1,muts);
+             for(var j = muts.length-1; j >= 0; --j)
+             {
+                var mut = $(muts[j]);
+                var from = + mut.attr('data-from');
+                var to = + mut.attr('data-to');
+                var mut_start = mut.position().left;
+                //console.log(from,to);
+                var first = mut.find('div.item[data-id=' + from + ']');
+                var last = mut.find('div.item[data-id=' + to + ']');
+                //console.log();
+                var moveLeft = last.position().left;//- first.position().left;
+                console.log(to,from);
+                for(var h = to; h >= from; --h)
+                {
+                  var d = mut.find('div.item[data-id=' + h + ']');
+                  d.css("position","relative");
+
+                  if(h == to)
+                  {
+                    //console.log("Last one");
+                    d.delay(delay).animate({'color':'#ffffff'},{duration:500,
+                      progress:function(a,b,c){
+                        var coord = t.coordinateFromPath(b,pathTmp,pathTmpLength);
+                        $(this).css({ left:coord.x, top: -(56 - coord.y) });
+                      }
+                    }); 
+                  }
+                  else
+                  {
+                    //console.log("Others");
+                    //console.log(moveLeft-d.position().left);
+                    var left = moveLeft-d.position().left;
+                     console.log(d.position().left);
+                      d.delay(delay).animate({left:left},{ duration:500,
+                      complete:function()
+                      {
+                        // todo positioning problem
+                        console.log($(this).position().left);//(this)
+                        //console.log(d,$(d),$(d).position(), d.position());
+                        //  var leftOffset = $(this).position().left - mut_start;
+                        //  //console.log(leftOffset);
+                        // // console.log(leftOffset);
+                        // $(this).animate({'color':'#ffffff'},{ duration:500,
+                        //   progress:function(a,b,c){
+                        //     var coord = t.coordinateFromPath(b,pathTmp,pathTmpLength);
+                        //     $(this).css({ left: leftOffset + coord.x , top: -(56 - coord.y) });
+                        //   }
+                        // }); 
+                      }});
+                  }
+                  delay+=500;
+                }
+             }
+            // console.log();
+            // console.log(muts);
+            // muts.forEach(function(d,i){
+            //   console.log(d,i,$(muts[0]).attr('data-from'));
+            // });
+            // muts.each(function(i,d){
+            //   console.log(d,i,$(d).attr('from'));
+            //   //console.log(d.attr('from'));
+            //   //var from = + this.attr('from');
+            //   //var to = + this.attr('to');
+            //   //console.log(from,to);
+            // });
+            // wrapper.find('.item').each(function(i,d)
+            // { 
+            //   d = $(d);
+            //   c
+              
+            //   d.delay(delay).animate({'color':'#ffffff'},{duration:3000,
+            //     progress:function(a,b,c){
+         
+            //       var coord = t.coordinateFromPath(b,pathTmp,pathTmpLength);
+            //              //  console.log(b,coord);
+            //       $(this).css({ left:coord.x, top: -(56 - coord.y) });
+            //     }
+            //   }); 
+            //   delay+=500;
+            // });
+            // move via path
+          }
+         // go ahead and check if parent needs mutation
+         if(true)
+         {
+          // mutate last step
+         }
+         else { // mutate to parent 
+         }
+ 
+        }
+        else
+        {
+          this.add(which,t.ach[zIndex],how);
+        }
+
+     
+        this.ach[zIndex]+=how;
+      
+      }
+      // play mutation
+      // if(mutation_count > 0)
+      // {
+      //   t.mutationDone = false;
+      //  // setTimeout(function(){ t.mutate();},1000);
+      // }
+
+        // temp calculate how many mutations and how many objects should be moved 
+        // move them
+        // finish treasue bar
+        
+      
+
+        // //var before_which = 0;
+        // //t.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
+      
+        // for(var i = from+1; i <= from+how; ++i)
+        // {
+        //   var item = $('<div data-id=' + i + '>').addClass('item i' + interest[zIndex].class); 
+        //   if(hidden) 
+        //   {
+        //     item.addClass('hidden').hide();
+        //   }
+        //   parent.append(item);
+        //   //++before_which;
+        // }
+        // t.ach[zIndex] += how;
+       
+     
+      // if(!hidden)
+      // {
+      //   t.prepare_mutator();          
+      // }
+
+
+
+
+      // OLD
+      /*var zIndex = which-1;  // change from zero based
+      if(t.inrange(which) && how > 0)
+      {
+        // temp calculate how many mutations and how many objects should be moved 
+        // move them
+        // finish treasue bar
+        
         var from = t.ach[zIndex];
         var parent = t.par.find('> div.interestB[data-id=' + which + ']');
 
-        var before_which = 0;
-        t.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
+        //var before_which = 0;
+        //t.ach.forEach(function(d,i){ if(i <= zIndex) before_which += d; });
       
         for(var i = from+1; i <= from+how; ++i)
         {
@@ -113,7 +318,7 @@ $(document).ready(function(){
             item.addClass('hidden').hide();
           }
           parent.append(item);
-          ++before_which;
+          //++before_which;
         }
         t.ach[zIndex] += how;
        
@@ -121,8 +326,28 @@ $(document).ready(function(){
       if(!hidden)
       {
         t.prepare_mutator();          
+      }*/
+    };    
+    this.coordinateFromPath = function(progress,path,pathLength)
+    {
+       var percent = Math.round10(progress*100);
+        var p1 = path.getPointAtLength(pathLength * (percent-1)/100);
+        var p2 = path.getPointAtLength(pathLength * (percent+1)/100);
+        var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+        var p =  path.getPointAtLength(pathLength * percent/100);
+        return { x:p.x,y:p.y, a:a };
+    } 
+    this.add = function(which,start,how)
+    {
+      var t = this;
+      //console.log(this.human,which, start,how);
+      var parent = t.par.find('div.interestB[data-id=' + which + ']');
+      for(var i = start+1; i <= start+how; ++i)
+      {
+        var item = $('<div data-id=' + i + '>').addClass('item i' + interest[which-1].class); 
+        parent.append(item);
       }
-    };     
+    };
     this.down = function() // go back one step calculate data based on pos
     {
       var t = this;
@@ -166,16 +391,18 @@ $(document).ready(function(){
     };
     this.move = function(c,v)
     {  
-      //console.log("something should happen");
+    //  console.log("something should happen, move this to blank");
       if(c)
       {
-        var cur_pos = pos*reward_period;
-        var tmp = 0; 
-        //console.log(cur_pos)
-        for(var i = cur_pos-1; i >= cur_pos-reward_period;--i)
-          tmp+=this.human.event_by_month[i];   
 
-        this.up(1,tmp);
+        // var cur_pos = pos*reward_period;
+        // var tmp = 0; 
+        // //console.log(cur_pos)
+        // for(var i = cur_pos-1; i >= cur_pos-reward_period;--i)
+        //   tmp+=this.human.event_by_month[i];   
+        // console.log(tmp,);
+        // this.up(1,tmp);
+        this.up(1,this.human.event_by_period[pos-1]);
       }
       else 
         this.down();

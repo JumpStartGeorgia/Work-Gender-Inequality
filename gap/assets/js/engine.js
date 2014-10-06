@@ -390,6 +390,7 @@ function walk_process(v)
       }
       else 
       {    
+
         fp.move(c,pos);      
         mp.move(c,pos);                  
       }
@@ -399,7 +400,7 @@ function walk_process(v)
 var reward = false;
 function lookinfuture()
 {
-  console.log("lookinfuture");
+  //console.log("lookinfuture");
   var mCountTmp = 0;
   var fCountTmp = 0;
   var fpos = pos+1;
@@ -415,7 +416,7 @@ function lookinfuture()
   if(mCountTmp > 0 || fCountTmp > 0)
   {
     reward = true;
-    console.log("reward point move background catch price move background back");
+    //console.log("reward point move background catch price move background back");
     if(mCountTmp > 0)
     {
       //prepare_bk_for_reward(male);
@@ -438,7 +439,7 @@ function lookinfuture()
 var move_size = 300;
 function prepare_bk_for_reward(t)
 {
-console.log("here");
+//console.log("here");
   var bk = $('.' + t.place + ' .stage').animate({'left':'-=' + move_size},{duration:3000,
     complete:function()
     { 
@@ -450,7 +451,7 @@ console.log("here");
 }
 function prepare_bk_for_work(t)
 {
-  console.log("prepare_bk_for_work");
+  //console.log("prepare_bk_for_work");
   var bk = $('.' + t.place + ' .stage').css('left','+=' + move_size);
 }
 
