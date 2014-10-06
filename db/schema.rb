@@ -11,7 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141001120250) do
+ActiveRecord::Schema.define(:version => 20141006095545) do
+
+  create_table "faq_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "sort",       :limit => 1
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  add_index "faq_categories", ["sort"], :name => "index_faq_categories_on_sort"
+
+  create_table "faq_category_translations", :force => true do |t|
+    t.integer  "faq_category_id"
+    t.string   "locale",          :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "name"
+  end
+
+  add_index "faq_category_translations", ["faq_category_id"], :name => "index_faq_category_translations_on_faq_category_id"
+  add_index "faq_category_translations", ["locale"], :name => "index_faq_category_translations_on_locale"
+  add_index "faq_category_translations", ["name"], :name => "index_faq_category_translations_on_name"
+
+  create_table "faq_translations", :force => true do |t|
+    t.integer  "faq_id"
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "question"
+    t.text     "answer"
+  end
+
+  add_index "faq_translations", ["faq_id"], :name => "index_faq_translations_on_faq_id"
+  add_index "faq_translations", ["locale"], :name => "index_faq_translations_on_locale"
+  add_index "faq_translations", ["question"], :name => "index_faq_translations_on_question"
+
+  create_table "faqs", :force => true do |t|
+    t.integer  "faq_category_id"
+    t.integer  "sort",            :limit => 1
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "faqs", ["faq_category_id"], :name => "index_faqs_on_faq_category_id"
+  add_index "faqs", ["sort"], :name => "index_faqs_on_sort"
 
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"

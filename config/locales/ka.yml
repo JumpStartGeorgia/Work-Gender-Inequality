@@ -4,6 +4,8 @@ ka:
     models:
       user: მომხმარებელი
       page: ტექსტი გვერდებისთვის
+      faq_category: FAQ Category
+      Faq: FAQ
     attributes:
       user:
         email: ელ.ფოსტა
@@ -17,6 +19,16 @@ ka:
       page_translation:
         title: სათაური, რომელიც გამოჩნდება კონტენტის ზემოთ
         content: კონტენტი
+      faq_category:
+        sort: Sort Order
+      faq_category_translation:
+        name: Category Name
+      faq:
+        sort: Sort Order
+        faq_category_id: FAQ Category
+      faq_translation:
+        question: Question
+        answer: Answer
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -93,6 +105,7 @@ ka:
       success_updated: "%{obj} განახლებულია."
     menu:
       explore_data: Explore Data
+      faq: FAQ
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -110,6 +123,8 @@ ka:
       title: ადმინისტრატორის განყოფილება
       users: მომხმარებლები
       pages: საიტზე ტექსტის რედაქტირება
+      faq_categories: FAQ Categories
+      faqs: FAQs
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
@@ -123,7 +138,7 @@ ka:
     mailer:
       reset_password_instructions:
         title: 'მოგესალმებით, %{nickname}!'
-        p1: მივიღეთ მოთხოვნა "%{app_name}" თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს.
+        p1: "მივიღეთ მოთხოვნა '%{app_name}' თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს."
         link_title: პაროლის შეცვლა
         p2: "თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, გთხოვთ, არ მიაქციოთ ყურადღება ამ შეტყობინებას."
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
@@ -132,3 +147,31 @@ ka:
       title: Welcome to Tanastsoroba
     explore_data:
       title: Explore the Data
+      no_data: Data is not on file yet - have you run rake db:seed yet?
+      form:
+        row: Variable 1
+        col: Variable 2
+        swap: Swap Variable 1 and Variable 2
+        submit: Get Data
+      tabs:
+        map: Choropleth Map
+        chart: Crosstab chart
+        table: Crosstab table
+        details: Details
+      map:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+        filter: "Filter map by selecting an answer to '%{text}':"
+      chart:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      table:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      details:
+        variable: Variable
+        answers: Possible Answers      
+    faq:
+      title: ხშირად დასმული კითხვები (FAQ)
+      no_faqs: Sorry, at this time no FAQs have been created.
+      top: top      

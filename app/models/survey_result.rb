@@ -5,6 +5,8 @@ class SurveyResult < ActiveRecord::Base
   # create a crosstab on two columns in this table
   # - row: item that appears down the rows (left side)
   # - column: item that appears across the columns (top side)
+  # - filter: if provided, indicates a field and value to filter the crosstab by
+  #           format: {name: ____, value: ______}
   # return: hash wil the following
   # - row_question: text of question for rows
   # - row_answers: array of [value, text] for each answer in this question
@@ -20,7 +22,7 @@ class SurveyResult < ActiveRecord::Base
   #   - labels: axis lables
   #   - data: series data
   # - map: data formatted for leaflet
-  def self.crosstab_count(row, column)
+  def self.crosstab_count(row, column, filter=nil)
     result = {}
     # get the question/answers for these items
     q_row = SurveyQuestion.with_answers(row)
@@ -31,12 +33,21 @@ class SurveyResult < ActiveRecord::Base
       # - note: crosstab only gets counts, not percents
       data = nil
       begin
-        data = call_sproc("call survey_crosstab_count('#{row}', '#{column}')")
+        # if filter is provided, create the sql where statement for it
+        sql_filter = ''
+        if filter.present?
+          sql_filter << ' and '
+          sql_filter << filter[:name].to_s
+          sql_filter << "="
+          sql_filter << filter[:value].to_s
+        end
+
+        data = call_sproc("call survey_crosstab_count('#{row}', '#{column}', '#{sql_filter}')")
       
 #### the rescue is not working!
-      rescue ActiveRecord::StatementInvalid
+      rescue ActiveRecord::StatementInvalid => e
         # this is in case one of the variables cannot be found in table
-        puts 'error!'
+        puts "error: #{e}"
       end
 
       if data.present?

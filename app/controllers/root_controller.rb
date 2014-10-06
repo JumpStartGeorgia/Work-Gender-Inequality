@@ -7,6 +7,15 @@ class RootController < ApplicationController
     end
   end
 
+  def faq
+    @faq_categories = FaqCategory.sorted
+    @faqs = Faq.sorted
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
   def explore_data
     @use_map = true
     
@@ -24,9 +33,9 @@ class RootController < ApplicationController
     if @data[:chart]
       gon.chart_data = @data[:chart][:data]
       gon.chart_labels = @data[:chart][:labels]
-      gon.chart_title = "#{@data[:row_question].titlecase} <br /> by <br /> #{@data[:column_question].titlecase} <br /> <span class='total_responses'>(Total Responses: #{@data[:total_responses]})</span>"
-      gon.chart_col_label = @data[:column_question].titlecase
-      gon.chart_row_label = @data[:row_question].titlecase
+      gon.chart_title = build_chart_title(@data[:row_question], @data[:column_question], @data[:total_responses])
+      gon.chart_col_label = @data[:column_question]
+      gon.chart_row_label = @data[:row_question]
     end
     if @data[:map_percents].present?
       gon.map_percents = @data[:map_percents]
@@ -38,5 +47,15 @@ class RootController < ApplicationController
   respond_to do |format|
     format.html # index.html.erb
   end
+
+private
+
+  def build_chart_title(row, col, total)
+    title = t('root.explore_data.chart.title', :row => row, :col => col)
+    title << "<br /> <span class='total_responses'>("
+    title << t('root.explore_data.chart.title_total', :num => total)
+    title << ")</span>"
+    return title.html_safe
+  end 
 
 end

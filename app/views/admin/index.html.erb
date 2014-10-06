@@ -1,14 +1,23 @@
 <% title t('.title') %>
 
-  <% if current_user.role? User::ROLES[:admin] %>
+<% if current_user.role? User::ROLES[:content_editor] %>
    <div class="col-sm-4">
- 		<ul class="standard">
- 			<li>
-       <%= link_to t('.users'), admin_users_path %>
+    <ul>
+      <li>
+       <%= link_to t('.faq_categories'), admin_faq_categories_path %>
       </li>
- 			<li>
-       <%= link_to t('.pages'), admin_pages_path %>
+      <li>
+       <%= link_to t('.faqs'), admin_faqs_path %>
       </li>
- 		</ul>
+      <% if current_user.role? User::ROLES[:admin] %>
+        <li>
+         <%= link_to t('.users'), admin_users_path %>
+        </li>
+        <li>
+         <%= link_to t('.pages'), admin_pages_path %>
+        </li>
+      <% end %>
+    </ul>
   </div>
-  <% end %>
+<% end %>
+

@@ -1,0 +1,932 @@
+Question Code,Answer Value,Original Answer,Cleaned Answer
+Reg,1,Achara,Adjara
+Reg,2,Guria,Guria
+Reg,3,Tbilisi,Tbilisi
+Reg,4,Imereti,Imereti
+Reg,5,Kakheti,Kakheti
+Reg,6,Mtskheta-Mtianeti,Mtskheta-Mtianeti
+Reg,7,Samegrelo,Samegrelo / Zemo Svaneti
+Reg,8,Samtskhe-Javakheti,Samtskhe-Javakheti
+Reg,9,Qvemo Qartli,Kvemo Kartli
+Reg,10,Shita Qartli,Shida Kartli
+A1,1,employed,Employed
+A1,2,temporarily not working because of temporary illness/parental leave/vacation/,Temporarily not working because of temporary illness/parental leave/vacation
+A1,3,self-employed,Self-employed
+A1,4,unemployed,Unemployed
+A2,1,yes,Yes
+A2,2,no,No
+A3,1,yes,Yes
+A3,2,"Yes, with one/some of my employers (in case of having many jobs)","Yes, with one/some of my employers (in case of having many jobs)"
+A3,3,No,No
+A3.1_3,1,yes,Yes
+A3.1_3,2,no,No
+A3.1_3,3,limited time frame,Limited time frame
+A3.1_3,8,filter,filter
+A3.2,1,yes,Yes
+A3.2,2,no,No
+A3.2,3,I don't know,I don't know
+A3.2,8,filter,filter
+A3.3,1,yes,Yes
+A3.3,2,no,No
+A3.3,3,I don't know,I don't know
+A3.3,8,filter,filter
+A4.1,1,full time,Full time
+A4.1,2,part time,Part time
+A4.1,3,work in sheets,Work in shifts
+A4.1,4,other,Other
+A4.2,1,yes,Yea
+A4.2,2,no,No
+A4.2,8,filter,filter
+A5,1,yes,Yes
+A5,2,no,No
+A5.1,1,Tbilisi,Tbilisi
+A5.1,2,Suburbs or outskirts of Tbilisi,Suburbs or outskirts of Tbilisi
+A5.1,3,town,Town
+A5.1,4,village,Village
+A5.1,5,farm or home in the countryside,Farm or home in the countryside
+A5.1,8,filter,filter
+A6,1,private sector,Private sector
+A6,2,public sector,Public sector
+A6,3,NGO,NGO
+A6,4,other,Other
+A7,1,"Agriculture, forestry and fishing","Agriculture, forestry and fishing"
+A7,2,Mining and quarrying,Mining and quarrying
+A7,3,Manufacturing,Manufacturing
+A7,4,"Electricity, gas, steam and air conditioning supply","Electricity, gas, steam and air conditioning supply"
+A7,5,"Water supply; sewerage, waste management and remediation activities","Water supply, sewerage, waste management and remediation activities"
+A7,6,Construction,Construction
+A7,7,Wholesale and retail trade,Wholesale and retail trade
+A7,8,Transportation and storage,Transportation and storage
+A7,9,"driver, pilot",Driver / pilot
+A7,10,accommodatin and food services,Accommodation and food services
+A7,11,information and communication,information and communication
+A7,12,finances and insurence,Finances and insurance
+A7,13,real estate activities,real estate activities
+A7,14,sciences,sciences
+A7,15,social sciences,Social sciences
+A7,16,"professional technical activities (engineer, IT, computer masters)","professional technical activities (engineer, IT, computer masters)"
+A7,17,"administrative and assistant services (secretary, office worker)","administrative and assistant services (secretary, office worker)"
+A7,18,"public administration (ministries, cityhalls, minicipalities)","Public administration (ministries, city halls, municipalities)"
+A7,19,"armed forces and mandatory social security (police, firemen, military police)","armed forces and mandatory social security (police, firemen, military police)"
+A7,20,education,Education
+A7,21,"health system (physician, nurse, emergancy)","Health system (physician, nurse, emergency)"
+A7,22,activities in social work (eg. social worker),Activities in social work (social worker)
+A7,23,pharmacy,Pharmacy
+A7,24,managers (directors),managers (directors)
+A7,25,"craft, worker, guard,  repair of motor vehicles and motorcycles","craft, worker, guard,  repair of motor vehicles and motorcycles"
+A7,26,"assistance in household matters, cleaning, cook, bekary","Assistance in household matters, cleaning, cook, bakery"
+A7,27,art,Art
+A7,28,legal system,Legal system
+A7,29,sports,Sports
+A7,30,NGO,NGO
+A7,31,political parties,political parties
+A8,1,"Agriculture, forestry and fishing","Agriculture, forestry and fishing"
+A8,2,Mining and quarrying,Mining and quarrying
+A8,3,Manufacturing,Manufacturing
+A8,4,"Electricity, gas, steam and air conditioning supply","Electricity, gas, steam and air conditioning supply"
+A8,5,"Water supply; sewerage, waste management and remediation activities","Water supply, sewerage, waste management and remediation activities"
+A8,6,Construction,Construction
+A8,7,Wholesale and retail trade,Wholesale and retail trade
+A8,8,Transportation and storage,Transportation and storage
+A8,9,"driver, pilot",Driver / pilot
+A8,10,accommodatin and food services,Accommodation and food services
+A8,11,information and communication,information and communication
+A8,12,finances and insurence,Finances and insurance
+A8,13,real estate activities,real estate activities
+A8,14,sciences,Sciences
+A8,15,social sciences,Social sciences
+A8,16,"professional technical activities (engineer, IT, computer masters)","professional technical activities (engineer, IT, computer masters)"
+A8,17,"administrative and assistant services (secretary, office worker)","administrative and assistant services (secretary, office worker)"
+A8,18,"public administration (ministries, cityhalls, minicipalities)","Public administration (ministries, city halls, municipalities)"
+A8,19,"armed forces and mandatory social security (police, firemen, military police)","armed forces and mandatory social security (police, firemen, military police)"
+A8,20,education,Education
+A8,21,"health system (physician, nurse, emergancy)","Health system (physician, nurse, emergency)"
+A8,22,activities in social work (eg. social worker),Activities in social work (social worker)
+A8,23,pharmacy,Pharmacy
+A8,24,managers (directors),managers (directors)
+A8,25,"craft, worker, guard,  repair of motor vehicles and motorcycles","craft, worker, guard,  repair of motor vehicles and motorcycles"
+A8,26,"assistance in household matters, cleaning, cook, bekary","Assistance in household matters, cleaning, cook, bakery"
+A8,27,art,Art
+A8,28,legal system,Legal system
+A8,29,sports,Sports
+A8,30,NGO,NGO
+A8,31,political parties,political parties
+A9,1,I work alone / I don’t have colleagues,I work alone / I don’t have colleagues
+A9,2,Mostly women,Mostly women
+A9,3,Mostly men,Mostly men
+A9,4,Approximately same amount of men and women,Approximately same amount of men and women
+A9,5,I don't know,I don't know
+A10,1,"Yes, I would like to have more women among my colleagues","Yes, I would like to have more women among my colleagues"
+A10,2,"Yes, I would like to have more men among my colleagues","Yes, I would like to have more men among my colleagues"
+A10,3,"3.\tI would like, but men/women couldn’t do the work","I would like, but men/women couldn’t do the work"
+A10,4,No I like it as it is,No I like it as it is
+A10,5,I don't care,I don't care
+A10,6,other,Other
+A11,1,with women,With women
+A11,2,with men,With men
+A11,3,Both men and women,Both men and women
+A12,1,male,Male
+A12,2,female,Female
+A12,3,I don't have one,I don't have one
+A13,1,"Yes, currently","Yes, currently"
+A13,2,"Yes, previously but not currently","Yes, previously but not currently"
+A13,3,"No, never","No, never"
+B1,1,yes,Yes
+B1,2,no,No
+B1.1,1,once,Once
+B1.1,2,2-4 times,2-4 times
+B1.1,3,5-7 times,5-7 times
+B1.1,4,8-10 times,8-10 times
+B1.1,5,More than 10 times,More than 10 times
+B1.1,6,don't remember,Don't remember
+B1.1,8,filter,filter
+B1.2_1,1,yes,Yes
+B1.2_1,2,no,No
+B1.2_1,3,N/A,N/A
+B1.2_1,8,filter,filter
+B1.2_2,1,yes,Yes
+B1.2_2,2,no,No
+B1.2_2,3,N/A,N/A
+B1.2_2,8,filter,filter
+B1.2_3,1,yes,Yes
+B1.2_3,2,no,No
+B1.2_3,3,N/A,N/A
+B1.2_3,8,filter,filter
+B1.2_4,1,yes,Yes
+B1.2_4,2,no,No
+B1.2_4,3,N/A,N/A
+B1.2_4,8,filter,filter
+B1.2_5,1,yes,Yes
+B1.2_5,2,no,No
+B1.2_5,3,N/A,N/A
+B1.2_5,8,filter,filter
+B1.2_6,1,yes,Yes
+B1.2_6,2,no,No
+B1.2_6,3,N/A,N/A
+B1.2_6,8,filter,filter
+B2,1,Through my friend/acquaintance/relative,Through my friend/acquaintance/relative
+B2,2,"I found the job by myself, without help from others","I found the job by myself, without help from others"
+B2,3,other,Other
+B3,1,no,No
+B3,2,yes,Yes
+B3.1,1,yes,Yes
+B3.1,2,no,No
+B3.1,8,filter,filter
+B3.2_1,1,yes,Yes
+B3.2_1,2,no,No
+B3.2_1,8,filter,filter
+B3.2_2,1,yes,Yes
+B3.2_2,2,no,No
+B3.2_2,8,filter,filter
+B3.2_3,1,yes,Yes
+B3.2_3,2,no,No
+B3.2_3,8,filter,filter
+B3.2_4,1,yes,Yes
+B3.2_4,2,no,No
+B3.2_4,8,filter,filter
+B3.2_5,1,yes,Yes
+B3.2_5,2,no,No
+B3.2_5,8,filter,filter
+B3.2_6,1,yes,Yes
+B3.2_6,2,no,No
+B3.2_6,8,filter,filter
+B3.2_7,1,yes,Yes
+B3.2_7,2,no,No
+B3.2_7,8,filter,filter
+B3.2_8,1,yes,Yes
+B3.2_8,2,no,No
+B3.2_8,8,filter,filter
+B3.2_9,1,yes,Yes
+B3.2_9,2,no,No
+B3.2_9,8,filter,filter
+B3.2_10,1,yes,Yes
+B3.2_10,2,no,No
+B3.2_10,8,filter,filter
+B3.2_11,1,yes,Yes
+B3.2_11,2,no,No
+B3.2_11,8,filter,filter
+B3.2_12,1,yes,Yes
+B3.2_12,2,no,No
+B3.2_12,8,filter,filter
+B3.2_13,1,yes,Yes
+B3.2_13,2,no,No
+B3.2_13,8,filter,filter
+B3.2_14,1,yes,Yes
+B3.2_14,2,no,No
+B3.2_14,8,filter,filter
+B3.3_1,1,yes,Yes
+B3.3_1,2,no,No
+B3.3_1,8,filter,filter
+B3.3_2,1,yes,Yes
+B3.3_2,2,no,No
+B3.3_2,8,filter,filter
+B3.3_3,1,yes,Yes
+B3.3_3,2,no,No
+B3.3_3,8,filter,filter
+B3.3_4,1,yes,Yes
+B3.3_4,2,no,No
+B3.3_4,8,filter,filter
+B3.3_5,1,yes,Yes
+B3.3_5,2,no,No
+B3.3_5,8,filter,filter
+B3.3_6,1,yes,Yes
+B3.3_6,2,no,No
+B3.3_6,8,filter,filter
+B3.3_7,1,yes,Yes
+B3.3_7,2,no,No
+B3.3_7,8,filter,filter
+B3.3_8,1,yes,Yes
+B3.3_8,2,no,No
+B3.3_8,8,filter,filter
+B3.3_9,1,yes,Yes
+B3.3_9,2,no,No
+B3.3_9,8,filter,filter
+B3.3_10,1,yes,Yes
+B3.3_10,2,no,No
+B3.3_10,8,filter,filter
+B3.3_11,1,yes,Yes
+B3.3_11,2,no,No
+B3.3_11,8,filter,filter
+B3.3_12,1,yes,Yes
+B3.3_12,2,no,No
+B3.3_12,8,filter,filter
+B3.3_13,1,yes,Yes
+B3.3_13,2,no,No
+B3.3_13,8,filter,filter
+B3.3_14,1,yes,Yes
+B3.3_14,2,no,No
+B3.3_14,8,filter,filter
+B4,1,yes,Yes
+B4,2,no,No
+B4.1_1,1,yes,Yes
+B4.1_1,2,no,No
+B4.1_1,8,filter,filter
+B4.1_2,1,yes,Yes
+B4.1_2,2,no,No
+B4.1_2,8,filter,filter
+B4.1_3,1,yes,Yes
+B4.1_3,2,no,No
+B4.1_3,8,filter,filter
+B4.1_4,1,yes,Yes
+B4.1_4,2,no,No
+B4.1_4,8,filter,filter
+B5_1,1,yes,Yes
+B5_1,2,no,No
+B5_2,1,yes,Yes
+B5_2,2,no,No
+B5_3,1,yes,Yes
+B5_3,2,no,No
+B5_4,1,yes,Yes
+B5_4,2,no,No
+B5_5,1,yes,Yes
+B5_5,2,no,No
+B6_1,1,yes,Yes
+B6_1,2,no,No
+B6_2,1,yes,Yes
+B6_2,2,no,No
+B6_3,1,yes,Yes
+B6_3,2,no,No
+B6_4,1,yes,Yes
+B6_4,2,no,No
+B6_5,1,yes,Yes
+B6_5,2,no,No
+B6_6,1,yes,Yes
+B6_6,2,no,No
+C1,1,yes,Yes
+C1,2,no,No
+C1,3,I work here less than 3 months and have no such experience so far,I have worked here less than 3 months and have no such experience so far
+C1.1,1,I applied for the job/promotion,I applied for the job/promotion
+C1.1,2,I was offered the higher position,I was offered the higher position
+C1.1,3,other,Other
+C1.1,8,filter,filter
+C1.2,1,yes,Yes
+C1.2,2,no,No
+C1.2,8,filter,filter
+C1.3,1,yes,Yes
+C1.3,2,no,No
+C1.3,8,filter,filter
+C1.3.1_1,1,yes,Yes
+C1.3.1_1,2,no,No
+C1.3.1_1,8,filter,filter
+C1.3.1_2,1,yes,Yes
+C1.3.1_2,2,no,No
+C1.3.1_2,8,filter,filter
+C1.3.1_3,1,yes,Yes
+C1.3.1_3,2,no,No
+C1.3.1_3,8,filter,filter
+C1.3.1_4,1,yes,Yes
+C1.3.1_4,2,no,No
+C1.3.1_4,8,filter,filter
+C1.3.1_5,1,yes,Yes
+C1.3.1_5,2,no,No
+C1.3.1_5,8,filter,filter
+C1.3.1_6,1,yes,Yes
+C1.3.1_6,2,no,No
+C1.3.1_6,8,filter,filter
+C1.3.1_7,1,yes,Yes
+C1.3.1_7,2,no,No
+C1.3.1_7,8,filter,filter
+C1.3.1_8,1,yes,Yes
+C1.3.1_8,2,no,No
+C1.3.1_8,8,filter,filter
+C1.3.1_9,1,yes,Yes
+C1.3.1_9,2,no,No
+C1.3.1_9,8,filter,filter
+C1.3.1_10,1,yes,Yes
+C1.3.1_10,2,no,No
+C1.3.1_10,8,filter,filter
+C1.3.1_11,1,yes,Yes
+C1.3.1_11,2,no,No
+C1.3.1_11,8,filter,filter
+C1.3.2_1,1,yes,Yes
+C1.3.2_1,2,no,No
+C1.3.2_1,8,filter,filter
+C1.3.2_2,1,yes,Yes
+C1.3.2_2,2,no,No
+C1.3.2_2,8,filter,filter
+C1.3.2_3,1,yes,Yes
+C1.3.2_3,2,no,No
+C1.3.2_3,8,filter,filter
+C1.3.2_4,1,yes,Yes
+C1.3.2_4,2,no,No
+C1.3.2_4,8,filter,filter
+C1.3.2_5,1,yes,Yes
+C1.3.2_5,2,no,No
+C1.3.2_5,8,filter,filter
+C2,1,yes,Yes
+C2,2,no,No
+C2,3,other,Other
+C2,8,filter,filter
+C3,1,yes,Yes
+C3,2,no,No
+C3,8,filter,filter
+C3.1,1,"Mine, I asked for promotion","Mine, I asked for a promotion"
+C3.1,2,It was general pay rise for all of the employees,It was a general pay rise for all of the employees
+C3.1,3,It was my manager’s initiative,It was my manager’s initiative
+C3.1,4,other,Other
+C3.1,8,filter,filter
+C3.2,1,yes,Yes
+C3.2,2,no,No
+C3.2,8,filter,filter
+C4,1,yes,Yes
+C4,2,no,No
+C4,8,filter,filter
+C4.1,1,yes,Yes
+C4.1,2,no,No
+C4.1,8,filter,filter
+C4.1.1,1,I did not want to,I did not want to
+C4.1.1,2,The time of the training wasn’t convenient for me,The time of the training wasn’t convenient for me
+C4.1.1,3,"I was not allowed by my employer, please specify",I was not allowed by my employer
+C4.1.1,4,I missed it,I missed it
+C4.1.1,5,other,Other
+C4.1.1,8,filter,filter
+C4.2,1,"Yes, but my employer doesn’t provide trainings for employees","Yes, but my employer doesn’t provide trainings for employees"
+C4.2,2,"Yes, but my employer didn’t let/offer me go to the training","Yes, but my employer didn’t let/offer me go to the training"
+C4.2,3,"No, there are no trainings in our field","No, there are no trainings in our field"
+C4.2,4,no,No
+C4.2,8,filter,filter
+D1,1,yes,Yes
+D1,2,no,No
+D1,3,Don't want to answer,Don't want to answer
+D1.1,1,no,No
+D1.1,2,"Yes, once","Yes, once"
+D1.1,3,"Yes, more than once","Yes, more than once"
+D1.1,8,filter,filter
+D1.2,1,yes,Yes
+D1.2,2,no,No
+D1.2,3,I don't thinks so,I don't thinks so
+D1.2,8,filter,filter
+D1.3,1,yes,Yes
+D1.3,2,no,No
+D1.3,8,filter,filter
+D1.3.1_1,1,yes,Yes
+D1.3.1_1,2,no,No
+D1.3.1_1,8,filter,filter
+D1.3.1_2,1,yes,Yes
+D1.3.1_2,2,no,No
+D1.3.1_2,8,filter,filter
+D1.3.1_3,1,yes,Yes
+D1.3.1_3,2,no,No
+D1.3.1_3,8,filter,filter
+D1.3.1_4,1,yes,Yes
+D1.3.1_4,2,no,No
+D1.3.1_4,8,filter,filter
+D1.3.1_5,1,yes,Yes
+D1.3.1_5,2,no,No
+D1.3.1_5,8,filter,filter
+D1.3.1_6,1,yes,Yes
+D1.3.1_6,2,no,No
+D1.3.1_6,8,filter,filter
+D1.3.1_7,1,yes,Yes
+D1.3.1_7,2,no,No
+D1.3.1_7,8,filter,filter
+D1.3.1_8,1,yes,Yes
+D1.3.1_8,2,no,No
+D1.3.1_8,8,filter,filter
+D1.3.1_9,1,yes,Yes
+D1.3.1_9,2,no,No
+D1.3.1_9,8,filter,filter
+D1.3.1_10,1,yes,Yes
+D1.3.1_10,2,no,No
+D1.3.1_10,8,filter,filter
+D1.3.1_11,1,yes,Yes
+D1.3.1_11,2,no,No
+D1.3.1_11,8,filter,filter
+D1.3.1_12,1,yes,Yes
+D1.3.1_12,2,no,No
+D1.3.1_12,8,filter,filter
+D1.3.2,1,yes,Yes
+D1.3.2,2,no,No
+D1.3.2,8,filter,filter
+D1.3.3_1,1,yes,Yes
+D1.3.3_1,2,no,No
+D1.3.3_1,8,filter,filter
+D1.3.3_2,1,yes,Yes
+D1.3.3_2,2,no,No
+D1.3.3_2,8,filter,filter
+D1.3.3_3,1,yes,Yes
+D1.3.3_3,2,no,No
+D1.3.3_3,8,filter,filter
+D1.3.3_4,1,yes,Yes
+D1.3.3_4,2,no,No
+D1.3.3_4,8,filter,filter
+D1.3.3_5,1,yes,Yes
+D1.3.3_5,2,no,No
+D1.3.3_5,8,filter,filter
+D1.3.3_6,1,yes,Yes
+D1.3.3_6,2,no,No
+D1.3.3_6,8,filter,filter
+D1.3.3_7,1,yes,Yes
+D1.3.3_7,2,no,No
+D1.3.3_7,8,filter,filter
+D1.3.3_8,1,yes,Yes
+D1.3.3_8,2,no,No
+D1.3.3_8,8,filter,filter
+D1.3.3_9,1,yes,Yes
+D1.3.3_9,2,no,No
+D1.3.3_9,8,filter,filter
+D1.3.3_10,1,yes,Yes
+D1.3.3_10,2,no,No
+D1.3.3_10,8,filter,filter
+D1.3.3_11,1,yes,Yes
+D1.3.3_11,2,no,No
+D1.3.3_11,8,filter,filter
+D1.3.3_12,1,yes,Yes
+D1.3.3_12,2,no,No
+D1.3.3_12,8,filter,filter
+D1.4,1,I don’t think the firing was unreasonable,I don’t think the firing was unreasonable
+D1.4,2,"No, I did not contact/appeal to anyone or any institution","No, I did not contact/appeal to anyone or any institution"
+D1.4,3,"Yes, I appealed to organization board","Yes, I appealed to the organization board"
+D1.4,4,"Yes, I contacted/appealed to trade union","Yes, I contacted/appealed to a trade union"
+D1.4,5,"Yes, I appealed /contacted","Yes, I appealed/contacted"
+D1.4,8,filter,filter
+D2,1,"yes, one","Yes, one"
+D2,2,"yes, more than one","Yes, more than one"
+D2,3,no,No
+D2,4,I don't want to answer,I don't want to answer
+E1,1,no,No
+E1,2,yes,Yes
+E1.1_1,1,yes,Yes
+E1.1_1,2,no,No
+E1.1_1,8,filter,filter
+E1.1_2,1,yes,Yes
+E1.1_2,2,no,No
+E1.1_2,8,filter,filter
+E1.1_3,1,yes,Yes
+E1.1_3,2,no,No
+E1.1_3,8,filter,filter
+E1.1_4,1,yes,Yes
+E1.1_4,2,no,No
+E1.1_4,8,filter,filter
+E1.1_5,1,yes,Yes
+E1.1_5,2,no,No
+E1.1_5,8,filter,filter
+E1.1_6,1,yes,Yes
+E1.1_6,2,no,No
+E1.1_6,8,filter,filter
+E1.1_7,1,yes,Yes
+E1.1_7,2,no,No
+E1.1_7,8,filter,filter
+E1.1_8,1,yes,Yes
+E1.1_8,2,no,No
+E1.1_8,8,filter,filter
+E1.1_9,1,yes,Yes
+E1.1_9,2,no,No
+E1.1_9,8,filter,filter
+E1.1_10,1,yes,Yes
+E1.1_10,2,no,No
+E1.1_10,8,filter,filter
+E1.1_11,1,yes,Yes
+E1.1_11,2,no,No
+E1.1_11,8,filter,filter
+E1.1_12,1,yes,Yes
+E1.1_12,2,no,No
+E1.1_12,8,filter,filter
+E2_1,0,none,None
+E2_1,1,once,Once
+E2_1,2,twice,Twice
+E2_1,3,three times and more,Three or more times
+E2_2,0,none,None
+E2_2,1,once,Once
+E2_2,2,twice,Twice
+E2_2,3,three times and more,Three or more times
+E3_1,0,n.a,N/A
+E3_1,1,I don't know,I don't know
+E3_1,2,disagree,Disagree
+E3_1,3,agree,Agree
+E3_2,0,n.a.,N/A
+E3_2,1,I don't know,I don't know
+E3_2,2,disagree,Disagree
+E3_2,3,agree,Agree
+E3_3,0,n.a,N/A
+E3_3,1,I don't know,I don't know
+E3_3,2,disagree,Disagree
+E3_3,3,agree,Agree
+E3_4,0,n.a,N/A
+E3_4,1,I don't know,I don't know
+E3_4,2,disagree,Disagree
+E3_4,3,agree,Agree
+E3_5,0,n.a,N/A
+E3_5,1,I don't know,I don't know
+E3_5,2,disagree,Disagree
+E3_5,3,agree,Agree
+E3_6,0,n.a,N/A
+E3_6,1,I don't know,I don't know
+E3_6,2,disagree,Disagree
+E3_6,3,agree,Agree
+E3_7,0,n.a,N/A
+E3_7,1,I don't know,I don't know
+E3_7,2,disagree,Disagree
+E3_7,3,agree,Agree
+F1_1,1,The question is not relevant,The question is not relevant
+F1_1,2,I don't know,I don't know
+F1_1,3,negatively,Negatively
+F1_1,4,neutral,Neutral
+F1_1,5,understandingly,Understandingly
+F1_2,1,The question is not relevant,The question is not relevant
+F1_2,2,I don't know,I don't know
+F1_2,3,negatively,Negatively
+F1_2,4,neutral,Neutral
+F1_2,5,understandingly,Understandingly
+F2_1,0,N/A,N/A
+F2_1,1,yes,Yes
+F2_1,2,no,No
+F2_2,0,N/A,N/A
+F2_2,1,yes,Yes
+F2_2,2,no,No
+F2_3,0,N/A,N/A
+F2_3,1,yes,Yes
+F2_3,2,no,No
+F2_4,0,N/A,N/A
+F2_4,1,yes,Yes
+F2_4,2,no,No
+F2_5,0,N/A,N/A
+F2_5,1,yes,Yes
+F2_5,2,no,No
+F2_6,0,N/A,N/A
+F2_6,1,yes,Yes
+F2_6,2,no,No
+F2_7,0,N/A,N/A
+F2_7,1,yes,Yes
+F2_7,2,no,No
+F2_8,0,N/A,N/A
+F2_8,1,yes,Yes
+F2_8,2,no,No
+F3,1,yes,Yes
+F3,2,no,No
+F3.1,1,"yes, always","Yes, always"
+F3.1,2,in most cases,In most cases
+F3.1,3,sometimes,Sometimes
+F3.1,4,never,Never
+F3.1,8,filter,filter
+F4,1,The question is irrelevant,The question is irrelevant
+F4,2,positively,Positively
+F4,3,I couldn’t be on parental leave as long as I wanted,I couldn’t be on parental leave as long as I wanted
+F4,4,I have got fired because of that,I got fired because of that
+F4,5,When returning from parental leave I had to start working in lower position,When returning from parental leave I had to start working in lower position
+F4,6,When returning from parental leave I got promoted,When returning from parental leave I got promoted
+F4,7,When returning from parental leave I could work only part time (although I would have liked to work full time),When returning from parental leave I could work only part time (although I would have liked to work full time)
+F4,8,I quitted my job on my own will,I quit my job on my own will
+F4,9,other,Other
+G1_1,0,I don't know,I don't know
+G1_1,1,disctimination,Discrimination
+G1_1,2,unpleasant,Unpleasant
+G1_1,3,accaptable,Acceptable
+G1_2,0,I don't know,I don't know
+G1_2,1,disctimination,Discrimination
+G1_2,2,unpleasant,Unpleasant
+G1_2,3,accaptable,Acceptable
+G1_3,0,I don't know,I don't know
+G1_3,1,disctimination,Discrimination
+G1_3,2,unpleasant,Unpleasant
+G1_3,3,accaptable,Acceptable
+G1_4,0,I don't know,I don't know
+G1_4,1,disctimination,Discrimination
+G1_4,2,unpleasant,Unpleasant
+G1_4,3,accaptable,Acceptable
+G1_5,0,I don't know,I don't know
+G1_5,1,discrimination,Discrimination
+G1_5,2,unpleasant,Unpleasant
+G1_5,3,accaptable,Acceptable
+G2,1,yes,Yes
+G2,2,no,No
+G2,3,I don't know,I don't know
+G2,4,I don't know to answer,I don't want to answer
+G3,1,yes,Yes
+G3,2,no,No
+G3,3,I don't know,I don't know
+G3,4,I don'w want to answer,I don't want to answer
+G3,8,filter,filter
+G4_1,1,It would be unpleasant,It would be unpleasant
+G4_1,2,It whould not be unpleasant,It would not be unpleasant
+G4_1,3,It depends who would behave like that,It depends who would behave like that
+G4_1,4,Can't imagine,Can't imagine
+G4_2,1,it would be unpleasant,It would be unpleasant
+G4_2,2,it would  not be unpleasant,It would not be unpleasant
+G4_2,3,It depends who would behave like that,It depends who would behave like that
+G4_2,4,Can't imagine,Can't imagine
+G4_3,1,it would be unpleasant,It would be unpleasant
+G4_3,2,it would  not be unpleasant,It would not be unpleasant
+G4_3,3,It depends who would behave like that,It depends who would behave like that
+G4_3,4,Can't imagine,Can't imagine
+G4_4,1,it would be unpleasant,It would be unpleasant
+G4_4,2,it would  not be unpleasant,It would not be unpleasant
+G4_4,3,It depends who would behave like that,It depends who would behave like that
+G4_4,4,Can't imagine,Can't imagine
+G4_5,1,it would be unpleasant,It would be unpleasant
+G4_5,2,it would not be unpleasant,It would not be unpleasant
+G4_5,3,It depends who would behave like that,It depends who would behave like that
+G4_5,4,Can't  imagine,Can't imagine
+G4_6,1,it would be unpleasant,It would be unpleasant
+G4_6,2,it would not be unpleasant,It would not be unpleasant
+G4_6,3,It depends who would behave like that,It depends who would behave like that
+G4_6,4,Can't imagine,Can't imagine
+G4_7,1,it would be unpleasant,It would be unpleasant
+G4_7,2,it would  not be unpleasant,It would not be unpleasant
+G4_7,3,It depends who would behave like that,It depends who would behave like that
+G4_7,4,Can't imagine,Can't imagine
+G4_8,1,it would be unpleasant,It would be unpleasant
+G4_8,2,it would  not be unpleasant,It would not be unpleasant
+G4_8,3,It depends who would behave like that,It depends who would behave like that
+G4_8,4,Cant imagine,Can't imagine
+G4_9,1,it would be unpleasant,It would be unpleasant
+G4_9,2,it would  not be unpleasant,It would not be unpleasant
+G4_9,3,It depends who would behave like that,It depends who would behave like that
+G4_9,4,Can't imagine,Can't imagine
+G4_10,1,it would be unpleasant,It would be unpleasant
+G4_10,2,it would  not be unpleasant,It would not be unpleasant
+G4_10,3,It depends who would behave like that,It depends who would behave like that
+G4_10,4,Can't imagine,Can't imagine
+G4_11,1,it would be unpleasant,It would be unpleasant
+G4_11,2,it would  not be unpleasant,It would not be unpleasant
+G4_11,3,It depends who would behave like that,It depends who would behave like that
+G4_11,4,Can't imagine,Can't imagine
+G4_12,1,it would be unpleasant,It would be unpleasant
+G4_12,2,it would  not be unpleasant,It would not be unpleasant
+G4_12,3,It depends who would behave like that,It depends who would behave like that
+G4_12,4,Can't imagine,Can't imagine
+G4_13,1,it would be unpleasant,It would be unpleasant
+G4_13,2,it would  not be unpleasant,It would not be unpleasant
+G4_13,3,It depends who would behave like that,It depends who would behave like that
+G4_13,4,Can't imagine,Can't imagine
+G4_14,1,it would be unpleasant,It would be unpleasant
+G4_14,2,it would  not be unpleasant,It would not be unpleasant
+G4_14,3,It depends who would behave like that,It depends who would behave like that
+G4_14,4,can't imagine,Can't imagine
+G4_15,1,it would be unpleasant,It would be unpleasant
+G4_15,2,it would  not be unpleasant,It would not be unpleasant
+G4_15,3,It depends who would behave like that,It depends who would behave like that
+G4_15,4,Can't imagine,Can't imagine
+G4_16,1,it would be unpleasant,It would be unpleasant
+G4_16,2,it would  not be unpleasant,It would not be unpleasant
+G4_16,3,It depends who would behave like that,It depends who would behave like that
+G4_16,4,can't imagine,Can't imagine
+G5_1,1,yes,Yes
+G5_1,2,no,No
+G5_2,1,yes,Yes
+G5_2,2,no,No
+G5_3,1,yes,Yes
+G5_3,2,no,No
+G5_4,1,yes,Yes
+G5_4,2,no,No
+G5_5,1,yes,Yes
+G5_5,2,no,No
+G5_6,1,yes,Yes
+G5_6,2,no,No
+G5_7,1,yes,Yes
+G5_7,2,no,No
+G5_8,1,yes,Yes
+G5_8,2,no,No
+G5_9,1,yes,Yes
+G5_9,2,no,No
+G6,1,yes,Yes
+G6,2,no,No
+G6,3,I don't know,I don't know
+G7_1,1,yes,Yes
+G7_1,2,no,No
+G7_1,9,refuse,Refuse to answer
+G7_2,1,yes,Yes
+G7_2,2,no,No
+G7_2,9,refuse,Refuse to answer
+G7_3,1,yes,Yes
+G7_3,2,no,No
+G7_3,9,refuse,Refuse to answer
+G7_4,1,yes,Yes
+G7_4,2,no,No
+G7_4,9,refuse,Refuse to answer
+G7_5,1,yes,Yes
+G7_5,2,no,No
+G7_5,9,refuse,Refuse to answer
+G7_6,1,yes,Yes
+G7_6,2,no,No
+G7_6,9,refuse,Refuse to answer
+G7_7,1,yes,Yes
+G7_7,2,no,No
+G7_7,9,refuse,Refuse to answer
+G7_8,1,yes,Yes
+G7_8,2,no,No
+G7_8,9,refuse,Refuse to answer
+G7_9,1,yes,Yes
+G7_9,2,no,No
+G7_9,9,refuse,Refuse to answer
+G7_10,1,yes,Yes
+G7_10,2,no,No
+G7_10,9,refuse,Refuse to answer
+G7_11,1,yes,Yes
+G7_11,2,no,No
+G7_11,9,refuse,Refuse to answer
+G7_12,1,yes,Yes
+G7_12,2,no,No
+G7_12,9,refuse,Refuse to answer
+G7_13,1,yes,Yes
+G7_13,2,no,No
+G7_13,9,refuse,Refuse to answer
+G7_14,1,yes,Yes
+G7_14,2,no,No
+G7_14,9,refuse,Refuse to answer
+G7_15,1,yes,Yes
+G7_15,2,no,No
+G7_15,9,refuse,Refuse to answer
+G7_16,1,yes,Yes
+G7_16,2,no,No
+G7_16,9,refuse,Refuse to answer
+G8,1,yes,Yes
+G8,2,no,No
+G8.1,1,yes,Yes
+G8.1,2,no,No
+G8.1,3,I don't know,I don't know
+G8.1,8,filter,filter
+G8.2,1,once,Once
+G8.2,2,2-4 times,2-4 times
+G8.2,3,5 or more times,5 or more times
+G8.2,4,the situation continues,The situation continues
+G8.2,5,I don't know,I don't know
+G8.2,8,filter,filter
+G8.3,1,yes,Yes
+G8.3,2,no,No
+G8.3,8,filter,filter
+G8.3.1_1,1,yes,Yes
+G8.3.1_1,2,no,No
+G8.3.1_1,8,filter,filter
+G8.3.1_2,1,yes,Yes
+G8.3.1_2,2,no,No
+G8.3.1_2,8,filter,filter
+G8.3.1_3,1,yes,Yes
+G8.3.1_3,2,no,No
+G8.3.1_3,8,filter,filter
+G8.3.1_4,1,yes,Yes
+G8.3.1_4,2,no,No
+G8.3.1_4,8,filter,filter
+G8.3.1_5,1,yes,Yes
+G8.3.1_5,2,no,No
+G8.3.1_5,8,filter,filter
+G8.3.1_6,1,yes,Yes
+G8.3.1_6,2,no,No
+G8.3.1_6,8,filter,filter
+G8.3.1_7,1,yes,Yes
+G8.3.1_7,2,no,No
+G8.3.1_7,8,filter,filter
+G8.3.1_8,1,yes,Yes
+G8.3.1_8,2,no,No
+G8.3.1_8,8,filter,filter
+G8.3.2_1,1,yes,Yes
+G8.3.2_1,2,no,No
+G8.3.2_1,8,filter,filter
+G8.3.2_2,1,yes,Yes
+G8.3.2_2,2,no,No
+G8.3.2_2,8,filter,filter
+G8.3.2_3,1,yes,Yes
+G8.3.2_3,2,no,No
+G8.3.2_3,8,filter,filter
+G8.3.2_4,1,yes,Yes
+G8.3.2_4,2,no,No
+G8.3.2_4,8,filter,filter
+G8.3.2_5,1,yes,Yes
+G8.3.2_5,2,no,No
+G8.3.2_5,8,filte,filter
+G8.4_1,1,yes,Yes
+G8.4_1,2,no,No
+G8.4_1,8,filter,filter
+G8.4_2,1,yes,Yes
+G8.4_2,2,no,No
+G8.4_2,8,filter,filter
+G8.4_3,1,yes,Yes
+G8.4_3,2,no,No
+G8.4_3,8,filter,filter
+G8.4_4,1,yes,Yes
+G8.4_4,2,no,No
+G8.4_4,8,filter,filter
+G8.4_5,1,yes,Yes
+G8.4_5,2,no,No
+G8.4_5,8,filter,filter
+G8.4_6,1,yes,Yes
+G8.4_6,2,no,No
+G8.4_6,8,filter,filter
+G8.4_7,1,yes,Yes
+G8.4_7,2,no,No
+G8.4_7,8,filter,filter
+G8.4_8,1,yes,Yes
+G8.4_8,2,no,No
+G8.4_8,8,filter,filter
+G8.4_9,1,yes,Yes
+G8.4_9,2,no,No
+G8.4_9,8,filter,filter
+G8.4_10,1,yes,Yes
+G8.4_10,2,no,No
+G8.4_10,8,filter,filter
+G8.4_11,1,yes,Yes
+G8.4_11,2,no,No
+G8.4_11,8,filter,filter
+H1,1,female,Female
+H1,2,male,Male
+H2,1,18-25,18-25
+H2,2,26-35,26-35
+H2,3,36-45,36-45
+H2,4,46-55,46-55
+H2,5,56-65,56-65
+H2,6,65+,65+
+H3,1,Tbilisi,Tbilisi
+H3,2,The suburbs or outskirts of Tbilisi,Suburbs or outskirts of Tbilisi
+H3,3,Town,Town
+H3,4,Acountry village,A country village
+H3,5,A farm or home in the countryside,A farm or home in the countryside
+H4_2,0,no education,No education
+H4_2,1,educated,Educated
+H4.1,1,Pre-primary education,Elementary education
+H4.1,2,Secondary school level,Secondary school level
+H4.1,3,Vocational education on the basis of secondary education,Vocational education on the basis of secondary education
+H4.1,4,BA student,BA student
+H4.1,5,MA student,MA student
+H4.1,6,PhD student,PhD student
+H4.1,7,Higher vocational education,Higher vocational education
+H4.1,8,Bachelor degree,Bachelor degree
+H4.1,9,Master’s degree,Master’s degree
+H4.1,10,PhD,PhD
+H4.1,11,Soviet educatio,Soviet education
+H4.1,12,other,Other
+H5,1,Married,Married
+H5,2,Having stable partner,Having stable partner
+H5,3,I don'w live with spouse but still legally married,I don't live with spouse but am still legally married
+H5,4,divorced,Divorced
+H5,5,widowed,Widowed
+H5,6,I have never been married,I have never been married
+H6,1,Georgian,Georgian
+H6,2,Azeri,Azeri
+H6,3,Armenian,Armenian
+H6,4,Other Caucasian ethnic groups,Other Caucasian ethnic groups
+H6,5,Russian,Russian
+H7,1,no religion,No religion
+H7,2,orthodox,Orthodox
+H7,3,grigorian,Gregorian
+H7,4,catholic,Catholic
+H7,5,protestant,Protestant
+H7,6,other christians,Other Christian
+H7,8,muslin,Muslim
+H7,12,other religions,Other religion
+H8,1,up to 130 GEL,Up to 130 GEL
+H8,2,130-250 GEL,130-250 GEL
+H8,3,251-400 GEL,251-400 GEL
+H8,4,401-700 GEL,401-700 GEL
+H8,5,701-1000 GEL,701-1000 GEL
+H8,6,1001-1300 GEL,1001-1300 GEL
+H8,7,1301-2000 GEL,1301-2000 GEL
+H8,8,more than 2000 GEL,More than 2000 GEL
+H8,9,I can't answer,I can't answer
+H8,10,refuse to answer,Refuse to answer
+H9,1,I don't have a spouse,I don't have a spouse
+H9,2,He/she doesn't work,He/she doesn't work
+H9,3,on daily basis,On daily basis
+H9,4,retired,Retired
+H9,5,I don't know,I don't know
+H9,6,up to 130 GEL,Up to 130 GEL
+H9,7,130-250 GEL,130-250 GEL
+H9,8,251-400 GEL,251-400 GEL
+H9,9,401-700 GEL,401-700 GEL
+H9,10,701-1000 GEL,701-1000 GEL
+H9,11,1001-1300 GEL,1001-1300 GEL
+H9,12,1301-2000 GEL,1301-2000 GEL
+H9,13,more than 2000 GEL,More than 2000 GEL
+H9,14,difficult to answer,Difficult to answer
+H9,15,refure to answer,Refuse to answer
+Envelope,1,closed,Closed
+Envelope,2,open,Open

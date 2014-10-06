@@ -47,6 +47,7 @@
           <ul class="nav navbar-nav navbar-right">
 
             <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
+            <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
 
 	          <% if user_signed_in? %>
 			        <li class="dropdown">
@@ -103,6 +104,8 @@
 		  <div id="middle">
 				<ul class="list-unstyled">
           <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
+          <li>|</li>
+          <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
         </ul>
 			</div>
 			<div id="right" class="clear">

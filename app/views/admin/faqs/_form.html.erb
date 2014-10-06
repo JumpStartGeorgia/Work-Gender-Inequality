@@ -1,0 +1,36 @@
+<%= tinymce_assets %>
+<%= tinymce %>
+
+<%= semantic_form_for([:admin, @faq]) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :faq_category %>
+  <% end %>
+
+  <% create_sorted_translation_objects(@faq.faq_translations).each do |trans| %>
+    <%= f.fields_for :faq_translations, trans do |translation| %>
+
+      <div id="form-<%= trans.locale %>" class="multilanguage_nested">
+        <h3><%= t("app.language.#{trans.locale}") %></h3>
+
+        <%= translation.input :question %>
+        <%= translation.input :answer, :as => :text, rows: 10, :input_html => { class: 'tinymce' } %>
+        <%= translation.hidden_field :locale , :value => trans.locale %>
+      </div>
+
+    <% end %>
+  <% end %>
+
+  <%= f.inputs do %>
+    <%= f.input :sort %>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit t('helpers.links.reset'), :class => 'btn btn-warning', :type => :reset, :name => :reset %>
+    <%= link_to t('helpers.links.cancel'), admin_faqs_path, :class => 'btn btn-mini btn-warning' %>
+  </div>
+<% end %>
+
