@@ -123,7 +123,7 @@ en:
     mailer:
       reset_password_instructions:
         title: 'Hello %{nickname}!'
-        p1: Someone has requested a link to change your password on %{app_name}, and you can do this through the link below.
+        p1: "Someone has requested a link to change your password on %{app_name}, and you can do this through the link below."
         link_title: Change my password
         p2: "If you didn't request this, please ignore this email."
         p3: "Your password won't change until you access the link above and create a new one."                
@@ -132,3 +132,27 @@ en:
       title: Welcome to Tanastsoroba
     explore_data:
       title: Explore the Data
+      no_data: Data is not on file yet - have you run rake db:seed yet?
+      form:
+        row: Variable 1
+        col: Variable 2
+        swap: Swap Variable 1 and Variable 2
+        submit: Get Data
+      tabs:
+        map: Choropleth Map
+        chart: Crosstab chart
+        table: Crosstab table
+        details: Details
+      map:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+        filter: "Filter map by selecting an answer to '%{text}':"
+      chart:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      table:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      details:
+        variable: Variable
+        answers: Possible Answers

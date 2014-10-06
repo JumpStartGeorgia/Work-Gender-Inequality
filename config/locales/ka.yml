@@ -123,7 +123,7 @@ ka:
     mailer:
       reset_password_instructions:
         title: 'მოგესალმებით, %{nickname}!'
-        p1: მივიღეთ მოთხოვნა "%{app_name}" თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს.
+        p1: "მივიღეთ მოთხოვნა '%{app_name}' თქვენი პაროლის შეცვლის შესახებ. პაროლის შესაცვლელად, მიჰყევით შემდეგ ბმულს."
         link_title: პაროლის შეცვლა
         p2: "თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, გთხოვთ, არ მიაქციოთ ყურადღება ამ შეტყობინებას."
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
@@ -132,3 +132,27 @@ ka:
       title: Welcome to Tanastsoroba
     explore_data:
       title: Explore the Data
+      no_data: Data is not on file yet - have you run rake db:seed yet?
+      form:
+        row: Variable 1
+        col: Variable 2
+        swap: Swap Variable 1 and Variable 2
+        submit: Get Data
+      tabs:
+        map: Choropleth Map
+        chart: Crosstab chart
+        table: Crosstab table
+        details: Details
+      map:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+        filter: "Filter map by selecting an answer to '%{text}':"
+      chart:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      table:
+        title: "%{row} <br /> by <br /> %{col}"
+        title_total: "Total Responses: %{num}"
+      details:
+        variable: Variable
+        answers: Possible Answers      
