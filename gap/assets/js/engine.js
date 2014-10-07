@@ -188,8 +188,7 @@ function game() {
 
   var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);
 
-  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').css({left:w*0.6,top:lh - 168}).appendTo(treasure);
-
+  
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
@@ -203,10 +202,10 @@ function game() {
 
   treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + 30 + 10 }).appendTo(b);  
 
-  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').css({left:w*0.6,top:h - 168}).appendTo(treasure);
-
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
+  male.init();
+  female.init();
   timeline_tick();
   draw_stage(0);
 
@@ -214,8 +213,6 @@ function game() {
   var m = $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
   var f = $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
   
-  //male.tosky();
-  //female.tosky();
   redraw_game();
 
 }
@@ -366,7 +363,7 @@ function walk_process(v)
     if(pos != prev_pos)
     {
       var tmp = v*reward_period;
-      console.log(tmp);
+      //console.log(tmp);
       male.tsalary += tmp*male.salary;
       female.tsalary += tmp*female.salary;
       male.tsaved += tmp*male.saving_for_tick;
@@ -374,31 +371,24 @@ function walk_process(v)
       var c = pos > prev_pos;
       var hs = [male,female];
       var hsr = [female,male];
-      var ps = [mp,fp];
-      var psr = [fp,mp];
       for(var i = 0; i < hs.length; ++i)
       {
+        var rew = $('.'+hs[i].place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
         if(c)
         {
-        
-            var rewm = $('.'+hs[i].place + ' .treasure .red-carpet .reward[data-id='+pos+']');
-            var rewm2 = rewm.clone();
-            rewm.hide();
-            $('.'+hs[i].place + ' .treasure .blank .coin').empty().append(rewm2);        
+          rew.hide();
+          hs[i].card.next();
         }
         else
         {
-          for(var i = 0; i < hs.length; ++i)
-          {
-            $('.'+hs[i].place + ' .treasure .blank .coin').empty();
-            $('.'+hs[i].place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').show();
-          }       
+          rew.show();
+          hs[i].card.hide(true);
         }
       }
-      var psTmp = female.outrun ? ps : psr;
-      for(var i = 0; i < psTmp.length; ++i)
+      var hsTmp = female.outrun ? hs : hsr;
+      for(var i = 0; i < hsTmp.length; ++i)
       {
-        psTmp[i].move(c,pos);
+        hsTmp[i].pedestal.move(c,pos);
       }     
     }     
   }  

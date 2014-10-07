@@ -109,8 +109,8 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var _pos = 0;
-  var prev_pos = 0;
+  var _pos = -1;
+  var prev_pos = -1;
   var pos_changed = false;
   __defineGetter__("pos", function(){
      return _pos;
@@ -120,3 +120,15 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
      _pos = val;
      pos_changed = true;
   });
+
+// treasure bar with card 
+    var interest_offset = 10;
+  var interest_animation_duration = 100;
+  var interest_w = 32;
+  var interest_w2 = interest_w/2;
+  var interest_start_offset = 0;
+  //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
+  var states_mutation = [4,4,2,3,3,0];
+  var index = 1;
+  var current_interests_count = 0;
+  var mutation_restriction = [0,0,0,0,0,0];

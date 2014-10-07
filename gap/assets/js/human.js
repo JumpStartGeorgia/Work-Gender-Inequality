@@ -33,8 +33,8 @@ function human(selector,title)
   this.event_by_month = []; 
   this.event_by_period = []; 
   this.place = '';
-
-
+  this.card = new cardObject(this);
+  this.pedestal = new pedestalObject(this);   
 
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
@@ -206,7 +206,7 @@ function human(selector,title)
   };
   this.getpathcoordinates = function getpathcoordinates(progress)
   {	
-  		var percent = Math.round10(progress*100);
+		var percent = Math.round10(progress*100);
 		var p1 = this.path.getPointAtLength(this.path_length * (percent-1)/100);
 		var p2 = this.path.getPointAtLength(this.path_length * (percent+1)/100);
 		var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
@@ -275,13 +275,18 @@ function human(selector,title)
     }
     return rewCount;
   };
+  this.init = function()
+  {
+    this.card.init();    
+    this.pedestal.init();
+  };
 }; // human object with basic properties
 
 
 var male = new human('.m.character','Male'); // male human object
 var female = new human('.f.character','Female'); // female human object
 
-
+ 
 function h_go_right()
 {
   male.step_right();
