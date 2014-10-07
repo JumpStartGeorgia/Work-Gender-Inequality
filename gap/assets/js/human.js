@@ -30,7 +30,8 @@ function human(selector,title)
   this.traversed_path = 0;
   this.path_loop = false;
   this.movement = 0;
-  this.event_by_month = [];  
+  this.event_by_month = []; 
+  this.event_by_period = []; 
   this.place = '';
 
 
@@ -217,16 +218,40 @@ function human(selector,title)
     var life = (max_age - user.age) * 12;
     var overall = 0;
     this.event_by_month = [];
+    this.event_by_period = [];
+    var periodIndex = -1;
+    var periodPush = true;
+    for (var i = 0; i <= life; ++i) 
+    {
+      if(i % reward_period == 0) 
+      {
+        ++periodIndex;
+        periodPush = true;
+      }
 
-    for (var i = 0; i <= life; ++i) {
       overall += this.saving_for_tick;    
       var tmp = Math.floor10(overall / interest[0].cost);
       if(tmp > 0)
       {
         this.event_by_month.push(tmp);
         overall -= tmp*interest[0].cost;
+        if(periodPush)
+        {
+          this.event_by_period.push(tmp);
+          periodPush = false;
+        }
+        else 
+          this.event_by_period[periodIndex] += tmp;
       }
-      else this.event_by_month.push(0);
+      else 
+      {
+        if(periodPush)
+        {
+          this.event_by_period.push(0);
+          periodPush = false;
+        }
+        this.event_by_month.push(0);
+      }
     }
     //console.log(this.event_by_month);
 
