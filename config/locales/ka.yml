@@ -147,6 +147,7 @@ ka:
       title: Welcome to Tanastsoroba
     explore_data:
       title: Explore the Data
+      no_matches: Your selections returned no data. Please try again with a different selection.
       no_data: Data is not on file yet - have you run rake db:seed yet?
       instructions:
         header: Instructions
