@@ -186,8 +186,9 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);  
-  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').appendTo(treasure);
+  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);
+
+  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').css({left:w*0.6,top:lh - 168}).appendTo(treasure);
 
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
@@ -199,7 +200,11 @@ function game() {
   var bs = $('<div class="score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(b);
   bs.css({ left: w-bs.width()-30, top: lh + th + 20});
-  $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + 30 + 10 }).appendTo(b);  
+
+  treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + 30 + 10 }).appendTo(b);  
+
+  $('<div class="blank"><div class="coin"></div><div class="text">Some Paris Info</div></div>').css({left:w*0.6,top:h - 168}).appendTo(treasure);
+
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
   timeline_tick();
@@ -367,33 +372,34 @@ function walk_process(v)
       male.tsaved += tmp*male.saving_for_tick;
       female.tsaved += tmp*female.saving_for_tick;
       var c = pos > prev_pos;
-      if(c)
+      var hs = [male,female];
+      var hsr = [female,male];
+      var ps = [mp,fp];
+      var psr = [fp,mp];
+      for(var i = 0; i < hs.length; ++i)
       {
-        var rewm = $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
-        var rewm2 = rewm.clone();
-        rewm.hide();
-        $('.'+male.place + ' .treasure .blank .coin').empty().append(rewm2);
-
-
-        $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+pos+']').toggle();
+        if(c)
+        {
+        
+            var rewm = $('.'+hs[i].place + ' .treasure .red-carpet .reward[data-id='+pos+']');
+            var rewm2 = rewm.clone();
+            rewm.hide();
+            $('.'+hs[i].place + ' .treasure .blank .coin').empty().append(rewm2);        
+        }
+        else
+        {
+          for(var i = 0; i < hs.length; ++i)
+          {
+            $('.'+hs[i].place + ' .treasure .blank .coin').empty();
+            $('.'+hs[i].place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').show();
+          }       
+        }
       }
-      else
+      var psTmp = female.outrun ? ps : psr;
+      for(var i = 0; i < psTmp.length; ++i)
       {
-        $('.'+male.place + ' .treasure .blank .coin').empty();
-        $('.'+male.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').show();
-        $('.'+female.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']').toggle();
-      }
-      if(female.outrun)
-      {          
-        mp.move(c,pos);
-        fp.move(c,pos);      
-      }
-      else 
-      {    
-
-        fp.move(c,pos);      
-        mp.move(c,pos);                  
-      }
+        psTmp[i].move(c,pos);
+      }     
     }     
   }  
 }

@@ -67,6 +67,7 @@ body,html
 }
 .treasure .pedestal
 {
+  z-index:50;
 /*  background-color: rgb(5, 143, 252);
   margin-left: 30px;
   padding: 0px 10px;
@@ -83,11 +84,17 @@ body,html
   height: 32px;
   line-height: 32px;
   transition: all 0.2s ease-out;
+  z-index:50;
 }
 .treasure .red-carpet .reward
 {
   position:absolute;
   top:0px;
+}
+.treasure .blank
+{
+  background-color:#fafafa;
+  z-index:49;
 }
 .treasure .blank .coin .reward
 {
@@ -104,6 +111,7 @@ body,html
   background-repeat:no-repeat;
   background-position:0px;   
   margin-right:10px;  
+    transition: all 0.2s ease-out;
 }
 
 #screen .top .score, #screen .bottom .score
