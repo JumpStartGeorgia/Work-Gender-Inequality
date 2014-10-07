@@ -6,4 +6,10 @@ class SurveyAnswer < ActiveRecord::Base
     foreign_key: :code, 
     class_name: "SurveyQuestion"
 
+
+  # get all of the answers
+  def self.all
+    select('code, text, value')
+  end
+
 end

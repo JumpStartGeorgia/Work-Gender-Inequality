@@ -6,7 +6,7 @@ class SurveyResult < ActiveRecord::Base
   # - row: item that appears down the rows (left side)
   # - column: item that appears across the columns (top side)
   # - filter: if provided, indicates a field and value to filter the crosstab by
-  #           format: {name: ____, value: ______}
+  #           format: {code: ____, value: ______}
   # return: hash wil the following
   # - row_question: text of question for rows
   # - row_answers: array of [value, text] for each answer in this question
@@ -23,6 +23,7 @@ class SurveyResult < ActiveRecord::Base
   #   - data: series data
   # - map: data formatted for leaflet
   def self.crosstab_count(row, column, filter=nil)
+    logger.debug "//////////// crosstab vars - row: #{row}, col: #{column}, filter: #{filter}"
     result = {}
     # get the question/answers for these items
     q_row = SurveyQuestion.with_answers(row)
@@ -37,7 +38,7 @@ class SurveyResult < ActiveRecord::Base
         sql_filter = ''
         if filter.present?
           sql_filter << ' and '
-          sql_filter << filter[:name].to_s
+          sql_filter << filter[:code].to_s
           sql_filter << "="
           sql_filter << filter[:value].to_s
         end

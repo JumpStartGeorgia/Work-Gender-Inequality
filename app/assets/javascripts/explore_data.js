@@ -303,7 +303,53 @@ function onEachFeature(feature, layer) {
       $('select.selectpicker#row').selectpicker('refresh');
     }
 
+    // update filter list
+    var row = $('select.selectpicker#row').val();
+    var col = $('select.selectpicker#col').val();
+    // if filter is one of these values, reset filter to no filter
+    if ($('select#filter_variable').val() == row || $('select#filter_variable').val() == col){
+      // reset value and hide filter answers
+      $('select#filter_variable').selectpicker('val', '');
+      $('#filter_value_container').fadeOut();
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+      $('select#filter_value').selectpicker('refresh');
+      $('select#filter_value').selectpicker('render');
+    }   
+    // mark selected items as disabled
+    $('select#filter_variable option[disabled="disabled"]').removeAttr('disabled');  
+    $('select#filter_variable option[value="' + row + '"]').attr('disabled','disabled');
+    $('select#filter_variable option[value="' + col + '"]').attr('disabled','disabled');
+
+    $('select#filter_variable').selectpicker('refresh');
+    $('select#filter_variable').selectpicker('render');
   });  
+
+  // if filter variable is selected, update the filter values list
+  $('select#filter_variable').change(function(){
+    var value = $(this).val();
+
+    if (value == ''){
+      // no filter, so hide the filter values
+      $('#filter_value_container').fadeOut();
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+    }else{
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+
+      // turn on the values that have the filter variable value
+      $('select#filter_value option[data-code="' + value + '"]').removeAttr('disabled');
+
+      // show list
+      $('#filter_value_container').fadeIn();
+    }
+
+    // reload the list, selecting the first item in the list
+    $('select#filter_value option[data-code="' + value + '"]:first').attr('selected', 'selected');
+    $('select#filter_value').selectpicker('refresh');
+    $('select#filter_value').selectpicker('render');
+
+  });
 
   // swap vars button
   // - when clicked, swap the values and then submit the form
