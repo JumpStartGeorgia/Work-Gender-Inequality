@@ -6,7 +6,17 @@
     <div class="row">
       <div class="col-sm-4">
         <%= label_tag 'row', t('.form.row') %>
-        <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true", :'data-size' => "7" %>
+        <%# select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true" %>
+        <select data-live-search="true" data-hide-disabled='true' class="selectpicker" id="row" name="row">
+          <% @questions.each_with_index do |question, index| %>
+            <% 
+              selected = (params[:row].present? && params[:row] == question.code) || (params[:col].blank? && index == 0) ? 'selected=selected ' : ''
+              col = params[:col].present? ? params[:col] : @questions[1].code 
+              disabled = col == question.code ? 'disabled=disabled ' : ''
+            %>
+            <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+          <% end %>
+        </select>
       </div>
       <div class="col-sm-1">
         <button id="btn-swap-vars" type="button" class="btn btn-default" title="<%= t('.form.swap') %>">
@@ -15,8 +25,18 @@
       </div>  
       <div class="col-sm-4">
         <%= label_tag 'col', t('.form.col') %>
-        <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
-          :'data-live-search' => "true", :'data-size' => "7" %>
+        <%# select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
+          :'data-live-search' => "true", :'data-hide-disabled' => 'true' %>
+        <select data-live-search="true" data-hide-disabled='true' class="selectpicker" id="col" name="col">
+          <% @questions.each_with_index do |question, index| %>
+            <% 
+              selected = (params[:col].present? && params[:col] == question.code) || (params[:col].blank? && index == 1) ? 'selected=selected ' : ''
+              row = params[:row].present? ? params[:row] : @questions.first.code 
+              disabled = row == question.code ? 'disabled=disabled ' : ''
+            %>
+            <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+          <% end %>
+        </select>
       </div>
       <div class="col-sm-3">
       <%= submit_tag t('.form.submit'), :class => 'btn btn-default', :id => 'btn-submit' %>
