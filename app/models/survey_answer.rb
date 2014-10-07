@@ -1,5 +1,5 @@
 class SurveyAnswer < ActiveRecord::Base
-  attr_accessible :code, :text, :value
+  attr_accessible :code, :text, :value, :can_exclude
 
   belongs_to :question, 
     primary_key: :code,

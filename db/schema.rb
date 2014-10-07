@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141007122832) do
+ActiveRecord::Schema.define(:version => 20141007132241) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -78,13 +78,15 @@ ActiveRecord::Schema.define(:version => 20141007122832) do
   add_index "pages", ["name"], :name => "index_pages_on_name"
 
   create_table "survey_answers", :force => true do |t|
-    t.string   "code",       :limit => 50
-    t.integer  "value",      :limit => 2
-    t.string   "text",       :limit => 1024
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.string   "code",        :limit => 50
+    t.integer  "value",       :limit => 2
+    t.string   "text",        :limit => 1024
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "can_exclude",                 :default => false
   end
 
+  add_index "survey_answers", ["can_exclude"], :name => "index_survey_answers_on_can_exclude"
   add_index "survey_answers", ["code", "value"], :name => "index_survey_answers_on_code_and_value"
   add_index "survey_answers", ["code"], :name => "index_survey_answers_on_code"
 

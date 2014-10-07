@@ -162,6 +162,7 @@ en:
         filter_variable: Filter by Variable
         no_filter: No Filter
         filter_value: With Value
+        exclude_dkra: Exclude "Don't know" & "Refuse"
       tabs:
         map: Choropleth Map
         chart: Crosstab chart

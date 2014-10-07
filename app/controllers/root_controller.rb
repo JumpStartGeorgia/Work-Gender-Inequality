@@ -43,7 +43,10 @@ class RootController < ApplicationController
     end
 
     # get the data
-    @data = SurveyResult.crosstab_count(row, col, @filter)
+    options = {}
+    options[:filter] = @filter if @filter.present?
+    options[:exclude_dkra] = params[:exclude_dkra].to_bool if params[:exclude_dkra].present?
+    @data = SurveyResult.crosstab_count(row, col, options)
 
     if @data[:chart]
       gon.chart_data = @data[:chart][:data]

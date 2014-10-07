@@ -66,7 +66,7 @@
       </div>
 
       <div class="row row-eq-height">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <%= label_tag 'filter_variable', t('.form.filter_variable') %>
           <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_variable" name="filter_variable">
             <option value=""><%= t('.form.no_filter') %></option>
@@ -82,13 +82,14 @@
         <%
           show_filter_answers = filter_variable.blank? ? 'style=display:none;' : ''
         %>
-        <div class="col-sm-5">
+        <div class="col-sm-4">
           <div id="filter_value_container" <%= show_filter_answers %>>
             <%= label_tag 'filter_value', t('.form.filter_value') %>
             <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_value" name="filter_value">
               <% @filter_answers.each do |answer| %>
                 <% 
-                  selected = params[:filter_value].present? && params[:filter_value] == answer.value ? 'selected=selected ' : ''
+                  selected = params[:filter_value].present? && params[:filter_value] == answer.value.to_s &&
+                              filter_variable == answer.code ? 'selected=selected ' : ''
                   disabled = filter_variable == answer.code ? '' : 'disabled=disabled '
                 %>
                 <option value="<%= answer.value %>" <%= selected %><%= disabled %> data-code="<%= answer.code %>" ><%= answer.text %></option>
@@ -96,7 +97,13 @@
             </select>
           </div>
         </div>
-        <div class="col-sm-2 col-bottom text-right">
+        <div class="col-sm-3 col-bottom text-center">
+          <%= label_tag 'exclude_dkra', :id => 'lbl_exclude_dkra' do %>
+            <%= check_box_tag 'exclude_dkra', true, params[:exclude_dkra].present? ? params[:exclude_dkra].to_bool : false %>
+            <%= t('.form.exclude_dkra') %>
+          <% end %>
+        </div>
+        <div class="col-sm-1 col-bottom text-right">
           <%= submit_tag t('.form.submit'), :class => 'btn btn-default', :id => 'btn-submit' %>
         </div>
       </div>

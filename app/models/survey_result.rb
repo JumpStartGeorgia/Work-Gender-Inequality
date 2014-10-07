@@ -7,6 +7,7 @@ class SurveyResult < ActiveRecord::Base
   # - column: item that appears across the columns (top side)
   # - filter: if provided, indicates a field and value to filter the crosstab by
   #           format: {code: ____, value: ______}
+  # - exclude_dkra: flag indicating if don't know/refuse to answer answers should be ignored
   # return: hash wil the following
   # - row_question: text of question for rows
   # - row_answers: array of [value, text] for each answer in this question
@@ -22,8 +23,10 @@ class SurveyResult < ActiveRecord::Base
   #   - labels: axis lables
   #   - data: series data
   # - map: data formatted for leaflet
-  def self.crosstab_count(row, column, filter=nil)
-    logger.debug "//////////// crosstab vars - row: #{row}, col: #{column}, filter: #{filter}"
+  def self.crosstab_count(row, column, options={})
+    filter = options[:filter]
+    exclude_dkra = options[:exclude_dkra] == true
+    logger.debug "//////////// crosstab vars - row: #{row}, col: #{column}, filter: #{filter}, exclude_dkra: #{exclude_dkra}"
     result = {}
     # get the question/answers for these items
     q_row = SurveyQuestion.with_answers(row)
@@ -55,10 +58,11 @@ class SurveyResult < ActiveRecord::Base
         # put all of the data together
 
         # save the questions and answers
+        # if exclude_dkra is true, only get use the answers that cannot be excluded
         result[:row_question] = q_row.text
-        result[:row_answers] = q_row.answers.map{|x| [x.value, x.text]}
+        result[:row_answers] = (exclude_dkra == true ? q_row.answers.select{|x| x.can_exclude == false} : q_row.answers).map{|x| [x.value, x.text]}
         result[:column_question] = q_col.text
-        result[:column_answers] = q_col.answers.map{|x| [x.value, x.text]}
+        result[:column_answers] = (exclude_dkra == true ? q_col.answers.select{|x| x.can_exclude == false} : q_col.answers).map{|x| [x.value, x.text]}
 
         # put the counts into a new array to make sure all row and column answers are included
         result[:counts] = []
