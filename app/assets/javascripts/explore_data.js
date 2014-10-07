@@ -239,21 +239,6 @@ function onEachFeature(feature, layer) {
     sort_array.push(i);
   }
 
-  // initalize the datatable
-  $('#datatable').dataTable({
-    "dom": '<"top"fT>t<"clear">',
-    "language": {
-      "url": gon.datatable_i18n_url
-    },
-    "columnDefs": [
-        { "type": "formatted-num", targets: sort_array }
-    ],
-    "tableTools": {
-      "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
-    }
-  });    
-
-  $('.selectpicker').selectpicker();    
 
   // due to using tabs, the map, chart and table cannot be properly drawn
   // because they may be hidden. 
@@ -277,6 +262,95 @@ function onEachFeature(feature, layer) {
     }
   });
 
+
+  // initalize the datatable
+  $('#datatable').dataTable({
+    "dom": '<"top"fT>t<"clear">',
+    "language": {
+      "url": gon.datatable_i18n_url
+    },
+    "columnDefs": [
+        { "type": "formatted-num", targets: sort_array }
+    ],
+    "tableTools": {
+      "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
+    }
+  });    
+
+  // initalize the fancy select boxes
+  $('select.selectpicker').selectpicker();    
+
+  // if option changes, make sure the select option is not available in the other lists
+  $('select.selectpicker').change(function(){
+    val = $(this).val();
+    // if this is row, update col
+    // else, vice-versa
+    if ($(this).attr('id') == 'row'){
+      // update col list
+      // remove all disabled
+      $('select.selectpicker#col option[disabled="disabled"]').removeAttr('disabled');  
+      // disable the new selection
+      $('select.selectpicker#col option[value="' + val + '"]').attr('disabled', 'disabled');
+      // update the select list
+      $('select.selectpicker#col').selectpicker('refresh');
+    }else if ($(this).attr('id') == 'col'){
+      // update row list
+      // remove all disabled
+      $('select.selectpicker#row option[disabled="disabled"]').removeAttr('disabled');  
+      // disable the new selection
+      $('select.selectpicker#row option[value="' + val + '"]').attr('disabled', 'disabled');
+      // update the select list
+      $('select.selectpicker#row').selectpicker('refresh');
+    }
+
+    // update filter list
+    var row = $('select.selectpicker#row').val();
+    var col = $('select.selectpicker#col').val();
+    // if filter is one of these values, reset filter to no filter
+    if ($('select#filter_variable').val() == row || $('select#filter_variable').val() == col){
+      // reset value and hide filter answers
+      $('select#filter_variable').selectpicker('val', '');
+      $('#filter_value_container').fadeOut();
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+      $('select#filter_value').selectpicker('refresh');
+      $('select#filter_value').selectpicker('render');
+    }   
+    // mark selected items as disabled
+    $('select#filter_variable option[disabled="disabled"]').removeAttr('disabled');  
+    $('select#filter_variable option[value="' + row + '"]').attr('disabled','disabled');
+    $('select#filter_variable option[value="' + col + '"]').attr('disabled','disabled');
+
+    $('select#filter_variable').selectpicker('refresh');
+    $('select#filter_variable').selectpicker('render');
+  });  
+
+  // if filter variable is selected, update the filter values list
+  $('select#filter_variable').change(function(){
+    var value = $(this).val();
+
+    if (value == ''){
+      // no filter, so hide the filter values
+      $('#filter_value_container').fadeOut();
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+    }else{
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+
+      // turn on the values that have the filter variable value
+      $('select#filter_value option[data-code="' + value + '"]').removeAttr('disabled');
+
+      // show list
+      $('#filter_value_container').fadeIn();
+    }
+
+    // reload the list, selecting the first item in the list
+    $('select#filter_value option[data-code="' + value + '"]:first').attr('selected', 'selected');
+    $('select#filter_value').selectpicker('refresh');
+    $('select#filter_value').selectpicker('render');
+
+  });
+
   // swap vars button
   // - when clicked, swap the values and then submit the form
   $('button#btn-swap-vars').click(function(){
@@ -284,15 +358,32 @@ function onEachFeature(feature, layer) {
     var var1 = $('select#row').val();
     var var2 = $('select#col').val();
 
+    // turn off disabled options
+    // so can select in next step
+    $('select#row option[value="' + var2 + '"]').removeAttr('disabled');
+    $('select#col option[value="' + var1 + '"]').removeAttr('disabled');
+
+    // refresh so disabled options are removed
+    $('select#row').selectpicker('refresh');
+    $('select#col').selectpicker('refresh');
+
     // swap the vals
     $('select#row').selectpicker('val', var2);
     $('select#col').selectpicker('val', var1);
 
+    $('select#row').selectpicker('render');
+    $('select#col').selectpicker('render');
+
+    // disable the swapped values
+    $('select#row option[value="' + var1 + '"]').attr('disabled', 'disabled');
+    $('select#col option[value="' + var2 + '"]').attr('disabled', 'disabled');
+
+    // refresh so disabled options are updated
+    $('select#row').selectpicker('refresh');
+    $('select#col').selectpicker('refresh');
+
     // submit the form
     $('input#btn-submit').trigger('click');
-
-
-
   });
 
 

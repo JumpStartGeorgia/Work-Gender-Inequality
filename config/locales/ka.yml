@@ -147,12 +147,22 @@ ka:
       title: Welcome to Tanastsoroba
     explore_data:
       title: Explore the Data
+      no_matches: Your selections returned no data. Please try again with a different selection.
       no_data: Data is not on file yet - have you run rake db:seed yet?
+      instructions:
+        header: Instructions
+        p1a: This page allows you to explore the interaction between two variables from the Employment-related Resarch in Georgia Survey. 
+        p1b: "This interaction can be analyzed via a map (if one variable is 'Reg'), a chart, and a table."
+        p2: "In addition to viewing the interaction between two variables, you may also choose to narrow the focus of this interaction by selecting another variable to filter by."
       form:
         row: Variable 1
         col: Variable 2
         swap: Swap Variable 1 and Variable 2
         submit: Get Data
+        filter_variable: Filter by Variable
+        no_filter: No Filter
+        filter_value: With Value
+        exclude_dkra: Exclude "Don't know" & "Refuse"
       tabs:
         map: Choropleth Map
         chart: Crosstab chart
@@ -160,6 +170,7 @@ ka:
         details: Details
       map:
         title: "%{row} <br /> by <br /> %{col}"
+        title_filter: "<br /> where <br /> %{variable} = %{value}"
         title_total: "Total Responses: %{num}"
         filter: "Filter map by selecting an answer to '%{text}':"
       chart:

@@ -1,27 +1,113 @@
 <% title t('.title') %>
 
-<% if @questions.present? %>
+<div id="explore-data">
+  <% if @questions.present? %>
 
-  <%= form_tag(explore_data_path) do %>
-    <div class="row">
-      <div class="col-sm-4">
-        <%= label_tag 'row', t('.form.row') %>
-        <%= select_tag 'row', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:row]), :class => "selectpicker", :'data-live-search' => "true", :'data-size' => "7" %>
+      <div class="panel-group" id="panel-instructions">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#panel-instructions" href="#instructions">
+                <%= t('.instructions.header') %>
+              </a>
+            </h4>
+          </div>
+          <div id="instructions" class="panel-collapse collapse">
+            <div class="panel-body">
+              <p>
+                <%= t('.instructions.p1a') %>
+                <%= t('.instructions.p1b') %>
+              </p>
+              <p>
+                <%= t('.instructions.p2') %>
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-1">
-        <button id="btn-swap-vars" type="button" class="btn btn-default" title="<%= t('.form.swap') %>">
-          <span class="glyphicon glyphicon-refresh"></span>
-        </button>        
-      </div>  
-      <div class="col-sm-4">
-        <%= label_tag 'col', t('.form.col') %>
-        <%= select_tag 'col', options_for_select(@questions.map{|x| ["#{x.code} - #{x.text}", x.code]}, params[:col].present? ? params[:col] : @questions[1].code), :class => "selectpicker", 
-          :'data-live-search' => "true", :'data-size' => "7" %>
+
+
+    <%= form_tag(explore_data_path) do %>
+      <div class="row row-eq-height">
+        <div class="col-sm-5">
+          <%
+            row = params[:row].present? ? params[:row] : @questions[0].code 
+            col = params[:col].present? ? params[:col] : @questions[1].code 
+            filter_variable = params[:filter_variable].present? ? params[:filter_variable] : ''
+          %>
+          <%= label_tag 'row', t('.form.row') %>
+          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="row" name="row">
+            <% @questions.each_with_index do |question, index| %>
+              <% 
+                selected = (params[:row].present? && params[:row] == question.code) || (params[:col].blank? && index == 0) ? 'selected=selected ' : ''
+                disabled = col == question.code ? 'disabled=disabled ' : ''
+              %>
+              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col-sm-2 col-bottom text-center">
+          <button id="btn-swap-vars" type="button" class="btn btn-default" title="<%= t('.form.swap') %>">
+            <span class="glyphicon glyphicon-refresh"></span>
+          </button>        
+        </div>  
+        <div class="col-sm-5">
+          <%= label_tag 'col', t('.form.col') %>
+          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="col" name="col">
+            <% @questions.each_with_index do |question, index| %>
+              <% 
+                selected = (params[:col].present? && params[:col] == question.code) || (params[:col].blank? && index == 1) ? 'selected=selected ' : ''
+                disabled = row == question.code ? 'disabled=disabled ' : ''
+              %>
+              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+            <% end %>
+          </select>
+        </div>
       </div>
-      <div class="col-sm-3">
-      <%= submit_tag t('.form.submit'), :class => 'btn btn-default', :id => 'btn-submit' %>
+
+      <div class="row row-eq-height">
+        <div class="col-sm-4">
+          <%= label_tag 'filter_variable', t('.form.filter_variable') %>
+          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_variable" name="filter_variable">
+            <option value=""><%= t('.form.no_filter') %></option>
+            <% @questions.each do |question| %>
+              <% 
+                selected = filter_variable == question.code ? 'selected=selected ' : ''
+                disabled = col == question.code || row == question.code ? 'disabled=disabled ' : ''
+              %>
+              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+            <% end %>
+          </select>
+        </div>
+        <%
+          show_filter_answers = filter_variable.blank? ? 'style=display:none;' : ''
+        %>
+        <div class="col-sm-4">
+          <div id="filter_value_container" <%= show_filter_answers %>>
+            <%= label_tag 'filter_value', t('.form.filter_value') %>
+            <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_value" name="filter_value">
+              <% @filter_answers.each do |answer| %>
+                <% 
+                  selected = params[:filter_value].present? && params[:filter_value] == answer.value.to_s &&
+                              filter_variable == answer.code ? 'selected=selected ' : ''
+                  disabled = filter_variable == answer.code ? '' : 'disabled=disabled '
+                %>
+                <option value="<%= answer.value %>" <%= selected %><%= disabled %> data-code="<%= answer.code %>" ><%= answer.text %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-3 col-bottom text-center">
+          <%= label_tag 'exclude_dkra', :id => 'lbl_exclude_dkra' do %>
+            <%= check_box_tag 'exclude_dkra', true, params[:exclude_dkra].present? ? params[:exclude_dkra].to_bool : false %>
+            <%= t('.form.exclude_dkra') %>
+          <% end %>
+        </div>
+        <div class="col-sm-1 col-bottom text-right">
+          <%= submit_tag t('.form.submit'), :class => 'btn btn-default', :id => 'btn-submit' %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <% if @data.present? %>
       <ul class="nav nav-tabs" role="tablist">
@@ -40,6 +126,9 @@
           <div class="tab-pane active" id="tab-map">
             <h3>
               <%= t('.map.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
+              <% if @filter.present? %>
+                <%= t('.map.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
+              <% end %>
               <br />
               <span class="total_responses">(<%= t('.map.title_total', :num => @data[:total_responses]) %>)</span>
             </h3>
@@ -65,6 +154,9 @@
         <div class="tab-pane" id="tab-table">
           <h3>
             <%= t('.table.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
+              <% if @filter.present? %>
+                <%= t('.table.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
+              <% end %>
             <br />
             <span class="total_responses">(<%= t('.table.title_total', :num => @data[:total_responses]) %>)</span>
           </h3>
@@ -134,12 +226,16 @@
           </div>
         </div>
       </div>
+    <% else %>
+      <p id="no-matches" class="bg-warning">
+        <%= t('.no_matches') %>
+      </p>
     <% end %>
+  <% else %>
+
+    <p>
+      <%= t('.no_data') %>
+    </p>
+
   <% end %>
-<% else %>
-
-  <p>
-    <%= t('.no_data') %>
-  </p>
-
-<% end %>
+</div>

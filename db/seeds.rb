@@ -46,6 +46,13 @@ codes = answers.map{|x| x[0]}.uniq
 SurveyQuestion.where(:code => codes).update_all(:has_code_answers => true)
 
 #####################
+## Record which answers can be excluded from analysis
+## (don't know, refuse, filter)
+#####################
+puts "Flagging which answers can be excluded"
+SurveyAnswer.where(:text => ['filter', 'refuse to answer', "i don't know"]).update_all(:can_exclude => true)
+
+#####################
 ## Survey Results
 #####################
 puts "Loading survey results"
