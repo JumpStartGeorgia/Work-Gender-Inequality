@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141007132241) do
+ActiveRecord::Schema.define(:version => 20141008073459) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -96,9 +96,11 @@ ActiveRecord::Schema.define(:version => 20141007132241) do
     t.boolean  "has_code_answers",                 :default => false
     t.datetime "created_at",                                          :null => false
     t.datetime "updated_at",                                          :null => false
+    t.boolean  "is_mappable",                      :default => false
   end
 
   add_index "survey_questions", ["code", "has_code_answers"], :name => "index_survey_questions_on_code_and_has_code_answers"
+  add_index "survey_questions", ["is_mappable"], :name => "index_survey_questions_on_is_mappable"
   add_index "survey_questions", ["text"], :name => "index_survey_questions_on_text", :length => {"text"=>255}
 
   create_table "survey_results", :force => true do |t|

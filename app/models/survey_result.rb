@@ -123,13 +123,13 @@ class SurveyResult < ActiveRecord::Base
         # record the total number of responses
         result[:total_responses] = totals.inject(:+)
 
-        # if row or column is the region variable, create the map data
-        if row.downcase == 'reg' || column.downcase == 'reg'
+        # if row or column is a mappable variable, create the map data
+        if q_row.is_mappable || q_col.is_mappable
           result[:map_percents] = {}
           result[:map_counts] = {}
 
-          # if the row is the region, recompute percents so columns add up to 100%
-          if row.downcase == 'reg'
+          # if the row is the mappable, recompute percents so columns add up to 100%
+          if q_row.is_mappable
             result[:map_filter] = result[:column_question]
             result[:map_filters] = result[:column_answers]
 
@@ -153,7 +153,7 @@ class SurveyResult < ActiveRecord::Base
               result[:map_percents][col_answer[0].to_s] = Hash.new
               result[:map_counts][col_answer[0].to_s] = Hash.new
 
-              # now store the results for each region
+              # now store the results for each item
               (0..result[:row_answers].length-1).each do |index|
                 result[:map_percents][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
                 result[:map_counts][col_answer[0].to_s][result[:row_answers][index][1].to_s] = counts[col_index][index]
@@ -169,7 +169,7 @@ class SurveyResult < ActiveRecord::Base
               result[:map_percents][row_answer[0].to_s] = Hash.new
               result[:map_counts][row_answer[0].to_s] = Hash.new
 
-              # now store the results for each region
+              # now store the results for each item
               (0..result[:column_answers].length-1).each do |index|
                 result[:map_percents][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
                 result[:map_counts][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:counts][row_index][index]
