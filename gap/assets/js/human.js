@@ -38,6 +38,7 @@ function human(selector,title)
   this.queue = new queueObject();
   this.future_reward = 0;
 
+
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
 	   return this._salary;
@@ -56,18 +57,15 @@ function human(selector,title)
 	});
 	this.__defineSetter__("tsalary", function(val){
 	   this._tsalary = val;
-	   if(val > 0)
-	     $(this.selector).parent().find('.score .tsalary .value').text(Math.round10(val));
+     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? Math.round10(val) : NaN);
 	});
 	this.__defineGetter__("tsaved", function(){
 	 //console.log("getter tsaved ", this._tsaved);
 	     return this._tsaved;
 	 });
 	this.__defineSetter__("tsaved", function(val){
-	 //console.log("setterrrrrrrrrrr tsaved",this._tsaved,val);
 	   this._tsaved = val;
-	   if(val > 0)
-	     $(this.selector).parent().find('.score .tsaved .value').text(Math.round10(val));
+     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? Math.round10(val) : NaN);
 	});
 	this.__defineGetter__("stage", function(){
 	   return this._stage;
@@ -271,6 +269,95 @@ function human(selector,title)
     this.future_reward = this.event_by_period[pos + 1];
     return this.future_reward > 0;
   };
+  this.mutate = function()
+  {
+    // recreate this point todo
+    var t = this;
+    var treasure = t.treasure;
+    console.log("inner mutation",treasure,this.event_by_period[pos]);
+    var how = events = this.event_by_period[pos];
+    var zIndex = 0;
+    treasure[zIndex]+=how;
+   
+    // if(!t.mutationDone) // todo delaying up till previous end
+    // {
+    //   t.up_stack.push({which:which,how:how,hidden:hidden});
+    //   t.delay();
+    //   return;
+    // }
+    var which = 1;
+  
+    if(t.inrange(which) && how > 0)
+    {      
+      var ca = treasure[zIndex]+how;
+      var sm = states_mutation[zIndex];
+      var smc = Math.floor10(ca/sm); 
+      console.log(ca,sm,smc,treasure,how,mutation_restriction);
+      var mutation_count = 0;
+      t.mutation = mutation_empty.slice();
+
+      if(!t.outrun) mutation_restriction[zIndex] = 0;
+
+      if(t.outrun && smc > mutation_restriction[which]) 
+      {
+        smc =  mutation_restriction[zIndex];
+        mutation_restriction[zIndex] = 0;
+      }
+      
+      if(smc >= 1)
+      {
+        
+        mutation_count+=smc;
+        t.mutation[zIndex] = { count: smc };
+
+        var looper = smc;
+        var tca = ca;        
+        var interestB = t.sp.find('.interestB[data-id='+which+']');
+
+        if(!t.outrun) mutation_restriction[zIndex] = smc;
+        while(looper != 0)
+        {
+          var from = tca - sm;
+          var to = tca - how;
+
+          var beforeItem = interestB.find('.item[data-id=' + (from++) + ']');
+          var wrapper = $('<div class="mutationB" data-id="'+looper+'" data-from="'+from+'" data-to="'+to+'"></div>');
+          if(beforeItem.length == 0) 
+             interestB.prepend(wrapper);
+          else wrapper.insertAfter(beforeItem);
+
+          for(var j = from; j <= to; ++j)
+          {
+            var item = interestB.find('.item[data-id=' + j + ']');            
+            wrapper.append(item.detach());
+          }
+          tca-=sm;        
+          --looper;
+        }
+        if(mutation_count > 0)// && this.p.title != 'Male')
+        {
+          //console.log(this.p,mutation_count);
+          this.animatePathToCard(which);
+          treasure[zIndex]-=mutation_count * sm;
+        }
+      }
+      else
+      {        
+        this.add(which,treasure[zIndex],how);
+        treasure[zIndex]+=how;
+      }
+      
+      
+    }
+
+    this.queue.resume();
+  };
+  this.inrange = function(which)
+  {
+    if(which >=1 && which < 6)
+      return true;
+    return false;
+  };
   this.init = function()
   {
     this.card.init();    
@@ -291,8 +378,8 @@ function h_go_right()
 }
 function h_go_left()
 {
-  male.step_right();
-  female.step_right();
+  male.step_left();
+  female.step_left();
 }
   // this.positionXYA = function positionXYA(x,y,a) {
   //     var scaleX = $(document).width()/100;

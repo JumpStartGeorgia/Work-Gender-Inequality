@@ -1,22 +1,27 @@
 function pedestalObject(p)
 {
-  this.ach = [0,0,0,0,0,0]; // achievements per item in interest
-  this.achTmp = [0,0,0,0,0,0];
-  this.ach_count = this.ach.length;   
+  this.p = p;
+  var treasure = p.treasure; // achievements per item in interest  
+  var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
   this.mutation = [{},{},{},{},{},{}]; 
   this.mutation_empty = [{},{},{},{},{},{}]; 
   this.mutation_count = 0;
-  this.p = p;
+  
   this.sp = null;
   this.mutationDone = true;
   this.up_stack = [];
-  var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
+  
 
-  this.up = function(which,how,hidden)
+  this.up = function(hidden)
   { 
+    var how = this.p.event_by_period[pos];
     if(typeof hidden === undefined) hidden = false;
     //console.log(which,how,hidden);
     var t = this;
+    var which = 1;
+    var zIndex = 0;  // change from zero based
+    treasure[zIndex]+=how;
+    return;
     // if(!t.mutationDone) // todo delaying up till previous end
     // {
     //   t.up_stack.push({which:which,how:how,hidden:hidden});
@@ -24,13 +29,13 @@ function pedestalObject(p)
     //   return;
     // }
 
-    var zIndex = which-1;  // change from zero based
+  
     if(t.inrange(which) && how > 0)
     {      
-      var ca = this.ach[zIndex]+how;
+      var ca = treasure[zIndex]+how;
       var sm = states_mutation[zIndex];
       var smc = Math.floor10(ca/sm); 
-      console.log(ca,sm,smc,this.ach,how,mutation_restriction);
+      console.log(ca,sm,smc,treasure,how,mutation_restriction);
       var mutation_count = 0;
       t.mutation = t.mutation_empty.slice();
 
@@ -77,14 +82,14 @@ function pedestalObject(p)
         {
           //console.log(this.p,mutation_count);
           this.animatePathToCard(which);
-          this.ach[zIndex]-=mutation_count * sm;
+          treasure[zIndex]-=mutation_count * sm;
         }
       }
       else
       {        
-        this.add(which,t.ach[zIndex],how);
+        this.add(which,treasure[zIndex],how);
       }
-       this.ach[zIndex]+=how;
+       treasure[zIndex]+=how;
       
     }
   };    
@@ -224,14 +229,9 @@ function pedestalObject(p)
   {     
     this.down();
   };
-  this.move = function(c,v)
+  this.move = function()
   {  
-    if(c)
-    {
-      this.up(1,this.p.event_by_period[v]);
-    }
-    else 
-      this.down();
+    pos > prev_pos ? this.up() : this.down();
   };
   this.delay = function()
   {
@@ -250,6 +250,54 @@ function pedestalObject(p)
       }          
     },1000);      
   }; 
+
+
+  this.inrange = function(which)
+  {
+    if(which >=1 && which < 6)
+      return true;
+    return false;
+  };
+  this.init = function()
+  {    
+    var t = this;
+    this.sp = $('.' + this.p.place + ' .treasure .pedestal');
+    treasure.forEach(function(d,i){
+      t.sp.append('<div class="interestB" data-id="'+(i+1)+'">');
+    }); 
+  };
+  this.resume = function(states)
+  {
+    var t = this;
+    if(typeof states !== Array && states.length != 6) return;
+
+    for(var i = 0; i < 6; ++i)
+    {
+      var state = states[i];
+      // if(i != 5)        
+      // {
+      //   var sm = states_mutation[i]; // state mutation for current interest item                 
+      //   state -= Math.floor10(state/sm) * sm;
+      // }
+      var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
+      for(var j = 0; j < state; ++j)
+      {
+        var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
+        parent.append(item);
+      }
+      treasure[i] = state;
+    }
+  };   
+}
+
+
+
+
+
+
+
+
+/*
   this.prepare_mutator = function()
   {
     // preparations
@@ -259,7 +307,7 @@ function pedestalObject(p)
     t.mutation = t.mutation_empty;
     for(var i = 0; i < 5; ++i)
     {
-      var ca = t.ach[i];
+      var ca = treasure[i];
       var sm = states_mutation[i];
       var smc = Math.floor10(ca/sm); 
           
@@ -343,7 +391,7 @@ function pedestalObject(p)
               });            
           }  
         }  
-        t.ach[i]-=d.count*states_mutation[i];          
+        treasure[i]-=d.count*states_mutation[i];          
       }
       else 
       {
@@ -351,41 +399,4 @@ function pedestalObject(p)
       }
     });
   };
-
-  this.inrange = function(which)
-  {
-    if(which >=1 && which < 6)
-      return true;
-    return false;
-  };
-  this.init = function()
-  {    
-    var t = this;
-    this.sp = $('.' + this.p.place + ' .treasure .pedestal');
-    t.ach.forEach(function(d,i){
-      t.sp.append('<div class="interestB" data-id="'+(i+1)+'">');
-    }); 
-  };
-  this.resume = function(states)
-  {
-    var t = this;
-    if(typeof states !== Array && states.length != 6) return;
-
-    for(var i = 0; i < 6; ++i)
-    {
-      var state = states[i];
-      // if(i != 5)        
-      // {
-      //   var sm = states_mutation[i]; // state mutation for current interest item                 
-      //   state -= Math.floor10(state/sm) * sm;
-      // }
-      var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
-      for(var j = 0; j < state; ++j)
-      {
-        var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
-        parent.append(item);
-      }
-      this.ach[i] = state;
-    }
-  };   
-}
+ */

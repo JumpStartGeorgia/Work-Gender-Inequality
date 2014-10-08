@@ -1,6 +1,6 @@
 
 var queueAmount = 0;
-var queueCompleteCallback = function() { walk(1); };
+var queueCompleteCallback = function() { /*walk(1);*/ reward = false; };
 
 function queueObject()
 {

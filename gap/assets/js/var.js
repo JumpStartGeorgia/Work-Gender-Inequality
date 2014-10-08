@@ -98,7 +98,7 @@ var user =
 var male = null;
 var female = null;
 var humans = null; 
-
+var interest_count = 6;
 var hash_map = [ // for hash build from user object(simplifies creating with loop)
   {"name":"gender","alias":"g","nf":"poll.age"},
   {"name":"age","alias":"a","nf":"poll.category"},
@@ -135,3 +135,4 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var index = 1;
   var current_interests_count = 0;
   var mutation_restriction = [0,0,0,0,0,0];
+  var mutation_empty = [{},{},{},{},{},{}]; 

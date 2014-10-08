@@ -48,43 +48,49 @@ function scr_clean(klass)
   s.empty();
   if(exist(klass)) s.removeClass(klass);
 }  
-function walk(v){
+function walk(v)
+{
+  if(!ingame) return;
+  if(!can_scroll(total_scrolls+v)) return;
 
-  if(ingame)
-  {     
-    if(!can_scroll(total_scrolls+v)) return;
-
-    total_scrolls+=v;
-    if(v==1)
-    {        
-      //console.log(total_scrolls,reward_period*scroll_per_month-1,total_scrolls % (reward_period*scroll_per_month-1) == 0);
-      if(total_scrolls % (scrolls_for_reward-1) == 0) lookinfuture();
-      if(total_scrolls % scrolls_for_reward == 0)
-      {
-        ++pos;
-      }
-      // checking if width of timeline should be resized
-      var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-      var len = timeline_points.length;
-      if(t1 > len*timeline_month_w) 
-      {
-        var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-        timeline_tick(toadd);
-      }          
-
-      h_go_right();
-    }
-    else
+  total_scrolls+=v;
+  var needWalk = true;
+  if(v==1)
+  {        
+    //console.log(total_scrolls,reward_period*scroll_per_month-1,total_scrolls % (reward_period*scroll_per_month-1) == 0);
+    //if(total_scrolls % (scrolls_for_reward-1) == 0) 
+    if(total_scrolls % scrolls_for_reward == 0)
     {
-      if(pos > 0 && total_scrolls % scrolls_for_reward == 0)
-      {
-        --pos;  
+      ++pos;
+      calculate_process(v);
+      if(!reward) 
+      { 
+        if(any_reward())
+        {
+          reward_process(v); needWalk = false;
+        }
       }  
-      h_go_left();          
     }
-    if(reward && pos_changed) { pos_changed = false; walk_process(v); }  
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
+    // checking if width of timeline should be resized
+    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+    var len = timeline_points.length;
+    if(t1 > len*timeline_month_w) 
+    {
+      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+      timeline_tick(toadd);
+    }          
   }
+  else
+  {
+    //console.log("backward",pos,total_scrolls,scrolls_for_reward-1);
+    if(pos >= 0 && total_scrolls % (scrolls_for_reward-1) == 0)
+    {
+      --pos;  
+      calculate_process(v);
+    }  
+  }
+  if(needWalk) walk_process(v);
+  else walk_process(0);
 }
 function can_scroll(v)
 {  
@@ -138,7 +144,7 @@ function game_on_load()
   female.animate(tools);
   // animate humans to starting position (inside object where they work)
 }
-function play() { gameon(); game(); prepare_humans(); /*lookinfuture();*/ }
+function play() { gameon(); game(); prepare_humans(); }
 function prepare_humans()
 {
   male.prepare_for_game();
@@ -355,77 +361,74 @@ function timeline_point_draw()
 /***************************************************************
                         TODO
 ***************************************************************/
-
-function walk_process(v)
+function calculate_process(v)
 {
-  if(pos >= 0)
+  if(pos >= -1)
   {
-    if(pos != prev_pos)
+    var tmp = v*reward_period;
+    humans.forEach(function(d)
     {
-      var tmp = v*reward_period;
-      
-      var c = pos > prev_pos;
-
-      humans.forEach(function(d)
-      {
-        d.tsalary += tmp*d.salary;
-        d.tsaved += tmp*d.saving_for_tick;
-        
-        var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
-        if(c)
-        {
-          rew.hide();
-          d.card.next();
-        }
-        else
-        {
-          rew.show();         
-          d.card.prev();
-        }
-      });     
-    }     
+      d.tsalary += tmp*d.salary;
+      d.tsaved += tmp*d.saving_for_tick;
+    });     
   }  
 }
-var reward = false;
-function lookinfuture()
+function walk_process(v)
 {
-  console.log("lookinfuture");
+  //if(pos >= -1) //>= 0 && pos != prev_pos)
+  //{
+  if(v==1)
+    h_go_right();
+  else if(v == -1)
+    h_go_left();          
+ 
+  $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
+  //}  
+}
+var reward = false;
+function any_reward()
+{
   humans.forEach(function(d){    
     if(d.has_future_reward()) { ++queueAmount; reward = true; }
   });
+  return queueAmount == 0 ? false : true;
+}
+function reward_process()
+{
+  console.log("reward_process");
   humans.forEach(function(d){
-    if(d.has_future_reward()) { give_reward(d);  /*d.next_frame();*/  }
+    if(d.has_future_reward()) 
+    { 
+      d.queue.push(function() { card_prepare(d);  });
+      d.queue.push(function() { prepare_bk_for_reward(d); });
+      d.queue.push(function() { d.mutate();  });
+      d.queue.push(function() { start_reward_animation(d); });
+      d.queue.start();
+
+      /*d.next_frame();*/
+      // at same time move character to reward place
+      // mutate if needed
+      // give reward, fadeout with moving coins to pedestal
+      // bk back, 
+      // character to work
+      // to see if next savings are enough for new item
+      // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
+      // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
+      // stop sign for both humans independetly, slow down timeline, put present on timeline on specific date
+      // move human to award place wait till present will have collision after that move person and present to its home place
+      // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
+    }
   });
 }
 
-function give_reward(v)
-{
-  v.queue.push(function() { prepare_bk_for_reward(v); });
-  v.queue.push(function() { start_reward_animation(v); });
-  // at same time move character to reward place
-  // mutate if needed
-  // give reward, fadeout with moving coins to pedestal
-  // bk back, 
-  // character to work
-  // 
-  v.queue.start();
 
-
-
-  // to see if next savings are enough for new item
-  // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
-  // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
-  // stop sign for both humans independetly, slow down timeline, put present on timeline on specific date
-  // move human to award place wait till present will have collision after that move person and present to its home place
-  // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
-}
 var move_size = -300;
 function prepare_bk_for_reward(v)
 {
   //console.log("called from inside",v);
   var bg = $('.' + v.place + ' .stage .layer.bg');
   var fg = $('.' + v.place + ' .stage .layer.fg');
-  bg.animate({  "color": 'white'},{duration:3000,
+  bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
       bg.css({'left':move_size*b});
       fg.css({'left':move_size*b});
@@ -436,10 +439,27 @@ function prepare_bk_for_reward(v)
     }
   });
 }
+function card_prepare(v)
+{
+  var c = pos > prev_pos;
+  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
+  if(c)
+  {
+    rew.hide();
+    v.card.next();
+  }
+  else
+  {
+    rew.show();         
+    v.card.prev();
+  }
+  v.queue.resume();  
+}
+
 function start_reward_animation(v)
 {
   console.log("start_reward_animation");
-    v.queue.resume();  
+  v.queue.resume();  
 }
 function prepare_bk_for_work(t)
 {
