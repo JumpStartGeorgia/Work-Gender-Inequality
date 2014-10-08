@@ -1,95 +1,12 @@
-$(document).ready(function() {
-  if (gon.chart_data != undefined){
-    // bar charts
-    $('#chart').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: gon.chart_title,
-            useHTML: true,
-            style: {'text-align': 'center'}
-        },
-        xAxis: {
-            categories: gon.chart_labels,
-            title: {
-                text: gon.chart_row_label
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Percent'
-            }
-        },
-        legend: {
-            title: {
-                text: gon.chart_col_label
-            },
-            reversed: true
-        },
-        tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true,
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            followPointer: true
-        },
-        plotOptions: {
-            bar: {
-                stacking: 'percent'
-            }
-        },
-        series: gon.chart_data.reverse()
-    });
-  }
+var info, geojson;
 
+// pick the column of data to display on choropleth map
+var picked_data;
+function data_picker(name, data){
+  return data[name]
+}
+      
 
-if (gon.map_counts && gon.map_percents){
-
-    var map_counts = gon.map_counts;
-    var map_percents = gon.map_percents;
-
-    // initiate map
-    var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
-    var map = L.map('map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
-    map.dragging.disable();
-    
-    L.tileLayer(url, {
-                maxZoom: 7,
-                minZoom: 7,
-                zoomControl: false,
-                opacity: 0.5
-            }).addTo(map);
-    
-    // default map filter
-    merge_data_shapes(data_picker(1, map_percents), data_picker(1, map_counts), shapes)
-    
-    var geojson;
-    geojson = L.geoJson(shapes, {
-      style: style,
-      onEachFeature: onEachFeature
-    });
-    
-    geojson.addTo(map);
-    
-    // add info box to the map
-    var info = L.control();
-
-    info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-        this.update();
-        return this._div;
-    };
-    
-    // method that we will use to update the control based on feature properties passed
-    info.update = function (props) {
-        this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
-            ('<b>' + props.name + '</b>: ' + (props.count == undefined ? 'N/A' : props.count + ' ') + (props.percent == undefined ? '' : '(' + props.percent + '%)'))
-            : 'Hover over a Region');
-    };
-    
-    info.addTo(map);
-    
 // merge the picked data into the shapes so can map choropleth of data
 function merge_data_shapes(percents, counts, shapes){
   $.each(shapes.features, function(index, feature){
@@ -148,22 +65,158 @@ function onEachFeature(feature, layer) {
   });
 }
 
-    function highlightFeature(e) {
-    var layer = e.target;
+function highlightFeature(e) {
+  var layer = e.target;
 
-    layer.setStyle({
-        weight: 2,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
-    });
+  layer.setStyle({
+      weight: 2,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
 
-    info.update(layer.feature.properties);
+  info.update(layer.feature.properties);
 
   if (!L.Browser.ie && !L.Browser.opera) {
       layer.bringToFront();
   }
 }
+
+
+
+$(document).ready(function() {
+  if (gon.crosstab_chart_data != undefined){
+    // bar charts
+    $('#crosstab-chart').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: gon.crosstab_chart_title,
+            useHTML: true,
+            style: {'text-align': 'center'}
+        },
+        xAxis: {
+            categories: gon.crosstab_chart_labels,
+            title: {
+                text: gon.crosstab_chart_row_label
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percent'
+            }
+        },
+        legend: {
+            title: {
+                text: gon.crosstab_chart_col_label
+            },
+            reversed: true,
+            symbolHeight: 14,
+            itemMarginBottom: 5,
+            itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "14px", "fontWeight": "bold" }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true,
+            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            followPointer: true
+        },
+        plotOptions: {
+            bar: {
+                stacking: 'percent'
+            }
+        },
+        series: gon.crosstab_chart_data.reverse()
+    });
+  }
+
+  if (gon.onevar_chart_data != undefined){
+    // bar charts
+    $('#onevar-chart').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: gon.onevar_chart_title,
+            useHTML: true,
+            style: {'text-align': 'center'}
+        },
+        tooltip: {
+            formatter: function () {
+              return '<b>' + this.key + ':</b> ' + this.point.options.count + ' (' + this.y + '%)';
+            }
+        },
+        plotOptions: {
+            pie: {
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        legend: {
+            symbolHeight: 14,
+            itemMarginBottom: 5,
+            itemStyle: { "color": "#333333", "cursor": "pointer", "fontSize": "14px", "fontWeight": "bold" }
+        },
+        series: [{
+            type: 'pie',
+            data: gon.onevar_chart_data
+        }]
+    });
+  }
+
+
+if (gon.crosstab_map_counts && gon.crosstab_map_percents){
+
+    var map_counts = gon.crosstab_map_counts;
+    var map_percents = gon.crosstab_map_percents;
+
+    // initiate map
+    var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
+    var map_crosstab = L.map('crosstab-map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
+    map_crosstab.dragging.disable();
+    
+    L.tileLayer(url, {
+                maxZoom: 7,
+                minZoom: 7,
+                zoomControl: false,
+                opacity: 0.5
+            }).addTo(map_crosstab);
+    
+    // default map filter
+    merge_data_shapes(data_picker(1, map_percents), data_picker(1, map_counts), shapes)
+    
+    geojson = L.geoJson(shapes, {
+      style: style,
+      onEachFeature: onEachFeature
+    });
+    
+    geojson.addTo(map_crosstab);
+    
+    // add info box to the map
+    info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
+            ('<b>' + props.name + '</b>: ' + (props.count == undefined ? 'N/A' : props.count + ' ') + (props.percent == undefined ? '' : '(' + props.percent + '%)'))
+            : 'Hover over a Region');
+    };
+    
+    info.addTo(map_crosstab);
+    
 
     // add legend to the map
     var legend = L.control({position: 'bottomright'});
@@ -185,7 +238,7 @@ function onEachFeature(feature, layer) {
         return div;
     };
 
-    legend.addTo(map);
+    legend.addTo(map_crosstab);
     
     // map filter
     var data_id;
@@ -211,12 +264,77 @@ function onEachFeature(feature, layer) {
   
   } // end if
 
-  // pick the column of data to display on choropleth map
-  var picked_data;
-  function data_picker(name, data){
-    return data[name]
-  }
-      
+
+if (gon.onevar_map_counts && gon.onevar_map_percents){
+
+    var map_counts = gon.onevar_map_counts;
+    var map_percents = gon.onevar_map_percents;
+
+    // initiate map
+    var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
+    var map_onevar = L.map('onevar-map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
+    map_onevar.dragging.disable();
+    
+    L.tileLayer(url, {
+                maxZoom: 7,
+                minZoom: 7,
+                zoomControl: false,
+                opacity: 0.5
+            }).addTo(map_onevar);
+    
+    // default map filter
+    merge_data_shapes(map_percents, map_counts, shapes)
+    
+    geojson = L.geoJson(shapes, {
+      style: style,
+      onEachFeature: onEachFeature
+    });
+    
+    geojson.addTo(map_onevar);
+    
+    // add info box to the map
+    info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = (props ?
+            ('<b>' + props.name + '</b>: ' + (props.count == undefined ? 'N/A' : props.count + ' ') + (props.percent == undefined ? '' : '(' + props.percent + '%)'))
+            : 'Hover over a Region');
+    };
+    
+    info.addTo(map_onevar);
+    
+
+    // add legend to the map
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+  //          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
+            grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            labels = [];  
+
+        // loop through our density intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < grades.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+                grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '%<br>' : '+%');
+        }
+
+        return div;
+    };
+
+    legend.addTo(map_onevar);
+    
+  } // end if  
+
 
   // - set the swf path so can use the download buttons
   // to be able to sort the jquery datatable build in the function below
@@ -246,13 +364,26 @@ function onEachFeature(feature, layer) {
   // the item is properly drawn
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     switch($(this).attr('href')){
-      case '#tab-map':
-        map.invalidateSize(false);
+      case '#tab-crosstab-map':
+        map_crosstab.invalidateSize(false);
         break;
-      case '#tab-chart':
-        $('#chart').highcharts().reflow();        
+      case '#tab-crosstab-chart':
+        $('#crosstab-chart').highcharts().reflow();        
         break;
-      case '#tab-table':
+      case '#tab-crosstab-table':
+        var ttInstances = TableTools.fnGetMasters();
+        for (i in ttInstances) {
+        if (ttInstances[i].fnResizeRequired()) 
+          ttInstances[i].fnResizeButtons();
+        }
+        break;
+      case '#tab-onevar-map':
+        map_onevar.invalidateSize(false);
+        break;
+      case '#tab-onevar-chart':
+        $('#onevar-chart').highcharts().reflow();        
+        break;
+      case '#tab-onevar-table':
         var ttInstances = TableTools.fnGetMasters();
         for (i in ttInstances) {
         if (ttInstances[i].fnResizeRequired()) 

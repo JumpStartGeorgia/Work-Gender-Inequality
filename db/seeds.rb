@@ -29,6 +29,13 @@ sql << questions.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\")"}.join(', ')
 ActiveRecord::Base.connection.execute(sql)
 
 #####################
+## record that region question is mappable
+#####################
+puts "Flagging that 'Reg' question is mappable"
+SurveyQuestion.where(:code => 'Reg').update_all(:is_mappable => true)
+
+
+#####################
 ## Survey Answers
 #####################
 puts "Loading survey answers"

@@ -1,5 +1,5 @@
 class SurveyQuestion < ActiveRecord::Base
-  attr_accessible :code, :text, :has_code_answers
+  attr_accessible :code, :text, :has_code_answers, :is_mappable
 
   has_many :answers, 
     primary_key: :code,

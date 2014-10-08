@@ -31,16 +31,14 @@
       <div class="row row-eq-height">
         <div class="col-sm-5">
           <%
-            row = params[:row].present? ? params[:row] : @questions[0].code 
-            col = params[:col].present? ? params[:col] : @questions[1].code 
-            filter_variable = params[:filter_variable].present? ? params[:filter_variable] : ''
+            filter_variable = @filter.present? ? @filter[:code] : ''
           %>
           <%= label_tag 'row', t('.form.row') %>
           <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="row" name="row">
             <% @questions.each_with_index do |question, index| %>
               <% 
-                selected = (params[:row].present? && params[:row] == question.code) || (params[:col].blank? && index == 0) ? 'selected=selected ' : ''
-                disabled = col == question.code ? 'disabled=disabled ' : ''
+                selected = (@row.present? && @row == question.code) || (@col.blank? && index == 0) ? 'selected=selected ' : ''
+                disabled = @col == question.code ? 'disabled=disabled ' : ''
               %>
               <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
             <% end %>
@@ -54,10 +52,14 @@
         <div class="col-sm-5">
           <%= label_tag 'col', t('.form.col') %>
           <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="col" name="col">
+            <% 
+              selected = @col.blank? ? 'selected=selected' : '' %>
+            %>
+            <option value="" <%= selected %>><%= t('.form.no_col') %></option>
             <% @questions.each_with_index do |question, index| %>
               <% 
-                selected = (params[:col].present? && params[:col] == question.code) || (params[:col].blank? && index == 1) ? 'selected=selected ' : ''
-                disabled = row == question.code ? 'disabled=disabled ' : ''
+                selected = @col.present? && @col == question.code ? 'selected=selected ' : ''
+                disabled = @row == question.code ? 'disabled=disabled ' : ''
               %>
               <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
             <% end %>
@@ -73,7 +75,7 @@
             <% @questions.each do |question| %>
               <% 
                 selected = filter_variable == question.code ? 'selected=selected ' : ''
-                disabled = col == question.code || row == question.code ? 'disabled=disabled ' : ''
+                disabled = @col == question.code || @row == question.code ? 'disabled=disabled ' : ''
               %>
               <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
             <% end %>
@@ -88,7 +90,7 @@
             <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_value" name="filter_value">
               <% @filter_answers.each do |answer| %>
                 <% 
-                  selected = params[:filter_value].present? && params[:filter_value] == answer.value.to_s &&
+                  selected = @filter.present? && @filter[:value] == answer.value.to_s &&
                               filter_variable == answer.code ? 'selected=selected ' : ''
                   disabled = filter_variable == answer.code ? '' : 'disabled=disabled '
                 %>
@@ -109,123 +111,216 @@
       </div>
     <% end %>
 
+
+
+
     <% if @data.present? %>
-      <ul class="nav nav-tabs" role="tablist">
-        <% if @data[:map_percents].present? %>
-          <li class="active"><a href="#tab-map" role="tab" data-toggle="tab"><%= t('.tabs.map') %></a></li>
-          <li><a href="#tab-chart" role="tab" data-toggle="tab"><%= t('.tabs.chart') %></a></li>
-        <% else %>
-          <li class="active"><a href="#tab-chart" role="tab" data-toggle="tab"><%= t('.tabs.chart') %></a></li>
-        <% end %>
-        <li><a href="#tab-table" role="tab" data-toggle="tab"><%= t('.tabs.table') %></a></li>
-        <li><a href="#tab-details" role="tab" data-toggle="tab"><%= t('.tabs.details') %></a></li>
-      </ul>      
+      <% if @col.present? %>
+        <%# crosstab %>
+        <ul class="nav nav-tabs" role="tablist">
+          <% if @data[:map_percents].present? %>
+            <li class="active"><a href="#tab-crosstab-map" role="tab" data-toggle="tab"><%= t('.crosstab.tabs.map') %></a></li>
+            <li><a href="#tab-crosstab-chart" role="tab" data-toggle="tab"><%= t('.crosstab.tabs.chart') %></a></li>
+          <% else %>
+            <li class="active"><a href="#tab-crosstab-chart" role="tab" data-toggle="tab"><%= t('.crosstab.tabs.chart') %></a></li>
+          <% end %>
+          <li><a href="#tab-crosstab-table" role="tab" data-toggle="tab"><%= t('.crosstab.tabs.table') %></a></li>
+          <li><a href="#tab-crosstab-details" role="tab" data-toggle="tab"><%= t('.crosstab.tabs.details') %></a></li>
+        </ul>      
 
-      <div class="tab-content">
-        <% if @data[:map_percents].present? %>
-          <div class="tab-pane active" id="tab-map">
-            <h3>
-              <%= t('.map.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
-              <% if @filter.present? %>
-                <%= t('.map.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
-              <% end %>
-              <br />
-              <span class="total_responses">(<%= t('.map.title_total', :num => @data[:total_responses]) %>)</span>
-            </h3>
-            <div><%= t('.map.filter', :text => @data[:map_filter]) %> </div>
-            <div id="map_filter" class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <span id="default_id"><%= @data[:map_filters][0][1] %></span> <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <% @data[:map_filters].each do |filter| %>
-                  <li class="map_filter"><a href="#" data-id="<%= filter[0] %>"><%= filter[1] %></a></li>
+        <div class="tab-content">
+          <% if @data[:map_percents].present? %>
+            <div class="tab-pane active" id="tab-crosstab-map">
+              <h3>
+                <%= t('.crosstab.map.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
+                <% if @filter.present? %>
+                  <%= t('.crosstab.map.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
                 <% end %>
-              </ul>
-            </div>  
+                <br />
+                <span class="total_responses">(<%= t('.crosstab.map.title_total', :num => @data[:total_responses]) %>)</span>
+              </h3>
+              <div><%= t('.crosstab.map.filter', :text => @data[:map_filter]) %> </div>
+              <div id="map_filter" class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span id="default_id"><%= @data[:map_filters][0][1] %></span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <% @data[:map_filters].each do |filter| %>
+                    <li class="map_filter"><a href="#" data-id="<%= filter[0] %>"><%= filter[1] %></a></li>
+                  <% end %>
+                </ul>
+              </div>  
 
-            <div id="map"></div>
+              <div id="crosstab-map"></div>
 
+            </div>
+          <% end %>
+          <div class="tab-pane <%= 'active' if @data[:map_percents].blank? %>" id="tab-crosstab-chart">
+            <div id="crosstab-chart"></div>
           </div>
-        <% end %>
-        <div class="tab-pane <%= 'active' if @data[:map_percents].blank? %>" id="tab-chart">
-          <div id="chart"></div>
-        </div>
-        <div class="tab-pane" id="tab-table">
-          <h3>
-            <%= t('.table.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
-              <% if @filter.present? %>
-                <%= t('.table.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
-              <% end %>
-            <br />
-            <span class="total_responses">(<%= t('.table.title_total', :num => @data[:total_responses]) %>)</span>
-          </h3>
-          <table id="datatable" class="table table-striped table-hover table-nonfluid">
-            <thead>
-              <tr>
-                <th class="var1-col"></th>
-                <th colspan="<%= (@data[:column_answers].length + 1) %>"><%= @data[:column_question] %></th>
-              </tr>
-              <tr>
-                <th class="var1-col"><%= @data[:row_question] %></th>
-                <% @data[:column_answers].each do |answer| %>
-                  <th><%= answer[1] %></th>
+          <div class="tab-pane" id="tab-crosstab-table">
+            <h3>
+              <%= t('.crosstab.table.title', :row => @data[:row_question], :col => @data[:column_question] ).html_safe %>
+                <% if @filter.present? %>
+                  <%= t('.crosstab.table.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
                 <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% (0..@data[:row_answers].length-1).each do |row_index| %>
+              <br />
+              <span class="total_responses">(<%= t('.crosstab.table.title_total', :num => @data[:total_responses]) %>)</span>
+            </h3>
+            <table id="datatable" class="table table-striped table-hover table-nonfluid">
+              <thead>
                 <tr>
-                  <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
-                  <% (0..@data[:counts][row_index].length-1).each do |index| %>
-                    <td>
-                      <%= @data[:counts][row_index][index] %>
-                      &nbsp;&nbsp;
-                      <%= "(#{number_to_percentage(@data[:percents][row_index][index])})" %>
-                    </td>
+                  <th class="var1-col"></th>
+                  <th colspan="<%= (@data[:column_answers].length + 1) %>"><%= @data[:column_question] %></th>
+                </tr>
+                <tr>
+                  <th class="var1-col"><%= @data[:row_question] %></th>
+                  <% @data[:column_answers].each do |answer| %>
+                    <th><%= answer[1] %></th>
                   <% end %>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <div class="tab-pane" id="tab-details">
-          <div class="row">
-            <div class="col-sm-6">
-              <p>
-                <strong><%= t('.details.variable') %>:</strong>
-                <%= @data[:row_question] %>
-              </p>
-              <p>
-                <strong><%= t('.details.answers') %></strong>
-              </p>
-              <ul>
-                <% @data[:row_answers].each do |answer| %>
-                  <li>
-                    <%= answer[1] %>
-                  </li>
+              </thead>
+              <tbody>
+                <% (0..@data[:row_answers].length-1).each do |row_index| %>
+                  <tr>
+                    <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
+                    <% (0..@data[:counts][row_index].length-1).each do |index| %>
+                      <td>
+                        <%= @data[:counts][row_index][index] %>
+                        &nbsp;&nbsp;
+                        <%= "(#{number_to_percentage(@data[:percents][row_index][index])})" %>
+                      </td>
+                    <% end %>
+                  </tr>
                 <% end %>
-              </ul> 
-            </div>
-            <div class="col-sm-6">
-              <p>
-                <strong><%= t('.details.variable') %>:</strong>
-                <%= @data[:column_question] %>
-              </p>
-              <p>
-                <strong><%= t('.details.answers') %>:</strong>
-              </p>
-              <ul>
-                <% @data[:column_answers].each do |answer| %>
-                  <li>
-                    <%= answer[1] %>
-                  </li>
-                <% end %>
-              </ul> 
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="tab-crosstab-details">
+            <div class="row">
+              <div class="col-sm-6">
+                <p>
+                  <strong><%= t('.details.variable') %>:</strong>
+                  <%= @data[:row_question] %>
+                </p>
+                <p>
+                  <strong><%= t('.details.answers') %></strong>
+                </p>
+                <ul>
+                  <% @data[:row_answers].each do |answer| %>
+                    <li>
+                      <%= answer[1] %>
+                    </li>
+                  <% end %>
+                </ul> 
+              </div>
+              <div class="col-sm-6">
+                <p>
+                  <strong><%= t('.details.variable') %>:</strong>
+                  <%= @data[:column_question] %>
+                </p>
+                <p>
+                  <strong><%= t('.details.answers') %>:</strong>
+                </p>
+                <ul>
+                  <% @data[:column_answers].each do |answer| %>
+                    <li>
+                      <%= answer[1] %>
+                    </li>
+                  <% end %>
+                </ul> 
+              </div>
             </div>
           </div>
         </div>
-      </div>
+
+      <% else %>
+
+        <%# onevar %>
+        <ul class="nav nav-tabs" role="tablist">
+          <% if @data[:map_percents].present? %>
+            <li class="active"><a href="#tab-onevar-map" role="tab" data-toggle="tab"><%= t('.onevar.tabs.map') %></a></li>
+            <li><a href="#tab-onevar-chart" role="tab" data-toggle="tab"><%= t('.onevar.tabs.chart') %></a></li>
+          <% else %>
+            <li class="active"><a href="#tab-onevar-chart" role="tab" data-toggle="tab"><%= t('.onevar.tabs.chart') %></a></li>
+          <% end %>
+          <li><a href="#tab-onevar-table" role="tab" data-toggle="tab"><%= t('.onevar.tabs.table') %></a></li>
+          <li><a href="#tab-onevar-details" role="tab" data-toggle="tab"><%= t('.onevar.tabs.details') %></a></li>
+        </ul>      
+
+        <div class="tab-content">
+          <% if @data[:map_percents].present? %>
+            <div class="tab-pane active" id="tab-onevar-map">
+              <h3>
+                <%= t('.onevar.map.title', :row => @data[:row_question] ).html_safe %>
+                <% if @filter.present? %>
+                  <%= t('.onevar.map.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
+                <% end %>
+                <br />
+                <span class="total_responses">(<%= t('.onevar.map.title_total', :num => @data[:total_responses]) %>)</span>
+              </h3>
+
+              <div id="onevar-map"></div>
+
+            </div>
+          <% end %>
+          <div class="tab-pane <%= 'active' if @data[:map_percents].blank? %>" id="tab-onevar-chart">
+            <div id="onevar-chart"></div>
+          </div>
+          <div class="tab-pane" id="tab-onevar-table">
+            <h3>
+              <%= t('.onevar.table.title', :row => @data[:row_question] ).html_safe %>
+                <% if @filter.present? %>
+                  <%= t('.onevar.table.title_filter', :variable => @filter[:name], :value => @filter[:answer] ).html_safe %>
+                <% end %>
+              <br />
+              <span class="total_responses">(<%= t('.onevar.table.title_total', :num => @data[:total_responses]) %>)</span>
+            </h3>
+            <table id="datatable" class="table table-striped table-hover table-nonfluid">
+              <thead>
+                <tr>
+                  <th class="var1-col"><%= @data[:row_question] %></th>
+                  <th><%= t('.onevar.table.count') %></th>
+                  <th><%= t('.onevar.table.percent') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% (0..@data[:row_answers].length-1).each do |row_index| %>
+                  <tr>
+                    <td class="var1-col"><%= @data[:row_answers][row_index][1] %></td>
+                    <td>
+                      <%= @data[:counts][row_index] %>
+                    </td>
+                    <td>
+                      <%= number_to_percentage(@data[:percents][row_index]) %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="tab-onevar-details">
+            <div class="row">
+              <div class="col-sm-6">
+                <p>
+                  <strong><%= t('.details.variable') %>:</strong>
+                  <%= @data[:row_question] %>
+                </p>
+                <p>
+                  <strong><%= t('.details.answers') %></strong>
+                </p>
+                <ul>
+                  <% @data[:row_answers].each do |answer| %>
+                    <li>
+                      <%= answer[1] %>
+                    </li>
+                  <% end %>
+                </ul> 
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% else %>
       <p id="no-matches" class="bg-warning">
         <%= t('.no_matches') %>

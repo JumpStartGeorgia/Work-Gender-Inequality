@@ -156,31 +156,53 @@ en:
         p2: "You may also choose to narrow the scope of this interaction by selecting a variable in which to filter the interaction."
       form:
         row: Variable 1
-        col: Variable 2
+        col: Variable 2 (optional)
+        no_col: No Variable 2
         swap: Swap Variable 1 and Variable 2
         submit: Get Data
         filter_variable: Filter by Variable
         no_filter: No Filter
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
-      tabs:
-        map: Choropleth Map
-        chart: Crosstab chart
-        table: Crosstab table
-        details: Details
-      map:
-        title: "%{row} <br /> by <br /> %{col}"
-        title_filter: "<br /> where <br /> %{variable} = %{value}"
-        title_total: "Total Responses: %{num}"
-        filter: "Filter map by selecting an answer to '%{text}':"
-      chart:
-        title: "%{row} <br /> by <br /> %{col}"
-        title_filter: "<br /> where <br /> %{variable} = %{value}"
-        title_total: "Total Responses: %{num}"
-      table:
-        title: "%{row} <br /> by <br /> %{col}"
-        title_filter: "<br /> where <br /> %{variable} = %{value}"
-        title_total: "Total Responses: %{num}"
+      crosstab:
+        tabs:
+          map: Choropleth Map
+          chart: Crosstab Chart
+          table: Crosstab Table
+          details: Details
+        map:
+          title: "%{row} <br /> by <br /> %{col}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+          filter: "Filter map by selecting an answer to '%{text}':"
+        chart:
+          title: "%{row} <br /> by <br /> %{col}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+        table:
+          title: "%{row} <br /> by <br /> %{col}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+      onevar:
+        tabs:
+          map: Choropleth Map
+          chart: Chart
+          table: Table
+          details: Details
+        map:
+          title: "%{row}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+        chart:
+          title: "%{row}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+        table:
+          title: "%{row}"
+          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_total: "Total Responses: %{num}"
+          count: Count
+          percent: Percent
       details:
         variable: Variable
         answers: Possible Answers
