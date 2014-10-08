@@ -19,22 +19,31 @@ function cardObject(p)
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
-			.css({left:w*0.6,top: (this.p.place == "top" ? lh - 168 : h - 168) }).appendTo(treasure);
+			.css({left:w*0.5,top: (this.p.place == "top" ? lh - 168 : h - 168) }).appendTo(treasure);
 		this.scard = treasure.find('.card');		
 		this.scoins = this.scard.find('.coins');
 		this.stext = this.scard.find('.text');
 	};
 	this.next = function()
 	{
-		this.text("Some paris info"); // get appropriate text
+		this.text(interest[0].descr); // get appropriate text
 		var cnt = this.p.event_by_period[pos];
 		this.scoins.empty();
 		for(var i = 0; i < cnt; ++i)		
 		{
 			this.scoins.append('<div class="coin item iboat"></div>');
 		}
-		if(cnt > 0)
-			this.hide();
+		if(cnt > 0) this.hide();
+		//before calling this animation - 
+		//1.mutation 
+		//2.giving reward should be done
+		
+		//this.p.pedestal.move(true,pos);
+	};
+	this.prev = function()
+	{
+		this.hide(true);
+		this.p.pedestal.move(false,pos);
 	};
 	this.text = function(text)
 	{

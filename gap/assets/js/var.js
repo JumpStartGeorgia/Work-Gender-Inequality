@@ -32,7 +32,6 @@ var s3 = null;
 var lh = 0; 
 var curr_date = new Date(); // current date
 
-
 var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
@@ -95,6 +94,10 @@ var user =
   interest : null,
   salary_percent : 0
 };
+
+var male = null;
+var female = null;
+var humans = null; 
 
 var hash_map = [ // for hash build from user object(simplifies creating with loop)
   {"name":"gender","alias":"g","nf":"poll.age"},

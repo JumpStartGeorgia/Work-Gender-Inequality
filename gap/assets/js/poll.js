@@ -601,13 +601,16 @@ console.log('asd');
     poll.sublabel(picker.select('.interest_item').classed('selected',true).select('text').text());
 
 
-   poll.npicker_function = function(v){ v=+v; 
+   poll.npicker_function = function(v){ 
+      console.log("npicker 1");
+      v=+v; 
       if(user.salary >= v) {
         user.salary_percent = Math.round10((v*100)/user.salary);
         poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
         poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
         poll.interest_percent_draw((v*100)/user.salary/100);
       }  
+      console.log("npicker 2");
     }
 
     poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
