@@ -33,8 +33,10 @@ function human(selector,title)
   this.event_by_month = []; 
   this.event_by_period = []; 
   this.place = '';
-
-
+  this.card = new cardObject(this);
+  this.pedestal = new pedestalObject(this);   
+  this.queue = new queueObject();
+  this.future_reward = 0;
 
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
@@ -206,7 +208,7 @@ function human(selector,title)
   };
   this.getpathcoordinates = function getpathcoordinates(progress)
   {	
-  		var percent = Math.round10(progress*100);
+		var percent = Math.round10(progress*100);
 		var p1 = this.path.getPointAtLength(this.path_length * (percent-1)/100);
 		var p2 = this.path.getPointAtLength(this.path_length * (percent+1)/100);
 		var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
@@ -266,22 +268,22 @@ function human(selector,title)
   };
   this.has_future_reward = function has_future_reward()
   {    
-    var to = (pos + 1)*reward_period;
-    var from = to - reward_period; 
-    var rewCount = 0;
-    for(var i = from; i < to; ++i)
-    {
-      rewCount += this.event_by_month[i];
-    }
-    return rewCount;
+    this.future_reward = this.event_by_period[pos + 1];
+    return this.future_reward > 0;
+  };
+  this.init = function()
+  {
+    this.card.init();    
+    this.pedestal.init();
   };
 }; // human object with basic properties
 
 
-var male = new human('.m.character','Male'); // male human object
-var female = new human('.f.character','Female'); // female human object
+male = new human('.m.character','Male'); // male human object
+female = new human('.f.character','Female'); // female human object
+humans = [male,female];
 
-
+ 
 function h_go_right()
 {
   male.step_right();

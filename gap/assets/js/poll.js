@@ -142,10 +142,10 @@ var poll = {
 
     var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title','Female')
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
-      .on('click',function(){ f(); poll.character_picked(); d3.select(this).on('click', null); });
+      .on('click',function(){ f(); poll.place_human_based_on_gender(); poll.character_picked(); d3.select(this).on('click', null); });
     var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title','Male')
       .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
-      .on('click',function(){ m(); poll.character_picked(); d3.select(this).on('click', null); });
+      .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); d3.select(this).on('click', null); });
 
     onscrollafter = function(){ 
 
@@ -172,10 +172,10 @@ console.log('asd');
     poll.next_function = function(){ 
       if(!is)
       {
+         console.log("gender changing");
         if(g() != "n") 
         {       
-            
-          poll.place_human_based_on_gender();
+                     
           if(isf()) 
           {
             poll.stage_d3.select('.fchar').on('click')();            
@@ -601,13 +601,16 @@ console.log('asd');
     poll.sublabel(picker.select('.interest_item').classed('selected',true).select('text').text());
 
 
-   poll.npicker_function = function(v){ v=+v; 
+   poll.npicker_function = function(v){ 
+      console.log("npicker 1");
+      v=+v; 
       if(user.salary >= v) {
         user.salary_percent = Math.round10((v*100)/user.salary);
         poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
         poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
         poll.interest_percent_draw((v*100)/user.salary/100);
       }  
+      console.log("npicker 2");
     }
 
     poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
@@ -903,7 +906,7 @@ console.log('asd');
     //   x:4, width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
     // });       
   },
-  place_human_based_on_gender:function place_human_based_on_gender(t,n,v,size)
+  place_human_based_on_gender:function place_human_based_on_gender()
   {
     if(isf()) 
     {

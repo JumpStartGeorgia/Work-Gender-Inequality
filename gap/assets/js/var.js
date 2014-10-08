@@ -32,7 +32,6 @@ var s3 = null;
 var lh = 0; 
 var curr_date = new Date(); // current date
 
-
 var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
@@ -96,6 +95,10 @@ var user =
   salary_percent : 0
 };
 
+var male = null;
+var female = null;
+var humans = null; 
+
 var hash_map = [ // for hash build from user object(simplifies creating with loop)
   {"name":"gender","alias":"g","nf":"poll.age"},
   {"name":"age","alias":"a","nf":"poll.category"},
@@ -109,8 +112,8 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var _pos = 0;
-  var prev_pos = 0;
+  var _pos = -1;
+  var prev_pos = -1;
   var pos_changed = false;
   __defineGetter__("pos", function(){
      return _pos;
@@ -120,3 +123,15 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
      _pos = val;
      pos_changed = true;
   });
+
+// treasure bar with card 
+    var interest_offset = 10;
+  var interest_animation_duration = 100;
+  var interest_w = 32;
+  var interest_w2 = interest_w/2;
+  var interest_start_offset = 0;
+  //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
+  var states_mutation = [4,4,2,3,3,0];
+  var index = 1;
+  var current_interests_count = 0;
+  var mutation_restriction = [0,0,0,0,0,0];
