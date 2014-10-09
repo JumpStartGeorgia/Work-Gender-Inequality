@@ -1,7 +1,8 @@
 <% title t('.title') %>
 
-<div id="explore-data">
+<div id="explore-data" class="row">
   <% if @questions.present? %>
+    <div class="col-sm-3">
 
       <div class="panel-group" id="panel-instructions">
         <div class="panel panel-default">
@@ -27,93 +28,101 @@
       </div>
 
 
-    <%= form_tag(explore_data_path) do %>
-      <div class="row row-eq-height">
-        <div class="col-sm-5">
-          <%
-            filter_variable = @filter.present? ? @filter[:code] : ''
-          %>
-          <%= label_tag 'row', t('.form.row') %>
-          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="row" name="row">
-            <% @questions.each_with_index do |question, index| %>
-              <% 
-                selected = (@row.present? && @row == question.code) || (@col.blank? && index == 0) ? 'selected=selected ' : ''
-                disabled = @col == question.code ? 'disabled=disabled ' : ''
-              %>
-              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
-            <% end %>
-          </select>
-        </div>
-        <div class="col-sm-2 col-bottom text-center">
-          <button id="btn-swap-vars" type="button" class="btn btn-default" title="<%= t('.form.swap') %>">
-            <span class="glyphicon glyphicon-refresh"></span>
-          </button>        
-        </div>  
-        <div class="col-sm-5">
-          <%= label_tag 'col', t('.form.col') %>
-          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="col" name="col">
-            <% 
-              selected = @col.blank? ? 'selected=selected' : '' %>
-            %>
-            <option value="" <%= selected %>><%= t('.form.no_col') %></option>
-            <% @questions.each_with_index do |question, index| %>
-              <% 
-                selected = @col.present? && @col == question.code ? 'selected=selected ' : ''
-                disabled = @row == question.code ? 'disabled=disabled ' : ''
-              %>
-              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
-            <% end %>
-          </select>
-        </div>
-      </div>
+      <%= form_tag(explore_data_path, :id => 'form-explore-data') do %>
 
-      <div class="row row-eq-height">
-        <div class="col-sm-4">
-          <%= label_tag 'filter_variable', t('.form.filter_variable') %>
-          <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_variable" name="filter_variable">
-            <option value=""><%= t('.form.no_filter') %></option>
-            <% @questions.each do |question| %>
-              <% 
-                selected = filter_variable == question.code ? 'selected=selected ' : ''
-                disabled = @col == question.code || @row == question.code ? 'disabled=disabled ' : ''
-              %>
-              <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
-            <% end %>
-          </select>
-        </div>
         <%
-          show_filter_answers = filter_variable.blank? ? 'style=display:none;' : ''
+          filter_variable = @filter.present? ? @filter[:code] : ''
         %>
-        <div class="col-sm-4">
-          <div id="filter_value_container" <%= show_filter_answers %>>
-            <%= label_tag 'filter_value', t('.form.filter_value') %>
-            <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="filter_value" name="filter_value">
-              <% @filter_answers.each do |answer| %>
+
+        <div class="row">
+          <div class="col-xs-6 col-sm-12">
+            <%= label_tag 'filter_variable', t('.form.filter_variable') %>
+            <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker-filter" id="filter_variable" name="filter_variable">
+              <option value=""><%= t('.form.no_filter') %></option>
+              <% @questions.each do |question| %>
                 <% 
-                  selected = @filter.present? && @filter[:value] == answer.value.to_s &&
-                              filter_variable == answer.code ? 'selected=selected ' : ''
-                  disabled = filter_variable == answer.code ? '' : 'disabled=disabled '
+                  selected = filter_variable == question.code ? 'selected=selected ' : ''
+                  disabled = @col == question.code || @row == question.code ? 'disabled=disabled ' : ''
                 %>
-                <option value="<%= answer.value %>" <%= selected %><%= disabled %> data-code="<%= answer.code %>" ><%= answer.text %></option>
+                <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+              <% end %>
+            </select>
+          </div>
+          <%
+            show_filter_answers = filter_variable.blank? ? 'style=display:none;' : ''
+          %>
+          <div class="col-xs-6 col-sm-12">
+            <div id="filter_value_container" <%= show_filter_answers %>>
+              <%= label_tag 'filter_value', t('.form.filter_value') %>
+              <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker-filter" id="filter_value" name="filter_value">
+                <% @filter_answers.each do |answer| %>
+                  <% 
+                    selected = @filter.present? && @filter[:value] == answer.value.to_s &&
+                                filter_variable == answer.code ? 'selected=selected ' : ''
+                    disabled = filter_variable == answer.code ? '' : 'disabled=disabled '
+                  %>
+                  <option value="<%= answer.value %>" <%= selected %><%= disabled %> data-code="<%= answer.code %>" ><%= answer.text %></option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6 col-sm-12">
+            <%= label_tag 'row', t('.form.row') %>
+            <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="row" name="row">
+              <% @questions.each_with_index do |question, index| %>
+                <% 
+                  selected = (@row.present? && @row == question.code) || (@col.blank? && index == 0) ? 'selected=selected ' : ''
+                  disabled = @col == question.code ? 'disabled=disabled ' : ''
+                %>
+                <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="col-xs-6 col-sm-12">
+            <div id="var2-label-swap" class="clear">
+              <%= label_tag 'col', t('.form.col') %>
+              <% 
+                display = 'style=display:none;'
+                display = '' if @col.present? 
+              %>
+              <button id="btn-swap-vars" type="button" class="btn btn-default btn-xs" title="<%= t('.form.swap') %>" <%= display %>>
+                <span class="glyphicon glyphicon-refresh"></span>
+              </button>        
+            </div>
+            <select data-live-search="true" data-hide-disabled='true' data-width="100%" class="selectpicker" id="col" name="col">
+              <% 
+                selected = @col.blank? ? 'selected=selected' : '' %>
+              %>
+              <option value="" <%= selected %>><%= t('.form.no_col') %></option>
+              <% @questions.each_with_index do |question, index| %>
+                <% 
+                  selected = @col.present? && @col == question.code ? 'selected=selected ' : ''
+                  disabled = @row == question.code ? 'disabled=disabled ' : ''
+                %>
+                <option value="<%= question.code %>" <%= selected %><%= disabled %>><%= "#{question.code} - #{question.text}" %></option>
               <% end %>
             </select>
           </div>
         </div>
-        <div class="col-sm-3 col-bottom text-center">
-          <%= label_tag 'exclude_dkra', :id => 'lbl_exclude_dkra' do %>
-            <%= check_box_tag 'exclude_dkra', true, params[:exclude_dkra].present? ? params[:exclude_dkra].to_bool : false %>
-            <%= t('.form.exclude_dkra') %>
-          <% end %>
+
+        <div class="row">
+          <div class="col-xs-6 col-sm-12">
+            <%= label_tag 'exclude_dkra', :id => 'lbl_exclude_dkra' do %>
+              <%= check_box_tag 'exclude_dkra', true, params[:exclude_dkra].present? ? params[:exclude_dkra].to_bool : false %>
+              <%= t('.form.exclude_dkra') %>
+            <% end %>
+          </div>
+          <div class="col-xs-3 col-xs-offset-3 col-sm-12 col-sm-offset-0 text-right">
+            <%= submit_tag t('.form.submit'), :class => 'btn btn-primary', :id => 'btn-submit' %>
+          </div>
         </div>
-        <div class="col-sm-1 col-bottom text-right">
-          <%= submit_tag t('.form.submit'), :class => 'btn btn-default', :id => 'btn-submit' %>
-        </div>
-      </div>
-    <% end %>
+      <% end %> 
+  </div>
 
-
-
-
+  <div class="col-sm-9">
     <% if @data.present? %>
       <% if @col.present? %>
         <%# crosstab %>
@@ -167,7 +176,7 @@
               <br />
               <span class="total_responses">(<%= t('.crosstab.table.title_total', :num => @data[:total_responses]) %>)</span>
             </h3>
-            <table id="datatable" class="table table-striped table-hover table-nonfluid">
+            <table id="crosstab-datatable" class="table table-striped table-hover table-nonfluid">
               <thead>
                 <tr>
                   <th class="var1-col"></th>
@@ -276,7 +285,7 @@
               <br />
               <span class="total_responses">(<%= t('.onevar.table.title_total', :num => @data[:total_responses]) %>)</span>
             </h3>
-            <table id="datatable" class="table table-striped table-hover table-nonfluid">
+            <table id="onevar-datatable" class="table table-striped table-hover table-nonfluid">
               <thead>
                 <tr>
                   <th class="var1-col"><%= @data[:row_question] %></th>
@@ -320,12 +329,14 @@
             </div>
           </div>
         </div>
+        </div>
       <% end %>
     <% else %>
       <p id="no-matches" class="bg-warning">
         <%= t('.no_matches') %>
       </p>
     <% end %>
+    </div>
   <% else %>
 
     <p>

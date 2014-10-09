@@ -20,14 +20,16 @@ class RootController < ApplicationController
     @use_map = true
     
     # the questions for cross tab can only be those that have code answers
-    @questions = SurveyQuestion.can_crosstab
+    @questions = SurveyQuestion.can_crosstab.sorted
 
     @filter_answers = SurveyAnswer.all
 
+    # initialize variables
     # start with a random question
     @row = @questions.sample.code
-    @col = nil #@questions[1].code
+    @col = nil
     @filter = nil
+
     # check to make sure row and col param is in list of questions, if provided
     if params[:row].present? && @questions.index{|x| x.code == params[:row]}.present?
       @row = params[:row]

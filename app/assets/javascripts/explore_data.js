@@ -19,7 +19,18 @@ function merge_data_shapes(percents, counts, shapes){
 
 // set color range for choropleth map
 function getColor(d) {
-  return  d > 90 ? '#08306b' :
+  return  d > 80 ? '#08306b' :
+          d > 60 ? '#08519c' :
+          d > 50 ? '#2171b5' :
+          d > 40 ? '#4292c6' :
+          d > 30 ? '#6baed6' :
+          d > 20 ? '#9ecae1' :
+          d > 15 ? '#c6dbef' :
+          d > 10 ? '#deebf7' :
+          d >  5 ? '#f7fbff' :
+          d >  0 ? '#FFFFFF' :
+                   '#CCCCCC' ;
+/*  return  d > 90 ? '#08306b' :
           d > 80 ? '#08519c' :
           d > 70 ? '#2171b5' :
           d > 60 ? '#4292c6' :
@@ -30,7 +41,7 @@ function getColor(d) {
           d > 10 ? '#f7fbff' :
           d >  0 ? '#FFFFFF' :
                    '#CCCCCC' ;
-}
+*/}
 
 
 //
@@ -177,6 +188,9 @@ if (gon.crosstab_map_counts && gon.crosstab_map_percents){
     var map_counts = gon.crosstab_map_counts;
     var map_percents = gon.crosstab_map_percents;
 
+    // adjust the width of the map to fit its container
+    $('#crosstab-map').width($('#tab-crosstab-map').width());
+
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
     var map_crosstab = L.map('crosstab-map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
@@ -224,8 +238,8 @@ if (gon.crosstab_map_counts && gon.crosstab_map_percents){
     legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend'),
-  //          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0],
-            grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+//            grades = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
+            grades = [0, 5, 10, 15, 20, 30, 40, 50, 60, 80],
             labels = [];  
 
         // loop through our density intervals and generate a label with a colored square for each interval
@@ -269,6 +283,9 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
 
     var map_counts = gon.onevar_map_counts;
     var map_percents = gon.onevar_map_percents;
+
+    // adjust the width of the map to fit its container
+    $('#onevar-map').width($('#tab-onevar-map').width());
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
@@ -352,9 +369,13 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
   };
 
   // compute how many columns need to have this sort
-  var sort_array = [];
-  for(var i=1; i<$('#datatable > thead tr:last-of-type th').length; i++){
-    sort_array.push(i);
+  var sort_array_crosstab = [];
+  var sort_array_onevar = [];
+  for(var i=1; i<$('#crosstab-datatable > thead tr:last-of-type th').length; i++){
+    sort_array_crosstab.push(i);
+  }
+  for(var i=1; i<$('#onevar-datatable > thead tr:last-of-type th').length; i++){
+    sort_array_onevar.push(i);
   }
 
 
@@ -393,15 +414,35 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
     }
   });
 
+  // catch the form submit and call the url with the
+  // form values in the url
+  $("form#form-explore-data").submit(function(){
+    // do not get any hidden fields (utf8 and authenticity token)
+    var querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
+    window.location.href = [location.protocol, '//', location.host, location.pathname, '?', querystring].join('');
+    return false;
+  });
 
   // initalize the datatable
-  $('#datatable').dataTable({
+  $('#crosstab-datatable').dataTable({
     "dom": '<"top"fT>t<"clear">',
     "language": {
       "url": gon.datatable_i18n_url
     },
     "columnDefs": [
-        { "type": "formatted-num", targets: sort_array }
+        { "type": "formatted-num", targets: sort_array_crosstab }
+    ],
+    "tableTools": {
+      "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
+    }
+  });    
+  $('#onevar-datatable').dataTable({
+    "dom": '<"top"fT>t<"clear">',
+    "language": {
+      "url": gon.datatable_i18n_url
+    },
+    "columnDefs": [
+        { "type": "formatted-num", targets: sort_array_onevar }
     ],
     "tableTools": {
       "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
@@ -410,6 +451,7 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
 
   // initalize the fancy select boxes
   $('select.selectpicker').selectpicker();    
+  $('select.selectpicker-filter').selectpicker();    
 
   // if option changes, make sure the select option is not available in the other lists
   $('select.selectpicker').change(function(){
@@ -432,13 +474,20 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
       $('select.selectpicker#row option[value="' + val + '"]').attr('disabled', 'disabled');
       // update the select list
       $('select.selectpicker#row').selectpicker('refresh');
+
+      // if val != '' then turn on swap button
+      if (val == ''){
+        $('button#btn-swap-vars').fadeOut();
+      }else{
+        $('button#btn-swap-vars').fadeIn();
+      }
     }
 
     // update filter list
     var row = $('select.selectpicker#row').val();
     var col = $('select.selectpicker#col').val();
     // if filter is one of these values, reset filter to no filter
-    if ($('select#filter_variable').val() == row || $('select#filter_variable').val() == col){
+    if (($('select#filter_variable').val() == row && row != '') || ($('select#filter_variable').val() == col && col != '')){
       // reset value and hide filter answers
       $('select#filter_variable').selectpicker('val', '');
       $('#filter_value_container').fadeOut();

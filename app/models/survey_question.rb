@@ -1,10 +1,14 @@
 class SurveyQuestion < ActiveRecord::Base
-  attr_accessible :code, :text, :has_code_answers, :is_mappable
+  attr_accessible :code, :text, :has_code_answers, :is_mappable, :sort
 
   has_many :answers, 
     primary_key: :code,
     foreign_key: :code,
     class_name: "SurveyAnswer"
+
+  def self.sorted
+    order('sort, id')
+  end
 
   # get all of the questions that can be run with crosstabs
   # (must have values in the answers table - defined list of possible answers)
