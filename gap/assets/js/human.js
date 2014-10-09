@@ -38,7 +38,11 @@ function human(selector,title)
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject();
   this.future_reward = 0;
-
+  var mutator = {
+    left:[],
+    right:[],
+    place:[]  
+  };
 
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
@@ -272,6 +276,7 @@ function human(selector,title)
   };
   this.mutate = function()
   {
+
     var t = this;
     var treasure = t.treasure;
     var events = t.event_by_period[pos];
@@ -279,11 +284,10 @@ function human(selector,title)
     var zIndex = 0;
     var which = 1;
 
-    treasure[zIndex]+=events;
-
+    
     if(t.inrange(which) && events > 0)
     {      
-      var ca = treasure[zIndex];
+      var ca = treasure[zIndex] + events;
       var sm = states_mutation[zIndex];
       var smc = Math.floor10(ca/sm); 
 //      console.log(ca,sm,smc,treasure);
@@ -299,6 +303,7 @@ function human(selector,title)
       
       if(smc >= 1)
       {
+         //console.log("mutate");
         mutation_count+=smc;
         t.mutation[zIndex] = { count: smc };
 
@@ -326,32 +331,157 @@ function human(selector,title)
           tca-=sm;        
           --looper;
         }
+        //console.log(mutation_count,t);
         if(mutation_count > 0)// && this.p.title != 'Male')
         {
           //console.log(this.p,mutation_count);
-          console.log("mutate start");
-          this.mutatePathToCard(which,mutation_count);
-          treasure[zIndex]-=mutation_count * sm;
+          //console.log("mutate start");
+          //
+          
+
+
+          //var v = treasure[zIndex]+events-mutation_count*sm;
+          //if(v>0) this.pedestal.add(which,v);
+          //console.log(treasure[zIndex]);
+          //treasure[zIndex] -= mutation_count * sm;
+
+          var eventL = treasure[zIndex];
+          var eventR = events;
+          var cnt = mutation_count;
+          var eventsToMutate = mutation_count * sm;
+          var eventsAmount = eventL + eventR;
+          var eventsOffset = 0;
+
+          var tmpCount = 1;
+          var tmp = sm;
+          var iEventL = 1;
+          var checker = sm-1;
+          for(var i = 1; i <= eventR; ++i)
+          {
+            if(tmpCount <= cnt)
+            {
+              mutator.right.push(i);
+              ++tmpCount;
+            }
+            else 
+            {
+              if(checker != 0)
+              {
+                mutator.right.push(tmpCount-1);
+                --checker;
+              }
+              else mutator.right.push(0);
+            }
+          }
+          console.log(mutator,t);
+          // for(var i = 1; i <= eventR; ++i)
+          // {
+          //   if(i == eventR && eventR - cnt > 0)
+          //   {
+          //     mutator.right.push(cnt);
+          //     continue;
+          //   }
+          //   console.log("before this point");
+          //   mutator.right.push(tmpCount);
+          //   --tmp;
+          //  // var filled = false;
+          //   var start = iEventL;
+          //   for(var j = start; j <= eventL; ++j)
+          //   {
+          //     console.log(i,j,iEventL,tmp,tmpCount);
+          //     ++iEventL;
+          //     if(tmp!=0) { mutator.left.push(tmpCount); --tmp; }
+          //     else { ++tmpCount; tmp=sm; /*filled = true;*/ break;}
+          //   }
+
+          //   // if(!filled)
+          //   // {
+
+          //   // }
+          // }
+          // var start = iEventL;
+          // for(var j = start; j <= eventL; ++j)
+          // {
+         
+          //   mutator.left.push(0); 
+          // }
+          // console.log(eventL,eventR,t,mutator);
+          // 
+          // 
+          // ----------------------------
+          //console.log(mutator);
+          // for(var i = 1; i <= cnt; ++i)
+          // {
+          //   for(var j = 1; j <= eventL + eventR; ++j)
+          //   {
+          //     if(j <= eventL + eventsOffset)
+          //     {
+          //       if(eventsAmount - eventsToMutate >= j)
+          //       {
+          //         mutator.left.push(0);
+          //         ++eventsOffset;
+          //       }
+          //       else mutator.left.push(i);
+          //     }
+          //     else
+          //     {
+
+          //     }
+          //     //eventsToMutate
+          //   }
+          //   tmp += 1;
+          //   eventR -= 1;
+          //   if(eventL >= sm - 1)
+          //   {
+          //     tmp += sm - 1;
+          //     eventL -= (sm - 1);
+          //   }
+          //   else
+          //   {
+          //     tmp += eventL + eventR;
+          //   }
+          // }
+
+          //this.mutatePathToCard(which,treasure[zIndex],events,mutation_count,sm);
         }
       }
       else
       {        
+        treasure[zIndex]+=events;
+
         this.pedestal.add(which,events);
+
       }
     }
 
     this.queue.resume();
   };
-  this.mutatePathToCard = function(which,cnt)
+  
+  this.mutatePathToCard = function(which,eventL,eventR,cnt,sm)
   {
-     var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
-
+    var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
+    // calculate which object in coins need to be moved to parent
+    var tmp = 0;
+    for(var i = 0; i < cnt; ++i)
+    {
+      tmp += 1;
+      eventR -= 1;
+      if(eventL >= sm - 1)
+      {
+        tmp += sm - 1;
+        eventL -= (sm - 1);
+      }
+      else
+      {
+        tmp += eventL + eventR;
+      }
+    }
     var t = this;
+
     var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
     var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     pathTmp.setAttribute('d', fromTreasureBarToCardPath);
     var pathTmpLength = pathTmp.getTotalLength();
-
    
     var dur = 1500;
     for(var i = cnt; i > 0; --i)
@@ -370,9 +500,10 @@ function human(selector,title)
         //var first = mut.find('div.item[data-id=' + from + ']');
         var last = mut.find('div.item[data-id=' + to + ']');
         var moveLeft = last.offset().left;
-        console.log($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left,last.position().left,last.offset().left,moveLeft);
-        var widthScaler = ($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left - moveLeft)/100;
-        var heightScaler = (168 - 32)/56;
+        //console.log($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset(),last.position().left,last.offset().left,moveLeft);
+        var widthScaler = ($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left - moveLeft - 10)/100;
+        var heightScaler = (lh - $('.top .treasure .card .coins:nth-child('+1+')').offset().top - 32)/56;
+        //console.log(widthScaler,heightScaler);
 
         for(var h = to; h >= from; --h)
         {
@@ -384,7 +515,7 @@ function human(selector,title)
             d.animate({'color':'#ffffff'},{duration:dur,
               progress:function(a,b,c){
                 var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
-                $(this).css({ left:coord.x, top:  (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+                $(this).css({ left:coord.x+10, top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
               },
               complete:function()
               {

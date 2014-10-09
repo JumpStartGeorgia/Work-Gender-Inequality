@@ -136,3 +136,4 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var current_interests_count = 0;
   var mutation_restriction = [0,0,0,0,0,0];
   var mutation_empty = [{},{},{},{},{},{}]; 
+
