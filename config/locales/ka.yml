@@ -160,8 +160,8 @@ ka:
         no_col: No Variable 2
         swap: Swap Variable 1 and Variable 2
         submit: Get Data
-        filter_variable: Filter by Variable
-        no_filter: No Filter
+        filter_variable: Use Subset of Data
+        no_filter: Use Complete Data Set
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
       crosstab:

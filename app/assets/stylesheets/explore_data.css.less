@@ -1,3 +1,5 @@
+@import "twitter/bootstrap/variables.less";
+
 #explore-data{
   margin-top: 20px;
 
@@ -29,11 +31,26 @@
   .dropdown-menu > li {
       & > a{
       white-space: normal;
+      width: 500px;
       min-width: 250px;
-      max-width: 300px;
     }
     &.disabled {
       padding: 0 !important;
+    }
+  }
+  @media (max-width: @screen-sm-min) { 
+    /* shrink width due to small screens */
+    .dropdown-menu > li {
+        & > a{
+        max-width: 300px;
+        width: 100%;
+      }
+    }
+  }
+
+  #var2-label-swap{
+    button#btn-swap-vars{
+      float: right;
     }
   }
 
@@ -43,7 +60,8 @@
   }
 
 
-  #datatable_wrapper .dataTables_filter {
+  #crosstab-datatable_wrapper .dataTables_filter,
+  #onevar-datatable_wrapper .dataTables_filter {
     width: 50%;
     float: left;
     text-align: left;
@@ -57,7 +75,7 @@
      max-width: 100%;
      margin: 0 auto;
   }
-  #datatable{
+  #crosstab-datatable, #onevar-datatable{
     thead tr:first-of-type th{
       border-bottom: 4px solid #333;
       text-align: center;
