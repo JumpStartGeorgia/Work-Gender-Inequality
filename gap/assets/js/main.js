@@ -19,7 +19,7 @@ $(document).ready(function(){
     {
       if(func(onscrolldown)) onscrolldown();
     }
-    if(ingame && !animated) 
+    if(ingame && !animated && !reward) 
     { 
       clearInterval(noscrollTimerId); // clear last noscroll catcher
       walk(delta < 0 ? 1 : -1);

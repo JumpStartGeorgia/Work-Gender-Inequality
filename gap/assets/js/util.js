@@ -191,6 +191,15 @@ function sample()
     });
   };
 }(jQuery));
+function coordinateFromPath(progress,path,pathLength,widthScaler,heightScaler)
+{
+  var percent = Math.round10(progress*100);
+  var p1 = path.getPointAtLength(pathLength * (percent-1)/100);
+  var p2 = path.getPointAtLength(pathLength * (percent+1)/100);
+  var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
+  var p =  path.getPointAtLength(pathLength * percent/100);
+  return { x:p.x*widthScaler,y:p.y*heightScaler, a:a };
+} 
 /***************************************************************
                   Utility Functions End
 ***************************************************************/

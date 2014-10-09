@@ -15,7 +15,7 @@ function cardObject(p)
 
 	this.init = function()
 	{
-		console.log(this.p);
+		//console.log(this.p);
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
@@ -26,7 +26,7 @@ function cardObject(p)
 	};
 	this.next = function()
 	{
-		this.text(interest[0].descr); // get appropriate text
+		this.text(interest[0].descr);
 		var cnt = this.p.event_by_period[pos];
 		this.scoins.empty();
 		for(var i = 0; i < cnt; ++i)		
@@ -38,7 +38,7 @@ function cardObject(p)
 		//1.mutation 
 		//2.giving reward should be done
 		
-		//this.p.pedestal.move(true,pos);
+		
 	};
 	this.prev = function()
 	{

@@ -25,6 +25,7 @@ function human(selector,title)
   this.animated = false;
   this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
+  this.mutation = [{},{},{},{},{},{}]; 
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
   this.traversed_path = 0;
@@ -37,6 +38,7 @@ function human(selector,title)
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject();
   this.future_reward = 0;
+
 
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
@@ -56,18 +58,15 @@ function human(selector,title)
 	});
 	this.__defineSetter__("tsalary", function(val){
 	   this._tsalary = val;
-	   if(val > 0)
-	     $(this.selector).parent().find('.score .tsalary .value').text(Math.round10(val));
+     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? Math.round10(val) : NaN);
 	});
 	this.__defineGetter__("tsaved", function(){
 	 //console.log("getter tsaved ", this._tsaved);
 	     return this._tsaved;
 	 });
 	this.__defineSetter__("tsaved", function(val){
-	 //console.log("setterrrrrrrrrrr tsaved",this._tsaved,val);
 	   this._tsaved = val;
-	   if(val > 0)
-	     $(this.selector).parent().find('.score .tsaved .value').text(Math.round10(val));
+     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? Math.round10(val) : NaN);
 	});
 	this.__defineGetter__("stage", function(){
 	   return this._stage;
@@ -271,6 +270,164 @@ function human(selector,title)
     this.future_reward = this.event_by_period[pos + 1];
     return this.future_reward > 0;
   };
+  this.mutate = function()
+  {
+    var t = this;
+    var treasure = t.treasure;
+    var events = t.event_by_period[pos];
+
+    var zIndex = 0;
+    var which = 1;
+
+    treasure[zIndex]+=events;
+
+    if(t.inrange(which) && events > 0)
+    {      
+      var ca = treasure[zIndex];
+      var sm = states_mutation[zIndex];
+      var smc = Math.floor10(ca/sm); 
+//      console.log(ca,sm,smc,treasure);
+      var mutation_count = 0;
+      t.mutation = mutation_empty.slice();
+
+      if(!t.outrun) mutation_restriction[zIndex] = 0;
+      if(t.outrun && smc > mutation_restriction[which]) 
+      {
+        smc =  mutation_restriction[zIndex];
+        mutation_restriction[zIndex] = 0;
+      }
+      
+      if(smc >= 1)
+      {
+        mutation_count+=smc;
+        t.mutation[zIndex] = { count: smc };
+
+        var looper = smc;
+        var tca = ca;     
+        var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
+
+        if(!t.outrun) mutation_restriction[zIndex] = smc;
+        while(looper != 0)
+        {
+          var from = tca - sm;
+          var to = tca - events;
+
+          var beforeItem = interestB.find('.item[data-id=' + (from++) + ']');
+          var wrapper = $('<div class="mutationB" data-id="'+looper+'" data-from="'+from+'" data-to="'+to+'"></div>');
+          if(beforeItem.length == 0) 
+             interestB.prepend(wrapper);
+          else wrapper.insertAfter(beforeItem);
+
+          for(var j = from; j <= to; ++j)
+          {
+            var item = interestB.find('.item[data-id=' + j + ']');            
+            wrapper.append(item.detach());
+          }
+          tca-=sm;        
+          --looper;
+        }
+        if(mutation_count > 0)// && this.p.title != 'Male')
+        {
+          //console.log(this.p,mutation_count);
+          console.log("mutate start");
+          this.mutatePathToCard(which,mutation_count);
+          treasure[zIndex]-=mutation_count * sm;
+        }
+      }
+      else
+      {        
+        this.pedestal.add(which,events);
+      }
+    }
+
+    this.queue.resume();
+  };
+  this.mutatePathToCard = function(which,cnt)
+  {
+     var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
+
+    var t = this;
+    var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
+    var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pathTmp.setAttribute('d', fromTreasureBarToCardPath);
+    var pathTmpLength = pathTmp.getTotalLength();
+
+   
+    var dur = 1500;
+    for(var i = cnt; i > 0; --i)
+    {
+      var delay = 0;
+      var muts = interestB.find('.mutationB[data-id='+i+']');
+      //console.log(muts);
+      for(var j = muts.length-1; j >= 0; --j)
+      {
+        var mut = $(muts[j]);
+        var from = + mut.attr('data-from');
+        var to = + mut.attr('data-to');
+        var cnt = to - from + 1;
+        var cntTmp = cnt;
+        var mut_start = mut.position().left;
+        //var first = mut.find('div.item[data-id=' + from + ']');
+        var last = mut.find('div.item[data-id=' + to + ']');
+        var moveLeft = last.offset().left;
+        console.log($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left,last.position().left,last.offset().left,moveLeft);
+        var widthScaler = ($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left - moveLeft)/100;
+        var heightScaler = (168 - 32)/56;
+
+        for(var h = to; h >= from; --h)
+        {
+          var d = mut.find('div.item[data-id=' + h + ']');
+          var left = moveLeft-d.position().left;
+          d.css("position","relative").data('position',t.place);    
+          if(h == to)
+          {
+            d.animate({'color':'#ffffff'},{duration:dur,
+              progress:function(a,b,c){
+                var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
+                $(this).css({ left:coord.x, top:  (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+              },
+              complete:function()
+              {
+                --cntTmp;
+                transform.transform('scale', '.'+$(this).data('position')+' .card .coin .reward .item:nth-child(1)', { x:1.1,y:1.1 });  
+              }
+            }); 
+          }
+          else
+          {
+            d.data('ileft',left);
+            d.delay(delay).animate({left:left},{ duration:500,
+              complete:function()
+              {
+                $(this).animate({'color':'#ffffff'},{ duration:dur,
+                  progress:function(a,b,c){
+                    var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
+                    $(this).css({ left: +$(this).data('ileft') + coord.x , top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+                  },
+                  complete:function()
+                  {
+                    --cntTmp;
+                    transform.transform('scale', '.'+$(this).data('position')+' .card .coin .reward .item:nth-child(1)', { x:1.1,y:1.1 });  
+                    if(cntTmp == 0) 
+                    {
+                      //mut.remove();
+                    }  
+                  }
+                }); 
+              }
+            });
+          }
+          delay+=300;
+        }
+      }  
+    }       
+  };
+  this.inrange = function(which)
+  {
+    if(which >=1 && which < 6)
+      return true;
+    return false;
+  };
   this.init = function()
   {
     this.card.init();    
@@ -281,7 +438,7 @@ function human(selector,title)
 
 male = new human('.m.character','Male'); // male human object
 female = new human('.f.character','Female'); // female human object
-humans = [male,female];
+humans = male.outrun ? [male,female] : [female,male];
 
  
 function h_go_right()
@@ -291,8 +448,8 @@ function h_go_right()
 }
 function h_go_left()
 {
-  male.step_right();
-  female.step_right();
+  male.step_left();
+  female.step_left();
 }
   // this.positionXYA = function positionXYA(x,y,a) {
   //     var scaleX = $(document).width()/100;
