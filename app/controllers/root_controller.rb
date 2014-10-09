@@ -20,7 +20,7 @@ class RootController < ApplicationController
     @use_map = true
     
     # the questions for cross tab can only be those that have code answers
-    @questions = SurveyQuestion.can_crosstab
+    @questions = SurveyQuestion.can_crosstab.sorted
 
     @filter_answers = SurveyAnswer.all
 

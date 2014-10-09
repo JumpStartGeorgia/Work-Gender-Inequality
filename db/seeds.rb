@@ -34,6 +34,14 @@ ActiveRecord::Base.connection.execute(sql)
 puts "Flagging that 'Reg' question is mappable"
 SurveyQuestion.where(:code => 'Reg').update_all(:is_mappable => true)
 
+#####################
+## add sort to questions
+## order is: reg, Hx, all rest
+#####################
+puts "Adding sort to questions"
+SurveyQuestion.where(:code => 'Reg').update_all(:sort => 1)
+SurveyQuestion.where('code like "H%"').update_all(:sort => 2)
+
 
 #####################
 ## Survey Answers
