@@ -151,24 +151,24 @@ ka:
       no_data: Data is not on file yet - have you run rake db:seed yet?
       instructions:
         header: Instructions
-        p1a: This page allows you to explore the interaction between two variables from the Employment-related Resarch in Georgia Survey. 
-        p1b: "This interaction can be analyzed via a map (if one variable is 'Reg'), a chart, and a table."
-        p2: "In addition to viewing the interaction between two variables, you may also choose to narrow the focus of this interaction by selecting another variable to filter by."
+        p1a: This page allows you to explore one question or the interaction between two questions from the Employment-related Resarch in Georgia Survey. 
+        p1b: "You may also choose to narrow the scope of this analysis by selecting a subset of data to analyze."
+        p2: "You can explore the analysis via a map (if one variable is 'Reg'), a chart, and a table."
       form:
-        row: Variable 1
-        col: Variable 2 (optional)
-        no_col: No Variable 2
-        swap: Swap Variable 1 and Variable 2
-        submit: Get Data
+        row: Explore Question
+        col: Compared with (optional)
+        no_col: No Comparison
+        swap: Swap the Questions
+        submit: Run Analysis
         filter_variable: Use Subset of Data
         no_filter: Use Complete Data Set
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
       crosstab:
         tabs:
-          map: Choropleth Map
-          chart: Crosstab Chart
-          table: Crosstab Table
+          map: Map
+          chart: Chart
+          table: Table
           details: Details
         map:
           title: "%{row} <br /> by <br /> %{col}"
@@ -185,7 +185,7 @@ ka:
           title_total: "Total Responses: %{num}"
       onevar:
         tabs:
-          map: Choropleth Map
+          map: Map
           chart: Chart
           table: Table
           details: Details

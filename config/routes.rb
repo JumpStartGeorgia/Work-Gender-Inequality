@@ -15,7 +15,7 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faqs
 		end
 
-		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => [:get, :post]
+		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 
 		root :to => 'root#index'

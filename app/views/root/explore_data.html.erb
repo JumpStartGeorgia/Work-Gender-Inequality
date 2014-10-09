@@ -28,7 +28,7 @@
       </div>
 
 
-      <%= form_tag(explore_data_path) do %>
+      <%= form_tag(explore_data_path, :id => 'form-explore-data') do %>
 
         <%
           filter_variable = @filter.present? ? @filter[:code] : ''

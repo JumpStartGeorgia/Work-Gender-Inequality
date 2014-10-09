@@ -414,6 +414,14 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
     }
   });
 
+  // catch the form submit and call the url with the
+  // form values in the url
+  $("form#form-explore-data").submit(function(){
+    // do not get any hidden fields (utf8 and authenticity token)
+    var querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
+    window.location.href = [location.protocol, '//', location.host, location.pathname, '?', querystring].join('');
+    return false;
+  });
 
   // initalize the datatable
   $('#crosstab-datatable').dataTable({
