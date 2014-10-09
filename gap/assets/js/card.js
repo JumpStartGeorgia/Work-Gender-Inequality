@@ -15,7 +15,7 @@ function cardObject(p)
 
 	this.init = function()
 	{
-		console.log(this.p);
+		//console.log(this.p);
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')

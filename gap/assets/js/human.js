@@ -25,6 +25,7 @@ function human(selector,title)
   this.animated = false;
   this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
+  this.mutation = [{},{},{},{},{},{}]; 
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
   this.traversed_path = 0;
@@ -271,33 +272,25 @@ function human(selector,title)
   };
   this.mutate = function()
   {
-    // recreate this point todo
     var t = this;
     var treasure = t.treasure;
-    console.log("inner mutation",treasure,this.event_by_period[pos]);
-    var how = events = this.event_by_period[pos];
+    var events = t.event_by_period[pos];
+
     var zIndex = 0;
-    treasure[zIndex]+=how;
-   
-    // if(!t.mutationDone) // todo delaying up till previous end
-    // {
-    //   t.up_stack.push({which:which,how:how,hidden:hidden});
-    //   t.delay();
-    //   return;
-    // }
     var which = 1;
-  
-    if(t.inrange(which) && how > 0)
+
+    treasure[zIndex]+=events;
+
+    if(t.inrange(which) && events > 0)
     {      
-      var ca = treasure[zIndex]+how;
+      var ca = treasure[zIndex];
       var sm = states_mutation[zIndex];
       var smc = Math.floor10(ca/sm); 
-      console.log(ca,sm,smc,treasure,how,mutation_restriction);
+//      console.log(ca,sm,smc,treasure);
       var mutation_count = 0;
       t.mutation = mutation_empty.slice();
 
       if(!t.outrun) mutation_restriction[zIndex] = 0;
-
       if(t.outrun && smc > mutation_restriction[which]) 
       {
         smc =  mutation_restriction[zIndex];
@@ -306,19 +299,18 @@ function human(selector,title)
       
       if(smc >= 1)
       {
-        
         mutation_count+=smc;
         t.mutation[zIndex] = { count: smc };
 
         var looper = smc;
-        var tca = ca;        
-        var interestB = t.sp.find('.interestB[data-id='+which+']');
+        var tca = ca;     
+        var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
 
         if(!t.outrun) mutation_restriction[zIndex] = smc;
         while(looper != 0)
         {
           var from = tca - sm;
-          var to = tca - how;
+          var to = tca - events;
 
           var beforeItem = interestB.find('.item[data-id=' + (from++) + ']');
           var wrapper = $('<div class="mutationB" data-id="'+looper+'" data-from="'+from+'" data-to="'+to+'"></div>');
@@ -337,20 +329,98 @@ function human(selector,title)
         if(mutation_count > 0)// && this.p.title != 'Male')
         {
           //console.log(this.p,mutation_count);
-          this.animatePathToCard(which);
+          console.log("mutate start");
+          this.mutatePathToCard(which,mutation_count);
           treasure[zIndex]-=mutation_count * sm;
         }
       }
       else
       {        
-        this.add(which,treasure[zIndex],how);
-        treasure[zIndex]+=how;
+        this.pedestal.add(which,events);
       }
-      
-      
     }
 
     this.queue.resume();
+  };
+  this.mutatePathToCard = function(which,cnt)
+  {
+     var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
+
+    var t = this;
+    var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
+    var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    pathTmp.setAttribute('d', fromTreasureBarToCardPath);
+    var pathTmpLength = pathTmp.getTotalLength();
+
+   
+    var dur = 1500;
+    for(var i = cnt; i > 0; --i)
+    {
+      var delay = 0;
+      var muts = interestB.find('.mutationB[data-id='+i+']');
+      //console.log(muts);
+      for(var j = muts.length-1; j >= 0; --j)
+      {
+        var mut = $(muts[j]);
+        var from = + mut.attr('data-from');
+        var to = + mut.attr('data-to');
+        var cnt = to - from + 1;
+        var cntTmp = cnt;
+        var mut_start = mut.position().left;
+        //var first = mut.find('div.item[data-id=' + from + ']');
+        var last = mut.find('div.item[data-id=' + to + ']');
+        var moveLeft = last.offset().left;
+        console.log($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left,last.position().left,last.offset().left,moveLeft);
+        var widthScaler = ($('.' + t.place + ' .treasure .card .coins:nth-child('+i+')').offset().left - moveLeft)/100;
+        var heightScaler = (168 - 32)/56;
+
+        for(var h = to; h >= from; --h)
+        {
+          var d = mut.find('div.item[data-id=' + h + ']');
+          var left = moveLeft-d.position().left;
+          d.css("position","relative").data('position',t.place);    
+          if(h == to)
+          {
+            d.animate({'color':'#ffffff'},{duration:dur,
+              progress:function(a,b,c){
+                var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
+                $(this).css({ left:coord.x, top:  (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+              },
+              complete:function()
+              {
+                --cntTmp;
+                transform.transform('scale', '.'+$(this).data('position')+' .card .coin .reward .item:nth-child(1)', { x:1.1,y:1.1 });  
+              }
+            }); 
+          }
+          else
+          {
+            d.data('ileft',left);
+            d.delay(delay).animate({left:left},{ duration:500,
+              complete:function()
+              {
+                $(this).animate({'color':'#ffffff'},{ duration:dur,
+                  progress:function(a,b,c){
+                    var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
+                    $(this).css({ left: +$(this).data('ileft') + coord.x , top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+                  },
+                  complete:function()
+                  {
+                    --cntTmp;
+                    transform.transform('scale', '.'+$(this).data('position')+' .card .coin .reward .item:nth-child(1)', { x:1.1,y:1.1 });  
+                    if(cntTmp == 0) 
+                    {
+                      //mut.remove();
+                    }  
+                  }
+                }); 
+              }
+            });
+          }
+          delay+=300;
+        }
+      }  
+    }       
   };
   this.inrange = function(which)
   {
@@ -368,7 +438,7 @@ function human(selector,title)
 
 male = new human('.m.character','Male'); // male human object
 female = new human('.f.character','Female'); // female human object
-humans = [male,female];
+humans = male.outrun ? [male,female] : [female,male];
 
  
 function h_go_right()

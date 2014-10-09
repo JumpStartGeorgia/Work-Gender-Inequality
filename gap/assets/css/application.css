@@ -608,7 +608,7 @@ top:0px;
      position:relative;
     transition: all 2s ease-out;
   }
-   .treasure .pedestal > div.mutationB
+   .treasure > .pedestal > .interestB > div.mutationB
   {
      display:inline-block;
      height:32px;
