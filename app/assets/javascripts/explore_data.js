@@ -188,6 +188,9 @@ if (gon.crosstab_map_counts && gon.crosstab_map_percents){
     var map_counts = gon.crosstab_map_counts;
     var map_percents = gon.crosstab_map_percents;
 
+    // adjust the width of the map to fit its container
+    $('#crosstab-map').width($('#tab-crosstab-map').width());
+
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
     var map_crosstab = L.map('crosstab-map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
@@ -280,6 +283,9 @@ if (gon.onevar_map_counts && gon.onevar_map_percents){
 
     var map_counts = gon.onevar_map_counts;
     var map_percents = gon.onevar_map_percents;
+
+    // adjust the width of the map to fit its container
+    $('#onevar-map').width($('#tab-onevar-map').width());
 
     // initiate map
     var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
