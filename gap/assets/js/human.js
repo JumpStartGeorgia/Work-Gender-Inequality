@@ -431,26 +431,45 @@ function human(selector,title)
             }
             var isFirst = true;
             var itemNumber = 0;
+            var last = {};
+            var globalItemNumber = 0;
             for(var j = eventL-1; j >= 0; --j)
             {
               if(mutator.left[j] == i) 
               {
-     
-                this.moveTreasureCoinToCard(which, j, placeOnCard, isFirst, j, itemNumber);
+                if(isFirst)  
+                {
+                  var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
+                  last.offset = lastTmp.offset();
+                  last.position = lastTmp.position();
+                }
+                this.moveTreasureCoinToCard(which, j, placeOnCard, isFirst, i, itemNumber, last);
                 if(isFirst)  isFirst = false;
                 ++itemNumber;
+                ++globalItemNumber;
               }
             }
-            isFirst = false;
+            isFirst = true;
+            var first = {};
+            var firstTmp;
+            itemNumber = 0;
             for(var j = 0; j < eventR; ++j)
             {
               if(mutator.right[j] == i)
               {
-                if(!isFirst) isFirst = true;
+                if(isFirst) 
+                {
+                  isFirst = false;
+                  firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
+                  first.offset = firtsTmp.offset();
+                  first.position = firtsTmp.position();
+                }
                 else 
                 {
-                  this.moveCardCoinToParentCardCoin(j,placeOnCard);
+                  this.moveCardCoinToParentCardCoin(which,j,placeOnCard,first,itemNumber,globalItemNumber);
                 }
+                ++itemNumber;
+                ++globalItemNumber;
               } 
             }
           }
@@ -472,29 +491,26 @@ function human(selector,title)
   var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   pathTmp.setAttribute('d', fromTreasureCoinToCardPath);
   var pathTmpLength = pathTmp.getTotalLength();
-  this.moveTreasureCoinToCard = function(level,who,where,isFirst,parent,itemNumber)
+  this.moveTreasureCoinToCard = function(level,who,where,isFirst,parent,itemNumber,last)
   {
     var t = this;
     var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']');
     var item = interestB.find('div.item[data-id='+(who+1)+']');
-    var last = interestB.find('div.item[data-id=' + (parent+1) + ']');
-
-    var offsetLeft = last.offset().left;
+    var offsetLeft = last.offset.left;
     var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
     var widthScaler = (cardItem.offset().left - offsetLeft)/100;
+    //console.log(last,item.position());
     var hForScaler = 0;
     if(t.place=='top') hForScaler = lh - cardItem.offset().top - 32 - 10;
     else  hForScaler = cardItem.offset().top - lh - th - 10;
     var heightScaler = hForScaler/56;
-    //console.log(lh,cardItem.offset());
-     var dur = 1500;   
-    var delay = 200 * itemNumber;
+    var dur = 1500;   
+    var delay = 300 * itemNumber;
 
-    var left = offsetLeft-item.position().left;
-    item.data('cardItem','.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');    
     if(isFirst)
     {
       //console.log("It's first one");
+      //item.position().left
       item.animate({'color':'#ffffff'},{duration:dur,
         progress:function(a,b,c){
           var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
@@ -509,13 +525,15 @@ function human(selector,title)
     }
     else
     {
-      item.delay(delay).animate({left:left},{ duration:500,
+      item.data('ileft',item.position().left);
+      item.delay(delay).animate({left:last.position.left-item.position().left},{ duration:500,
         complete:function()
         {
           $(this).animate({'color':'#ffffff'},{ duration:dur,
             progress:function(a,b,c){
               var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
-              $(this).css({ left: coord.x , top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
+              //console.log($(this),coord.x);
+              $(this).css({ left: coord.x + (last.position.left- +item.data('ileft')), top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
             },
             complete:function()
             {
@@ -528,9 +546,22 @@ function human(selector,title)
     }
     //console.log("treasureToCard",level,who,where,parent,item,last,offsetLeft,widthScaler,heightScaler);
   };
-  this.moveCardCoinToParentCardCoin = function(who,where)
+  this.moveCardCoinToParentCardCoin = function(level,who,where,first,itemNumber,globalItemNumber)
   {
-    console.log("cardToCard",who,where);
+    var t = this;
+    var delay = 300 * itemNumber;
+    var item = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(who+1)+')');
+    item.data('itemNumber',globalItemNumber);
+    item.delay(delay).animate({left:item.position().left-first.position.left},{ duration:500,
+      complete:function()
+      {
+        item.remove();
+        $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')')
+        var glb = item.data('itemNumber');
+        .css('transform','scale('+(1+globalItemNumber/10)+','+(1+(globalItemNumber+1)/10)+')');
+      }
+    });
+    console.log("cardToCard",level,who,where,first,item,item.position(),item.offset());
   };
   this.mutatePathToCard = function(which,eventL,eventR,cnt,sm)
   {
