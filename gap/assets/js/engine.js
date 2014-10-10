@@ -192,7 +192,7 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 30 - 10 }).appendTo(t);
+  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 32 - 10 }).appendTo(t);
 
   
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
@@ -206,7 +206,7 @@ function game() {
     '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(b);
   bs.css({ left: w-bs.width()-30, top: lh + th + 20});
 
-  treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + 30 + 10 }).appendTo(b);  
+  treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + th + 10 }).appendTo(b);  
 
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
