@@ -282,16 +282,17 @@ function human(selector,title)
     return this.future_reward > 0;
   };
   //var animationQueue = new queueObject();
-  this.mutate = function(which)
+  this.mutate = function()
   {
-    //console.log("Position",pos);
+    console.log("Position",pos);
     var t = this;
     var treasure = t.treasure;
     var events = t.event_by_period[pos];
 
-    var zIndex = which - 1;
-    var which = which;
+    var zIndex = 0;
+    var which = 1;
     var tmp = 0;
+
     
     if(t.inrange(which) && events > 0)
     {      
@@ -477,19 +478,12 @@ function human(selector,title)
             var mutateF = (function(zeroCount,i) {
                     return function(){ 
                       var convert = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(zeroCount+i)+')');
-                      convert.animate({"color":"white"},{duration:2000,
-                      progress:function(a,b,c){ console.log(a,b,c); 
-
-                          var val = jQuery.easing.easeOutBounce(b*0.3);
-                          //console.log(t.title,val);
-                          $(this).css({'transform':'scale(' + (1+val)+','+(1+val) + ')',opacity:1-b})
+                      convert.animate({"color":"white"},{duration:2000,easing:'easeInBounce',
+                      progress:function(a,b,c){ //console.log(a,b,c); 
+                          $(this).css('transform','scale(' + (1+b*1)+','+(1+b*1) + ')')
                        },
-                      complete:function(){ 
-                        $(this).removeClass('iboat').css('transform','scale(1,1)').addClass('ibag').css('opacity',1);
-                        t.pedestal.add(which+1,1);
-                        treasure[zIndex+1]+=1;
-                        t.queue.resume();
-                      }
+                      complete:function(){ $(this).toggleClass('iboat ibag'); },
+                      //step:function(a,b){console.log(a,b);}
                     });
                     };
                   })(zeroCount,i);
@@ -507,9 +501,7 @@ function human(selector,title)
       }
     }
     //t.queue.toString();
-    if(which == 6)
-      this.queue.resume();
-    else this.mutate(which+1);
+    this.queue.resume();
   };
   var fromTreasureCoinToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
   var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');

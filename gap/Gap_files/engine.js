@@ -401,11 +401,9 @@ function reward_process()
     { 
       d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { prepare_bk_for_reward(d); });
-      d.queue.push(function() { d.mutate(1);  });
+      d.queue.push(function() { d.mutate();  });
       d.queue.push(function() { start_reward_animation(d); });
-      d.queue.push(function() { hide_card(d); });
       d.queue.push(function() { prepare_bk_for_work(d); });
-
       d.queue.start();
 
       /*d.next_frame();*/
@@ -471,12 +469,6 @@ function card_prepare(v)
     rew.show();         
     v.card.prev();
   }
-  v.queue.resume();  
-}
-function hide_card(v)
-{
-  console.log("hideCard",v);
-  v.card.hide();
   v.queue.resume();  
 }
 
