@@ -11,6 +11,10 @@ class RootController < ApplicationController
     @faq_categories = FaqCategory.sorted
     @faqs = Faq.sorted
 
+    # add the required assets
+    @css.push("faqs.css")
+    @js.push("faqs.js")
+
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -50,6 +54,10 @@ class RootController < ApplicationController
       format.html{
         # flag so leaflet js is loaded
         @use_map = true
+
+        # add the required assets
+        @css.push("explore_data.css")
+        @js.push("explore_data.js")
 
         # record url for making ajax call
         gon.explore_data_ajax_path = explore_data_path(:format => :js)
