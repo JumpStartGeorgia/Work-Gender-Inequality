@@ -363,24 +363,42 @@ $(document).ready(function() {
     // build head
     table += "<thead>";
     if (json.type == 'crosstab'){
-      // 2 headers of:
+      // 3 headers of:
       //                col question
-      // row question   col answers .....
-      table += "<tr><th class='var1-col'></th><th colspan='" + (json.column_answers.length+1).toString() + "'>";
+      //                col answers .....
+
+      // row question   count percent count percent .....
+      table += "<tr class='th-center'>";
+      table += "<th class='var1-col'></th>";
+      table += "<th colspan='" + (2*(json.column_answers.length+1)).toString() + "'>";
       table += json.column_question;
-      table += "</th></tr>";
-      table += "<tr><th class='var1-col'>";
+      table += "</th>";
+      table += "</tr>";
+      table += "<tr class='th-center'>";
+      table += "<th class='var1-col'></th>";
+      for(i=0; i<json.column_answers.length;i++){
+        table += "<th colspan='2'>";
+        table += json.column_answers[i][1].toString();
+        table += "</th>"
+      }
+      table += "</tr>";
+      table += "<tr>";
+      table += "<th class='var1-col'>";
       table += json.row_question;
       table += "</th>";
       for(i=0; i<json.column_answers.length;i++){
         table += "<th>";
-        table += json.column_answers[i][1].toString();
+        table += $('#datatable').data('count');
+        table += "</th>"
+        table += "<th>";
+        table += $('#datatable').data('percent');
         table += "</th>"
       }
       table += "</tr>";
     }else{
       // 1 header of: row question, count, percent
-      table += "<tr><th class='var1-col'>";
+      table += "<tr class='th-center'>";
+      table += "<th class='var1-col'>";
       table += json.row_question;
       table += "</th><th>";
       table += $('#datatable').data('count');
@@ -402,9 +420,10 @@ $(document).ready(function() {
         for(j=0; j<json.counts[i].length; j++){
           table += "<td>";
           table += json.counts[i][j];
-          table += "&nbsp;&nbsp;(";
+          table += "</td>";
+          table += "<td>";
           table += json.percents[i][j].toFixed(2);
-          table += "%)</td>";
+          table += "%</td>";
         }
         table += "</tr>";
       }

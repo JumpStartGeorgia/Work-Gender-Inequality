@@ -75,12 +75,19 @@
      margin: 0 auto;
   }
   #datatable{
-    thead tr:first-of-type th{
+    thead tr.th-center th{
       border-bottom: 4px solid #333;
       text-align: center;
+      &:first-of-type{
+        border-bottom: none;
+        border-top: none;
+      }
       &:last-of-type{
         border-right: none;
       };
+    }
+    thead tr:last-of-type th:first-of-type{
+      border-top: 4px solid #333;
     }
     td, th{
       border-right: solid 1px #ddd;
