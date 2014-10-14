@@ -149,6 +149,8 @@ ka:
       title: Explore the Data
       no_matches: Your selections returned no data. Please try again with a different selection.
       no_data: Data is not on file yet - have you run rake db:seed yet?
+      hover_region: Hover over a Region
+      na: N/A
       instructions:
         header: Instructions
         p1a: This page allows you to explore one question or the interaction between two questions from the Employment-related Resarch in Georgia Survey. 
@@ -160,6 +162,7 @@ ka:
         no_col: No Comparison
         swap: Swap the Questions
         submit: Run Analysis
+        reset: Reset 
         filter_variable: Use Subset of Data
         no_filter: Use Complete Data Set
         filter_value: With Value
