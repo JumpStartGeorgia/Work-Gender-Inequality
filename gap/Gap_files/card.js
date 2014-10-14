@@ -60,7 +60,7 @@ function cardObject(p)
 		else
 		{
 			var time = 2000;
-			this.scard.fadeIn(time).delay(time).fadeOut(time);
+			this.scard.fadeIn(time).delay(time);//.fadeOut(time);
 		}
 	};
 }
