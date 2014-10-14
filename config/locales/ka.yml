@@ -167,45 +167,24 @@ ka:
         no_filter: Use Complete Data Set
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
+      tabs:
+        map: Map
+        chart: Chart
+        table: Table
+        details: Details
       crosstab:
-        tabs:
-          map: Map
-          chart: Chart
-          table: Table
-          details: Details
-        map:
-          title: "%{row} <br /> by <br /> %{col}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
-          filter: "Filter map by selecting an answer to '%{text}':"
-        chart:
-          title: "%{row} <br /> by <br /> %{col}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
-        table:
           title: "%{row} <br /> by <br /> %{col}"
           title_filter: "<br /> where <br /> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
       onevar:
-        tabs:
-          map: Map
-          chart: Chart
-          table: Table
-          details: Details
-        map:
           title: "%{row}"
           title_filter: "<br /> where <br /> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
-        chart:
-          title: "%{row}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
-        table:
-          title: "%{row}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
-          count: Count
-          percent: Percent
+      map:
+        filter: "Filter map by selecting an answer to '%{text}':"
+      table:
+        count: Count
+        percent: Percent
       details:
         variable: Variable
         answers: Possible Answers    
