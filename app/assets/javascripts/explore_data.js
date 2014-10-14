@@ -499,10 +499,21 @@ $(document).ready(function() {
 
   ////////////////////////////////////////////////
   // get data and load page
-  function get_explore_data(){
+  function get_explore_data(is_back_button){
+    if (is_back_button == undefined){
+      is_back_button = false;
+    }
     // get params
     // do not get any hidden fields (utf8 and authenticity token)
-    var querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
+    var querystring;
+    if (is_back_button){
+      var split = window.location.href.split('?');
+      if (split.length == 2){
+        querystring = split[1];
+      }
+    } else{
+      querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
+    }
 
     // call ajax
     $.ajax({
@@ -523,7 +534,7 @@ $(document).ready(function() {
       var new_url = [location.protocol, '//', location.host, location.pathname, '?', querystring].join('');
 
       // change the browser URL to the given link location
-      if (new_url != window.location.href){
+      if (!is_back_button && new_url != window.location.href){
         window.history.pushState({path:new_url}, '', new_url);
       }
     });
@@ -547,7 +558,6 @@ $(document).ready(function() {
     $('select#filter_value').selectpicker('refresh');
     $('#filter_value_container').hide();
 
-    get_explore_data();
   }
 
 
@@ -587,6 +597,8 @@ $(document).ready(function() {
   $("form#form-explore-data input#btn-reset").click(function(e){
     e.preventDefault();
     reset_filter_form();
+    get_explore_data();
+
   });
 
 
@@ -726,8 +738,97 @@ $(document).ready(function() {
 
   // the below code is to override back button to get the ajax content without page reload
   $(window).bind('popstate', function() {
-    alert('do something for back button!');
+    console.log('url = ' + window.location.href);
+
+    // pull out the querystring
+    params = queryStringToJSON(window.location.href);
+
+    // for each form field, reset if need to
+    // row
+    if (params.row != $('select#row').val()){
+      if (params.row == undefined){
+        $('select#row').val('');
+      }else{
+        $('select#row').val(params.row);
+      }
+      $('select#row').selectpicker('refresh');
+    }
+
+    // col
+    if (params.col != $('select#col').val()){
+      if (params.col == undefined){
+        $('select#col').val('');
+      }else{
+        $('select#col').val(params.col);
+      }
+      $('select#col').selectpicker('refresh');
+    }
+    if ($('select#col').val() == ''){
+      $('#btn-swap-vars').hide();
+    }else{
+      $('#btn-swap-vars').show();
+    }
+
+    // filter variable
+    if (params.filter_variable != $('select#filter_variable').val()){
+      if (params.filter_variable == undefined){
+        $('select#filter_variable').val('');
+      }else{
+        $('select#filter_variable').val(params.filter_variable);
+      }
+      $('select#filter_variable').selectpicker('refresh');
+    }
+
+    // filter value
+    if (params.filter_variable == ''){
+      // no filter, so hide the filter values
+      $('#filter_value_container').fadeOut();
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+    } else{
+      // deselect what is there
+      $('select#filter_value').val('');
+
+      // mark all disabled
+      $('select#filter_value option:not([disabled])').attr('disabled','disabled');
+
+      // turn on the values that have the filter variable value
+      $('select#filter_value option[data-code="' + params.filter_variable + '"]').removeAttr('disabled');
+
+      // set the value
+      $('select#filter_value option[data-code="' + params.filter_variable + '"][value="' + params.filter_value + '"]').attr('selected', 'selected');
+
+      // show list
+      $('#filter_value_container').fadeIn();
+    }
+    $('select#filter_value').selectpicker('refresh');
+
+    // exclude dkra
+    if (params.exclude_dkra == 'true'){
+      $('input#exclude_dkra').attr('checked', 'checked');
+    }else{
+      $('input#exclude_dkra').removeAttr('checked');
+    }
+
+    // reload the data
+    get_explore_data(true);
   });  
 });
 
-
+var queryStringToJSON = function (url) {
+    if (url === ''){
+      return '';    
+    }
+    var u = url.split('?');
+    if (u.length != 2){
+      return '';
+    }
+    var pairs = u[1].split('&');
+    var result = {};
+    for (var idx in pairs) {
+        var pair = pairs[idx].split('=');
+        if (!!pair[0])
+            result[pair[0].toLowerCase()] = decodeURIComponent(pair[1] || '');
+    }
+    return result;
+}
