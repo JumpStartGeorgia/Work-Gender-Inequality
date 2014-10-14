@@ -106,12 +106,19 @@ $(document).ready(function() {
   // build crosstab chart
   function build_crosstab_chart(json){
     if (json.chart && json.chart.data){
+      // set languaage text
+      Highcharts.setOptions({
+        lang: {
+          contextButtonTitle: gon.highcharts_context_title
+        }
+      });
+
       $('#chart').highcharts({
           chart: {
               type: 'bar'
           },
           title: {
-              text: json.title,
+              text: json.title.html,
               useHTML: true,
               style: {'text-align': 'center'}
           },
@@ -124,7 +131,7 @@ $(document).ready(function() {
           yAxis: {
               min: 0,
               title: {
-                  text: 'Percent'
+                  text: gon.percent
               }
           },
           legend: {
@@ -147,7 +154,40 @@ $(document).ready(function() {
                   stacking: 'percent'
               }
           },
-          series: json.chart.data.reverse()
+          series: json.chart.data.reverse(),
+          exporting: {
+            filename: json.title.text,
+            buttons: {
+              contextButton: {
+                menuItems: [
+                  {
+                    text: gon.highcharts_png,
+                    onclick: function () {
+                        this.exportChart({type: 'image/png'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_jpg,
+                    onclick: function () {
+                        this.exportChart({type: 'image/jpeg'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_pdf,
+                    onclick: function () {
+                        this.exportChart({type: 'application/pdf'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_svg,
+                    onclick: function () {
+                        this.exportChart({type: 'image/svg+xml'});
+                    }
+                  }
+                ]
+              }
+            }
+          }
       });    
     }
   }
@@ -156,6 +196,13 @@ $(document).ready(function() {
   // build pie chart
   function build_pie_chart(json){
     if (json.chart && json.chart.data){
+      // set languaage text
+      Highcharts.setOptions({
+        lang: {
+          contextButtonTitle: gon.highcharts_context_title
+        }
+      });
+
       $('#chart').highcharts({
           chart: {
               plotBackgroundColor: null,
@@ -163,7 +210,7 @@ $(document).ready(function() {
               plotShadow: false
           },
           title: {
-              text: json.title,
+              text: json.title.html,
               useHTML: true,
               style: {'text-align': 'center'}
           },
@@ -189,7 +236,41 @@ $(document).ready(function() {
           series: [{
               type: 'pie',
               data: json.chart.data
-          }]
+          }],
+          exporting: {
+            filename: json.title.text,
+            buttons: {
+              contextButton: {
+                menuItems: [
+                  {
+                    text: gon.highcharts_png,
+                    onclick: function () {
+                        this.exportChart({type: 'image/png'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_jpg,
+                    onclick: function () {
+                        this.exportChart({type: 'image/jpeg'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_pdf,
+                    onclick: function () {
+                        this.exportChart({type: 'application/pdf'});
+                    }
+                  }, 
+                  {
+                    text: gon.highcharts_svg,
+                    onclick: function () {
+                        this.exportChart({type: 'image/svg+xml'});
+                    }
+                  }
+                ]
+              }
+            }
+          }
+
       });
     }
   }
@@ -201,7 +282,7 @@ $(document).ready(function() {
     if (json.map && json.map.counts && json.map.percents){
 
       // set the map title
-      $('#tab-map h3').html(json.title);
+      $('#tab-map h3').html(json.title.html);
 
       // adjust the width of the map to fit its container
       $('#map').width($('#explore-tabs').width());
@@ -349,7 +430,7 @@ $(document).ready(function() {
   // build data table
   function build_datatable(json){
     // set the map title
-    $('#tab-table h3').html(json.title);
+    $('#tab-table h3').html(json.title.html);
 
     // if the datatable alread exists, kill it
     if (datatable != undefined){
@@ -463,7 +544,24 @@ $(document).ready(function() {
           { "type": "formatted-num", targets: sort_array }
       ],
       "tableTools": {
-        "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf"
+        "sSwfPath": "/assets/dataTables/extras/swf/copy_csv_xls.swf",
+        "aButtons": [
+          {
+            "sExtends": "copy",
+            "sButtonText": gon.datatable_copy_title,
+            "sToolTip": gon.datatable_copy_tooltip
+          },
+          {
+            "sExtends": "csv",
+            "sButtonText": gon.datatable_csv_title,
+            "sToolTip": gon.datatable_csv_tooltip
+          },
+          {
+            "sExtends": "xls",
+            "sButtonText": gon.datatable_xls_title,
+            "sToolTip": gon.datatable_xls_tooltip
+          }
+        ]        
       }
     });    
 

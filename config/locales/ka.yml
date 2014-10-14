@@ -33,6 +33,28 @@ ka:
       messages:
         required_field: "სავალდებულო ველი"
         already_exists: 'უკვე არსებობს მონაცემთა ბაზაში'
+  datatable:
+    copy: 
+      title: Copy
+      tooltip: Copy to clipboard
+    csv: 
+      title: CSV
+      tooltip: Save as CSV
+    xls: 
+      title: XLS
+      tooltip: Save as XLS
+    pdf: 
+      title: PDF
+      tooltip: Save as PDF
+    print: 
+      title: Print
+      tooltip: Print the table
+  highcharts:
+    context_title: Save this chart
+    png: PNG Image
+    jpg: JPG Image
+    pdf: PDF Document
+    svg: SVG Vector Image
   mailer:
     closing: "პატივისცემით,"
     signature: “ჯამპსტარტ ჯორჯია”
@@ -151,6 +173,7 @@ ka:
       no_data: Data is not on file yet - have you run rake db:seed yet?
       hover_region: Hover over a Region
       na: N/A
+      percent: Percent
       instructions:
         header: Instructions
         p1a: This page allows you to explore one question or the interaction between two questions from the Employment-related Resarch in Georgia Survey. 
@@ -173,13 +196,21 @@ ka:
         table: Table
         details: Details
       crosstab:
+        html:
           title: "%{row} <br /> by <br /> %{col}"
           title_filter: "<br /> where <br /> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
+        text:
+          title: "%{row} by %{col}"
+          title_filter: " where %{variable} = %{value}"
       onevar:
+        html:
           title: "%{row}"
           title_filter: "<br /> where <br /> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
+        text:
+          title: "%{row}"
+          title_filter: " where %{variable} = %{value}"
       map:
         filter: "Filter map by selecting an answer to '%{text}':"
       table:

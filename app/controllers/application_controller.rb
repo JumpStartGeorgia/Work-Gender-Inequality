@@ -71,7 +71,7 @@ logger.debug "////////////////////////// BROWSER = #{user_agent}"
 		gon.highlight_first_form_field = true
 
 		if I18n.locale == :ka
-		  gon.datatable_i18n_url = "/datatable_ka.txt"
+		  gon.datatable_i18n_url = "/datatable_ka.json"
 		else
 		  gon.datatable_i18n_url = ""
 		end
