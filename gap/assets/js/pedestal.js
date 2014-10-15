@@ -13,6 +13,7 @@ function pedestalObject(p)
   
   this.add = function(which,how)
   {
+    //console.log("Adding",which,how);
     var t = this;
     var start = t.p.treasure[0]-how;
     //console.log(this.p,which, start,how);
@@ -103,9 +104,11 @@ function pedestalObject(p)
   };
   this.resume = function(states)
   {
+    
+    
     var t = this;
     if(typeof states !== Array && states.length != 6) return;
-
+console.log("Resuming",states);
     for(var i = 0; i < 6; ++i)
     {
       var state = states[i];
@@ -122,5 +125,6 @@ function pedestalObject(p)
       }
       treasure[i] = state;
     }
+    console.log("End Resuming");
   };   
 }

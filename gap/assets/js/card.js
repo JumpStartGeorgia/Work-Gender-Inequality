@@ -16,6 +16,7 @@ function cardObject(p)
 	this.init = function()
 	{
 		//console.log(this.p);
+	
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
@@ -26,6 +27,7 @@ function cardObject(p)
 	};
 	this.next = function()
 	{
+		this.show();
 		this.text(interest[0].descr);
 		var cnt = this.p.event_by_period[pos];
 		this.scoins.empty();
@@ -33,16 +35,11 @@ function cardObject(p)
 		{
 			this.scoins.append('<div class="coin item iboat"></div>');
 		}
-		if(cnt > 0) this.hide();
-		//before calling this animation - 
-		//1.mutation 
-		//2.giving reward should be done
-		
-		
+		//if(cnt > 0) this.hide();
 	};
 	this.prev = function()
 	{
-		this.hide(true);
+		//this.hide(true);
 		this.p.pedestal.move(false,pos);
 	};
 	this.text = function(text)
@@ -59,8 +56,24 @@ function cardObject(p)
 		}
 		else
 		{
-			var time = 2000;
-			this.scard.fadeIn(time).delay(time).fadeOut(time);
+			if(this.scard.is(':visible'))
+			{
+				var time = 2000;
+				this.scard.delay(time).fadeOut(time);
+			}
+		}
+	};
+	this.show = function(immediate)
+	{
+		if(typeof immediate === undefined) immediate = false;		
+		if(immediate) 
+		{
+			this.scard.show();
+		}
+		else
+		{
+			var time = 1000;
+			this.scard.fadeIn(time);
 		}
 	};
 }

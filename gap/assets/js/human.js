@@ -282,234 +282,244 @@ function human(selector,title)
     return this.future_reward > 0;
   };
   //var animationQueue = new queueObject();
-  this.mutate = function(which)
+  this.mutate = function(which,events)
   {
-    //console.log("Position",pos);
     var t = this;
-    var treasure = t.treasure;
-    var events = t.event_by_period[pos];
+    //console.log(which,events);
 
+    if(typeof which === "undefined") return;
+    if(which == 1) events = t.event_by_period[pos];
+
+    if (typeof events === "undefined" || events == 0) 
+    {
+      this.queue.resume();  
+      return;
+    }
+
+    //console.log("was here");
+    
+    var treasure = t.treasure;
+    var hasMutation = false;
     var zIndex = which - 1;
-    var which = which;
+    var mutateCount = 0;
     var tmp = 0;
     
     if(t.inrange(which) && events > 0)
-    {      
-      var ca = treasure[zIndex] + events;
+    { 
+
+      var ca = treasure[zIndex] + events; // all events for current steps
       var sm = states_mutation[zIndex];
-      var smc = Math.floor10(ca/sm); 
-//      console.log(ca,sm,smc,treasure);
-      var mutation_count = 0;
+      var mutateCount = Math.floor10(ca/sm); 
+     
       t.mutation = mutation_empty.slice();
 
       if(!t.outrun) mutation_restriction[zIndex] = 0;
-      if(t.outrun && smc > mutation_restriction[which]) 
+      if(t.outrun && mutateCount > mutation_restriction[which]) 
       {
-        smc =  mutation_restriction[zIndex];
+        mutateCount =  mutation_restriction[zIndex];
         mutation_restriction[zIndex] = 0;
       }
       
-      if(smc >= 1)
+      if(mutateCount >= 1)
       {
+        hasMutation = true;
          //console.log("mutate");
-        mutation_count+=smc;
-        t.mutation[zIndex] = { count: smc };
+        t.mutation[zIndex] = { count: mutateCount };
 
-        var looper = smc;
+        var looper = mutateCount;
         var tca = ca;     
         var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
 
-        if(!t.outrun) mutation_restriction[zIndex] = smc;
-        if(mutation_count > 0)// && this.p.title != 'Male')
+        if(!t.outrun) mutation_restriction[zIndex] = mutateCount;
+      
+        var eventL = treasure[zIndex];
+        var eventR = events;
+        var cnt = mutateCount;
+        var tmpCount = 1;
+        
+        var checker = sm-1;
+       
+        mutator.empty();
+
+        for(var i = 1; i <= eventR; ++i)
         {
-          //var v = treasure[zIndex]+events-mutation_count*sm;
-          //if(v>0) this.pedestal.add(which,v);
-          //console.log(treasure[zIndex]);
-          //treasure[zIndex] -= mutation_count * sm;
-
-          var eventL = treasure[zIndex];
-          var eventR = events;
-          var cnt = mutation_count;
-          var tmpCount = 1;
-          
-          var checker = sm-1;
-         
-          mutator.empty();
-
-          for(var i = 1; i <= eventR; ++i)
+          if(tmpCount <= cnt)
           {
-            if(tmpCount <= cnt)
+            mutator.right.push(tmpCount);
+            ++tmpCount;
+          }
+          else 
+          {
+            if(checker != 0)
             {
-              mutator.right.push(tmpCount);
-              ++tmpCount;
+              mutator.right.push(tmpCount-1);
+              --checker;
             }
             else 
             {
-              if(checker != 0)
+              mutator.right.unshift(0);     
+           
+            }
+          }
+        }
+      
+        // After preparing mutator.right array, calculating count of each different items, ex: can be 1 without mutation mutator.rightCount[0] will be one ...
+        tmpCount = 1;
+        for(var i = 0; i < eventR-1; ++i)
+        {
+          //console.log(i,mutator.right[i-1],tmpCount);
+          if(mutator.right[i] != mutator.right[i+1])
+          {
+            mutator.rightCount.push(tmpCount);
+            tmpCount = 1;
+          }
+          else
+          {
+            ++tmpCount;
+          }
+        }
+
+        if(typeof mutator.right[0] !== undefined && mutator.right[0]!=0)  mutator.rightCount.unshift(0);
+        mutator.rightCount.push(tmpCount);
+
+
+        // Preparing left mutator.left
+        // 
+        var mutatorRightCountIndex = mutator.rightCount.length - 1;
+        tmp = sm - mutator.rightCount[mutatorRightCountIndex];
+        treasure[zIndex]-=tmp;
+        for(var i = eventL; i >= 1; --i)
+        {
+          if(tmp!=0)
+          {
+            mutator.left.unshift(mutatorRightCountIndex);
+            --tmp;
+          }
+          else
+          {
+            --mutatorRightCountIndex;
+            mutator.left.unshift(mutatorRightCountIndex);
+            if(mutatorRightCountIndex != 0)
+              tmp = sm - mutator.rightCount[mutatorRightCountIndex];
+          }
+        }
+
+      
+        for(var i = 1; i <= cnt; ++i)
+        {
+          var placeOnCard = 0;
+          for(var j = 0; j < eventR; ++j)
+          {
+            if(mutator.right[j] == i) 
+            {
+              placeOnCard = j;
+              break;
+            }
+          }
+          // todo synchronize this two data
+          var isFirst = true;
+          var itemNumber = 0;
+          var last = {};
+          var globalItemNumber = 0;
+          var putIndex = 0;
+           //console.log(t,mutator.left);
+          for(var j = eventL-1; j >= 0; --j)
+          {
+           
+            if(mutator.left[j] == i) 
+            {
+              if(isFirst)  
               {
-                mutator.right.push(tmpCount-1);
-                --checker;
+                var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
+                last.offset = lastTmp.offset();
+                last.position = lastTmp.position();
+              }
+              // console.log();
+               //console.log("treasure",j,eventL);
+               var mutateF = (function(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber) {
+                  return function(){ t.moveTreasureCoinToCard(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber); };
+                })(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber);
+                this.queue.splice(putIndex++, mutateF,t.title);
+            
+              if(isFirst)  isFirst = false;
+              ++itemNumber;
+              ++globalItemNumber;
+            }
+          }
+          //console.log(globalItemNumber);
+          isFirst = true;
+          var first = {};
+          var firstTmp;
+          itemNumber = 0;
+           //console.log(t,mutator.right);
+          for(var j = 0; j < eventR; ++j)
+          {
+            if(mutator.right[j] == i)
+            {
+              if(isFirst) 
+              {
+                isFirst = false;
+                firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
+                first.offset = firtsTmp.offset();
+                first.position = firtsTmp.position();
               }
               else 
               {
-                mutator.right.unshift(0);     
-             
-              }
-            }
-          }
-        
-          // After preparing mutator.right array, calculating count of each different items, ex: can be 1 without mutation mutator.rightCount[0] will be one ...
-          tmpCount = 1;
-          for(var i = 0; i < eventR-1; ++i)
-          {
-            //console.log(i,mutator.right[i-1],tmpCount);
-            if(mutator.right[i] != mutator.right[i+1])
-            {
-              mutator.rightCount.push(tmpCount);
-              tmpCount = 1;
-            }
-            else
-            {
-              ++tmpCount;
-            }
-          }
-
-          if(typeof mutator.right[0] !== undefined && mutator.right[0]!=0)  mutator.rightCount.unshift(0);
-          mutator.rightCount.push(tmpCount);
-
-
-          // Preparing left mutator.left
-          // 
-          var mutatorRightCountIndex = mutator.rightCount.length - 1;
-          tmp = sm - mutator.rightCount[mutatorRightCountIndex];
-          treasure[zIndex]-=tmp;
-          for(var i = eventL; i >= 1; --i)
-          {
-            if(tmp!=0)
-            {
-              mutator.left.unshift(mutatorRightCountIndex);
-              --tmp;
-            }
-            else
-            {
-              --mutatorRightCountIndex;
-              mutator.left.unshift(mutatorRightCountIndex);
-              if(mutatorRightCountIndex != 0)
-                tmp = sm - mutator.rightCount[mutatorRightCountIndex];
-            }
-          }
-
-      
-          for(var i = 1; i <= cnt; ++i)
-          {
-            var placeOnCard = 0;
-            for(var j = 0; j < eventR; ++j)
-            {
-              if(mutator.right[j] == i) 
-              {
-                placeOnCard = j;
-                break;
-              }
-            }
-            // todo synchronize this two data
-            var isFirst = true;
-            var itemNumber = 0;
-            var last = {};
-            var globalItemNumber = 0;
-            var putIndex = 0;
-             //console.log(t,mutator.left);
-            for(var j = eventL-1; j >= 0; --j)
-            {
-             
-              if(mutator.left[j] == i) 
-              {
-                if(isFirst)  
-                {
-                  var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
-                  last.offset = lastTmp.offset();
-                  last.position = lastTmp.position();
-                }
-                // console.log();
-                 //console.log("treasure",j,eventL);
-                 var mutateF = (function(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber) {
-                    return function(){ t.moveTreasureCoinToCard(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber); };
-                  })(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber);
-                  this.queue.splice(putIndex++, mutateF,t.title);
-              
-                if(isFirst)  isFirst = false;
-                ++itemNumber;
+                //console.log("card");
+                var mutateF = (function(which,j,placeOnCard,first,itemNumber,globalItemNumber) {
+                  return function(){ t.moveCardCoinToParentCardCoin(which,j,placeOnCard,first,itemNumber,globalItemNumber); };
+                })(which,j,placeOnCard,first,itemNumber,globalItemNumber);
+                this.queue.splice(putIndex++, mutateF,t.title);
                 ++globalItemNumber;
               }
-            }
-            //console.log(globalItemNumber);
-            isFirst = true;
-            var first = {};
-            var firstTmp;
-            itemNumber = 0;
-             //console.log(t,mutator.right);
-            for(var j = 0; j < eventR; ++j)
-            {
-              if(mutator.right[j] == i)
-              {
-                if(isFirst) 
-                {
-                  isFirst = false;
-                  firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
-                  first.offset = firtsTmp.offset();
-                  first.position = firtsTmp.position();
-                }
-                else 
-                {
-                  //console.log("card");
-                  var mutateF = (function(which,j,placeOnCard,first,itemNumber,globalItemNumber) {
-                    return function(){ t.moveCardCoinToParentCardCoin(which,j,placeOnCard,first,itemNumber,globalItemNumber); };
-                  })(which,j,placeOnCard,first,itemNumber,globalItemNumber);
-                  this.queue.splice(putIndex++, mutateF,t.title);
-                  ++globalItemNumber;
-                }
-                ++itemNumber;
-     
-              } 
-            }
-            var tmpIndex = 0;
-            var zeroCount = mutator.rightCount[0];
-
-            var mutateF = (function(zeroCount,i) {
-                    return function(){ 
-                      var convert = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(zeroCount+i)+')');
-                      convert.animate({"color":"white"},{duration:2000,
-                      progress:function(a,b,c){ console.log(a,b,c); 
-
-                          var val = jQuery.easing.easeOutBounce(b*0.3);
-                          //console.log(t.title,val);
-                          $(this).css({'transform':'scale(' + (1+val)+','+(1+val) + ')',opacity:1-b})
-                       },
-                      complete:function(){ 
-                        $(this).removeClass('iboat').css('transform','scale(1,1)').addClass('ibag').css('opacity',1);
-                        t.pedestal.add(which+1,1);
-                        treasure[zIndex+1]+=1;
-                        t.queue.resume();
-                      }
-                    });
-                    };
-                  })(zeroCount,i);
-            this.queue.splice(putIndex++, mutateF);
-
-           
-            
+              ++itemNumber;
+   
+            } 
           }
+          var tmpIndex = 0;
+          var zeroCount = mutator.rightCount[0];
+
+          var mutateF = (function(zeroCount,i) 
+          {
+                  return function(){ 
+                    var convert = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(zeroCount+i)+')');
+                    convert.animate({"color":"white"},{duration:2000,
+                    progress:function(a,b,c){ //console.log(a,b,c); 
+
+                        var val = jQuery.easing.easeOutBounce(b*0.3);
+                        //console.log(t.title,val);
+                        $(this).css({'transform':'scale(' + (1+val)+','+(1+val) + ')',opacity:1-b})
+                     },
+                    complete:function(){ 
+                      var prevImage = 'i' + interest[zIndex].class;
+                      var nextImage = 'i' + interest[zIndex+1].class;
+                      $(this).removeClass(prevImage).css('transform','scale(1,1)').addClass(nextImage).css('opacity',1);
+                      //t.pedestal.add(which+1,1);
+                      treasure[zIndex+1]+=1;
+                      t.queue.resume();
+                    }
+                  });
+                  };
+          })(zeroCount,i);
+          this.queue.splice(putIndex++, mutateF);
         }
       }
-      else
+      else if(which == 1)
       {        
         treasure[zIndex]+=events;
         this.pedestal.add(which,events);
       }
     }
-    //t.queue.toString();
-    if(which == 6)
-      this.queue.resume();
-    else this.mutate(which+1);
+
+    if(mutateCount > 0 && which <= 6)
+    {
+      this.queue.splice(-4, (function(w,m)
+      { 
+        return function(){ t.mutate(w,m); }; 
+      })(which+1,mutateCount));
+      //console.log(this.queue.toString());
+    }
+    this.queue.resume();
   };
   var fromTreasureCoinToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
   var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -602,7 +612,11 @@ function human(selector,title)
     });
     //console.log("cardToCard",level,who,where,first,item,item.position(),item.offset());
   };
- 
+  this.after_mutate = function()
+  {
+    this.pedestal.resume(this.treasure.slice());
+    this.queue.resume();
+  };
   this.inrange = function(which)
   {
     if(which >=1 && which < 6)

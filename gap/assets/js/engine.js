@@ -212,6 +212,8 @@ function game() {
 
   male.init();
   female.init();
+  male.pedestal.resume([1,2,0,0,0,0]);
+  female.pedestal.resume([3,1,0,0,0,0]);
   timeline_tick();
   draw_stage(0);
 
@@ -401,7 +403,8 @@ function reward_process()
     { 
       d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { prepare_bk_for_reward(d); });
-      d.queue.push(function() { d.mutate(1);  });
+      d.queue.push(function() { d.mutate(1); });
+      d.queue.push(function() { d.after_mutate(); });
       d.queue.push(function() { start_reward_animation(d); });
       d.queue.push(function() { hide_card(d); });
       d.queue.push(function() { prepare_bk_for_work(d); });
@@ -475,14 +478,14 @@ function card_prepare(v)
 }
 function hide_card(v)
 {
-  console.log("hideCard",v);
+  //console.log("hideCard",v);
   v.card.hide();
   v.queue.resume();  
 }
 
 function start_reward_animation(v)
 {
-  console.log("start_reward_animation");
+  //console.log("start_reward_animation");
   v.queue.resume();  
 }
 

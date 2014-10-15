@@ -15,7 +15,7 @@ function queueObject(opts)
 	};
 	this.splice = function(index,f,title)
 	{
-		console.log("Queue splice",title,index,f);
+		//console.log("Queue splice",title,index,f);
 		q.splice(index,0,f);
 		this.empty = q.length == 0 ? true : false;
 		this.length = q.length;

@@ -103,6 +103,7 @@ body,html
   border:1px solid #c4c4c4;
   border-radius:5px;
   background-color:#fafafa;
+  display:none;
 }
 .treasure .card .coins
 {
