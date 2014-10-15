@@ -49,6 +49,7 @@ function cardObject(p)
 	};
 	this.hide = function(immediate)
 	{
+		console.log("Card hide",this.p.title);
 		if(typeof immediate === undefined) immediate = false;
 		if(immediate) 
 		{

@@ -212,8 +212,10 @@ function game() {
 
   male.init();
   female.init();
-  male.pedestal.resume([1,2,0,0,0,0]);
-  female.pedestal.resume([3,1,0,0,0,0]);
+  male.oppenent = female;
+  female.oppenent = male;
+  //male.pedestal.resume([5,1,0,0,0,0]);
+  //female.pedestal.resume([3,1,0,0,0,0]);
   timeline_tick();
   draw_stage(0);
 
@@ -401,6 +403,7 @@ function reward_process()
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
+      console.log(d.treasure);
       d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { prepare_bk_for_reward(d); });
       d.queue.push(function() { d.mutate(1); });

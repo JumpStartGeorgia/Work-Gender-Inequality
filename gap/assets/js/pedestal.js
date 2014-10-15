@@ -108,7 +108,6 @@ function pedestalObject(p)
     
     var t = this;
     if(typeof states !== Array && states.length != 6) return;
-console.log("Resuming",states);
     for(var i = 0; i < 6; ++i)
     {
       var state = states[i];
@@ -125,6 +124,5 @@ console.log("Resuming",states);
       }
       treasure[i] = state;
     }
-    console.log("End Resuming");
   };   
 }

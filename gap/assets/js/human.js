@@ -25,7 +25,7 @@ function human(selector,title)
   this.animated = false;
   this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
-  this.mutation = [{},{},{},{},{},{}]; 
+  //this.mutation = [{},{},{},{},{},{}]; 
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
   this.traversed_path = 0;
@@ -38,6 +38,7 @@ function human(selector,title)
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject({complete:queueCompleteCallback});
   this.future_reward = 0;
+  this.oppenent = null;
   var mutator = {
     left:[],
     right:[],
@@ -295,10 +296,8 @@ function human(selector,title)
       this.queue.resume();  
       return;
     }
-
-    //console.log("was here");
-    
     var treasure = t.treasure;
+    //console.log(t.title,treasure);
     var hasMutation = false;
     var zIndex = which - 1;
     var mutateCount = 0;
@@ -310,27 +309,39 @@ function human(selector,title)
       var ca = treasure[zIndex] + events; // all events for current steps
       var sm = states_mutation[zIndex];
       var mutateCount = Math.floor10(ca/sm); 
-     
-      t.mutation = mutation_empty.slice();
+     console.log("mutationCount",mutateCount,treasure,zIndex,t.title,ca,sm);
+      //t.mutation = mutation_empty.slice();
 
-      if(!t.outrun) mutation_restriction[zIndex] = 0;
-      if(t.outrun && mutateCount > mutation_restriction[which]) 
+      //if(!t.outrun) mutation_restriction[zIndex] = 0;
+     // console.log(t.title, mutation_restriction);
+      //if(t.outrun && mutateCount > mutation_restriction[which]) 
+      //{
+      //  mutateCount =  mutation_restriction[zIndex];
+      //  mutation_restriction[zIndex] = 0;
+      //}
+      //console.log(t.title,"mutateCount", mutateCount);
+      if(t.outrun)
       {
-        mutateCount =  mutation_restriction[zIndex];
-        mutation_restriction[zIndex] = 0;
+        var restrictor = t.oppenent.hasLevelMutation(which);
+        if(mutateCount > restrictor)
+        { 
+          console.log(t.title, " has restriction ", restrictor, mutateCount);
+          mutateCount = restrictor;
+          }
       }
-      
+
       if(mutateCount >= 1)
       {
+        
         hasMutation = true;
          //console.log("mutate");
-        t.mutation[zIndex] = { count: mutateCount };
+        //t.mutation[zIndex] = { count: mutateCount };
 
         var looper = mutateCount;
         var tca = ca;     
         var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
 
-        if(!t.outrun) mutation_restriction[zIndex] = mutateCount;
+        //if(!t.outrun) mutation_restriction[zIndex] = mutateCount;
       
         var eventL = treasure[zIndex];
         var eventR = events;
@@ -340,7 +351,7 @@ function human(selector,title)
         var checker = sm-1;
        
         mutator.empty();
-
+        //console.log("eventR",eventR);
         for(var i = 1; i <= eventR; ++i)
         {
           if(tmpCount <= cnt)
@@ -358,10 +369,10 @@ function human(selector,title)
             else 
             {
               mutator.right.unshift(0);     
-           
             }
           }
         }
+        //console.log("Right",mutator.right.toString());
       
         // After preparing mutator.right array, calculating count of each different items, ex: can be 1 without mutation mutator.rightCount[0] will be one ...
         tmpCount = 1;
@@ -388,23 +399,25 @@ function human(selector,title)
         var mutatorRightCountIndex = mutator.rightCount.length - 1;
         tmp = sm - mutator.rightCount[mutatorRightCountIndex];
         treasure[zIndex]-=tmp;
+        //console.log("eventL",eventL, "mutatorRightCountIndex",mutatorRightCountIndex);
         for(var i = eventL; i >= 1; --i)
         {
-          if(tmp!=0)
+          if(mutatorRightCountIndex  == 0) mutator.left.unshift(0);
+          else 
           {
-            mutator.left.unshift(mutatorRightCountIndex);
-            --tmp;
-          }
-          else
-          {
-            --mutatorRightCountIndex;
-            mutator.left.unshift(mutatorRightCountIndex);
-            if(mutatorRightCountIndex != 0)
-              tmp = sm - mutator.rightCount[mutatorRightCountIndex];
+            if(tmp!=0)
+            {
+              mutator.left.unshift(mutatorRightCountIndex );
+              if(tmp-1 == 0)
+              { 
+                --mutatorRightCountIndex;
+                tmp = sm - mutator.rightCount[mutatorRightCountIndex];
+              }
+              else --tmp;
+            }
           }
         }
-
-      
+        //console.log("Mutator left - ",mutator.left.toString(), " right - ",mutator.right.toString()," rightCount - ", mutator.rightCount.toString());
         for(var i = 1; i <= cnt; ++i)
         {
           var placeOnCard = 0;
@@ -425,12 +438,12 @@ function human(selector,title)
            //console.log(t,mutator.left);
           for(var j = eventL-1; j >= 0; --j)
           {
-           
             if(mutator.left[j] == i) 
             {
               if(isFirst)  
               {
                 var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
+                //console.log(t.place,which,j+1,lastTmp);
                 last.offset = lastTmp.offset();
                 last.position = lastTmp.position();
               }
@@ -459,6 +472,7 @@ function human(selector,title)
               if(isFirst) 
               {
                 isFirst = false;
+                console.log('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
                 firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
                 first.offset = firtsTmp.offset();
                 first.position = firtsTmp.position();
@@ -495,7 +509,7 @@ function human(selector,title)
                       var nextImage = 'i' + interest[zIndex+1].class;
                       $(this).removeClass(prevImage).css('transform','scale(1,1)').addClass(nextImage).css('opacity',1);
                       //t.pedestal.add(which+1,1);
-                      treasure[zIndex+1]+=1;
+                      //treasure[zIndex+1]+=1;
                       t.queue.resume();
                     }
                   });
@@ -504,7 +518,7 @@ function human(selector,title)
           this.queue.splice(putIndex++, mutateF);
         }
       }
-      else if(which == 1)
+      else //if(which == 1)
       {        
         treasure[zIndex]+=events;
         this.pedestal.add(which,events);
@@ -528,12 +542,13 @@ function human(selector,title)
 
   this.moveTreasureCoinToCard = function(level,who,where,isFirst,parent,itemNumber,last,globalItemNumber)
   {
-    //console.log(this.title,level,who,where,isFirst,parent,itemNumber,last);
+    console.log(this.title,level,who,where,isFirst,parent,itemNumber,last);
     var t = this;
     var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']');
     //console.log('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']' + 'div.item[data-id='+(who+1)+']');
     var item = interestB.find('div.item[data-id='+(who+1)+']');
     //console.log(item,who+1);
+    
     var offsetLeft = last.offset.left;
     var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
     var widthScaler = (cardItem.offset().left - offsetLeft)/100;
@@ -611,6 +626,27 @@ function human(selector,title)
       }
     });
     //console.log("cardToCard",level,who,where,first,item,item.position(),item.offset());
+  };
+  this.hasLevelMutation = function(which)
+  {
+    // which can be from 2 to 6
+    // todo doesn't work correctly 
+    // sometimes on scroll extra coins added to extra and no mutation works should be controlled
+    var t = this;
+    if(typeof which === "undefined") return 0;
+    var tmp = 0;
+    for(var i = 0; i < pos; ++i)
+    {
+       tmp += t.event_by_period[i];
+    }
+    console.log("HasLevelMutation tmp", tmp);
+    for(var i = 5; i > 0; --i)
+    {
+      var tmpM = Math.floor10(tmp / states_mutation_based[i]) ;
+      if(i+1 == which) return tmpM;
+      tmp -= tmpM * states_mutation_based[i];
+    }
+    return 0;
   };
   this.after_mutate = function()
   {
