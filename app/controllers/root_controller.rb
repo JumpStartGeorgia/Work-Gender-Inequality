@@ -99,6 +99,9 @@ class RootController < ApplicationController
           @data[:title][:html] = build_onevar_chart_title_html(@data[:row_question], @filter, @data[:total_responses])
           @data[:title][:text] = build_onevar_chart_title_text(@data[:row_question], @filter, @data[:total_responses])
         end
+        @data[:subtitle] = {}
+        @data[:subtitle][:html] = build_subtitle_html(@data[:total_responses])
+        @data[:subtitle][:text] = build_subtitle_text(@data[:total_responses])
 
 #        logger.debug "/////////////////////////// #{@data}"
 
@@ -118,9 +121,6 @@ private
     if filter.present?
       title << t('root.explore_data.crosstab.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
-    title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.crosstab.html.title_total', :num => total)
-    title << ")</span>"
     return title.html_safe
   end 
 
@@ -137,9 +137,6 @@ private
     if filter.present?
       title << t('root.explore_data.onevar.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
-    title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.onevar.html.title_total', :num => total)
-    title << ")</span>"
     return title.html_safe
   end 
 
@@ -150,5 +147,17 @@ private
     end
     return title
   end 
+
+  def build_subtitle_html(total)
+    title = "<br /> <span class='total_responses'>"
+    title << t('root.explore_data.onevar.html.title_total', :num => total)
+    title << "</span>"
+    return title.html_safe
+  end 
+
+  def build_subtitle_text(total)
+    return t('root.explore_data.onevar.html.title_total', :num => total)
+  end 
+
 
 end

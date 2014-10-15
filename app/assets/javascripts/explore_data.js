@@ -122,6 +122,11 @@ $(document).ready(function() {
               useHTML: true,
               style: {'text-align': 'center'}
           },
+          subtitle: {
+              text: json.subtitle.html,
+              useHTML: true,
+              style: {'text-align': 'center', 'margin-top': '-15px'}
+          },
           xAxis: {
               categories: json.chart.labels,
               title: {
@@ -156,7 +161,17 @@ $(document).ready(function() {
           },
           series: json.chart.data.reverse(),
           exporting: {
+            sourceWidth: 1280,
+            sourceHeight: 720,
             filename: json.title.text,
+            chartOptions:{
+              title: {
+                text: json.title.text
+              },
+              subtitle: {
+                text: json.subtitle.text
+              }
+            },
             buttons: {
               contextButton: {
                 menuItems: [
@@ -214,6 +229,11 @@ $(document).ready(function() {
               useHTML: true,
               style: {'text-align': 'center'}
           },
+          subtitle: {
+              text: json.subtitle.html,
+              useHTML: true,
+              style: {'text-align': 'center', 'margin-top': '-15px'}
+          },
           tooltip: {
               formatter: function () {
                 return '<b>' + this.key + ':</b> ' + this.point.options.count + ' (' + this.y + '%)';
@@ -238,7 +258,17 @@ $(document).ready(function() {
               data: json.chart.data
           }],
           exporting: {
+            sourceWidth: 1280,
+            sourceHeight: 720,
             filename: json.title.text,
+            chartOptions:{
+              title: {
+                text: json.title.text
+              },
+              subtitle: {
+                text: json.subtitle.text
+              }
+            },
             buttons: {
               contextButton: {
                 menuItems: [
@@ -282,7 +312,7 @@ $(document).ready(function() {
     if (json.map && json.map.counts && json.map.percents){
 
       // set the map title
-      $('#tab-map h3').html(json.title.html);
+      $('#tab-map h3').html(json.title.html + json.subtitle.html);
 
       // adjust the width of the map to fit its container
       $('#map').width($('#explore-tabs').width());
@@ -430,7 +460,7 @@ $(document).ready(function() {
   // build data table
   function build_datatable(json){
     // set the map title
-    $('#tab-table h3').html(json.title.html);
+    $('#tab-table h3').html(json.title.html + json.subtitle.html);
 
     // if the datatable alread exists, kill it
     if (datatable != undefined){
