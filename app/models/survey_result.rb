@@ -54,6 +54,8 @@ class SurveyResult < ActiveRecord::Base
       if data.present?
         # put all of the data together
 
+        result[:type] = 'onevar'
+
         # save the questions and answers
         # if exclude_dkra is true, only get use the answers that cannot be excluded
         result[:row_question] = q_row.text
@@ -104,17 +106,18 @@ class SurveyResult < ActiveRecord::Base
 
         # if row is a mappable variable, create the map data
         if q_row.is_mappable
-          result[:map_percents] = {}
-          result[:map_counts] = {}
+          result[:map] = {}
+          result[:map][:percents] = {}
+          result[:map][:counts] = {}
 
           result[:row_answers].each_with_index do |row_answer, row_index|
             # create hash to store the data for this answer
-            result[:map_percents][row_answer[1]] = Hash.new
-            result[:map_counts][row_answer[1]] = Hash.new
+            result[:map][:percents][row_answer[1]] = Hash.new
+            result[:map][:counts][row_answer[1]] = Hash.new
 
             # now store the results for each item
-            result[:map_percents][row_answer[1]] = result[:percents][row_index]
-            result[:map_counts][row_answer[1]] = result[:counts][row_index]
+            result[:map][:percents][row_answer[1]] = result[:percents][row_index]
+            result[:map][:counts][row_answer[1]] = result[:counts][row_index]
           end
         end
 
@@ -179,6 +182,7 @@ class SurveyResult < ActiveRecord::Base
 
       if data.present?
         # put all of the data together
+        result[:type] = 'crosstab'
 
         # save the questions and answers
         # if exclude_dkra is true, only get use the answers that cannot be excluded
@@ -248,13 +252,14 @@ class SurveyResult < ActiveRecord::Base
 
         # if row or column is a mappable variable, create the map data
         if q_row.is_mappable || q_col.is_mappable
-          result[:map_percents] = {}
-          result[:map_counts] = {}
+          result[:map] = {}
+          result[:map][:percents] = {}
+          result[:map][:counts] = {}
 
           # if the row is the mappable, recompute percents so columns add up to 100%
           if q_row.is_mappable
-            result[:map_filter] = result[:column_question]
-            result[:map_filters] = result[:column_answers]
+            result[:map][:filter] = result[:column_question]
+            result[:map][:filters] = result[:column_answers]
 
             counts = result[:counts].transpose
             percents = []
@@ -273,29 +278,29 @@ class SurveyResult < ActiveRecord::Base
 
             result[:column_answers].each_with_index do |col_answer, col_index|
               # create hash to store the data for this answer
-              result[:map_percents][col_answer[0].to_s] = Hash.new
-              result[:map_counts][col_answer[0].to_s] = Hash.new
+              result[:map][:percents][col_answer[0].to_s] = Hash.new
+              result[:map][:counts][col_answer[0].to_s] = Hash.new
 
               # now store the results for each item
               (0..result[:row_answers].length-1).each do |index|
-                result[:map_percents][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
-                result[:map_counts][col_answer[0].to_s][result[:row_answers][index][1].to_s] = counts[col_index][index]
+                result[:map][:percents][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
+                result[:map][:counts][col_answer[0].to_s][result[:row_answers][index][1].to_s] = counts[col_index][index]
               end 
             end
 
           else
-            result[:map_filter] = result[:row_question]
-            result[:map_filters] = result[:row_answers]
+            result[:map][:filter] = result[:row_question]
+            result[:map][:filters] = result[:row_answers]
 
             result[:row_answers].each_with_index do |row_answer, row_index|
               # create hash to store the data for this answer
-              result[:map_percents][row_answer[0].to_s] = Hash.new
-              result[:map_counts][row_answer[0].to_s] = Hash.new
+              result[:map][:percents][row_answer[0].to_s] = Hash.new
+              result[:map][:counts][row_answer[0].to_s] = Hash.new
 
               # now store the results for each item
               (0..result[:column_answers].length-1).each do |index|
-                result[:map_percents][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
-                result[:map_counts][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:counts][row_index][index]
+                result[:map][:percents][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
+                result[:map][:counts][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:counts][row_index][index]
               end 
             end
           end

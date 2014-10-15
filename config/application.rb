@@ -52,5 +52,10 @@ module BootstrapStarter
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # in app/assets folder
+    config.assets.precompile += %w( explore_data.js faqs.js )
+    config.assets.precompile += %w( explore_data.css faqs.css )
+
   end
 end

@@ -11,14 +11,16 @@ class RootController < ApplicationController
     @faq_categories = FaqCategory.sorted
     @faqs = Faq.sorted
 
+    # add the required assets
+    @css.push("faqs.css")
+    @js.push("faqs.js")
+
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
   def explore_data
-    @use_map = true
-    
     # the questions for cross tab can only be those that have code answers
     @questions = SurveyQuestion.can_crosstab.sorted
 
@@ -48,70 +50,105 @@ class RootController < ApplicationController
       end       
     end
 
-    # get the data
-    options = {}
-    options[:filter] = @filter if @filter.present?
-    options[:exclude_dkra] = params[:exclude_dkra].to_bool if params[:exclude_dkra].present?
+    respond_to do |format|
+      format.html{
+        # flag so leaflet js is loaded
+        @use_map = true
 
-    # if @col has data, then this is a crosstab,
-    # else this is just a single variable lookup
-    if @col.present?
-      @data = SurveyResult.crosstab_count(@row, @col, options)
+        # add the required assets
+        @css.push("explore_data.css")
+        @js.push("explore_data.js")
 
-      if @data[:chart]
-        gon.crosstab_chart_data = @data[:chart][:data]
-        gon.crosstab_chart_labels = @data[:chart][:labels]
-        gon.crosstab_chart_title = build_crosstab_chart_title(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
-        gon.crosstab_chart_col_label = @data[:column_question]
-        gon.crosstab_chart_row_label = @data[:row_question]
-      end
-      if @data[:map_percents].present?
-        gon.crosstab_map_percents = @data[:map_percents]
-        gon.crosstab_map_counts = @data[:map_counts]
-        gon.crosstab_map_filters = @data[:map_filters] # this is array of arrays: [[code, name], [code, name],...]
-      end
-    else
-      @data = SurveyResult.onevar_count(@row, options)
+        # record url for making ajax call
+        gon.explore_data_ajax_path = explore_data_path(:format => :js)
+        gon.hover_region = I18n.t('root.explore_data.hover_region')
+        gon.na = I18n.t('root.explore_data.na')
+        gon.percent = I18n.t('root.explore_data.percent')
+        gon.datatable_copy_title = I18n.t('datatable.copy.title')
+        gon.datatable_copy_tooltip = I18n.t('datatable.copy.tooltip')
+        gon.datatable_csv_title = I18n.t('datatable.csv.title')
+        gon.datatable_csv_tooltip = I18n.t('datatable.csv.tooltip')
+        gon.datatable_xls_title = I18n.t('datatable.xls.title')
+        gon.datatable_xls_tooltip = I18n.t('datatable.xls.tooltip')
+        gon.datatable_pdf_title = I18n.t('datatable.pdf.title')
+        gon.datatable_pdf_tooltip = I18n.t('datatable.pdf.tooltip')
+        gon.datatable_print_title = I18n.t('datatable.print.title')
+        gon.datatable_print_tooltip = I18n.t('datatable.print.tooltip')
+        gon.highcharts_context_title = I18n.t('highcharts.context_title')
+        gon.highcharts_png = I18n.t('highcharts.png')
+        gon.highcharts_jpg = I18n.t('highcharts.jpg')
+        gon.highcharts_pdf = I18n.t('highcharts.pdf')
+        gon.highcharts_svg = I18n.t('highcharts.svg')
+      } 
+      format.js{
+        # get the data
+        options = {}
+        options[:filter] = @filter if @filter.present?
+        options[:exclude_dkra] = params[:exclude_dkra].to_bool if params[:exclude_dkra].present?
 
-      if @data[:chart]
-        gon.onevar_chart_data = @data[:chart][:data]
-        gon.onevar_chart_title = build_onevar_chart_title(@data[:row_question], @filter, @data[:total_responses])
-        gon.onevar_chart_row_label = @data[:row_question]
-      end
-      if @data[:map_percents].present?
-        gon.onevar_map_percents = @data[:map_percents]
-        gon.onevar_map_counts = @data[:map_counts]
-      end
+        # if @col has data, then this is a crosstab,
+        # else this is just a single variable lookup
+        if @col.present?
+          @data = SurveyResult.crosstab_count(@row, @col, options)
+          @data[:title] = {}
+          @data[:title][:html] = build_crosstab_chart_title_html(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+          @data[:title][:text] = build_crosstab_chart_title_text(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+        else
+          @data = SurveyResult.onevar_count(@row, options)
+          @data[:title] = {}
+          @data[:title][:html] = build_onevar_chart_title_html(@data[:row_question], @filter, @data[:total_responses])
+          @data[:title][:text] = build_onevar_chart_title_text(@data[:row_question], @filter, @data[:total_responses])
+        end
+
+#        logger.debug "/////////////////////////// #{@data}"
+
+        status = @data.present? ? :ok : :unprocessable_entity
+        render json: @data.to_json, status: :ok
+
+      }
     end
 
   end
   
-  respond_to do |format|
-    format.html # index.html.erb
-  end
 
 private
 
-  def build_crosstab_chart_title(row, col, filter, total)
-    title = t('root.explore_data.crosstab.chart.title', :row => row, :col => col)
+  def build_crosstab_chart_title_html(row, col, filter, total)
+    title = t('root.explore_data.crosstab.html.title', :row => row, :col => col)
     if filter.present?
-      title << t('root.explore_data.crosstab.chart.title_filter', :variable => filter[:name], :value => filter[:answer] )
+      title << t('root.explore_data.crosstab.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
     title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.crosstab.chart.title_total', :num => total)
+    title << t('root.explore_data.crosstab.html.title_total', :num => total)
     title << ")</span>"
     return title.html_safe
   end 
 
-  def build_onevar_chart_title(row, filter, total)
-    title = t('root.explore_data.onevar.chart.title', :row => row)
+  def build_crosstab_chart_title_text(row, col, filter, total)
+    title = t('root.explore_data.crosstab.text.title', :row => row, :col => col)
     if filter.present?
-      title << t('root.explore_data.onevar.chart.title_filter', :variable => filter[:name], :value => filter[:answer] )
+      title << t('root.explore_data.crosstab.text.title_filter', :variable => filter[:name], :value => filter[:answer] )
+    end
+    return title
+  end 
+
+  def build_onevar_chart_title_html(row, filter, total)
+    title = t('root.explore_data.onevar.html.title', :row => row)
+    if filter.present?
+      title << t('root.explore_data.onevar.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
     title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.onevar.chart.title_total', :num => total)
+    title << t('root.explore_data.onevar.html.title_total', :num => total)
     title << ")</span>"
     return title.html_safe
+  end 
+
+  def build_onevar_chart_title_text(row, filter, total)
+    title = t('root.explore_data.onevar.text.title', :row => row)
+    if filter.present?
+      title << t('root.explore_data.onevar.text.title_filter', :variable => filter[:name], :value => filter[:answer] )
+    end
+    return title
   end 
 
 end
