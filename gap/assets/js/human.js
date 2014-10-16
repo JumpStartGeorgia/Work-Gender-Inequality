@@ -166,16 +166,43 @@ function human(selector,title)
   		});
   		//console.log(this,v);
   };
-  this.prepare_for_reward = function prepare_for_reward(step)
+  var prevX = 0;
+  var prevY = 0;
+  var movementBound = 4;
+  this.prepare_reward = function prepare_for_reward(step,start)
   {
-    console.log(step);
-  };
-  this.prepare_for_work = function prepare_for_work(step)
-  {
-    console.log(step);
-  };
+    var t = this;
+    var istep = step;
+    if(!start) step = 1 - step;
+    if(t.path != category.stage.frame['reward'].path)
+    {
+      var frame = category.stage.frame['reward'];
+      t.path = frame.path;
+      t.path_loop = exist(frame.loop) ? frame.loop : false;
+    }
+
+    
+    t.position(coordinateFromPath(step,t.path,t.path_length,1,1));
+    //console.log("Moving");
+    if(Math.abs(prevX-t.x) > movementBound)
+    {
+      start ? t.next_movement() : t.prev_movement();
+      prevX = t.x;
+    }
+    if(Math.abs(prevY-t.y) > movementBound)
+    {
+      start ? t.next_movement() : t.prev_movement();
+      prevY = t.y;
+    }
+    if(!start && istep == 1)
+    {
+      var frame = category.stage.frame['work'];
+      t.path = frame.path;
+      t.path_loop = exist(frame.loop) ? frame.loop : false;
+    }
+  };  
   this.next_movement = function next_movement()
-  {
+  {    
     this.movement = ++this.movement;
     if(this.movement == 11) this.movement = 1;
     //console.log(this.movement);
@@ -287,6 +314,7 @@ function human(selector,title)
     this.future_reward = this.event_by_period[pos + 1];
     return this.future_reward > 0;
   };
+
   //var animationQueue = new queueObject();
   this.mutate = function(which,events)
   {
@@ -313,28 +341,11 @@ function human(selector,title)
 
       var ca = treasure[zIndex] + events; // all events for current steps
       var sm = states_mutation[zIndex];
-      var mutateCount = Math.floor10(ca/sm); 
-     //console.log("mutationCount",mutateCount,treasure,zIndex,t.title,ca,sm);
-      //t.mutation = mutation_empty.slice();
-
-      //if(!t.outrun) mutation_restriction[zIndex] = 0;
-     // console.log(t.title, mutation_restriction);
-      //if(t.outrun && mutateCount > mutation_restriction[which]) 
-      //{
-      //  mutateCount =  mutation_restriction[zIndex];
-      //  mutation_restriction[zIndex] = 0;
-      //}
-      //console.log(t.title,"mutateCount", mutateCount);
+      var mutateCount = Math.floor10(ca/sm);    
       if(t.outrun)
       {
         var restrictor = t.oppenent.hasLevelMutation(which);
-        console.log(restrictor);
-        //console.log("Called from ", t.title, restrictor);
-        if(mutateCount > restrictor)
-        { 
-          //console.log(t.title, " has restriction ", restrictor, mutateCount);
-          mutateCount = restrictor;
-          }
+        if(mutateCount > restrictor) { mutateCount = restrictor; }
       }
 
       if(mutateCount >= 1)
@@ -445,10 +456,12 @@ function human(selector,title)
            //console.log(t,mutator.left);
           for(var j = eventL-1; j >= 0; --j)
           {
+            //console.log(mutator.left.toString(),'.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
             if(mutator.left[j] == i) 
             {
               if(isFirst)  
               {
+                //console.log();
                 var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
                 //console.log(t.place,which,j+1,lastTmp);
                 last.offset = lastTmp.offset();
@@ -555,7 +568,7 @@ function human(selector,title)
     //console.log('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']' + 'div.item[data-id='+(who+1)+']');
     var item = interestB.find('div.item[data-id='+(who+1)+']');
     //console.log(item,who+1);
-    
+    //console.log(t.title,level,who,where,last)
     var offsetLeft = last.offset.left;
     var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
     var widthScaler = (cardItem.offset().left - offsetLeft)/100;
@@ -652,11 +665,11 @@ function human(selector,title)
     }
     return Math.floor10((t.event_by_period[pos] + prevTmp) / states_mutation_based[which-1]);
   };
-  this.after_mutate = function()
-  {
-    //this.pedestal.resume(this.treasure.slice());
-    this.queue.resume();
-  };
+  // this.after_mutate = function()
+  // {
+  //   //this.pedestal.resume(this.treasure.slice());
+  //   this.queue.resume();
+  // };
   this.inrange = function(which)
   {
     if(which >=1 && which < 6)

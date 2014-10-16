@@ -13,10 +13,8 @@ function pedestalObject(p)
   
   this.add = function(which,how)
   {
-    console.log("Adding",which,how);
     var t = this;
-    var start = t.p.treasure[0]-how;
-    //console.log(this.p,which, start,how);
+    var start = t.p.treasure[which-1]-how;
     var parent = t.sp.find('div.interestB[data-id=' + which + ']');
     for(var i = start+1; i <= start+how; ++i)
     {
@@ -27,33 +25,39 @@ function pedestalObject(p)
   this.down = function() // go back one step calculate data based on pos
   {
     var t = this;
+    var p = t.p;
     var states = [0,0,0,0,0,0];
-    t.mutation = t.mutation_empty;
+    //t.mutation = t.mutation_empty;
     var treasure_count = 0;
-    for(var i = 0; i < pos*reward_period; ++i)
-      treasure_count += this.p.event_by_month[i];
+    for(var i = 0; i <= pos; ++i)
+      treasure_count += this.p.event_by_period[i];
 
-    var state_cost = 0; 
-    states_mutation.forEach(function(d,i){ state_cost+=d; });
+    
+
+    //var state_cost = 0; 
+    //states_mutation.forEach(function(d,i){ state_cost+=d; });
+
+    //console.log(pos,treasure_count,state_cost);
+
     for(var i = 5; i > 0; --i)
     {
-      state_cost-=states_mutation[i];
-      //console.log(state_cost);
-      var tmp =  Math.floor10(treasure_count/state_cost);
-      if(t.p.outrun && tmp > mutation_restriction[i])
+      //state_cost-=states_mutation[i];
+      var tmp =  Math.floor10(treasure_count/states_mutation_based[i-1]);
+
+
+      if(p.outrun)
       {
-        tmp =  mutation_restriction[i];
-        mutation_restriction[i] = 0;      
+        var restrictor = p.oppenent.hasLevelMutation(i-1);
+        if(tmp > restrictor) { tmp = restrictor; }
       }
+
       if(tmp >= 1)
       {
         states[i] = tmp;
-        treasure_count -= tmp * state_cost;
+        treasure_count -= tmp * states_mutation_based[i-1];
       }
     }
     states[0] = treasure_count;
-
-    if(!t.p.outrun) mutation_restriction = states;
 
     this.resume(states);
   };

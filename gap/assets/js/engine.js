@@ -54,13 +54,13 @@ function walk(v)
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
+ // console.log(total_scrolls);
   var needWalk = true;
   if(v==1)
   {        
-    //console.log(total_scrolls,reward_period*scroll_per_month-1,total_scrolls % (reward_period*scroll_per_month-1) == 0);
-    //if(total_scrolls % (scrolls_for_reward-1) == 0) 
     if(total_scrolls % scrolls_for_reward == 0)
     {
+      console.log(total_scrolls);
       ++pos;
       calculate_process(v);
       if(!reward) 
@@ -82,15 +82,16 @@ function walk(v)
   }
   else
   {
-    //console.log("backward",pos,total_scrolls,scrolls_for_reward-1);
-    if(pos >= 0 && total_scrolls % (scrolls_for_reward-1) == 0)
+    if(pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
     {
-      --pos;  
+      --pos;      
       calculate_process(v);
-    }  
+      gopast();
+    }
   }
   if(needWalk) walk_process(v);
   else walk_process(0);
+  //console.log(pos);
 }
 function can_scroll(v)
 {  
@@ -139,7 +140,7 @@ function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
   animated = true;
-  var tools = category.stage.frame.on_load;
+  var tools = category.stage.frame.load;
   male.animate(tools);
   female.animate(tools);
   // animate humans to starting position (inside object where they work)
@@ -399,73 +400,32 @@ function any_reward()
 }
 function reward_process()
 {
-  console.log("reward_process");
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
-      console.log(d.treasure);
       d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { prepare_for_reward(d); });      
       d.queue.push(function() { d.mutate(1); });
-      d.queue.push(function() { d.after_mutate(); });
       d.queue.push(function() { start_reward_animation(d); });
       d.queue.push(function() { hide_card(d); });
       d.queue.push(function() { prepare_for_work(d); });
-
       d.queue.start();
-
-      /*d.next_frame();*/
-      // at same time move character to reward place
-      // mutate if needed
-      // give reward, fadeout with moving coins to pedestal
-      // bk back, 
-      // character to work
-      // to see if next savings are enough for new item
-      // after see if items can be mutated to higher level item based on females items, object will be mutated only if male have extra items of same level
-      // do it for both humans if male have extra items that can be converted to new more valuable item, than convert when nessecary
-      // stop sign for both humans independetly, slow down timeline, put present on timeline on specific date
-      // move human to award place wait till present will have collision after that move person and present to its home place
-      // present will go via human hands moved to some treasure bar, with options to mutate to next level item(collapse effect)
     }
   });
 }
-
-
-var move_size = -300;
-function prepare_for_reward(v)
+function gopast()
 {
-  //console.log("called from inside",v);
-  var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
-
-  bg.animate({  "color": 'white'},{duration:400,
-    progress:function(a,b,c){
-      bg.css({'left':move_size*b});
-      fg.css({'left':move_size*b});
-      v.prepare_for_reward(b);
-    },
-    complete:function()
-    {
-      v.queue.resume();     
+  humans.forEach(function(d){
+    console.log(d,d.event_by_period[pos],pos);
+    if(d.event_by_period[pos+1]>0) 
+    { 
+       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+2)+']');
+       console.log("Gopast",rew,pos);
+       rew.show();         
+       d.card.prev();
     }
   });
-}
-function prepare_for_work(v)
-{
-  console.log("here");
-   var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
-  bg.animate({  "color": 'white'},{duration:400,
-    progress:function(a,b,c){
-      bg.css({'left':move_size - move_size*b});
-      fg.css({'left':move_size - move_size*b});
-      v.prepare_for_work(b);
-    },
-    complete:function()
-    {
-      v.queue.resume();     
-    }
-  });
+ 
 }
 function card_prepare(v)
 {
@@ -479,10 +439,46 @@ function card_prepare(v)
   else
   {
     rew.show();         
-    v.card.prev();
+    //v.card.prev();
   }
   v.queue.resume();  
 }
+var move_size = -300;
+function prepare_for_reward(v)
+{
+  //console.log("called from inside",v);
+  var bg = $('.' + v.place + ' .stage .layer.bg');
+  var fg = $('.' + v.place + ' .stage .layer.fg');
+
+  bg.animate({  "color": 'white'},{duration:400,
+    progress:function(a,b,c){
+      bg.css({'left':move_size*b});
+      fg.css({'left':move_size*b});
+      v.prepare_reward(b,true);
+    },
+    complete:function()
+    {
+      v.queue.resume();     
+    }
+  });
+}
+function prepare_for_work(v)
+{  
+  var bg = $('.' + v.place + ' .stage .layer.bg');
+  var fg = $('.' + v.place + ' .stage .layer.fg');
+  bg.animate({  "color": 'white'},{duration:400,
+    progress:function(a,b,c){
+      bg.css({'left':move_size - move_size*b});
+      fg.css({'left':move_size - move_size*b});
+      v.prepare_reward(b,false);
+    },
+    complete:function()
+    {
+      v.queue.resume();     
+    }
+  });
+}
+
 function hide_card(v)
 {
   //console.log("hideCard",v);
@@ -634,21 +630,22 @@ function progress(val)
                   Key Hooks
 ***************************************************************/
 jwerty.key('space', function(){ 
-    s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
-    s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
+    console.log("jump");
+    //s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
+    //s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
 });
 jwerty.key('arrow-right', function(){
   walk(1); 
 });
-jwerty.key('W', function(){
-  walk(1); 
-});
+// jwerty.key('W', function(){
+//   walk(1); 
+// });
 jwerty.key('arrow-left', function(){
   walk(-1); 
 });
-jwerty.key('S', function(){
-  walk(-1); 
-});
+// jwerty.key('S', function(){
+//   walk(-1); 
+// });
 /***************************************************************
                   Key Hooks End
 ***************************************************************/;
