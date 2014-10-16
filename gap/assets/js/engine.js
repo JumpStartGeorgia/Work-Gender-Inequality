@@ -405,12 +405,12 @@ function reward_process()
     { 
       console.log(d.treasure);
       d.queue.push(function() { card_prepare(d);  });
-      d.queue.push(function() { prepare_bk_for_reward(d); });
+      d.queue.push(function() { prepare_for_reward(d); });      
       d.queue.push(function() { d.mutate(1); });
       d.queue.push(function() { d.after_mutate(); });
       d.queue.push(function() { start_reward_animation(d); });
       d.queue.push(function() { hide_card(d); });
-      d.queue.push(function() { prepare_bk_for_work(d); });
+      d.queue.push(function() { prepare_for_work(d); });
 
       d.queue.start();
 
@@ -432,15 +432,17 @@ function reward_process()
 
 
 var move_size = -300;
-function prepare_bk_for_reward(v)
+function prepare_for_reward(v)
 {
   //console.log("called from inside",v);
   var bg = $('.' + v.place + ' .stage .layer.bg');
   var fg = $('.' + v.place + ' .stage .layer.fg');
+
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
       bg.css({'left':move_size*b});
       fg.css({'left':move_size*b});
+      v.prepare_for_reward(b);
     },
     complete:function()
     {
@@ -448,14 +450,16 @@ function prepare_bk_for_reward(v)
     }
   });
 }
-function prepare_bk_for_work(v)
+function prepare_for_work(v)
 {
+  console.log("here");
    var bg = $('.' + v.place + ' .stage .layer.bg');
   var fg = $('.' + v.place + ' .stage .layer.fg');
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
       bg.css({'left':move_size - move_size*b});
       fg.css({'left':move_size - move_size*b});
+      v.prepare_for_work(b);
     },
     complete:function()
     {

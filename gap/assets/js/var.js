@@ -132,11 +132,11 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var interest_start_offset = 0;
   //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
   var states_mutation = [4,2,2,3,3,0];
-   var states_mutation_based = [0,0,0,0,0,0];
-  for(var i = 1, sum = states_mutation[0]; i < 6; ++i)
+  var states_mutation_based = [1,0,0,0,0,0];
+  for(var i = 0, sum = 1; i < 6; ++i)
   {
-    states_mutation_based[i] = sum;
-    sum += states_mutation[i];
+    states_mutation_based[i] = sum*states_mutation[i];
+    sum = sum*states_mutation[i];
   }
  
   var index = 1;

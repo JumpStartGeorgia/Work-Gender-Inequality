@@ -13,7 +13,7 @@ function pedestalObject(p)
   
   this.add = function(which,how)
   {
-    //console.log("Adding",which,how);
+    console.log("Adding",which,how);
     var t = this;
     var start = t.p.treasure[0]-how;
     //console.log(this.p,which, start,how);

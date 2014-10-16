@@ -138,34 +138,41 @@ function human(selector,title)
   		this.animated = true;
   		
   		this.path = v.path;
-  		var parent = this;
+  		var t = this;
       var time_slower = v.duration*1000/150;
 //  		console.log(this._path,this.path_length);
   		$(this.selector).animate({"color":'white'},{ duration:v.duration*1000, 
         start:function()
         {
-          $(parent.selector).show();
+          $(t.selector).show();
          // console.log("start");
         },
   			progress:function(a,b,c) 
   			{ 
-  				parent.position(parent.getpathcoordinates(b));
+  				t.position(t.getpathcoordinates(b));
           if(Math.floor10(c/150) < time_slower )
           {
-            parent.next_movement();            
+            t.next_movement();            
             --time_slower;
             
           }
   			},
   			complete:function() 
   			{
-  				parent.animated = false;
-          animated = male.animated || female.animated;
-          parent.next_frame();
-          //console.log(male.animated, female.animated);
+  				t.animated = false;
+          animated = t.animated || t.oppenent.animated;
+          t.next_frame();
   			}
   		});
   		//console.log(this,v);
+  };
+  this.prepare_for_reward = function prepare_for_reward(step)
+  {
+    console.log(step);
+  };
+  this.prepare_for_work = function prepare_for_work(step)
+  {
+    console.log(step);
   };
   this.next_movement = function next_movement()
   {
@@ -211,11 +218,9 @@ function human(selector,title)
     if(this.current_frame < frame_sequence_length)
       ++this.current_frame;
     else this.current_frame = 0;
-    this.current_frame%=3;
     var frame = category.stage.frame[frame_sequence[this.current_frame]];
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
-    //console.log(frame);
   };
   this.getpathcoordinates = function getpathcoordinates(progress)
   {	
@@ -309,7 +314,7 @@ function human(selector,title)
       var ca = treasure[zIndex] + events; // all events for current steps
       var sm = states_mutation[zIndex];
       var mutateCount = Math.floor10(ca/sm); 
-     console.log("mutationCount",mutateCount,treasure,zIndex,t.title,ca,sm);
+     //console.log("mutationCount",mutateCount,treasure,zIndex,t.title,ca,sm);
       //t.mutation = mutation_empty.slice();
 
       //if(!t.outrun) mutation_restriction[zIndex] = 0;
@@ -323,9 +328,11 @@ function human(selector,title)
       if(t.outrun)
       {
         var restrictor = t.oppenent.hasLevelMutation(which);
+        console.log(restrictor);
+        //console.log("Called from ", t.title, restrictor);
         if(mutateCount > restrictor)
         { 
-          console.log(t.title, " has restriction ", restrictor, mutateCount);
+          //console.log(t.title, " has restriction ", restrictor, mutateCount);
           mutateCount = restrictor;
           }
       }
@@ -472,7 +479,7 @@ function human(selector,title)
               if(isFirst) 
               {
                 isFirst = false;
-                console.log('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
+                //console.log('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
                 firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
                 first.offset = firtsTmp.offset();
                 first.position = firtsTmp.position();
@@ -542,7 +549,7 @@ function human(selector,title)
 
   this.moveTreasureCoinToCard = function(level,who,where,isFirst,parent,itemNumber,last,globalItemNumber)
   {
-    console.log(this.title,level,who,where,isFirst,parent,itemNumber,last);
+    //console.log(this.title,level,who,where,isFirst,parent,itemNumber,last);
     var t = this;
     var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']');
     //console.log('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']' + 'div.item[data-id='+(who+1)+']');
@@ -627,30 +634,27 @@ function human(selector,title)
     });
     //console.log("cardToCard",level,who,where,first,item,item.position(),item.offset());
   };
-  this.hasLevelMutation = function(which)
+  this.hasLevelMutation = function(which,p)
   {
-    // which can be from 2 to 6
-    // todo doesn't work correctly 
-    // sometimes on scroll extra coins added to extra and no mutation works should be controlled
-    var t = this;
-    if(typeof which === "undefined") return 0;
-    var tmp = 0;
-    for(var i = 0; i < pos; ++i)
+    var t = this;  
+    if(!(which>=1 && which <= 4)) return 999;
+
+    var prevTmp = 0;
+    var prevTmpM = 0;
+    for(var i = 0; i <= pos-1; ++i)
     {
-       tmp += t.event_by_period[i];
+      prevTmp += t.event_by_period[i];
     }
-    console.log("HasLevelMutation tmp", tmp);
-    for(var i = 5; i > 0; --i)
+    for(var i = 4; i >= 0; --i)
     {
-      var tmpM = Math.floor10(tmp / states_mutation_based[i]) ;
-      if(i+1 == which) return tmpM;
-      tmp -= tmpM * states_mutation_based[i];
+      prevTmp -= Math.floor10(prevTmp / states_mutation_based[i]) * states_mutation_based[i];
+      if(i == which-1)   break;
     }
-    return 0;
+    return Math.floor10((t.event_by_period[pos] + prevTmp) / states_mutation_based[which-1]);
   };
   this.after_mutate = function()
   {
-    this.pedestal.resume(this.treasure.slice());
+    //this.pedestal.resume(this.treasure.slice());
     this.queue.resume();
   };
   this.inrange = function(which)

@@ -15,12 +15,12 @@ var categories =
                     //on_work_before:{},
                     on_work:{ a:false, loop: true, path:"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
                     //on_work_after:{},
-                    on_tap:{},
-                    on_jump:{},
-                    on_reward_before:{ a:false, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
-                    on_reward:{},
-                    on_reward_after:{},
-                    on_after:{}
+                    //on_tap:{},
+                    //on_jump:{},
+                    on_reward_before:{ a:true, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
+                    //on_reward:{},
+                    on_reward_after:{ a:true, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
+                    //on_after:{}
 
                 }
             } 
@@ -41,7 +41,7 @@ var categories =
         { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11 }
 ];
 var frame_sequence = [
-    'on_load','on_work','on_reward_before','on_reward','on_reward_after','on_after'
+    'on_load','on_work','on_reward_before','on_reward_after' //'on_reward',,'on_after'
 ];
 var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
