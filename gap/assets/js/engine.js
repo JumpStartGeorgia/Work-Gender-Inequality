@@ -182,8 +182,8 @@ function game() {
 
   var t = $('<div class="top"></div>').appendTo(s);
 
-  var ts = $('<div class="score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(t);  
+  var ts = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
+    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
   var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 32 - 10 }).appendTo(t);
@@ -196,8 +196,8 @@ function game() {
   
 
   var b = $('<div class="bottom"></div>').appendTo(s);
-  var bs = $('<div class="score"><div class="tsalary"><div class="label">Total Salary:&nbsp;</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">&nbsp;|&nbsp;Total Saved:&nbsp;</div><div class="value">0</div></div></div>').appendTo(b);
+  var bs = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
+    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(b);
   bs.css({ left: w-bs.width()-30, top: lh + th + 20});
 
   treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + th + 10 }).appendTo(b);  
@@ -511,6 +511,13 @@ function agegroup_by_age(v)
 }
 function params_init()
 {
+  if(params_read())
+  {
+    params_validate();
+  }
+}
+function params_read()
+{
   var hash = window.location.hash._trimLeft('#'); 
   params = {}; 
   steptogo = 0;
@@ -527,8 +534,9 @@ function params_init()
         params[kv[0]] = isDecimal(kv[1]) ? +kv[1] : kv[1];      
       }
     }
-    params_validate();
+    return true;
   } 
+  return false;
 }
 function params_validate()
 {
@@ -558,7 +566,6 @@ function params_validate()
   if(steptogo == 4 && exist(params.i) && int_ids.indexOf(params.i)!=-1)
   {
     steptogo = 5;
-    console.log("hash interest");
     user.interest = params.i;
     poll.choose_interest();
   }
@@ -581,6 +588,28 @@ function params_set(v)
     //   window.location.hash = hash; 
     if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
   }  
+}
+function params_back()
+{
+  if(params_read())
+  {
+    var indexTmp = 0;
+    var order = ['g','a','c','s','i','p'];
+    for(var i = 0; i < 6; ++i)
+    {       
+      if(typeof params[order[i]] !== "undefined") indexTmp = i;
+      else break;
+    }
+    var loc = "#";
+    for(var i = 0; i < indexTmp; ++i)
+    {
+      loc+= order[i] + "=" + params[order[i]] + "&";
+    }
+    loc = loc.slice(0,-1);
+
+    window.location.hash = loc;
+    window.location.reload();
+  } 
 }
 /***************************************************************
                   General Functions End

@@ -1,19 +1,58 @@
 /**
 * outrun: 0 - male, 1 - female
 */
+var locale = {
+  poll:
+  {
+    choose_gender:"Choose Gender",
+    choose_age:"Choose Age",
+    choose_category:"Choose Category",
+    choose_interest:"Choose Interest"
+  },
+  general:
+  {
+    next:"Next",
+    prev:"Prev",
+    monthNames: ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'],
+    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+    dateFormat: 'dd/mm/yyyy', firstDay: 1,
+    prevText: 'Prev', prevStatus: 'Show the previous month',
+    prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'Show the previous year',
+    nextText: 'Next', nextStatus: 'Show the next month',
+    nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'Show the next year',
+    currentText: 'Current', currentStatus: 'Show the current month',
+    todayText: 'Today', todayStatus: 'Show today\'s month',
+    clearText: 'Clear', clearStatus: 'Erase the current date',
+    closeText: 'Done', closeStatus: 'Close without change',
+    yearStatus: 'Show a different year', monthStatus: 'Show a different month',
+    weekText: 'Wk', weekStatus: 'Week of the year',
+    dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
+    isRTL: false
+  },
+  game:
+  {
+    total_salary:"Total Salary:&nbsp;",
+    total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
+  }
+};
 
 var categories = 
 [
         { "id": "45bS4GyC","name": "Agriculture, hunting and forestry", "outrun":0, "percent":11,
-            stage:
+            "stage":
             {
-                background:"assets/images/svg/field/education/bk.svg",
-                foreground:{ interior:"assets/images/svg/field/education/school_int.svg", exterior:"assets/images/svg/field/education/school_ext.svg"}, // should be of same size
-                frame:
+                "background":"assets/images/svg/field/education/bk.svg",
+                "foreground":{ "interior":"assets/images/svg/field/education/school_int.svg", "exterior":"assets/images/svg/field/education/school_ext.svg"}, // should be of same size
+                "frame":
                 {
-                    load:{ a:true, duration:1, path:"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
-                    work:{ a:false, loop: true, path:"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
-                    reward:{ a:true, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
+                    "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
+                    "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
+                    "reward":{ "a":true, "loop":false, "path":"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
                 }
             } 
         },

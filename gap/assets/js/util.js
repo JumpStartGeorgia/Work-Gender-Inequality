@@ -132,15 +132,17 @@ function switchStyle(selector,dur,dur1,ease,ease1,css,val,val1)
            .transition().duration(dur1).ease(ease1).style(css,val1);
 }
 
-function getMonth(v,lang)
+function getMonth(v)
 {
-    lang = lang ? lang : 'en-us';
-    return v.toLocaleString(lang, { month: "long" });
+    //var lang = document.documentElement.lang;
+    //if(typeof lang === "undefined") lang = "en";
+    return locale.general.monthNames[v.getMonth()];
 }
 function getMonthS(v,lang)
-{
-    lang = lang ? lang : 'en-us';
-    return v.toLocaleString(lang, { month: "short" });
+{  
+    //lang = lang ? lang : 'en';
+    //return v.toLocaleString(lang, { month: "short" });
+    return locale.general.monthNamesShort[v.getMonth()];
 }
 function monthDiff(from, to) {
     var d1 = from;
