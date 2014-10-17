@@ -60,7 +60,6 @@ function walk(v)
   {        
     if(total_scrolls % scrolls_for_reward == 0)
     {
-      console.log(total_scrolls);
       ++pos;
       calculate_process(v);
       if(!reward) 
@@ -124,16 +123,12 @@ function intro_fade(){
 }
 function epilogue()
 {
-  fstart(arguments.callee.name);
-
   gameoff();
   scr_clean();
   s.toggleClass(sepilogue.class);
   var t = $('<div class="title">'+sepilogue.title+'</div>').appendTo(s);
 
   t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeIn(fade_time, "linear", function(){  } );
-
-  fend(arguments.callee.name);
 }
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
@@ -183,8 +178,6 @@ function game() {
   male.saving_for_tick = user.salary_percent * male.salary / 100;
   female.saving_for_tick = user.salary_percent * female.salary / 100;
  
-
-
   scr_clean();
 
   var t = $('<div class="top"></div>').appendTo(s);
@@ -219,7 +212,6 @@ function game() {
   //female.pedestal.resume([3,1,0,0,0,0]);
   timeline_tick();
   draw_stage(0);
-
 
   var m = $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
   var f = $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
@@ -416,11 +408,9 @@ function reward_process()
 function gopast()
 {
   humans.forEach(function(d){
-    console.log(d,d.event_by_period[pos],pos);
     if(d.event_by_period[pos+1]>0) 
     { 
        var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+2)+']');
-       console.log("Gopast",rew,pos);
        rew.show();         
        d.card.prev();
     }
@@ -491,7 +481,6 @@ function start_reward_animation(v)
   //console.log("start_reward_animation");
   v.queue.resume();  
 }
-
 
 
 /***************************************************************
@@ -569,6 +558,7 @@ function params_validate()
   if(steptogo == 4 && exist(params.i) && int_ids.indexOf(params.i)!=-1)
   {
     steptogo = 5;
+    console.log("hash interest");
     user.interest = params.i;
     poll.choose_interest();
   }
@@ -576,7 +566,7 @@ function params_validate()
   {   
       steptogo = 6;
       user.salary_percent = params.p;
-  }
+  }  
 }
 function params_set(v)
 {

@@ -12,16 +12,8 @@ var categories =
                 frame:
                 {
                     load:{ a:true, duration:1, path:"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
-                    //on_work_before:{},
                     work:{ a:false, loop: true, path:"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
-                    //on_work_after:{},
-                    //on_tap:{},
-                    //on_jump:{},
                     reward:{ a:true, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
-                    //on_reward:{},
-                    //on_reward_after:{ a:true, loop:false, path:"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
-                    //on_after:{}
-
                 }
             } 
         },
@@ -40,30 +32,29 @@ var categories =
         { "id": "dJdfgktK","name": "Health and social work", "outrun":0, "percent":11 },
         { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11 }
 ];
-var frame_sequence = [
-    'load','work','reward' //,'on_reward_after' //'on_reward',,'on_after'
-];
+var frame_sequence = [ 'load','work','reward' ];
 var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
+
 var interests = 
 [
         { "id": "gfNDXD1g", "name": "Vacation", items:[] },
         { "id": "Rs2Uml6w","name": "Gadgets", 
                 items:
                 [
-                  { "id": "Q3eeT2j9", "type": "mobile", "title":"BSAMSUNG I9300 Galaxy S3 White", "cost":700, 
+                  { "id": "Q3eeT2j9", "type": "mobile", "title":"SAMSUNG I9300 Galaxy S3 White", "cost":700, 
                     "image":"bag.svg", "class":"bag",
                     "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White", "source_date":"22.09.2014",
                     "descr":"Mobile Phone" },
-                  { "id": "NeRMinwu", "type": "mobile", "title":"ANokia 1280 Black/G", "cost":41.99,
+                  { "id": "NeRMinwu", "type": "mobile", "title":"Nokia 1280 Black/G", "cost":41.99,
                     "image":"boat.svg", "class":"boat",
                     "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG", "source_date":"22.09.2014",
                     "descr":"Tab" },
-                  { "id": "eLkVnL8n", "type": "mobile", "title":"DApple Iphone 5S 64GB Gold", "cost":1765,
+                  { "id": "eLkVnL8n", "type": "mobile", "title":"Apple Iphone 5S 64GB Gold", "cost":1765,
                     "image":"coconut.svg", "class":"coconut",
                     "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/", "source_date":"22.09.2014",
                     "descr":"XBox" },
-                  { "id": "kV1jvNlr", "type": "mobile", "title":"FVertu Signature Diamond", "cost":154000,
+                  { "id": "kV1jvNlr", "type": "mobile", "title":"Vertu Signature Diamond", "cost":154000,
                     "image":"compass.svg", "class":"compass",
                     "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/", "source_date":"22.09.2014",
                     "descr":"Notebook" },

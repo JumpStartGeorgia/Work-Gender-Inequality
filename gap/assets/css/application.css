@@ -365,8 +365,7 @@ svg.stage-bk { z-index:30; }
    -moz-border-radius: 10px;
    border-radius: 10px;
    overflow:hidden;
-   margin:0px 100px 0px 100px;
-
+  /* margin:0px 100px 0px 100px;*/
 }
 
 .poll-label
@@ -384,7 +383,7 @@ svg.stage-bk { z-index:30; }
    font-size:45px;
    font-family:opensans-r;
 }
-.poll .on,.poll .off
+.slider .on,.slider .off
 {
    width:105px;
    height:55px;
@@ -396,23 +395,25 @@ svg.stage-bk { z-index:30; }
    position:relative;
 
 }
-.poll .on
+.slider .on
 {
    overflow:hidden;
    font-size:18px;
    color:#939393;
+   z-index:303;
 }
-.poll .on:hover
+.slider .on:hover
 {
    cursor:pointer;
 }
-.poll .off
+.slider .off
 {
    background-color:rgba(19, 166, 17, 0.3);
    overflow:hidden;
    font-size:25px;
    color:#ededed;
    cursor:e-resize;
+   z-index:302;
 }
 
 .category-picker , .interest_picker

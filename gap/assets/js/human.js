@@ -259,7 +259,7 @@ function human(selector,title)
 		return { x:p.x,y:p.y, a:a };
   };
   this.prepare_for_game = function prepare_for_game()
-  {
+  {    
     var life = (max_age - user.age) * 12;
     var overall = 0;
     this.event_by_month = [];
@@ -274,7 +274,7 @@ function human(selector,title)
         periodPush = true;
       }
 
-      overall += this.saving_for_tick;    
+      overall += this.saving_for_tick;   
       var tmp = Math.floor10(overall / interest[0].cost);
       if(tmp > 0)
       {

@@ -28,27 +28,28 @@ var poll = {
   npicker_sal_size:5,
   show:function show()
   {
-    fstart(arguments.callee.name);
+    
     poll.stage_size2 = poll.stage_size/2;
 
     scr_clean();
     this.init();
-    this.show_thumbnails();
+    //this.show_thumbnails();
     if(steptogo == 0)
       this.gender();
     else 
     {
       poll.draw_character();
-      fn(hash_map[steptogo-1].nf);      
+      fn(hash_map[steptogo-1].nf); 
+      if(steptogo >= 1) poll.create_prev_button();
     };
-  
+      
     this.create_next_button();
 
-    fend(arguments.callee.name);
+
   },
   init:function init()
   {    
-    fstart(arguments.callee.name);
+    
 
     s3.append('div')
       .classed('poll',true)
@@ -61,11 +62,11 @@ var poll = {
     this.stage = s.find('.stage');
     this.stage_d3 = s3.select('.stage');
 
-    fend(arguments.callee.name);
+
   },
   add_layer:function add_layer()
   {
-    fstart(arguments.callee.name);
+    
 
     poll.stage_d3.select('.character').style('background-color','transparent');
     poll.stage_d3.insert('svg','.character')
@@ -76,7 +77,7 @@ var poll = {
         .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
     poll.stage_d3.insert('div').classed('poll-sub-label abs',true);
 
-    fend(arguments.callee.name);
+
   },
   draw_character:function draw_character()
   {     
@@ -134,7 +135,7 @@ var poll = {
   },
   gender:function gender()
   {
-    fstart(arguments.callee.name);
+    
 
     this.label("Choose Gender"); 
     
@@ -142,14 +143,12 @@ var poll = {
 
     var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title','Female')
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
-      .on('click',function(){ f(); poll.place_human_based_on_gender(); poll.character_picked(); d3.select(this).on('click', null); });
+      .on('click',function(){ f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
     var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title','Male')
       .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
-      .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); d3.select(this).on('click', null); });
+      .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
 
     onscrollafter = function(){ 
-
-console.log('asd');
       if(ftmp.classed('selected'))
       {
         ftmp.classed('selected',false);
@@ -166,7 +165,7 @@ console.log('asd');
       {
         ftmp.classed('selected',true);
         f();
-      }     
+      }
     };
 
     poll.next_function = function(){ 
@@ -193,11 +192,11 @@ console.log('asd');
       }
     };
 
-    fend(arguments.callee.name);
+
   },
   age:function age()
   {
-    fstart(arguments.callee.name);
+    
 
     onscrollafter = null;  
 
@@ -221,11 +220,11 @@ console.log('asd');
 
     poll.age_picker_show();
 
-    fend(arguments.callee.name);
+
   },
   category:function category()
   {
-    fstart(arguments.callee.name);
+    
 
     poll.label("Choose Category"); 
 
@@ -247,11 +246,11 @@ console.log('asd');
 
     poll.category_picker_show();
 
-    fend(arguments.callee.name);
+
   },
   interest:function interest()
   {
-    fstart(arguments.callee.name);
+    
 
     poll.label("Choose Interest");
 
@@ -275,11 +274,11 @@ console.log('asd');
     };
     poll.interest_picker_show();
 
-    fend(arguments.callee.name);
+
   }, 
   category_picker_show:function category_picker_show()
   {
-    fstart(arguments.callee.name);
+    
 
     var outer_radius = 280;
     var cat_radius = 30;
@@ -311,19 +310,19 @@ console.log('asd');
     onscrollup=function(){ poll.category_down(); };
     onscrolldown=function(){ poll.category_up(); };
 
-    fend(arguments.callee.name);
+
   },  
   category_draw:function category_draw()
   {
-    fstart(arguments.callee.name);
+    
     d3.selectAll('.category-picker .category_item').classed('selected',false); 
     poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
 
-    fend(arguments.callee.name);   
+   
   },
   category_up:function category_up()
   {
-    fstart(arguments.callee.name); 
+     
 
     var ind = cat_ids.indexOf(user.category);
     if(ind != -1)
@@ -331,28 +330,28 @@ console.log('asd');
       user.category = ind < categories.length-1 ? cat_ids[ind+1] : cat_ids[0];
     }
     this.category_draw();   
-    fend(arguments.callee.name); 
+ 
   }, 
   category_down:function category_down()
   {
-    fstart(arguments.callee.name);     
+         
     var ind = cat_ids.indexOf(user.category);
     if(ind != -1)
     {
       user.category =  ind > 0 ? cat_ids[ind-1] : cat_ids[categories.length-1];
     }
     this.category_draw();
-    fend(arguments.callee.name);
+
   },
   by_category:function by_category(v)
   {        
-    fstart(arguments.callee.name);   
+       
     if(user.category != v)
     {
       user.category = v;        
       this.category_draw();
     }
-    fend(arguments.callee.name);
+
   },
   category_salary:function category_salary(v)
   {
@@ -361,7 +360,7 @@ console.log('asd');
   },
   age_picker_show:function age_picker_show()
   {
-    fstart(arguments.callee.name);
+    
 
     var ap = this.stage_d3
       .append('svg')
@@ -412,44 +411,44 @@ console.log('asd');
 
     poll.by_age(user.age);
 
-    fend(arguments.callee.name);
+
   },
   age_check:function age_check()
   {     
-    fstart(arguments.callee.name); 
+     
       if(user.age<min_age) user.age = min_age;
       else if(user.age>max_age) user.age = max_age;   
-    fend(arguments.callee.name);
+
   },
   age_up:function age_up()
   {
-    fstart(arguments.callee.name); 
+     
     this.age_check();
     if(user.age<max_age) ++user.age;
     this.agepicker_draw();  
-    fend(arguments.callee.name);  
+  
   }, 
   age_down:function age_down()
   {
-    fstart(arguments.callee.name); 
+     
     this.age_check();
     if(user.age>min_age) --user.age;
     this.agepicker_draw();
-    fend(arguments.callee.name);
+
   },
   by_age:function by_age(v)
   {      
-    fstart(arguments.callee.name);   
+       
 
     user.age = v;        
     this.age_check();
     this.agepicker_draw();
 
-    fend(arguments.callee.name);
+
   },
   agepicker_draw:function agepicker_draw()
   {
-    fstart(arguments.callee.name); 
+     
     var rad = this.get_radian_by_age(user.age);
    
       var c = Math.cos(rad);
@@ -460,10 +459,10 @@ console.log('asd');
       $(".age-mover").attr("cx",cx).attr("cy",cy);
       poll.sublabel(user.age + "(" +agegroup_by_age(user.age)+")");
 
-    fend(arguments.callee.name);
+
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
-    fstart(arguments.callee.name); 
+     
     // given mousePosition, what is the nearest point on the knob
     // result = atan2 (y,x) * 180 / PI;
     var rad = Math.atan2(y,x);
@@ -522,23 +521,23 @@ console.log('asd');
           {        
             this.by_age((degree-this.degrees[1]<this.degrees[2]-degree ? min_age : max_age));
           }
-          fend(arguments.callee.name);
+      
         }
   },
   get_degree_by_age:function get_degree_by_age(v)
   {
-    fstart(arguments.callee.name); 
+     
 
     var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp;   
 
-    fend(arguments.callee.name);   
+   
 
     return tmp;
   },
   get_radian_by_age:function get_radian_by_age(v)
   {   
-    fstart(arguments.callee.name); 
+     
 
     var index = v-min_age; 
     //console.log(v, index,max_age-min_age,v-min_age);
@@ -548,19 +547,19 @@ console.log('asd');
     var tmp = (v>=min_age && v<=max_age) ?  this.degree_steps[index] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp; 
 
-    fend(arguments.callee.name);
+
 
     return Math.radians(tmp);
   },
   drag_age:function drag_age(e) {
 
-    fstart(arguments.callee.name); 
+     
 
     var x = parseInt(e.x-w2);
     var y = parseInt(h2-e.y);
     this.agepicker_age_by_coord(x, y);
 
-    fend(arguments.callee.name);
+
   },
   agemousedown:function agemousedown(e) {
 
@@ -570,7 +569,7 @@ console.log('asd');
   },
   interest_picker_show:function interest_picker_show()
   {
-    fstart(arguments.callee.name);
+    console.log("interest_picker_show",interests);
 
     var outer_radius = 280;
     var item_radius = 30;
@@ -586,12 +585,12 @@ console.log('asd');
     .enter()
     .append("svg")
     .attr("class",function(d){return "interest_item " + g(); }) 
-    .attr("id",function(d){return "i"+d.id;})   
+    .attr("id",function(d){ console.log(d.id);return "i"+d.id;})   
     .attr({"width":size, "height":size})
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
-    .on('click',function(d){ poll.by_interest(d.id);});
-
+    .on('click',function(d){ alert(d.id); poll.by_interest(d.id);});
+console.log(pick_items);
     poll.stage_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
     poll.stage_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});    
 
@@ -602,15 +601,13 @@ console.log('asd');
 
 
    poll.npicker_function = function(v){ 
-      console.log("npicker 1");
       v=+v; 
       if(user.salary >= v) {
         user.salary_percent = Math.round10((v*100)/user.salary);
         poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
-        poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+'.selected text').text() + " (" + user.salary_percent + "%)");         
+        poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+' text').text() + " (" + user.salary_percent + "%)");         
         poll.interest_percent_draw((v*100)/user.salary/100);
       }  
-      console.log("npicker 2");
     }
 
     poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
@@ -633,53 +630,46 @@ console.log('asd');
     onscrollup=function(){ poll.interest_down(); };
     onscrolldown=function(){ poll.interest_up(); };
 
-    fend(arguments.callee.name);
+
   },
   interest_draw:function interest_draw()
   {
-    fstart(arguments.callee.name);
-
     d3.selectAll('.interest_picker .interest_item').classed('selected',false); 
+    console.log('.interest_picker .interest_item#i'+user.interest);
     poll.sublabel(d3.select('.interest_picker .interest_item#i'+user.interest).classed('selected',true).select('text').text() + " (" +user.salary_percent + "%)"); 
-
-    fend(arguments.callee.name);   
   },
   interest_up:function interest_up()
   {
-    fstart(arguments.callee.name); 
-
     var ind = int_ids.indexOf(user.interest);
     if(ind != -1)
     {
       user.interest = ind < interests.length-1 ? int_ids[ind+1] : int_ids[0];
     }
     this.interest_draw();   
-
-    fend(arguments.callee.name); 
   }, 
   interest_down:function interest_down()
   {
-    fstart(arguments.callee.name);     
+         
     var ind = int_ids.indexOf(user.interest);
     if(ind != -1)
     {
       user.interest =  ind > 0 ? int_ids[ind-1] : int_ids[interests.length-1];
     }
     this.interest_draw();
-    fend(arguments.callee.name);
+
   },  
   by_interest:function by_interest(v)
   {        
-    fstart(arguments.callee.name);   
+       console.log("by_interest",v);
     if(user.interest != v)
     {
       user.interest = v;        
       this.interest_draw();
     }
-    fend(arguments.callee.name);
+
   },  
   interest_percent_draw:function interest_percent_draw(k)
-  {  tt();
+  {  
     var r = 200; 
     var h = 2 * r * k, y = 2*r - h;  
     d3.select("#clip-mask rect").attr("y", y).attr("height", h);
@@ -700,6 +690,7 @@ console.log('asd');
   },
   choose_interest: function choose_interest()
   {    
+    console.log("interesting");
     interest = interests.filter(function(a){ return a.id == user.interest; })[0].items.sort(function(a,b){ return a.cost - b.cost; });
 
     interest_level_map = [];
@@ -710,7 +701,6 @@ console.log('asd');
   },
   create_next_button:function create_next_button(){
 
-    fstart(arguments.callee.name); 
     $('.poll').append($("<div class='next-slider slider' data-steps-for-on='3'><div class='off'>></div><div class='on'>Next</div></div>").on('DOMMouseScroll mousewheel', function(e, delta) {
       var t = $(this);
 
@@ -759,14 +749,70 @@ console.log('asd');
     
     }));
 
-    var slider = $('.slider');
+    var slider = $('.next-slider');
  
-    slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-200});
-    slider.find('.on').on('click',function(e){  tt(); fn('poll.next_function'); })
+    slider.css({top:h-slider.outerHeight()-25,left:w-slider.outerWidth()-100});
+    slider.find('.on').on('click',function(e){ fn('poll.next_function'); })
+                      .on('mousedown',function(e){  e.stopPropagation(); });
+  },
+  create_prev_button:function create_prev_button(){
+    $('.poll').append($("<div class='prev-slider slider' data-steps-for-on='3'><div class='on'>Prev</div><div class='off'><</div></div>").on('DOMMouseScroll mousewheel', function(e, delta) {
+      var t = $(this);
+
+
+      var stepstillon = +t.attr('data-steps-for-on');
+      var off = t.find('.off');
+      var on = t.find('.on'); 
+      var todo = false;
+      if(up(e,delta)) // forward up next
+      {      
+          if(stepstillon > 1 && stepstillon <= 3)
+          {
+            --stepstillon;
+            todo = true;
+          }
+          else 
+          {
+            --stepstillon;
+            var step = 3-stepstillon;         
+            var width_step = off.width()/3;
+            var opacity_step = 0.7/3;    
+            on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+            off.text(step != 0 ? "" : ">").css({left:-step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+
+             fn('poll.prev_function');
+            on.animate({'color': "#939393"});        
+            off.animate({left:0, "background-color":"rgba(19, 166, 17," + 0.3 + ")"},{complete:function(){off.text("<");}})
+            t.attr('data-steps-for-on',3);
+          }
+      }
+      else if(stepstillon < 3) // backward down previous
+      {      
+         ++stepstillon; todo = true;
+      }
+
+      if(todo)
+      {
+        var step = 3-stepstillon;         
+        var width_step = off.width()/3;
+        var opacity_step = 0.7/3;    
+        on.css({'color': (step >= 2 ? "#ededed" : "#939393")});        
+        off.text(step != 0 ? "" : "<").css({left:-step*width_step, "background-color":"rgba(19, 166, 17," + (0.3+opacity_step*step) + ")"})
+        t.attr('data-steps-for-on',stepstillon);
+      }
+      e.stopPropagation();
+    
+    }));
+
+    var slider = $('.prev-slider');
+    slider.css({top:h-slider.outerHeight()-25,left:100});
+    slider.find('.on').on('click',function(e){ fn('poll.prev_function'); })
                       .on('mousedown',function(e){  e.stopPropagation(); });
 
-    fend(arguments.callee.name);
-
+  },
+  prev_function:function prev_function()
+  {
+    history.back(1);
   },
   npicker_create:function npicker_create(p,t,max,size,top,left,def)
   {    
@@ -856,6 +902,22 @@ console.log('asd');
     var t = $('.poll-sub-label').text(v);    
     t.css({top:h2-t.height()/2 - poll.stage_size2*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.stage_size2*0.45});    
   },
+  place_human_based_on_gender:function place_human_based_on_gender()
+  {
+    if(isf()) 
+    {
+      female.place = 'top';
+      male.place = 'bottom';
+    }
+    else 
+    {
+      female.place = 'bottom';
+      male.place = 'top';
+    }
+  },
+  /***************************************************************
+                            Not Used
+  ***************************************************************/
   gender_thumbnail:function gender_thumbnail(klass)
   {
     klass='gender';
@@ -906,19 +968,6 @@ console.log('asd');
     //   x:4, width:35,height:35,'xlink:href':'assets/images/svg/m.svg',fill:color.female
     // });       
   },
-  place_human_based_on_gender:function place_human_based_on_gender()
-  {
-    if(isf()) 
-    {
-      female.place = 'top';
-      male.place = 'bottom';
-    }
-    else 
-    {
-      female.place = 'bottom';
-      male.place = 'top';
-    }
-  }
 
 };
 /***************************************************************
