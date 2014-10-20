@@ -169,17 +169,7 @@ function game_init() {
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
   timeline = timeline.find('.canvas');
 
-  if(pos >= 0)
-  {
-    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-    var len = timeline_points.length;
-    if(t1 > len*timeline_month_w) 
-    {
-      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-      timeline_tick(toadd);
-    }         
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
-  }
+  
   
 
   var b = $('<div class="bottom"></div>').appendTo(s);
@@ -200,9 +190,22 @@ function game_init() {
   male.prepare_for_game();
   female.prepare_for_game();
 
+
+  if(pos >= 0)
+  {
+    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+    var len = timeline_points.length;
+    if(t1 > len*timeline_month_w) 
+    {
+      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+      timeline_tick(toadd);
+    }         
+    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+  }
+
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
-  
+
   timeline_tick();
   draw_stage(0);
 
@@ -295,11 +298,8 @@ function timeline_point_draw()
 
       if(i!=0)
       { 
-        
         var mCountTmp = 0;
         var fCountTmp = 0;
-       // var indm = 0;
-        //var indf = 0;
         var from = i * reward_period - 1;
         var to = i*reward_period-reward_period;
         for(var j = from; j >= to; --j)
@@ -309,10 +309,10 @@ function timeline_point_draw()
         }
         if(mCountTmp > 0)
         {
-           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
-            rew.css({heigth:th,line_height:th});
-            rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-          
+          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
+          rew.css({heigth:th,line_height:th});
+          rew.css({left: prevPosition - interest_w2});
+          if(i<=pos+1) { rew.hide(); }
           for(var j = 0; j < mCountTmp; ++j)
           { 
              $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
@@ -323,7 +323,7 @@ function timeline_point_draw()
            var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
             rew.css({heigth:th,line_height:th});
             rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-          
+            if(i<=pos+1) { rew.hide(); }
           for(var j = 0; j < fCountTmp; ++j)
           { 
              $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
