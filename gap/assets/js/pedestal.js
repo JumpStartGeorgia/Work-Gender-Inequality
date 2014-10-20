@@ -24,42 +24,7 @@ function pedestalObject(p)
   };
   this.down = function() // go back one step calculate data based on pos
   {
-    var t = this;
-    var p = t.p;
-    var states = [0,0,0,0,0,0];
-    //t.mutation = t.mutation_empty;
-    var treasure_count = 0;
-    for(var i = 0; i <= pos; ++i)
-      treasure_count += this.p.event_by_period[i];
-
-    
-
-    //var state_cost = 0; 
-    //states_mutation.forEach(function(d,i){ state_cost+=d; });
-
-    //console.log(pos,treasure_count,state_cost);
-
-    for(var i = 5; i > 0; --i)
-    {
-      //state_cost-=states_mutation[i];
-      var tmp =  Math.floor10(treasure_count/states_mutation_based[i-1]);
-
-
-      if(p.outrun)
-      {
-        var restrictor = p.oppenent.hasLevelMutation(i-1);
-        if(tmp > restrictor) { tmp = restrictor; }
-      }
-
-      if(tmp >= 1)
-      {
-        states[i] = tmp;
-        treasure_count -= tmp * states_mutation_based[i-1];
-      }
-    }
-    states[0] = treasure_count;
-
-    this.resume(states);
+    this.resume_by_position();
   };
   this.next = function(v)
   {     
@@ -75,7 +40,6 @@ function pedestalObject(p)
   };
   this.delay = function()
   {
-    //console.log("delaying");
     var t = this;
     setTimeout(function()
     {        
@@ -108,18 +72,11 @@ function pedestalObject(p)
   };
   this.resume = function(states)
   {
-    
-    
     var t = this;
     if(typeof states !== Array && states.length != 6) return;
     for(var i = 0; i < 6; ++i)
     {
       var state = states[i];
-      // if(i != 5)        
-      // {
-      //   var sm = states_mutation[i]; // state mutation for current interest item                 
-      //   state -= Math.floor10(state/sm) * sm;
-      // }
       var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
       for(var j = 0; j < state; ++j)
       {
@@ -128,5 +85,32 @@ function pedestalObject(p)
       }
       treasure[i] = state;
     }
-  };   
+  };  
+  this.resume_by_position = function()
+  {
+    var t = this;
+    var p = t.p;
+    var states = [0,0,0,0,0,0];
+    var treasure_count = 0;
+    for(var i = 0; i <= pos; ++i)
+      treasure_count += this.p.event_by_period[i];
+    for(var i = 5; i > 0; --i)
+    {
+      var tmp =  Math.floor10(treasure_count/states_mutation_based[i-1]);
+      if(p.outrun)
+      {
+        var restrictor = p.oppenent.hasLevelMutation(i-1);
+        if(tmp > restrictor) { tmp = restrictor; }
+      }
+
+      if(tmp >= 1)
+      {
+        states[i] = tmp;
+        treasure_count -= tmp * states_mutation_based[i-1];
+      }
+    }
+    states[0] = treasure_count;
+   
+    this.resume(states);
+  };
 }

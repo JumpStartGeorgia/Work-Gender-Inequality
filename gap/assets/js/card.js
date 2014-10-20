@@ -15,8 +15,6 @@ function cardObject(p)
 
 	this.init = function()
 	{
-		//console.log(this.p);
-	
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
@@ -49,7 +47,6 @@ function cardObject(p)
 	};
 	this.hide = function(immediate)
 	{
-		//console.log("Card hide",this.p.title);
 		if(typeof immediate === undefined) immediate = false;
 		if(immediate) 
 		{

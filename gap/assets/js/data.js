@@ -1,45 +1,7 @@
 /**
 * outrun: 0 - male, 1 - female
 */
-var locale = {
-  poll:
-  {
-    choose_gender:"Choose Gender",
-    choose_age:"Choose Age",
-    choose_category:"Choose Category",
-    choose_interest:"Choose Interest"
-  },
-  general:
-  {
-    next:"Next",
-    prev:"Prev",
-    monthNames: ['January','February','March','April','May','June',
-    'July','August','September','October','November','December'],
-    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
-    dateFormat: 'dd/mm/yyyy', firstDay: 1,
-    prevText: 'Prev', prevStatus: 'Show the previous month',
-    prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'Show the previous year',
-    nextText: 'Next', nextStatus: 'Show the next month',
-    nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'Show the next year',
-    currentText: 'Current', currentStatus: 'Show the current month',
-    todayText: 'Today', todayStatus: 'Show today\'s month',
-    clearText: 'Clear', clearStatus: 'Erase the current date',
-    closeText: 'Done', closeStatus: 'Close without change',
-    yearStatus: 'Show a different year', monthStatus: 'Show a different month',
-    weekText: 'Wk', weekStatus: 'Week of the year',
-    dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
-    isRTL: false
-  },
-  game:
-  {
-    total_salary:"Total Salary:&nbsp;",
-    total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
-  }
-};
+
 
 var categories = 
 [
@@ -157,3 +119,65 @@ var color = {
   'white':'rgb(255,255,255)',
   'black':'rgb(0,0,0)'
 };
+// gap game localization
+var locale = {
+  poll:
+  {
+    choose_gender:"Choose Gender",
+    choose_age:"Choose Age",
+    choose_category:"Choose Category",
+    choose_interest:"Choose Interest"
+  },
+  general:
+  {
+    next:"Next",
+    prev:"Prev",
+    monthNames: ['January','February','March','April','May','June',
+    'July','August','September','October','November','December'],
+    monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+    dateFormat: 'dd/mm/yyyy', firstDay: 1,
+    prevText: 'Prev', prevStatus: 'Show the previous month',
+    prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'Show the previous year',
+    nextText: 'Next', nextStatus: 'Show the next month',
+    nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'Show the next year',
+    currentText: 'Current', currentStatus: 'Show the current month',
+    todayText: 'Today', todayStatus: 'Show today\'s month',
+    clearText: 'Clear', clearStatus: 'Erase the current date',
+    closeText: 'Done', closeStatus: 'Close without change',
+    yearStatus: 'Show a different year', monthStatus: 'Show a different month',
+    weekText: 'Wk', weekStatus: 'Week of the year',
+    dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
+    isRTL: false
+  },
+  game:
+  {
+    total_salary:"Total Salary:&nbsp;",
+    total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
+  }
+};
+/* move up if georgian version
+monthNames: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი',
+'ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
+monthNamesShort: ['იან', 'თებ', 'მარ', 'აპრ', 'მაისი', 'ივნ',
+'ივლ', 'აგვ', 'სექ', 'ოქტ', 'ნოე', 'დეკ'],
+dayNames: ['კვირა', 'ორშაბათი', 'სამშაბათი', 'ოთხშაბათი', 'ხუთშაბათი', 'პარასკევი', 'შაბათი'],
+dayNamesShort: ['კვ', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'],
+dayNamesMin: ['კვ','ორ','სმ','ოთ', 'ხშ', 'პრ','შბ'],
+dateFormat: 'dd/mm/yyyy', firstDay: 1,
+prevText: '<უკან', prevStatus: 'წინა თვე',
+prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'წინა წელი',
+nextText: 'წინ>', nextStatus: 'შემდეგი თვე',
+nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'შემდეგი წელი',
+currentText: 'მიმდინარე', currentStatus: 'მიმდინარე თვე',
+todayText: 'დღეს', todayStatus: 'მიმდინარე დღე',
+clearText: 'გასუფთავება', clearStatus: 'მიმდინარე თარიღის წაშლა',
+closeText: 'არის', closeStatus: 'დახურვა უცვლილებოდ',
+yearStatus: 'სხვა წელი', monthStatus: 'სხვა თვე',
+weekText: 'კვ', weekStatus: 'წლის კვირა',
+dayStatus: 'აირჩიეთ DD, M d', defaultStatus: 'აიღჩიეთ თარიღი',
+isRTL: false
+*/

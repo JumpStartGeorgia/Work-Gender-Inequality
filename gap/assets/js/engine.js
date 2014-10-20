@@ -54,7 +54,6 @@ function walk(v)
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
- // console.log(total_scrolls);
   var needWalk = true;
   if(v==1)
   {        
@@ -90,7 +89,6 @@ function walk(v)
   }
   if(needWalk) walk_process(v);
   else walk_process(0);
-  //console.log(pos);
 }
 function can_scroll(v)
 {  
@@ -117,7 +115,7 @@ function intro_fade(){
       poll.show();
     else 
     {
-      play(); game_on_load();
+      game_init(); game_on_load();
     }
   });
 }
@@ -140,43 +138,20 @@ function game_on_load()
   female.animate(tools);
   // animate humans to starting position (inside object where they work)
 }
-function play() { gameon(); game(); prepare_humans(); }
-function prepare_humans()
-{
-  male.prepare_for_game();
-  female.prepare_for_game();
-}
-function game() {
+function game_init() {
+
+  gameon();
 
   if(isf())
   {
-     if(female.outrun)
-     {
-        female.salary = user.salary;
-        male.salary = user.salary - (user.salary * female.gap_percent / 100);
-     }
-     else 
-     {
-        female.salary = user.salary;
-        male.salary = user.salary + (user.salary * male.gap_percent / 100);
-     }
+    female.salary = user.salary;
+    male.salary = user.salary + (female.outrun ? -1 : 1)*(user.salary * (female.outrun ? female.gap_percent : male.gap_percent) / 100);
   }
   else 
   {
-    if(female.outrun)
-    {
-      male.salary = user.salary;
-      female.salary = user.salary + (user.salary * female.gap_percent / 100);
-    }
-    else 
-    {
-      male.salary = user.salary;
-      female.salary = user.salary - (user.salary * male.gap_percent / 100);
-    }
+    male.salary = user.salary;
+    female.salary = user.salary + (female.outrun ? 1 : -1)*(user.salary * (female.outrun ? female.gap_percent : male.gap_percent) / 100);
   }
-  //console.log(user.salary_percent, male.salary);
-  male.saving_for_tick = user.salary_percent * male.salary / 100;
-  female.saving_for_tick = user.salary_percent * female.salary / 100;
  
   scr_clean();
 
@@ -193,6 +168,18 @@ function game() {
 
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
   timeline = timeline.find('.canvas');
+
+  if(pos >= 0)
+  {
+    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+    var len = timeline_points.length;
+    if(t1 > len*timeline_month_w) 
+    {
+      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+      timeline_tick(toadd);
+    }         
+    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+  }
   
 
   var b = $('<div class="bottom"></div>').appendTo(s);
@@ -206,10 +193,16 @@ function game() {
 
   male.init();
   female.init();
+  
   male.oppenent = female;
   female.oppenent = male;
-  //male.pedestal.resume([5,1,0,0,0,0]);
-  //female.pedestal.resume([3,1,0,0,0,0]);
+
+  male.prepare_for_game();
+  female.prepare_for_game();
+
+  male.pedestal.resume_by_position();
+  female.pedestal.resume_by_position();
+  
   timeline_tick();
   draw_stage(0);
 
@@ -217,7 +210,6 @@ function game() {
   var f = $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
   
   redraw_game();
-
 }
 var img_scaler =  1;
 var bg_width = 0;
@@ -287,8 +279,6 @@ function timeline_point_draw()
     if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
     {
       var point = $('<div class="point-in-time" data-time="'+ d.getTime()+'"><div class="point">'+getMonthS(d)+ " " + d.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
-
-      //console.log(rew);
       point.css({heigth:th,line_height:th});
       
       if(i == 0) 
@@ -436,7 +426,6 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  //console.log("called from inside",v);
   var bg = $('.' + v.place + ' .stage .layer.bg');
   var fg = $('.' + v.place + ' .stage .layer.fg');
 
@@ -471,14 +460,12 @@ function prepare_for_work(v)
 
 function hide_card(v)
 {
-  //console.log("hideCard",v);
   v.card.hide();
   v.queue.resume();  
 }
 
 function start_reward_animation(v)
 {
-  //console.log("start_reward_animation");
   v.queue.resume();  
 }
 
@@ -574,6 +561,17 @@ function params_validate()
       steptogo = 6;
       user.salary_percent = params.p;
   }  
+  if(steptogo == 6 &&  exist(params.t) && isNumber(params.t) && params.t >=0 && params.t <= 100)
+  {
+    if(can_scroll((+params.t+1)*scrolls_for_reward))
+    {
+      pos = +params.t;    
+      total_scrolls = (pos+1)*scrolls_for_reward;
+      start_by_time();
+    }
+
+  }
+//  sendUserData();
 }
 function params_set(v)
 {
@@ -584,10 +582,18 @@ function params_set(v)
     for(var i = 0; i < steptogo; ++i)
       hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
     if(hash[0]=='&') hash=hash.substr(1);
-    // if(window.location.hash != hash)
-    //   window.location.hash = hash; 
     if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
   }  
+}
+function params_time_set()
+{
+  var hash = "";
+  for(var i = 0; i < steptogo; ++i)
+    hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
+  hash+= "&t=" + pos;
+
+  if(hash[0]=='&') hash=hash.substr(1);
+  if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
 }
 function params_back()
 {
@@ -610,6 +616,37 @@ function params_back()
     window.location.hash = loc;
     window.location.reload();
   } 
+}
+// when all data is collected, send data to server
+function sendUserData()
+{
+  //console.log(user);
+  $.ajax({
+    type: "POST",
+    url: "gap/gameCollector",
+    data: user,
+    success:function(d)
+    {
+      console.log("Saved current user id will bi", d.id);
+    },
+    error:function(d)
+    {
+      console.log("User information wasn't saved");
+    }
+  })
+}
+function start_by_time()
+{
+  var tmp = pos*reward_period;
+  humans.forEach(function(d)
+  {
+    d.tsalary = tmp*d.salary;
+    d.tsaved = tmp*d.saving_for_tick;
+
+  });     
+   
+ 
+ 
 }
 /***************************************************************
                   General Functions End

@@ -132,18 +132,8 @@ function switchStyle(selector,dur,dur1,ease,ease1,css,val,val1)
            .transition().duration(dur1).ease(ease1).style(css,val1);
 }
 
-function getMonth(v)
-{
-    //var lang = document.documentElement.lang;
-    //if(typeof lang === "undefined") lang = "en";
-    return locale.general.monthNames[v.getMonth()];
-}
-function getMonthS(v,lang)
-{  
-    //lang = lang ? lang : 'en';
-    //return v.toLocaleString(lang, { month: "short" });
-    return locale.general.monthNamesShort[v.getMonth()];
-}
+function getMonth(v) { return locale.general.monthNames[v.getMonth()]; }
+function getMonthS(v) { return locale.general.monthNamesShort[v.getMonth()]; }
 function monthDiff(from, to) {
     var d1 = from;
     var d2 = to;
@@ -152,7 +142,6 @@ function monthDiff(from, to) {
     var months = ((d2.getFullYear() - d1.getFullYear()) * 12) - (d1.getMonth()) + (d2.getMonth()); // (years) - (from months) + (to months)
     return months <= 0 ? 0 : months;
 }
-
 
 /***************************************************************
                   Utility Functions

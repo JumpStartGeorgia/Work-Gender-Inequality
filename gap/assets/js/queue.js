@@ -15,7 +15,6 @@ function queueObject(opts)
 	};
 	this.splice = function(index,f,title)
 	{
-		//console.log("Queue splice",title,index,f);
 		q.splice(index,0,f);
 		this.empty = q.length == 0 ? true : false;
 		this.length = q.length;
@@ -27,7 +26,6 @@ function queueObject(opts)
 	}
 	this.shift = function()
 	{
-		//console.log("shift",q);
 		var f = q.shift();		 
 		this.empty = q.length == 0 ? true : false;
 		this.length = q.length;
@@ -53,7 +51,6 @@ function queueObject(opts)
 	};
 	this.timer = function()
 	{		  
-		//console.log("timer",q);
 		if(!this.empty || !nextFlag)
 		{
 			clearTimeout(timerId);
@@ -61,19 +58,17 @@ function queueObject(opts)
 		}		
 		else this.complete();
 	};
-	this.complete = function(){ console.log("complete dummy"); };
+	//this.complete = function(){ console.log("complete dummy"); };
 	this.stop = function()
 	{
 		clearTimeout(timerId);
 	};
 	this.toString = function()
 	{
-		console.log("queueObject start > ");
 		for(var i = 0; i < this.length; ++i)
 		{
 			console.log(q[i]);
 		}
-		console.log("queueObject end < ");
 	};
 	this.init = function()
 	{

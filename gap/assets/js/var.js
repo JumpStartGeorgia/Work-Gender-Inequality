@@ -120,8 +120,9 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   });
   __defineSetter__("pos", function(val){
     prev_pos = _pos;
-     _pos = val;
-     pos_changed = true;
+    _pos = val;
+    params_time_set();
+    pos_changed = true;
   });
 
 // treasure bar with card 

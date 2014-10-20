@@ -109,7 +109,7 @@ var poll = {
       var picked = bool ? $('.fchar') : $('.mchar');
       var other =  bool ? $('.mchar') : $('.fchar');
 
-      other.removeClass('selected').fadeOut(1000,"linear",function(){ console.log('removing class',this); $(this).remove();});
+      other.removeClass('selected').fadeOut(1000,"linear",function(){ $(this).remove();});
       picked.addClass('selected').removeClass('b')
         .animate(opts,
           { duration:1000, 
@@ -126,7 +126,6 @@ var poll = {
             complete:function()
             {
               $(this).removeClass('selected ' + ch);
-              console.log('selected ' + ch);
               poll.add_layer('selected ' + ch);
               poll.age();
               is = false;
@@ -169,7 +168,6 @@ var poll = {
     poll.next_function = function(){ 
       if(!is)
       {
-         console.log("gender changing");
         if(g() != "n") 
         {       
                      
@@ -263,7 +261,7 @@ var poll = {
       poll.stage_d3.select('.percent-picker').remove();
       params_set(6); 
 
-      play(); console.log(user);
+      game_init(); //console.log(user);
       
     };
     poll.interest_picker_show();
@@ -311,7 +309,6 @@ var poll = {
   },
   category_up:function category_up()
   {
-    //console.log("category_up",user.category,cat_ids);
     var ind = cat_ids.indexOf(user.category);
     if(ind != -1)
     {
@@ -455,7 +452,6 @@ var poll = {
         {
           var d1 = (360+this.degree_steps[i])%360;
           var d2 = (360+this.degree_steps[i+1])%360;
-          //console.log(d1,degree,d2);
           if(poll.degrees[0]==0)
           {
               if(degree >= this.degree_steps[i] && degree < this.degree_steps[i+1])
@@ -518,17 +514,11 @@ var poll = {
   },
   get_radian_by_age:function get_radian_by_age(v)
   {   
-     
-
     var index = v-min_age; 
-    //console.log(v, index,max_age-min_age,v-min_age);
     if(poll.degrees[0] == 1)  index = max_age-min_age-(v-min_age);
-    //console.log(index);
 
     var tmp = (v>=min_age && v<=max_age) ?  this.degree_steps[index] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp; 
-
-
 
     return Math.radians(tmp);
   },
@@ -662,13 +652,12 @@ var poll = {
   },
   choose_interest: function choose_interest()
   {    
-    //console.log("interesting");
     interest = interests.filter(function(a){ return a.id == user.interest; })[0].items.sort(function(a,b){ return a.cost - b.cost; });
 
     interest_level_map = [];
     for(var i = 1; i < interest.length; ++i)
     {        
-            interest_level_map.push(Math.ceil10(interest[i].cost/interest[0].cost));
+      interest_level_map.push(Math.ceil10(interest[i].cost/interest[0].cost));
     }
   },
   create_next_button:function create_next_button(){
