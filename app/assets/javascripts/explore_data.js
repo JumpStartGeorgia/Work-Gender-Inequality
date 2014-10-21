@@ -908,44 +908,49 @@ function build_explore_data_page(json){
 ////////////////////////////////////////////////
 // get data and load page
 function get_explore_data(is_back_button){
-if (is_back_button == undefined){
-  is_back_button = false;
-}
-// get params
-// do not get any hidden fields (utf8 and authenticity token)
-var querystring;
-if (is_back_button){
-  var split = window.location.href.split('?');
-  if (split.length == 2){
-    querystring = split[1];
+//  $('#explore-data-loader').fadeIn('slow');
+
+  if (is_back_button == undefined){
+    is_back_button = false;
   }
-} else{
-  querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
-}
-
-// call ajax
-$.ajax({
-  type: "GET",
-  url: gon.explore_data_ajax_path,
-  data: querystring,
-  dataType: 'json'
-})
-.error(function( jqXHR, textStatus, errorThrown ) {
-  console.log( "Request failed: " + textStatus  + ". Error thrown: " + errorThrown);
-})
-.success(function( json ) {
-  json_data = json;
-  // update content
-  build_explore_data_page(json);
-
-  // update url
-  var new_url = [location.protocol, '//', location.host, location.pathname, '?', querystring].join('');
-
-  // change the browser URL to the given link location
-  if (!is_back_button && new_url != window.location.href){
-    window.history.pushState({path:new_url}, '', new_url);
+  // get params
+  // do not get any hidden fields (utf8 and authenticity token)
+  var querystring;
+  if (is_back_button){
+    var split = window.location.href.split('?');
+    if (split.length == 2){
+      querystring = split[1];
+    }
+  } else{
+    querystring = $("form#form-explore-data select, form#form-explore-data input:not([type=hidden])").serialize();
   }
-});
+
+  // call ajax
+  $.ajax({
+    type: "GET",
+    url: gon.explore_data_ajax_path,
+    data: querystring,
+    dataType: 'json'
+  })
+  .error(function( jqXHR, textStatus, errorThrown ) {
+    console.log( "Request failed: " + textStatus  + ". Error thrown: " + errorThrown);
+  })
+  .success(function( json ) {
+    json_data = json;
+    // update content
+    build_explore_data_page(json);
+
+    // update url
+    var new_url = [location.protocol, '//', location.host, location.pathname, '?', querystring].join('');
+
+    // change the browser URL to the given link location
+    if (!is_back_button && new_url != window.location.href){
+      window.history.pushState({path:new_url}, '', new_url);
+    }
+
+    $('#explore-data-loader').fadeOut('slow');
+
+  });
 }
 
 ////////////////////////////////////////////////
@@ -999,15 +1004,19 @@ $(document).ready(function() {
   // catch the form submit and call the url with the
   // form values in the url
   $("form#form-explore-data").submit(function(){
-    get_explore_data();
+    $('#explore-data-loader').fadeIn('slow', function(){
+      get_explore_data();
+    });
     return false;
   });
 
   // reset the form fields
   $("form#form-explore-data input#btn-reset").click(function(e){
     e.preventDefault();
-    reset_filter_form();
-    get_explore_data();
+    $('#explore-data-loader').fadeIn('slow', function(){
+      reset_filter_form();
+      get_explore_data();
+    });
 
   });
 
@@ -1144,7 +1153,9 @@ $(document).ready(function() {
   };
 
   // get the initial data
-  get_explore_data();
+  $('#explore-data-loader').fadeIn('slow', function(){
+    get_explore_data();
+  });
 
   // the below code is to override back button to get the ajax content without page reload
   $(window).bind('popstate', function() {
@@ -1221,7 +1232,9 @@ $(document).ready(function() {
     }
 
     // reload the data
-    get_explore_data(true);
+    $('#explore-data-loader').fadeIn('slow', function(){
+      get_explore_data(true);
+    });
   });  
 });
 
