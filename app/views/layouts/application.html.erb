@@ -119,6 +119,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <% if @use_map %>
       <script type="text/javascript" src="/leaflet/leaflet.js"></script>
+      <script type="text/javascript" src="/leaflet/leaflet-image.js"></script>
     <% end %>
     
     <%= javascript_include_tag  *(@js.present? ? ["application", @js].flatten : ["application"]), :media => "all" %>      

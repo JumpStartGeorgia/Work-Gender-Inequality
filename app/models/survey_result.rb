@@ -109,15 +109,19 @@ class SurveyResult < ActiveRecord::Base
           result[:map] = {}
           result[:map][:percents] = {}
           result[:map][:counts] = {}
+          result[:map][:data] = []
 
           result[:row_answers].each_with_index do |row_answer, row_index|
             # create hash to store the data for this answer
-            result[:map][:percents][row_answer[1]] = Hash.new
-            result[:map][:counts][row_answer[1]] = Hash.new
+            result[:map][:percents][row_answer[1]] = {}
+            result[:map][:counts][row_answer[1]] = {}
 
             # now store the results for each item
             result[:map][:percents][row_answer[1]] = result[:percents][row_index]
             result[:map][:counts][row_answer[1]] = result[:counts][row_index]
+
+            # store in highmaps format: {name, value, count}
+            result[:map][:data] << {:name => row_answer[1], :value => result[:percents][row_index], :count => result[:counts][row_index]}
           end
         end
 
@@ -255,6 +259,7 @@ class SurveyResult < ActiveRecord::Base
           result[:map] = {}
           result[:map][:percents] = {}
           result[:map][:counts] = {}
+          result[:map][:data] = {}
 
           # if the row is the mappable, recompute percents so columns add up to 100%
           if q_row.is_mappable
@@ -278,13 +283,17 @@ class SurveyResult < ActiveRecord::Base
 
             result[:column_answers].each_with_index do |col_answer, col_index|
               # create hash to store the data for this answer
-              result[:map][:percents][col_answer[0].to_s] = Hash.new
-              result[:map][:counts][col_answer[0].to_s] = Hash.new
+              result[:map][:percents][col_answer[0].to_s] = {}
+              result[:map][:counts][col_answer[0].to_s] = {}
+              result[:map][:data][col_answer[0].to_s] = []
 
               # now store the results for each item
               (0..result[:row_answers].length-1).each do |index|
                 result[:map][:percents][col_answer[0].to_s][result[:row_answers][index][1].to_s] = percents[col_index][index]
                 result[:map][:counts][col_answer[0].to_s][result[:row_answers][index][1].to_s] = counts[col_index][index]
+
+                # store in highmaps format: {name, value, count}
+                result[:map][:data][col_answer[0].to_s] << {:name => result[:row_answers][index][1], :value => percents[col_index][index], :count => counts[col_index][index]}
               end 
             end
 
@@ -294,13 +303,17 @@ class SurveyResult < ActiveRecord::Base
 
             result[:row_answers].each_with_index do |row_answer, row_index|
               # create hash to store the data for this answer
-              result[:map][:percents][row_answer[0].to_s] = Hash.new
-              result[:map][:counts][row_answer[0].to_s] = Hash.new
+              result[:map][:percents][row_answer[0].to_s] = {}
+              result[:map][:counts][row_answer[0].to_s] = {}
+              result[:map][:data][row_answer[0].to_s] = []
 
               # now store the results for each item
               (0..result[:column_answers].length-1).each do |index|
                 result[:map][:percents][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:percents][row_index][index]
                 result[:map][:counts][row_answer[0].to_s][result[:column_answers][index][1].to_s] = result[:counts][row_index][index]
+
+                # store in highmaps format: {name, value, count}
+                result[:map][:data][row_answer[0].to_s] << {:name => result[:column_answers][index][1], :value => result[:percents][row_index][index], :count => result[:counts][row_index][index]}
               end 
             end
           end

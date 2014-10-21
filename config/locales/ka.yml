@@ -197,8 +197,8 @@ ka:
         details: Details
       crosstab:
         html:
-          title: "%{row} <br /> by <br /> %{col}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title: "%{row} <br /> <span class='title-highlight'>by</span> %{col}"
+          title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
         text:
           title: "%{row} by %{col}"
@@ -206,7 +206,7 @@ ka:
       onevar:
         html:
           title: "%{row}"
-          title_filter: "<br /> where <br /> %{variable} = %{value}"
+          title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
           title_total: "Total Responses: %{num}"
         text:
           title: "%{row}"

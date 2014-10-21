@@ -133,6 +133,19 @@
 
       <div class="tab-content" id="explore-content">
         <div class="tab-pane active" id="tab-map">
+          
+          <div id="highmap-filter-container">
+            <div id="highmap-filter-header" data-orig="<%= t('.map.filter', :text => '[replace]') %>"></div>
+            <div id="highmap-filter" class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span id="highmap-default-id"></span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+              </ul>
+            </div>  
+          </div>  
+          <div id="highmap"></div>
+<div style="display:none;">
           <h3></h3>
 
           <div id="map-filter-container">
@@ -145,9 +158,8 @@
               </ul>
             </div>  
           </div>  
-          
           <div id="map"></div>
-
+</div>
         </div>
 
         <div class="tab-pane" id="tab-chart">
@@ -189,6 +201,8 @@
         </div>
       </div>
     </div>
+
+    <div id="map-image"></div>
   <% else %>
 
     <p>

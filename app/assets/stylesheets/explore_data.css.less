@@ -59,7 +59,6 @@
     font-size: 13px;
   }
 
-
   #datatable_wrapper .dataTables_filter {
     width: 50%;
     float: left;
@@ -75,20 +74,6 @@
      margin: 0 auto;
   }
   #datatable{
-    thead tr.th-center th{
-      border-bottom: 4px solid #333;
-      text-align: center;
-      &:first-of-type{
-        border-bottom: none;
-        border-top: none;
-      }
-      &:last-of-type{
-        border-right: none;
-      };
-    }
-    thead tr:last-of-type th:first-of-type{
-      border-top: 4px solid #333;
-    }
     td, th{
       border-right: solid 1px #ddd;
     }
@@ -99,10 +84,21 @@
       border-right: solid 4px #333;
       color: #000;
     }
+    th.var1-col{
+      border-bottom: none;
+      border-top: none;
+    }
     td.var1-col{
       text-align: left;
     }
 
+    thead tr.th-center th{
+      text-align: center;
+    }
+
+    thead tr:last-of-type th{
+      border-bottom: 4px solid #333;
+    }
   }
 
   #chart{
@@ -114,6 +110,10 @@
     margin-top: 20px;
   }
 
+
+  span.title-highlight{
+    color: #888;
+  }
   span.total_responses{
     font-size: 12px;
     font-style: italic;
@@ -131,10 +131,14 @@
   }
 
   /* Map Styling */
-  #map {
-    height: 400px;
-    width: 80%;
+  #highmap, #map {
+    height: 500px;
+    width: 100%;
     margin: 20px 0px;
+  }
+
+  #highmap-filter-container, #map-filter-container{
+    display: none;
   }
 
   .info {
