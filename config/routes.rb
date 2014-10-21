@@ -14,14 +14,17 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faq_categories
 		  resources :faqs
 		end
+		resources :gap
 
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
-		match '/gap', :to => redirect('/gap/'), :via => :get
+
+		get '/gap', :to => 'gap#index'
+		post '/gap/poll', :to => 'gap#poll'
+		#get '/gap', :to => redirect('/gap/'), :via => :get
 
 		root :to => 'root#index'
-	  match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
-
+	  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
 	  
 	end
 	

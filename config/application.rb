@@ -53,9 +53,13 @@ module BootstrapStarter
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    #config.assets.paths << Rails.root.join("app", "assets", "gap")
+    #config.assets.paths << Rails.root.join("app", "assets", "gap")
+
     # in app/assets folder
     config.assets.precompile += %w( explore_data.js faqs.js )
-    config.assets.precompile += %w( explore_data.css faqs.css )
+    config.assets.precompile += %w( explore_data.css faqs.css )    
+    config.assets.precompile += %w( gap/* )  
 
   end
 end

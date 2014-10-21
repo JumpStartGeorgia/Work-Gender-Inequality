@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+   <head>  
+      <title><%= t('.title') %></title>
+      <meta charset="utf-8">  
+      <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
+      <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
+   </head>
+   <body>
+      <div class="wrapper" id="content">
+         <div id="screen"></div>
+      </div>
+
+      <!-- vendor libraries -->
+
+    	<%= javascript_include_tag "jquery", :media => "all" %> <!--  todo jquery ui load        	 -->
+    	<script src="/assets/jquery.mobile.custom.min.js" charset="utf-8"></script>
+      <script src="/assets/d3.v3.min.js" charset="utf-8"></script>
+      <script src="/assets/jwerty.js" charset="utf-8"></script>
+      <script src="/assets/sylvester.src.js" charset="utf-8"></script>
+      <!-- game specific libraries -->
+      <script src="/assets/gap/transform.js" charset="utf-8"></script>
+      <script src="/assets/gap/util.js"></script>
+      <script src="/assets/gap/data-<%= I18n.locale %>.js"></script>
+      <script src="/assets/gap/var.js"></script>
+      <script src="/assets/gap/queue.js"></script>
+      <script src="/assets/gap/card.js"></script>
+      <script src="/assets/gap/pedestal.js"></script>
+      <script src="/assets/gap/human.js"></script>
+      <script src="/assets/gap/engine.js"></script>      
+      <script src="/assets/gap/poll.js"></script>
+      <script src="/assets/gap/main.js"></script>
+   </body>
+</html>
