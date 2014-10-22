@@ -1,4 +1,4 @@
-  var geojson, map, map_info, datatable, i, j, json_data, highmap;
+  var geojson, datatable, i, j, json_data, highmap;
 
 ////////////////////////////////////////////////
 // convert the querystring variables into json
@@ -20,102 +20,6 @@ function queryStringToJSON(url) {
   return result;
 }
 
-////////////////////////////////////////////////
-// pick the column of data to display on choropleth map
-var picked_data;
-function data_picker(name, data){
-  return data[name]
-}
-    
-
-////////////////////////////////////////////////
-// merge the picked data into the shapes so can map choropleth of data
-function merge_data_shapes(percents, counts, shapes){
-  $.each(shapes.features, function(index, feature){
-    feature.properties["percent"] = percents[feature.properties.name]
-    feature.properties["count"] = counts[feature.properties.name]
-  });
-};
-
-
-////////////////////////////////////////////////
-// set color range for choropleth map
-function getColor(d) {
-return  d > 80 ? '#08306b' :
-        d > 60 ? '#08519c' :
-        d > 50 ? '#2171b5' :
-        d > 40 ? '#4292c6' :
-        d > 30 ? '#6baed6' :
-        d > 20 ? '#9ecae1' :
-        d > 15 ? '#c6dbef' :
-        d > 10 ? '#deebf7' :
-        d >  5 ? '#f7fbff' :
-        d >  0 ? '#FFFFFF' :
-                 '#CCCCCC' ;
-/*  return  d > 90 ? '#08306b' :
-        d > 80 ? '#08519c' :
-        d > 70 ? '#2171b5' :
-        d > 60 ? '#4292c6' :
-        d > 50 ? '#6baed6' :
-        d > 40 ? '#9ecae1' :
-        d > 30 ? '#c6dbef' :
-        d > 20 ? '#deebf7' :
-        d > 10 ? '#f7fbff' :
-        d >  0 ? '#FFFFFF' :
-                 '#CCCCCC' ;
-*/}
-
-
-////////////////////////////////////////////////
-// set style for shape in mape
-function style(feature) {
-  return {
-      fillColor: getColor(feature.properties.percent),
-      weight: 2,
-      opacity: 1,
-      color: '#999',
-      dashArray: '3',
-      fillOpacity: 0.8
-  };
-}
-
-////////////////////////////////////////////////
-// turn off any highlighting and revert to normal state
-function resetHighlight(e) {
-  geojson.resetStyle(e.target);
-  map_info.update();
-}
-
-////////////////////////////////////////////////
-// add events for each shape in the map
-function onEachFeature(feature, layer) {
-  layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight
-      //click: zoomToFeature
-  });
-}
-
-
-////////////////////////////////////////////////
-// highlight the shape in the map
-function highlightFeature(e) {
-  var layer = e.target;
-
-  layer.setStyle({
-      weight: 2,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
-  });
-
-  map_info.update(layer.feature.properties);
-
-  if (!L.Browser.ie && !L.Browser.opera) {
-      layer.bringToFront();
-  }
-}
-
 
 ////////////////////////////////////////////////
 ////////////////////////////////////////////////
@@ -124,10 +28,7 @@ function highlightFeature(e) {
 ////////////////////////////////////////////////
 // build highmap
 function build_highmap(json, filter){
-  console.log('building highmap: start');
   if (json.map && json.map.data){
-
-    console.log('creating map');
 
     // adjust the width of the map to fit its container
     $('#highmap').width($('#explore-tabs').width());
@@ -173,7 +74,6 @@ function build_highmap(json, filter){
         title_html = json.title.map_html.replace('[replace]', filter_name);
         title_text = json.title.map_text.replace('[replace]', filter_name);
       }else{
-        console.log('filter passed in');
         data = json.map.data[filter];
         filter_name = $('#highmap-filter-container ul li a[data-id="' + filter + '"]').html();       
         title_html = json.title.map_html.replace('[replace]', filter_name);
@@ -566,163 +466,10 @@ function build_pie_chart(json){
 
 
 
-
-////////////////////////////////////////////////
-// build map
-function build_map(json){
-  if (json.map && json.map.counts && json.map.percents){
-
-    // set the map title
-    $('#tab-map h3').html(json.title.html + json.subtitle.html);
-
-    // adjust the width of the map to fit its container
-    $('#map').width($('#explore-tabs').width());
-
-    // turn off filter
-    if (json.type != 'crosstab'){
-      $('#map-filter-container').hide();
-    }
-
-    // initiate map
-  //      var url = 'http://ec2-54-76-157-122.eu-west-1.compute.amazonaws.com/open-en/{z}/{x}/{y}.png'
-    var url = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    if (map == undefined){
-      map = L.map('map', {zoomControl: false}).setView([42.2529, 43.8300], 7);
-      map.dragging.disable();
-      
-      L.tileLayer(url, {
-                  maxZoom: 7,
-                  minZoom: 7,
-                  zoomControl: false,
-                  opacity: 0.5
-              }).addTo(map);
-
-      // add legend to the map
-      var legend = L.control({position: 'bottomright'});
-
-      legend.onAdd = function (map) {
-
-          var div = L.DomUtil.create('div', 'info legend'),
-    //          grades = [90, 80, 70, 60, 50, 40, 30, 20, 10, 0];
-              grades = [0, 5, 10, 15, 20, 30, 40, 50, 60, 80];
-
-          // loop through our density intervals and generate a label with a colored square for each interval
-          for (var i = 0; i < grades.length; i++) {
-              div.innerHTML +=
-                  '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-                  grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '%<br>' : '+%');
-          }
-
-          return div;
-      };
-
-      legend.addTo(map);
-
-    }
-
-    // remove map_info if exists
-    if (map_info != undefined){
-      map_info.removeFrom(map);
-    }
-
-    // add info box to the map
-    map_info = L.control();
-
-    map_info.onAdd = function (map) {
-        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-        this.update();
-        return this._div;
-    };
-    
-    // popup
-    if (json.type == 'crosstab'){
-      map_info.update = function (props) {
-          this._div.innerHTML = '<h4>' + $('span#default_id').html() + '</h4>' +  (props ?
-              ('<b>' + props.name + ':</b> ' + 
-                (props.count == undefined ? gon.na : props.count + ' ') + 
-                (props.percent == undefined ? '' : '(' + props.percent + '%)'))
-              : gon.hover_region);
-      };
-    }else{
-      map_info.update = function (props) {
-          this._div.innerHTML = (props ?
-              ('<b>' + props.name + ':</b> ' + 
-                (props.count == undefined ? gon.na : props.count + ' ') + 
-                (props.percent == undefined ? '' : '(' + props.percent + '%)'))
-              : gon.hover_region);
-      };
-    }
-    
-    map_info.addTo(map);
-
-
-    // remove shapes if exists
-    if (geojson != undefined){
-      map.removeLayer(geojson);
-    }
-
-    // merge data into shapes
-    if (json.type == 'crosstab'){
-      merge_data_shapes(data_picker(1, json.map.percents), data_picker(1, json.map.counts), shapes)
-    }else{
-      merge_data_shapes(json.map.percents, json.map.counts, shapes)
-    }
-    
-    geojson = L.geoJson(shapes, {
-      style: style,
-      onEachFeature: onEachFeature
-    });
-    
-    geojson.addTo(map);
-    
-    // build and show map filter
-    if (json.type == 'crosstab'){
-      // header text
-      $('#map-filter-container #map-filter-header').html($('#map-filter-container #map-filter-header').data('orig').replace('[replace]', json.map.filter));
-      // show first item by default
-      $('#map-filter-container #default_id').html(json.map.filters[0][1]);
-      // empty the exist list items
-      $('#map-filter-container ul').empty();
-      // build drop down lists
-      for(i=0; i<json.map.filters.length; i++){
-        $('#map-filter-container ul').append('<li class="map_filter"><a href="#" data-id="' + json.map.filters[i][0] + '">' + json.map.filters[i][1] + '</a></li>');
-      }      
-
-      // map filter click event
-      $('#map-filter-container ul li.map_filter a').on('click', function(e) {
-        e.preventDefault();
-        
-        var name = $(this).html();
-        var data_id = $(this).data("id");
-        $('span#default_id').text(name);
-        merge_data_shapes(data_picker(data_id, json_data.map.percents), data_picker(data_id, json_data.map.counts), shapes)
-        map.removeLayer(geojson);
-        
-        L.geoJson(shapes, {
-          style: style,
-          onEachFeature: onEachFeature
-        }).addTo(map);
-        
-      });
-
-      // show filter
-      $('#map-filter-container').show();
-    }
-
-    // show map tabs
-    $('#explore-tabs #nav-map').show();
-  }else{
-    // no map so hide tab
-    $('#explore-tabs #nav-map').hide();
-    // make sure these are not active
-    $('#explore-tabs #nav-map, #explore-content #tab-map').removeClass('active');
-  }
-}
-
 ////////////////////////////////////////////////
 // build data table
 function build_datatable(json){
-  // set the map title
+  // set the title
   $('#tab-table h3').html(json.title.html + json.subtitle.html);
 
   // if the datatable alread exists, kill it
@@ -896,9 +643,7 @@ function build_explore_data_page(json){
   }else{
     build_pie_chart(json);
   }
-
   build_highmap(json);
-  build_map(json);
   build_datatable(json);
   build_details(json);
 
@@ -990,7 +735,7 @@ $(document).ready(function() {
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
       switch($(this).attr('href')){
         case '#tab-map':
-          map.invalidateSize(false);
+          highmap.reflow();
           break;
         case '#tab-table':
           var ttInstances = TableTools.fnGetMasters();
@@ -1163,7 +908,6 @@ $(document).ready(function() {
 
     // the below code is to override back button to get the ajax content without page reload
     $(window).bind('popstate', function() {
-      console.log('url = ' + window.location.href);
 
       // pull out the querystring
       params = queryStringToJSON(window.location.href);
