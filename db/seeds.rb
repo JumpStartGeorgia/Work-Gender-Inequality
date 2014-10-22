@@ -8,6 +8,7 @@ require 'csv'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+=begin
 #####################
 ## Pages
 #####################
@@ -17,6 +18,7 @@ PageTranslation.delete_all
 p = Page.create(:id => 1, :name => 'about')
 p.page_translations.create(:locale => 'en', :title => 'About Bootstrap Starter Project', :content => 'You have run rake db:seed and this is an example of translated content. Click the Language Switcher link in the top-right corner to view the text in another language.')
 p.page_translations.create(:locale => 'ka', :title => "'Bootstrap Starter' პროექტის შესახებ", :content => "თქვენ ჩაუშვით 'rake db:seed' და ეს არის კონტენტის თარგმანის მაგალით. ტექსტის სხვა ენაზე სანახავად დააჭირეთ ენის გადამრთველის ბმულს მარჯვენა ზედა კუთხეში.")
+=end
 
 #####################
 ## Survey Questions
@@ -24,9 +26,16 @@ p.page_translations.create(:locale => 'ka', :title => "'Bootstrap Starter' პ�
 puts "Loading survey questions"
 SurveyQuestion.delete_all
 questions = CSV.read("#{Rails.root}/db/spreadsheets/survey_questions.csv")
-sql = "insert into survey_questions (code, text) values "
-sql << questions.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\")"}.join(', ')
-ActiveRecord::Base.connection.execute(sql)
+questions.each do |question|
+  q = SurveyQuestion.new(:code => question[0].strip)
+  I18n.available_locales.each do |locale|
+    q.survey_question_translations.new(:locale => locale, :question => question[1].strip)
+  end
+  q.save
+end 
+#sql = "insert into survey_questions (code, text) values "
+#sql << questions.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\")"}.join(', ')
+#ActiveRecord::Base.connection.execute(sql)
 
 #####################
 ## record that region question is mappable
@@ -49,9 +58,16 @@ SurveyQuestion.where('code like "H%"').update_all(:sort => 2)
 puts "Loading survey answers"
 SurveyAnswer.delete_all
 answers = CSV.read("#{Rails.root}/db/spreadsheets/survey_answers.csv")
-sql = "insert into survey_answers (code, value, text) values "
-sql << answers.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\", \"#{x[2].strip}\")"}.join(', ')
-ActiveRecord::Base.connection.execute(sql)
+answers.each do |answer|
+  a = SurveyAnswer.new(:code => answer[0].strip, :value => answer[1].strip)
+  I18n.available_locales.each do |locale|
+    a.survey_answer_translations.new(:locale => locale, :answer => answer[2].strip)
+  end
+  a.save
+end 
+#sql = "insert into survey_answers (code, value, text) values "
+#sql << answers.map{|x| "(\"#{x[0].strip}\", \"#{x[1].strip}\", \"#{x[2].strip}\")"}.join(', ')
+#ActiveRecord::Base.connection.execute(sql)
 
 #####################
 ## Record which questions have answers
@@ -65,7 +81,8 @@ SurveyQuestion.where(:code => codes).update_all(:has_code_answers => true)
 ## (don't know, refuse, filter)
 #####################
 puts "Flagging which answers can be excluded"
-SurveyAnswer.where(:text => ['filter', 'refuse to answer', "i don't know"]).update_all(:can_exclude => true)
+answer_ids = SurveyAnswerTranslation.select('survey_answer_id').where(:answer => ['filter', 'refuse to answer', "i don't know"]).map{|x| x.survey_answer_id}.uniq
+SurveyAnswer.where(:id => answer_ids).update_all(:can_exclude => true)
 
 #####################
 ## Survey Results

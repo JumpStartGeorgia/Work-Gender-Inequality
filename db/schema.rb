@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141009112326) do
+ActiveRecord::Schema.define(:version => 20141022052225) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -77,33 +77,54 @@ ActiveRecord::Schema.define(:version => 20141009112326) do
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
 
+  create_table "survey_answer_translations", :force => true do |t|
+    t.integer  "survey_answer_id"
+    t.string   "locale",                           :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.string   "answer",           :limit => 1024
+  end
+
+  add_index "survey_answer_translations", ["answer"], :name => "index_survey_answer_translations_on_answer", :length => {"answer"=>255}
+  add_index "survey_answer_translations", ["locale"], :name => "index_survey_answer_translations_on_locale"
+  add_index "survey_answer_translations", ["survey_answer_id"], :name => "index_survey_answer_translations_on_survey_answer_id"
+
   create_table "survey_answers", :force => true do |t|
     t.string   "code",        :limit => 50
     t.integer  "value",       :limit => 2
-    t.string   "text",        :limit => 1024
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "can_exclude",                 :default => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.boolean  "can_exclude",               :default => false
   end
 
   add_index "survey_answers", ["can_exclude"], :name => "index_survey_answers_on_can_exclude"
   add_index "survey_answers", ["code", "value"], :name => "index_survey_answers_on_code_and_value"
   add_index "survey_answers", ["code"], :name => "index_survey_answers_on_code"
 
+  create_table "survey_question_translations", :force => true do |t|
+    t.integer  "survey_question_id"
+    t.string   "locale",                             :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "question",           :limit => 1024
+  end
+
+  add_index "survey_question_translations", ["locale"], :name => "index_survey_question_translations_on_locale"
+  add_index "survey_question_translations", ["question"], :name => "index_survey_question_translations_on_question", :length => {"question"=>255}
+  add_index "survey_question_translations", ["survey_question_id"], :name => "index_survey_question_translations_on_survey_question_id"
+
   create_table "survey_questions", :force => true do |t|
     t.string   "code",             :limit => 50
-    t.string   "text",             :limit => 1024
-    t.boolean  "has_code_answers",                 :default => false
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
-    t.boolean  "is_mappable",                      :default => false
-    t.integer  "sort",                             :default => 99
+    t.boolean  "has_code_answers",               :default => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
+    t.boolean  "is_mappable",                    :default => false
+    t.integer  "sort",                           :default => 99
   end
 
   add_index "survey_questions", ["code", "has_code_answers"], :name => "index_survey_questions_on_code_and_has_code_answers"
   add_index "survey_questions", ["is_mappable"], :name => "index_survey_questions_on_is_mappable"
   add_index "survey_questions", ["sort"], :name => "index_survey_questions_on_sort"
-  add_index "survey_questions", ["text"], :name => "index_survey_questions_on_text", :length => {"text"=>255}
 
   create_table "survey_results", :force => true do |t|
     t.integer  "Interv_code", :limit => 2
