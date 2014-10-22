@@ -24,7 +24,7 @@ class SurveyQuestion < ActiveRecord::Base
   # get all of the questions that can be run with crosstabs
   # (must have values in the answers table - defined list of possible answers)
   def self.can_crosstab
-    select('survey_questions.code, survey_question_translations.question as text')
+    select('survey_questions.code, survey_question_translations.question as text, survey_questions.is_mappable')
     .joins(:survey_question_translations)
     .where(:has_code_answers => true, :survey_question_translations => {:locale => I18n.locale})
   end
