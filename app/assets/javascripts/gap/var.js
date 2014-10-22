@@ -92,7 +92,8 @@ var user =
   category : null,
   salary : 100,
   interest : null,
-  salary_percent : 0
+  salary_percent : 0,
+  sended : false
 };
 
 var male = null;
@@ -145,3 +146,5 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   //var mutation_restriction = [0,0,0,0,0,0];
   var mutation_empty = [{},{},{},{},{},{}]; 
 
+// sound control system
+var player = new playerObject();

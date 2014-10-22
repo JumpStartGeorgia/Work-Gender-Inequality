@@ -124,6 +124,7 @@ function epilogue()
   gameoff();
   scr_clean();
   s.toggleClass(sepilogue.class);
+  sendUserData(true); // on finish update poll data
   var t = $('<div class="title">'+sepilogue.title+'</div>').appendTo(s);
 
   t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeIn(fade_time, "linear", function(){  } );
@@ -154,6 +155,24 @@ function game_init() {
   }
  
   scr_clean();
+
+
+  // sound button init with binding click event for muting
+  var volume = $('<div class="volume on"></div>').appendTo(s);
+  volume.data('state',1);
+  volume.click(function(){
+    if(+volume.data('state') == 1)
+    {
+      volume.removeClass('on').addClass('off').data('state',0);
+      player.mute();
+    }
+    else
+    {
+      volume.removeClass('off').addClass('on').data('state',1);
+      player.unmute();
+    }
+  });
+
 
   var t = $('<div class="top"></div>').appendTo(s);
 
@@ -382,6 +401,7 @@ function any_reward()
 }
 function reward_process()
 {
+  player.play('applause');  
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
@@ -560,6 +580,7 @@ function params_validate()
   {   
       steptogo = 6;
       user.salary_percent = params.p;
+      sendUserData();
   }  
   if(steptogo == 6 &&  exist(params.t) && isNumber(params.t) && params.t >=0 && params.t <= 100)
   {
@@ -571,7 +592,7 @@ function params_validate()
     }
 
   }
-//  sendUserData();
+  
 }
 function params_set(v)
 {
@@ -618,22 +639,33 @@ function params_back()
   } 
 }
 // when all data is collected, send data to server
-function sendUserData()
+var sounds = {};
+function sendUserData(fin)
 {
-  //console.log(user);
+  fin = typeof fin === "undefined" ? false : fin;
+
+  var data = {};
+  data.user = user;
+  data.flag = fin;
   $.ajax({
     type: "POST",
-    url: "gap/gameCollector",
-    data: user,
+    url: "gap/poll",
+    data: data,
     success:function(d)
     {
-      console.log("Saved current user id will bi", d.id);
+      user.sended = d.finished;
+      //console.log("Saved current user id will bi");
+      player.play('done');  
     },
     error:function(d)
     {
-      console.log("User information wasn't saved");
+      //console.log("User information wasn't saved, server error");
     }
   })
+}
+function restart()
+{
+  $.removeCookie("_game_id");
 }
 function start_by_time()
 {

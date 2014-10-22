@@ -94,6 +94,7 @@ var queueCompleteCallback = function()
 	 	if (typeof queueCompleteCallback === "function")
 	 	{ 
 	 		reward = false; 
+	 		player.stop('applause');  
  		}
 	}
 };

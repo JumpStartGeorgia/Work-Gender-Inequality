@@ -25,6 +25,12 @@ GIT
       railties (>= 3.0)
 
 GIT
+  remote: https://github.com/alexreisner/geocoder.git
+  revision: 8ba90c98712c23cdce72a0a85e05d73690ac54ad
+  specs:
+    geocoder (1.2.5)
+
+GIT
   remote: https://github.com/jilion/useragent.git
   revision: 742f29d8643f378773a933b3c0a37ce1bc52a7aa
   specs:
@@ -265,6 +271,7 @@ DEPENDENCIES
   exception_notification (~> 2.5.2)
   formtastic (~> 2.2.1)
   formtastic-bootstrap!
+  geocoder!
   globalize (~> 3.1.0)
   gon (~> 5.0.4)
   i18n-js (~> 2.1.2)
