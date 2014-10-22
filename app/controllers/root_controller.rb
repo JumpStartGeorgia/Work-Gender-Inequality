@@ -57,9 +57,11 @@ class RootController < ApplicationController
 
         # add the required assets
         @css.push("explore_data.css")
-        @js.push("explore_data.js")
+#        @js.push("explore_data.js", "highcharts.js", 'highmaps.js', 'highcharts-data.js', 'highcharts-exporting.js')
+        @js.push("explore_data.js", 'highcharts.js', 'highcharts-map.js', 'highcharts-exporting.js')
 
         # record url for making ajax call
+        gon.explore_data = true
         gon.explore_data_ajax_path = explore_data_path(:format => :js)
         gon.hover_region = I18n.t('root.explore_data.hover_region')
         gon.na = I18n.t('root.explore_data.na')
@@ -91,14 +93,29 @@ class RootController < ApplicationController
         if @col.present?
           @data = SurveyResult.crosstab_count(@row, @col, options)
           @data[:title] = {}
-          @data[:title][:html] = build_crosstab_chart_title_html(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
-          @data[:title][:text] = build_crosstab_chart_title_text(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+          @data[:title][:html] = build_crosstab_title_html(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+          @data[:title][:text] = build_crosstab_title_text(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+          # create special map titles so filter of column can be shown in title
+          # test to see which variable is mappable - that one must go in as the row for the map title
+          q = @questions.select{|x| x.code == params[:row]}.first
+          if q.present? && q.is_mappable?
+            @data[:title][:map_html] = build_crosstab_map_title_html(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+            @data[:title][:map_text] = build_crosstab_map_title_text(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
+          else
+            @data[:title][:map_html] = build_crosstab_map_title_html(@data[:column_question], @data[:row_question], @filter, @data[:total_responses])
+            @data[:title][:map_text] = build_crosstab_map_title_text(@data[:column_question], @data[:row_question], @filter, @data[:total_responses])
+          end
         else
           @data = SurveyResult.onevar_count(@row, options)
           @data[:title] = {}
-          @data[:title][:html] = build_onevar_chart_title_html(@data[:row_question], @filter, @data[:total_responses])
-          @data[:title][:text] = build_onevar_chart_title_text(@data[:row_question], @filter, @data[:total_responses])
+          @data[:title][:html] = build_onevar_title_html(@data[:row_question], @filter, @data[:total_responses])
+          @data[:title][:text] = build_onevar_title_text(@data[:row_question], @filter, @data[:total_responses])
+          @data[:title][:map_html] = @data[:title][:html]
+          @data[:title][:map_text] = @data[:title][:text]
         end
+        @data[:subtitle] = {}
+        @data[:subtitle][:html] = build_subtitle_html(@data[:total_responses])
+        @data[:subtitle][:text] = build_subtitle_text(@data[:total_responses])
 
 #        logger.debug "/////////////////////////// #{@data}"
 
@@ -113,18 +130,15 @@ class RootController < ApplicationController
 
 private
 
-  def build_crosstab_chart_title_html(row, col, filter, total)
+  def build_crosstab_title_html(row, col, filter, total)
     title = t('root.explore_data.crosstab.html.title', :row => row, :col => col)
     if filter.present?
       title << t('root.explore_data.crosstab.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
-    title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.crosstab.html.title_total', :num => total)
-    title << ")</span>"
     return title.html_safe
   end 
 
-  def build_crosstab_chart_title_text(row, col, filter, total)
+  def build_crosstab_title_text(row, col, filter, total)
     title = t('root.explore_data.crosstab.text.title', :row => row, :col => col)
     if filter.present?
       title << t('root.explore_data.crosstab.text.title_filter', :variable => filter[:name], :value => filter[:answer] )
@@ -132,23 +146,50 @@ private
     return title
   end 
 
-  def build_onevar_chart_title_html(row, filter, total)
+  def build_crosstab_map_title_html(row, col, filter, total)
+    title = t('root.explore_data.crosstab.html.map.title', :row => row)
+    title << t('root.explore_data.crosstab.html.map.title_col', :col => col)
+    if filter.present?
+      title << t('root.explore_data.crosstab.html.map.title_filter', :variable => filter[:name], :value => filter[:answer] )
+    end
+    return title.html_safe
+  end 
+
+  def build_crosstab_map_title_text(row, col, filter, total)
+    title = t('root.explore_data.crosstab.text.map.title', :row => row)
+    title << t('root.explore_data.crosstab.text.map.title_col', :col => col)
+    if filter.present?
+      title << t('root.explore_data.crosstab.text.map.title_filter', :variable => filter[:name], :value => filter[:answer] )
+    end
+    return title
+  end 
+
+  def build_onevar_title_html(row, filter, total)
     title = t('root.explore_data.onevar.html.title', :row => row)
     if filter.present?
       title << t('root.explore_data.onevar.html.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
-    title << "<br /> <span class='total_responses'>("
-    title << t('root.explore_data.onevar.html.title_total', :num => total)
-    title << ")</span>"
     return title.html_safe
   end 
 
-  def build_onevar_chart_title_text(row, filter, total)
+  def build_onevar_title_text(row, filter, total)
     title = t('root.explore_data.onevar.text.title', :row => row)
     if filter.present?
       title << t('root.explore_data.onevar.text.title_filter', :variable => filter[:name], :value => filter[:answer] )
     end
     return title
   end 
+
+  def build_subtitle_html(total)
+    title = "<br /> <span class='total_responses'>"
+    title << t('root.explore_data.subtitle.html', :num => total)
+    title << "</span>"
+    return title.html_safe
+  end 
+
+  def build_subtitle_text(total)
+    return t('root.explore_data.subtitle.text', :num => total)
+  end 
+
 
 end

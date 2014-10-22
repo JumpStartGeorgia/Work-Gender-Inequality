@@ -46,6 +46,7 @@ group :development do
  	gem "mailcatcher", "0.5.12" # small smtp server for dev, http://mailcatcher.me/
   gem 'rb-inotify', '~> 0.8.8' # rails dev boost needs this
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git' # speed up loading page in dev mode
+  gem 'spring', '~> 1.1.3' # keep app running in background so rakes/migrations are faster
 end
 
 group :staging, :production do

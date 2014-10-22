@@ -123,7 +123,7 @@
       <% end %> 
     </div>
 
-    <div class="col-sm-9">
+    <div id="explore-data-content" class="col-sm-9">
       <ul class="nav nav-tabs" id="explore-tabs" role="tablist">
         <li id="nav-map" style="display:none;"><a href="#tab-map" role="tab" data-toggle="tab"><%= t('.tabs.map') %></a></li>
         <li id="nav-chart"><a href="#tab-chart" role="tab" data-toggle="tab"><%= t('.tabs.chart') %></a></li>
@@ -133,20 +133,19 @@
 
       <div class="tab-content" id="explore-content">
         <div class="tab-pane active" id="tab-map">
-          <h3></h3>
-
-          <div id="map-filter-container">
-            <div id="map-filter-header" data-orig="<%= t('.map.filter', :text => '[replace]') %>"></div>
-            <div id="map_filter" class="btn-group">
+          
+          <div id="highmap-filter-container">
+            <div id="highmap-filter-header" data-orig="<%= t('.map.filter', :text => '[replace]') %>"></div>
+            <div id="highmap-filter" class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <span id="default_id"></span> <span class="caret"></span>
+                <span id="highmap-default-id"></span> <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu">
               </ul>
             </div>  
           </div>  
-          
-          <div id="map"></div>
+
+          <div id="highmap"></div>
 
         </div>
 
@@ -188,7 +187,18 @@
           </div>
         </div>
       </div>
+
+      <div id="explore-data-loader">
+        <div class="spinner">
+          <div class="rect1"></div>
+          <div class="rect2"></div>
+          <div class="rect3"></div>
+          <div class="rect4"></div>
+          <div class="rect5"></div>
+        </div>      
+      </div>
     </div>
+
   <% else %>
 
     <p>
