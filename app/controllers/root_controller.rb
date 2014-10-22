@@ -61,6 +61,7 @@ class RootController < ApplicationController
         @js.push("explore_data.js", 'highcharts.js', 'highcharts-map.js', 'highcharts-exporting.js')
 
         # record url for making ajax call
+        gon.explore_data = true
         gon.explore_data_ajax_path = explore_data_path(:format => :js)
         gon.hover_region = I18n.t('root.explore_data.hover_region')
         gon.na = I18n.t('root.explore_data.na')
