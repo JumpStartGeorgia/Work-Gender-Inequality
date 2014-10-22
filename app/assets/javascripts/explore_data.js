@@ -1,4 +1,4 @@
-  var geojson, map, map_info, datatable, i, j, json_data, highmap;
+var geojson, map, map_info, datatable, i, j, json_data, highmap;
 
 ////////////////////////////////////////////////
 // convert the querystring variables into json
