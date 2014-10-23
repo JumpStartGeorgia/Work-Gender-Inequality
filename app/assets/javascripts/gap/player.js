@@ -20,7 +20,10 @@ function playerObject(p)
 	this.play = function(name)
 	{		
 		if(this.valid(name))
+		{
+			this.stop(name);
 			this.sounds[name].play();
+		}
 	};
 	this.stop = function(name)
 	{

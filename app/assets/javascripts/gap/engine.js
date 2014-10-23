@@ -96,6 +96,7 @@ function can_scroll(v)
 }
 function intro(){  
   scr_clean();
+  sound_button();
   s.toggleClass(sintro.class);
   var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
   var prg = $('<div id="cont" data-pct="0">'+
@@ -118,6 +119,27 @@ function intro_fade(){
       game_init(); game_on_load();
     }
   });
+}
+function sound_button()
+{
+  // sound button init with binding click event for muting
+  if(s.parent().find('.volume').length == 0)
+  {
+    var volume = $('<div class="volume on"></div>').appendTo(s.parent());
+    volume.data('state',1);
+    volume.click(function(){
+      if(+volume.data('state') == 1)
+      {
+        volume.removeClass('on').addClass('off').data('state',0);
+        player.mute();
+      }
+      else
+      {
+        volume.removeClass('off').addClass('on').data('state',1);
+        player.unmute();
+      }
+    });
+  }
 }
 function epilogue()
 {
@@ -155,24 +177,6 @@ function game_init() {
   }
  
   scr_clean();
-
-
-  // sound button init with binding click event for muting
-  var volume = $('<div class="volume on"></div>').appendTo(s);
-  volume.data('state',1);
-  volume.click(function(){
-    if(+volume.data('state') == 1)
-    {
-      volume.removeClass('on').addClass('off').data('state',0);
-      player.mute();
-    }
-    else
-    {
-      volume.removeClass('off').addClass('on').data('state',1);
-      player.unmute();
-    }
-  });
-
 
   var t = $('<div class="top"></div>').appendTo(s);
 
@@ -676,9 +680,6 @@ function start_by_time()
     d.tsaved = tmp*d.saving_for_tick;
 
   });     
-   
- 
- 
 }
 /***************************************************************
                   General Functions End

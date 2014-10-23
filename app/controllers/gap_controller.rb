@@ -1,8 +1,3 @@
-class ActionController::Request
-  def remote_ip
-    "109.238.228.42"
-  end
-end
 class GapController < ApplicationController
   layout false
   def index  	
@@ -13,17 +8,17 @@ class GapController < ApplicationController
   def poll
     game_id = cookies['_game_id']
     flag = params[:flag].to_bool
-
+    logger.debug(params)
     if game_id.blank? && !flag
 
       user_agent = UserAgent.parse(request.user_agent)
       resp = GapPoll.create(
-        age:params[:age],
-        gender:params[:gender],
-        category:params[:category],
-        salary:params[:salary],
-        interest:params[:interest],
-        saving_percent:params[:salary_percent],
+        age:params[:user][:age],
+        gender:params[:user][:gender],
+        category:params[:user][:category],
+        salary:params[:user][:salary],
+        interest:params[:user][:interest],
+        saving_percent:params[:user][:salary_percent],
         ip:request.remote_ip,
         country:request.location.country,
         city:request.location.city,
@@ -34,7 +29,7 @@ class GapController < ApplicationController
         mobile:user_agent.mobile?,
         agent:request.user_agent
       ) 
-      cookies['_game_id'] = resp.id;
+      cookies['_game_id'] = resp.id;      
 
     elsif game_id.present? && flag
       resp = GapPoll.find(game_id)

@@ -163,5 +163,6 @@ var sounds =
 [
     { "name":"done",        loop:false, path:"/assets/gap/sound/done.mp3" },
     { "name":"applause",    loop:true,  path:"/assets/gap/sound/happy.mp3" },
-    { "name":"long",        loop:true,  path:"/assets/gap/sound/long.mp3" }
+    { "name":"long",        loop:true,  path:"/assets/gap/sound/long.mp3" },
+    { "name":"select",      loop:false, path:"/assets/gap/sound/select.mp3" },
 ];
