@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  gender: MyString
+  age: 1
+  category: MyString
+  salary: 1
+  interest: MyString
+  saving_percent: 1
+  ip: MyString
+  country: MyString
+  city: MyString
+  lat: 9.99
+  lon: 9.99
+  platform: MyString
+  browser: MyString
+  mobile: false
+  agent: MyString
+
+two:
+  gender: MyString
+  age: 1
+  category: MyString
+  salary: 1
+  interest: MyString
+  saving_percent: 1
+  ip: MyString
+  country: MyString
+  city: MyString
+  lat: 9.99
+  lon: 9.99
+  platform: MyString
+  browser: MyString
+  mobile: false
+  agent: MyString

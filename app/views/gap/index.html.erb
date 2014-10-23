@@ -12,8 +12,7 @@
       </div>
 
       <!-- vendor libraries -->
-
-    	<%= javascript_include_tag "jquery", :media => "all" %> <!--  todo jquery ui load        	 -->
+    	<%= javascript_include_tag *(["jquery","jquery_ujs", "jquery.ui.core","jquery.ui.effect","jquery.ui.draggable"]), :media => "all" %> 
     	<script src="/assets/jquery.mobile.custom.min.js" charset="utf-8"></script>
       <script src="/assets/d3.v3.min.js" charset="utf-8"></script>
       <script src="/assets/jwerty.js" charset="utf-8"></script>
@@ -22,6 +21,7 @@
       <script src="/assets/gap/transform.js" charset="utf-8"></script>
       <script src="/assets/gap/util.js"></script>
       <script src="/assets/gap/data-<%= I18n.locale %>.js"></script>
+      <script src="/assets/gap/player.js"></script>
       <script src="/assets/gap/var.js"></script>
       <script src="/assets/gap/queue.js"></script>
       <script src="/assets/gap/card.js"></script>

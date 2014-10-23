@@ -614,6 +614,27 @@ svg.thumbnail path
   background-image:url("../gap/svg/interests/boat.svg");
 }
 
+.volume
+{
+  width:32px;
+  height:32px;
+  background-size:32px;
+  background-repeat:no-repeat;
+  background-position:0px;
+  position:fixed;
+  top:10px;
+  left:15px;
+  z-index:305;
+  cursor:pointer;
+}
+.volume.on
+{
+ background-image:url("../gap/svg/sound.svg");
+}
+.volume.off
+{
+ background-image:url("../gap/svg/soundoff.svg");
+}
 
 
 @-webkit-keyframes bounceIn {

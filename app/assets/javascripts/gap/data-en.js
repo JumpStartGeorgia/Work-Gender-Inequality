@@ -159,25 +159,9 @@ var locale = {
     total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
   }
 };
-/* move up if georgian version
-monthNames: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი',
-'ივლისი','აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
-monthNamesShort: ['იან', 'თებ', 'მარ', 'აპრ', 'მაისი', 'ივნ',
-'ივლ', 'აგვ', 'სექ', 'ოქტ', 'ნოე', 'დეკ'],
-dayNames: ['კვირა', 'ორშაბათი', 'სამშაბათი', 'ოთხშაბათი', 'ხუთშაბათი', 'პარასკევი', 'შაბათი'],
-dayNamesShort: ['კვ', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'],
-dayNamesMin: ['კვ','ორ','სმ','ოთ', 'ხშ', 'პრ','შბ'],
-dateFormat: 'dd/mm/yyyy', firstDay: 1,
-prevText: '<უკან', prevStatus: 'წინა თვე',
-prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: 'წინა წელი',
-nextText: 'წინ>', nextStatus: 'შემდეგი თვე',
-nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: 'შემდეგი წელი',
-currentText: 'მიმდინარე', currentStatus: 'მიმდინარე თვე',
-todayText: 'დღეს', todayStatus: 'მიმდინარე დღე',
-clearText: 'გასუფთავება', clearStatus: 'მიმდინარე თარიღის წაშლა',
-closeText: 'არის', closeStatus: 'დახურვა უცვლილებოდ',
-yearStatus: 'სხვა წელი', monthStatus: 'სხვა თვე',
-weekText: 'კვ', weekStatus: 'წლის კვირა',
-dayStatus: 'აირჩიეთ DD, M d', defaultStatus: 'აიღჩიეთ თარიღი',
-isRTL: false
-*/
+var sounds = 
+[
+    { "name":"done",        loop:false, path:"/assets/gap/sound/done.mp3" },
+    { "name":"applause",    loop:true,  path:"/assets/gap/sound/happy.mp3" },
+    { "name":"long",        loop:true,  path:"/assets/gap/sound/long.mp3" }
+];
