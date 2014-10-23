@@ -5,6 +5,7 @@ BootstrapStarter::Application.routes.draw do
 	scope ":locale", locale: /#{I18n.available_locales.join("|")}/ do
 
 		match '/admin', :to => 'admin#index', :as => :admin, :via => :get
+		match '/admin/gamepoll', :to => 'admin#gamedata', :as => :gamedata, :via => :get, :defaults => { :format => 'csv' }
 		devise_for :users, :path_names => {:sign_in => 'login', :sign_out => 'logout'},
 											 :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
 
@@ -14,14 +15,12 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faq_categories
 		  resources :faqs
 		end
-		resources :gap
 
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 
 		get '/gap', :to => 'gap#index'
 		post '/gap/poll', :to => 'gap#poll'
-		#get '/gap', :to => redirect('/gap/'), :via => :get
 
 		root :to => 'root#index'
 	  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever

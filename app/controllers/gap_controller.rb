@@ -29,7 +29,7 @@ class GapController < ApplicationController
         mobile:user_agent.mobile?,
         agent:request.user_agent
       ) 
-      cookies['_game_id'] = resp.id;      
+      cookies['_game_id'] = { value: resp.id, expires: 1.hour.from_now }
 
     elsif game_id.present? && flag
       resp = GapPoll.find(game_id)

@@ -147,6 +147,7 @@ ka:
       pages: საიტზე ტექსტის რედაქტირება
       faq_categories: FAQ Categories
       faqs: FAQs
+      gamedata: Game Poll Data(csv)      
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე

@@ -10,5 +10,9 @@ class AdminController < ApplicationController
       format.json { render json: @pages }
     end
   end
-
+  def gamedata
+    respond_to do |format|
+      format.csv { send_data GapPoll.to_csv, :type => 'text/csv', :filename => "GameData_#{DateTime.now.strftime('%Y-%m-%d_%H%M')}.csv" }
+    end
+  end
 end
