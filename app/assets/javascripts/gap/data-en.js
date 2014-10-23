@@ -8,7 +8,7 @@ var categories =
         { "id": "45bS4GyC","name": "Agriculture, hunting and forestry", "outrun":0, "percent":11,
             "stage":
             {
-                "background":"/assets/gap/svg/field/education/bk.svg",
+                "background":"/assets/gap/svg/field/education/bg.svg",
                 "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
                 "frame":
                 {

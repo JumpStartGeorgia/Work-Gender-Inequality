@@ -86,9 +86,9 @@ function playerObject(p)
 		}
 	};
 	this.valid = function(name)
-	{
-		var r = typeof this.sounds[name] !== "undefined" && this.sounds[name].canPlayType('audio/mpeg;').replace(/^no$/,'');
-		if(!r) console.log("Audio file can't be played, please check path and additional parameters. File:",name);
+	{		
+		var r = typeof this.sounds[name] !== "undefined" && this.sounds[name].readyState == 4;
+		//if(!r) console.log("Audio file can't be played, please check path and additional parameters. File:",name); // when file is missing or not ready
 		return r;
 	};		
 	this.init();

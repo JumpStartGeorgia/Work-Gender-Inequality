@@ -24,7 +24,7 @@ function redraw()
   h = $(window).height();
   w2 = w/2;
   h2 = h/2;
-  lh = (h - th)/2;
+  lh = Math.ceil10((h - th)/2);
 
   timeline_period_w = w*timeline_scale;
   timeline_month_w = timeline_period_w/reward_period;
@@ -252,10 +252,10 @@ function draw_stage(v)
 
     var bg_image = $(this);
     img_scaler = lh / bg_image.height();
-
     bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
 
     bg_width = bg_image.width();
+    console.log(bg_width);
     stage_offset = (w - bg_width)/2;
 
     var bg_to_viewport = bg_width;

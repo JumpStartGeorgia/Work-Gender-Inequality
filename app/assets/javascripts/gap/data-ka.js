@@ -8,7 +8,7 @@ var categories =
         { "id": "45bS4GyC","name": "Agriculture, hunting and forestry", "outrun":0, "percent":11,
             "stage":
             {
-                "background":"/assets/gap/svg/field/education/bk.svg",
+                "background":"/assets/gap/svg/field/education/bg.svg",
                 "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
                 "frame":
                 {
@@ -159,3 +159,10 @@ var locale = {
     total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
   }
 };
+var sounds = 
+[
+    { "name":"done",        loop:false, path:"/assets/gap/sound/done.mp3" },
+    { "name":"applause",    loop:true,  path:"/assets/gap/sound/happy.mp3" },
+    { "name":"long",        loop:true,  path:"/assets/gap/sound/long.mp3" },
+    { "name":"select",      loop:false, path:"/assets/gap/sound/select.mp3" },
+];
