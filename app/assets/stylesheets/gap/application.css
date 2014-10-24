@@ -636,6 +636,13 @@ svg.thumbnail path
 {
  background-image:url("../gap/svg/soundoff.svg");
 }
+#gap-share
+{  
+  position:fixed;
+  top:15px;
+  left:60px;
+  z-index:36;
+}
 
 
 @-webkit-keyframes bounceIn {
