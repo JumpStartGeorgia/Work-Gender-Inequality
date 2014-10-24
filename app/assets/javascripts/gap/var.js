@@ -148,3 +148,4 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
 
 // sound control system
 var player = new playerObject();
+var isSoundLoaded = false;

@@ -129,6 +129,7 @@ body,html
   position: fixed;
   top: 20px;
   display:inline-block;
+  z-index:35;
 }
 #screen .top .score div, #screen .bottom .score div
 {
@@ -557,38 +558,38 @@ svg.thumbnail path
 /* Progress Bar */
 
 
-  .treasure .pedestal
-  {
-     width:auto;
-     position:fixed;
-  }
-  .treasure .pedestal .interestB
-  {
-     display:inline-block;
-     position:relative;
-    transition: all 2s ease-out;
-  }
-   .treasure > .pedestal > .interestB > div.mutationB
-  {
-     display:inline-block;
-     height:32px;
-     overflow:visible;
-     white-space: nowrap;
-  }
-  .treasure .pedestal .interestB > div.item,
-  .treasure .pedestal .interestB > div.mutationB > div.item
-  {
-     width:32px;
-     height:32px;
-     display:inline-block;
-     margin-left:10px;
-     background-size:32px;
-     background-repeat:no-repeat;
-     background-position:0px;
-     position:relative;
-     top:0px;
-     left:0px;
-  }
+.treasure .pedestal
+{
+   width:auto;
+   position:fixed;
+}
+.treasure .pedestal .interestB
+{
+   display:inline-block;
+   position:relative;
+  transition: all 2s ease-out;
+}
+ .treasure > .pedestal > .interestB > div.mutationB
+{
+   display:inline-block;
+   height:32px;
+   overflow:visible;
+   white-space: nowrap;
+}
+.treasure .pedestal .interestB > div.item,
+.treasure .pedestal .interestB > div.mutationB > div.item
+{
+   width:32px;
+   height:32px;
+   display:inline-block;
+   margin-left:10px;
+   background-size:32px;
+   background-repeat:no-repeat;
+   background-position:0px;
+   position:relative;
+   top:0px;
+   left:0px;
+}
 .ibag
 {
   background-image:url("../gap/svg/interests/bag.svg");
@@ -624,7 +625,7 @@ svg.thumbnail path
   position:fixed;
   top:10px;
   left:15px;
-  z-index:305;
+  z-index:36;
   cursor:pointer;
 }
 .volume.on

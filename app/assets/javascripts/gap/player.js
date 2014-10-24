@@ -1,23 +1,24 @@
-function playerObject(p)
+function playerObject()
 {
 	this.sounds = {};
 	this.sounds_list = [];
 	var mute = false;
 	var prev_volume = 1;
-	var volume = 1;
-
+	var volume = 1;	
+	var readySoundCount = 0;
 	this.init = function()
 	{
 		for(var i = 0; i < sounds.length; ++i)
-		{
+		{			
 			var item = sounds[i];
 			this.sounds[item.name] = new Audio(item.path);
 			this.sounds[item.name].loop = item.loop;
+			this.sounds[item.name].preload = "auto";
+			$(this.sounds[item.name]).on('canplaythrough', this.canplaythrough);
 			this.sounds_list.push(item.name);
 		}
-
 	};
-	this.play = function(name)
+	this.play = function play(name)
 	{		
 		if(this.valid(name))
 		{
@@ -90,6 +91,15 @@ function playerObject(p)
 		var r = typeof this.sounds[name] !== "undefined" && this.sounds[name].readyState == 4;
 		//if(!r) console.log("Audio file can't be played, please check path and additional parameters. File:",name); // when file is missing or not ready
 		return r;
-	};		
+	};	
+	this.canplaythrough = function()
+	{
+		$(this).off('canplaythrough');
+		if(readySoundCount+1 == sounds.length)
+		{
+			isSoundLoaded = true;
+		}
+		else ++readySoundCount;
+	};
 	this.init();
 }

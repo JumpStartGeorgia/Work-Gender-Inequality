@@ -21,7 +21,7 @@ function human(selector,title)
   this.gap_percent = 0;
   this.saving_for_tick = 0;
   this.animated = false;
-  this.current_frame = 0;
+  //this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
@@ -142,7 +142,7 @@ function human(selector,title)
 			{
 				t.animated = false;
         animated = t.animated || t.oppenent.animated;
-        t.next_frame();
+        t.work_frame();
 			}
 		});
   };
@@ -214,12 +214,15 @@ function human(selector,title)
     this.traversed_path = tmp;
     this.position(this.getpathcoordinates(this.traversed_path/100));
   };
-  this.next_frame = function next_frame()
+  this.work_frame = function work_frame()
   {
-    if(this.current_frame < frame_sequence_length)
-      ++this.current_frame;
-    else this.current_frame = 0;
-    var frame = category.stage.frame[frame_sequence[this.current_frame]];
+    // if(this.current_frame < frame_sequence_length)
+    //   ++this.current_frame;
+    // else this.current_frame = 0;
+    //console.log(category.stage.frame,this.current_frame,frame_sequence_length,frame_sequence,category.stage.frame[frame_sequence[this.current_frame]]);
+    //console.log(frame);
+    
+    var frame = category.stage.frame['work'];
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
   };

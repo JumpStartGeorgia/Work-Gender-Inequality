@@ -192,9 +192,6 @@ function game_init() {
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
   timeline = timeline.find('.canvas');
 
-  
-  
-
   var b = $('<div class="bottom"></div>').appendTo(s);
   var bs = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(b);
@@ -212,7 +209,6 @@ function game_init() {
 
   male.prepare_for_game();
   female.prepare_for_game();
-
 
   if(pos >= 0)
   {
@@ -255,7 +251,6 @@ function draw_stage(v)
     bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
 
     bg_width = bg_image.width();
-    console.log(bg_width);
     stage_offset = (w - bg_width)/2;
 
     var bg_to_viewport = bg_width;
@@ -643,7 +638,6 @@ function params_back()
   } 
 }
 // when all data is collected, send data to server
-var sounds = {};
 function sendUserData(fin)
 {
   fin = typeof fin === "undefined" ? false : fin;
