@@ -44,7 +44,7 @@ class GapController < ApplicationController
     end
   end
   def share
-    logger.debug(request)
+    logger.debug(request.inspect)
     respond_to do |format|
       format.html # index.html.erb
     end
