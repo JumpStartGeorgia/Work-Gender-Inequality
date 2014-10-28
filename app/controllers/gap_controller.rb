@@ -45,11 +45,16 @@ class GapController < ApplicationController
   end
   def share
     user_agent = UserAgent.parse(request.user_agent)
-    logger.debug(user_agent)
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-    #logger.debug(request.inspect)
-    respond_to do |format|
-      format.html # index.html.erb
+    if user_agent.include? "facebook"
+      respond_to do |format|
+        format.html # index.html.erb
+      end
+    else 
+      respond_to do |format|
+        format.html index.html.erb
+      end
     end
   end
 end
+
