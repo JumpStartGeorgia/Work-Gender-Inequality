@@ -60,7 +60,7 @@ class SurveyResult < ActiveRecord::Base
         # save the questions and answers
         # if exclude_dkra is true, only get use the answers that cannot be excluded
         result[:row_question] = q_row.text
-        result[:row_answers] = (exclude_dkra == true ? q_row.answers.select{|x| x.can_exclude == false} : q_row.answers).map{|x| [x.value, x.text]}
+        result[:row_answers] = (exclude_dkra == true ? q_row.answers.select{|x| x.can_exclude == false} : q_row.answers).map{|x| [x.value, x.text, x.id]}
 
         # put the counts into a new array to make sure all row and column answers are included
         result[:counts] = []
@@ -182,9 +182,9 @@ class SurveyResult < ActiveRecord::Base
         # save the questions and answers
         # if exclude_dkra is true, only get use the answers that cannot be excluded
         result[:row_question] = q_row.text
-        result[:row_answers] = (exclude_dkra == true ? q_row.answers.select{|x| x.can_exclude == false} : q_row.answers).map{|x| [x.value, x.text]}
+        result[:row_answers] = (exclude_dkra == true ? q_row.answers.select{|x| x.can_exclude == false} : q_row.answers).map{|x| [x.value, x.text, x.id]}
         result[:column_question] = q_col.text
-        result[:column_answers] = (exclude_dkra == true ? q_col.answers.select{|x| x.can_exclude == false} : q_col.answers).map{|x| [x.value, x.text]}
+        result[:column_answers] = (exclude_dkra == true ? q_col.answers.select{|x| x.can_exclude == false} : q_col.answers).map{|x| [x.value, x.text, x.id]}
 
         # put the counts into a new array to make sure all row and column answers are included
         result[:counts] = []
