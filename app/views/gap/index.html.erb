@@ -48,7 +48,7 @@
       $('#gap-share').click(function(){
             FB.ui({
               method: 'share',
-              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share"
+              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share"+window.location.hash
             }, function(response){
                if (response && !response.error_code) {
                   console.log('Posting completed.');
