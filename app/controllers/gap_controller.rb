@@ -43,4 +43,9 @@ class GapController < ApplicationController
       format.json { render :json => {:finished => flag}}          
     end
   end
+  def share
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
 end

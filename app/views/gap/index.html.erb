@@ -54,7 +54,7 @@ the I.P.O., according to the prospectus." />
 //       js.src = "//connect.facebook.net/en_US/sdk/debug.js";
      {
        FB.init({
-         appId: '282184988613640',
+         appId: '737141426318491',
          xfbml      : true,
          version    : 'v2.1'
        });     
@@ -62,7 +62,7 @@ the I.P.O., according to the prospectus." />
       $('#gap-share').click(function(){
             FB.ui({
               method: 'share',
-              href: "http://localhost:3000"
+              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share"
             }, function(response){
                if (response && !response.error_code) {
                   console.log('Posting completed.');
