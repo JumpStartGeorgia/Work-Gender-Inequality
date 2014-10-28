@@ -44,6 +44,7 @@ class GapController < ApplicationController
     end
   end
   def share
+    #todo share staff
     user_agent = UserAgent.parse(request.user_agent)
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
     if user_agent.include? "facebook"
@@ -51,6 +52,8 @@ class GapController < ApplicationController
         format.html # index.html.erb
       end
     else 
+      params.delete :fb_action_ids 
+      params.delete :fb_action_types
       respond_to do |format|
         format.html index.html.erb
       end
