@@ -58,7 +58,7 @@ module BootstrapStarter
     #config.assets.paths << Rails.root.join("app", "assets", "gap")
 
     # in app/assets folder
-    config.assets.precompile += %w( explore_data.js faqs.js )
+    config.assets.precompile += %w( explore_data.js faqs.js game.js )
     config.assets.precompile += %w( explore_data.css faqs.css )    
     config.assets.precompile += %w( highcharts.js highcharts-exporting.js highcharts-map.js )    
     config.assets.precompile += %w( gap/* )  
