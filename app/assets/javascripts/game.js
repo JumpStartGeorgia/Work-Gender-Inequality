@@ -8,5 +8,4 @@
 //= require jwerty.js
 //= require sylvester.src.js
 
-
 var globalGameVar = 1;
