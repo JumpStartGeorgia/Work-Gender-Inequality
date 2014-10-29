@@ -45,21 +45,26 @@ class GapController < ApplicationController
   end
   def share
     #todo share staff
+    filter = ['g','a','c','s','i','p','t']
+    p = {}
+    params.each do |k,v|
+      p[k] =v if filter.include?(k)
+    end
     logger.debug("-----------------------------------------------------")
-    logger.debug(params)
+    logger.debug(p)
+    logger.debug("-----------------------------------------------------")
+    logger.debug(params.to_param)
+    logger.debug(request.user_agent)
+    logger.debug(request.user_agent.include?("facebook"))
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
     if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
       logger.debug("Facebook------------------------------------------------")
       respond_to do |format|
-        format.html share.html.erb params
+        format.html { render :share }
       end
     else 
       logger.debug("Not Facebook------------------------------------------------")
-      params.delete :fb_action_ids 
-      params.delete :fb_action_types
-      respond_to do |format|
-        format.html index.html.erb params
-      end
+      redirect_to gap_path(anchor:p.to_param) and return    
     end
   end
 end
