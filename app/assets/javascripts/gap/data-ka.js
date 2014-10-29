@@ -5,7 +5,7 @@
 
 var categories = 
 [
-        { "id": "45bS4GyC","name": "Agriculture, hunting and forestry", "outrun":0, "percent":11,
+        { "id": "45bS4GyC","name": "Agriculture, hunting and forestry", "outrun":0, "percent":11, "dress":"casual",
             "stage":
             {
                 "background":"/assets/gap/svg/field/education/bg.svg",
@@ -18,20 +18,20 @@ var categories =
                 }
             } 
         },
-        { "id": "FWrgJx0N","name": "Fishing", "outrun":0, "percent":11 },
-        { "id": "TxbZicXP","name": "Mining and quarrying", "outrun":0, "percent":11 },
-        { "id": "Zyb2KhON","name": "Manufacturing", "outrun":0, "percent":11 },
-        { "id": "8IkQeUfg","name": "Production and distribution of electricity, gas and water", "outrun":0, "percent":11 },
-        { "id": "eibtNMge","name": "Construction", "outrun":0, "percent":11 },
-        { "id": "jDYS_Z1V","name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods", "outrun":0, "percent":11 },
-        { "id": "I52aZAVX","name": "Hotels and restaurants", "outrun":0, "percent":11 },
-        { "id": "rn4bDK0j","name": "Transport and communication", "outrun":0, "percent":11 },
-        { "id": "EmbBcc5x","name": "Financial intermediation", "outrun":0, "percent":11 },
-        { "id": "oxKq-H8w","name": "Real estate, renting and business activities", "outrun":0, "percent":11 },
-        { "id": "dT-LWuT4","name": "Public administration", "outrun":0, "percent":11 },
-        { "id": "HxhM0Ejd","name": "Education", "outrun":0, "percent":11 },
-        { "id": "dJdfgktK","name": "Health and social work", "outrun":0, "percent":11 },
-        { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11 }
+        { "id": "FWrgJx0N","name": "Fishing", "outrun":0, "percent":11, "dress":"business" },
+        { "id": "TxbZicXP","name": "Mining and quarrying", "outrun":0, "percent":11, "dress":"technical" },
+        { "id": "Zyb2KhON","name": "Manufacturing", "outrun":0, "percent":11, "dress":"construction" },
+        { "id": "8IkQeUfg","name": "Production and distribution of electricity, gas and water", "outrun":0, "percent":11, "dress":"casual" },
+        { "id": "eibtNMge","name": "Construction", "outrun":0, "percent":11, "dress":"business" },
+        { "id": "jDYS_Z1V","name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods", "outrun":0, "percent":11, "dress":"technical" },
+        { "id": "I52aZAVX","name": "Hotels and restaurants", "outrun":0, "percent":11, "dress":"construction" },
+        { "id": "rn4bDK0j","name": "Transport and communication", "outrun":0, "percent":11, "dress":"casual" },
+        { "id": "EmbBcc5x","name": "Financial intermediation", "outrun":0, "percent":11, "dress":"business" },
+        { "id": "oxKq-H8w","name": "Real estate, renting and business activities", "outrun":0, "percent":11, "dress":"technical" },
+        { "id": "dT-LWuT4","name": "Public administration", "outrun":0, "percent":11, "dress":"construction" },
+        { "id": "HxhM0Ejd","name": "Education", "outrun":0, "percent":11, "dress":"casual" },
+        { "id": "dJdfgktK","name": "Health and social work", "outrun":0, "percent":11, "dress":"business" },
+        { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11, "dress":"technical" }
 ];
 var frame_sequence = [ 'load','work','reward' ];
 var frame_sequence_length = frame_sequence.length;

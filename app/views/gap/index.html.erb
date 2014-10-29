@@ -11,6 +11,7 @@
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
    </head>
    <body>
+      <div id="fb-root"></div>
       <div id="gap-share">Share</div>
       <div class="wrapper" id="content">
          <div id="screen"></div>
@@ -45,7 +46,6 @@
          version    : 'v2.1'
        });     
       $('#gap-share').click(function(){
-        console.log("http://dev-tanastsoroba.jumpstart.ge/en/gap/share?" + window.location.hash.substr(1));
             FB.ui({
               method: 'share',
               href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?" + window.location.hash.substr(1)

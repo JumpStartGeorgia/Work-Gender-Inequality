@@ -183,14 +183,14 @@ function human(selector,title)
   this.next_movement = function next_movement()
   {    
     this.movement = ++this.movement;
-    if(this.movement == 11) this.movement = 1;
-    $(this.selector).css("background-image","url(/assets/gap/svg/"+ this.alias + "/" + this.alias + this.movement + "r.svg)");    
+    if(this.movement == 4) this.movement = 1;
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
-    if(this.movement == 0) this.movement = 10;
-    $(this.selector).css("background-image","url(/assets/gap/svg/"+ this.alias + "/" + this.alias  + this.movement + "l.svg)");    
+    if(this.movement == 0) this.movement = 3;
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
   {
@@ -275,11 +275,11 @@ function human(selector,title)
         this.event_by_month.push(0);
       }
     }
-    for (var i = 1; i <= 10; ++i) {
+    for (var i = 1; i <= 3; ++i) {
       var img = new Image();
-      img.src = "/assets/gap/svg/"+this.alias + "/" + this.alias +i+"l.svg";   
+      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"l"+ +i+".svg";   
       img = new Image(); 
-      img.src = "/assets/gap/svg/"+this.alias + "/" + this.alias +i+"r.svg";           
+      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"r"+i+".svg";          
     };
   };
   this.has_future_reward = function has_future_reward()

@@ -304,9 +304,10 @@ var poll = {
 
   },  
   category_draw:function category_draw()
-  {
+  {    
     d3.selectAll('.category-picker .category_item').classed('selected',false);     
     poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
+    d3.select('.character').style('background-image','url(/assets/gap/svg/human/dress/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/mr.svg)');
   },
   category_up:function category_up()
   {
