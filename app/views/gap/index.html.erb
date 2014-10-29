@@ -45,6 +45,7 @@
          version    : 'v2.1'
        });     
       $('#gap-share').click(function(){
+        console.log("http://dev-tanastsoroba.jumpstart.ge/en/gap/share?" + window.location.hash.substr(1));
             FB.ui({
               method: 'share',
               href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?" + window.location.hash.substr(1)

@@ -57,7 +57,7 @@ class GapController < ApplicationController
     logger.debug(request.user_agent)
     logger.debug(request.user_agent.include?("facebook"))
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-    if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
+    if !request.user_agent.include?("facebook") && !request.user_agent.include?("externalhit")
       logger.debug("Facebook------------------------------------------------")
       respond_to do |format|
         format.html { render :share }
