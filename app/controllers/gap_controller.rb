@@ -49,12 +49,12 @@ class GapController < ApplicationController
     logger.debug(params)
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
     if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
-      logger.debug("Facebook------------------------------------------------",params)
+      logger.debug("Facebook------------------------------------------------")
       respond_to do |format|
         format.html share.html.erb params
       end
     else 
-      logger.debug("Not Facebook------------------------------------------------",params)
+      logger.debug("Not Facebook------------------------------------------------")
       params.delete :fb_action_ids 
       params.delete :fb_action_types
       respond_to do |format|
