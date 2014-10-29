@@ -51,7 +51,7 @@ class GapController < ApplicationController
     end
     if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
       #render image here
-      @descr = "Gender " + I18n.t("gap.gamedata.gender.#{params[:g]}") + ", Age " + params[:a] + ", Category " + I18n.t("gap.gamedata.gender.#{params[:c]}") + ", Salary " + params[:s] + ", Interest " +  I18n.t("gap.gamedata.gender.#{params[:i]}") + ", Salary Percent " + params[:p] 
+      @descr = "Gender " + I18n.t("gap.gamedata.gender.#{params[:g]}") + ", Age " + params[:a] + ", Category " + I18n.t("gap.gamedata.category.#{params[:c]}") + ", Salary " + params[:s] + ", Interest " +  I18n.t("gap.gamedata.interest.#{params[:i]}") + ", Salary Percent " + params[:p] 
       respond_to do |format|
         format.html
       end
