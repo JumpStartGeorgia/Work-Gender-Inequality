@@ -47,9 +47,8 @@ class GapController < ApplicationController
     #todo share staff
     logger.debug("-----------------------------------------------------")
     logger.debug(params)
-    user_agent = UserAgent.parse(request.user_agent)
     #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-    if user_agent.include? "facebook"
+    if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
       logger.debug("Facebook------------------------------------------------",params)
       respond_to do |format|
         format.html # index.html.erb
