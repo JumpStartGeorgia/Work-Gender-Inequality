@@ -236,3 +236,30 @@ en:
   gap:
     index:
       title: Gap
+    gamedata:
+      gender:
+        m: Male
+        f: Female
+      category:
+        45bS4GyC: Agriculture, hunting and forestry
+        FWrgJx0N: Fishing
+        TxbZicXP: Mining and quarrying
+        Zyb2KhON: Manufacturing
+        8IkQeUfg: Production and distribution of electricity, gas and water
+        eibtNMge: Construction
+        jDYS_Z1V: Wholesale and retail trade; repair of motor vehicles and personal and household goods
+        I52aZAVX: Hotels and restaurants
+        rn4bDK0j: Transport and communication
+        EmbBcc5x: Financial intermediation
+        oxKq-H8w: Real estate, renting and business activities
+        dT-LWuT4: Public administration
+        HxhM0Ejd: Education
+        dJdfgktK: Health and social work
+        DqFfYVGZ: Other community, social and personal service activities
+      interest:
+        gfNDXD1g: Vacation
+        Rs2Uml6w: Gadgets
+        KI3EFRI3: Education
+        7fdCIojZ: Housing
+        3QDbCRrq: Transportation
+        Cc8WWUmB: Health & Beauty
