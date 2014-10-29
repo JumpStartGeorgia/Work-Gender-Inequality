@@ -44,11 +44,12 @@
          xfbml      : true,
          version    : 'v2.1'
        });     
-      
+      var hash = window.location.hash;
+      if(hash[0]=='#') hash=hash.substr(1);
       $('#gap-share').click(function(){
             FB.ui({
               method: 'share',
-              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share"+window.location.hash
+              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?" + hash
             }, function(response){
                if (response && !response.error_code) {
                   console.log('Posting completed.');
