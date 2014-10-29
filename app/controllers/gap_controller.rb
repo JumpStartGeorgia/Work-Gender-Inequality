@@ -50,7 +50,8 @@ class GapController < ApplicationController
       p[k] =v if filter.include?(k)
     end
     if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
-      logger.debug("Facebook------------------------------------------------")
+      #render image here
+      @descr = "Gender " + params[:g] + ", Age " + params[:a] + ", Category " + params[:c] + ", Salary " + params[:s] + ", Interest " + params[:i] + ", Salary Percent " + params[:p] 
       respond_to do |format|
         format.html
       end
