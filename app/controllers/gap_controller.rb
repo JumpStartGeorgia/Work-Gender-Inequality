@@ -44,23 +44,15 @@ class GapController < ApplicationController
     end
   end
   def share
-    #todo share staff
     filter = ['g','a','c','s','i','p','t']
     p = {}
     params.each do |k,v|
       p[k] =v if filter.include?(k)
     end
-    logger.debug("-----------------------------------------------------")
-    logger.debug(p)
-    logger.debug("-----------------------------------------------------")
-    logger.debug(params.to_param)
-    logger.debug(request.user_agent)
-    logger.debug(request.user_agent.include?("facebook"))
-    #"HTTP_USER_AGENT"=>"facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
     if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")
       logger.debug("Facebook------------------------------------------------")
       respond_to do |format|
-        format.html { render :share }
+        format.html
       end
     else 
       logger.debug("Not Facebook------------------------------------------------")
