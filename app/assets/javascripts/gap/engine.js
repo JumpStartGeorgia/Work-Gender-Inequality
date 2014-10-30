@@ -144,12 +144,17 @@ function sound_button()
 function epilogue()
 {
   gameoff();
-  scr_clean();
-  s.toggleClass(sepilogue.class);
+  //scr_clean();
+  //s.toggleClass(sepilogue.class);
   sendUserData(true); // on finish update poll data
-  var t = $('<div class="title">'+sepilogue.title+'</div>').appendTo(s);
+  var t = $('<div class="epilogue"></div>').appendTo(s.parent());
+  t.append(
+    "<div class='summary'><div class='summary-trigger'><div class='arrow-down'></div></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow-up'></div></div></div>"
+    );
+  t.find('.summary, .whatnext').css({ width: w-20, height:h-20, display:'inline-block' });
+  t.find('.summary-trigger, .whatnext-trigger');
 
-  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeIn(fade_time, "linear", function(){  } );
+  t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear", function(){  } );
 }
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
@@ -184,7 +189,7 @@ function game_init() {
     '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(t);  
   ts.css({ left: w-ts.width()-30});  
 
-  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 32 - 10 }).appendTo(t);
+  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 50 - 10 }).appendTo(t);
 
   
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
@@ -254,7 +259,7 @@ function draw_stage(v)
     stage_offset = (w - bg_width)/2;
 
     var bg_to_viewport = bg_width;
-    while(bg_to_viewport < w)
+    while(bg_to_viewport < w+w2)
     {
       $('<img src="'+stage.background+'"/>').css({ top:0,left:bg_to_viewport,height:lh,'z-index':33 }).appendTo(bg)
       bg_to_viewport+=bg_width;
@@ -286,7 +291,7 @@ function timeline_tick(n)
     curTime.setTime(timeline_points[size-1].getTime());
 
     curTime.setMonth(curTime.getMonth() + reward_period);
-
+    console.log(timeline_end_point);
     if(curTime > timeline_end_point) epilogue();
 
     timeline_point = curTime;

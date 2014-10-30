@@ -66,8 +66,6 @@ var poll = {
   },
   add_layer:function add_layer()
   {
-    
-
     poll.stage_d3.select('.character').style('background-color','transparent');
     poll.stage_d3.insert('svg','.character')
       .classed({'stage-bk':true,'abs':true})
@@ -76,15 +74,14 @@ var poll = {
         .classed('bk',true)
         .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
     poll.stage_d3.insert('div').classed('poll-sub-label abs',true);
-
-
   },
   draw_character:function draw_character()
   {     
     $('.poll').addClass(g());
-    $('<div class="'+g()+'char character" title="Female"></div>').appendTo(this.stage);
+    var charTmp = $('<div class="'+g()+'char character"></div>').appendTo(this.stage);
+    if(g()=='f') charTmp.css('background-image','url(/assets/gap/svg/human/dress/casual/fl.svg)');
     poll.add_layer();
-             
+        
     var b = isf();
     var ch = document.getElementsByClassName("character")[0];
     var chh = ch.clientHeight;
@@ -137,11 +134,11 @@ var poll = {
     poll.label(locale.poll.choose_gender); 
     
     var margin_between = 100;
-
-    var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title','Female')
+console.log("here");
+    var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
-      .on('click',function(){ f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
-    var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title','Male')
+      .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/dress/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
+    var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title',male.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
       .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
 
@@ -307,7 +304,7 @@ var poll = {
   {    
     d3.selectAll('.category-picker .category_item').classed('selected',false);     
     poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
-    d3.select('.character').style('background-image','url(/assets/gap/svg/human/dress/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/mr.svg)');
+    d3.select('.character').style('background-image','url(/assets/gap/svg/human/dress/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/'+user.gender+ (user.gender =='f' ? 'l':'r') + '.svg)');
   },
   category_up:function category_up()
   {
@@ -331,7 +328,7 @@ var poll = {
   {        
     if(user.category != v)
     {
-      user.category = v;        
+      user.category = v; 
       this.category_draw();
     }
   },
@@ -866,7 +863,7 @@ var poll = {
     t.css({top:h2-t.height()/2 - poll.stage_size2*0.38,left:w2-t.width()/2 - (isf() ? 1 : -1)*poll.stage_size2*0.45});    
   },
   place_human_based_on_gender:function place_human_based_on_gender()
-  {
+  {    
     if(isf()) 
     {
       female.place = 'top';

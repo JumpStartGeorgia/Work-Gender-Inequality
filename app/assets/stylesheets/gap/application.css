@@ -34,17 +34,78 @@ body,html
    font-size:25px;
    font-size:10vmin;
 }
-#screen.epilogue
+.epilogue
 {
    display:inline-block;
+   position:fixed;
+   top:10px;
+   left:10px;
+   width:100%;
+   height:100%;
+   border:1px solid #c4c4c4;
+   background-color:rgba(255,255,255,0.98);
 }
-#screen.epilogue .title
+.epilogue .summary,.epilogue .whatnext
+{
+  display:block;
+}
+.epilogue .title
 {
    position:absolute;
    display:inline-block;
    font-family:Tahoma;
    font-size:25px;
    font-size:10vmin;
+}
+.epilogue .whatnext
+{
+  position:relative;
+  top:-100px;
+  opacity:0.5;
+}
+.epilogue .summary-trigger
+{
+  width:100%;
+  height:100px;
+  position:relative;
+  left:0px;
+  bottom:0px;
+  background-color:green;
+  display:none;
+}
+.epilogue .whatnext-trigger
+{
+  width:100%;
+  height:100px;
+  position:relative;
+  top:0px;
+  left:0px;
+  background-color:rgba(105, 105, 105, 0.45);
+  display:inline-block;
+}
+.arrow-up
+{
+  background-image:url("../gap/svg/arrow-up.svg");
+   background-color:transparent;
+  background-size:58px 24px ;
+   background-repeat:no-repeat;
+   background-position: center center;
+   width:100%;
+   height:24px;
+  margin-top:30px;   
+   /*transition: all 0.5s ease-out;*/
+}
+.arrow-down
+{
+  background-image:url("../gap/svg/arrow-down.svg");
+   background-color:transparent;
+  background-size:58px 24px ;
+   background-repeat:no-repeat;
+   background-position: center center;
+   width:100%;
+   height:24px;
+  margin-top:30px;   
+   /*transition: all 0.5s ease-out;*/
 }
 #screen .top, #screen .bottom
 {
@@ -81,8 +142,8 @@ body,html
   left:0px;
   top:0px;
   width:100%;
-  height: 32px;
-  line-height: 32px;
+  height: 50px;
+  line-height: 50px;
   transition: all 0.2s ease-out;
   z-index:50;
 }
@@ -113,10 +174,10 @@ body,html
 .treasure .card .coins .coin.item
 {
 
-  width:32px;
-  height:32px;
+  width:50px;
+  height:50px;
   display:inline-block;     
-  background-size:32px;
+  background-size:50px;
   background-repeat:no-repeat;
   background-position:0px;   
   margin-right:10px;  
@@ -174,7 +235,7 @@ body,html
 }
 .f.character
 {
-   background:transparent url("../gap/svg/human/dress/casual/fr.svg") no-repeat;
+   background:transparent url("../gap/svg/human/dress/casual/fl.svg") no-repeat;
     background-color:transparent;
    background-size:46px 100px;
    background-repeat:no-repeat;
@@ -572,18 +633,18 @@ svg.thumbnail path
  .treasure > .pedestal > .interestB > div.mutationB
 {
    display:inline-block;
-   height:32px;
+   height:50px;
    overflow:visible;
    white-space: nowrap;
 }
 .treasure .pedestal .interestB > div.item,
 .treasure .pedestal .interestB > div.mutationB > div.item
 {
-   width:32px;
-   height:32px;
+   width:50px;
+   height:50px;
    display:inline-block;
    margin-left:10px;
-   background-size:32px;
+   background-size:50px;
    background-repeat:no-repeat;
    background-position:0px;
    position:relative;
