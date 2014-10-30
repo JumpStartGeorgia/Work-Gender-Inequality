@@ -141,20 +141,49 @@ function sound_button()
     });
   }
 }
+var epilogueUp = true;
 function epilogue()
 {
   gameoff();
   //scr_clean();
   //s.toggleClass(sepilogue.class);
   sendUserData(true); // on finish update poll data
-  var t = $('<div class="epilogue"></div>').appendTo(s.parent());
-  t.append(
-    "<div class='summary'><div class='summary-trigger'><div class='arrow-down'></div></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow-up'></div></div></div>"
-    );
-  t.find('.summary, .whatnext').css({ width: w-20, height:h-20, display:'inline-block' });
-  t.find('.summary-trigger, .whatnext-trigger');
+  var t = $("<div class='epilogue'><div class='summary'><div class='text'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='text'></div></div></div>").appendTo(s.parent());
+  var str = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
+  var whatnext = t.find('.whatnext');
+  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.text').text(str);
+  t.find('.summary').css({ width: w-20, height:h-120, display:'inline-block' }).find('.text').text(str+str);
+  whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
 
-  t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear", function(){  } );
+  t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+}
+function epilogue_trigger(t)
+{
+  var whatnext_trigger = $(".whatnext-trigger");
+  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow')
+  t.find('.whatnext').animate({top: epilogueUp ? -1*(h-20) : -100 },
+  {
+    duration:1000,
+    start:function()
+    {
+      whatnext_trigger.off("mouseenter");
+      epilogueTmp = true;
+    },
+    progress:function(a,b,c)
+    {
+      if(epilogueTmp && b > 0.5)
+      {
+        epilogueTmp = false;
+        whatnext_trigger_arrow.toggleClass('arrow-down arrow-up');
+      }
+      whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
+    },
+    complete:function()
+    {
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
+      epilogueUp=!epilogueUp;
+    }
+  });
 }
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
@@ -291,11 +320,11 @@ function timeline_tick(n)
     curTime.setTime(timeline_points[size-1].getTime());
 
     curTime.setMonth(curTime.getMonth() + reward_period);
-    console.log(timeline_end_point);
-    if(curTime > timeline_end_point) epilogue();
+    
 
     timeline_point = curTime;
     timeline_points.push(curTime);  
+    if(curTime > timeline_end_point) { epilogue(); break; } 
   }      
   timeline_point_draw();   
 }
