@@ -58,14 +58,14 @@ body,html
   max-width: 1280px;
   margin:0px auto;
 }
-.epilogue .summary .content .header,
-.epilogue .summary .content .content,
-.epilogue .summary .content .footer
+.epilogue .summary .header,
+.epilogue .summary .content,
+.epilogue .summary .footer
 {
   display:block;
   width:100%;
 }
-.epilogue .summary .content .header .title
+.epilogue .summary .header .title
 {
   width:100%;
   font-family:Arial;
@@ -73,7 +73,7 @@ body,html
   text-align:center;
   margin:30px 0px 20px 0px;
 }
-.epilogue .summary .content .header .title-score
+.epilogue .summary .header .title-score
 {
   width:100%;
   font-family:Arial;
@@ -81,58 +81,58 @@ body,html
   text-align:center;
 }
 /* content */
-.epilogue .summary .content .content .grid
+.epilogue .summary .content .grid
 {
   width:70%;
   margin:30px auto;
 }
-.epilogue .summary .content .content .grid .row
+.epilogue .summary .content .grid .row
 {
   width:100%;
   padding:6px 10px;
   border-bottom:1px solid rgb(229, 229, 229);
 }
-.epilogue .summary .content .content .grid .row > div
+.epilogue .summary .content .grid .row > div
 {
   display:inline-block;
   overflow:hidden;
 }
-.epilogue .summary .content .content .grid .row > div:nth-child(1)
+.epilogue .summary .content .grid .row > div:nth-child(1)
 {
   width:10%;
   text-align:right;
 }
-.epilogue .summary .content .content .grid .row > div:nth-child(2)
+.epilogue .summary .content .grid .row > div:nth-child(2)
 {
   width:30%;
   text-align:center;
 }
-.epilogue .summary .content .content .grid .row > div:nth-child(3)
+.epilogue .summary .content .grid .row > div:nth-child(3)
 {
   width:20%;
   text-align:center;
 }
-.epilogue .summary .content .content .grid .row > div:nth-child(4)
+.epilogue .summary .content .grid .row > div:nth-child(4)
 {
   width:30%;
   text-align:center;
 }
-.epilogue .summary .content .content .grid .row .years-passed
+.epilogue .summary .content .grid .row .years-passed
 {
   vertical-align:top;
 }
 /* footer */
-.epilogue .summary .content .footer .share
+.epilogue .summary .footer .share
 {
   float:left;
   margin-left:50px;
 }
-.epilogue .summary .content .footer .play-again
+.epilogue .summary .footer .play-again
 {
   float:right; 
   margin-right:50px;
 }
-.epilogue .summary .content .footer .btn
+.epilogue .summary .footer .btn
 {
   padding:12px 20px;
   background-color:white;
@@ -143,7 +143,7 @@ body,html
   font-family: arial;
   font-size: 20px;
 }
-.epilogue .summary .content .footer .btn:hover
+.epilogue .summary .footer .btn:hover
 {
   cursor:pointer;
   background-color:rgb(229, 229, 229);

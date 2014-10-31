@@ -7,5 +7,3 @@
 //= require d3.v3.min.js
 //= require jwerty.js
 //= require sylvester.src.js
-
-var globalGameVar = 1;
