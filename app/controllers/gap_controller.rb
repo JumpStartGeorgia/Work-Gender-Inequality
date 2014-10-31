@@ -53,8 +53,9 @@ class GapController < ApplicationController
           logger.debug('You are faceboooooooooooooooooooooooooooooooooooooooooooooooooooooook')
           logger.debug(encodedP)
           logger.debug(request.original_url.split('?').first)
-          @url = request.original_url.split('?').first + encodedP     
+          @url = request.original_url.split('?').first + '?' + encodedP     
           logger.debug(@url)
+          logger.debug(p)
           @descr = "Gender " + I18n.t("gap.gamedata.gender.#{p[:g]}") + ", Age " + p[:a] + ", Category " + I18n.t("gap.gamedata.category.#{p[:c]}") + ", Salary " + p[:s] + ", Interest " +  I18n.t("gap.gamedata.interest.#{p[:i]}") + ", Salary Percent " + p[:p] 
           logger.debug(@descr)
           respond_to do |format|
