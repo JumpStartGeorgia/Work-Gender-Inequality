@@ -67,7 +67,7 @@ class GapController < ApplicationController
     respond_to do |format|
       if p.present?
         encodedP = Base64.urlsafe_encode64(p.to_param)
-        format.json { render :json => { :s => render_to_string('gap/_summary', :locals => { :url => nil }) } }
+        format.json { render :json => { :s => render_to_string('gap/_summary', :formats => [:html], :locals => { :p=> p, :f => facebook }) } }
         format.html { render 'gap/summary', :locals => { :p => p, :f => facebook } }
       else
         format.json { render :json => { :s => "Summary can't be built" } }

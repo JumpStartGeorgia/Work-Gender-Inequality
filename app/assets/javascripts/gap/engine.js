@@ -156,7 +156,7 @@ function epilogue()
 
   $.getJSON( "gap/summary?" + window.location.hash.substr(1), function( data ) {
     t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
-    //whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
+    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
     t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
   });
   
@@ -172,7 +172,7 @@ function epilogue_trigger(t)
     duration:1000,
     start:function()
     {
-      slider.off("mouseenter");
+      whatnext_trigger.off("mouseenter");
       epilogueTmp = true;
     },
     progress:function(a,b,c)
@@ -186,7 +186,7 @@ function epilogue_trigger(t)
     },
     complete:function()
     {
-      slider.on('mouseenter',function(){ epilogue_trigger(t)});
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
       epilogueUp=!epilogueUp;
     }
   });
