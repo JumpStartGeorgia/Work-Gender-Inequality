@@ -56,9 +56,11 @@ class GapController < ApplicationController
           @url = request.original_url.split('?').first + '?f=' + encodedP     
           logger.debug(@url)
           logger.debug(p)
-          logger.debug(I18n.t("gap.gamedata.gender.#{p[:g]}"))
           logger.debug(p[:g])
           logger.debug(", Age " + p[:a])
+          logger.debug(I18n.t("gap.gamedata.gender.#{p[:g]}"))
+          
+          
           @descr = "Gender " + I18n.t("gap.gamedata.gender.#{p[:g]}") + ", Age " + p[:a] + ", Category " + I18n.t("gap.gamedata.category.#{p[:c]}") + ", Salary " + p[:s] + ", Interest " +  I18n.t("gap.gamedata.interest.#{p[:i]}") + ", Salary Percent " + p[:p] 
           logger.debug(@descr)
           respond_to do |format|
