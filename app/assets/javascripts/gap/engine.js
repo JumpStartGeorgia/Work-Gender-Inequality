@@ -148,25 +148,31 @@ function epilogue()
   //scr_clean();
   //s.toggleClass(sepilogue.class);
   sendUserData(true); // on finish update poll data
-  var t = $("<div class='epilogue'><div class='summary'><div class='text'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='text'></div></div></div>").appendTo(s.parent());
-  var str = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
-  var whatnext = t.find('.whatnext');
-  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.text').text(str);
-  t.find('.summary').css({ width: w-20, height:h-120, display:'inline-block' }).find('.text').text(str+str);
-  whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
+  if($('epilogue').length) return;
 
-  t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var whatnext = t.find('.whatnext');
+  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
+
+  $.getJSON( "gap/summary?" + window.location.hash.substr(1), function( data ) {
+    t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
+    //whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
+    t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+  });
+  
 }
 function epilogue_trigger(t)
 {
   var whatnext_trigger = $(".whatnext-trigger");
-  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow')
-  t.find('.whatnext').animate({top: epilogueUp ? -1*(h-20) : -100 },
+  var summary = t.find(".summary");
+  var slider = t.find(".slider");
+  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
+  slider.animate({top: epilogueUp ? -1*(h-20)+100 : 0 },
   {
     duration:1000,
     start:function()
     {
-      whatnext_trigger.off("mouseenter");
+      slider.off("mouseenter");
       epilogueTmp = true;
     },
     progress:function(a,b,c)
@@ -180,7 +186,7 @@ function epilogue_trigger(t)
     },
     complete:function()
     {
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
+      slider.on('mouseenter',function(){ epilogue_trigger(t)});
       epilogueUp=!epilogueUp;
     }
   });

@@ -22,6 +22,7 @@ BootstrapStarter::Application.routes.draw do
 		get '/gap', :to => 'gap#index'
 		post '/gap/poll', :to => 'gap#poll'
 		match '/gap/share', :to => 'gap#share'
+		get '/gap/summary', :to => 'gap#summary'
 
 		root :to => 'root#index'
 	  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
