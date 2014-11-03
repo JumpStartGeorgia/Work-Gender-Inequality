@@ -22,9 +22,9 @@
 						<div class='grid'>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='human-state'><%= t('.winner') %></div>
+								<div class='human-state'><%= "#{d[:fstate]}" %></div>
 								<div class='title-job'><%= d[:title_job] %></div>
-								<div class='human-state'><%= t('.loser') %></div>
+								<div class='human-state'><%= "#{d[:sstate]}" %></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
@@ -39,22 +39,34 @@
 								<div class='dummy'></div>
 							</div>
 							<div class='row'>
-								<div class='icon-dollar'>$</div>
+								<div class='title-salary'><%= t('.salary') %></div>
 								<div class='human-salary'><%= d[:fsalary_total] %></div>
 								<div class='human-salary-diff'><%= d[:salary_total_diff] %></div>
 								<div class='human-salary'><%= d[:ssalary_total] %></div>
 							</div>
 							<div class='row'>
-								<div class='icon-piggy'>pig</div>
-								<div class='human-salary'><%= d[:fsaved_total] %></div>
-								<div class='human-salary-diff'><%= d[:saved_total_diff] %></div>
-								<div class='human-salary'><%= d[:ssaved_total] %></div>
+								<div class='title-saved'><%= t('.saved') %></div>
+								<div class='human-saved'><%= d[:fsaved_total] %></div>
+								<div class='human-saved-diff'><%= d[:saved_total_diff] %></div>
+								<div class='human-saved'><%= d[:ssaved_total] %></div>
 							</div>
 							<div class='row'>
-								<div class='icon-award'><%= t('.award') %></div>
-								<div class='human-award'></div>
-								<div class='human-award-diff'></div>
-								<div class='human-award'></div>
+								<div class='title-award'><%= t('.award') %></div>
+								<div class='human-award'>
+									<% d[:faward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
+								<div class='human-award-diff'>
+									<% d[:daward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
+								<div class='human-award'>
+									<% d[:saward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
 							</div>
 						</div>
 					</div>

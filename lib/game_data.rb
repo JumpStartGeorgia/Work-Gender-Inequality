@@ -67,6 +67,8 @@ class GameData
   		@@categories.find {|v| v[:id] == id }
   	end
   	def self.interest(id)
-  		@@interests.find {|v| v[:id] == id }
+  		cat = @@interests.find {|v| v[:id] == id }
+  		cat[:items].sort!{|x,y| x[:cost] <=> y[:cost]}
+      return cat
   	end
 end	

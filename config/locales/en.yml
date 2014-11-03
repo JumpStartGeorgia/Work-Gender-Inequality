@@ -269,8 +269,10 @@ en:
       difference: Difference
       play_again: Play again
       share: Share
-      award: Award
+      award: Awards
       winner: Winner
+      salary: Salary
+      saved: Saved
       loser: Loser
       title_main: Congratulations you have won the pay game
       title_score: Final Score
