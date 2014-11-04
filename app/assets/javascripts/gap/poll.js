@@ -651,7 +651,10 @@ console.log("here");
   },
   choose_interest: function choose_interest()
   {    
-    interest = interests.filter(function(a){ return a.id == user.interest; })[0].items.sort(function(a,b){ return a.cost - b.cost; });
+    var tmp = interests.filter(function(a){ return a.id == user.interest; })[0];
+
+    interest = tmp.items.sort(function(a,b){ return a.cost - b.cost; });
+    interestAlias = tmp.name.substring(0,3).toLowerCase();
 
     interest_level_map = [];
     for(var i = 1; i < interest.length; ++i)

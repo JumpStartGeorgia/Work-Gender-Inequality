@@ -744,30 +744,12 @@ svg.thumbnail path
    top:0px;
    left:0px;
 }
-.bag
-{
-  background-image:url("../gap/svg/interests/bag.svg");
-}
-.coconut
-{
-  background-image:url("../gap/svg/interests/coconut.svg");
-}
-.compass
-{
-  background-image:url("../gap/svg/interests/compass.svg");
-}
-.credit
-{
-  background-image:url("../gap/svg/interests/credit.svg");
-}
-.directions
-{
-  background-image:url("../gap/svg/interests/directions.svg");
-}
-.boat
-{
-  background-image:url("../gap/svg/interests/boat.svg");
-}
+.gad-1 { background-image:url("../gap/svg/interests/gad_1.svg"); }
+.gad-2 { background-image:url("../gap/svg/interests/coconut.svg"); }
+.gad-3 { background-image:url("../gap/svg/interests/compass.svg"); }
+.gad-4 { background-image:url("../gap/svg/interests/credit.svg"); }
+.gad-5 { background-image:url("../gap/svg/interests/directions.svg"); }
+.gad-6 { background-image:url("../gap/svg/interests/boat.svg"); }
 
 .volume
 {

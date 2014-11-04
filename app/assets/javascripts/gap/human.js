@@ -124,7 +124,7 @@ function human(selector,title)
 		this.path = v.path;
 		var t = this;
     var time_slower = v.duration*1000/150;
-		$(this.selector).animate({"color":'white'},{ duration:v.duration*1000, 
+		$(this.selector).animate({"color":'white'},{ duration:(v.duration*3000), 
       start:function()
       {
         $(t.selector).show();
@@ -134,7 +134,7 @@ function human(selector,title)
 				t.position(t.getpathcoordinates(b));
         if(Math.floor10(c/150) < time_slower )
         {
-          t.next_movement();            
+          t.next_movement();           
           --time_slower;
         }
 			},
@@ -291,8 +291,8 @@ function human(selector,title)
   {
     var t = this;
     if(typeof which === "undefined") return;
-    if(which == 1) events = t.event_by_period[pos];
-
+    if(which == 1) events = t.event_by_period[pos-1];
+    console.log("pos",pos)
     if (typeof events === "undefined" || events == 0) 
     {
       this.queue.resume();  
@@ -313,6 +313,8 @@ function human(selector,title)
       if(t.outrun)
       {
         var restrictor = t.oppenent.hasLevelMutation(which);
+        //console.log("restrictor",restrictor,mutateCount,t.title);
+
         if(mutateCount > restrictor) { mutateCount = restrictor; }
       }
 
@@ -579,8 +581,7 @@ function human(selector,title)
     if(!(which>=1 && which <= 4)) return 999;
 
     var prevTmp = 0;
-    var prevTmpM = 0;
-    for(var i = 0; i <= pos-1; ++i)
+    for(var i = 0; i < pos-1; ++i)
     {
       prevTmp += t.event_by_period[i];
     }
@@ -589,7 +590,7 @@ function human(selector,title)
       prevTmp -= Math.floor10(prevTmp / states_mutation_based[i]) * states_mutation_based[i];
       if(i == which-1)   break;
     }
-    return Math.floor10((t.event_by_period[pos] + prevTmp) / states_mutation_based[which-1]);
+    return Math.floor10((t.event_by_period[pos-1] + prevTmp) / states_mutation_based[which-1]);
   };
   this.inrange = function(which)
   {

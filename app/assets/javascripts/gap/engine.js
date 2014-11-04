@@ -352,9 +352,6 @@ function timeline_tick(n)
 function timeline_point_draw()
 {
   
-  //timeline_points.forEach(function(d,i){
-  
-  //console.log("here",pos_max,w2,timeline_period_w);
   var scaler = timeline_period_w/reward_period;
   for(var i = 0; i <= pos_max; ++i) 
   {
@@ -436,8 +433,7 @@ function timeline_point_draw()
 ***************************************************************/
 function calculate_process(v)
 {
-  console.log("calculate");
-  if(pos >= -1)
+  if(pos >= 0)
   {
     var tmp = v*reward_period;
     humans.forEach(function(d)
@@ -449,15 +445,12 @@ function calculate_process(v)
 }
 function walk_process(v)
 {
-  //if(pos >= -1) //>= 0 && pos != prev_pos)
-  //{
   if(v==1)
     h_go_right();
   else if(v == -1)
     h_go_left();          
  
   $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
-  //}  
 }
 var reward = false;
 function any_reward()
@@ -493,7 +486,6 @@ function gopast()
        d.card.prev();
     }
   });
- 
 }
 function card_prepare(v)
 {
@@ -593,6 +585,7 @@ function params_init()
 function params_read()
 {
   var hash = window.location.hash._trimLeft('#'); 
+  hash = Base64.decode(hash);
   params = {}; 
   steptogo = 0;
   if(exist(hash))
@@ -682,6 +675,7 @@ function params_set(v)
     for(var i = 0; i < steptogo; ++i)
       hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
     if(hash[0]=='&') hash=hash.substr(1);
+    hash = Base64.encode(hash);
     if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
   }  
 }
@@ -693,6 +687,7 @@ function params_time_set()
   hash+= "&t=" + pos;
 
   if(hash[0]=='&') hash=hash.substr(1);
+  hash = Base64.encode(hash);
   if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
 }
 function params_back()
@@ -713,7 +708,7 @@ function params_back()
     }
     loc = loc.slice(0,-1);
 
-    window.location.hash = loc;
+    window.location.hash = Base64.encode(loc);
     window.location.reload();
   } 
 }

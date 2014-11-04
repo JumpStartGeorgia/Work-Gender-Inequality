@@ -42,33 +42,74 @@ var interests =
 [
         { "id": "gfNDXD1g", "name": "Vacation", items:[] },
         { "id": "Rs2Uml6w","name": "Gadgets", 
-                items:
-                [
-                  { "id": "Q3eeT2j9", "type": "mobile", "title":"SAMSUNG I9300 Galaxy S3 White", "cost":700, 
-                    "image":"bag.svg", "class":"bag",
-                    "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White", "source_date":"22.09.2014",
-                    "descr":"Mobile Phone" },
-                  { "id": "NeRMinwu", "type": "mobile", "title":"Nokia 1280 Black/G", "cost":41.99,
-                    "image":"boat.svg", "class":"boat",
-                    "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG", "source_date":"22.09.2014",
-                    "descr":"Tab" },
-                  { "id": "eLkVnL8n", "type": "mobile", "title":"Apple Iphone 5S 64GB Gold", "cost":1765,
-                    "image":"coconut.svg", "class":"coconut",
-                    "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/", "source_date":"22.09.2014",
-                    "descr":"XBox" },
-                  { "id": "kV1jvNlr", "type": "mobile", "title":"Vertu Signature Diamond", "cost":154000,
-                    "image":"compass.svg", "class":"compass",
-                    "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/", "source_date":"22.09.2014",
-                    "descr":"Notebook" },
-                  { "id": "USLng33Z", "type": "mobile", "title":"E", "cost":2000,
-                    "image":"credit.svg", "class":"credit",
+            items:
+            [
+                { 
+                    "id": "NeRMinwu",
+                    "type": "mobile",
+                    "title":"Nokia 1280 Black/G",
+                    "cost":41.99,
+                    "image":"gad_1.svg",
+                    "class":"gad-1",
+                    "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG",
+                    "source_date":"22.09.2014",
+                    "descr":"Tab" 
+                },
+                { 
+                    "id": "Q3eeT2j9",
+                    "type": "mobile",
+                    "title":"SAMSUNG I9300 Galaxy S3 White",
+                    "cost":700, 
+                    "image":"gad_2.svg",
+                    "class":"gad-2",
+                    "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White",
+                    "source_date":"22.09.2014",
+                    "descr":"Mobile Phone" 
+                },
+                { 
+                    "id": "4JAffVD6",
+                    "type": "mobile", 
+                    "title":"C",
+                    "cost":1100,
+                    "image":"gad_3.svg",
+                    "class":"gad-3",
                     "source":"", "source_date":"",
-                    "descr":"Theatre" },
-                  { "id": "4JAffVD6", "type": "mobile", "title":"C", "cost":1100,
-                    "image":"directions.svg", "class":"directions",
-                    "source":"", "source_date":"",
-                    "descr":"Super Buper Thing" }
-                ]
+                    "descr":"Super Buper Thing" 
+                },
+                { 
+                    "id": "USLng33Z",
+                    "type": "mobile",
+                    "title":"E",
+                    "cost":2000,
+                    "image":"gad_4.svg",
+                    "class":"gad-4",
+                    "source":"",
+                    "source_date":"",
+                    "descr":"Theatre"
+                },
+                { 
+                    "id": "eLkVnL8n",
+                    "type": "mobile", 
+                    "title":"Apple Iphone 5S 64GB Gold",
+                    "cost":1765,
+                    "image":"gad_5.svg",
+                    "class":"gad-5",
+                    "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/",
+                    "source_date":"22.09.2014",
+                    "descr":"XBox"
+                },
+                { 
+                    "id": "kV1jvNlr",
+                    "type": "mobile",
+                    "title":"Vertu Signature Diamond",
+                    "cost":154000,
+                    "image":"gad_6.svg",
+                    "class":"gad-6",
+                    "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/",
+                    "source_date":"22.09.2014",
+                    "descr":"Notebook" 
+                }
+            ]
         },   
         { "id": "KI3EFRI3","name": "Education", items:[] },
         { "id": "7fdCIojZ","name": "Housing", items:[] },
@@ -165,5 +206,6 @@ var sounds =
     { "name":"done",        loop:false, path:"/assets/gap/sound/done.mp3" },
     { "name":"applause",    loop:true,  path:"/assets/gap/sound/happy.mp3" },
     { "name":"long",        loop:true,  path:"/assets/gap/sound/long.mp3" },
-    { "name":"select",      loop:false, path:"/assets/gap/sound/select.mp3" },
+    { "name":"select",      loop:false, path:"/assets/gap/sound/select.mp3" }//,
+    //{ "name":"background",  loop:true, path:"/assets/gap/sound/background.mp3" },
 ];

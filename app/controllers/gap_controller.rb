@@ -200,6 +200,9 @@ class GapController < ApplicationController
     if params[:f].present?  # check if parameter f exists ? so facebook link decode and extract to p : ordinary url get only parameters as in filter array
         p = fparse(params[:f])
         paramsOk = p.present?
+    elsif params[:b].present? 
+        p = fparse(params[:p])
+        paramsOk = p.present?
     else 
       params.each do |k,v|
         p[k] =v if filter.include?(k)
