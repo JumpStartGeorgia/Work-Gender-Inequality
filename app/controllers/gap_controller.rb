@@ -108,16 +108,14 @@ class GapController < ApplicationController
     end
     percentTmp  = percent*1.0 / 100
     d[:fsalary_total] = (gender == 'm' ? msalary : fsalary) * (cur_ticks * tick)
-    d[:fsaved_total] = d[:fsalary_total] * percentTmp;
+    d[:fsaved_total] = (d[:fsalary_total] * percentTmp).floor;
     d[:ssalary_total] = (gender == 'm' ? fsalary : msalary) * (cur_ticks * tick)
-    d[:ssaved_total] = d[:ssalary_total] * percentTmp;
-    d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs
-    d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs
+    d[:ssaved_total] = (d[:ssalary_total] * percentTmp).floor;
+    d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs.floor
+    d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs.floor
 
     d[:fstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.winner') : t('gap.summary.loser')
     d[:sstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.loser') : t('gap.summary.winner')
-
-    #calculate award for each
 
     if(d[:fsaved_total] > d[:ssaved_total])
       
@@ -132,9 +130,8 @@ class GapController < ApplicationController
           d[:saward][i] = 0
         end
       }
-      logger.debug(d[:saward])
+      
       ftmp = d[:fsaved_total]
-      # logger.debug(ftmp)
       d[:faward] = []
       @interest[:items].reverse.each_with_index { |v,i|
         tmpInt = ftmp.divmod(v[:cost])
@@ -143,14 +140,12 @@ class GapController < ApplicationController
         end 
         if(tmpInt[0] >= 1)
           d[:faward][i] = tmpInt[0]
-          ftmp = tmpInt[1]
+          ftmp = ftmp - tmpInt[0]*v[:cost]
         else 
           d[:faward][i] = 0
         end
       }
-
     else
-
       ftmp = d[:fsaved_total]
       d[:faward] = []
       @interest[:items].reverse.each_with_index { |v,i|
@@ -172,7 +167,7 @@ class GapController < ApplicationController
         end 
         if(tmpInt[0] >= 1)
           d[:saward][i] = tmpInt[0]
-          ftmp = tmpInt[1]
+          ftmp = ftmp - tmpInt[0]*v[:cost]          
         else 
           d[:saward][i] = 0
         end
@@ -184,13 +179,12 @@ class GapController < ApplicationController
       d[:daward][i] = (d[:saward][i] - d[:faward][i]).abs
     }
 
-
-    logger.debug(d)
+    #Log.write(d[:daward],p,'asdfasdf',"#{1+5}")
 
     respond_to do |format|
       if p.present?
         encodedP = Base64.urlsafe_encode64(p.to_param)
-        format.json { render :json => { :s => render_to_string('gap/_summary', :formats => [:html], :locals => { :p=> p, :f => facebook }) } }
+        format.json { render :json => { :s => render_to_string('gap/_summary', :formats => [:html], :locals => { :p => p, :f => facebook, :d => d }) } }
         format.html { render 'gap/summary', :locals => { :p => p, :f => facebook, :d => d } }
       else
         format.json { render :json => { :s => "Summary can't be built" } }

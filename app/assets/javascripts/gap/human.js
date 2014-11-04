@@ -469,8 +469,8 @@ function human(selector,title)
                         $(this).css({'transform':'scale(' + (1+val)+','+(1+val) + ')',opacity:1-b})
                      },
                     complete:function(){ 
-                      var prevImage = 'i' + interest[zIndex].class;
-                      var nextImage = 'i' + interest[zIndex+1].class;
+                      var prevImage = interest[zIndex].class;
+                      var nextImage = interest[zIndex+1].class;
                       $(this).removeClass(prevImage).css('transform','scale(1,1)').addClass(nextImage).css('opacity',1);
                       t.queue.resume();
                     }
