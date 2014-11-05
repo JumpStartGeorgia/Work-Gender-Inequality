@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20141022114521) do
-=======
-ActiveRecord::Schema.define(:version => 20141022052225) do
->>>>>>> a3815d9376dd7a62f07894938e224143c3551e0e
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
