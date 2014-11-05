@@ -28,7 +28,11 @@ function redraw()
 
   timeline_period_w = w*timeline_scale;
   timeline_month_w = timeline_period_w/reward_period;
-  if(ingame) redraw_game();
+  if(ingame)
+  { 
+    redraw_game();
+    redraw_timeline();
+  }
 }
 function redraw_game()
 {            
@@ -42,6 +46,24 @@ function redraw_human(v)
   if(typeof v === undefined) v = null;
   male.position(v);
   female.position(v);
+}
+function redraw_timeline()
+{
+  isTimelineLoaded = false;
+  // checking if width of timeline should be resized
+  //var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+  //var len = timeline_points.length;
+  //if(t1 > len*timeline_month_w) 
+  //{
+  //  var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+  //  timeline_tick(toadd);
+  //}          
+  if(pos_max != null) 
+  {
+    //timeline_tick();
+    timeline_point_draw();
+    isTimelineLoaded = true;
+  }
 }
 function scr_clean(klass)
 {
@@ -57,6 +79,7 @@ function walk(v)
   var needWalk = true;
   if(v==1)
   {        
+    if(pos+1>pos_max) { epilogue(); return; }
     if(total_scrolls % scrolls_for_reward == 0)
     {
       ++pos;
@@ -68,20 +91,12 @@ function walk(v)
           reward_process(v); needWalk = false;
         }
       }  
-    }
-    // checking if width of timeline should be resized
-    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-    var len = timeline_points.length;
-    if(t1 > len*timeline_month_w) 
-    {
-      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-      timeline_tick(toadd);
-    }          
+    }  
   }
   else
   {
     if(pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
-    {
+    {      
       --pos;      
       calculate_process(v);
       gopast();
@@ -141,20 +156,55 @@ function sound_button()
     });
   }
 }
+var epilogueUp = true;
 function epilogue()
 {
   gameoff();
   //scr_clean();
   //s.toggleClass(sepilogue.class);
   sendUserData(true); // on finish update poll data
-  var t = $('<div class="epilogue"></div>').appendTo(s.parent());
-  t.append(
-    "<div class='summary'><div class='summary-trigger'><div class='arrow-down'></div></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow-up'></div></div></div>"
-    );
-  t.find('.summary, .whatnext').css({ width: w-20, height:h-20, display:'inline-block' });
-  t.find('.summary-trigger, .whatnext-trigger');
+  if($('epilogue').length) return;
 
-  t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear", function(){  } );
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var whatnext = t.find('.whatnext');
+  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
+
+  $.getJSON( "gap/summary?" + window.location.hash.substr(1), function( data ) {
+    t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
+    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
+    t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+  });
+  
+}
+function epilogue_trigger(t)
+{
+  var whatnext_trigger = $(".whatnext-trigger");
+  var summary = t.find(".summary");
+  var slider = t.find(".slider");
+  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
+  slider.animate({top: epilogueUp ? -1*(h-20)+100 : 0 },
+  {
+    duration:1000,
+    start:function()
+    {
+      whatnext_trigger.off("mouseenter");
+      epilogueTmp = true;
+    },
+    progress:function(a,b,c)
+    {
+      if(epilogueTmp && b > 0.5)
+      {
+        epilogueTmp = false;
+        whatnext_trigger_arrow.toggleClass('arrow-down arrow-up');
+      }
+      whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
+    },
+    complete:function()
+    {
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
+      epilogueUp=!epilogueUp;
+    }
+  });
 }
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
@@ -217,20 +267,21 @@ function game_init() {
 
   if(pos >= 0)
   {
-    var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-    var len = timeline_points.length;
-    if(t1 > len*timeline_month_w) 
-    {
-      var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-      timeline_tick(toadd);
-    }         
+    // var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
+    // var len = timeline_points.length;
+    // if(t1 > len*timeline_month_w) 
+    // {
+    //   var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
+    //   timeline_tick(toadd);
+    // }         
     $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
   }
 
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
 
-  timeline_tick();
+  //timeline_tick();
+  timeline_point_draw();
   draw_stage(0);
 
   var m = $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
@@ -284,39 +335,44 @@ function draw_stage(v)
 };
 function timeline_tick(n)
 {
-  for(var i = 0; i < n; ++i)
-  {
-    var curTime = new Date();
-    size = timeline_points.length;
-    curTime.setTime(timeline_points[size-1].getTime());
+  //console.log('timeline_tick',n);
+  // for(var i = 0; i < n; ++i)
+  // {
+  //   var curTime = new Date();
+  //   size = timeline_points.length;
+  //   curTime.setTime(timeline_points[size-1].getTime());
 
-    curTime.setMonth(curTime.getMonth() + reward_period);
-    console.log(timeline_end_point);
-    if(curTime > timeline_end_point) epilogue();
+  //   curTime.setMonth(curTime.getMonth() + reward_period);
 
-    timeline_point = curTime;
-    timeline_points.push(curTime);  
-  }      
-  timeline_point_draw();   
+  //   timeline_points.push(curTime);  
+  //   //if(curTime > timeline_end_point) { console.log(curTime,timeline_end_point); epilogue(); break; } 
+  // }      
+  //timeline_point_draw();   
 }
 function timeline_point_draw()
 {
-  timeline_points.forEach(function(d,i){
-    if(!timeline.find('.point-in-time[data-time=' + d.getTime() + ']').length)
+  
+  var scaler = timeline_period_w/reward_period;
+  for(var i = 0; i <= pos_max; ++i) 
+  {
+
+    var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
+    if(!timeline.find('.point-in-time[data-time=' + now.getTime() + ']').length)
     {
-      var point = $('<div class="point-in-time" data-time="'+ d.getTime()+'"><div class="point">'+getMonthS(d)+ " " + d.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
+      var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
       point.css({heigth:th,line_height:th});
       
       if(i == 0) 
       { 
         prevPosition = w2;
-        prevPositionLeft = w2 - point.width()/2;
+        prevPositionLeft = w2 - Math.floor10(point.width()/2);
       }
       else 
       {       
         prevPosition += timeline_period_w;
-        prevPositionLeft = prevPosition - point.width()/2;
+        prevPositionLeft = prevPosition - Math.floor10(point.width()/2);
       }
+      //console.log(prevPosition,prevPositionLeft);
       point.css({left: prevPositionLeft });
 
       if(i!=0)
@@ -335,10 +391,10 @@ function timeline_point_draw()
           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - interest_w2});
-          if(i<=pos+1) { rew.hide(); }
+          if(i<=pos) { rew.hide();}
           for(var j = 0; j < mCountTmp; ++j)
           { 
-             $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
+             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
           }
         }
         if(fCountTmp > 0)
@@ -346,26 +402,30 @@ function timeline_point_draw()
            var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
             rew.css({heigth:th,line_height:th});
             rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-            if(i<=pos+1) { rew.hide(); }
+            if(i<=pos) { rew.hide();}
           for(var j = 0; j < fCountTmp; ++j)
           { 
-             $('<div class="item i' + interest[0].class  + '"></div>').appendTo(rew);
+             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
           }
         }
       }
-      var scaler = timeline_period_w/reward_period;
-      for(var j = 0; j < reward_period-1; ++j)
+      
+      if(i != pos_max)
       {
-         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
+        for(var j = 0; j < reward_period-1; ++j)
+        {
+           $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
+           //console.log(prevPosition,prevPosition+(j+1)*scaler);
+        }
       }
 
-      point.find('.point').text(getMonthS(d) + " " + d.getFullYear());    
-      point.attr('data-time',d.getTime());
+      point.find('.point').text(getMonthS(now) + " " + now.getFullYear());    
+      point.attr('data-time',now.getTime());
     }
-  });
+  }
  
-  $('.treasure .red-carpet').css({width:timeline_points.length*w}); 
-  timeline.css({width:timeline_points.length*w}); 
+  $('.treasure .red-carpet').css({width:pos_max*w}); 
+  timeline.css({width:pos_max*w}); 
 
 }
 /***************************************************************
@@ -373,7 +433,7 @@ function timeline_point_draw()
 ***************************************************************/
 function calculate_process(v)
 {
-  if(pos >= -1)
+  if(pos >= 0)
   {
     var tmp = v*reward_period;
     humans.forEach(function(d)
@@ -385,15 +445,12 @@ function calculate_process(v)
 }
 function walk_process(v)
 {
-  //if(pos >= -1) //>= 0 && pos != prev_pos)
-  //{
   if(v==1)
     h_go_right();
   else if(v == -1)
     h_go_left();          
  
   $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
-  //}  
 }
 var reward = false;
 function any_reward()
@@ -422,28 +479,26 @@ function reward_process()
 function gopast()
 {
   humans.forEach(function(d){
-    if(d.event_by_period[pos+1]>0) 
+    if(d.event_by_period[pos]>0) 
     { 
-       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+2)+']');
+       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
        rew.show();         
        d.card.prev();
     }
   });
- 
 }
 function card_prepare(v)
 {
   var c = pos > prev_pos;
-  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
+  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
   if(c)
   {
-    rew.hide();
+    rew.hide();    
     v.card.next();
   }
   else
   {
     rew.show();         
-    //v.card.prev();
   }
   v.queue.resume();  
 }
@@ -530,6 +585,7 @@ function params_init()
 function params_read()
 {
   var hash = window.location.hash._trimLeft('#'); 
+  hash = Base64.decode(hash);
   params = {}; 
   steptogo = 0;
   if(exist(hash))
@@ -561,7 +617,7 @@ function params_validate()
       ((params.g=="f" && params.a <= female_max_age) || (params.g=="m" && params.a <= male_max_age)))
   {
     steptogo = 2;
-    user.age = params.a;
+    user.age = params.a;    
   }
   if(steptogo == 2 && exist(params.c) && cat_ids.indexOf(params.c)!=-1)
   {
@@ -586,14 +642,26 @@ function params_validate()
       user.salary_percent = params.p;
       sendUserData();
   }  
-  if(steptogo == 6 &&  exist(params.t) && isNumber(params.t) && params.t >=0 && params.t <= 100)
+  if(steptogo == 6 &&  exist(params.t) && isNumber(params.t))
   {
-    if(can_scroll((+params.t+1)*scrolls_for_reward))
+    if(params.t >=0 && params.t <= pos_max)
     {
-      pos = +params.t;    
-      total_scrolls = (pos+1)*scrolls_for_reward;
-      start_by_time();
+      if(can_scroll((+params.t+1)*scrolls_for_reward))
+      {
+        pos = +params.t;    
+        total_scrolls = pos*scrolls_for_reward;
+        start_by_time();
+      }
     }
+    // else
+    // {
+    //   if(params.t > pos_max)
+    //   {
+    //     pos = pos_max;
+    //     total_scrolls = (pos)*scrolls_for_reward;
+    //     epilogue();
+    //   }
+    // }
 
   }
   
@@ -607,6 +675,7 @@ function params_set(v)
     for(var i = 0; i < steptogo; ++i)
       hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
     if(hash[0]=='&') hash=hash.substr(1);
+    hash = Base64.encode(hash);
     if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
   }  
 }
@@ -618,6 +687,7 @@ function params_time_set()
   hash+= "&t=" + pos;
 
   if(hash[0]=='&') hash=hash.substr(1);
+  hash = Base64.encode(hash);
   if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
 }
 function params_back()
@@ -638,7 +708,7 @@ function params_back()
     }
     loc = loc.slice(0,-1);
 
-    window.location.hash = loc;
+    window.location.hash = Base64.encode(loc);
     window.location.reload();
   } 
 }

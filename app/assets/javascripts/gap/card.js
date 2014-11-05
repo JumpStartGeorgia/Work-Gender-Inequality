@@ -27,11 +27,11 @@ function cardObject(p)
 	{
 		this.show();
 		this.text(interest[0].descr);
-		var cnt = this.p.event_by_period[pos];
+		var cnt = this.p.event_by_period[pos-1];
 		this.scoins.empty();
 		for(var i = 0; i < cnt; ++i)		
 		{
-			this.scoins.append('<div class="coin item iboat"></div>');
+			this.scoins.append('<div class="coin item '+interestAlias+'-1"></div>');
 		}
 		//if(cnt > 0) this.hide();
 	};

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+   <head>  
+      <title><%= t('.title') %></title>
+      <meta charset="utf-8">  
+      <meta property="og:title"content="Gap Game Summary" />
+      <meta property="og:site_name" content="Gap Game Summary"/>
+      <meta property="og:description" content="Game Itself" />
+      <meta property="og:type" content="website" />
+      <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
+      <link rel="stylesheet" type="text/css" href="/assets/gap/summary.css">
+   </head>
+   <body>
+   	<div class='wrapper'>
+   		<div class='slider'>
+				<div class='summary'>
+				  	<div class='header'>
+						<div class='title'><%= t('.title_main') %></div>
+						<div class='title-score'><%= t('.title_score') %></div>
+					</div>
+					<div class='content'>
+						<div class='grid'>
+							<div class='row'>
+								<div class='dummy'></div>
+								<div class='human-state'><%= "#{d[:fstate]}" %></div>
+								<div class='title-job'><%= d[:title_job] %></div>
+								<div class='human-state'><%= "#{d[:sstate]}" %></div>
+							</div>
+							<div class='row'>
+								<div class='dummy'></div>
+								<div class='<%= d[:fclass] %>'></div>
+								<div class='years-passed'><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
+								<div class='<%= d[:sclass] %>'></div>
+							</div>
+							<div class='row'>
+								<div class='dummy'></div>
+								<div class='dummy'></div>
+								<div class='title-diff'><%= t('.difference') %></div>
+								<div class='dummy'></div>
+							</div>
+							<div class='row'>
+								<div class='title-salary'><%= t('.salary') %></div>
+								<div class='human-salary'><%= d[:fsalary_total] %></div>
+								<div class='human-salary-diff'><%= d[:salary_total_diff] %></div>
+								<div class='human-salary'><%= d[:ssalary_total] %></div>
+							</div>
+							<div class='row'>
+								<div class='title-saved'><%= t('.saved') %></div>
+								<div class='human-saved'><%= d[:fsaved_total] %></div>
+								<div class='human-saved-diff'><%= d[:saved_total_diff] %></div>
+								<div class='human-saved'><%= d[:ssaved_total] %></div>
+							</div>
+							<div class='row'>
+								<div class='title-award'><%= t('.award') %></div>
+								<div class='human-award'>
+									<% d[:faward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
+								<div class='human-award-diff'>
+									<% d[:daward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
+								<div class='human-award'>
+									<% d[:saward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='footer'>
+						<div class='share btn'><%= t('.share') %></div>
+						<div class='play-again btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
+					</div>
+				</div>
+				<div class='whatnext'>
+					<div class='whatnext-trigger'>
+						<div class='arrow arrow-up'></div>
+					</div>
+					<div class='content'></div>
+				</div>
+			</div>
+		</div>	
+<%= javascript_include_tag *(["game-summary"]), :media => "all" %>     
+<script>
+$(document).ready(function(){
+	redraw();	
+	$( window ).resize(function() { redraw(); });
+}); 
+var epilogueUp = true;
+var w = h = 0;
+function redraw()
+{
+	w = $(window).width();
+	h = $(window).height();
+	$('.summary').css({ width: w, height:h-100 });
+	$('.whatnext').css({ width: w, height:h }).find('.content').text("General Data");
+	$('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger()});
+	$(".slider").css( 'top', epilogueUp ?  0 : -1*(h)+100 );
+}
+function epilogue_trigger()
+{
+  var whatnext_trigger = $(".whatnext-trigger");
+  var summary = $(".summary");
+  var slider = $(".slider");
+  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
+  var epilogueTmp = true;
+  slider.animate({top: epilogueUp ? -1*(h)+100 : 0 },
+  {
+    duration:1000,
+    start:function()
+    {
+      whatnext_trigger.off("mouseenter");
+      epilogueTmp = true;
+    },
+    progress:function(a,b,c)
+    {
+      if(epilogueTmp && b > 0.5)
+      {
+        epilogueTmp = false;
+        whatnext_trigger_arrow.toggleClass('arrow-down arrow-up');
+      }
+      whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
+    },
+    complete:function()
+    {
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
+      epilogueUp=!epilogueUp;
+    }
+  });
+}
+</script>
+
+   </body>
+</html>

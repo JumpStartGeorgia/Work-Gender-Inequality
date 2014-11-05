@@ -263,3 +263,16 @@ en:
         7fdCIojZ: Housing
         3QDbCRrq: Transportation
         Cc8WWUmB: Health & Beauty
+    summary:
+      years: Years
+      months: Months
+      difference: Difference
+      play_again: Play again
+      share: Share
+      award: Awards
+      winner: Winner
+      salary: Salary
+      saved: Saved
+      loser: Loser
+      title_main: Congratulations you have won the pay game
+      title_score: Final Score

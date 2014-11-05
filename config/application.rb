@@ -2,7 +2,6 @@ require File.expand_path('../boot', __FILE__)
 
 require 'csv'
 require 'rails/all'
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -18,7 +17,7 @@ module BootstrapStarter
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
+    config.autoload_paths += %W(#{config.root}/lib)
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -58,7 +57,7 @@ module BootstrapStarter
     #config.assets.paths << Rails.root.join("app", "assets", "gap")
 
     # in app/assets folder
-    config.assets.precompile += %w( explore_data.js faqs.js game.js )
+    config.assets.precompile += %w( explore_data.js faqs.js game.js game-summary.js )
     config.assets.precompile += %w( explore_data.css faqs.css )    
     config.assets.precompile += %w( highcharts.js highcharts-exporting.js highcharts-map.js )    
     config.assets.precompile += %w( gap/* )  

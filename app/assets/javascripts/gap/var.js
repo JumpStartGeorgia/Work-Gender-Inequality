@@ -30,17 +30,17 @@ var s3 = null;
 /** height of land for human, based on viewport height and timeline height 
 * @type double */
 var lh = 0; 
-var curr_date = new Date(); // current date
 
 var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
-var timeline_point = new Date(curr_date.getFullYear(),curr_date.getMonth(),1,0,0,0,0);
-var timeline_end_point = new Date();
-timeline_end_point.setTime(timeline_point.getTime());
-timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
+var today = new Date(); // current date
+//var timeline_point = new Date(today.getFullYear(),today.getMonth(),1,0,0,0,0); // only for declaration
+//var timeline_end_point = new Date();
+//timeline_end_point.setTime(timeline_point.getTime());
+//timeline_end_point.setYear(timeline_end_point.getFullYear()+65);
 
-var timeline_points = [timeline_point];
+//var timeline_points = [timeline_point];
 //var time_step = "1m"; // increment for on each scroll is 3 months, available formats m:month, y:year
 
 //var timeline_format = 'm';
@@ -58,7 +58,7 @@ var life_scroll_count = 0;
 var def_age = 21;
 var min_age = 18;
 var max_age = 60;
-var male_max_age = 65;
+var male_max_age = 65; // todo
 var female_max_age = 60;
 var onscrollbefore = null;
 var onscrollup = null;
@@ -66,7 +66,7 @@ var onscrolldown = null;
 var onscrollafter = null;
 var fade_time = 0; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
-var tick_count = 4; // year ticks to show in info bar
+//var tick_count = 4; // year ticks to show in info bar
 var is = false;
 var max_salary = 99999;
 var current_path_width = 0;
@@ -88,13 +88,22 @@ var prevPosition = 0; // used in timeline draw function
 var user =
 {
   gender : 'n',
-  age : def_age,
+  _age : 0,
   category : null,
   salary : 100,
   interest : null,
   salary_percent : 0,
-  sended : false
+  sended : false  
 };
+user.__defineGetter__("age", function(){
+     return _age;
+});
+user.__defineSetter__("age", function(val){    
+  _age = val;
+  pos_max = (max_age - _age)*12/reward_period;
+});
+user.age = def_age;
+
 
 var male = null;
 var female = null;
@@ -113,8 +122,9 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var _pos = -1;
+  var _pos = 0;
   var prev_pos = -1;
+  var pos_max = null;
   var pos_changed = false;
   __defineGetter__("pos", function(){
      return _pos;
@@ -129,7 +139,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
 // treasure bar with card 
     var interest_offset = 10;
   var interest_animation_duration = 100;
-  var interest_w = 32;
+  var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
   //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
@@ -149,3 +159,5 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
 // sound control system
 var player = new playerObject();
 var isSoundLoaded = false;
+var isTimelineLoaded = false;
+var interestAlias = '';

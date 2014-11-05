@@ -18,7 +18,7 @@ function pedestalObject(p)
     var parent = t.sp.find('div.interestB[data-id=' + which + ']');
     for(var i = start+1; i <= start+how; ++i)
     {
-      var item = $('<div data-id=' + i + '>').addClass('item i' + interest[which-1].class); 
+      var item = $('<div data-id=' + i + '>').addClass('item ' + interest[which-1].class); 
       parent.append(item);
     }
   };
@@ -80,7 +80,7 @@ function pedestalObject(p)
       var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
       for(var j = 0; j < state; ++j)
       {
-        var item = $('<div data-id=' + (j+1) + '>').addClass('item i' + interest[i].class); 
+        var item = $('<div data-id=' + (j+1) + '>').addClass('item ' + interest[i].class); 
         parent.append(item);
       }
       treasure[i] = state;
@@ -92,7 +92,7 @@ function pedestalObject(p)
     var p = t.p;
     var states = [0,0,0,0,0,0];
     var treasure_count = 0;
-    for(var i = 0; i <= pos; ++i)
+    for(var i = 0; i < pos; ++i)
       treasure_count += this.p.event_by_period[i];
     for(var i = 5; i > 0; --i)
     {
