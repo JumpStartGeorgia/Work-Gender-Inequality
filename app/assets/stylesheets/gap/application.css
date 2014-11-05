@@ -22,11 +22,11 @@ body,html
    bottom:0px;   
    margin-right:100px;
 }
-#screen.intro
+#screen .splash
 {
    display:inline-block;
 }
-#screen.intro .title
+#screen .splash .title
 {
    position:absolute;
    display:inline-block;
@@ -772,12 +772,13 @@ svg.thumbnail path
 {
  background-image:url("../gap/svg/common/soundoff.svg");
 }
-#gap-share
+.share
 {  
   position:fixed;
   top:15px;
   left:60px;
   z-index:36;
+  cursor:pointer;
 }
 
 /* summary */

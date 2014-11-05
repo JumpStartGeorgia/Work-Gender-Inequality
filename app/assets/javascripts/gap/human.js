@@ -148,7 +148,7 @@ function human(selector,title)
   };
   var prevX = 0;
   var prevY = 0;
-  var movementBound = 4;
+  var movementBound = 3;
   this.prepare_reward = function prepare_for_reward(step,start)
   {
     var t = this;
@@ -183,13 +183,14 @@ function human(selector,title)
   this.next_movement = function next_movement()
   {    
     this.movement = ++this.movement;
-    if(this.movement == 4) this.movement = 1;
+    if(this.movement == 3) this.movement = 1;
     $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
-    if(this.movement == 0) this.movement = 3;
+    if(this.movement == 0) this.movement = 2;
+
     $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
@@ -275,7 +276,7 @@ function human(selector,title)
         this.event_by_month.push(0);
       }
     }
-    for (var i = 1; i <= 3; ++i) {
+    for (var i = 1; i <= 2; ++i) {
       var img = new Image();
       img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"l"+ +i+".svg";   
       img = new Image(); 

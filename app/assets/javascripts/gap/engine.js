@@ -9,11 +9,23 @@ function init()
   s = $('#screen');    
   s3 = d3.select('#screen');    
 
-  intro();  // play game intro and choose where to go based on params poll part or game itself     
+  //intro();  // play game intro and choose where to go based on params poll part or game itself    
+  loader.load();
+ 
 
-  // start preloading data while playing, by stage loading 
-  // for each stage collect data, switch flag for stage if not show progress bar 
-  // manipulate layers in stage, with positions and points to start and end, transition delay, duration
+}
+function afterinit()
+{
+  scr_clean();
+  sound_button();
+  share_button();
+   if(steptogo < 6) 
+      poll.show();
+    else 
+    {
+      game_init(); game_on_load();
+    }
+
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -109,32 +121,6 @@ function can_scroll(v)
 {  
   return v >= 0 && v < life_scroll_count;
 }
-function intro(){  
-  scr_clean();
-  sound_button();
-  s.toggleClass(sintro.class);
-  var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
-  var prg = $('<div id="cont" data-pct="0">'+
-                '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
-                  '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                  '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                '</svg>'+
-              '</div>').appendTo(s);  
-  intro_fade();
-}
-function intro_fade(){
-  var t = $('.title');
-  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
-  scr_clean(s.toggleClass(sintro.class)); 
-
-    if(steptogo < 6) 
-      poll.show();
-    else 
-    {
-      game_init(); game_on_load();
-    }
-  });
-}
 function sound_button()
 {
   // sound button init with binding click event for muting
@@ -153,6 +139,38 @@ function sound_button()
         volume.removeClass('off').addClass('on').data('state',1);
         player.unmute();
       }
+    });
+  }
+}
+function share_button()
+{
+  if(s.parent().find('.share').length == 0)
+  {
+    $(document).ready(function() {
+      var share = $('<div class="share">Share</div>').appendTo(s.parent());
+      $.ajaxSetup({ cache: true });
+      // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
+       $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
+       {
+         FB.init({
+           appId: '737141426318491',
+           xfbml      : true,
+           version    : 'v2.1'
+         });     
+        $('.share').click(function()
+        {
+          FB.ui({
+            method: 'share',
+            href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
+          }, function(response){
+             if (response && !response.error_code) {
+                console.log('Posting completed.');
+             } else {
+                console.log('Error while posting.');
+             }
+          });
+        });
+      });
     });
   }
 }
@@ -756,31 +774,31 @@ function start_by_time()
 /***************************************************************
                   Progress Bar
 ***************************************************************/
-function progress(val)
-{
-  if(val==100) 
-  {
-    intro_fade();
-  }
-  var $circle = $('#svg #bar');
+// function progress(val)
+// {
+//   if(val==100) 
+//   {
+//     intro_fade();
+//   }
+//   var $circle = $('#svg #bar');
   
-  if (isNaN(val)) {
-   val = 0; 
-  }
-  else{
-    var r = $circle.attr('r');
-    var c = Math.PI*(r*2);
+//   if (isNaN(val)) {
+//    val = 0; 
+//   }
+//   else{
+//     var r = $circle.attr('r');
+//     var c = Math.PI*(r*2);
    
-    if (val < 0) { val = 0;}
-    if (val > 100) { val = 100;}
+//     if (val < 0) { val = 0;}
+//     if (val > 100) { val = 100;}
     
-    var pct = ((100-val)/100)*c;
+//     var pct = ((100-val)/100)*c;
     
-    $circle.css({ strokeDashoffset: pct});
+//     $circle.css({ strokeDashoffset: pct});
     
-    $('#cont').attr('data-pct',val);
-  }
-}
+//     $('#cont').attr('data-pct',val);
+//   }
+// }
 /***************************************************************
                   Progress Bar End
 ***************************************************************/

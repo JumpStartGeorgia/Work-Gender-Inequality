@@ -2,29 +2,49 @@ var loader =
 {
 	timerId:null,
 	timerStarted:false,
+	elapsedTime:0,
+	splash:null,
 	load:function ()
 	{
 		if(!this.timerStarted)
 		{
 			this.timerStarted = true;
+			this.splash();
 			this.starttimer();			
 		}				
 	},
+	splash:function()
+	{
+  		this.splash = $("<div class='splash'></div>").appendTo(s);  	
+
+  		var t = $('<div class="title">'+sintro.title+'</div>').appendTo(this.splash);
+  		var prg = $('<div id="cont" data-pct="0">'+
+                '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
+                  '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+                  '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+                '</svg>'+
+              '</div>').appendTo(this.splash);    		
+
+		t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 });
+	},
 	loading:function()
 	{
+		var t = this;
+		this.elapsedTime+=100;		
 		if(this.ready()) 
 		{
 			this.stoptimer();
-			this.complete();
+			this.splash.fadeOut(3000,'linear',function()
+			{
+				t.splash.remove();
+				t.complete();
+			});
+			
 		}
 	},
 	ready:function()
 	{
-		//if(isSoundLoaded) console.log("Sounded is loaded");
-		//else console.log("Sounded is not loaded");
-		//if(isTimelineLoaded) console.log("Timeline is created");
-		//else console.log("Timeline is not loaded");
-		return true;//isSoundLoaded && isTimelineLoaded;
+		return isSoundLoaded;// && isTimelineLoaded;
 	},
 	complete:function()
 	{
@@ -74,7 +94,7 @@ var loader =
 
 		  // ***********************************************  
 		    // ***********************************************    
-		        init(); // start game       
+		        afterinit(); // start game       
 		    // ***********************************************  
 		  // ***********************************************  
 	},
@@ -85,6 +105,7 @@ var loader =
 	},
 	stoptimer:function()
 	{
+		this.timerStarted=false;
 		clearInterval(this.timerId);
 	}
 };
