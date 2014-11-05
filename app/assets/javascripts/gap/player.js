@@ -2,6 +2,9 @@ function playerObject()
 {
 	this.sounds = {};
 	this.sounds_list = [];
+	// this.background_sounds = {};
+	// this.background_sounds_list = [];
+	
 	var mute = false;
 	var prev_volume = 1;
 	var volume = 1;	
@@ -101,5 +104,9 @@ function playerObject()
 		}
 		else ++readySoundCount;
 	};
+	// this.background_switch = function()
+	// {
+
+	// };
 	this.init();
 }

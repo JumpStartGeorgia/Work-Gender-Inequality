@@ -180,11 +180,11 @@ body,html
 }
 .arrow-up
 {
-  background:transparent url("../gap/svg/arrow-up.svg") no-repeat center center;
+  background:transparent url("../gap/svg/common/arrow-up.svg") no-repeat center center;
 }
 .arrow-down
 {
- background:transparent url("../gap/svg/arrow-down.svg") no-repeat center center;
+ background:transparent url("../gap/svg/common/arrow-down.svg") no-repeat center center;
 }
 #screen .top, #screen .bottom
 {
@@ -425,7 +425,7 @@ svg.stage-bk { z-index:30; }
    left:0px;
    width:81px;
    height:30px;
-   background:transparent url('../gap/svg/point_mask.svg') no-repeat;
+   background:transparent url('../gap/svg/common/point_mask.svg') no-repeat;
    background-size:81px 30px;
    background-position:0px 0px;
 }
@@ -435,7 +435,7 @@ svg.stage-bk { z-index:30; }
    top:0px;   
    width:1px;
    height:30px;
-   background:transparent url('../gap/png/timeline_tick.png') no-repeat;
+   background:transparent url('../gap/svg/common/timeline_tick.svg') no-repeat;
    background-size:1px 30px;
    background-position:0px 0px;
    display:inline-block;
@@ -745,11 +745,11 @@ svg.thumbnail path
    left:0px;
 }
 .gad-1 { background-image:url("../gap/svg/interests/gad_1.svg"); }
-.gad-2 { background-image:url("../gap/svg/interests/coconut.svg"); }
-.gad-3 { background-image:url("../gap/svg/interests/compass.svg"); }
-.gad-4 { background-image:url("../gap/svg/interests/credit.svg"); }
-.gad-5 { background-image:url("../gap/svg/interests/directions.svg"); }
-.gad-6 { background-image:url("../gap/svg/interests/boat.svg"); }
+.gad-2 { background-image:url("../gap/svg/interests/gad_2.svg"); }
+.gad-3 { background-image:url("../gap/svg/interests/gad_3.svg"); }
+.gad-4 { background-image:url("../gap/svg/interests/gad_4.svg"); }
+.gad-5 { background-image:url("../gap/svg/interests/gad_5.svg"); }
+.gad-6 { background-image:url("../gap/svg/interests/gad_6.svg"); }
 
 .volume
 {
@@ -766,11 +766,11 @@ svg.thumbnail path
 }
 .volume.on
 {
- background-image:url("../gap/svg/sound.svg");
+ background-image:url("../gap/svg/common/sound.svg");
 }
 .volume.off
 {
- background-image:url("../gap/svg/soundoff.svg");
+ background-image:url("../gap/svg/common/soundoff.svg");
 }
 #gap-share
 {  
