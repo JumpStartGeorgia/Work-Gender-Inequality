@@ -26,6 +26,7 @@ function playerObject()
 		if(this.valid(name))
 		{
 			this.stop(name);
+			this.sounds[name].muted = false;
 			this.sounds[name].play();
 		}
 	};
@@ -34,7 +35,7 @@ function playerObject()
 		if(this.valid(name))
 		{
 			this.sounds[name].pause();
-			this.sounds[name].currentTime = 0;		
+			this.sounds[name].currentTime = 0;	
 		}
 	};
 	this.stop_all = function()
@@ -90,7 +91,7 @@ function playerObject()
 		}
 	};
 	this.valid = function(name)
-	{		
+	{				
 		var r = typeof this.sounds[name] !== "undefined" && this.sounds[name].readyState == 4;
 		//if(!r) console.log("Audio file can't be played, please check path and additional parameters. File:",name); // when file is missing or not ready
 		return r;

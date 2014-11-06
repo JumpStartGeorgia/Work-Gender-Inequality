@@ -16,8 +16,8 @@ var categories =
         "dress":"street", //technical
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "background":"/assets/gap/svg/field/bg/bg1.svg",
+            "foreground":{ "i":"/assets/gap/svg/field/fg/education_i.svg", "o":"/assets/gap/svg/field/fg/education_o.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -37,7 +37,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -57,7 +57,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -77,7 +77,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -97,7 +97,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -117,7 +117,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -137,7 +137,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -157,7 +157,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -177,7 +177,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -197,7 +197,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -217,7 +217,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -237,7 +237,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -257,7 +257,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -277,7 +277,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -297,7 +297,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -318,7 +318,7 @@ var categories =
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
+            "foreground":{ "i":"/assets/gap/svg/field/education/school_int.svg", "o":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},

@@ -335,17 +335,17 @@ function draw_stage(v)
     }
 
     $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_interior = $(this);
-      fg_interior.css({ "height":fg_interior.height()*img_scaler,'z-index':34 });
-      fg_interior.css({left: w2 - fg_interior.width()/2 ,top:lh - fg_interior.height()});
+      var fg_i = $(this);
+      fg_i.css({ "height":fg_i.height()*img_scaler,'z-index':34 });
+      fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
 
-    }).attr('src',stage.foreground.interior);
+    }).attr('src',stage.foreground.i);
 
    $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_exterior = $(this);
-      fg_exterior.css({ "height":fg_exterior.height()*img_scaler,'z-index':36 });
-      fg_exterior.css({left:w2 - fg_exterior.width()/2 ,top:lh - fg_exterior.height()});
-    }).attr('src',stage.foreground.exterior);
+      var fg_o = $(this);
+      fg_o.css({ "height":fg_o.height()*img_scaler,'z-index':36 });
+      fg_o.css({left:w2 - fg_o.width()/2 ,top:lh - fg_o.height()});
+    }).attr('src',stage.foreground.o);
 
   }).attr('src',stage.background);
 

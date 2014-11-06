@@ -16,7 +16,11 @@ var assetsmeta =
 	{ name:"arrowup", type:"image", path:"/assets/gap/svg/common/arrow-up.svg"},
 	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
-	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"}
+	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
+	{ name:"done", type:"sound", path:"/assets/gap/sounds/done.mp3"},
+	{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
+	{ name:"long", type:"sound", path:"/assets/gap/sounds/long.mp3"},
+	{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
 var assets = [];
 Game.Loader = 
@@ -37,7 +41,6 @@ Game.Loader =
 				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
 			});
 			t.starttimer();	
-
 			assetsmeta.forEach(function(d){
 				t.whattoload(d);			
 			});			
@@ -46,7 +49,7 @@ Game.Loader =
 	whattoload:function(v) // v has meta information
 	{	
 		var t = this;
-		switch (v.type )
+		switch (v.type)
 		{
 			case 'image': t.readimage(v); break;
 			case 'bg': t.readbg(v); break;
@@ -54,6 +57,7 @@ Game.Loader =
 			case 'interest': t.readinterest(v); break;
 			case 'male': t.readhuman(v,'m'); break;
 			case 'female': t.readhuman(v,'f'); break;
+			case 'sound': t.readsound(v); break;
 		}
 	},
 
@@ -76,7 +80,7 @@ Game.Loader =
 	{
 		var t = this;
 		t.elapsedTime+=100;	
-		console.log(t.assetsCount);	
+		//console.log(t.assetsCount);
 		if(t.assetsCount==0) 
 		{
 			this.stoptimer();
@@ -98,8 +102,7 @@ Game.Loader =
 		p.text(tmp);
 	},
 	complete:function()
-	{
-		console.log(assets);
+	{		
 		 $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
 
 		      // do nothing if is already animating
@@ -164,37 +167,31 @@ Game.Loader =
 	{
 		--this.assetsCount;
 	},
-	readimage:function(v) // v has meta information
+	addimage:function(n,p)
 	{
 		var t = this;
 		assets.push({
-			name:v.name,
+			name:n,
 			element: $('<img>',
 			{
 	  			on: 
 	  			{
-					load: function() { t.dec(); }
+					load: function() { t.dec(); },
+					error: function(e) { console.log(this,e,"errror");}
 			  	},
-			  	"src":v.path
+			  	"src":p
 		  	})
 	  	});
 	},
+	readimage:function(v) // v has meta information
+	{
+		this.addimage(v.name,v.path);
+	},
 	readbg:function(v)
 	{
-		var t = this;
 		for(var i = 0; i < v.count; ++i)
 		{
-			assets.push({
-				name:'bg'+(i+1),
-				element: $('<img>',
-				{
-		  			on: 
-		  			{
-						load: function() { t.dec(); }
-				  	},
-				  	"src":v.path + 'bg'+(i+1)+'.svg'
-			  	})
-	  		});
+			this.addimage('bg'+(i+1),v.path + 'bg'+(i+1)+'.svg');
 		}
 	},
 	readfg:function(v)
@@ -202,29 +199,10 @@ Game.Loader =
 		var t = this;
 		for(var i = 0; i < v.count; ++i)
 		{
-			assets.push({
-				name:v.names[i]+'_i',
-				element: $('<img>',
-				{
-		  			on: 
-		  			{
-						load: function() { t.dec(); }
-				  	},
-				  	"src":v.path + v.names[i]+'_i' +'.svg'
-			  	})
-	  		});
-	  		assets.push({
-				name:v.names[i]+'_o',
-				element: $('<img>',
-				{
-		  			on: 
-		  			{
-						load: function() { t.dec(); }
-				  	},
-				  	"src":v.path + v.names[i]+'_o' +'.svg'
-			  	})
-	  		});
+			this.addimage(v.names[i]+'_i',v.path + v.names[i]+'_i' +'.svg');
+			this.addimage(v.names[i]+'_o',v.path + v.names[i]+'_o' +'.svg');
 		}
+		//assets.forEach(function(d){ console.log(d.name);});
 	},
 	readinterest:function(v)
 	{
@@ -233,17 +211,7 @@ Game.Loader =
 		{
 			for(var j = 1; j <= v.amount; ++j)
 			{
-				assets.push({
-					name:v.names[i]+'_'+j,
-					element: $('<img>',
-					{
-			  			on: 
-			  			{
-							load: function() { t.dec(); }
-					  	},
-					  	"src":v.path + v.names[i]+'_'+j+'.svg'
-				  	})
-	  			});	
+				this.addimage(v.names[i]+'_'+j, v.path + v.names[i]+'_'+j+'.svg');
 			}
 		}
 	},
@@ -254,29 +222,25 @@ Game.Loader =
 		{
 			for(var j = 1; j <= v.amount/2; ++j)
 			{
-				assets.push({
-					name: g+'r'+(j==1?'':j-1)+'_'+ v.names[i],
-					element: $('<img>',
-					{
-			  			on: 
-			  			{
-							load: function() { t.dec(); }
-					  	},
-					  	"src":v.path + v.names[i] + '/' + g +'r' + (j==1?'':j-1) + '.svg'
-				  	})
-	  			});
-	  			assets.push({
-					name: 'ml'+(j==1?'':j-1)+'_'+ v.names[i],
-					element: $('<img>',
-					{
-			  			on: 
-			  			{
-							load: function() { t.dec(); }
-					  	},
-					  	"src":v.path + v.names[i] + '/' + g + 'l' + (j==1?'':j-1) +'.svg'
-				  	})
-	  			});	  		
+				this.addimage(g+'r'+(j==1?'':j-1)+'_'+ v.names[i], v.path + v.names[i] + '/' + g +'r' + (j==1?'':j-1) + '.svg');
+				this.addimage(g+'l'+(j==1?'':j-1)+'_'+ v.names[i], v.path + v.names[i] + '/' + g +'l' + (j==1?'':j-1) + '.svg');
 			}			
 		}
-	}
+	},
+	readsound:function(v)
+	{
+		var t = this;
+		assets.push({
+			name:v.type+'_'+v.name,
+			element: $('<audio>',
+			{
+	  			on: 
+	  			{
+					canplay: function() { t.dec(); },
+					error: function(e) { console.log(this,e,"error");}
+			  	},
+			  	"src":v.path
+		  	})
+	  	});
+	},
 };

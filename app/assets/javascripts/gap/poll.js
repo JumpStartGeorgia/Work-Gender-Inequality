@@ -79,7 +79,7 @@ var poll = {
   {     
     $('.poll').addClass(g());
     var charTmp = $('<div class="'+g()+'char character"></div>').appendTo(this.stage);
-    if(g()=='f') charTmp.css('background-image','url(/assets/gap/svg/human/dress/casual/fl.svg)');
+    if(g()=='f') charTmp.css('background-image','url(/assets/gap/svg/human/casual/fl.svg)');
     poll.add_layer();
         
     var b = isf();
@@ -134,10 +134,9 @@ var poll = {
     poll.label(locale.poll.choose_gender); 
     
     var margin_between = 100;
-console.log("here");
     var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
-      .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/dress/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
+      .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
     var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title',male.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
       .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
@@ -304,7 +303,7 @@ console.log("here");
   {    
     d3.selectAll('.category-picker .category_item').classed('selected',false);     
     poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
-    d3.select('.character').style('background-image','url(/assets/gap/svg/human/dress/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/'+user.gender+ (user.gender =='f' ? 'l':'r') + '.svg)');
+    d3.select('.character').style('background-image','url(/assets/gap/svg/human/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/'+user.gender+ (user.gender =='f' ? 'l':'r') + '.svg)');
   },
   category_up:function category_up()
   {

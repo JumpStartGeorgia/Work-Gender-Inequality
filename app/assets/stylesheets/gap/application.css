@@ -301,21 +301,21 @@ body,html
 }
 .male
 {
-   background:transparent url("../gap/svg/human/dress/casual/mr.svg") no-repeat center center;
+   background:transparent url("../gap/svg/human/casual/mr.svg") no-repeat center center;
    background-size:46px 100px;
     width:46px;
    height:100px;
 }
 .female
 {
-   background:transparent url("../gap/svg/human/dress/casual/fr.svg") no-repeat center center;
+   background:transparent url("../gap/svg/human/casual/fr.svg") no-repeat center center;
    background-size:46px 100px;
    width:46px;
    height:100px;
 }
 .m.character
 {  
-   background-image:url("../gap/svg/human/dress/casual/mr.svg");
+   background-image:url("../gap/svg/human/casual/mr.svg");
    background-color:transparent;
    background-size:46px 100px;
    background-repeat:no-repeat;
@@ -327,7 +327,7 @@ body,html
 }
 .f.character
 {
-   background:transparent url("../gap/svg/human/dress/casual/fl.svg") no-repeat;
+   background:transparent url("../gap/svg/human/casual/fl.svg") no-repeat;
     background-color:transparent;
    background-size:46px 100px;
    background-repeat:no-repeat;
@@ -477,7 +477,7 @@ svg.stage-bk { z-index:30; }
 
 .mchar
 {
-   background:#ffffff url("../gap/svg/human/dress/casual/mr.svg") no-repeat; 
+   background:#ffffff url("../gap/svg/human/casual/mr.svg") no-repeat; 
    background-size:46px 100px;
    background-position:77px 50px;
 }
@@ -489,7 +489,7 @@ svg.stage-bk { z-index:30; }
 }
 .fchar
 {
-   background:#ffffff url("../gap/svg/human/dress/casual/fr.svg") no-repeat;
+   background:#ffffff url("../gap/svg/human/casual/fr.svg") no-repeat;
    background-size:46px 100px;
    background-position:77px 50px; 
    
@@ -744,12 +744,12 @@ svg.thumbnail path
    top:0px;
    left:0px;
 }
-.gad-1 { background-image:url("../gap/svg/interests/gad_1.svg"); }
-.gad-2 { background-image:url("../gap/svg/interests/gad_2.svg"); }
-.gad-3 { background-image:url("../gap/svg/interests/gad_3.svg"); }
-.gad-4 { background-image:url("../gap/svg/interests/gad_4.svg"); }
-.gad-5 { background-image:url("../gap/svg/interests/gad_5.svg"); }
-.gad-6 { background-image:url("../gap/svg/interests/gad_6.svg"); }
+.gad-1 { background-image:url("../gap/svg/interest/gad_1.svg"); }
+.gad-2 { background-image:url("../gap/svg/interest/gad_2.svg"); }
+.gad-3 { background-image:url("../gap/svg/interest/gad_3.svg"); }
+.gad-4 { background-image:url("../gap/svg/interest/gad_4.svg"); }
+.gad-5 { background-image:url("../gap/svg/interest/gad_5.svg"); }
+.gad-6 { background-image:url("../gap/svg/interest/gad_6.svg"); }
 
 .volume
 {

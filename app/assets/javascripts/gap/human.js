@@ -184,14 +184,14 @@ function human(selector,title)
   {    
     this.movement = ++this.movement;
     if(this.movement == 3) this.movement = 1;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
     if(this.movement == 0) this.movement = 2;
 
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
   {
