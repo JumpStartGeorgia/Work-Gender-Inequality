@@ -203,7 +203,7 @@ function human(selector,title)
     
     this.next_movement();      
     this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+    //this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.step_left = function step_left()
   {    
@@ -213,7 +213,7 @@ function human(selector,title)
     else if(tmp <= 0) return;
     this.prev_movement();
     this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+    //this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.work_frame = function work_frame()
   {
@@ -276,12 +276,6 @@ function human(selector,title)
         this.event_by_month.push(0);
       }
     }
-    for (var i = 1; i <= 2; ++i) {
-      var img = new Image();
-      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"l"+ +i+".svg";   
-      img = new Image(); 
-      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"r"+i+".svg";          
-    };
   };
   this.has_future_reward = function has_future_reward()
   {    

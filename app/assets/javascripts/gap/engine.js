@@ -10,7 +10,7 @@ function init()
   s3 = d3.select('#screen');    
 
   //intro();  // play game intro and choose where to go based on params poll part or game itself    
-  loader.load();
+  Game.Loader.load();
  
 
 }

@@ -1,37 +1,83 @@
-var loader = 
+var Game = {};
+var assetsmeta = 
+[
+	{ type:"bg", path:"/assets/gap/svg/field/bg/", count:2},
+	{ type:"fg",names:['agriculture','fishing','mining','manufacturing','electricity','construction',
+	'trade','hotel','transport','financial','realestate','administration','education','health','community','other'],
+		path:"/assets/gap/svg/field/fg/",count:16,amount:2 },
+	{ type:"interest", names:[ 'vac', 'gad', 'edu', 'hou', 'tra' ],
+		path:"/assets/gap/svg/interest/", amount:6, count:5,  },
+	{ type:"male", names:['casual','street','business','technical','construction'], amount:6, count:5,
+		path:"/assets/gap/svg/human/" },
+	{ type:"female", names:['casual','street','business','technical','construction'], amount:6, count:5,
+		path:"/assets/gap/svg/human/" },
+	{ name:"sound", type:"image", path:"/assets/gap/svg/common/sound.svg"},
+	{ name:"soundoff", type:"image", path:"/assets/gap/svg/common/soundoff.svg"},
+	{ name:"arrowup", type:"image", path:"/assets/gap/svg/common/arrow-up.svg"},
+	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
+	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
+	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"}
+];
+var assets = [];
+Game.Loader = 
 {
 	timerId:null,
 	timerStarted:false,
 	elapsedTime:0,
 	splash:null,
+	assetsCount:0,
 	load:function ()
 	{
-		if(!this.timerStarted)
+		var t = this;
+		if(!t.timerStarted)
 		{
-			this.timerStarted = true;
-			this.splash();
-			this.starttimer();			
+			t.timerStarted = true;
+			t.splash();			
+			assetsmeta.forEach(function(d){
+				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
+			});
+			t.starttimer();	
+
+			assetsmeta.forEach(function(d){
+				t.whattoload(d);			
+			});			
 		}				
 	},
+	whattoload:function(v) // v has meta information
+	{	
+		var t = this;
+		switch (v.type )
+		{
+			case 'image': t.readimage(v); break;
+			case 'bg': t.readbg(v); break;
+			case 'fg': t.readfg(v); break;
+			case 'interest': t.readinterest(v); break;
+			case 'male': t.readhuman(v,'m'); break;
+			case 'female': t.readhuman(v,'f'); break;
+		}
+	},
+
 	splash:function()
 	{
   		this.splash = $("<div class='splash'></div>").appendTo(s);  	
 
   		var t = $('<div class="title">'+sintro.title+'</div>').appendTo(this.splash);
-  		var prg = $('<div id="cont" data-pct="0">'+
-                '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
-                  '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                  '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                '</svg>'+
-              '</div>').appendTo(this.splash);    		
+  		var p = $('<div class="progress" style="font-size:30px;">/</div>').appendTo(this.splash);
+  		// var prg = $('<div id="cont" data-pct="0">'+
+    //             '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
+    //               '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+    //               '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
+    //             '</svg>'+
+    //           '</div>').appendTo(this.splash);    		
 
 		t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 });
 	},
 	loading:function()
 	{
 		var t = this;
-		this.elapsedTime+=100;		
-		if(this.ready()) 
+		t.elapsedTime+=100;	
+		console.log(t.assetsCount);	
+		if(t.assetsCount==0) 
 		{
 			this.stoptimer();
 			this.splash.fadeOut(3000,'linear',function()
@@ -39,15 +85,21 @@ var loader =
 				t.splash.remove();
 				t.complete();
 			});
-			
 		}
 	},
-	ready:function()
+	progress:function()
 	{
-		return isSoundLoaded;// && isTimelineLoaded;
+		var p = $('.progress');
+		var tmp = p.text();
+		if(tmp == '–') tmp = '\\';
+		else if (tmp == '\\') tmp = '|';
+		else if (tmp == '|') tmp = '/';
+		else if (tmp == '/') tmp = '–';
+		p.text(tmp);
 	},
 	complete:function()
 	{
+		console.log(assets);
 		 $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
 
 		      // do nothing if is already animating
@@ -101,11 +153,130 @@ var loader =
 	starttimer:function()
 	{		  
 		var t = this;
-		this.timerId = setInterval(function(){ t.loading(); }, 100);
+		this.timerId = setInterval(function(){ t.loading(); t.progress(); }, 100);
 	},
 	stoptimer:function()
 	{
 		this.timerStarted=false;
 		clearInterval(this.timerId);
+	},
+	dec:function()
+	{
+		--this.assetsCount;
+	},
+	readimage:function(v) // v has meta information
+	{
+		var t = this;
+		assets.push({
+			name:v.name,
+			element: $('<img>',
+			{
+	  			on: 
+	  			{
+					load: function() { t.dec(); }
+			  	},
+			  	"src":v.path
+		  	})
+	  	});
+	},
+	readbg:function(v)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			assets.push({
+				name:'bg'+(i+1),
+				element: $('<img>',
+				{
+		  			on: 
+		  			{
+						load: function() { t.dec(); }
+				  	},
+				  	"src":v.path + 'bg'+(i+1)+'.svg'
+			  	})
+	  		});
+		}
+	},
+	readfg:function(v)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			assets.push({
+				name:v.names[i]+'_i',
+				element: $('<img>',
+				{
+		  			on: 
+		  			{
+						load: function() { t.dec(); }
+				  	},
+				  	"src":v.path + v.names[i]+'_i' +'.svg'
+			  	})
+	  		});
+	  		assets.push({
+				name:v.names[i]+'_o',
+				element: $('<img>',
+				{
+		  			on: 
+		  			{
+						load: function() { t.dec(); }
+				  	},
+				  	"src":v.path + v.names[i]+'_o' +'.svg'
+			  	})
+	  		});
+		}
+	},
+	readinterest:function(v)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			for(var j = 1; j <= v.amount; ++j)
+			{
+				assets.push({
+					name:v.names[i]+'_'+j,
+					element: $('<img>',
+					{
+			  			on: 
+			  			{
+							load: function() { t.dec(); }
+					  	},
+					  	"src":v.path + v.names[i]+'_'+j+'.svg'
+				  	})
+	  			});	
+			}
+		}
+	},
+	readhuman:function(v,g)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			for(var j = 1; j <= v.amount/2; ++j)
+			{
+				assets.push({
+					name: g+'r'+(j==1?'':j-1)+'_'+ v.names[i],
+					element: $('<img>',
+					{
+			  			on: 
+			  			{
+							load: function() { t.dec(); }
+					  	},
+					  	"src":v.path + v.names[i] + '/' + g +'r' + (j==1?'':j-1) + '.svg'
+				  	})
+	  			});
+	  			assets.push({
+					name: 'ml'+(j==1?'':j-1)+'_'+ v.names[i],
+					element: $('<img>',
+					{
+			  			on: 
+			  			{
+							load: function() { t.dec(); }
+					  	},
+					  	"src":v.path + v.names[i] + '/' + g + 'l' + (j==1?'':j-1) +'.svg'
+				  	})
+	  			});	  		
+			}			
+		}
 	}
 };

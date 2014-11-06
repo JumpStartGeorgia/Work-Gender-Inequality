@@ -1,6 +1,6 @@
 /**
 * outrun: 0 - male, 1 - female
-* dress casual business technical construction
+* dress casual street business technical construction
 */
 
 
@@ -13,7 +13,7 @@ var categories =
         "percent":22.72,
         "male":599.4,
         "female":463.2,
-        "dress":"technical",
+        "dress":"street", //technical
         "stage":
         {
             "background":"/assets/gap/svg/field/education/bg.svg",
