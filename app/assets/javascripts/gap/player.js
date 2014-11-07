@@ -35,7 +35,8 @@ function playerObject()
 		if(this.valid(name))
 		{
 			this.sounds[name].pause();
-			this.sounds[name].currentTime = 0;	
+			this.sounds[name].currentTime = 0;
+			if (window.chrome) this.sounds[name].load()	
 		}
 	};
 	this.stop_all = function()
@@ -47,6 +48,7 @@ function playerObject()
 			{
 				this.sounds[name].pause();
 				this.sounds[name].currentTime = 0;		
+				if (window.chrome) this.sounds[name].load()	
 			}
 		}
 	};

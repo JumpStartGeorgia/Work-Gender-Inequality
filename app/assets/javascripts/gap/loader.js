@@ -142,7 +142,7 @@ Game.Loader =
 
 
 			window.onpopstate = function(e){
-			   if(e.state !== null) { hist = true; init(); hist = false; } 
+			   if(e.state !== null) { hist = true; redraw(); hist = false; } 
 			   //else { // no state data available,load initial page which was there at first page load }
 			};
 
@@ -152,6 +152,7 @@ Game.Loader =
 		        afterinit(); // start game       
 		    // ***********************************************  
 		  // ***********************************************  
+		  isAssetsLoaded = true;
 	},
 	starttimer:function()
 	{		  

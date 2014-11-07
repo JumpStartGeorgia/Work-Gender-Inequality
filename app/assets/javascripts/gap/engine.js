@@ -9,10 +9,7 @@ function init()
   s = $('#screen');    
   s3 = d3.select('#screen');    
 
-  //intro();  // play game intro and choose where to go based on params poll part or game itself    
-  Game.Loader.load();
- 
-
+  if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
 {
@@ -22,10 +19,9 @@ function afterinit()
    if(steptogo < 6) 
       poll.show();
     else 
-    {
+    {      
       game_init(); game_on_load();
     }
-
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -39,7 +35,7 @@ function redraw()
   lh = Math.ceil10((h - th)/2);
 
   timeline_period_w = w*timeline_scale;
-  timeline_month_w = timeline_period_w/reward_period;
+  timeline_month_w = timeline_period_w/reward_period;   
   if(ingame)
   { 
     redraw_game();
@@ -48,9 +44,20 @@ function redraw()
 }
 function redraw_game()
 {            
-  $("#screen .top").height(lh).css('top',0);
+  var t = $("#screen .top").height(lh).css('top',0);
+  t.find('.score').css({ left: w-t.find('.score').width()-30}); 
+  t.find('.treasure').css({ top : lh - 50 - 10 });
+
   $("#screen .timeline").height(th).css('top',h2-th/2);
-  $("#screen .bottom").height(lh).css('top',lh+th);
+  if(pos >= 0)
+  {      
+    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+  }
+
+  var b = $("#screen .bottom").height(lh).css('top',lh+th);
+  b.find('.score').css({ left: w-b.find('.score').width()-30, top: lh + th + 20});
+  b.find('.treasure').css({ top: lh + th + 10 });
+
   redraw_human();
 }
 function redraw_human(v)
@@ -61,20 +68,9 @@ function redraw_human(v)
 }
 function redraw_timeline()
 {
-  isTimelineLoaded = false;
-  // checking if width of timeline should be resized
-  //var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-  //var len = timeline_points.length;
-  //if(t1 > len*timeline_month_w) 
-  //{
-  //  var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-  //  timeline_tick(toadd);
-  //}          
   if(pos_max != null) 
   {
-    //timeline_tick();
     timeline_point_draw();
-    isTimelineLoaded = true;
   }
 }
 function scr_clean(klass)
@@ -235,7 +231,6 @@ function game_on_load()
   // animate humans to starting position (inside object where they work)
 }
 function game_init() {
-
   gameon();
 
   if(isf())
@@ -252,25 +247,17 @@ function game_init() {
   scr_clean();
 
   var t = $('<div class="top"></div>').appendTo(s);
-
   var ts = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(t);  
-  ts.css({ left: w-ts.width()-30});  
-
-  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 50 - 10 }).appendTo(t);
-
-  
+  t.append('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>');
   t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
-  timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
-  timeline = timeline.find('.canvas');
+  timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
 
   var b = $('<div class="bottom"></div>').appendTo(s);
   var bs = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
     '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(b);
-  bs.css({ left: w-bs.width()-30, top: lh + th + 20});
-
-  treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + th + 10 }).appendTo(b);  
+  b.append('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>');  
 
   b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
 
@@ -283,44 +270,32 @@ function game_init() {
   male.prepare_for_game();
   female.prepare_for_game();
 
-  if(pos >= 0)
-  {
-    // var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-    // var len = timeline_points.length;
-    // if(t1 > len*timeline_month_w) 
-    // {
-    //   var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-    //   timeline_tick(toadd);
-    // }         
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
-  }
-
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
 
-  //timeline_tick();
   timeline_point_draw();
+
   draw_stage(0);
 
-  var m = $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
-  var f = $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
-  
+  $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
+  $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
   redraw_game();
 }
 var img_scaler =  1;
 var bg_width = 0;
 var stage_offset = 0;
+
 function draw_stage(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.fg');
 
   var stage = category.stage;
+  var bgTmp = assets.filter(function(a){ return a.name == 'bg1'; })[0].element;
   
-
-  $('<img/>').appendTo(bg).load(function(){
-
-    var bg_image = $(this);
+    var bgImage = bgTmp.clone();
+    bg.append(bgImage);
+    var bg_image = bgImage;
     img_scaler = lh / bg_image.height();
     bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
 
@@ -330,7 +305,7 @@ function draw_stage(v)
     var bg_to_viewport = bg_width;
     while(bg_to_viewport < w+w2)
     {
-      $('<img src="'+stage.background+'"/>').css({ top:0,left:bg_to_viewport,height:lh,'z-index':33 }).appendTo(bg)
+      bgTmp.clone().css({ top:0,left:bg_to_viewport, height:lh,'z-index':33 }).appendTo(bg)
       bg_to_viewport+=bg_width;
     }
 
@@ -347,26 +322,10 @@ function draw_stage(v)
       fg_o.css({left:w2 - fg_o.width()/2 ,top:lh - fg_o.height()});
     }).attr('src',stage.foreground.o);
 
-  }).attr('src',stage.background);
+  // }).attr('src',stage.background);
 
   if(v==0) draw_stage(1);
 };
-function timeline_tick(n)
-{
-  //console.log('timeline_tick',n);
-  // for(var i = 0; i < n; ++i)
-  // {
-  //   var curTime = new Date();
-  //   size = timeline_points.length;
-  //   curTime.setTime(timeline_points[size-1].getTime());
-
-  //   curTime.setMonth(curTime.getMonth() + reward_period);
-
-  //   timeline_points.push(curTime);  
-  //   //if(curTime > timeline_end_point) { console.log(curTime,timeline_end_point); epilogue(); break; } 
-  // }      
-  //timeline_point_draw();   
-}
 function timeline_point_draw()
 {
   

@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="school_ext.svg">
+   sodipodi:docname="other_i.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -34,8 +34,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1871"
-     inkscape:window-height="1056"
+     inkscape:window-width="1551"
+     inkscape:window-height="876"
      inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
@@ -70,20 +70,20 @@
        y="966.49933" />
     <g
        id="g3119"
-       transform="translate(0.50507627,-9.0913729)">
+       transform="translate(0.5050763,-9.0913729)">
       <path
          transform="translate(0,308.27224)"
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
          id="path3115"
-         d="m 427.04943,585.4348 c 46.46701,0 49.74257,0.0613 49.74257,0.0613 l 0,60.60915 -49.49747,0 z"
+         d="M 427.04943,585.4348 C 473.51644,585.4348 476.792,585.4961 476.792,585.4961 L 476.792,646.10525 L 427.29453,646.10525 z"
          style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
       <path
          transform="translate(0,308.27224)"
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="path3117"
-         d="m 449.64286,643.0186 0,-40 m -21.78572,-1.78572 47.85715,0"
+         d="M 449.64286,643.0186 L 449.64286,603.0186 M 427.85714,601.23288 L 475.71429,601.23288"
          style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
     <g
