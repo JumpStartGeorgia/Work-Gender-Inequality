@@ -40,6 +40,7 @@ function redraw()
   { 
     redraw_game();
     redraw_timeline();
+    stage_init(0);
   }
 }
 function redraw_game()
@@ -245,21 +246,19 @@ function game_init() {
   }
  
   scr_clean();
+  
+  var tstr =  '<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
+                '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>' + 
+              '<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>' + 
+              '<div class="stage"><div class="bg"></div><div class="fg"></div></div>';
 
-  var t = $('<div class="top"></div>').appendTo(s);
-  var ts = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(t);  
-  t.append('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>');
-  t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
-
+  var t = $('<div class="top"></div>').appendTo(s)
+    .append(tstr)
+    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"></div>');
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
-
-  var b = $('<div class="bottom"></div>').appendTo(s);
-  var bs = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(b);
-  b.append('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>');  
-
-  b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
+  var b = $('<div class="bottom"></div>').appendTo(s)
+    .append(tstr)
+    .append('<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div>');
 
   male.init();
   female.init();
@@ -277,55 +276,101 @@ function game_init() {
 
   draw_stage(0);
 
-  $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
-  $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
   redraw_game();
 }
 var img_scaler =  1;
 var bg_width = 0;
 var stage_offset = 0;
-
+var bg_initial_height = 0;
+var fgw = 0;
+var fgh = 0;
 function draw_stage(v)
 {
-  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.bg');
-  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.fg');
+  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
+  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
 
-  var stage = category.stage;
-  var bgTmp = assets.filter(function(a){ return a.name == 'bg1'; })[0].element;
+  var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;  
+  var bgFirst = bgOriginal.clone();
+
+  bg.append(bgFirst);
+  bg_initial_height = bgFirst.height();
+  img_scaler = lh / bg_initial_height;
+  bgFirst.css({ height:lh });
+
+  bg_width = bgFirst.width();
+  stage_offset = (w - bg_width)/2;
+
+  var bg_to_viewport = bg_width;
+  while(bg_to_viewport < w+w2)
+  {
+    bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    bg_to_viewport+=bg_width;
+  }
+  var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
+  var fgOriginalO = assets.filter(function(a){ return a.name == category.fg+'_o'; })[0].element;
+
+  var fg_i = fgOriginalI.clone().appendTo(fg);
+
+  fgw = fg_i.width();
+  fgh = fg_i.height();
+
+  fg_i.addClass('i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+
+  var fg_o = fgOriginalO.clone().appendTo(fg);
+  fg_o.addClass('o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+
+  if(v===0) draw_stage(1);
+
+}
+function stage_init(v)
+{
+  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
+  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
+
+  var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;
+  var bgs = bg.find('img');
+  var bgFirst = $(bgs[0]);
   
-    var bgImage = bgTmp.clone();
-    bg.append(bgImage);
-    var bg_image = bgImage;
-    img_scaler = lh / bg_image.height();
-    bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
+  img_scaler = lh / bg_initial_height;
+  bgFirst.css({ height:lh });
+  bg_width = bgFirst.width();
+  stage_offset = (w - bg_width)/2;
+  var bg_to_viewport = bg_width;
 
-    bg_width = bg_image.width();
-    stage_offset = (w - bg_width)/2;
-
-    var bg_to_viewport = bg_width;
-    while(bg_to_viewport < w+w2)
+  var i = 2;
+  while(bg_to_viewport < w+w2)
+  {
+    var tmp = bg.find('img:nth-child('+i+')');
+    if(tmp.length)
     {
-      bgTmp.clone().css({ top:0,left:bg_to_viewport, height:lh,'z-index':33 }).appendTo(bg)
-      bg_to_viewport+=bg_width;
+      tmp.css({ top:0,left:bg_to_viewport, height:lh })
     }
+    else 
+    {
+      bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    }
+    bg_to_viewport+=bg_width;
+    ++i;
+  }
+  while(i <= bgs.length+1)
+  {
+    $(bgs[i-1]).remove();
+    ++i;
+  }
+  
 
-    $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_i = $(this);
-      fg_i.css({ "height":fg_i.height()*img_scaler,'z-index':34 });
-      fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  var fg_i = fg.find('img.i');
+  fg_i.addClass('i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
 
-    }).attr('src',stage.foreground.i);
+  var fg_o = fg.find('img.o');
+  fg_o.addClass('o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
 
-   $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_o = $(this);
-      fg_o.css({ "height":fg_o.height()*img_scaler,'z-index':36 });
-      fg_o.css({left:w2 - fg_o.width()/2 ,top:lh - fg_o.height()});
-    }).attr('src',stage.foreground.o);
-
-  // }).attr('src',stage.background);
-
-  if(v==0) draw_stage(1);
-};
+  if(v==0) stage_init(1);
+}
 function timeline_point_draw()
 {
   
@@ -482,8 +527,8 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
+  var bg = $('.' + v.place + ' .stage .bg');
+  var fg = $('.' + v.place + ' .stage .fg');
 
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
@@ -499,8 +544,8 @@ function prepare_for_reward(v)
 }
 function prepare_for_work(v)
 {  
-  var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
+  var bg = $('.' + v.place + ' .stage .bg');
+  var fg = $('.' + v.place + ' .stage .fg');
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
       bg.css({'left':move_size - move_size*b});

@@ -275,12 +275,22 @@ body,html
 {
    display:inline-block;
 }
-#screen .top .layer,
-#screen .top .layer > img,
-#screen .bottom .layer,
-#screen .bottom .layer > img
+#screen .stage .bg,
+#screen .stage .fg
 {
    position:absolute;
+}
+#screen .stage .bg > img
+{
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:33;
+}
+#screen .stage .fg > img
+{
+  position:absolute;
+  z-index:34;
 }
 #screen .top .stage,#screen .bottom .stage
 {
@@ -288,13 +298,7 @@ body,html
    left:0px;
    transition: all 0.5s ease-out;
 }
-#screen .top .stage .layer.bg,
-#screen .top .stage .layer.fg,
-#screen .bottom .stage .layer.bg,
-#screen .bottom .stage .layer.fg
-{
-  position:absolute;
-}
+
 .character
 {
   z-index:35;
