@@ -275,6 +275,8 @@ body,html
 {
    display:inline-block;
 }
+#screen .stage .bg { z-index:33; }
+#screen .stage .fg { z-index:35; }
 #screen .stage .bg,
 #screen .stage .fg
 {
@@ -290,7 +292,7 @@ body,html
 #screen .stage .fg > img
 {
   position:absolute;
-  z-index:34;
+  z-index:35;
 }
 #screen .top .stage,#screen .bottom .stage
 {
@@ -301,7 +303,7 @@ body,html
 
 .character
 {
-  z-index:35;
+  z-index:34;
 }
 .male
 {
@@ -345,7 +347,7 @@ body,html
 .salary-picker,
 .percent_picker 
 { z-index:40; }
-.character { z-index:35; }
+.character { z-index:34; }
 .poll-sub-label,
 .age-picker,
 .category-picker,
