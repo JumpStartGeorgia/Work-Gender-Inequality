@@ -275,8 +275,8 @@ body,html
 {
    display:inline-block;
 }
-#screen .stage .bg { z-index:33; }
-#screen .stage .fg { z-index:35; }
+#screen .stage .fg .i{ z-index:33; }
+#screen .stage .fg .o{ z-index:36; }
 #screen .stage .bg,
 #screen .stage .fg
 {
@@ -292,7 +292,6 @@ body,html
 #screen .stage .fg > img
 {
   position:absolute;
-  z-index:35;
 }
 #screen .top .stage,#screen .bottom .stage
 {
