@@ -735,8 +735,7 @@ var locale = {
 var sounds = 
 [
     { "name":"done",        loop:false, path:"/assets/gap/sounds/done.mp3" },
-    { "name":"applause",    loop:true,  path:"/assets/gap/sounds/happy.mp3" },
-    { "name":"long",        loop:true,  path:"/assets/gap/sounds/long.mp3" },
+    { "name":"applause",    loop:true,  path:"/assets/gap/sounds/happy.mp3" },    
     { "name":"select",      loop:false, path:"/assets/gap/sounds/select.mp3" }//,
     //{ "name":"background",  loop:true, path:"/assets/gap/sound/background.mp3" },
 ];
