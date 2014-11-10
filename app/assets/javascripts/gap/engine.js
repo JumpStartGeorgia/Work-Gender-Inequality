@@ -22,6 +22,7 @@ function afterinit()
     {      
       game_init(); game_on_load();
     }
+    // test
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
