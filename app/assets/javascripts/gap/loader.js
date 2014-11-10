@@ -19,7 +19,6 @@ var assetsmeta =
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
 	{ name:"done", type:"sound", path:"/assets/gap/sounds/done.mp3"},
 	{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
-	{ name:"long", type:"sound", path:"/assets/gap/sounds/long.mp3"},
 	{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
 var assets = [];
