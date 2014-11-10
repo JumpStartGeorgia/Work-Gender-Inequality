@@ -58,7 +58,7 @@ var life_scroll_count = 0;
 var def_age = 21;
 var min_age = 18;
 var max_age = 60;
-var male_max_age = 65; // todo
+var male_max_age = 65;
 var female_max_age = 60;
 var onscrollbefore = null;
 var onscrollup = null;
@@ -137,12 +137,11 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   });
 
 // treasure bar with card 
-    var interest_offset = 10;
+  var interest_offset = 10;
   var interest_animation_duration = 100;
   var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
   var states_mutation = [4,2,2,3,3,0];
   var states_mutation_based = [1,0,0,0,0,0];
   for(var i = 0, sum = 1; i < 6; ++i)
