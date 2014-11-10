@@ -226,10 +226,12 @@ function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
+  setTimeout(function(){
   animated = true;
   var tools = category.stage.frame.load;
   male.animate(tools);
   female.animate(tools);
+  },1000);
   // animate humans to starting position (inside object where they work)
 }
 function game_init() {

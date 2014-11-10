@@ -123,19 +123,22 @@ function human(selector,title)
 		this.animated = true;
 		this.path = v.path;
 		var t = this;
-    var time_slower = v.duration*1000/150;
-		$(this.selector).animate({"color":'white'},{ duration:(v.duration*3000), 
+    var slow_time = 150;
+    //var time_slower = v.duration*1000/150;
+    var slowerIndex = 4000/slow_time;
+		$(this.selector).animate({"color":'white'},{ duration:4000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
+         t.next_movement();    
       },
 			progress:function(a,b,c) 
 			{ 
-				t.position(t.getpathcoordinates(b));
-        if(Math.floor10(c/150) < time_slower )
+        t.position(t.getpathcoordinates(b));
+        if(Math.floor10(c/slow_time) < slowerIndex)
         {
+          --slowerIndex;          
           t.next_movement();           
-          --time_slower;
         }
 			},
 			complete:function() 
@@ -181,7 +184,7 @@ function human(selector,title)
     }
   };  
   this.next_movement = function next_movement()
-  {    
+  {        
     this.movement = ++this.movement;
     if(this.movement == 3) this.movement = 1;
     $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    

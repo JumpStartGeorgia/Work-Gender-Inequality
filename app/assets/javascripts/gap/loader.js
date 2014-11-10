@@ -83,7 +83,7 @@ Game.Loader =
 		if(t.assetsCount==0) 
 		{
 			this.stoptimer();
-			this.splash.fadeOut(3000,'linear',function()
+			this.splash.fadeOut(fade_time,'linear',function()
 			{
 				t.splash.remove();
 				t.complete();
