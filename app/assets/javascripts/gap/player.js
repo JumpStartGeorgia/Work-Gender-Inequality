@@ -27,15 +27,20 @@ function playerObject()
 	this.background_play = function()
 	{
 		var t = this;
-		var sOrig = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element;  
-		this.bgcat = sOrig.clone()[0];
+		//var sOrig = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element;  
+		//this.bgcat = sOrig.clone()[0];
+		this.bgcat = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element[0];
 		this.bgcat.loop = true;
-		$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
-		sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
-		this.bgint = sOrig.clone()[0];
+		//$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
+		//sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
+		//this.bgint = sOrig.clone()[0];
+		this.bgint = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element[0];
 		this.bgint.loop = true;
-		$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
+		//$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
 		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime } );
+
+			t.bgcat.play();
+			t.bgint.play();
 
 	};	
 	this.background_ready = function(t)

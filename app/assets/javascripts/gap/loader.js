@@ -17,10 +17,10 @@ var assetsmeta =
 	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
-	{ name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC.mp3"},
-	{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"},
-	{ name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N.mp3"},
-	{ name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g.mp3"}
+	{ name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC"},
+	{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w"},
+	{ name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N"},
+	{ name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g"}
 	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
 	//	{ name:"m45bS4GyC", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/m45bS4GyC.mp3"},
 	// { name:"iRs2Uml6w", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/iRs2Uml6w.mp3"},
@@ -31,6 +31,7 @@ var assetsmeta =
 	//{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
 var assets = [];
+var isOpera = /opera/i.test(navigator.userAgent);
 Game.Loader = 
 {
 	timerId:null,
@@ -38,6 +39,7 @@ Game.Loader =
 	elapsedTime:0,
 	splash:null,
 	assetsCount:0,
+	sound_ext:'mp3',
 	load:function ()
 	{
 		var t = this;
@@ -49,6 +51,7 @@ Game.Loader =
 				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
 			});
 			t.starttimer();	
+			if(isOpera) t.sound_ext = 'ogg';
 			assetsmeta.forEach(function(d){
 				t.whattoload(d);			
 			});			
@@ -249,7 +252,7 @@ Game.Loader =
 					canplay: function() { t.dec(); },
 					error: function(e) { console.log(this,e,"error");}
 			  	},
-			  	"src":v.path
+			  	"src":v.path + '.' +  t.sound_ext
 		  	})
 	  	});
 	},
