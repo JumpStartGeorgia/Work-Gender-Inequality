@@ -16,6 +16,7 @@ function afterinit()
   scr_clean();
   sound_button();
   share_button();
+  console.log("1");
    if(steptogo < 6) 
       poll.show();
     else 
@@ -23,6 +24,7 @@ function afterinit()
       game_init(); game_on_load();
     }
     // test
+    console.log("asdfasdf");
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -51,7 +53,7 @@ function redraw_game()
   t.find('.treasure').css({ top : lh - 50 - 10 });
 
   $("#screen .timeline").height(th).css('top',h2-th/2);
-  if(pos >= 0)
+  if(gap.pos >= 0)
   {      
     $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
   }
@@ -89,10 +91,10 @@ function walk(v)
   var needWalk = true;
   if(v==1)
   {        
-    if(pos+1>pos_max) { epilogue(); return; }
+    if(gap.pos+1>pos_max) { epilogue(); return; }
     if(total_scrolls % scrolls_for_reward == 0)
     {
-      ++pos;
+      ++gap.pos;
       calculate_process(v);
       if(!reward) 
       { 
@@ -105,9 +107,9 @@ function walk(v)
   }
   else
   {
-    if(pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
+    if(gap.pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
     {      
-      --pos;      
+      --gap.pos;      
       calculate_process(v);
       gopast();
     }
@@ -419,7 +421,7 @@ function timeline_point_draw()
           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - interest_w2});
-          if(i<=pos) { rew.hide();}
+          if(i<=gap.pos) { rew.hide();}
           for(var j = 0; j < mCountTmp; ++j)
           { 
              $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
@@ -430,7 +432,7 @@ function timeline_point_draw()
            var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
             rew.css({heigth:th,line_height:th});
             rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-            if(i<=pos) { rew.hide();}
+            if(i<=gap.pos) { rew.hide();}
           for(var j = 0; j < fCountTmp; ++j)
           { 
              $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
@@ -461,7 +463,7 @@ function timeline_point_draw()
 ***************************************************************/
 function calculate_process(v)
 {
-  if(pos >= 0)
+  if(gap.pos >= 0)
   {
     var tmp = v*reward_period;
     humans.forEach(function(d)
@@ -507,9 +509,9 @@ function reward_process()
 function gopast()
 {
   humans.forEach(function(d){
-    if(d.event_by_period[pos]>0) 
+    if(d.event_by_period[gap.pos]>0) 
     { 
-       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
+       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(gap.pos+1)+']');
        rew.show();         
        d.card.prev();
     }
@@ -517,8 +519,8 @@ function gopast()
 }
 function card_prepare(v)
 {
-  var c = pos > prev_pos;
-  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
+  var c = gap.pos > prev_pos;
+  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
   {
     rew.hide();    
@@ -676,8 +678,8 @@ function params_validate()
     {
       if(can_scroll((+params.t+1)*scrolls_for_reward))
       {
-        pos = +params.t;    
-        total_scrolls = pos*scrolls_for_reward;
+        gap.pos = +params.t;    
+        total_scrolls = gap.pos*scrolls_for_reward;
         start_by_time();
       }
     }
@@ -712,7 +714,7 @@ function params_time_set()
   var hash = "";
   for(var i = 0; i < steptogo; ++i)
     hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
-  hash+= "&t=" + pos;
+  hash+= "&t=" + gap.pos;
 
   if(hash[0]=='&') hash=hash.substr(1);
   hash = Base64.encode(hash);
@@ -770,7 +772,7 @@ function restart()
 }
 function start_by_time()
 {
-  var tmp = pos*reward_period;
+  var tmp = gap.pos*reward_period;
   humans.forEach(function(d)
   {
     d.tsalary = tmp*d.salary;

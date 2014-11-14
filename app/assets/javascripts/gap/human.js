@@ -282,15 +282,15 @@ function human(selector,title)
   };
   this.has_future_reward = function has_future_reward()
   {    
-    this.future_reward = this.event_by_period[pos + 1];
+    this.future_reward = this.event_by_period[gap.pos + 1];
     return this.future_reward > 0;
   };
   this.mutate = function(which,events)
   {
     var t = this;
     if(typeof which === "undefined") return;
-    if(which == 1) events = t.event_by_period[pos-1];
-    console.log("pos",pos)
+    if(which == 1) events = t.event_by_period[gap.pos-1];
+    console.log("pos",gap.pos)
     if (typeof events === "undefined" || events == 0) 
     {
       this.queue.resume();  
@@ -579,7 +579,7 @@ function human(selector,title)
     if(!(which>=1 && which <= 4)) return 999;
 
     var prevTmp = 0;
-    for(var i = 0; i < pos-1; ++i)
+    for(var i = 0; i < gap.pos-1; ++i)
     {
       prevTmp += t.event_by_period[i];
     }
@@ -588,7 +588,7 @@ function human(selector,title)
       prevTmp -= Math.floor10(prevTmp / states_mutation_based[i]) * states_mutation_based[i];
       if(i == which-1)   break;
     }
-    return Math.floor10((t.event_by_period[pos-1] + prevTmp) / states_mutation_based[which-1]);
+    return Math.floor10((t.event_by_period[gap.pos-1] + prevTmp) / states_mutation_based[which-1]);
   };
   this.inrange = function(which)
   {

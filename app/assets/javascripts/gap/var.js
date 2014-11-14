@@ -122,16 +122,19 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var _pos = 0;
+  
   var prev_pos = -1;
   var pos_max = null;
   var pos_changed = false;
-  __defineGetter__("pos", function(){
-     return _pos;
+  var gap = {
+    _pos : 0
+  };
+  gap.__defineGetter__("pos", function(){
+     return this._pos;
   });
-  __defineSetter__("pos", function(val){
-    prev_pos = _pos;
-    _pos = val;
+  gap.__defineSetter__("pos", function(val){
+    prev_pos = this._pos;
+    this._pos = val;
     params_time_set();
     pos_changed = true;
   });

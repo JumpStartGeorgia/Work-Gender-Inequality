@@ -27,7 +27,7 @@ function cardObject(p)
 	{
 		this.show();
 		this.text(interest[0].descr);
-		var cnt = this.p.event_by_period[pos-1];
+		var cnt = this.p.event_by_period[gap.pos-1];
 		this.scoins.empty();
 		for(var i = 0; i < cnt; ++i)		
 		{
@@ -38,7 +38,7 @@ function cardObject(p)
 	this.prev = function()
 	{
 		//this.hide(true);
-		this.p.pedestal.move(false,pos);
+		this.p.pedestal.move(false,gap.pos);
 	};
 	this.text = function(text)
 	{
