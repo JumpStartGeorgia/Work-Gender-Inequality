@@ -279,7 +279,10 @@ function game_init() {
 
   draw_stage(0);
 
+
   redraw_game();
+
+  player.background_play();  
 }
 var img_scaler =  1;
 var bg_width = 0;

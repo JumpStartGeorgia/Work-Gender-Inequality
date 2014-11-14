@@ -156,7 +156,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var mutation_empty = [{},{},{},{},{},{}]; 
 
 // sound control system
-var player = new playerObject();
+var player;
 var isAssetsLoaded = false;
 var isSoundLoaded = false;
 var interestAlias = '';

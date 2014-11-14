@@ -4,25 +4,55 @@ function playerObject()
 	this.sounds_list = [];
 	// this.background_sounds = {};
 	// this.background_sounds_list = [];
-	
+	this.bgcat = null;
+	this.bgint = null;
+
 	var mute = false;
 	var prev_volume = 1;
 	var volume = 1;	
 	var readySoundCount = 0;
+	var bgBothLoaded = 2;
 	this.init = function()
 	{
 		for(var i = 0; i < sounds.length; ++i)
 		{			
 			var item = sounds[i];
-			this.sounds[item.name] = a1;
+			this.sounds[item.name] = new Audio(item.path);
 			this.sounds[item.name].loop = item.loop;
 			this.sounds[item.name].preload = "auto";
 			$(this.sounds[item.name]).on('canplaythrough', this.canplaythrough);
 			this.sounds_list.push(item.name);
-		}
+		}		
 	};
+	this.background_play = function()
+	{
+		var t = this;
+		var sOrig = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element;  
+		this.bgcat = sOrig.clone()[0];
+		this.bgcat.loop = true;
+		$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
+		sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
+		this.bgint = sOrig.clone()[0];
+		this.bgint.loop = true;
+		$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
+		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime } );
+
+	};	
+	this.background_ready = function(t)
+	{	
+		--bgBothLoaded;
+		$(this).off('canplaythrough');
+
+		if(bgBothLoaded == 0)
+		{
+			t.bgcat.play();
+			t.bgint.play();
+		}
+		
+	}
 	this.play = function play(name)
 	{		
+	
 		if(this.valid(name))
 		{
 			this.stop(name);
@@ -63,8 +93,12 @@ function playerObject()
 				if(this.valid(name))
 				{
 					this.sounds[name].muted = true;
+					
+					
 				}
 			}
+			this.bgcat.muted = true;
+			this.bgint.muted = true;
 			return true;
 		}
 		catch(e)
@@ -78,12 +112,15 @@ function playerObject()
 		{
 
 			mute = false;
+			this.bgcat.muted = false;
+			this.bgint.muted = false;
 			for(var i = 0; i < this.sounds_list.length; ++i)
 			{
 				var name = this.sounds_list[i];
 				if(this.valid(name))
 				{
 					this.sounds[name].muted = false;
+			
 				}
 			}
 		}

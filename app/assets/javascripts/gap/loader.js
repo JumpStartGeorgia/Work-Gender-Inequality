@@ -17,7 +17,16 @@ var assetsmeta =
 	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
-	//{ name:"done", type:"sound", path:"/assets/gap/sounds/done.mp3"},
+	{ name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC.mp3"},
+	{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"},
+	{ name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N.mp3"},
+	{ name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g.mp3"}
+	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
+	//	{ name:"m45bS4GyC", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/m45bS4GyC.mp3"},
+	// { name:"iRs2Uml6w", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/iRs2Uml6w.mp3"},
+	// { name:"mFWrgJx0N", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/mFWrgJx0N.mp3"},
+	// { name:"igfNDXD1g", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/igfNDXD1g.mp3"}
+	
 	//{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
 	//{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
@@ -139,6 +148,7 @@ Game.Loader =
 
 		    history.replaceState({},'',window.location.href);
 
+			 player = new playerObject();
 
 			window.onpopstate = function(e){
 			   if(e.state !== null) { hist = true; redraw(); hist = false; } 

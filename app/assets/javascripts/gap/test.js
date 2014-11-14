@@ -21,3 +21,7 @@
 //   }
 // });
 // // </script>
+   // AudioPlayer.setup("/assets/gap/sounds/audio-player/player.swf", {  
+   //              width: 290  
+   // }); 
+   // AudioPlayer.embed("audioplayer_1", {soundFile: "http://blackscorp.github.io/cron/media/music/through-space.mp3",loop:'yes'});  
