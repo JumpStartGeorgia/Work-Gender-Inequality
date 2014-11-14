@@ -16,7 +16,6 @@ function afterinit()
   scr_clean();
   sound_button();
   share_button();
-  console.log("1");
    if(steptogo < 6) 
       poll.show();
     else 
@@ -24,7 +23,6 @@ function afterinit()
       game_init(); game_on_load();
     }
     // test
-    console.log("asdfasdf");
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
