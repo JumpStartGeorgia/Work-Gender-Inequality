@@ -487,7 +487,7 @@ function any_reward()
 }
 function reward_process()
 {
-  player.play('applause');  
+  //player.play('applause');  
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
@@ -753,7 +753,7 @@ function sendUserData(fin)
     {
       user.sended = d.finished;
       //console.log("Saved current user id will bi");
-      player.play('done');  
+      //player.play('done');  
     },
     error:function(d)
     {

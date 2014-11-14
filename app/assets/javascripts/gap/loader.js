@@ -17,9 +17,9 @@ var assetsmeta =
 	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
-	{ name:"done", type:"sound", path:"/assets/gap/sounds/done.mp3"},
-	{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
-	{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
+	//{ name:"done", type:"sound", path:"/assets/gap/sounds/done.mp3"},
+	//{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
+	//{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
 var assets = [];
 Game.Loader = 

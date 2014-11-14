@@ -159,7 +159,7 @@ var poll = {
         ftmp.classed('selected',true);
         f();
       }
-      player.play('select');
+     // player.play('select');
     };
 
     poll.next_function = function(){ 

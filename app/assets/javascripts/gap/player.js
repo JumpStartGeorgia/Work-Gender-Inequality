@@ -14,7 +14,7 @@ function playerObject()
 		for(var i = 0; i < sounds.length; ++i)
 		{			
 			var item = sounds[i];
-			this.sounds[item.name] = new Audio(item.path);
+			this.sounds[item.name] = a1;
 			this.sounds[item.name].loop = item.loop;
 			this.sounds[item.name].preload = "auto";
 			$(this.sounds[item.name]).on('canplaythrough', this.canplaythrough);
