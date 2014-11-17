@@ -48,253 +48,68 @@ A6,1,Private sector
 A6,2,Public sector
 A6,3,NGO
 A6,4,Other
-A7_zveli,1,"Agriculture, forestry and fishing"
-A7_zveli,2,Mining and quarrying
-A7_zveli,3,Manufacturing
-A7_zveli,4,"Electricity, gas, steam and air conditioning supply"
-A7_zveli,5,"Water supply, sewerage, waste management and remediation activities"
-A7_zveli,6,Construction
-A7_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
-A7_zveli,8,Transportation and storage
-A7_zveli,9,Accommodation and food service activities
-A7_zveli,10,Information and communication
-A7_zveli,11,Finance and insurance activities
-A7_zveli,12,Real estate activities
-A7_zveli,13,"Professional, scientific and technical activities"
-A7_zveli,14,Administrative and support service activities
-A7_zveli,15,"Public administration and defense, compulsory social security"
-A7_zveli,16,Education
-A7_zveli,17,Human health and social work activities
-A7_zveli,18,Other
-A8_zveli,1,"Agriculture, forestry and fishing"
-A8_zveli,2,Mining and quarrying
-A8_zveli,3,Manufacturing
-A8_zveli,4,"Electricity, gas, steam and air conditioning supply"
-A8_zveli,5,"Water supply, sewerage, waste management and remediation activities"
-A8_zveli,6,Construction
-A8_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
-A8_zveli,8,Transportation and storage
-A8_zveli,9,Accommodation and food service activities
-A8_zveli,10,Information and communication
-A8_zveli,11,Financial and insurance activities
-A8_zveli,12,Real estate activities
-A8_zveli,13,"Professional, scientific and technical activities"
-A8_zveli,14,Administrative and support service activities
-A8_zveli,15,"Public administration and defense, compulsory social security"
-A8_zveli,16,Education
-A8_zveli,17,Human health and social work activities
-A8_zveli,18,Other
 A7,1,"Agriculture, forestry and fishing"
 A7,2,Mining and quarrying
 A7,3,Manufacturing
 A7,4,"Electricity, gas, steam and air conditioning supply"
 A7,5,"Water supply, sewerage, waste management and remediation activities"
 A7,6,Construction
-A7,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
+A7,7,Wholesale and retail trade
 A7,8,Transportation and storage
-A7,9,Accommodation and food service activities
-A7,10,Information and communication
-A7,11,Finance and insurance activities
-A7,12,Real estate activities
-A7,13,"Professional, scientific and technical activities"
-A7,14,Administrative and support service activities
-A7,15,"Public administration and defense, compulsory social security"
-A7,16,Education
-A7,17,Human health and social work activities
-A7,18,"Arts, entertainment and recreation"
-A7,19,Other service activities
-A7,20,"Activities of households as employers, undifferentiated goods- and service- producing activities of households for own use"
-A7,21,Activities of extraterritorial organizations and bodies
-A8,110,Commissioned armed forces officers
-A8,310,"Armed forces occupations, other ranks"
-A8,1120,Managing directors and chief executives
-A8,1211,Finance managers
-A8,1212,Human resource managers
-A8,1213,Policy and planning manager
-A8,1219,Business service and administration managers not elsewhere classified
-A8,1221,Sales and marketing manager
-A8,1222,Advertising and public relations managers
-A8,1311,Agricultural and forestry production managers
-A8,1321,Manufacturing managers
-A8,1324,"Supply, distribution and related managers"
-A8,1330,Information and communications technology service managers
-A8,1342,Health services managers
-A8,1344,Social welfare managers
-A8,1345,Education managers
-A8,1411,Hotel managers
-A8,1431,"Sports, recreation and cultural center managers"
-A8,1439,Services managers not elsewhere classified
-A8,2113,Chemists
-A8,2114,Geologists and geophysicists
-A8,2120,"Mathematicians, actuaries and statisticians"
-A8,2141,Industrial and production engineers
-A8,2144,Mechanical engineers
-A8,2146,"Mining engineers, metallurgists and related professionals"
-A8,2149,Engineering professionals not elsewhere classified
-A8,2151,Electrical engineers
-A8,2153,Telecommunications engineers
-A8,2161,Building architects
-A8,2163,Product and garment designers
-A8,2165,Cartographers and surveyors
-A8,2166,Graphic and multimedia designers
-A8,2211,Generalist medical practitioners
-A8,2212,Specialist medical practitioners
-A8,2221,Nursing Professionals
-A8,2222,Midwifery professionals
-A8,2240,Paramedical practitioners
-A8,2250,Veterinarians
-A8,2261,Dentists
-A8,2262,Pharmacists
-A8,2263,Environmental and occupational health and hygiene professionals
-A8,2310,University and higher education teachers
-A8,2341,Primary school teachers
-A8,2342,Early childhood educators
-A8,2351,Education methods specialists
-A8,2352,Special needs teachers
-A8,2353,Other language teachers
-A8,2354,Other music teachers
-A8,2355,Other arts teachers
-A8,2359,Teaching professionals not elsewhere classified
-A8,2411,Accountants
-A8,2412,Financial investment advisers
-A8,2413,Financial Analysts
-A8,2423,Personnel and careers professionals
-A8,2424,Training and staff development professionals
-A8,2431,Advertising and marketing professionals
-A8,2432,Public relations professionals
-A8,2519,Software and applications developers and analysts not elsewhere classified
-A8,2611,Lawyers
-A8,2619,Legal professionals not elsewhere classified
-A8,2621,Archivists and curators
-A8,2622,Librarians and related information professionals
-A8,2631,Economists
-A8,2635,Social work and counseling professionals
-A8,2642,Journalists
-A8,2643,"Translators, interpreters and other linguists"
-A8,2651,Visual artists
-A8,2652,"Musicians, singers and composers"
-A8,2653,Dancers and choreographers
-A8,2655,Actors
-A8,2656,"Announcers on radio, television and other media"
-A8,3111,Chemical and physical science technicians
-A8,3112,Building and fire inspectors
-A8,3113,Electrical engineering technicians
-A8,3115,Mechanical engineering technicians
-A8,3117,Mining and metallurgical technicians
-A8,3122,Manufacturing supervisors
-A8,3123,Construction supervisors
-A8,3134,Petroleum and natural gas refining plant operators
-A8,3142,Agricultural technicians
-A8,3152,Ships' deck officers and pilots
-A8,3153,Aircraft pilots and related associate professionals
-A8,3212,Medical and pathology laboratory technicians
-A8,3213,Pharmaceutical technicians and Assistants
-A8,3251,Dental Assistants and Therapists
-A8,3252,Medical records and health information technicians
-A8,3256,Medical Assistants
-A8,3258,Ambulance workers
-A8,3259,Health associate professionals not elsewhere classified
-A8,3312,Credit and loans officers
-A8,3315,Valuers and loss assessors
-A8,3321,Insurance representatives
-A8,3322,Commercial sales representatives
-A8,3323,Buyers
-A8,3324,Trade brokers
-A8,3332,Conference and event planners
-A8,3334,Real estate agents and property managers
-A8,3339,Business services agents not elsewhere classified
-A8,3341,Office supervisors
-A8,3343,Administrative and executive secretaries
-A8,3351,Customs and border inspectors
-A8,3355,Police inspectors and detectives
-A8,3359,Regulatory government associate professionals not elsewhere classified
-A8,3411,Legal and related associate professionals
-A8,3412,Social work associate professionals
-A8,3421,Athletes and sports players
-A8,3422,"Sports coaches, instructors and officials"
-A8,3433,"Gallery, museum and library technicians"
-A8,3434,Chefs
-A8,3435,Other artistic and cultural associate professionals
-A8,3511,Information and communications technology operations technicians
-A8,4211,Bank tellers and related clerks
-A8,4212,"Bookmakers, croupiers and related gaming workers"
-A8,4221,Travel consultants and clerks
-A8,4222,Contact center information clerks
-A8,4227,Survey and market research interviewers
-A8,4312,"Statistical, finance and insurance clerks"
-A8,4323,Transport clerks
-A8,4411,Library clerks
-A8,4416,Personnel clerks
-A8,5111,Travel attendants and travel stewards
-A8,5113,Travel guides
-A8,5120,Cooks
-A8,5131,Waiters
-A8,5141,Hairdressers
-A8,5151,"Cleaning and housekeeping supervisors in offices, hotels and other establishments"
-A8,5152,Domestic housekeepers
-A8,5211,Stall and market salespersons
-A8,5221,Shopkeepers
-A8,5222,shop supervisors
-A8,5223,Shop sales assistants
-A8,5230,Cashiers and ticket clerks
-A8,5245,Service station attendants
-A8,5249,Sales workers not elsewhere classified
-A8,5311,Child-care workers
-A8,5321,Health care assistants
-A8,5322,Home-based personal care workers
-A8,5411,Fire fighters
-A8,5412,Police officers
-A8,5414,Security guards
-A8,5419,Protective workers not elsewhere classified
-A8,6111,Field crop and vegetable growers
-A8,6113,"Gardeners, horticultural and nursery growers"
-A8,6122,Poultry producers
-A8,6330,Subsistence mixed crop and livestock farmers
-A8,7111,House builders
-A8,7115,Carpenters and joiners
-A8,7119,Building frame and related trade workers not elsewhere classified
-A8,7122,Floor layers and tile setters
-A8,7126,Plumbers and pipe fitters
-A8,7131,Painters and related workers
-A8,7211,Metal moulders and coremakers
-A8,7212,Welders and flamecutters
-A8,7213,Sheet-metal workers
-A8,7231,Motor vehicle mechanics and repairers
-A8,7315,"Glass Makers, Cutters, Grinders and Finishers"
-A8,7317,"Handicraft workers in wood, basketry an related materials"
-A8,7319,Handicraft workers not elsewhere classified
-A8,7413,Electrical Line Installers and Repairers
-A8,7512,"Bakers, pastry-cooks and confectionary makers"
-A8,7531,"Tailors, dressmakers, furriers and hatters"
-A8,7536,Shoemakers and related workers
-A8,8111,Miners and quarriers
-A8,8113,Well drillers and borers and related workers
-A8,8131,Chemical products plant and machine operators
-A8,8160,Food and related products machine operators
-A8,8189,Stationary plant and machine operators not elsewhere classified
-A8,8212,Electrical and electronic equipment assemblers
-A8,8311,Locomotive engine drivers
-A8,8312,"Railway brake, signal and switch operators"
-A8,8322,"Car, taxi and van drivers"
-A8,8331,Bus and tram drivers
-A8,8332,Heavy truck and lorry drivers
-A8,8343,"Crane, hoist and related plant operators"
-A8,9111,Domestic cleaners and helpers
-A8,9112,"Cleaners and helpers in offices, hotels and other establishments"
-A8,9129,Other cleaning workers
-A8,9211,Crop farm laborers
-A8,9311,Mining and quarrying laborers
-A8,9312,Civil engineering laborers
-A8,9313,Building construction laborers
-A8,9321,Hand Packers
-A8,9329,Manufacturing laborers not elsewhere classified
-A8,9411,Fast food preparers
-A8,9412,Kitchen helpers
-A8,9611,Garbage and recycling collectors
-A8,9613,Sweepers and related laborers
-A8,9621,"Messengers, package deliverers luggage porters"
-A8,9623,Meter Readers and vending-machine collectors
-A8,9629,Elementary workers not elsewhere classified
+A7,9,Driver / pilot
+A7,10,Accommodation and food services
+A7,11,information and communication
+A7,12,Finances and insurance
+A7,13,real estate activities
+A7,14,sciences
+A7,15,Social sciences
+A7,16,"professional technical activities (engineer, IT, computer masters)"
+A7,17,"administrative and assistant services (secretary, office worker)"
+A7,18,"Public administration (ministries, city halls, municipalities)"
+A7,19,"armed forces and mandatory social security (police, firemen, military police)"
+A7,20,Education
+A7,21,"Health system (physician, nurse, emergency)"
+A7,22,Activities in social work (social worker)
+A7,23,Pharmacy
+A7,24,managers (directors)
+A7,25,"craft, worker, guard,  repair of motor vehicles and motorcycles"
+A7,26,"Assistance in household matters, cleaning, cook, bakery"
+A7,27,Art
+A7,28,Legal system
+A7,29,Sports
+A7,30,NGO
+A7,31,political parties
+A8,1,"Agriculture, forestry and fishing"
+A8,2,Mining and quarrying
+A8,3,Manufacturing
+A8,4,"Electricity, gas, steam and air conditioning supply"
+A8,5,"Water supply, sewerage, waste management and remediation activities"
+A8,6,Construction
+A8,7,Wholesale and retail trade
+A8,8,Transportation and storage
+A8,9,Driver / pilot
+A8,10,Accommodation and food services
+A8,11,information and communication
+A8,12,Finances and insurance
+A8,13,real estate activities
+A8,14,Sciences
+A8,15,Social sciences
+A8,16,"professional technical activities (engineer, IT, computer masters)"
+A8,17,"administrative and assistant services (secretary, office worker)"
+A8,18,"Public administration (ministries, city halls, municipalities)"
+A8,19,"armed forces and mandatory social security (police, firemen, military police)"
+A8,20,Education
+A8,21,"Health system (physician, nurse, emergency)"
+A8,22,Activities in social work (social worker)
+A8,23,Pharmacy
+A8,24,managers (directors)
+A8,25,"craft, worker, guard,  repair of motor vehicles and motorcycles"
+A8,26,"Assistance in household matters, cleaning, cook, bakery"
+A8,27,Art
+A8,28,Legal system
+A8,29,Sports
+A8,30,NGO
+A8,31,political parties
 A9,1,I work alone / I don’t have colleagues
 A9,2,Mostly women
 A9,3,Mostly men
@@ -1085,6 +900,8 @@ H7,3,Gregorian
 H7,4,Catholic
 H7,5,Protestant
 H7,6,Other Christian
+H7,8,Muslim
+H7,12,Other religion
 H8,1,Up to 130 GEL
 H8,2,130-250 GEL
 H8,3,251-400 GEL
@@ -1112,25 +929,3 @@ H9,14,Difficult to answer
 H9,15,Refuse to answer
 Envelope,1,Closed
 Envelope,2,Open
-reg_weit,1,Adjara
-reg_weit,2,Guria
-reg_weit,3,Tbilisi
-reg_weit,4,Imereti
-reg_weit,5,Kakheti
-reg_weit,6,Mtskheta-Mtianeti
-reg_weit,7,Samegrelo / Zemo Svaneti
-reg_weit,8,Samtskhe-Javakheti
-reg_weit,9,Kvemo Kartli
-reg_weit,10,Shida Kartli
-gender_wei,1,Female
-gender_wei,2,Male
-age_wei,1,18-25
-age_wei,2,26-35
-age_wei,3,36-45
-age_wei,4,46-55
-age_wei,5,56-65
-age_wei,6,65+
-filter_$,0,Filter – Not Selected 
-filter_$,1,Filter – Selected
-PrimaryLast,0,Duplicate Case
-PrimaryLast,1,Primary Case

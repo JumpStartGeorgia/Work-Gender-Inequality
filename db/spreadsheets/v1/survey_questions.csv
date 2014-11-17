@@ -9,7 +9,6 @@ A2,Do you have more than one employer?
 A3,Do you have a valid contract with your employer(s)?
 A3.1_1,How long is your current contract? months
 A3.1_2,How long is your current contract? years
-A3.1_dro_weli,How long is your current contract? years
 A3.1_3,How long is your current contract? unlimited
 A3.2,Do you feel the contract guarantees you work (at least until the due-date)?
 A3.3,Does your employment contract include a provision establishing the confidentiality of the amount of salary you earn?
@@ -19,8 +18,6 @@ A4.2,Would you like to work full-time?
 A5,Do you go to work in the same city/town/village where you live?
 A5.1,Where do you work?
 A6,Do you work for a public or a private employer?
-A7_zveli,What is the field of your work? (Original Question)
-A8_zveli,What do you do at your work? (Original Question)
 A7,What is the field of your work?
 A8,What do you do at your work?
 A9,"Among your colleagues, are there mostly women or men?"
@@ -269,21 +266,4 @@ H10_1,"Including yourself, how many people – including children – usually li
 H10_2,"Including yourself, how many people – including children – usually live in your household? Children between 7-17 years of age "
 H10_3,"Including yourself, how many people – including children – usually live in your household? Children up to the age of 6"
 H10_4,"Including yourself, how many people – including children – usually live in your household? In total"
-I1_1,Do you agree with the following statements? It is hard for me to combine family duties with work
-I1_2,Do you agree with the following statements? It is hard for me to combine taking care of children with work
-I1_3,Do you agree with the following statements? My family members support me in my career development
-I2_1,To what extent do you agree with the following statements? Men are better political leaders compared to women
-I2_2,To what extent do you agree with the following statements? Men are better suited than women for politics
-I2_3,To what extent do you agree with the following statements? A woman politician is weaker and it’s harder for her to take serious responsibility
-I2_4,To what extent do you agree with the following statements? It will be hard for a woman to cope with the workload that is required by involvement in politics
-I2_5,"To what extent do you agree with the following statements? A woman politician is softer, when compared to a man, and that’s why she might be more compliant and less principled"
-I2_6,To what extent do you agree with the following statements? Politics is dirty business and that’s why it’s not suitable for a woman
-I2_7,To what extent do you agree with the following statements? It will be hard for a woman to be successful in politics because family duties will distract her
-I2_8,To what extent do you agree with the following statements? It will be hard for a woman to be successful in business because family duties will distract her
 Envelope,Envelope was either open or closed
-reg_weit,Weighted Region of sampling
-gender_wei,Weighted Gender
-age_wei,Weighted  Age
-weight,Weight
-filter_$,N<>VAR00003 (FILTER)
-PrimaryLast,Indicator of each last matching case as Primary
