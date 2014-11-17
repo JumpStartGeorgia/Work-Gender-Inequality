@@ -58,7 +58,7 @@ var life_scroll_count = 0;
 var def_age = 21;
 var min_age = 18;
 var max_age = 60;
-var male_max_age = 65; // todo
+var male_max_age = 65;
 var female_max_age = 60;
 var onscrollbefore = null;
 var onscrollup = null;
@@ -122,27 +122,29 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var noscrollEventTime = 60000;
   var noscrollTimerId = null;
 
-  var _pos = 0;
+  
   var prev_pos = -1;
   var pos_max = null;
   var pos_changed = false;
-  __defineGetter__("pos", function(){
-     return _pos;
+  var gap = {
+    _pos : 0
+  };
+  gap.__defineGetter__("pos", function(){
+     return this._pos;
   });
-  __defineSetter__("pos", function(val){
-    prev_pos = _pos;
-    _pos = val;
+  gap.__defineSetter__("pos", function(val){
+    prev_pos = this._pos;
+    this._pos = val;
     params_time_set();
     pos_changed = true;
   });
 
 // treasure bar with card 
-    var interest_offset = 10;
+  var interest_offset = 10;
   var interest_animation_duration = 100;
   var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  //var current_interests = [6,3,1,0,0,0]; // todo when more then one mutation needed
   var states_mutation = [4,2,2,3,3,0];
   var states_mutation_based = [1,0,0,0,0,0];
   for(var i = 0, sum = 1; i < 6; ++i)
@@ -157,7 +159,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var mutation_empty = [{},{},{},{},{},{}]; 
 
 // sound control system
-var player = new playerObject();
+var player;
+var isAssetsLoaded = false;
 var isSoundLoaded = false;
-var isTimelineLoaded = false;
 var interestAlias = '';

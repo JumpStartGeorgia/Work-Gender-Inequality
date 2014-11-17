@@ -1,6 +1,6 @@
 /**
 * outrun: 0 - male, 1 - female
-* dress casual business technical construction
+* dress casual street business technical construction
 */
 
 
@@ -13,11 +13,11 @@ var categories =
         "percent":22.72,
         "male":599.4,
         "female":463.2,
-        "dress":"casual",
+        "dress":"street", //technical
+        "bg":"bg1",
+        "fg":"other",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -33,11 +33,11 @@ var categories =
         "percent":43.68,
         "male":524.9,
         "female":295.6,
-        "dress":"business",
+        "dress":"technical",
+        "bg":"bg1",
+        "fg":"fishing",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -53,11 +53,11 @@ var categories =
         "percent":9.74,
         "male":1045.1,
         "female":943.3,
-        "dress":"technical",
+        "dress":"construction",
+        "bg":"bg1",
+        "fg":"mining",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -73,11 +73,11 @@ var categories =
         "percent":36.99,
         "male":868.1,
         "female":547,
-        "dress":"construction",
+        "dress":"technical",
+        "bg":"bg1",
+        "fg":"manufacturing",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -93,11 +93,11 @@ var categories =
         "percent":6.58,
         "male":979,
         "female":1047.9,
-        "dress":"casual",
+        "dress":"street",
+        "bg":"bg1",
+        "fg":"production",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -113,11 +113,11 @@ var categories =
         "percent":34.69,
         "male":1155.8,
         "female":754.8,
-        "dress":"business",
+        "dress":"construction",
+        "bg":"bg1",
+        "fg":"construction",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -133,11 +133,11 @@ var categories =
         "percent":36.96,
         "male":906.4,
         "female":571.4,            
-        "dress":"technical",
+        "dress":"casual",
+        "bg":"bg1",
+        "fg":"wholesale",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -153,11 +153,11 @@ var categories =
         "percent":34.66,
         "male":659.9,
         "female":431.2,           
-        "dress":"construction",
+        "dress":"business",
+        "bg":"bg1",
+        "fg":"hotel",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -174,10 +174,10 @@ var categories =
         "male":1251.1,
         "female":946.9,   
         "dress":"casual",
+        "bg":"bg1",
+        "fg":"transport",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -194,10 +194,10 @@ var categories =
         "male":2626,
         "female":1250.6,   
         "dress":"business",
+        "bg":"bg1",
+        "fg":"financial",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -213,11 +213,11 @@ var categories =
         "percent":21.68,
         "male":1044.7,
         "female":818.2,   
-        "dress":"technical",
+        "dress":"business",
+        "bg":"bg1",
+        "fg":"realestate",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -233,11 +233,11 @@ var categories =
         "percent":3.5,
         "male":1282.4,
         "female":1237.5,   
-        "dress":"construction",
+        "dress":"business",
+        "bg":"bg1",
+        "fg":"administration",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -254,10 +254,10 @@ var categories =
         "male":545,
         "female":428.1,   
         "dress":"casual",
+        "bg":"bg1",
+        "fg":"education",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -273,11 +273,11 @@ var categories =
         "percent":41.39,
         "male":1023.8,
         "female":600.1,   
-        "dress":"business",
+        "dress":"street",
+        "bg":"bg1",
+        "fg":"health",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -293,11 +293,11 @@ var categories =
         "percent":32.51,
         "male":858.3,
         "female":579.3,   
-        "dress":"technical" ,
+        "dress":"street" ,
+        "bg":"bg1",
+        "fg":"other",
         "stage":
         {
-            "background":"/assets/gap/svg/field/education/bg.svg",
-            "foreground":{ "interior":"/assets/gap/svg/field/education/school_int.svg", "exterior":"/assets/gap/svg/field/education/school_ext.svg"}, // should be of same size
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
@@ -305,10 +305,29 @@ var categories =
                 "reward":{ "a":true, "loop":false, "path":"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
             }
         } 
-    }
+    },
+    // what todo here
+    {
+        "id": "hyn3wmKk",
+        "name": "Everyone",
+        "outrun":0,
+        "percent":0,
+        "male":0,
+        "female":0,   
+        "dress":"casual",
+        "bg":"bg1",
+        "fg":"other",
+        "stage":
+        {
+            "frame":
+            {
+                "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
+                "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
+                "reward":{ "a":true, "loop":false, "path":"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
+            }
+        } 
+    },
 ];
-//var frame_sequence = [ 'load','work','reward' ];
-//var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
 
 var interests = 
@@ -715,10 +734,9 @@ var locale = {
 };
 var sounds = 
 [
-    { "name":"done",        loop:false, path:"/assets/gap/sounds/done.mp3" },
-    { "name":"applause",    loop:true,  path:"/assets/gap/sounds/happy.mp3" },
-    { "name":"long",        loop:true,  path:"/assets/gap/sounds/long.mp3" },
-    { "name":"select",      loop:false, path:"/assets/gap/sounds/select.mp3" }//,
+    //{ "name":"done",        loop:false, path:"/assets/gap/sounds/done.mp3" },
+    //{ "name":"applause",    loop:true,  path:"/assets/gap/sounds/happy.mp3" },    
+    //{ "name":"select",      loop:false, path:"/assets/gap/sounds/select.mp3" }//,
     //{ "name":"background",  loop:true, path:"/assets/gap/sound/background.mp3" },
 ];
 // var background_sounds = 

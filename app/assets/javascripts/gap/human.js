@@ -123,19 +123,22 @@ function human(selector,title)
 		this.animated = true;
 		this.path = v.path;
 		var t = this;
-    var time_slower = v.duration*1000/150;
-		$(this.selector).animate({"color":'white'},{ duration:(v.duration*3000), 
+    var slow_time = 150;
+    //var time_slower = v.duration*1000/150;
+    var slowerIndex = 4000/slow_time;
+		$(this.selector).animate({"color":'white'},{ duration:4000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
+         t.next_movement();    
       },
 			progress:function(a,b,c) 
 			{ 
-				t.position(t.getpathcoordinates(b));
-        if(Math.floor10(c/150) < time_slower )
+        t.position(t.getpathcoordinates(b));
+        if(Math.floor10(c/slow_time) < slowerIndex)
         {
+          --slowerIndex;          
           t.next_movement();           
-          --time_slower;
         }
 			},
 			complete:function() 
@@ -148,7 +151,7 @@ function human(selector,title)
   };
   var prevX = 0;
   var prevY = 0;
-  var movementBound = 4;
+  var movementBound = 3;
   this.prepare_reward = function prepare_for_reward(step,start)
   {
     var t = this;
@@ -181,16 +184,17 @@ function human(selector,title)
     }
   };  
   this.next_movement = function next_movement()
-  {    
+  {        
     this.movement = ++this.movement;
-    if(this.movement == 4) this.movement = 1;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
+    if(this.movement == 3) this.movement = 1;
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
-    if(this.movement == 0) this.movement = 3;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/dress/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
+    if(this.movement == 0) this.movement = 2;
+
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
   {
@@ -202,7 +206,7 @@ function human(selector,title)
     
     this.next_movement();      
     this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+    //this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.step_left = function step_left()
   {    
@@ -212,7 +216,7 @@ function human(selector,title)
     else if(tmp <= 0) return;
     this.prev_movement();
     this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+    //this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.work_frame = function work_frame()
   {
@@ -275,24 +279,18 @@ function human(selector,title)
         this.event_by_month.push(0);
       }
     }
-    for (var i = 1; i <= 3; ++i) {
-      var img = new Image();
-      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"l"+ +i+".svg";   
-      img = new Image(); 
-      img.src = "/assets/gap/svg/human/dress/"+category.dress+"/" + this.alias +"r"+i+".svg";          
-    };
   };
   this.has_future_reward = function has_future_reward()
   {    
-    this.future_reward = this.event_by_period[pos + 1];
+    this.future_reward = this.event_by_period[gap.pos + 1];
     return this.future_reward > 0;
   };
   this.mutate = function(which,events)
   {
     var t = this;
     if(typeof which === "undefined") return;
-    if(which == 1) events = t.event_by_period[pos-1];
-    console.log("pos",pos)
+    if(which == 1) events = t.event_by_period[gap.pos-1];
+    console.log("pos",gap.pos)
     if (typeof events === "undefined" || events == 0) 
     {
       this.queue.resume();  
@@ -581,7 +579,7 @@ function human(selector,title)
     if(!(which>=1 && which <= 4)) return 999;
 
     var prevTmp = 0;
-    for(var i = 0; i < pos-1; ++i)
+    for(var i = 0; i < gap.pos-1; ++i)
     {
       prevTmp += t.event_by_period[i];
     }
@@ -590,7 +588,7 @@ function human(selector,title)
       prevTmp -= Math.floor10(prevTmp / states_mutation_based[i]) * states_mutation_based[i];
       if(i == which-1)   break;
     }
-    return Math.floor10((t.event_by_period[pos-1] + prevTmp) / states_mutation_based[which-1]);
+    return Math.floor10((t.event_by_period[gap.pos-1] + prevTmp) / states_mutation_based[which-1]);
   };
   this.inrange = function(which)
   {

@@ -167,7 +167,7 @@ function degree_from_radian(rad)
 function sample()
 {
   fstart(arguments.callee.name);
-  // code todo
+  // put code here
   fend(arguments.callee.name);
 } 
 (function($) {

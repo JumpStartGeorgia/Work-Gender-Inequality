@@ -36,7 +36,7 @@ function pedestalObject(p)
   };
   this.move = function()
   {  
-    pos > prev_pos ? this.up() : this.down();
+    gap.pos > prev_pos ? this.up() : this.down();
   };
   this.delay = function()
   {
@@ -92,7 +92,7 @@ function pedestalObject(p)
     var p = t.p;
     var states = [0,0,0,0,0,0];
     var treasure_count = 0;
-    for(var i = 0; i < pos; ++i)
+    for(var i = 0; i < gap.pos; ++i)
       treasure_count += this.p.event_by_period[i];
     for(var i = 5; i > 0; --i)
     {

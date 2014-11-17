@@ -11,12 +11,10 @@
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
    </head>
    <body>
-      <div id="fb-root"></div>
-      <div id="gap-share">Share</div>
+      <div id="fb-root"></div>      
       <div class="wrapper" id="content">
-         <div id="screen"></div>
+        <div id="screen"></div>
       </div>
-
       <!-- vendor libraries -->
       <%= javascript_include_tag *(["game"]), :media => "all" %>     
       <!-- game specific libraries -->
@@ -33,35 +31,7 @@
       <script src="/assets/gap/poll.js"></script>
       <script src="/assets/gap/loader.js"></script> 
       <script src="/assets/gap/main.js"></script>      
-  <script>
-
-   $(document).ready(function() {
-     $.ajaxSetup({ cache: true });
-     $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
-//       js.src = "//connect.facebook.net/en_US/sdk/debug.js";
-     {
-       FB.init({
-         appId: '737141426318491',
-         xfbml      : true,
-         version    : 'v2.1'
-       });     
-      $('#gap-share').click(function(){
-            FB.ui({
-              method: 'share',
-              href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
-            }, function(response){
-               if (response && !response.error_code) {
-                  console.log('Posting completed.');
-               } else {
-                  console.log('Error while posting.');
-               }
-            });
-      });
-
-     });
-   });
-
-      </script>
-
+<!--      <script src="/assets/gap/test.js"></script>  -->
+<!-- http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/m45bS4GyC.mp3 -->
    </body>
 </html>

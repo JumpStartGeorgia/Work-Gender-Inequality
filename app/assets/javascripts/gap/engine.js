@@ -9,11 +9,20 @@ function init()
   s = $('#screen');    
   s3 = d3.select('#screen');    
 
-  intro();  // play game intro and choose where to go based on params poll part or game itself     
-
-  // start preloading data while playing, by stage loading 
-  // for each stage collect data, switch flag for stage if not show progress bar 
-  // manipulate layers in stage, with positions and points to start and end, transition delay, duration
+  if(!isAssetsLoaded) Game.Loader.load();
+}
+function afterinit()
+{
+  scr_clean();
+  sound_button();
+  share_button();
+   if(steptogo < 6) 
+      poll.show();
+    else 
+    {      
+      game_init(); game_on_load();
+    }
+    // test
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -27,18 +36,30 @@ function redraw()
   lh = Math.ceil10((h - th)/2);
 
   timeline_period_w = w*timeline_scale;
-  timeline_month_w = timeline_period_w/reward_period;
+  timeline_month_w = timeline_period_w/reward_period;   
   if(ingame)
   { 
     redraw_game();
     redraw_timeline();
+    stage_init(0);
   }
 }
 function redraw_game()
 {            
-  $("#screen .top").height(lh).css('top',0);
+  var t = $("#screen .top").height(lh).css('top',0);
+  t.find('.score').css({ left: w-t.find('.score').width()-30}); 
+  t.find('.treasure').css({ top : lh - 50 - 10 });
+
   $("#screen .timeline").height(th).css('top',h2-th/2);
-  $("#screen .bottom").height(lh).css('top',lh+th);
+  if(gap.pos >= 0)
+  {      
+    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+  }
+
+  var b = $("#screen .bottom").height(lh).css('top',lh+th);
+  b.find('.score').css({ left: w-b.find('.score').width()-30, top: lh + th + 20});
+  b.find('.treasure').css({ top: lh + th + 10 });
+
   redraw_human();
 }
 function redraw_human(v)
@@ -49,20 +70,9 @@ function redraw_human(v)
 }
 function redraw_timeline()
 {
-  isTimelineLoaded = false;
-  // checking if width of timeline should be resized
-  //var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-  //var len = timeline_points.length;
-  //if(t1 > len*timeline_month_w) 
-  //{
-  //  var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-  //  timeline_tick(toadd);
-  //}          
   if(pos_max != null) 
   {
-    //timeline_tick();
     timeline_point_draw();
-    isTimelineLoaded = true;
   }
 }
 function scr_clean(klass)
@@ -79,10 +89,10 @@ function walk(v)
   var needWalk = true;
   if(v==1)
   {        
-    if(pos+1>pos_max) { epilogue(); return; }
+    if(gap.pos+1>pos_max) { epilogue(); return; }
     if(total_scrolls % scrolls_for_reward == 0)
     {
-      ++pos;
+      ++gap.pos;
       calculate_process(v);
       if(!reward) 
       { 
@@ -95,9 +105,9 @@ function walk(v)
   }
   else
   {
-    if(pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
+    if(gap.pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
     {      
-      --pos;      
+      --gap.pos;      
       calculate_process(v);
       gopast();
     }
@@ -108,32 +118,6 @@ function walk(v)
 function can_scroll(v)
 {  
   return v >= 0 && v < life_scroll_count;
-}
-function intro(){  
-  scr_clean();
-  sound_button();
-  s.toggleClass(sintro.class);
-  var t = $('<div class="title">'+sintro.title+'</div>').appendTo(s);
-  var prg = $('<div id="cont" data-pct="0">'+
-                '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
-                  '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                  '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-                '</svg>'+
-              '</div>').appendTo(s);  
-  intro_fade();
-}
-function intro_fade(){
-  var t = $('.title');
-  t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 }).fadeOut(fade_time, "linear", function(){
-  scr_clean(s.toggleClass(sintro.class)); 
-
-    if(steptogo < 6) 
-      poll.show();
-    else 
-    {
-      game_init(); game_on_load();
-    }
-  });
 }
 function sound_button()
 {
@@ -153,6 +137,38 @@ function sound_button()
         volume.removeClass('off').addClass('on').data('state',1);
         player.unmute();
       }
+    });
+  }
+}
+function share_button()
+{
+  if(s.parent().find('.share').length == 0)
+  {
+    $(document).ready(function() {
+      var share = $('<div class="share">Share</div>').appendTo(s.parent());
+      $.ajaxSetup({ cache: true });
+      // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
+       $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
+       {
+         FB.init({
+           appId: '737141426318491',
+           xfbml      : true,
+           version    : 'v2.1'
+         });     
+        $('.share').click(function()
+        {
+          FB.ui({
+            method: 'share',
+            href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
+          }, function(response){
+             if (response && !response.error_code) {
+                console.log('Posting completed.');
+             } else {
+                console.log('Error while posting.');
+             }
+          });
+        });
+      });
     });
   }
 }
@@ -210,14 +226,15 @@ function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
+  setTimeout(function(){
   animated = true;
   var tools = category.stage.frame.load;
   male.animate(tools);
   female.animate(tools);
+  },1000);
   // animate humans to starting position (inside object where they work)
 }
 function game_init() {
-
   gameon();
 
   if(isf())
@@ -232,29 +249,19 @@ function game_init() {
   }
  
   scr_clean();
-
-  var t = $('<div class="top"></div>').appendTo(s);
-
-  var ts = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(t);  
-  ts.css({ left: w-ts.width()-30});  
-
-  var treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top : lh - 50 - 10 }).appendTo(t);
-
   
-  t.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
+  var tstr =  '<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
+                '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>' + 
+              '<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>' + 
+              '<div class="stage"><div class="bg"></div><div class="fg"></div></div>';
 
-  timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s);
-  timeline = timeline.find('.canvas');
-
-  var b = $('<div class="bottom"></div>').appendTo(s);
-  var bs = $('<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
-    '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>').appendTo(b);
-  bs.css({ left: w-bs.width()-30, top: lh + th + 20});
-
-  treasure = $('<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>').css({ top: lh + th + 10 }).appendTo(b);  
-
-  b.append('<div class="stage"><div class="layer bg"></div><div class="layer fg"></div></div>');
+  var t = $('<div class="top"></div>').appendTo(s)
+    .append(tstr)
+    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"></div>');
+  timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
+  var b = $('<div class="bottom"></div>').appendTo(s)
+    .append(tstr)
+    .append('<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div>');
 
   male.init();
   female.init();
@@ -265,89 +272,110 @@ function game_init() {
   male.prepare_for_game();
   female.prepare_for_game();
 
-  if(pos >= 0)
-  {
-    // var t1 = timeline_month_w/scroll_per_month * (total_scrolls+1) + w;
-    // var len = timeline_points.length;
-    // if(t1 > len*timeline_month_w) 
-    // {
-    //   var toadd = Math.round10(t1/(timeline_month_w)) + 1 - len;
-    //   timeline_tick(toadd);
-    // }         
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
-  }
-
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
 
-  //timeline_tick();
   timeline_point_draw();
+
   draw_stage(0);
 
-  var m = $('<div class="m character"></div>').appendTo(male.place == "top" ? t : b);
-  var f = $('<div class="f character"></div>').appendTo(female.place == "top" ? t : b);
-  
+
   redraw_game();
+
+  player.background_play();  
 }
 var img_scaler =  1;
 var bg_width = 0;
 var stage_offset = 0;
+var bg_initial_height = 0;
+var fgw = 0;
+var fgh = 0;
 function draw_stage(v)
 {
-  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.bg');
-  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .layer.fg');
+  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
+  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
 
-  var stage = category.stage;
+  var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;  
+  var bgFirst = bgOriginal.clone();
+
+  bg.append(bgFirst);
+  bg_initial_height = bgFirst.height();
+  img_scaler = lh / bg_initial_height;
+  bgFirst.css({ height:lh });
+
+  bg_width = bgFirst.width();
+  stage_offset = (w - bg_width)/2;
+
+  var bg_to_viewport = bg_width;
+  while(bg_to_viewport < w+w2)
+  {
+    bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    bg_to_viewport+=bg_width;
+  }
+  var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
+  var fgOriginalO = assets.filter(function(a){ return a.name == category.fg+'_o'; })[0].element;
+
+  var fg_i = fgOriginalI.clone().appendTo(fg);
+
+  fgw = fg_i.width();
+  fgh = fg_i.height();
+
+  fg_i.addClass('i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+
+  var fg_o = fgOriginalO.clone().appendTo(fg);
+  fg_o.addClass('o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+
+  if(v===0) draw_stage(1);
+
+}
+function stage_init(v)
+{
+  var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
+  var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
+
+  var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;
+  var bgs = bg.find('img');
+  var bgFirst = $(bgs[0]);
+  
+  img_scaler = lh / bg_initial_height;
+  bgFirst.css({ height:lh });
+  bg_width = bgFirst.width();
+  stage_offset = (w - bg_width)/2;
+  var bg_to_viewport = bg_width;
+
+  var i = 2;
+  while(bg_to_viewport < w+w2)
+  {
+    var tmp = bg.find('img:nth-child('+i+')');
+    if(tmp.length)
+    {
+      tmp.css({ top:0,left:bg_to_viewport, height:lh })
+    }
+    else 
+    {
+      bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    }
+    bg_to_viewport+=bg_width;
+    ++i;
+  }
+  while(i <= bgs.length+1)
+  {
+    $(bgs[i-1]).remove();
+    ++i;
+  }
   
 
-  $('<img/>').appendTo(bg).load(function(){
+  var fg_i = fg.find('img.i');
+  fg_i.addClass('i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
 
-    var bg_image = $(this);
-    img_scaler = lh / bg_image.height();
-    bg_image.css({ top:0,left:0,height:lh,'z-index':33 });
+  var fg_o = fg.find('img.o');
+  fg_o.addClass('o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
 
-    bg_width = bg_image.width();
-    stage_offset = (w - bg_width)/2;
-
-    var bg_to_viewport = bg_width;
-    while(bg_to_viewport < w+w2)
-    {
-      $('<img src="'+stage.background+'"/>').css({ top:0,left:bg_to_viewport,height:lh,'z-index':33 }).appendTo(bg)
-      bg_to_viewport+=bg_width;
-    }
-
-    $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_interior = $(this);
-      fg_interior.css({ "height":fg_interior.height()*img_scaler,'z-index':34 });
-      fg_interior.css({left: w2 - fg_interior.width()/2 ,top:lh - fg_interior.height()});
-
-    }).attr('src',stage.foreground.interior);
-
-   $('<img/>').appendTo(fg).css({ top:0,left:0 }).load(function(){
-      var fg_exterior = $(this);
-      fg_exterior.css({ "height":fg_exterior.height()*img_scaler,'z-index':36 });
-      fg_exterior.css({left:w2 - fg_exterior.width()/2 ,top:lh - fg_exterior.height()});
-    }).attr('src',stage.foreground.exterior);
-
-  }).attr('src',stage.background);
-
-  if(v==0) draw_stage(1);
-};
-function timeline_tick(n)
-{
-  //console.log('timeline_tick',n);
-  // for(var i = 0; i < n; ++i)
-  // {
-  //   var curTime = new Date();
-  //   size = timeline_points.length;
-  //   curTime.setTime(timeline_points[size-1].getTime());
-
-  //   curTime.setMonth(curTime.getMonth() + reward_period);
-
-  //   timeline_points.push(curTime);  
-  //   //if(curTime > timeline_end_point) { console.log(curTime,timeline_end_point); epilogue(); break; } 
-  // }      
-  //timeline_point_draw();   
+  if(v==0) stage_init(1);
 }
 function timeline_point_draw()
 {
@@ -391,7 +419,7 @@ function timeline_point_draw()
           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
           rew.css({left: prevPosition - interest_w2});
-          if(i<=pos) { rew.hide();}
+          if(i<=gap.pos) { rew.hide();}
           for(var j = 0; j < mCountTmp; ++j)
           { 
              $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
@@ -402,7 +430,7 @@ function timeline_point_draw()
            var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
             rew.css({heigth:th,line_height:th});
             rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-            if(i<=pos) { rew.hide();}
+            if(i<=gap.pos) { rew.hide();}
           for(var j = 0; j < fCountTmp; ++j)
           { 
              $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
@@ -429,11 +457,11 @@ function timeline_point_draw()
 
 }
 /***************************************************************
-                        TODO
+                        ON EACH TICK
 ***************************************************************/
 function calculate_process(v)
 {
-  if(pos >= 0)
+  if(gap.pos >= 0)
   {
     var tmp = v*reward_period;
     humans.forEach(function(d)
@@ -462,7 +490,7 @@ function any_reward()
 }
 function reward_process()
 {
-  player.play('applause');  
+  //player.play('applause');  
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
@@ -479,9 +507,9 @@ function reward_process()
 function gopast()
 {
   humans.forEach(function(d){
-    if(d.event_by_period[pos]>0) 
+    if(d.event_by_period[gap.pos]>0) 
     { 
-       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(pos+1)+']');
+       var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(gap.pos+1)+']');
        rew.show();         
        d.card.prev();
     }
@@ -489,8 +517,8 @@ function gopast()
 }
 function card_prepare(v)
 {
-  var c = pos > prev_pos;
-  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+pos+']');
+  var c = gap.pos > prev_pos;
+  var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
   {
     rew.hide();    
@@ -505,8 +533,8 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
+  var bg = $('.' + v.place + ' .stage .bg');
+  var fg = $('.' + v.place + ' .stage .fg');
 
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
@@ -522,8 +550,8 @@ function prepare_for_reward(v)
 }
 function prepare_for_work(v)
 {  
-  var bg = $('.' + v.place + ' .stage .layer.bg');
-  var fg = $('.' + v.place + ' .stage .layer.fg');
+  var bg = $('.' + v.place + ' .stage .bg');
+  var fg = $('.' + v.place + ' .stage .fg');
   bg.animate({  "color": 'white'},{duration:400,
     progress:function(a,b,c){
       bg.css({'left':move_size - move_size*b});
@@ -550,7 +578,7 @@ function start_reward_animation(v)
 
 
 /***************************************************************
-                      TODO END
+                     ON EACH TICK END
 ***************************************************************/
 /***************************************************************
                   Utility Functions
@@ -648,8 +676,8 @@ function params_validate()
     {
       if(can_scroll((+params.t+1)*scrolls_for_reward))
       {
-        pos = +params.t;    
-        total_scrolls = pos*scrolls_for_reward;
+        gap.pos = +params.t;    
+        total_scrolls = gap.pos*scrolls_for_reward;
         start_by_time();
       }
     }
@@ -684,7 +712,7 @@ function params_time_set()
   var hash = "";
   for(var i = 0; i < steptogo; ++i)
     hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
-  hash+= "&t=" + pos;
+  hash+= "&t=" + gap.pos;
 
   if(hash[0]=='&') hash=hash.substr(1);
   hash = Base64.encode(hash);
@@ -728,7 +756,7 @@ function sendUserData(fin)
     {
       user.sended = d.finished;
       //console.log("Saved current user id will bi");
-      player.play('done');  
+      //player.play('done');  
     },
     error:function(d)
     {
@@ -742,7 +770,7 @@ function restart()
 }
 function start_by_time()
 {
-  var tmp = pos*reward_period;
+  var tmp = gap.pos*reward_period;
   humans.forEach(function(d)
   {
     d.tsalary = tmp*d.salary;
@@ -756,31 +784,31 @@ function start_by_time()
 /***************************************************************
                   Progress Bar
 ***************************************************************/
-function progress(val)
-{
-  if(val==100) 
-  {
-    intro_fade();
-  }
-  var $circle = $('#svg #bar');
+// function progress(val)
+// {
+//   if(val==100) 
+//   {
+//     intro_fade();
+//   }
+//   var $circle = $('#svg #bar');
   
-  if (isNaN(val)) {
-   val = 0; 
-  }
-  else{
-    var r = $circle.attr('r');
-    var c = Math.PI*(r*2);
+//   if (isNaN(val)) {
+//    val = 0; 
+//   }
+//   else{
+//     var r = $circle.attr('r');
+//     var c = Math.PI*(r*2);
    
-    if (val < 0) { val = 0;}
-    if (val > 100) { val = 100;}
+//     if (val < 0) { val = 0;}
+//     if (val > 100) { val = 100;}
     
-    var pct = ((100-val)/100)*c;
+//     var pct = ((100-val)/100)*c;
     
-    $circle.css({ strokeDashoffset: pct});
+//     $circle.css({ strokeDashoffset: pct});
     
-    $('#cont').attr('data-pct',val);
-  }
-}
+//     $('#cont').attr('data-pct',val);
+//   }
+// }
 /***************************************************************
                   Progress Bar End
 ***************************************************************/
