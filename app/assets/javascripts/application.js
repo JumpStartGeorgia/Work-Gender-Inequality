@@ -17,7 +17,6 @@
 //= require vendor
 //= require search
 
-
 $(document).ready(function(){
 	// set focus to first text box on page
 /*	if (gon.highlight_first_form_field){
