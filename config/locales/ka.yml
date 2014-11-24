@@ -271,3 +271,7 @@ ka:
         7fdCIojZ: Housing
         3QDbCRrq: Transportation
         Cc8WWUmB: Health & Beauty
+  imageuploader:
+    missing: "გამოსახულების დამუშავებისას დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ ახლიდან."
+    invalid_type: "არასწორი ფაილის ტიპი. დასაშვებია jpg და png ფორმატი"
+    size_limit: "მაქსიმალური ზომა 5MB"

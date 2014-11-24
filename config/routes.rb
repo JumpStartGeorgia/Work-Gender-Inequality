@@ -12,6 +12,7 @@ BootstrapStarter::Application.routes.draw do
 											 :controllers => {:omniauth_callbacks => "omniauth_callbacks"}
 
 		namespace :admin do
+			post '/tinymce_assets', to: 'image_uploader#create', as: 'image_uploader'
 		  resources :laws
       resources :pages
 			resources :users
@@ -22,10 +23,12 @@ BootstrapStarter::Application.routes.draw do
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 
+
 		get '/gap', :to => 'gap#index'
 		post '/gap/poll', :to => 'gap#poll'
 		match '/gap/share', :to => 'gap#share'
 		get '/gap/summary', :to => 'gap#summary'		
+
 
 		root :to => 'root#index'
 	  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
