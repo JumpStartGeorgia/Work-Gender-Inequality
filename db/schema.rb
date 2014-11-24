@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141117072710) do
+ActiveRecord::Schema.define(:version => 20141124081039) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -77,6 +77,28 @@ ActiveRecord::Schema.define(:version => 20141117072710) do
     t.datetime "updated_at",                                                                      :null => false
     t.boolean  "finished",                                                     :default => false
   end
+
+  create_table "law_translations", :force => true do |t|
+    t.integer  "law_id"
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "title"
+    t.text     "content"
+    t.string   "url"
+  end
+
+  add_index "law_translations", ["law_id"], :name => "index_law_translations_on_law_id"
+  add_index "law_translations", ["locale"], :name => "index_law_translations_on_locale"
+  add_index "law_translations", ["title"], :name => "index_law_translations_on_title"
+
+  create_table "laws", :force => true do |t|
+    t.date     "enacted_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "laws", ["enacted_at"], :name => "index_laws_on_enacted_at"
 
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"

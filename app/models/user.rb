@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   validates :role, :presence => true
 
-  ROLES = {:user => 0, :content_editor => 33, :admin => 99}
+  ROLES = {:user => 0, :content_editor => 33, :moderator => 50, :user_manager => 75, :admin => 99}
 
   def self.no_admins
     where("role != ?", ROLES[:admin])

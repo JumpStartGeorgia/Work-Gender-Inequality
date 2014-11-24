@@ -6,6 +6,7 @@ en:
       page: Text for Pages
       faq_category: FAQ Category
       faq: FAQ
+      law: Law
     attributes:
       user:
         email: Email Address
@@ -29,6 +30,12 @@ en:
       faq_translation:
         question: Question
         answer: Answer
+      law:
+        enacted_at: Date Enacted
+      law_translation:
+        title: Title
+        content: Content
+        url: Url to Law
     errors:
       messages:
         required_field: "is a required field."
@@ -148,6 +155,7 @@ en:
       faq_categories: FAQ Categories
       faqs: FAQs
       gamedata: Game Poll Data(csv)
+      laws: Laws
     users:
       edit:
         title: Editing User

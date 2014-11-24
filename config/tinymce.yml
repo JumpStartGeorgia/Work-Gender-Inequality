@@ -4,8 +4,6 @@ theme_advanced_statusbar_location: bottom
 browser_spellcheck: true
 theme_advanced_buttons1:
   - formatselect
-  - fontselect
-  - fontsizeselect
   - forecolor
   - backcolor
 theme_advanced_buttons2:

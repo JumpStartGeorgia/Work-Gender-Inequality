@@ -1,0 +1,32 @@
+<%- model_class = Law -%>
+<%- model_class_trans = LawTranslation -%>
+<% title t '.title', :default => model_class.model_name.human %>
+
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_laws_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_law_path(@law), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_law_path(@law),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+              :class => 'btn btn-danger' %>
+  <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-default' %>
+</div>
+
+<p><strong><%= model_class_trans.human_attribute_name(:title) %>:</strong>
+<%= @law.title %></p>
+
+<p><strong><%= model_class.human_attribute_name(:enacted_at) %>:</strong>
+<%= l @law.enacted_at if @law.enacted_at.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:url) %>:</strong>
+<%= link_to @law.url, @law.url, :target => :blank if @law.url.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:content) %>:</strong>
+<div class="tinymce_format">
+  <%= simple_format_no_tags(@law.content, {}, {sanitize: false}) %>
+</div>
+
