@@ -8,14 +8,26 @@
     <%= f.input :published_at, :as => :string, :input_html => { :size => 20 } %>
   <% end %>
 
-  <% create_sorted_translation_objects(@publication.publication_translations).each do |trans| %>
+  <% create_sorted_translation_objects(@publication.publication_translations).each_with_index do |trans, tindex| %>
     <%= f.fields_for :publication_translations, trans do |translation| %>
 
       <div id="form-<%= trans.locale %>" class="multilanguage_nested">
         <h3><%= t("app.language.#{trans.locale}") %></h3>
 
         <%= translation.input :title %>
-        <%= translation.input :pub_file, :as => :file, :input_html => {accept:"application/pdf"}  %> 
+
+        <div class="file input optional form-group" id="publication_publication_translations_attributes_<%= tindex %>_pub_file_input">
+          <label class="" for="publication_publication_translations_attributes_<%= tindex %>_pub_file">
+            <%= @publication.class.human_attribute_name(:pub_file) %>
+          </label>
+          <% if trans.pub_file_file_name.present? %>
+            <p>
+              <%= link_to t('helpers.links.view'), trans.pub_file.url, :target => :blank, :class => 'btn btn-default' %>
+            </p>
+          <% end %>
+          <input accept="application/pdf" id="publication_publication_translations_attributes_<%= tindex %>_pub_file" name="publication[publication_translations_attributes][<%= tindex %>][pub_file]" type="file">
+        </div>        
+
         <%= translation.input :url, :as => :url %>
         <%= translation.input :description, :as => :text, rows: 10, :input_html => { class: 'tinymce' } %>
         <%= translation.hidden_field :locale , :value => trans.locale %>

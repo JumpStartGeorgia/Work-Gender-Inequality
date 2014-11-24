@@ -22,7 +22,7 @@
 <p><strong><%= model_class_trans.human_attribute_name(:title) %>:</strong>
 <%= @publication.title %></p>
 
-<p><strong><%= model_class_trans.human_attribute_name(:file) %>:</strong>
+<p><strong><%= model_class_trans.human_attribute_name(:pub_file) %>:</strong>
 <%= link_to t('helpers.links.view'), @publication.pub_file.url, :target => :blank if @publication.pub_file.present? %></p>
 
 <p><strong><%= model_class_trans.human_attribute_name(:url) %>:</strong>
