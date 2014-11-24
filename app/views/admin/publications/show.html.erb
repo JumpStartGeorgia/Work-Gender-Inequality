@@ -1,0 +1,35 @@
+<%- model_class = Publication -%>
+<%- model_class_trans = PublicationTranslation -%>
+<% title t '.title', :default => model_class.model_name.human %>
+
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_publications_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_publication_path(@publication), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_publication_path(@publication),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+              :class => 'btn btn-danger' %>
+  <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-default' %>
+</div>
+
+<p><strong><%= model_class.human_attribute_name(:published_at) %>:</strong>
+<%= l @publication.published_at if @publication.published_at.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:title) %>:</strong>
+<%= @publication.title %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:file) %>:</strong>
+<%= link_to t('helpers.links.view'), @publication.pub_file.url, :target => :blank if @publication.pub_file.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:url) %>:</strong>
+<%= link_to @publication.url, @publication.url, :target => :blank if @publication.url.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:description) %>:</strong>
+<div class="tinymce_format">
+  <%= simple_format_no_tags(@publication.description, {}, {sanitize: false}) %>
+</div>
+

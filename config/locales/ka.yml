@@ -7,6 +7,7 @@ ka:
       faq_category: FAQ Category
       faq: FAQ
       law: Law
+      publication: Publication
     attributes:
       user:
         email: ელ.ფოსტა
@@ -36,6 +37,13 @@ ka:
         title: Title
         content: Content
         url: Url to Law
+      publication:
+        published_at: Date Published
+      publication_translation:
+        title: Title
+        description: Description
+        url: Url to Publication
+        pub_file: PDF File
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -156,6 +164,7 @@ ka:
       faqs: FAQs
       gamedata: Game Poll Data(csv)      
       laws: Laws
+      publications: Publications
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე

@@ -1,0 +1,33 @@
+<%= tinymce_assets %>
+<%= tinymce %>
+
+<%= semantic_form_for([:admin, @publication]) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :published_at, :as => :string, :input_html => { :size => 20 } %>
+  <% end %>
+
+  <% create_sorted_translation_objects(@publication.publication_translations).each do |trans| %>
+    <%= f.fields_for :publication_translations, trans do |translation| %>
+
+      <div id="form-<%= trans.locale %>" class="multilanguage_nested">
+        <h3><%= t("app.language.#{trans.locale}") %></h3>
+
+        <%= translation.input :title %>
+        <%= translation.input :pub_file, :as => :file, :input_html => {accept:"application/pdf"}  %> 
+        <%= translation.input :url, :as => :url %>
+        <%= translation.input :description, :as => :text, rows: 10, :input_html => { class: 'tinymce' } %>
+        <%= translation.hidden_field :locale , :value => trans.locale %>
+      </div>
+
+    <% end %>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit t('helpers.links.reset'), :class => 'btn btn-warning', :type => :reset, :name => :reset %>
+    <%= link_to t('helpers.links.cancel'), admin_publications_path, :class => 'btn btn-mini btn-warning' %>
+  </div>
+<% end %>

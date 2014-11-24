@@ -1,6 +1,8 @@
 BootstrapStarter::Application.routes.draw do
 
 
+
+
 	#--------------------------------
 	# all resources should be within the scope block below
 	#--------------------------------
@@ -13,6 +15,7 @@ BootstrapStarter::Application.routes.draw do
 
 		namespace :admin do
 			post '/tinymce_assets', to: 'image_uploader#create', as: 'image_uploader'
+		  resources :publications
 		  resources :laws
       resources :pages
 			resources :users

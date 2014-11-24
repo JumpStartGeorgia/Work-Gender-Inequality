@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124081039) do
+ActiveRecord::Schema.define(:version => 20141124114116) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -119,6 +119,32 @@ ActiveRecord::Schema.define(:version => 20141124081039) do
   end
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
+
+  create_table "publication_translations", :force => true do |t|
+    t.integer  "publication_id"
+    t.string   "locale",                :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.string   "pub_file_file_name"
+    t.string   "pub_file_content_type"
+    t.integer  "pub_file_file_size"
+    t.datetime "pub_file_updated_at"
+  end
+
+  add_index "publication_translations", ["locale"], :name => "index_publication_translations_on_locale"
+  add_index "publication_translations", ["publication_id"], :name => "index_publication_translations_on_publication_id"
+  add_index "publication_translations", ["title"], :name => "index_publication_translations_on_title"
+
+  create_table "publications", :force => true do |t|
+    t.date     "published_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "publications", ["published_at"], :name => "index_publications_on_published_at"
 
   create_table "survey_answer_translations", :force => true do |t|
     t.integer  "survey_answer_id"
