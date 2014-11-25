@@ -150,6 +150,7 @@ ka:
     menu:
       explore_data: Explore Data
       faq: FAQ
+      laws: Legislation
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
