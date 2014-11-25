@@ -8,6 +8,7 @@ en:
       faq: FAQ
       law: Law
       publication: Publication
+      news_item: News Item
     attributes:
       user:
         email: Email Address
@@ -44,6 +45,12 @@ en:
         description: Description
         url: Url to Publication
         pub_file: PDF File
+      news_item:
+        published_at: Publish Date
+        is_published: Is Published?
+      news_item_translation:
+        title: Title
+        content: Content
     errors:
       messages:
         required_field: "is a required field."
@@ -165,6 +172,7 @@ en:
       gamedata: Game Poll Data(csv)
       laws: Laws
       publications: Publications
+      news_items: News Items
     users:
       edit:
         title: Editing User

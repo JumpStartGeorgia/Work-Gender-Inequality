@@ -1,0 +1,42 @@
+<%- model_class = NewsItem -%>
+<%- model_class_trans = NewsItemTranslation -%>
+<% title t '.title', :default => model_class.model_name.human.pluralize %>
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_admin_news_item_path,
+              :class => 'btn btn-primary' %>
+  <%= link_to t('helpers.links.admin'), admin_path,
+  :class => 'btn btn-default' %>
+</div>
+
+<table class="table table-striped display">
+  <thead>
+    <tr>
+      <th><%= model_class_trans.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:is_published) %></th>
+      <th><%= model_class.human_attribute_name(:published_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @news_items.each do |news_item| %>
+      <tr>
+        <td><%= link_to news_item.title, admin_news_item_path(news_item) %></td>
+        <td><%= news_item.is_published %></td>
+        <td><%= l news_item.published_at if news_item.published_at.present? %></td>
+        <td>
+          <%= link_to t('app.buttons.edit'),
+                      edit_admin_news_item_path(news_item), :class => 'btn btn-mini btn-default' %>
+          <%= link_to t('app.buttons.delete'),
+                      admin_news_item_path(news_item),
+                      :method => :delete,
+                      :data => { :confirm => I18n.t("helpers.links.confirm") },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

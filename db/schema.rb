@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124114116) do
+ActiveRecord::Schema.define(:version => 20141124132047) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -99,6 +99,29 @@ ActiveRecord::Schema.define(:version => 20141124114116) do
   end
 
   add_index "laws", ["enacted_at"], :name => "index_laws_on_enacted_at"
+
+  create_table "news_item_translations", :force => true do |t|
+    t.integer  "news_item_id"
+    t.string   "locale",       :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "title"
+    t.text     "content"
+  end
+
+  add_index "news_item_translations", ["locale"], :name => "index_news_item_translations_on_locale"
+  add_index "news_item_translations", ["news_item_id"], :name => "index_news_item_translations_on_news_item_id"
+  add_index "news_item_translations", ["title"], :name => "index_news_item_translations_on_title"
+
+  create_table "news_items", :force => true do |t|
+    t.date     "published_at"
+    t.boolean  "is_published", :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "news_items", ["is_published"], :name => "index_news_items_on_is_published"
+  add_index "news_items", ["published_at"], :name => "index_news_items_on_published_at"
 
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"

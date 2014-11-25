@@ -1,4 +1,9 @@
-class ImageUploaderController < ApplicationController
+class Admin::ImageUploaderController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter do |controller_instance|
+    controller_instance.send(:valid_role?, User::ROLES[:content_editor])
+  end
+
   require 'fileutils'
 
   def create
