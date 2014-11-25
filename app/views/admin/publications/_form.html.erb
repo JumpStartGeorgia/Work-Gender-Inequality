@@ -18,7 +18,7 @@
 
         <div class="file input optional form-group" id="publication_publication_translations_attributes_<%= tindex %>_pub_file_input">
           <label class="" for="publication_publication_translations_attributes_<%= tindex %>_pub_file">
-            <%= @publication.class.human_attribute_name(:pub_file) %>
+            <%= PublicationTranslation.human_attribute_name(:pub_file) %>
           </label>
           <% if trans.pub_file_file_name.present? %>
             <p>

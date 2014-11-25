@@ -3,16 +3,8 @@ default:
   theme_advanced_toolbar_align: left
   theme_advanced_statusbar_location: bottom
   browser_spellcheck: true
+  convert_urls: false
   theme_advanced_buttons1:
-    - formatselect
-    - forecolor
-    - backcolor
-  theme_advanced_buttons2:
-    - hr  
-    - sub
-    - sup
-    - charmap
-    - separator
     - cut
     - copy
     - paste
@@ -24,8 +16,7 @@ default:
     - separator
     - fullscreen  
     - code
-    - help
-  theme_advanced_buttons3:
+  theme_advanced_buttons2:
     - bold
     - italic
     - underline
@@ -57,18 +48,8 @@ alternate:
   theme_advanced_toolbar_align: left
   theme_advanced_statusbar_location: bottom
   browser_spellcheck: true
+  convert_urls: false
   theme_advanced_buttons1:
-    - formatselect
-    - forecolor
-    - backcolor
-  theme_advanced_buttons2:
-    - hr  
-    - sub
-    - sup
-    - charmap
-    - separator
-    - uploadimage
-    - separator
     - cut
     - copy
     - paste
@@ -80,8 +61,9 @@ alternate:
     - separator
     - fullscreen  
     - code
-    - help
-  theme_advanced_buttons3:
+  theme_advanced_buttons2:
+    - uploadimage
+    - separator
     - bold
     - italic
     - underline

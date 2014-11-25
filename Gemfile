@@ -29,6 +29,9 @@ gem 'paperclip', '~> 3.4.0' # to upload files
 gem "will_paginate", "~> 3.0.5" # add paging to long lists
 #gem "kaminari", "~> 0.15.1" # paging
 gem "geocoder", :git => "https://github.com/alexreisner/geocoder.git" #geocoder gets location by ip
+gem "subexec", "~> 0.2.3" # run command line commands
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

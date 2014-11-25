@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141124132047) do
+ActiveRecord::Schema.define(:version => 20141125130509) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20141124132047) do
     t.boolean  "is_published", :default => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.string   "random"
   end
 
   add_index "news_items", ["is_published"], :name => "index_news_items_on_is_published"
