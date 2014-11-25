@@ -8,7 +8,15 @@ class Law < ActiveRecord::Base
   validates :enacted_at, :presence => true
 
   def self.sorted
-    with_translations(I18n.locale).order('law_translations.title, laws.enacted_at')
+    with_translations(I18n.locale).order('law_translations.title')
+  end
+
+  # basic info is id, title and date only
+  def self.basic_info
+    select('laws.id, laws.enacted_at, law_translations.title')
+    .includes(:law_translations)
+    .where('law_translations.locale = ?', I18n.locale)
+    .order('law_translations.title')
   end
 
 end

@@ -2,6 +2,16 @@ class RootController < ApplicationController
 
   def index
 
+    @news_items = NewsItem.sorted.limit(5)
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  def law
+    @law = Law.find_by_id(params[:id])
+
     respond_to do |format|
       format.html # index.html.erb
     end

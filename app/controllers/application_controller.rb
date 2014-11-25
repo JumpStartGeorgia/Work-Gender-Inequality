@@ -61,6 +61,9 @@ class ApplicationController < ActionController::Base
     # indicate that whether login should allow local and omniauth or just locale
 	  @enable_omniauth = true
 
+    # get the list of laws for navigation
+    @laws_nav = Law.basic_info
+
     # for loading extra css/js files    
     @css = []
     @js = []

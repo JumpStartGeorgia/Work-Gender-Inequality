@@ -20,7 +20,7 @@ class NewsItem < ActiveRecord::Base
   end
 
   def self.sorted
-    with_translations(I18n.locale).order('news_items.published_at, news_item_translations.title')
+    with_translations(I18n.locale).order('news_items.published_at desc, news_item_translations.title')
   end
 
 end
