@@ -55,7 +55,7 @@
 	                <span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
-                  <% if current_user.role?(User::ROLES[:admin]) %>
+                  <% if current_user.role?(User::ROLES[:content_editor]) %>
 					          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>
 									  </li>

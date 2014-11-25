@@ -23,18 +23,20 @@
     </div>
   <% end %>
 
-  <% if current_user.role? User::ROLES[:admin] %>
+  <% if current_user.role? User::ROLES[:user_manager] %>
     <div class="col-sm-4">
       <ul>
         <li>
          <%= link_to t('.users'), admin_users_path %>
         </li>
-        <li>
-         <%= link_to t('.pages'), admin_pages_path %>
-        </li>
-        <li>
-          <%= link_to t('.gamedata'), gamedata_path %>
-        </li>
+        <% if current_user.role? User::ROLES[:admin] %>
+          <li>
+           <%= link_to t('.pages'), admin_pages_path %>
+          </li>
+          <li>
+            <%= link_to t('.gamedata'), gamedata_path %>
+          </li>
+        <% end %>  
       </ul>
     </div>
   <% end %>  

@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   ROLES = {:user => 0, :content_editor => 33, :moderator => 50, :user_manager => 75, :admin => 99}
 
+  def self.roles_no_admin
+    ROLES.dup.keep_if{|k,v| k != :admin}
+  end
+
   def self.no_admins
     where("role != ?", ROLES[:admin])
   end
