@@ -1,3 +1,4 @@
+
 function cardObject(p)
 {
 	this.p = p; // human object link
