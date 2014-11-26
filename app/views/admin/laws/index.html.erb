@@ -1,0 +1,40 @@
+<%- model_class = Law -%>
+<%- model_class_trans = LawTranslation -%>
+<% title t '.title', :default => model_class.model_name.human.pluralize %>
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_admin_law_path,
+              :class => 'btn btn-primary' %>
+  <%= link_to t('helpers.links.admin'), admin_path,
+  :class => 'btn btn-default' %>
+</div>
+
+<table class="table table-striped display">
+  <thead>
+    <tr>
+      <th><%= model_class_trans.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:enacted_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @laws.each do |law| %>
+      <tr>
+        <td><%= link_to law.title, admin_law_path(law) %></td>
+        <td><%= l law.enacted_at if law.enacted_at.present? %></td>
+        <td>
+          <%= link_to t('app.buttons.edit'),
+                      edit_admin_law_path(law), :class => 'btn btn-mini btn-default' %>
+          <%= link_to t('app.buttons.delete'),
+                      admin_law_path(law),
+                      :method => :delete,
+                      :data => { :confirm => I18n.t("helpers.links.confirm") },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

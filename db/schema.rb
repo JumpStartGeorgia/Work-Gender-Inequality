@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141117072710) do
+ActiveRecord::Schema.define(:version => 20141125130509) do
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -78,6 +78,52 @@ ActiveRecord::Schema.define(:version => 20141117072710) do
     t.boolean  "finished",                                                     :default => false
   end
 
+  create_table "law_translations", :force => true do |t|
+    t.integer  "law_id"
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "title"
+    t.text     "content"
+    t.string   "url"
+  end
+
+  add_index "law_translations", ["law_id"], :name => "index_law_translations_on_law_id"
+  add_index "law_translations", ["locale"], :name => "index_law_translations_on_locale"
+  add_index "law_translations", ["title"], :name => "index_law_translations_on_title"
+
+  create_table "laws", :force => true do |t|
+    t.date     "enacted_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "laws", ["enacted_at"], :name => "index_laws_on_enacted_at"
+
+  create_table "news_item_translations", :force => true do |t|
+    t.integer  "news_item_id"
+    t.string   "locale",       :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "title"
+    t.text     "content"
+  end
+
+  add_index "news_item_translations", ["locale"], :name => "index_news_item_translations_on_locale"
+  add_index "news_item_translations", ["news_item_id"], :name => "index_news_item_translations_on_news_item_id"
+  add_index "news_item_translations", ["title"], :name => "index_news_item_translations_on_title"
+
+  create_table "news_items", :force => true do |t|
+    t.date     "published_at"
+    t.boolean  "is_published", :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "random"
+  end
+
+  add_index "news_items", ["is_published"], :name => "index_news_items_on_is_published"
+  add_index "news_items", ["published_at"], :name => "index_news_items_on_published_at"
+
   create_table "page_translations", :force => true do |t|
     t.integer  "page_id"
     t.string   "locale",     :null => false
@@ -97,6 +143,32 @@ ActiveRecord::Schema.define(:version => 20141117072710) do
   end
 
   add_index "pages", ["name"], :name => "index_pages_on_name"
+
+  create_table "publication_translations", :force => true do |t|
+    t.integer  "publication_id"
+    t.string   "locale",                :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "title"
+    t.text     "description"
+    t.string   "url"
+    t.string   "pub_file_file_name"
+    t.string   "pub_file_content_type"
+    t.integer  "pub_file_file_size"
+    t.datetime "pub_file_updated_at"
+  end
+
+  add_index "publication_translations", ["locale"], :name => "index_publication_translations_on_locale"
+  add_index "publication_translations", ["publication_id"], :name => "index_publication_translations_on_publication_id"
+  add_index "publication_translations", ["title"], :name => "index_publication_translations_on_title"
+
+  create_table "publications", :force => true do |t|
+    t.date     "published_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "publications", ["published_at"], :name => "index_publications_on_published_at"
 
   create_table "survey_answer_translations", :force => true do |t|
     t.integer  "survey_answer_id"

@@ -1,0 +1,10 @@
+<% title @law.title %>
+
+<p><%= l @law.enacted_at if @law.enacted_at.present? %></p>
+
+<p><%= link_to @law.url, @law.url, :target => :blank if @law.url.present? %></p>
+
+
+<div class="tinymce_format">
+  <%= simple_format_no_tags(@law.content, {}, {sanitize: false}) %>
+</div>

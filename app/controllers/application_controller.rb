@@ -59,7 +59,10 @@ class ApplicationController < ActionController::Base
 
 	def preload_global_variables
     # indicate that whether login should allow local and omniauth or just locale
-	  @enable_omniauth = false
+	  @enable_omniauth = true
+
+    # get the list of laws for navigation
+    @laws_nav = Law.basic_info
 
     # for loading extra css/js files    
     @css = []

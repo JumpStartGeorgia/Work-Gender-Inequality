@@ -48,6 +48,22 @@
             <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
             <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
 
+            <% if @laws_nav.present? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <%= t('app.menu.laws') %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <% @laws_nav.each do |law| %>
+                    <li>
+                     <%= link_to law['title'], law_path(law) %>
+                    </li>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+
 	          <% if user_signed_in? %>
 			        <li class="dropdown">
 			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -55,7 +71,7 @@
 	                <span class="caret"></span>
 			          </a>
 			          <ul class="dropdown-menu" role="menu">
-                  <% if current_user.role?(User::ROLES[:admin]) %>
+                  <% if current_user.role?(User::ROLES[:content_editor]) %>
 					          <li>
 			   		         <%= link_to t('helpers.links.admin'), admin_path %>
 									  </li>

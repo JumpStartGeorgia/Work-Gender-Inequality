@@ -5,7 +5,10 @@ ka:
       user: მომხმარებელი
       page: ტექსტი გვერდებისთვის
       faq_category: FAQ Category
-      Faq: FAQ
+      faq: FAQ
+      law: Law
+      publication: Publication
+      news_item: News Item
     attributes:
       user:
         email: ელ.ფოსტა
@@ -29,6 +32,25 @@ ka:
       faq_translation:
         question: Question
         answer: Answer
+      law:
+        enacted_at: Date Enacted
+      law_translation:
+        title: Title
+        content: Content
+        url: Url to Law
+      publication:
+        published_at: Date Published
+      publication_translation:
+        title: Title
+        description: Description
+        url: Url to Publication
+        pub_file: PDF File
+      news_item:
+        published_at: Publish Date
+        is_published: Is Published?
+      news_item_translation:
+        title: Title
+        content: Content
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -128,6 +150,7 @@ ka:
     menu:
       explore_data: Explore Data
       faq: FAQ
+      laws: Legislation
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -148,6 +171,9 @@ ka:
       faq_categories: FAQ Categories
       faqs: FAQs
       gamedata: Game Poll Data(csv)      
+      laws: Laws
+      publications: Publications
+      news_items: News Items
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
@@ -200,18 +226,27 @@ ka:
         html:
           title: "%{row} <br /> <span class='title-highlight'>by</span> %{col}"
           title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
+          map:
+            title: "%{row} "
+            title_col: "<br /> <span class='title-highlight'>where</span> %{col} = [replace] "
+            title_filter: "<br /> <span class='title-highlight'>and</span> %{variable} = %{value}"
         text:
-          title: "%{row} by %{col}"
-          title_filter: " where %{variable} = %{value}"
+          title: "%{row} by %{col} "
+          title_filter: "where %{variable} = %{value}"
+          map:
+            title: "%{row} "
+            title_col: "where %{col} = [replace] "
+            title_filter: "and %{variable} = %{value}"
       onevar:
         html:
           title: "%{row}"
           title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
-          title_total: "Total Responses: %{num}"
         text:
           title: "%{row}"
           title_filter: " where %{variable} = %{value}"
+      subtitle:
+        html: "Total Responses: %{num}"
+        text: "Total Responses: %{num}"
       map:
         filter: "Filter map by selecting an answer to '%{text}':"
       table:
@@ -254,3 +289,7 @@ ka:
         7fdCIojZ: Housing
         3QDbCRrq: Transportation
         Cc8WWUmB: Health & Beauty
+  imageuploader:
+    missing: "გამოსახულების დამუშავებისას დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ ახლიდან."
+    invalid_type: "არასწორი ფაილის ტიპი. დასაშვებია jpg და png ფორმატი"
+    size_limit: "მაქსიმალური ზომა 5MB"

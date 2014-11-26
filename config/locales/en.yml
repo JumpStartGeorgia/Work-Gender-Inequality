@@ -6,6 +6,9 @@ en:
       page: Text for Pages
       faq_category: FAQ Category
       faq: FAQ
+      law: Law
+      publication: Publication
+      news_item: News Item
     attributes:
       user:
         email: Email Address
@@ -29,6 +32,25 @@ en:
       faq_translation:
         question: Question
         answer: Answer
+      law:
+        enacted_at: Date Enacted
+      law_translation:
+        title: Title
+        content: Content
+        url: Url to Law
+      publication:
+        published_at: Date Published
+      publication_translation:
+        title: Title
+        description: Description
+        url: Url to Publication
+        pub_file: PDF File
+      news_item:
+        published_at: Publish Date
+        is_published: Is Published?
+      news_item_translation:
+        title: Title
+        content: Content
     errors:
       messages:
         required_field: "is a required field."
@@ -148,6 +170,9 @@ en:
       faq_categories: FAQ Categories
       faqs: FAQs
       gamedata: Game Poll Data(csv)
+      laws: Laws
+      publications: Publications
+      news_items: News Items
     users:
       edit:
         title: Editing User
@@ -276,3 +301,8 @@ en:
       loser: Loser
       title_main: Congratulations you have won the pay game
       title_score: Final Score
+  imageuploader:
+    missing: "An error occurred while processing your image. Please try again."
+    invalid_type: "Invalid file type. Only .jpg or .png is allowed."
+    size_limit: "Image file size is limited to 5MB"
+      

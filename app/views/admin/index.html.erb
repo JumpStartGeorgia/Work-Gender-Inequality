@@ -1,26 +1,43 @@
 <% title t('.title') %>
 
-<% if current_user.role? User::ROLES[:content_editor] %>
-   <div class="col-sm-4">
-    <ul>
-      <li>
-       <%= link_to t('.faq_categories'), admin_faq_categories_path %>
-      </li>
-      <li>
-       <%= link_to t('.faqs'), admin_faqs_path %>
-      </li>
-      <% if current_user.role? User::ROLES[:admin] %>
+<div class="row">
+  <% if current_user.role? User::ROLES[:content_editor] %>
+     <div class="col-sm-4">
+      <ul>
+        <li>
+         <%= link_to t('.faq_categories'), admin_faq_categories_path %>
+        </li>
+        <li>
+         <%= link_to t('.faqs'), admin_faqs_path %>
+        </li>
+        <li>
+         <%= link_to t('.laws'), admin_laws_path %>
+        </li>
+        <li>
+         <%= link_to t('.news_items'), admin_news_items_path %>
+        </li>
+        <li>
+         <%= link_to t('.publications'), admin_publications_path %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if current_user.role? User::ROLES[:user_manager] %>
+    <div class="col-sm-4">
+      <ul>
         <li>
          <%= link_to t('.users'), admin_users_path %>
         </li>
-        <li>
-         <%= link_to t('.pages'), admin_pages_path %>
-        </li>
-        <li>
-          <%= link_to t('.gamedata'), gamedata_path %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
+        <% if current_user.role? User::ROLES[:admin] %>
+          <li>
+           <%= link_to t('.pages'), admin_pages_path %>
+          </li>
+          <li>
+            <%= link_to t('.gamedata'), gamedata_path %>
+          </li>
+        <% end %>  
+      </ul>
+    </div>
+  <% end %>  
+</div>
