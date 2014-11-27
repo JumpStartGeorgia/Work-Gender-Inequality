@@ -1,9 +1,9 @@
 <%- model_class = Story -%>
 <% title t '.title' %>
 <% 
-  links = link_to(t('.new'), new_story_path, :class => 'btn btn-primary')
+  links = link_to(t('helpers.links.add_story'), new_story_path, :class => 'btn btn-primary')
   links << '  '
-  links << link_to(t('.all'), stories_path, :class => 'btn btn-default') 
+  links << link_to(t('helpers.links.all_stories'), stories_path, :class => 'btn btn-default') 
 %>
 <% title_right links %>
 

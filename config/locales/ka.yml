@@ -132,6 +132,9 @@ ka:
       like: მოწონება
       likes: მოწონება
       menu: მენიუ
+      view_story: View Story
+      add_story: Add Your Story
+      all_stories: View All Stories
     titles:
       edit: "შეცვლა %{model}"
       save: "შენახვა %{model}"
@@ -223,6 +226,7 @@ ka:
       title: Welcome to Tanastsoroba
       header_publications: Latest Publications
       header_news: Latest News
+      header_stories: Latest Discrimination Stories
       more: View More
     about:
       title: About Tanastsoroba
@@ -304,13 +308,9 @@ ka:
   stories:
     index:
       title: Discrimination Stories
-      new: Add Your Story
       no_stories: At this time there are no stories have been shared.
-      view_story: View Story
     show:
       title: A Discrimination Story
-      new: Add Your Story
-      all: View All Stories
     new:
       title: Share Your Discrimination Story
     form:

@@ -16,6 +16,10 @@ class Story < ActiveRecord::Base
     where(:moderator_status => STATUS['approved'])
   end
 
+  def self.public
+    where(:is_public => true)
+  end
+
 
   def gender_formatted
     if self.gender.present?

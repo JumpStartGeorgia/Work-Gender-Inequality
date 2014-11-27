@@ -4,6 +4,7 @@ class RootController < ApplicationController
 
     @news_items = NewsItem.published.sorted.limit(5)
     @publications = Publication.sorted.limit(5)
+    @stories = Story.sorted.is_approved.public.limit(5)
 
     @css.push('root.css')
 

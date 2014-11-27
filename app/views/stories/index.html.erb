@@ -2,7 +2,7 @@
 <% title t '.title' %>
 
 <p>
-  <%= link_to t('.new'), new_story_path, :class => 'btn btn-primary' %>
+  <%= link_to t('helpers.links.add_story'), new_story_path, :class => 'btn btn-primary' %>
 </p>
 
 <% if @stories.present? %>
@@ -12,7 +12,7 @@
         <li>
           <div class="clear">
             <div class="pull-left date"><%= l story.created_at, format: :date_only %></div>
-            <div class="pull-right"><%= link_to t('.view_story'), story_path(story), class: 'btn btn-default' %></div>
+            <div class="pull-right"><%= link_to t('helpers.links.view_story'), story_path(story), class: 'btn btn-default' %></div>
           </div>
           <p><%= truncate(story.content, separator: ' ', omission: '...', length: 100) %></p>
         </li> 

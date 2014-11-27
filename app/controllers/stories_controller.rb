@@ -13,7 +13,7 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
-    @story = Story.is_approved.find(params[:id])
+    @story = Story.is_approved.public.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
