@@ -13,16 +13,16 @@
 <table class="table table-striped display">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:published_at) %></th>
       <th><%= model_class_trans.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:published_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @publications.each do |publication| %>
       <tr>
-        <td><%= link_to l(publication.published_at), admin_publication_path(publication) if publication.published_at.present? %></td>
         <td><%= link_to publication.title, admin_publication_path(publication) %></td>
+        <td><%= link_to l(publication.published_at), admin_publication_path(publication) if publication.published_at.present? %></td>
         <td>
           <%= link_to t('app.buttons.edit'),
                       edit_admin_publication_path(publication), :class => 'btn btn-mini btn-default' %>

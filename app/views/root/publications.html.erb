@@ -1,0 +1,20 @@
+<%- model_class = Publication -%>
+<%- model_class_trans = PublicationTranslation -%>
+<% title t('.title') %>
+
+<% if @publications.present? %>
+  <ul class="list-unstyled publications-list">
+    <% @publications.each do |publication| %>
+      <li class="publications-list-spacing">
+        <div class="title"><%= link_to publication.title, publications_show_path(publication) %></div>
+        <div class="date"><%= publication.published_at %></div>
+      </li> 
+    <% end %>
+  </ul>
+
+<% else %>
+  <p>
+  <%= t('.no_publications') %>
+  </p>
+<% end %>
+

@@ -46,6 +46,12 @@
           <ul class="nav navbar-nav navbar-right">
 
             <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
+            <% if @news_nav %>
+              <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
+            <% end %>
+            <% if @publications_nav %>
+              <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>
+            <% end %>
             <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
 
             <% if @laws_nav.present? %>
@@ -105,7 +111,12 @@
 
 					<% if content_for?(:title) %>
             <div class="page-header">
-              <h1><%= yield(:title) %></h1>
+              <h1>
+                <%= yield(:title) %>
+                <% if content_for?(:title_right) %>
+                  <span class="pull-right"><%= yield(:title_right) %></span>
+                <% end %>
+              </h1>
             </div>
 					<% end %>
 

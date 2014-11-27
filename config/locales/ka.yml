@@ -6,7 +6,7 @@ ka:
       page: ტექსტი გვერდებისთვის
       faq_category: FAQ Category
       faq: FAQ
-      law: Law
+      law: Legislation
       publication: Publication
       news_item: News Item
     attributes:
@@ -37,7 +37,7 @@ ka:
       law_translation:
         title: Title
         content: Content
-        url: Url to Law
+        url: Url to Legislation
       publication:
         published_at: Date Published
       publication_translation:
@@ -151,6 +151,8 @@ ka:
       explore_data: Explore Data
       faq: FAQ
       laws: Legislation
+      news: News
+      publications: Publications
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -170,8 +172,8 @@ ka:
       pages: საიტზე ტექსტის რედაქტირება
       faq_categories: FAQ Categories
       faqs: FAQs
-      gamedata: Game Poll Data(csv)      
-      laws: Laws
+      gamedata: Game Poll Data (csv)      
+      laws: Legislation
       publications: Publications
       news_items: News Items
     users:
@@ -194,6 +196,19 @@ ka:
   root:
     index:
       title: Welcome to Tanastsoroba
+      header_publications: Latest Publications
+      header_news: Latest News
+      more: View More
+    news:
+      title: News
+    news_show:
+      title: "News: '%{title}'"
+      all: "All News"
+    publications:
+      title: Publications
+    publications_show:
+      title: "Publication: '%{title}'"
+      all: "All Publications"
     explore_data:
       title: Explore the Data
       no_matches: Your selections returned no data. Please try again with a different selection.

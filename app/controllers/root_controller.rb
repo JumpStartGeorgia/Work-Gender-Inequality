@@ -2,15 +2,58 @@ class RootController < ApplicationController
 
   def index
 
-    @news_items = NewsItem.sorted.limit(5)
+    @news_items = NewsItem.published.sorted.limit(5)
+    @publications = Publication.sorted.limit(5)
+
+    @css.push('root.css')
 
     respond_to do |format|
       format.html # index.html.erb
     end
   end
 
+  def news
+    @news_items = NewsItem.published.sorted
+
+    @css.push('root.css')
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @news_items }
+    end
+  end
+
+  def news_show
+    @news_item = NewsItem.published.find(params[:id])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @news_item }
+    end
+  end
+
+  def publications
+    @publications = Publication.sorted
+
+    @css.push('root.css')
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @publications }
+    end
+  end
+
+  def publications_show
+    @publication = Publication.find(params[:id])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @publication }
+    end
+  end
+
   def law
-    @law = Law.find_by_id(params[:id])
+    @law = Law.find(params[:id])
 
     respond_to do |format|
       format.html # index.html.erb

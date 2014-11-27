@@ -7,6 +7,8 @@ class NewsItem < ActiveRecord::Base
 
   validates_presence_of :published_at, :if => :is_published?
 
+  scope :published, where("is_published = '1'")
+
   after_destroy :delete_images
 
   # delete any images on file for this record
@@ -21,6 +23,10 @@ class NewsItem < ActiveRecord::Base
 
   def self.sorted
     with_translations(I18n.locale).order('news_items.published_at desc, news_item_translations.title')
+  end
+
+  def self.has_published_items?
+    published.count > 0
   end
 
 end

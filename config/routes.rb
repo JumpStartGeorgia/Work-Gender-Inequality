@@ -24,6 +24,10 @@ BootstrapStarter::Application.routes.draw do
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 		match '/laws/:id', :to => 'root#law', :as => :law, :via => :get
+		match '/news', :to => 'root#news', :as => :news, :via => :get
+		match '/news/:id', :to => 'root#news_show', :as => :news_show, :via => :get
+		match '/publications', :to => 'root#publications', :as => :publications, :via => :get
+		match '/publications/:id', :to => 'root#publications_show', :as => :publications_show, :via => :get
 
 
 		get '/gap', :to => 'gap#index'

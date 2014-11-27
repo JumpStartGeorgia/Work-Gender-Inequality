@@ -1,7 +1,7 @@
 <%= tinymce_assets %>
 <%= tinymce %>
 
-<%= semantic_form_for([:admin, @publication]) do |f| %>
+<%= semantic_form_for([:admin, @publication], html: {:multipart => true}) do |f| %>
   <%= f.error_messages %>
 
   <%= f.inputs do %>
@@ -16,7 +16,7 @@
 
         <%= translation.input :title %>
 
-        <div class="file input optional form-group" id="publication_publication_translations_attributes_<%= tindex %>_pub_file_input">
+        <div class="file input required form-group" id="publication_publication_translations_attributes_<%= tindex %>_pub_file_input">
           <label class="" for="publication_publication_translations_attributes_<%= tindex %>_pub_file">
             <%= PublicationTranslation.human_attribute_name(:pub_file) %>
           </label>

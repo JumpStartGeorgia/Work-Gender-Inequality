@@ -1,1 +1,31 @@
 <% title t('.title') %>
+
+<% if @news_items.present? %>
+  <div class="col-sm-4">
+    <h2><%= t('.header_news') %></h2>
+    <ul class="list-unstyled news-list">
+      <% @news_items.each do |news| %>
+        <li>
+          <div class="title"><%= link_to news.title, news_show_path(news) %></div>
+          <div class="date"><%= news.published_at %></div>
+        </li> 
+      <% end %>
+    </ul>
+    <%= link_to t('.more'), news_path %>
+  </div>
+<% end %>
+
+<% if @publications.present? %>
+  <div class="col-sm-4">
+    <h2><%= t('.header_publications') %></h2>
+    <ul class="list-unstyled publications-list">
+      <% @publications.each do |publication| %>
+        <li>
+          <div class="title"><%= link_to publication.title, publications_show_path(publication) %></div>
+          <div class="date"><%= publication.published_at %></div>
+        </li> 
+      <% end %>
+    </ul>
+    <%= link_to t('.more'), publications_path %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<%- model_class = NewsItem -%>
+<%- model_class_trans = NewsItemTranslation -%>
+<% title t('.title') %>
+
+<% if @news_items.present? %>
+
+  <ul class="list-unstyled news-list">
+    <% @news_items.each do |news| %>
+      <li class="news-list-spacing">
+        <div class="title"><%= link_to news.title, news_show_path(news) %></div>
+        <div class="date"><%= news.published_at %></div>
+      </li> 
+    <% end %>
+  </ul>
+
+<% else %>
+  <p>
+  <%= t('.no_news') %>
+  </p>
+<% end %>

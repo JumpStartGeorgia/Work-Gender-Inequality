@@ -1,0 +1,20 @@
+<%- model_class = Publication -%>
+<%- model_class_trans = PublicationTranslation -%>
+<% title t('.title', :title => @publication.title) %>
+<% title_right link_to(t('.all'), publications_path, class: 'btn btn-default') %>
+
+
+<p>
+  <%= l @publication.published_at if @publication.published_at.present? %>
+</p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:pub_file) %>:</strong>
+<%= link_to t('helpers.links.view'), @publication.pub_file.url, :target => :blank if @publication.pub_file.present? %></p>
+
+<p><strong><%= model_class_trans.human_attribute_name(:url) %>:</strong>
+<%= link_to @publication.url, @publication.url, :target => :blank if @publication.url.present? %></p>
+
+<div class="tinymce_format">
+  <%= simple_format_no_tags(@publication.description, {}, {sanitize: false}) %>
+</div>
+
