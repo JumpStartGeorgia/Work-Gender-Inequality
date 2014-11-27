@@ -1,1 +1,22 @@
-<% title t('.title') %>
+<%- model_class = Story -%>
+<% title t '.title' %>
+<% 
+  links = link_to(t('.new'), new_story_path, :class => 'btn btn-primary')
+  links << '  '
+  links << link_to(t('.all'), stories_path, :class => 'btn btn-default') 
+%>
+<% title_right links %>
+
+<p><%= l @story.created_at, :format => :date_only %></p>
+
+<p><strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong>
+<%= @story.discrimination_type %></p>
+<p><strong><%= model_class.human_attribute_name(:gender) %>:</strong>
+<%= @story.gender_formatted %></p>
+<p><strong><%= model_class.human_attribute_name(:age) %>:</strong>
+<%= @story.age %></p>
+<p><strong><%= model_class.human_attribute_name(:region) %>:</strong>
+<%= @story.region %></p>
+
+<%= simple_format(@story.content) %>
+

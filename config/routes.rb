@@ -30,18 +30,15 @@ BootstrapStarter::Application.routes.draw do
 		match '/publications', :to => 'root#publications', :as => :publications, :via => :get
 		match '/publications/:id', :to => 'root#publications_show', :as => :publications_show, :via => :get
 
-		match '/stories', :to => 'stories#index', :as => :stories, :via => :get
-		match '/stories/:id', :to => 'stories#show', :as => :story, :via => :get
-		match '/stories/share', :to => 'stories#share', :as => :share_story, :via => :get
-
 		get '/gap', :to => 'gap#index'
 		post '/gap/poll', :to => 'gap#poll'
 		match '/gap/share', :to => 'gap#share'
 		get '/gap/summary', :to => 'gap#summary'		
 
+  	resources :stories, :except => [:edit, :update, :destroy]
 
 		root :to => 'root#index'
-	  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
+  	match "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
 	  
 	end
 	

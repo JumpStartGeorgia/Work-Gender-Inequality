@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  content: MyText
+  is_public: false
+  contact_a42: false
+  moderator_status: 1
+  type: 1
+  name: MyString
+  email: MyString
+  gender: MyString
+  age: 1
+  region: MyString
+
+two:
+  content: MyText
+  is_public: false
+  contact_a42: false
+  moderator_status: 1
+  type: 1
+  name: MyString
+  email: MyString
+  gender: MyString
+  age: 1
+  region: MyString

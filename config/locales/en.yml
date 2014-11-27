@@ -9,6 +9,7 @@ en:
       law: Legislation
       publication: Publication
       news_item: News Item
+      story: Discrimination Story
     attributes:
       user:
         email: Email Address
@@ -51,10 +52,28 @@ en:
       news_item_translation:
         title: Title
         content: Content
+      story:
+        content: Please share you story of discrimination
+        discrimination_type: Discrimination Type
+        contact_a42: Would you like Article 42 to contact you about this discrimination?
+        is_public: Can we share your story on our website?
+        moderator_status: Moderator Status
+        name: Name
+        gender: Gender
+        email: Email
+        age: Age
+        region: Region you live in
     errors:
       messages:
         required_field: "is a required field."
         already_exists: 'already exists in the database.'
+  gender:
+    M: Male
+    F: Female
+  moderator_status:
+    pending: Pending
+    approved: Approved
+    denied: Deined
   datatable:
     copy: 
       title: Copy
@@ -147,6 +166,8 @@ en:
       not_authorized: You are not authorized to view that page.
       success_created: "%{obj} was successfully created."
       success_updated: "%{obj} was successfully updated."
+      story_add_moderate: Thank you for submitting your story. 
+      story_add_moderate_public: Thank you for submitting your story. After revewing your story we will make it available on the site.
     menu:
       explore_data: Explore Data
       faq: FAQ
@@ -283,10 +304,19 @@ en:
   stories:
     index:
       title: Discrimination Stories
+      new: Add Your Story
+      no_stories: At this time there are no stories have been shared.
+      view_story: View Story
     show:
       title: A Discrimination Story
-    share:
+      new: Add Your Story
+      all: View All Stories
+    new:
       title: Share Your Discrimination Story
+    form:
+      contact_explanation1: If you would like to discuss your discrimination more, please indicate that you would like Article 42 to contact you and provide your name and email address. 
+      contact_explanation2: IMPORTANT - Tanastsoroba.ge will never make your name or email address public.
+      optional_explanation: These fields are optional. Providing them will help us gather data about whom discrimination is affecting in Georgia.
   gap:
     index:
       title: Gap
