@@ -153,6 +153,10 @@ en:
       laws: Legislation
       news: News
       publications: Publications
+      about: About
+      stories: Discrimination Stories
+      share_stories: Share Discrimination Story
+      game: Pay Gap Game
   layouts:
     application:
       toggle: Toggle navigation
@@ -199,6 +203,8 @@ en:
       header_publications: Latest Publications
       header_news: Latest News
       more: View More
+    about:
+      title: About Tanastsoroba
     news:
       title: News
     news_show:
@@ -274,6 +280,13 @@ en:
       title: Frequentyl Asked Questions (FAQ)
       no_faqs: Sorry, at this time no FAQs have been created.
       top: top
+  stories:
+    index:
+      title: Discrimination Stories
+    show:
+      title: A Discrimination Story
+    share:
+      title: Share Your Discrimination Story
   gap:
     index:
       title: Gap

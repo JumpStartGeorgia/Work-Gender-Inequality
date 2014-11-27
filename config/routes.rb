@@ -21,6 +21,7 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faqs
 		end
 
+		match '/about', :to => 'root#about', :as => :about, :via => :get
 		match '/explore_data', :to => 'root#explore_data', :as => :explore_data, :via => :get
 		match '/faq', :to => 'root#faq', :as => :faq, :via => :get
 		match '/laws/:id', :to => 'root#law', :as => :law, :via => :get
@@ -29,6 +30,9 @@ BootstrapStarter::Application.routes.draw do
 		match '/publications', :to => 'root#publications', :as => :publications, :via => :get
 		match '/publications/:id', :to => 'root#publications_show', :as => :publications_show, :via => :get
 
+		match '/stories', :to => 'stories#index', :as => :stories, :via => :get
+		match '/stories/:id', :to => 'stories#show', :as => :story, :via => :get
+		match '/stories/share', :to => 'stories#share', :as => :share_story, :via => :get
 
 		get '/gap', :to => 'gap#index'
 		post '/gap/poll', :to => 'gap#poll'

@@ -12,6 +12,13 @@ class RootController < ApplicationController
     end
   end
 
+  def about
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
   def news
     @news_items = NewsItem.published.sorted
 
