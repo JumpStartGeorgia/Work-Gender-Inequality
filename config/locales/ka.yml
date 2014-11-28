@@ -264,11 +264,13 @@ ka:
       title: About Tanastsoroba
     news:
       title: News
+      no_publications: At this time no news has been posted.
     news_show:
       title: "News: '%{title}'"
       all: "All News"
     publications:
       title: Publications
+      no_publications: At this time there are no publications.
     publications_show:
       title: "Publication: '%{title}'"
       all: "All Publications"
