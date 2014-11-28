@@ -316,7 +316,7 @@ body,html
 {
   z-index:34;
 }
-.male
+/*.male
 {
    background:transparent url("../gap/svg/human/casual/mr.svg") no-repeat center center;
    background-size:46px 100px;
@@ -329,7 +329,7 @@ body,html
    background-size:46px 100px;
    width:46px;
    height:100px;
-}
+}*/
 .m.character
 {  
    background-image:url("../gap/svg/human/casual/mr.svg");
@@ -482,22 +482,15 @@ svg.stage-bk { z-index:30; }
 {
    cursor:pointer;
 }
-.mchar,.fchar
-{
-   width:100px;
-   height:151px;
-   position:absolute;
-   left:0px;
-/*   border-radius: 200px 200px 200px 200px;
-   -moz-border-radius: 200px 200px 200px 200px;
-   -webkit-border-radius: 200px 200px 200px 200px;  */
-}
+
 .mchar
 {
+  position:absolute;
    background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
    background-size:100px 151px;
+   width:100px;
+   height:151px;
 }
-/*.mchar.b { border:1px solid #ff94f8; }*/
 .mcharh:hover,.mcharh.selected
 {
    background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
@@ -505,25 +498,26 @@ svg.stage-bk { z-index:30; }
    width:112px;
    height:175px;
    cursor:pointer;
-   /*background-color:#ff94f8 !important;*/
 }
 .fchar
 {
+   position:absolute;
    background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
    background-size:100px 151px;
-   /*background-position:77px 50px; */
-   
+   width:100px;
+   height:151px;
 }
-/*.fchar.b { border:1px solid #add2ff; }*/
 .fcharh:hover,.fcharh.selected
 {
   background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
   background-size:112px 175px;
-     width:112px;
-   height:175px;
+  width:112px;
+  height:175px;
   cursor:pointer;
-   /*background-color:#add2ff !important;*/
 }
+
+
+
 .poll .slider
 {
    background-color:#ededed;
@@ -867,27 +861,20 @@ svg.thumbnail path
   height:100%;
   background-color:#f3f2e8;
 }
+/*.poll .stage
+{
+  width:100%;
+  height:100%;
+}*/
 .poll .info
 {
-  position:fixed;
-  /*top:0px;
-  margin:0px auto;
-  width:100%;
-  text-align:center;*/
+  position:fixed; 
   top:-173px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);  
-  width:400px;
-  height:200px;
 }
-/*.poll .info .triangle-box
-{
-  display:inline-block;
-  width:400px;
-  height:200px;  
-}*/
 .poll .info .triangle
 {    
   width: 346px;
@@ -914,7 +901,7 @@ svg.thumbnail path
 }
 .poll .logo
 {
-  position: relative;
+  position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
@@ -924,3 +911,141 @@ svg.thumbnail path
   width:51px;
   height:102px;
 }
+.poll .gselector
+{
+  height:100%;
+  width:100%;
+}
+.poll > .gselector > div
+{
+  position:relative;
+  display:inline-block;  
+  width:50%;
+  height:100%;
+}
+.poll > .gselector > div > .profile
+{
+  position:absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.poll > .gselector > div.f
+{
+  cursor:w-resize;
+}
+.poll > .gselector > div.m
+{
+  cursor:e-resize;
+}
+.poll > .gselector > div.f > .profile
+{
+  right:35%;
+}
+.poll > .gselector > div.m > .profile
+{
+  left:35%;
+}
+.poll > .gselector > div > .profile > .face
+{  
+  background-size:100px 151px;
+  width:100px;
+  height:151px;
+}
+
+.poll > .gselector > div > .profile > .face.m
+{
+  background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
+}
+.poll > .gselector > div > .profile > .face.f
+{ 
+  background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
+}
+.poll > .gselector > div:hover > .profile > .face.m,
+.poll > .gselector > div.selected > .profile > .face.m
+{
+   background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
+   background-size:112px 175px;
+   width:112px;
+   height:175px;
+   cursor:pointer;
+}
+.poll > .gselector > div:hover > .profile > .face.f,
+.poll > .gselector > div.selected > .profile > .face.f
+{
+   background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
+   background-size:112px 175px;
+   width:112px;
+   height:175px;
+   cursor:pointer;
+}
+
+.poll  .gselector  .f:hover  .profile  .face ~ 
+.poll  .gselector  .m:hover  .profile  .face
+{
+   /*background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
+   background-size:90px 136px;
+   */
+  width:10px;
+   height:10px;
+}
+/*
+.poll > .gselector > div:not(.selected) > .profile > .face.f
+{
+   background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat; 
+   background-size:90px 136px;
+   width:90px;
+   height:136px;
+   cursor:pointer;
+}*/
+.poll > .gselector > div:hover > .profile > .face.f,
+.poll > .gselector > div.selected > .profile > .face.f
+{
+  background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
+  background-size:112px 175px;
+  width:112px;
+  height:175px;
+  cursor:pointer;
+}
+.poll > .gselector > div > .profile > .t
+{
+  font-family:hallo;
+  font-size:32.5px;
+  color:#484849;
+  text-align:center;
+  display:block;
+}
+.poll > .gselector > div > .profile > .t:first-letter
+{
+  font-family:hallo;
+  font-size:37.5px;
+  color:#3f8b95;
+  display:block;
+}
+/*.male .title,.female .title
+{
+  display:inline-block;
+}*/
+
+
+/*.poll .gselector .title .text
+{
+  font-family:hallo;
+  font-size:37.5px;
+  color:#7abec3;
+}*/
+/*.poll .larrow
+{
+  background:transparent url("../gap/svg/common/larrow.svg") no-repeat;
+  background-size:21px 25px;
+  width:21px;
+  height:25px;
+}
+.poll .rarrow
+{
+  background:transparent url("../gap/svg/common/rarrow.svg") no-repeat;
+  background-size:21px 25px;
+  width:21px;
+  height:25px;
+}*/----

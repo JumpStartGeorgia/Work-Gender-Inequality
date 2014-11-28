@@ -1,4 +1,4 @@
-/**************************************************************
+/*************************************************************
                   Poll Part Start
 ***************************************************************/
 
@@ -133,61 +133,65 @@ var poll = {
     //poll.label(locale.poll.choose_gender); 
     
     var margin_between = 100;
-    poll.stage.append("<div class='char-box'>" + 
-                        "<div class='female'><div class='profile'></div><div class='title'></div></div>" + 
-                        "<div class='title'><div class='l-arrow'></div><div class='text'></div><div class='r-arrow'></div></div>"+
-                        "<div class='mchar'><div class='profile'></div><div class='title'></div></div>"+
-                      "</div>");
-    var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
-      .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
-      .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
-    var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title',male.title)
-      .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
-      .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
+    s.find('.poll').append("<div class='gselector'>" + 
+                              "<div class='left f'><div class='profile'><div class='face f'></div><div class='t'>FEMALE</div></div></div>" + 
+                              //"<div class='title'><div class='larrow'></div><div class='text'>YOUR GENDER</div><div class='rarrow'></div></div>"+
+                            "<div class='right m'><div class='profile'><div class='face m'></div><div class='t'>MALE</div></div></div>"+
+                          "</div>");
 
-    onscrollafter = function(){ 
-      if(ftmp.classed('selected'))
-      {
-        ftmp.classed('selected',false);
-        mtmp.classed('selected',true);
-        m();
-      }
-      else if(mtmp.classed('selected'))
-      {
-        mtmp.classed('selected',false);
-        ftmp.classed('selected',true);
-        f();
-      }
-      else 
-      {
-        ftmp.classed('selected',true);
-        f();
-      }
-     // player.play('select');
-    };
+    s.find('.poll').append("<div class='prompt'>" + 
+                              "<div class='title'><div class='larrow'></div><div class='text'>YOUR GENDER</div><div class='rarrow'></div></div>"+
+                          "</div>");
+    // var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
+    //   .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
+    //   .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
+    // var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title',male.title)
+    //   .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
+    //   .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
 
-    poll.next_function = function(){ 
-      if(!is)
-      {
-        if(g() != "n") 
-        {       
+    // onscrollafter = function(){ 
+    //   if(ftmp.classed('selected'))
+    //   {
+    //     ftmp.classed('selected',false);
+    //     mtmp.classed('selected',true);
+    //     m();
+    //   }
+    //   else if(mtmp.classed('selected'))
+    //   {
+    //     mtmp.classed('selected',false);
+    //     ftmp.classed('selected',true);
+    //     f();
+    //   }
+    //   else 
+    //   {
+    //     ftmp.classed('selected',true);
+    //     f();
+    //   }
+    //  // player.play('select');
+    // };
+
+    // poll.next_function = function(){ 
+    //   if(!is)
+    //   {
+    //     if(g() != "n") 
+    //     {       
                      
-          if(isf()) 
-          {
-            poll.stage_d3.select('.fchar').on('click')();            
-          }
-          else 
-          {
-            poll.stage_d3.select('.mchar').on('click')();  
-          }
-        } 
-        else 
-        {
-          switchStyle('.mchar',1000,500,'sin-in','sin-out','background-color',color.female,color.white);
-          switchStyle('.fchar',1000,500,'sin-in','sin-out','background-color',color.male,color.white);        
-        }
-      }
-    };
+    //       if(isf()) 
+    //       {
+    //         poll.stage_d3.select('.fchar').on('click')();            
+    //       }
+    //       else 
+    //       {
+    //         poll.stage_d3.select('.mchar').on('click')();  
+    //       }
+    //     } 
+    //     else 
+    //     {
+    //       switchStyle('.mchar',1000,500,'sin-in','sin-out','background-color',color.female,color.white);
+    //       switchStyle('.fchar',1000,500,'sin-in','sin-out','background-color',color.male,color.white);        
+    //     }
+    //   }
+    // };
 
 
   },
@@ -938,4 +942,4 @@ var poll = {
 };
 /***************************************************************
                   Poll Part End
-**************************************************************/
+*************************************************************/
