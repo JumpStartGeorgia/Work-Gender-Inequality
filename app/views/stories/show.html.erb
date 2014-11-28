@@ -7,16 +7,35 @@
 %>
 <% title_right links %>
 
-<p><%= l @story.created_at, :format => :date_only %></p>
 
-<p><strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong>
-<%= @story.discrimination_type.name if @story.discrimination_type_id.present? %></p>
-<p><strong><%= model_class.human_attribute_name(:gender) %>:</strong>
-<%= @story.gender_formatted %></p>
-<p><strong><%= model_class.human_attribute_name(:age) %>:</strong>
-<%= @story.age %></p>
-<p><strong><%= model_class.human_attribute_name(:region) %>:</strong>
-<%= @story.region %></p>
+<ul id="story-meta-list" class="list-inline">
+  <li>
+    <strong><%= model_class.human_attribute_name(:created_at) %>:</strong><br />
+    <%= l @story.created_at, :format => :date_only %>
+  </li>
+  <li>
+    <strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong><br />
+    <%= @story.discrimination_type.name if @story.discrimination_type_id.present? %>
+  </li>
+  <% if @story.gender.present? %>
+    <li>
+      <strong><%= model_class.human_attribute_name(:gender) %>:</strong><br />
+      <%= @story.gender_formatted %>
+    </li>
+  <% end %>
+  <% if @story.age.present? %>
+    <li>
+      <strong><%= model_class.human_attribute_name(:age) %>:</strong><br />
+      <%= @story.age %>
+    </li>
+  <% end %>
+  <% if @story.region.present? %>
+    <li>
+      <strong><%= model_class.human_attribute_name(:region) %>:</strong><br />
+      <%= @story.region %>
+    </li>
+  <% end %>
+</ul>
 
 <%= simple_format(@story.content) %>
 

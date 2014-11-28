@@ -63,8 +63,6 @@ class ApplicationController < ActionController::Base
 
     # get the list of laws for navigation
     @laws_nav = Law.basic_info
-    @news_nav = NewsItem.has_published_items?
-    @publications_nav = Publication.has_items?
 
     # for loading extra css/js files    
     @css = []

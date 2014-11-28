@@ -26,6 +26,11 @@
   <% if current_user.role? User::ROLES[:user_manager] %>
     <div class="col-sm-4">
       <ul>
+        <% if current_user.role? User::ROLES[:moderator] %>
+          <li>
+           <%= link_to t('.stories'), admin_stories_path %>
+          </li>
+        <% end %>  
         <li>
          <%= link_to t('.discrimination_types'), admin_discrimination_types_path %>
         </li>

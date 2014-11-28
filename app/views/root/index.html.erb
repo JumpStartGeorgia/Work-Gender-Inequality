@@ -6,7 +6,10 @@
     <ul class="list-unstyled stories-list">
       <% @stories.each do |story| %>
         <li>
-          <div class="date"><%= l story.created_at, format: :date_only %></div>
+          <div class="clear">
+            <div class="date pull-left"><%= l story.created_at, format: :date_only %></div>
+            <div class="pull-right"><%= story.discrimination_type.name %></div>
+          </div>
           <div><%= truncate(story.content, separator: ' ', omission: '...', length: 100) %></div>
           <div><%= link_to t('helpers.links.view_story'), story_path(story) %></div>
 

@@ -1,0 +1,57 @@
+<%- model_class = Story -%>
+<% title t '.title' %>
+
+<% if @stories.present? %>
+
+  <table id="stories-admin" class="table table-striped display">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= model_class.human_attribute_name(:created_at) %></th>
+        <th><%= t('story_headers.status') %></th>
+        <th><%= t('story_headers.a42') %></th>
+        <th><%= t('story_headers.type') %></th>
+        <th><%= t('story_headers.story') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @stories.each do |story| %>
+        <tr>
+          <td><%= link_to t('helpers.links.view'), admin_story_path(story), :class => 'btn btn-default' %></td>
+          <td><%= l story.created_at, format: :date_only if story.created_at.present? %></td>
+          <td data-order="<%= story.is_public? ? story.moderator_status : 99 %>">
+            <% if story.is_public? %>
+              <div class="story-status story-moderate-<%= story.moderator_status_name %>" title="<%= t("moderator_status.#{story.moderator_status_name}.explanation") %>">
+                <%= t("moderator_status.#{story.moderator_status_name}.title") %>
+              </div>
+            <% else %>
+              <div class="story-status story-private" title="<%= t('moderator_status.private.explanation') %>">
+                <%= t('moderator_status.private.title') %>
+              </div>
+            <% end %>
+          </td>
+          <td data-order="<%= story.contact_a42 %>">
+            <% if story.contact_a42? %>
+              <div class="story-status story-contact-a42"><%= t('formtastic.yes') %></div>
+            <% end %>
+          </td>
+          <td><%= story.discrimination_type.name %></td>
+          <td>
+            <%= truncate(story.content, separator: ' ', omission: '...', length: 100) %>
+            <span class="hidden-story">
+              <%= story.content %>
+            </span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+
+<% else %>
+  <p>
+    <%= t('.no_stories') %>
+  </p>
+<% end %>
+

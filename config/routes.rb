@@ -21,6 +21,12 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faq_categories
 		  resources :faqs
 		  resources :discrimination_types
+	  	resources :stories, :only => [:index, :show] do
+	  		member do
+		  		post 'approve', :defaults => { :format => 'json' }
+		  		post 'deny', :defaults => { :format => 'json' }
+	  		end
+	  	end
 		end
 
 		match '/about', :to => 'root#about', :as => :about, :via => :get

@@ -9,12 +9,13 @@
   <div class="col-sm-4">
     <ul class="list-unstyled">
       <% @stories.each do |story| %>
-        <li>
+        <li class="clear">
           <div class="clear">
             <div class="pull-left date"><%= l story.created_at, format: :date_only %></div>
-            <div class="pull-right"><%= link_to t('helpers.links.view_story'), story_path(story), class: 'btn btn-default' %></div>
+            <div class="pull-right"><%= story.discrimination_type.name %></div>
           </div>
           <p><%= truncate(story.content, separator: ' ', omission: '...', length: 100) %></p>
+          <div class="pull-right"><%= link_to t('helpers.links.view_story'), story_path(story), class: 'btn btn-default btn-sm' %></div>
         </li> 
       <% end %>
     </ul>

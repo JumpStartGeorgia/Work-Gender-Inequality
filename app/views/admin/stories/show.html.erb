@@ -1,0 +1,84 @@
+<%- model_class = Story -%>
+<% title t '.title' %>
+<% 
+  links = ''
+  if @story.is_public?
+    links << link_to(t('.approve'), '#', :class => 'btn btn-success btn-moderate', :'data-url' => approve_admin_story_path(@story))
+    links << '  '
+    links << link_to(t('.deny'), '#', :class => 'btn btn-danger btn-moderate', :'data-url' => deny_admin_story_path(@story))
+    links << '  '
+  end
+  links << link_to(t('helpers.links.all_stories'), admin_stories_path, :class => 'btn btn-default') 
+%>
+<% title_right links %>
+
+
+<ul id="story-meta-list" class="list-inline">
+  <li>
+    <strong><%= model_class.human_attribute_name(:created_at) %>:</strong><br />
+    <%= l @story.created_at, :format => :date_only %>
+  </li>
+  <li id="status">
+    <strong><%= t('story_headers.status') %>:</strong><br />
+    <% if @story.is_public? %>
+      <% if @story.moderator_status == Story::STATUS['pending'] %>
+        <div class="story-status story-moderate-<%= @story.moderator_status_name %>" title="<%= t("moderator_status.#{@story.moderator_status_name}.explanation") %>">
+          <%= t("moderator_status.#{@story.moderator_status_name}.title") %>
+        </div>
+        <div style="display:none;" class="story-status story-moderate-approved" title="<%= t("moderator_status.approved.explanation") %>">
+          <%= t("moderator_status.approved.title") %>
+        </div>
+        <div style="display:none;" class="story-status story-moderate-denied" title="<%= t("moderator_status.denied.explanation") %>">
+          <%= t("moderator_status.denied.title") %>
+        </div>
+      <% elsif @story.moderator_status == Story::STATUS['approved'] %>
+          <div class="story-status story-moderate-approved" title="<%= t("moderator_status.approved.explanation") %>">
+            <%= t("moderator_status.approved.title") %>
+          </div>
+          <div style="display:none;" class="story-status story-moderate-denied" title="<%= t("moderator_status.denied.explanation") %>">
+            <%= t("moderator_status.denied.title") %>
+          </div>
+      <% elsif @story.moderator_status == Story::STATUS['denied'] %>
+          <div style="display:none;" class="story-status story-moderate-approved" title="<%= t("moderator_status.approved.explanation") %>">
+            <%= t("moderator_status.approved.title") %>
+          </div>
+          <div class="story-status story-moderate-denied" title="<%= t("moderator_status.denied.explanation") %>">
+            <%= t("moderator_status.denied.title") %>
+          </div>
+      <% end %>
+    <% else %>
+      <div class="story-status story-private" title="<%= t('moderator_status.private.explanation') %>">
+        <%= t('moderator_status.private.title') %>
+      </div>
+    <% end %>
+  </li>
+  <li>
+    <strong><%= t('story_headers.a42') %>:</strong><br />
+    <% if @story.contact_a42? %>
+      <div class="story-status story-contact-a42"><%= t('formtastic.yes') %></div>
+    <% else %>
+      <div class="story-status story-contact-a42-no"><%= t('formtastic.no') %></div>
+    <% end %>
+  </li>
+  <li>
+    <strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong><br />
+    <%= @story.discrimination_type.name if @story.discrimination_type_id.present? %>
+  </li>
+  <li>
+    <strong><%= model_class.human_attribute_name(:gender) %>:</strong><br />
+    <%= @story.gender_formatted %>
+  </li>
+  <li>
+    <strong><%= model_class.human_attribute_name(:age) %>:</strong><br />
+    <%= @story.age %>
+  </li>
+  <li>
+    <strong><%= model_class.human_attribute_name(:region) %>:</strong><br />
+    <%= @story.region %>
+  </li>
+</ul>
+
+<hr />
+
+<%= simple_format(@story.content) %>
+

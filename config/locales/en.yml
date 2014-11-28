@@ -64,6 +64,7 @@ en:
         email: Email
         age: Age
         region: Region you live in
+        created_at: Date Shared
       discrimination_type:
         sort: Sort Order
       discrimination_type_translation:
@@ -72,13 +73,27 @@ en:
       messages:
         required_field: "is a required field."
         already_exists: 'already exists in the database.'
+  story_headers:
+    story: Story
+    status: Status
+    a42: Wants Article42 to Contact
+    type: Discrimination Type
   gender:
     M: Male
     F: Female
   moderator_status:
-    pending: Pending
-    approved: Approved
-    denied: Deined
+    pending: 
+      title: Pending
+      explanation: Story can be public and needs to be moderated
+    approved: 
+      title: Approved
+      explanation: Story can be public and has been approved by moderators
+    denied: 
+      title: Denied
+      explanation: Story can be public but has been denied by moderators
+    private: 
+      title: Private
+      explanation: Story can not be shared with the public
   datatable:
     copy: 
       title: Copy
@@ -176,6 +191,8 @@ en:
       success_updated: "%{obj} was successfully updated."
       story_add_moderate: Thank you for submitting your story. 
       story_add_moderate_public: Thank you for submitting your story. After revewing your story we will make it available on the site.
+      story_moderated_approved: The story has been approved.
+      story_moderated_denied: The story has been denied.
     menu:
       explore_data: Explore Data
       faq: FAQ
@@ -210,6 +227,7 @@ en:
       publications: Publications
       news_items: News Items
       discrimination_types: Discrimination Types
+      stories: Moderator Discrimination Stories
     users:
       edit:
         title: Editing User
@@ -219,6 +237,14 @@ en:
         title: New User
       show:
         title: User Details
+    stories:
+      index:
+        title: Moderate Discrimination Stories
+        no_stories: At this time no stories have been shared.
+      show:
+        title: Moderate Discrimination Story
+        approve: Approve
+        deny: Deny
   devise:
     mailer:
       reset_password_instructions:
@@ -314,7 +340,7 @@ en:
   stories:
     index:
       title: Discrimination Stories
-      no_stories: At this time there are no stories have been shared.
+      no_stories: At this time no stories have been shared.
     show:
       title: A Discrimination Story
     new:

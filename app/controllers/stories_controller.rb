@@ -15,6 +15,8 @@ class StoriesController < ApplicationController
   def show
     @story = Story.is_approved.public.find(params[:id])
 
+    @css.push('stories.css')
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @story }
