@@ -1,4 +1,4 @@
-/***************************************************************
+/**************************************************************
                   Poll Part Start
 ***************************************************************/
 
@@ -49,20 +49,19 @@ var poll = {
   },
   init:function init()
   {    
-    
 
     s3.append('div')
       .classed('poll',true)
         .selectAll('div')
-        .data(['poll-label','stage'])
+        .data(['info', 'logo', 'stage'])
         .enter()
         .append('div')
         .attr('class',function(d){return d;});
 
     this.stage = s.find('.stage');
     this.stage_d3 = s3.select('.stage');
-
-
+//<div class='triangle-box'></div>
+    s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
   },
   add_layer:function add_layer()
   {
@@ -131,9 +130,14 @@ var poll = {
   },
   gender:function gender()
   {
-    poll.label(locale.poll.choose_gender); 
+    //poll.label(locale.poll.choose_gender); 
     
     var margin_between = 100;
+    poll.stage.append("<div class='char-box'>" + 
+                        "<div class='fchar'></div>" + 
+                        "<div class='title'></div>"+
+                        "<div class='mchar'></div>"+
+                      "</div>");
     var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
       .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
@@ -858,7 +862,7 @@ var poll = {
 
     return true;
   },
-  label:function label(v){ d3.select('.poll-label').text(v); },
+  label:function label(v){ d3.select('.info').text(v); },
   sublabel:function sublabel(v)
   {
     var t = $('.poll-sub-label').text(v);    
@@ -934,4 +938,4 @@ var poll = {
 };
 /***************************************************************
                   Poll Part End
-***************************************************************/
+**************************************************************/

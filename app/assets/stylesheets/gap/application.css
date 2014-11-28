@@ -4,6 +4,18 @@
     font-style: normal;
     font-weight: 200;
 }
+@font-face {
+    font-family: "gandhi";    
+    src: url( '/assets/fonts/gandhi-sans-i.otf') format("opentype");           
+    font-style: normal;
+    font-weight: 200;
+}
+@font-face {
+    font-family: "hallo";    
+    src: url( '/assets/fonts/hallo-sans-li.otf') format("opentype");           
+    font-style: normal;
+    font-weight: 200;
+}
 body,html
 {
    overflow:hidden;
@@ -446,16 +458,7 @@ svg.stage-bk { z-index:30; }
    display:inline-block;
 }
 
-.mchar,.fchar
-{
-   width:200px;
-   height:200px;
-   position:absolute;
-   left:0px;
-   border-radius: 200px 200px 200px 200px;
-   -moz-border-radius: 200px 200px 200px 200px;
-   -webkit-border-radius: 200px 200px 200px 200px;  
-}
+
 .age-picker
 {
 
@@ -479,31 +482,48 @@ svg.stage-bk { z-index:30; }
 {
    cursor:pointer;
 }
-
+.mchar,.fchar
+{
+   width:100px;
+   height:151px;
+   position:absolute;
+   left:0px;
+/*   border-radius: 200px 200px 200px 200px;
+   -moz-border-radius: 200px 200px 200px 200px;
+   -webkit-border-radius: 200px 200px 200px 200px;  */
+}
 .mchar
 {
-   background:#ffffff url("../gap/svg/human/casual/mr.svg") no-repeat; 
-   background-size:46px 100px;
-   background-position:77px 50px;
+   background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
+   background-size:100px 151px;
+   /*background-position:77px 50px;*/
 }
-.mchar.b { border:1px solid #ff94f8; }
+/*.mchar.b { border:1px solid #ff94f8; }*/
 .mcharh:hover,.mcharh.selected
 {
+   background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
+   background-size:112px 175px;
+   width:112px;
+   height:175px;
    cursor:pointer;
-   background-color:#ff94f8 !important;
+   /*background-color:#ff94f8 !important;*/
 }
 .fchar
 {
-   background:#ffffff url("../gap/svg/human/casual/fr.svg") no-repeat;
-   background-size:46px 100px;
-   background-position:77px 50px; 
+   background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
+   background-size:100px 151px;
+   /*background-position:77px 50px; */
    
 }
-.fchar.b { border:1px solid #add2ff; }
+/*.fchar.b { border:1px solid #add2ff; }*/
 .fcharh:hover,.fcharh.selected
 {
-   cursor:pointer;
-   background-color:#add2ff !important;
+  background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
+  background-size:112px 175px;
+     width:112px;
+   height:175px;
+  cursor:pointer;
+   /*background-color:#add2ff !important;*/
 }
 .poll .slider
 {
@@ -519,14 +539,14 @@ svg.stage-bk { z-index:30; }
   /* margin:0px 100px 0px 100px;*/
 }
 
-.poll-label
+/*.info
 {
    position: absolute;
    top: 10%;
    left: 5%;
    font-size: 50px;
    font-family: Arial;
-}
+}*/
 .poll-sub-label
 {
    color:#006EF3;
@@ -836,4 +856,72 @@ svg.thumbnail path
    top:0px;
    left:0px;
    z-index:35;
+}
+
+
+
+
+/* -------------------------------------------------- */
+.poll
+{
+  width:100%;
+  height:100%;
+  background-color:#f3f2e8;
+}
+.poll .info
+{
+  position:fixed;
+  /*top:0px;
+  margin:0px auto;
+  width:100%;
+  text-align:center;*/
+  top:-173px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);  
+  width:400px;
+  height:200px;
+}
+/*.poll .info .triangle-box
+{
+  display:inline-block;
+  width:400px;
+  height:200px;  
+}*/
+.poll .info .triangle
+{    
+  width: 346px;
+  height: 346px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background-color:#ead343;
+  position: relative;
+  z-index:50;
+}
+.poll .info .text
+{
+  color:#b14d49;
+  font-family:gandhi;
+  font-size:20px;
+  z-index:51;
+  width:346px;
+  height:200px;
+  white-space:pre-line;
+  position: relative;
+  text-align: center;
+  top: -159px;
+}
+.poll .logo
+{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  background:transparent url("../gap/svg/common/glogo.svg") no-repeat;
+  background-size:51px 102px;
+  width:51px;
+  height:102px;
 }

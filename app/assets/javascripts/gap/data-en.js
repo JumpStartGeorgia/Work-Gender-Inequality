@@ -288,14 +288,14 @@ var categories =
     },
     {
         "id": "DqFfYVGZ",
-        "name": "Other community, social and personal service activities",
+        "name": "community, social and personal service activities",
         "outrun":0,
         "percent":32.51,
         "male":858.3,
         "female":579.3,   
         "dress":"street" ,
         "bg":"bg1",
-        "fg":"other",
+        "fg":"community",
         "stage":
         {
             "frame":
@@ -699,7 +699,9 @@ var locale = {
     choose_gender:"Choose Gender",
     choose_age:"Choose Age",
     choose_category:"Choose Category",
-    choose_interest:"Choose Interest"
+    choose_interest:"Choose Interest",
+    lorem:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
+    about_game:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
   },
   general:
   {
