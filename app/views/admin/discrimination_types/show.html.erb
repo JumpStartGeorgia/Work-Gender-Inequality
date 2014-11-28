@@ -1,0 +1,23 @@
+<%- model_class = DiscriminationType -%>
+<%- model_class_trans = DiscriminationTypeTranslation -%>
+<% title t '.title', :default => model_class.model_name.human %>
+
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_discrimination_types_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_discrimination_type_path(@discrimination_type), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_discrimination_type_path(@discrimination_type),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },
+              :class => 'btn btn-danger' %>
+  <%= link_to t('helpers.links.admin'), admin_path, :class => 'btn btn-default' %>
+</div>
+
+<p><strong><%= model_class_trans.human_attribute_name(:name) %>:</strong>
+<%= @discrimination_type.name %></p>
+
+<p><strong><%= model_class.human_attribute_name(:sort) %>:</strong>
+<%= @discrimination_type.sort %></p>

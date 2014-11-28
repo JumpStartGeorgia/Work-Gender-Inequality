@@ -3,6 +3,10 @@ module ApplicationHelper
     content_for(:title) { page_title.html_safe }
   end
 
+  def title_right(title)
+    content_for(:title_right) { title.html_safe }
+  end
+
 	def flash_translation(level)
     case level
     when :notice then "alert-info"

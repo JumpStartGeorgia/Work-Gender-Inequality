@@ -21,6 +21,41 @@ p.page_translations.create(:locale => 'ka', :title => "'Bootstrap Starter' პ�
 =end
 
 #####################
+## Discrimination Types
+#####################
+puts "Loading discrimination types"
+DiscriminationType.delete_all
+DiscriminationTypeTranslation.delete_all
+dt = DiscriminationType.create(:id => 1, :sort => 1)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Job Announcement')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Job Announcement")
+dt = DiscriminationType.create(:id => 2, :sort => 2)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Job Application')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Job Application")
+dt = DiscriminationType.create(:id => 3, :sort => 3)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Job Interview')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Job Interview")
+dt = DiscriminationType.create(:id => 4, :sort => 4)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Pregnancy-related')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Pregnancy-related")
+dt = DiscriminationType.create(:id => 5, :sort => 5)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Promotion')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Promotion")
+dt = DiscriminationType.create(:id => 6, :sort => 6)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Wages')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Wages")
+dt = DiscriminationType.create(:id => 7, :sort => 7)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Bonuses')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Bonuses")
+dt = DiscriminationType.create(:id => 8, :sort => 8)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Other financial incentives')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Other financial incentives")
+dt = DiscriminationType.create(:id => 9, :sort => 9)
+dt.discrimination_type_translations.create(:locale => 'en', :name => 'Harassment')
+dt.discrimination_type_translations.create(:locale => 'ka', :name => "Harassment")
+
+=begin
+#####################
 ## Survey Questions
 #####################
 puts "Loading survey questions"
@@ -117,6 +152,9 @@ CSV.foreach("#{Rails.root}/db/spreadsheets/survey_results.csv") do |row|
   ActiveRecord::Base.connection.execute(sql)
 end
 
+=end
+
+=begin
 #####################
 ## FAQ Categories
 #####################
@@ -349,4 +387,4 @@ f.faq_translations.create(:locale => 'en', :question => "სად არის 
 <li>ევროკავშირის დირექტივები</li>
 </ol>')
 
-
+=end

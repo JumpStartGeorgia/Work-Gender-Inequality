@@ -1,0 +1,46 @@
+<%= semantic_form_for(@story) do |f| %>
+  <%= f.error_messages %>
+
+  <div class="row" id="row1">
+    <div id="story-contact" class="story-box col-sm-5">
+      <p>
+        <%= t('.contact_explanation1') %>
+      </p>
+      <p>
+        <%= t('.contact_explanation2') %>
+      </p>
+
+      <%= f.inputs do %>
+        <%= f.input :contact_a42, as: :radio, :required => false %>
+        <%= f.input :name, :input_html => { :size => 30 } %>
+        <%= f.input :email, as: :email, :input_html => { :size => 30 } %>
+      <% end %>
+    </div>
+
+    <div id="story-optional" class="story-box col-sm-5 col-sm-offset-1">
+      <p>
+        <%= t('.optional_explanation') %>
+      </p>
+
+      <%= f.inputs do %>
+        <%= f.input :gender, as: :radio, :collection => @genders %>
+        <%= f.input :age, as: :string, :input_html => { :size => 10 } %>
+        <%= f.input :region, :input_html => { :size => 30 } %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.inputs do %>
+    <%= f.input :discrimination_type_id, :as => :select, :collection => @types %>
+    <%= f.input :content, :as => :text, rows: 50 %>
+    <%= f.input :is_public, as: :radio, :required => false %>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit t('helpers.links.reset'), :class => 'btn btn-warning', :type => :reset, :name => :reset %>
+    <%= link_to t('helpers.links.cancel'), stories_path, :class => 'btn btn-mini btn-warning' %>
+  </div>
+<% end %>
+

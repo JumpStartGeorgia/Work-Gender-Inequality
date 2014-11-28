@@ -11,6 +11,10 @@ class Publication < ActiveRecord::Base
     with_translations(I18n.locale).order('publications.published_at desc, publication_translations.title')
   end
 
+  def self.has_items?
+    count > 0
+  end
+
   # work-around for getting paperclip file in translation
   def pub_file
     x = self.publication_translations.select{|x| x.locale == I18n.locale.to_s}.first

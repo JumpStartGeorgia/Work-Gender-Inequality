@@ -1,0 +1,27 @@
+<%- model_class = Story -%>
+<% title t '.title' %>
+
+<p>
+  <%= link_to t('helpers.links.add_story'), new_story_path, :class => 'btn btn-primary' %>
+</p>
+
+<% if @stories.present? %>
+  <div class="col-sm-4">
+    <ul class="list-unstyled">
+      <% @stories.each do |story| %>
+        <li>
+          <div class="clear">
+            <div class="pull-left date"><%= l story.created_at, format: :date_only %></div>
+            <div class="pull-right"><%= link_to t('helpers.links.view_story'), story_path(story), class: 'btn btn-default' %></div>
+          </div>
+          <p><%= truncate(story.content, separator: ' ', omission: '...', length: 100) %></p>
+        </li> 
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <p>
+    <%= t('.no_stories') %>
+  </p>
+<% end %>
+

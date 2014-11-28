@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141125130509) do
+ActiveRecord::Schema.define(:version => 20141128071513) do
+
+  create_table "discrimination_type_translations", :force => true do |t|
+    t.integer  "discrimination_type_id"
+    t.string   "locale",                 :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.string   "name"
+  end
+
+  add_index "discrimination_type_translations", ["discrimination_type_id"], :name => "index_67fcf02b6deb1c86c219a3a60872a4468266ae65"
+  add_index "discrimination_type_translations", ["locale"], :name => "index_discrimination_type_translations_on_locale"
+  add_index "discrimination_type_translations", ["name"], :name => "index_discrimination_type_translations_on_name"
+
+  create_table "discrimination_types", :force => true do |t|
+    t.integer  "sort",       :limit => 1, :default => 1
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
 
   create_table "faq_categories", :force => true do |t|
     t.string   "name"
@@ -169,6 +187,26 @@ ActiveRecord::Schema.define(:version => 20141125130509) do
   end
 
   add_index "publications", ["published_at"], :name => "index_publications_on_published_at"
+
+  create_table "stories", :force => true do |t|
+    t.text     "content"
+    t.integer  "moderator_status",       :default => 1
+    t.boolean  "is_public",              :default => false
+    t.boolean  "contact_a42",            :default => false
+    t.integer  "discrimination_type_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "gender"
+    t.integer  "age"
+    t.string   "region"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "stories", ["contact_a42"], :name => "index_stories_on_contact_a42"
+  add_index "stories", ["discrimination_type_id"], :name => "index_stories_on_discrimination_type"
+  add_index "stories", ["is_public"], :name => "index_stories_on_is_public"
+  add_index "stories", ["moderator_status"], :name => "index_stories_on_moderator_status"
 
   create_table "survey_answer_translations", :force => true do |t|
     t.integer  "survey_answer_id"
