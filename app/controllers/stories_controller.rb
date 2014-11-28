@@ -4,6 +4,8 @@ class StoriesController < ApplicationController
   def index
     @stories = Story.sorted.is_approved
 
+    @css.push('stories.css')
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @stories }
