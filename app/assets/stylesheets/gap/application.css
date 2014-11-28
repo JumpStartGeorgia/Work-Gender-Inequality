@@ -496,7 +496,6 @@ svg.stage-bk { z-index:30; }
 {
    background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
    background-size:100px 151px;
-   /*background-position:77px 50px;*/
 }
 /*.mchar.b { border:1px solid #ff94f8; }*/
 .mcharh:hover,.mcharh.selected

@@ -134,9 +134,9 @@ var poll = {
     
     var margin_between = 100;
     poll.stage.append("<div class='char-box'>" + 
-                        "<div class='fchar'></div>" + 
-                        "<div class='title'></div>"+
-                        "<div class='mchar'></div>"+
+                        "<div class='female'><div class='profile'></div><div class='title'></div></div>" + 
+                        "<div class='title'><div class='l-arrow'></div><div class='text'></div><div class='r-arrow'></div></div>"+
+                        "<div class='mchar'><div class='profile'></div><div class='title'></div></div>"+
                       "</div>");
     var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
       .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
