@@ -26,15 +26,26 @@ class Admin::StoriesController < ApplicationController
     @css.push('stories_admin.css')
     @js.push('stories_admin.js')
 
-    if request.post?
-      if status
-      else
-      end
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @story }
+    end
+  end
+
+  def update
+    @story = Story.find(params[:id])
+
+    respond_to do |format|
+      if @story.update_attributes(params[:story])
+        format.html { redirect_to admin_story_path(@story), notice: t('app.msgs.story_updated') }
+        format.json { head :no_content }
+      else
+        @css.push('stories_admin.css')
+        @js.push('stories_admin.js')
+
+        format.html { render action: "show" }
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
     end
   end
 

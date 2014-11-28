@@ -21,7 +21,7 @@ BootstrapStarter::Application.routes.draw do
 		  resources :faq_categories
 		  resources :faqs
 		  resources :discrimination_types
-	  	resources :stories, :only => [:index, :show] do
+	  	resources :stories, :only => [:index, :show, :update] do
 	  		member do
 		  		post 'approve', :defaults => { :format => 'json' }
 		  		post 'deny', :defaults => { :format => 'json' }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141128071513) do
+ActiveRecord::Schema.define(:version => 20141128133315) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(:version => 20141128071513) do
     t.string   "region"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.text     "original_content"
   end
 
   add_index "stories", ["contact_a42"], :name => "index_stories_on_contact_a42"

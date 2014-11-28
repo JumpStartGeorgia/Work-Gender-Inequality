@@ -28,8 +28,41 @@ $(document).ready(function(){
         $('ul#story-meta-list li#status div.story-moderate-' + data.status).fadeIn(1000, 'easeInCirc');
       }
     });
+  });
 
+  // edit the story
+  $('h3 a#edit-story').click(function(e){
+    e.preventDefault();
 
+    $('form.story').show();
+    $('div#story').hide();
+    $('h3 span').hide();
+  });
+
+  // cancel the story edit
+  $('a#cancel-edit').click(function(e){
+    e.preventDefault();
+
+    $('form.story').hide();
+    $('div#story').show();
+    $('h3 span').show();
+  });
+
+  // delete the edited story
+  $('a#delete-story').click(function(e){
+    e.preventDefault();
+
+    $('form.story #story_content').val('');
+    $('form.story').submit();
+
+    // $.ajax({
+    //     type: "PUT",
+    //     dataType: 'html',
+    //     data: {content: null},
+    //     url: $('form.place').attr('action')
+    // })
+
+    // return false;
   });
 
 });

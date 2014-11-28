@@ -2,7 +2,7 @@ class Story < ActiveRecord::Base
 
   belongs_to :discrimination_type
 
-  attr_accessible :content, :discrimination_type_id, :contact_a42, :is_public, :moderator_status,
+  attr_accessible :content, :original_content, :discrimination_type_id, :contact_a42, :is_public, :moderator_status,
                   :age, :email, :gender, :name, :region
 
   validates :content, :discrimination_type, :presence => true
@@ -12,6 +12,17 @@ class Story < ActiveRecord::Base
 
   STATUS = {'pending' => 1, 'approved' => 2, 'denied' => 3}
 
+  before_save :add_original_content
+  before_validation :check_content
+
+  def check_content
+    Rails.logger.debug "*******************"
+    self.content = self.original_content if self.content.blank? && self.original_content.present?
+  end
+
+  def add_original_content
+    self.original_content = self.content if self.original_content.blank?
+  end
 
   def self.sorted
     order('created_at desc')

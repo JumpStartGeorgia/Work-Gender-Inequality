@@ -80,5 +80,46 @@
 
 <hr />
 
-<%= simple_format(@story.content) %>
+<% header = t('.story') %>
+<% if @story.content != @story.original_content %>
+  <% header = t('.edited_story') %>
+<% end %>
+  <h3>
+    <%= header %>
+    <span class="pull-right">
+      <a href="#" id="edit-story" class="btn btn-info"><%= t('.edit_story') %></a>
+      <% if @story.content != @story.original_content %>
+        <a href="#" id="delete-story" class="btn btn-danger"><%= t('.delete_story') %></a>
+      <% end %>
+    </a>
+  </h3>
+
+<div id="story">
+  <%= simple_format(@story.content) %>
+</div>
+
+<%= semantic_form_for(@story, :url => admin_story_path(@story)) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.inputs do %>
+    <%= f.input :content, :as => :text, rows: 50, :label => false %>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit t('helpers.links.reset'), :class => 'btn btn-warning', :type => :reset, :name => :reset %>
+    <%= link_to t('helpers.links.cancel'), '#', :class => 'btn btn-mini btn-warning', :id => 'cancel-edit' %>
+  </div>
+<% end %>
+
+
+
+
+<% if @story.content != @story.original_content %>
+  <hr />
+
+  <h3><%= t('.original_story') %></h3>
+  <%= simple_format(@story.original_content) %>
+<% end %>
 
