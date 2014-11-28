@@ -1,0 +1,40 @@
+<%- model_class = DiscriminationType -%>
+<%- model_class_trans = DiscriminationTypeTranslation -%>
+<% title t '.title', :default => model_class.model_name.human.pluralize %>
+
+<div class="form-group form-group-admin-buttons">
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+              new_admin_discrimination_type_path,
+              :class => 'btn btn-primary' %>
+  <%= link_to t('helpers.links.admin'), admin_path,
+  :class => 'btn btn-default' %>
+</div>
+
+<table class="table table-striped display">
+  <thead>
+    <tr>
+      <th><%= model_class_trans.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:sort) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @discrimination_types.each do |discrimination_type| %>
+      <tr>
+        <td><%= discrimination_type.name %></td>
+        <td><%= discrimination_type.sort %></td>
+        <td>
+          <%= link_to t('app.buttons.edit'),
+                      edit_admin_discrimination_type_path(discrimination_type), :class => 'btn btn-mini btn-default' %>
+          <%= link_to t('app.buttons.delete'),
+                      admin_discrimination_type_path(discrimination_type),
+                      :method => :delete,
+                      :data => { :confirm => I18n.t("helpers.links.confirm") },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

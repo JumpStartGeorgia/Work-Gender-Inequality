@@ -31,7 +31,7 @@
   </div>
 
   <%= f.inputs do %>
-    <%= f.input :discrimination_type %>
+    <%= f.input :discrimination_type_id, :as => :select, :collection => @types %>
     <%= f.input :content, :as => :text, rows: 50 %>
     <%= f.input :is_public, as: :radio, :required => false %>
   <% end %>

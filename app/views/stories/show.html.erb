@@ -10,7 +10,7 @@
 <p><%= l @story.created_at, :format => :date_only %></p>
 
 <p><strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong>
-<%= @story.discrimination_type %></p>
+<%= @story.discrimination_type.name if @story.discrimination_type_id.present? %></p>
 <p><strong><%= model_class.human_attribute_name(:gender) %>:</strong>
 <%= @story.gender_formatted %></p>
 <p><strong><%= model_class.human_attribute_name(:age) %>:</strong>

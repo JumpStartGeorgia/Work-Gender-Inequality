@@ -10,6 +10,7 @@ ka:
       publication: Publication
       news_item: News Item
       story: Discrimination Story
+      discrimination_type: Discrimination Type
     attributes:
       user:
         email: ელ.ფოსტა
@@ -54,7 +55,7 @@ ka:
         content: Content
       story:
         content: Please share you story of discrimination
-        discrimination_type: Discrimination Type
+        discrimination_type_id: Discrimination Type
         contact_a42: Would you like Article 42 to contact you about this discrimination?
         is_public: Can we share your story on our website?
         moderator_status: Moderator Status
@@ -63,6 +64,10 @@ ka:
         email: Email
         age: Age
         region: Region you live in
+      discrimination_type:
+        sort: Sort Order
+      discrimination_type_translation:
+        name: Name
     errors:
       messages:
         required_field: "სავალდებულო ველი"
@@ -204,6 +209,7 @@ ka:
       laws: Legislation
       publications: Publications
       news_items: News Items
+      discrimination_types: Discrimination Types
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე

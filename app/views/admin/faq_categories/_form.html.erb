@@ -15,7 +15,7 @@
   <% end %>
 
   <%= f.inputs do %>
-    <%= f.input :sort %>
+    <%= f.input :sort, :as => :string, :input_html => { :size => 5 } %>
   <% end %>
 
 

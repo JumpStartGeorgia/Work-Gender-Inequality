@@ -1,5 +1,8 @@
 class Story < ActiveRecord::Base
-  attr_accessible :content, :discrimination_type, :contact_a42, :is_public, :moderator_status,
+
+  belongs_to :discrimination_type
+
+  attr_accessible :content, :discrimination_type_id, :contact_a42, :is_public, :moderator_status,
                   :age, :email, :gender, :name, :region
 
   validates :content, :discrimination_type, :presence => true

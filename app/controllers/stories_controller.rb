@@ -30,6 +30,8 @@ class StoriesController < ApplicationController
 
     @genders = [ [t('gender.F'), 'F'], [t('gender.M'), 'M'] ]
 
+    @types = DiscriminationType.sorted.map{|x| [x.name, x.id]}
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @story }
@@ -53,6 +55,7 @@ class StoriesController < ApplicationController
       else
         @css.push('stories.css')
         @genders = [ [t('gender.F'), 'F'], [t('gender.M'), 'M'] ]
+        @types = DiscriminationType.sorted.map{|x| [x.name, x.id]}
 
         format.html { render action: "new" }
         format.json { render json: @story.errors, status: :unprocessable_entity }

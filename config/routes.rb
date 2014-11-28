@@ -1,5 +1,6 @@
 BootstrapStarter::Application.routes.draw do
 
+
 	#--------------------------------
 	# all resources should be within the scope block below
 	#--------------------------------
@@ -19,6 +20,7 @@ BootstrapStarter::Application.routes.draw do
 			resources :users
 		  resources :faq_categories
 		  resources :faqs
+		  resources :discrimination_types
 		end
 
 		match '/about', :to => 'root#about', :as => :about, :via => :get
