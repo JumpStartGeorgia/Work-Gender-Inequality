@@ -76,7 +76,7 @@ ka:
   story_headers:
     story: Story
     status: Status
-    a42: Wants Article42 to Contact
+    a42: Wants Article 42 to Contact
     type: Discrimination Type
   gender:
     male: Male
@@ -227,7 +227,7 @@ ka:
       publications: Publications
       news_items: News Items
       discrimination_types: Discrimination Types
-      stories: Moderator Discrimination Stories
+      stories: Moderate Discrimination Stories
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
