@@ -696,12 +696,14 @@ var color = {
 var locale = {
   poll:
   {
-    choose_gender:"Choose Gender",
+    choose_gender:"Your Gender",
     choose_age:"Choose Age",
     choose_category:"Choose Category",
     choose_interest:"Choose Interest",
     lorem:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     about_game:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
+    female:"Female",
+    male:"Male"
   },
   general:
   {

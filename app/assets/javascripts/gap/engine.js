@@ -14,8 +14,8 @@ function init()
 function afterinit()
 {
   scr_clean();
-  sound_button();
-  share_button();
+  //sound_button();
+  //share_button();
    if(steptogo < 6) 
       poll.show();
     else 

@@ -603,8 +603,8 @@ function human(selector,title)
   };
 }; // human object with basic properties
 
-male = new human('.m.character','Male'); // male human object
-female = new human('.f.character','Female'); // female human object
+male = new human('.m.character',locale.poll.male); // male human object
+female = new human('.f.character',locale.poll.female); // female human object
 humans = male.outrun ? [male,female] : [female,male];
 
 function h_go_right()

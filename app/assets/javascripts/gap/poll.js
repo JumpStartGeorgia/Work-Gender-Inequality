@@ -1,4 +1,4 @@
-/*************************************************************
+/**********************************************************
                   Poll Part Start
 ***************************************************************/
 
@@ -43,7 +43,7 @@ var poll = {
       if(steptogo >= 1) poll.create_prev_button();
     };
       
-    this.create_next_button();
+    //this.create_next_button();
 
 
   },
@@ -61,18 +61,18 @@ var poll = {
     this.stage = s.find('.stage');
     this.stage_d3 = s3.select('.stage');
 //<div class='triangle-box'></div>
-    s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
+    
   },
   add_layer:function add_layer()
   {
-    poll.stage_d3.select('.character').style('background-color','transparent');
-    poll.stage_d3.insert('svg','.character')
-      .classed({'stage-bk':true,'abs':true})
-      .style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1})
-      .append("circle")
-        .classed('bk',true)
-        .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
-    poll.stage_d3.insert('div').classed('poll-sub-label abs',true);
+    //poll.stage_d3.select('.character').style('background-color','transparent');
+    // poll.stage_d3.insert('svg','.character')
+    //   .classed({'stage-bk':true,'abs':true})
+    //   .style({width: poll.stage_w+2, height: poll.stage_h+2, top: h/2-poll.stage_h/2+1, left: w/2-poll.stage_w/2+1})
+    //   .append("circle")
+    //     .classed('bk',true)
+    //     .attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_w/2});
+    // poll.stage_d3.insert('div').classed('poll-sub-label abs',true);
   },
   draw_character:function draw_character()
   {     
@@ -99,30 +99,39 @@ var poll = {
   character_picked:function character_picked() // v selected gender, o oposite
   {
       is = true;   
-      var opts = { width: poll.stage_w, height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2};
+      var opts = {};//{ width: '100%', height: poll.stage_h, top: h/2-poll.stage_h/2, left: w/2-poll.stage_w/2};
       var bool = isf();
-      var ch = bool ? 'fcharh' : 'mcharh';
-      var picked = bool ? $('.fchar') : $('.mchar');
-      var other =  bool ? $('.mchar') : $('.fchar');
+      //var ch = bool ? 'fcharh' : 'mcharh';
+      var picked = $('.poll > .gselector > .' + (bool ? 'f' : 'm'));
+      var other =  $('.poll > .gselector > .' + (bool ? 'm' : 'f'));
+     // console.log(picked,other);
+      var picked_profile = picked.find('.profile');
+      var picked_w = picked_profile.width();
+      var picked_left = picked_profile.position().left;
+      var picker_width = picked_profile.parent().width();
 
-      other.removeClass('selected').fadeOut(1000,"linear",function(){ $(this).remove();});
-      picked.addClass('selected').removeClass('b')
-        .animate(opts,
-          { duration:1000, 
+      picked.animate({color:'transparent'},
+          { 
+            duration:1000, 
             progress:function(a,b,c)
             {             
-                tmp_width = picked.width();
-                tmp_height = picked.height();
-                $(this).css("background-size", b*46*4 + "px " + b*100*4+ "px");
-                $(this).css("background-position", 
-                (bool 
-                ? (tmp_width*b - b*46*4) + "px " + (tmp_height - tmp_height/1.5*b)+ "px"
-                : (tmp_width - tmp_width*b) + "px " + (tmp_height - tmp_height/1.5*b)+ "px"));
+              other.css('opacity',1-b);
+              picked_profile.css('left', (!bool ? (picked_left - (b*(picked_w/2 + picked_left).toFixed(0))) : (picked_left + b*(picker_width-picked_w/2-picked_left))) + 'px');             
             },
             complete:function()
             {
-              $(this).removeClass('selected ' + ch);
-              poll.add_layer('selected ' + ch);
+              other.remove();
+              picked.css({
+                width:'100%'
+              });
+              picked.find('.profile').css({
+                position:'relative',
+                left:0
+              });
+              picked.find('.profile .face').css({
+                margin:'0px auto'
+              });            
+              poll.add_layer();
               poll.age();
               is = false;
             }
@@ -130,44 +139,88 @@ var poll = {
   },
   gender:function gender()
   {
-    //poll.label(locale.poll.choose_gender); 
-    
+    s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
     var margin_between = 100;
-    s.find('.poll').append("<div class='gselector'>" + 
-                              "<div class='left f'><div class='profile'><div class='face f'></div><div class='t'>FEMALE</div></div></div>" + 
-                              //"<div class='title'><div class='larrow'></div><div class='text'>YOUR GENDER</div><div class='rarrow'></div></div>"+
-                            "<div class='right m'><div class='profile'><div class='face m'></div><div class='t'>MALE</div></div></div>"+
-                          "</div>");
+    s.find('.poll').append("<div class='gselector selectable'>" + 
+                              "<div class='left f'><div class='profile'><div class='face f'></div><div class='t'>"+female.title.toUpperCase()+"</div></div></div>" + 
+                            "<div class='right m'><div class='profile'><div class='face m'></div><div class='t'>"+male.title.toUpperCase()+"</div></div></div>"+
+                            "</div>" +
+                            "<div class='prompt'>" + 
+                              "<div class='title'><div class='larrow'></div><div class='text'>"+locale.poll.choose_gender+"</div><div class='rarrow'></div></div>"+
+                            "</div>"
+                          );
+    var left = s.find('.poll .gselector .left');
+    var right = s.find('.poll .gselector .right');
 
-    s.find('.poll').append("<div class='prompt'>" + 
-                              "<div class='title'><div class='larrow'></div><div class='text'>YOUR GENDER</div><div class='rarrow'></div></div>"+
-                          "</div>");
+    s.find('.poll .gselector .left, .poll .gselector .right').hover(
+      function(){
+        if($(this).parent().hasClass('selectable'))
+        {
+          if($(this).hasClass('left')) 
+          {
+            $('.poll .gselector .right').addClass('zoomout');
+            s.find('.poll > .prompt > .title > .larrow').addClass('hover');
+          }
+          else 
+          {
+            $('.poll .gselector .left').addClass('zoomout');
+            s.find('.poll > .prompt > .title > .rarrow').addClass('hover');
+          }
+        }
+
+      },
+      function(){ 
+        s.find('.poll > .gselector > div').removeClass('zoomout');
+        s.find('.poll > .prompt > .title > div').removeClass('hover');
+      });
+
+    var ftmp = s.find('.poll > .gselector > .f').click(function(){ 
+       $(this).addClass('selected');
+       $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout');       
+       f();
+       poll.place_human_based_on_gender();
+       poll.character_picked();
+       poll.create_prev_button();
+       $('.poll .info, .poll .prompt').fadeOut(1000,"linear", function(){ $(this).remove(); });
+       
+    });
+    var mtmp = s.find('.poll > .gselector > .m').click(function(){ 
+      
+      console.log($(this).parent().removeClass('selectable').find('> div'));
+     $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout');       
+     $(this).addClass('selected');
+      m();
+      poll.place_human_based_on_gender();
+      poll.character_picked();
+      poll.create_prev_button();
+      $('.poll .info, .poll .prompt').fadeOut(1000,"linear", function(){ $(this).remove(); });
+    });
+
     // var ftmp = poll.stage_d3.append('div').classed("fchar fcharh character b", true).attr('title',female.title)
     //   .style({top:h/2-male.canvas/2 + "px",left:w/2-margin_between/2-male.canvas+ "px"})
     //   .on('click',function(){ d3.select(this).style('background-image', 'url(/assets/gap/svg/human/casual/fl.svg)'); f(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
     // var mtmp = poll.stage_d3.append('div').classed("mchar mcharh character b", true).attr('title',male.title)
     //   .style({top:h/2-male.canvas/2 + "px",left:w/2 + margin_between/2 + "px"})
     //   .on('click',function(){ m(); poll.place_human_based_on_gender(); poll.character_picked(); poll.create_prev_button(); d3.select(this).on('click', null); });
-
+    //   
     // onscrollafter = function(){ 
-    //   if(ftmp.classed('selected'))
+    //   if(ftmp.hasClass('selected'))
     //   {
-    //     ftmp.classed('selected',false);
-    //     mtmp.classed('selected',true);
+    //     ftmp.removeClass('selected');
+    //     mtmp.addClass('selected');
     //     m();
     //   }
-    //   else if(mtmp.classed('selected'))
+    //   else if(mtmp.hasClass('selected'))
     //   {
-    //     mtmp.classed('selected',false);
-    //     ftmp.classed('selected',true);
+    //     mtmp.removeClass('selected');
+    //     ftmp.addClass('selected');
     //     f();
     //   }
     //   else 
     //   {
-    //     ftmp.classed('selected',true);
+    //     ftmp.addClass('selected');
     //     f();
     //   }
-    //  // player.play('select');
     // };
 
     // poll.next_function = function(){ 
@@ -196,8 +249,7 @@ var poll = {
 
   },
   age:function age()
-  {
-    
+  {    
 
     onscrollafter = null;  
 
@@ -942,4 +994,4 @@ var poll = {
 };
 /***************************************************************
                   Poll Part End
-*************************************************************/
+**********************************************************/

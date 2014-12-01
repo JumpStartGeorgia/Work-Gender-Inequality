@@ -491,14 +491,14 @@ svg.stage-bk { z-index:30; }
    width:100px;
    height:151px;
 }
-.mcharh:hover,.mcharh.selected
+/*.mcharh:hover,.mcharh.selected
 {
    background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
    background-size:112px 175px;
    width:112px;
    height:175px;
    cursor:pointer;
-}
+}*/
 .fchar
 {
    position:absolute;
@@ -507,14 +507,14 @@ svg.stage-bk { z-index:30; }
    width:100px;
    height:151px;
 }
-.fcharh:hover,.fcharh.selected
+/*.fcharh:hover,.fcharh.selected
 {
   background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
   background-size:112px 175px;
   width:112px;
   height:175px;
   cursor:pointer;
-}
+}*/
 
 
 
@@ -947,67 +947,56 @@ svg.thumbnail path
 {
   left:35%;
 }
-.poll > .gselector > div > .profile > .face
-{  
-  background-size:100px 151px;
-  width:100px;
-  height:151px;
-}
-
 .poll > .gselector > div > .profile > .face.m
 {
+  -webkit-transition: all 400ms linear;
+  -moz-transition: all 400ms linear;
+  -ms-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+  background-size:106px 166px;
+  width:106px;
+  height:166px;
   background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
 }
-.poll > .gselector > div > .profile > .face.f
-{ 
-  background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
-}
-.poll > .gselector > div:hover > .profile > .face.m,
+
+.poll > .gselector.selectable > div:hover > .profile > .face.m,
 .poll > .gselector > div.selected > .profile > .face.m
 {
    background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
-   background-size:112px 175px;
-   width:112px;
-   height:175px;
    cursor:pointer;
 }
-.poll > .gselector > div:hover > .profile > .face.f,
+.poll > .gselector > div.zoomout > .profile > .face.m
+{ 
+  background:transparent url("../gap/svg/human/poll/mds.svg") no-repeat;
+  opacity:0.5;
+}
+
+.poll > .gselector > div > .profile > .face.f
+{ 
+  -webkit-transition: all 400ms linear;
+  -moz-transition: all 400ms linear;
+  -ms-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+  background-size:105px 160px;
+  width:105px;
+  height:160px;
+  background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
+}
+.poll > .gselector > div.zoomout > .profile > .face.f
+{ 
+  background:transparent url("../gap/svg/human/poll/fds.svg") no-repeat;
+  opacity:0.5;
+}
+
+.poll > .gselector.selectable > div:hover > .profile > .face.f,
 .poll > .gselector > div.selected > .profile > .face.f
 {
    background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
-   background-size:112px 175px;
-   width:112px;
-   height:175px;
    cursor:pointer;
 }
 
-.poll  .gselector  .f:hover  .profile  .face ~ 
-.poll  .gselector  .m:hover  .profile  .face
-{
-   /*background:transparent url("../gap/svg/human/poll/md.svg") no-repeat; 
-   background-size:90px 136px;
-   */
-  width:10px;
-   height:10px;
-}
-/*
-.poll > .gselector > div:not(.selected) > .profile > .face.f
-{
-   background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat; 
-   background-size:90px 136px;
-   width:90px;
-   height:136px;
-   cursor:pointer;
-}*/
-.poll > .gselector > div:hover > .profile > .face.f,
-.poll > .gselector > div.selected > .profile > .face.f
-{
-  background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
-  background-size:112px 175px;
-  width:112px;
-  height:175px;
-  cursor:pointer;
-}
 .poll > .gselector > div > .profile > .t
 {
   font-family:hallo;
@@ -1023,29 +1012,63 @@ svg.thumbnail path
   color:#3f8b95;
   display:block;
 }
-/*.male .title,.female .title
+.poll .prompt
+{
+  position:absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  left: 50%;
+}
+.poll .prompt .title > div 
 {
   display:inline-block;
-}*/
-
-
-/*.poll .gselector .title .text
+    -webkit-transition: all 400ms linear;
+  -moz-transition: all 400ms linear;
+  -ms-transition: all 400ms linear;
+  -o-transition: all 400ms linear;
+  transition: all 400ms linear;
+}
+.poll .prompt .title .text
 {
   font-family:hallo;
   font-size:37.5px;
   color:#7abec3;
-}*/
-/*.poll .larrow
+  margin: 0px 40px;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+/* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+.poll .prompt .larrow
 {
+  position:relative;
+  left:0px;
   background:transparent url("../gap/svg/common/larrow.svg") no-repeat;
   background-size:21px 25px;
   width:21px;
   height:25px;
 }
-.poll .rarrow
+.poll .prompt .rarrow
 {
+  position:relative;
+  left:0px;
   background:transparent url("../gap/svg/common/rarrow.svg") no-repeat;
   background-size:21px 25px;
   width:21px;
   height:25px;
-}*/----
+}
+.poll .prompt .larrow.hover
+{
+  left:-35px;
+}
+.poll .prompt .rarrow.hover
+{
+  left:35px;
+}
