@@ -3,7 +3,7 @@ class SurveyAnswer < ActiveRecord::Base
 
   has_many :survey_answer_translations, :dependent => :destroy
   accepts_nested_attributes_for :survey_answer_translations
-  attr_accessible :code, :value, :can_exclude, :survey_answer_translations_attributes
+  attr_accessible :code, :value, :can_exclude, :survey_answer_translations_attributes, :exclude
 
   belongs_to :question, 
     primary_key: :code,

@@ -125,11 +125,20 @@ codes = answers.map{|x| x[0]}.uniq
 SurveyQuestion.where(:code => codes).update_all(:has_code_answers => true)
 
 #####################
+## Record which answers must be excluded from analysis
+## (filter)
+#####################
+puts "Flagging which answers must be excluded"
+answer_ids = SurveyAnswerTranslation.select('survey_answer_id').where(:answer => ['filter']).map{|x| x.survey_answer_id}.uniq
+SurveyAnswer.where(:id => answer_ids).update_all(:exclude => true)
+
+
+#####################
 ## Record which answers can be excluded from analysis
-## (don't know, refuse, filter)
+## (don't know, refuse)
 #####################
 puts "Flagging which answers can be excluded"
-answer_ids = SurveyAnswerTranslation.select('survey_answer_id').where(:answer => ['filter', 'refuse to answer', "i don't know"]).map{|x| x.survey_answer_id}.uniq
+answer_ids = SurveyAnswerTranslation.select('survey_answer_id').where(:answer => ['refuse to answer', "i don't know"]).map{|x| x.survey_answer_id}.uniq
 SurveyAnswer.where(:id => answer_ids).update_all(:can_exclude => true)
 
 #####################

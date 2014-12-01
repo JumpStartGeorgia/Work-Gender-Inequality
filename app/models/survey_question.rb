@@ -37,6 +37,7 @@ class SurveyQuestion < ActiveRecord::Base
   # get a question and all of its answers
   def self.with_answers(code)
     includes(:answers)
+    .where('survey_answers.exclude = 0')
     .with_translations(I18n.locale)
     .find_by_code(code)
   end

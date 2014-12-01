@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141201080048) do
+ActiveRecord::Schema.define(:version => 20141201130753) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -227,11 +227,13 @@ ActiveRecord::Schema.define(:version => 20141201080048) do
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
     t.boolean  "can_exclude",               :default => false
+    t.boolean  "exclude",                   :default => false
   end
 
   add_index "survey_answers", ["can_exclude"], :name => "index_survey_answers_on_can_exclude"
   add_index "survey_answers", ["code", "value"], :name => "index_survey_answers_on_code_and_value"
   add_index "survey_answers", ["code"], :name => "index_survey_answers_on_code"
+  add_index "survey_answers", ["exclude"], :name => "index_survey_answers_on_exclude"
 
   create_table "survey_question_translations", :force => true do |t|
     t.integer  "survey_question_id"
