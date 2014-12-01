@@ -196,7 +196,7 @@ en:
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
-      explore_data: Explore Data
+      explore_data: Explore Survey Data
       faq: FAQ
       laws: Legislation
       news: News
@@ -282,7 +282,7 @@ en:
       title: "Publication: '%{title}'"
       all: "All Publications"
     explore_data:
-      title: Explore the Data
+      title: Explore the 'Gender Discrimination in Georgian Labour Market' Survey
       no_matches: Your selections returned no data. Please try again with a different selection.
       no_data: Data is not on file yet - have you run rake db:seed yet?
       hover_region: Hover over a Region
@@ -290,7 +290,7 @@ en:
       percent: Percent
       instructions:
         header: Instructions
-        p1a: This page allows you to explore one question or the interaction between two questions from the Employment-related Resarch in Georgia Survey. 
+        p1a: This page allows you to explore one question or the interaction between two questions from the 'Gender Discrimination in Georgian Labour Market' survey. 
         p1b: "You may also choose to narrow the scope of this analysis by selecting a subset of data to analyze."
         p2: "You can explore the analysis via a map (if one variable is 'Reg'), a chart, and a table."
       form:
@@ -304,6 +304,13 @@ en:
         no_filter: Use Complete Data Set
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
+      header_files: Related Files
+      link:
+        spss: SPSS Data File
+        report: Report (English/Georgian)
+        codebook: Codebook (Georgian)
+        anon_quest_en: Anonymous Questionnaire (English)
+        anon_quest_ka: Anonymous Questionnaire (Georgian)
       tabs:
         map: Map
         chart: Chart

@@ -196,7 +196,7 @@ ka:
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
-      explore_data: Explore Data
+      explore_data: Explore Survey Data
       faq: FAQ
       laws: Legislation
       news: News
@@ -304,6 +304,13 @@ ka:
         no_filter: Use Complete Data Set
         filter_value: With Value
         exclude_dkra: Exclude "Don't know" & "Refuse"
+      header_files: Related Files
+      link:
+        spss: SPSS Data File
+        report: Report (English/Georgian)
+        codebook: Codebook (Georgian)
+        anon_quest_en: Anonymous Questionnaire (English)
+        anon_quest_ka: Anonymous Questionnaire (Georgian)
       tabs:
         map: Map
         chart: Chart

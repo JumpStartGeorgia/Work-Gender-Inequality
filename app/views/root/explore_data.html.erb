@@ -19,9 +19,6 @@
                 <%= t('.instructions.p1a') %>
                 <%= t('.instructions.p1b') %>
               </p>
-              <p>
-                <%= t('.instructions.p2') %>
-              </p>
             </div>
           </div>
         </div>
@@ -121,6 +118,27 @@
           </div>
         </div>
       <% end %> 
+
+      <hr />
+
+      <h4><%= t('.header_files') %></h4>
+      <ul>
+        <li>
+          <%= link_to t('.link.codebook'), '/files/CODE_Book_Questionnaire_FINAL_12_6.pdf' %>
+        </li>
+        <li>
+          <%= link_to t('.link.anon_quest_en'), '/files/Anonymous Questionnaire.pdf' %>
+        </li>
+        <li>
+          <%= link_to t('.link.anon_quest_ka'), '/files/Anonymous Questionnaire ( Georgian).pdf' %>
+        </li>
+        <li>
+          <%= link_to t('.link.spss'), '/files/database_final_weighted.sav.zip' %>
+        </li>
+        <li>
+          <%= link_to t('.link.report'), '/files/CSS study (draft).pdf' %>
+        </li>
+      </ul>
     </div>
 
     <div id="explore-data-content" class="col-sm-9">
