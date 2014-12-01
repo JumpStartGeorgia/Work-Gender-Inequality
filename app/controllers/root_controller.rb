@@ -152,7 +152,7 @@ class RootController < ApplicationController
         # if @col has data, then this is a crosstab,
         # else this is just a single variable lookup
         if @col.present?
-          @data = SurveyResult.crosstab_count(@row, @col, options)
+          @data = SurveyResult.weighted_crosstab_count(@row, @col, options)
           @data[:title] = {}
           @data[:title][:html] = build_crosstab_title_html(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
           @data[:title][:text] = build_crosstab_title_text(@data[:row_question], @data[:column_question], @filter, @data[:total_responses])
@@ -167,7 +167,7 @@ class RootController < ApplicationController
             @data[:title][:map_text] = build_crosstab_map_title_text(@data[:column_question], @data[:row_question], @filter, @data[:total_responses])
           end
         else
-          @data = SurveyResult.onevar_count(@row, options)
+          @data = SurveyResult.weighted_onevar_count(@row, options)
           @data[:title] = {}
           @data[:title][:html] = build_onevar_title_html(@data[:row_question], @filter, @data[:total_responses])
           @data[:title][:text] = build_onevar_title_text(@data[:row_question], @filter, @data[:total_responses])
@@ -243,13 +243,21 @@ private
 
   def build_subtitle_html(total)
     title = "<br /> <span class='total_responses'>"
-    title << t('root.explore_data.subtitle.html', :num => total)
+    title << t('root.explore_data.subtitle.weighted_html', :num => total.round)
+    title << "<br /> "
+    title << t('root.explore_data.footer.html')
     title << "</span>"
+
     return title.html_safe
   end 
 
   def build_subtitle_text(total)
-    return t('root.explore_data.subtitle.text', :num => total)
+    title = t('root.explore_data.subtitle.weighted_text', :num => total.round)
+    title << ' ('
+    title << t('root.explore_data.footer.text')
+    title << ')'
+
+    return title
   end 
 
 

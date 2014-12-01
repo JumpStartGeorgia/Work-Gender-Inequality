@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141128133315) do
+ActiveRecord::Schema.define(:version => 20141201080048) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -252,10 +252,14 @@ ActiveRecord::Schema.define(:version => 20141128133315) do
     t.datetime "updated_at",                                        :null => false
     t.boolean  "is_mappable",                    :default => false
     t.integer  "sort",                           :default => 99
+    t.boolean  "exclude",                        :default => false
+    t.boolean  "is_weight",                      :default => false
   end
 
   add_index "survey_questions", ["code", "has_code_answers"], :name => "index_survey_questions_on_code_and_has_code_answers"
+  add_index "survey_questions", ["has_code_answers", "exclude"], :name => "idx_can_crosstab"
   add_index "survey_questions", ["is_mappable"], :name => "index_survey_questions_on_is_mappable"
+  add_index "survey_questions", ["is_weight"], :name => "index_survey_questions_on_is_weight"
   add_index "survey_questions", ["sort"], :name => "index_survey_questions_on_sort"
 
   create_table "survey_results", :force => true do |t|

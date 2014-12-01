@@ -3,7 +3,8 @@ class SurveyQuestion < ActiveRecord::Base
 
   has_many :survey_question_translations, :dependent => :destroy
   accepts_nested_attributes_for :survey_question_translations
-  attr_accessible :code, :has_code_answers, :is_mappable, :sort, :survey_question_translations_attributes
+  attr_accessible :code, :has_code_answers, :is_mappable, :is_weight,
+    :sort, :survey_question_translations_attributes, :exclude
 
   has_many :answers, 
     primary_key: :code,
@@ -26,9 +27,12 @@ class SurveyQuestion < ActiveRecord::Base
   def self.can_crosstab
     select('survey_questions.code, survey_question_translations.question as text, survey_questions.is_mappable')
     .joins(:survey_question_translations)
-    .where(:has_code_answers => true, :survey_question_translations => {:locale => I18n.locale})
+    .where(:has_code_answers => true, :exclude => false, :survey_question_translations => {:locale => I18n.locale})
   end
 
+  def self.weighted
+    where(:is_weight => true).first
+  end
 
   # get a question and all of its answers
   def self.with_answers(code)

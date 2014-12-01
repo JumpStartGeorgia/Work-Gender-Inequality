@@ -20,6 +20,7 @@ p.page_translations.create(:locale => 'en', :title => 'About Bootstrap Starter P
 p.page_translations.create(:locale => 'ka', :title => "'Bootstrap Starter' პროექტის შესახებ", :content => "თქვენ ჩაუშვით 'rake db:seed' და ეს არის კონტენტის თარგმანის მაგალით. ტექსტის სხვა ენაზე სანახავად დააჭირეთ ენის გადამრთველის ბმულს მარჯვენა ზედა კუთხეში.")
 =end
 
+=begin
 #####################
 ## Discrimination Types
 #####################
@@ -53,8 +54,7 @@ dt.discrimination_type_translations.create(:locale => 'ka', :name => "Other fina
 dt = DiscriminationType.create(:id => 9, :sort => 9)
 dt.discrimination_type_translations.create(:locale => 'en', :name => 'Harassment')
 dt.discrimination_type_translations.create(:locale => 'ka', :name => "Harassment")
-
-=begin
+=end
 #####################
 ## Survey Questions
 #####################
@@ -75,8 +75,21 @@ end
 #####################
 ## record that region question is mappable
 #####################
-puts "Flagging that 'Reg' question is mappable"
-SurveyQuestion.where(:code => 'Reg').update_all(:is_mappable => true)
+#puts "Flagging that 'Reg' question is mappable"
+#SurveyQuestion.where(:code => 'Reg').update_all(:is_mappable => true)
+
+#####################
+## record that question to exclude
+#####################
+puts "Flagging questions to exclude"
+exclude = ['N', 'Interv_code', 'Reg', 'start_time', 'fin_time', 'date', 'Envelope', 'reg_weit', 'gender_wei', 'age_wei', 'weight', 'filter_$', 'PrimaryLast']
+SurveyQuestion.where(:code => exclude).update_all(:exclude => true)
+
+#####################
+## record column that is the weight
+#####################
+puts "Flagging that 'weight' question is the weight"
+SurveyQuestion.where(:code => 'weight').update_all(:is_weight => true)
 
 #####################
 ## add sort to questions
@@ -152,7 +165,6 @@ CSV.foreach("#{Rails.root}/db/spreadsheets/survey_results.csv") do |row|
   ActiveRecord::Base.connection.execute(sql)
 end
 
-=end
 
 =begin
 #####################

@@ -334,6 +334,11 @@ en:
       subtitle:
         html: "Total Responses: %{num}"
         text: "Total Responses: %{num}"
+        weighted_html: "Total Responses (weighted*): %{num}"
+        weighted_text: "Total Responses (weighted*): %{num}"
+      footer:
+        html: "*weighted results may not sum precisely due to rounding"
+        text: "*weighted results may not sum precisely due to rounding"
       map:
         filter: "Filter map by selecting an answer to '%{text}':"
       table:
