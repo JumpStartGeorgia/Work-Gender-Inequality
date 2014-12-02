@@ -61,7 +61,7 @@
 })();
 function same_sign(a,b)
 {
-  return (a ^ b) >= 0;
+  return (a >=0 && b >= 0) || (a < 0 && b < 0) || false;
 }
 
 if(!String.prototype.lpad)

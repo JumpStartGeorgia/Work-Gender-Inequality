@@ -57,30 +57,24 @@ var poll = {
 
     this.stage = s.find('.stage');
     this.stage_d3 = s3.select('.stage');
-//<div class='triangle-box'></div>
     
   },
   draw_character:function draw_character()
   {     
     $('.poll').addClass(g());
-    var charTmp = $('<div class="'+g()+'char character"></div>').appendTo(this.stage);
-    if(g()=='f') charTmp.css('background-image','url(/assets/gap/svg/human/casual/fl.svg)');
-    //poll.add_layer();
-        
-    var b = isf();
-    var ch = document.getElementsByClassName("character")[0];
-    var chh = ch.clientHeight;
-    var chw = ch.clientWidth;
-    var ch = s3.select('.character')
-      .style(
-      {
-              'width': poll.stage_w + "px",
-              'height': poll.stage_h + "px",
-              'top': h/2-poll.stage_h/2 + "px",
-              'left': w/2-poll.stage_w/2 + "px",
-              'background-size': 46*4 + "px " + 100*4+ "px",
-              'background-position': (b ? (poll.stage_w-chw) : (chw - 46*4)) + "px " + (chh - chh/1.5)+ "px"
-      });  
+    s.find('.poll').append("<div class='selector'>" + 
+                              "<div class='selected "+g()+" bypass'><div class='profile'><div class='face "+g()+"'></div><div class='t'>"+(isf() ? female.title.toUpperCase() : male.title.toUpperCase())+"</div><div class='a'>&nbsp;</div></div></div>" + 
+                            "</div>" +
+                            "<div class='prompt'>" + 
+                              "<div class='title'><div class='text'></div></div>"+
+                            "</div>"
+                          ); 
+    var picked = $('.poll > .selector > .' + g());
+    picked.css('width','100%');
+    picked.find('.profile').css({ position:'relative', left:0 });
+    picked.find('.profile .face').css('margin','0px auto'); 
+    poll.label(locale.poll.your_age);
+    poll.create_navigation_buttons();
   },
   character_picked:function character_picked() // v selected gender, o oposite
   {
@@ -128,6 +122,8 @@ var poll = {
                               "<div class='title'><div class='larrow'></div><div class='text'>"+locale.poll.your_gender+"</div><div class='rarrow'></div></div>"+
                             "</div>"
                           );
+    poll.label(locale.poll.your_gender); 
+
     var pollTmp = s.find('.poll');
     var left = pollTmp.find('.selector .left');
     var right = pollTmp.find('.selector .right');
@@ -180,9 +176,8 @@ var poll = {
   age:function age()
   {    
 
-    onscrollafter = null;  
-
-    //poll.label(locale.poll.your_age); 
+    onscrollafter = null;      
+    poll.label(locale.poll.your_age); 
 
     params_set(1);    
     
@@ -231,7 +226,7 @@ var poll = {
   },
   interest:function interest()
   {
-    poll.label(locale.poll.choose_interest); 
+    poll.label(locale.poll.your_interest); 
 
     params_set(4); 
 
@@ -254,8 +249,6 @@ var poll = {
   }, 
   category_picker_show:function category_picker_show()
   {
-    
-
     var outer_radius = 200;
     var cat_radius = 26;
     var size = cat_radius*2; 
@@ -263,24 +256,45 @@ var poll = {
 
     var picker = d3.select('.poll .selector').append('div').classed("category-picker",true);
 
-    poll.npicker_create('.poll .selector','.salary-picker',99999,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),user.salary);
+    poll.npicker_create('.poll .selector','.salary-picker',99999,poll.npicker_sal_size,h2,(w2+outer_radius*1.5),user.salary,locale.poll.your_salary);
 
     var pick_items = picker
-    .selectAll("svg")
+    .selectAll("div")
     .data(categories)
     .enter()
-    .append("svg")
+    .append("div")
     .attr("class",function(d){return "category_item " + g(); }) 
     .attr("id",function(d){return "c"+d.id;})   
-    .attr({"width":size, "height":size})
-    .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius })
-    .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius;})
+    .style("top", function(d,i){ return (h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius) + 'px'; })
+    .style("left", function(d,i){ return (w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius) + 'px';})
     .on('click',function(d){ poll.by_category(d.id);});
 
-    pick_items.append("image").attr({"width":'52px',"height":'52px'}).attr('xlink:href',function(d){ return '/assets/gap/svg/field/icons/'+d.fg+'.svg'; });
-    //pick_items.append("text").text(function(d){return d.name.substr(0,4);}).attr({x:12,y:35});
+    pick_items.append("img").attr({"width":'52px',"height":'52px'}).attr('src',function(d){ return '/assets/gap/svg/field/icons/'+d.fg+'.svg'; });
+    pick_items.append("div").attr('class','hint').text(function(d){return d.name;});
     
-    //poll.sublabel(picker.select('.category_item').classed('selected',true).select('text').text()); // gives error on going back
+    var xC = w2;
+    var yC = h2;
+    var lTmp = tTmp = 99999;
+    var rTmp = bTmp = 0;
+    var lTmpE,rTmpE,tTmpE,bTmpE;
+     var curOffset = size/2;
+
+    $('.poll .selector .category-picker .category_item div.hint').each(function(i,d){
+      var dd = $(d);
+      var ol = dd.offset().left;
+      var ot = dd.offset().top;
+      if(lTmp > ol) { lTmp = ol; lTmpE = dd; }
+      if(rTmp < ol) { rTmp = ol; rTmpE = dd; }
+      if(tTmp > ot) { tTmp = ot; tTmpE = dd; }
+      if(bTmp < ot) { bTmp = ot; bTmpE = dd; }
+      dd.css({  left: (ol < xC ? -1*(dd.outerWidth()-curOffset) : curOffset) ,
+                top:  (ot < yC ? -1*(dd.outerHeight()+size+8) : 0) });
+    });
+    lTmpE.css({left:-1*(lTmpE.outerWidth() + 3),top:-1*( 4 + lTmpE.outerHeight()/2+curOffset)});
+    rTmpE.css({left:(curOffset*2 + 3),top:-1*( 4 + rTmpE.outerHeight()/2+curOffset)});
+    tTmpE.css({left:-1*(tTmpE.outerWidth()/2-curOffset),top:-1*( 4 + 4 + tTmpE.outerHeight()+2*curOffset)});
+    bTmpE.css({left:-1*(bTmpE.outerWidth()/2-curOffset),top: 0});
+
     poll.category_draw();
 
     onscrollup=function(){ poll.category_down(); };
@@ -290,7 +304,7 @@ var poll = {
   },  
   category_draw:function category_draw()
   {    
-    d3.selectAll('.category-picker .category_item').classed('selected',false);     
+    //d3.selectAll('.category-picker .category_item').classed('selected',false);     
     //poll.sublabel(d3.select('.category-picker .category_item#c'+user.category).classed('selected',true).select('text').text()); 
     //d3.select('.character').style('background-image','url(/assets/gap/svg/human/'+categories.filter(function(a){ return a.id == user.category; })[0].dress+'/'+user.gender+ (user.gender =='f' ? 'l':'r') + '.svg)');
   },
@@ -341,23 +355,25 @@ var poll = {
   
 
     var diff = max_age-min_age;
-    var degree_sum = 0;
-    degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
-    poll.degree_step = degree_sum / diff;
+
+    var degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
+  
+    poll.degree_step = degree_sum / (diff+1);
     for(var i = 0; i <= diff; ++i)
     {
       poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
     }           
+  console.log(degree_sum,diff,poll.degrees[1],degree_sum / diff,poll.degree_steps);
 
     $('.age-mover').draggable();
 
-      $(document).on('mousedown',function (e) {
+      $(document).on('click',function (e) {
           poll.agemousedown(e);
       });
 
     onscrollup = function(){ poll.age_up(); };
     onscrolldown = function(){ poll.age_down(); };
-
+console.log('age picker show');
     poll.by_age(user.age);
 
 
@@ -369,11 +385,9 @@ var poll = {
   },
   age_up:function age_up()
   {
-     
     this.age_check();
     if(user.age<max_age) ++user.age;
     this.agepicker_draw();  
-  
   }, 
   age_down:function age_down()
   {
@@ -385,6 +399,7 @@ var poll = {
   },
   by_age:function by_age(v)
   {      
+    console.log('by age' , v);
     user.age = v;        
     this.age_check();
     this.agepicker_draw();
@@ -392,14 +407,15 @@ var poll = {
   agepicker_draw:function agepicker_draw()
   {
       var rad = this.get_radian_by_age(user.age);
-   
+      console.log('user.age',user.age);
       var c = Math.cos(rad);
       var s = Math.sin(rad);
 
       var cx = this.knobR * c + this.knobCX;
       var cy = this.knobCY - this.knobR * s;      
+      console.log(c,s,cx,cy);
       $(".age-mover circle").attr("cx",cx).attr("cy",cy);
-      poll.sublabel(user.age);// + "(" +agegroup_by_age(user.age)+")");
+      poll.sublabel(user.age);
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
      
@@ -407,77 +423,55 @@ var poll = {
     // result = atan2 (y,x) * 180 / PI;
     var rad = Math.atan2(y,x);
     var degree = Math.degrees(rad);//degree_from_radian(Math.atan2(y,x)); //rad * 180 / PI;
+
+    //console.log('before degree',degree);
     if(degree < 0 ) degree = 360 + degree;
-      
-        var inside = false;
-        for(var i = 0; i <= max_age-min_age; ++i)
-        {
-          var d1 = (360+this.degree_steps[i])%360;
-          var d2 = (360+this.degree_steps[i+1])%360;
-          if(poll.degrees[0]==0)
-          {
-              if(degree >= this.degree_steps[i] && degree < this.degree_steps[i+1])
-              {   
-                var index = i;      
-                if(degree-this.degree_steps[i] > this.degree_steps[i+1]-degree) ++index;
-                this.by_age(min_age+index);  
-                inside = true;
-              }
-          }
-          else
-          {
-            if(same_sign(this.degree_steps[i],this.degree_steps[i+1]))
-            {
-              if(degree >= d1 && degree < d2)
-              {   
-                var index = i;      
-                if(degree-d1 > d2-degree) ++index;
-                this.by_age(max_age-index);  
-                inside = true;
-              }
-            }
-            else
-            {
-              if((degree >= d1 && degree < 360)||(degree >= 0 && degree < d2))
-              {   
-                var index = i;      
-                if(degree >= 0 && degree < d2) ++index;
-                this.by_age(max_age-index);  
-                inside = true;
-              }             
-            }
-          }
-        }      
-        if(!inside)
-        {
-          var d1 = (360+this.degrees[1])%360;
-          var d2 = (360+this.degrees[2])%360;
-          if(this.degrees[0]==0)
-          {            
-            this.by_age((degree < d1 ? min_age : max_age));
-          }
-          else 
-          {        
-            this.by_age((degree-this.degrees[1]<this.degrees[2]-degree ? min_age : max_age));
-          }
-      
+
+    var inside = false;
+    for(var i = 0; i < max_age-min_age; ++i)
+    {
+      var d1 = (360+this.degree_steps[i])%360;
+      var d2 = (360+this.degree_steps[i+1])%360;
+      if(same_sign(this.degree_steps[i],this.degree_steps[i+1]))
+      {
+        if(degree >= d1 && degree < d2)
+        {   
+          var index = i;      
+          if(degree-d1 > d2-degree) ++index;
+          this.by_age(max_age-index);  
+          inside = true;
         }
+      }
+      else
+      {
+        if((degree >= d1 && degree < 360)||(degree >= 0 && degree < d2))
+        {   
+          var index = i;      
+          if(degree >= 0 && degree < d2) ++index;
+          this.by_age(max_age-index);  
+          inside = true;
+        }             
+      }
+    }      
+    if(!inside)
+    {
+      var d1 = (360+this.degrees[1])%360;
+      var d2 = (360+this.degrees[2])%360;
+      this.by_age((degree-this.degrees[1]<this.degrees[2]-degree ? min_age : max_age));
+    }
   },
   get_degree_by_age:function get_degree_by_age(v)
   {
-     
-
     var tmp = (v>=min_age && v<=max_age) ? this.degree_steps[v-min_age] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp;   
-
-   
-
     return tmp;
   },
   get_radian_by_age:function get_radian_by_age(v)
   {   
+    console.log(v,min_age,max_age);
     var index = v-min_age; 
     if(poll.degrees[0] == 1)  index = max_age-min_age-(v-min_age);
+    console.log(this.degree_steps[index],this.degrees[1]);
 
     var tmp = (v>=min_age && v<=max_age) ?  this.degree_steps[index] : this.degrees[1];
     if(tmp < 0) tmp = 360 + tmp; 
@@ -485,12 +479,9 @@ var poll = {
     return Math.radians(tmp);
   },
   drag_age:function drag_age(e) {
-     
     var x = parseInt(e.x-w2);
     var y = parseInt(h2-e.y);
     this.agepicker_age_by_coord(x, y);
-
-
   },
   agemousedown:function agemousedown(e) {
 
@@ -504,29 +495,26 @@ var poll = {
     var item_radius = 30;
     var size = item_radius*2; 
     var item_step = 360/interests.length;
+
+
     poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
-    var picker = poll.stage_d3.append('div').classed('interest_picker',true);
-    
+
+    var picker = d3.select('.poll .selector').append('div').classed("interest_picker",true);
 
     var pick_items = picker
-    .selectAll("svg")
+    .selectAll("div")
     .data(interests)
     .enter()
-    .append("svg")
+    .append("div")
     .attr("class",function(d){return "interest_item " + g(); }) 
     .attr("id",function(d){ return "i"+d.id;})   
-    .attr({"width":size, "height":size})
     .style("top",function(d,i){ return h2 + (outer_radius) * Math.sin(Math.radians(i*item_step)) - item_radius })
     .style("left",function(d,i){ return w2 - (outer_radius) * Math.cos(Math.radians(i*item_step)) - item_radius;})
     .on('click',function(d){ poll.by_interest(d.id);});
 
-    poll.stage_d3.select('.stage-bk').append('defs').append('clipPath').attr('id','clip-mask').append('rect').attr({'width':poll.stage_w+20,'height':poll.stage_h+20,'x':0,'y':poll.stage_h+2});
-    poll.stage_d3.select('.stage-bk').append("circle").classed('mask',true).attr({"cx":poll.stage_w/2+1,"cy":poll.stage_h/2+1,"r":poll.stage_h/2 , "clip-path":'url(#clip-mask)'});    
+    pick_items.append("img").attr({"width":'52px',"height":'52px'}).attr('src',function(d){ return '/assets/gap/svg/interest/icons/'+d.icon+'.svg'; });
+    pick_items.append("div").attr('class','hint').text(function(d){return d.name;});
 
-    pick_items.append("circle").attr({"cx":item_radius,"cy":item_radius,"r":item_radius});
-    pick_items.append("text").text(function(d){return d.name.substr(0,4);}).attr({x:12,y:35});
-
-    //poll.sublabel(picker.select('.interest_item').classed('selected',true).select('text').text()); // gives error on going back
     poll.interest_draw();
 
    poll.npicker_function = function(v){ 
@@ -535,26 +523,26 @@ var poll = {
         user.salary_percent = Math.round10((v*100)/user.salary);
         poll.stage_d3.select('.character').attr('data-percent',user.salary_percent);
         poll.sublabel(poll.stage_d3.select('.interest_picker .interest_item#i'+user.interest+' text').text() + " (" + user.salary_percent + "%)");         
-        poll.interest_percent_draw((v*100)/user.salary/100);
+        //poll.interest_percent_draw((v*100)/user.salary/100);
       }  
     }
 
-    poll.npicker_create('.stage','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0);
+    poll.npicker_create('.poll .selector','.percent_picker',user.salary,poll.npicker_sal_size,h2,(w2+(isf()?-180:0)),0,locale.poll.your_percent);
 
-    poll.stage.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
-      var tval = +$('.character').attr('data-percent');
+    // poll.stage.find(".character").on('DOMMouseScroll mousewheel', function(e, delta) {
+    //   var tval = +$('.character').attr('data-percent');
 
-      if(up(e,delta)) { if(tval < 100) ++tval; }
-      else { if(tval > 0) --tval; }
+    //   if(up(e,delta)) { if(tval < 100) ++tval; }
+    //   else { if(tval > 0) --tval; }
 
-      $('.character').attr('data-percent',tval);
+    //   $('.character').attr('data-percent',tval);
 
-      poll.interest_percent_draw(tval/100);
-      user.salary_percent = tval;
+    //   //poll.interest_percent_draw(tval/100);
+    //   user.salary_percent = tval;
       
-      poll.npicker_set('.percent_picker',Math.round10(user.salary*tval/100),poll.npicker_sal_size);      
-      e.stopPropagation();  
-    });
+    //   poll.npicker_set('.percent_picker',Math.round10(user.salary*tval/100),poll.npicker_sal_size);      
+    //   e.stopPropagation();  
+    // });
 
     onscrollup=function(){ poll.interest_down(); };
     onscrolldown=function(){ poll.interest_up(); };
@@ -590,12 +578,12 @@ var poll = {
       this.interest_draw();
     }
   },  
-  interest_percent_draw:function interest_percent_draw(k)
-  {  
-    var r = 200; 
-    var h = 2 * r * k, y = 2*r - h;  
-    d3.select("#clip-mask rect").attr("y", y).attr("height", h);
-  },
+  // interest_percent_draw:function interest_percent_draw(k)
+  // {  
+  //   var r = 200; 
+  //   var h = 2 * r * k, y = 2*r - h;  
+  //   d3.select("#clip-mask rect").attr("y", y).attr("height", h);
+  // },
   choose_category: function choose_category()
   {
     category = categories.filter(function(a){ return a.id == user.category; })[0];
@@ -626,33 +614,35 @@ var poll = {
   create_navigation_buttons:function create_next_prev_buttons()
   {
      var nav = $("<div class='navigation'><div class='prev' title='"+locale.general.prev+"'></div><div class='sep'></div><div class='next' title='"+locale.general.next+"'></div>").appendTo($('.poll'));
-     nav.find('.prev').click(function(){ fn('poll.prev_function'); });
-     nav.find('.next').click(function(){ fn('poll.next_function'); });
+     nav.find('.prev').click(function(e){ fn('poll.prev_function');  e.stopPropagation(); });
+     nav.find('.next').click(function(e){ fn('poll.next_function');  e.stopPropagation(); });
       
   }, 
   prev_function:function prev_function()
   {
     params_back();
   },
-  npicker_create:function npicker_create(p,t,max,size,top,left,def)
+  npicker_create:function npicker_create(p,t,max,size,top,left,def,label)
   {    
     //d3
     var td = d3.select(p).append('div')
                       .classed(t.replace(".","") + " abs npicker",true)
                       .attr({"max":max})
-                      .style({'top':top+'px', 'left':left+'px'});
+                      .style({'top':top-63+'px', 'left':left+'px'});
     //jQuery
-    var tj = poll.stage.find(t);    
+    var tj = $(p + " " + t);
     var tmpd = [];
     tmpd.length = size;
-
-    td.selectAll('div').data(tmpd).enter().append('div').attr('data-pos',function(d,i){ return size-i;}).text(0);
+    td.append('div').classed('t',true).text(label);
+    td.selectAll('div.part').data(tmpd).enter().append('div').classed('part',true).attr('data-pos',function(d,i){ return size-i;}).text(0);
     td.append('input').attr({'type':'text','value': 0, 'max':max, 'size':size, 'maxlength':size}).style('display','none');
+    td.append('div').classed('gel',true);
+
 
     tj.find('input').on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
-    .focusout(function(){ $(this).hide(); tj.find('div').show(); }).change(function(){  poll.npicker_set(t,+$(this).val(),size); });
+    .focusout(function(){ $(this).hide(); tj.find('div.part').show(); }).change(function(){  poll.npicker_set(t,+$(this).val(),size); });
   
-    tj.find('div[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
+    tj.find('div.part[data-pos]').on('DOMMouseScroll mousewheel', function(e, delta) {
       
       var t = $(this);  
       var p = t.parent('.npicker');
@@ -668,9 +658,8 @@ var poll = {
       }
       e.stopPropagation();  
     });
-
     tj.on('click',function(){
-      $(this).find('div').hide();
+      $(this).find('div.part').hide();
       $(this).find('input').show().focus();      
     });
     poll.npicker_set(t,def,size);
@@ -690,7 +679,7 @@ var poll = {
   },
   npicker_get:function npicker_get(t,size)
   {
-    t = poll.stage.find(t);
+    t = $(t);
     var v = "";
     for(var i = 0; i < size; ++i)
     {
@@ -700,7 +689,7 @@ var poll = {
   },
   npicker_set:function setnpicker(t,v,size)
   {    
-    t = poll.stage.find(t);
+    t = $(t);
 
     var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
     if(v < 0 || v > max) return false;
@@ -717,7 +706,7 @@ var poll = {
     return true;
   },
   label:function label(v){ 
-    $('.poll .prompt .title .text').text(v);
+    $('.poll .prompt .title .text').text(v.toUpperCase());
     //d3.select('.info').text(v);
   },
   sublabel:function sublabel(v)

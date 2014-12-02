@@ -8,14 +8,14 @@ var categories =
 [
     {   
         "id": "45bS4GyC",
-        "name": "Agriculture, hunting and forestry",
+        "name": "Agriculture, hunting\n and forestry",
         "outrun":0,
         "percent":22.72,
         "male":599.4,
         "female":463.2,
         "dress":"street", //technical
         "bg":"bg1",
-        "fg":"other",
+        "fg":"agriculture",
         "stage":
         {
             "frame":
@@ -88,7 +88,7 @@ var categories =
     },
     { 
         "id": "8IkQeUfg",
-        "name": "Production and distribution of electricity, gas and water",
+        "name": "Production and\n distribution of electricity,\n gas and water",
         "outrun":1, 
         "percent":6.58,
         "male":979,
@@ -128,7 +128,7 @@ var categories =
     },
     { 
         "id": "jDYS_Z1V",
-        "name": "Wholesale and retail trade; repair of motor vehicles and personal and household goods",
+        "name": "Wholesale and retail trade;\n repair of motor vehicles\n and personal and household goods",
         "outrun":0,
         "percent":36.96,
         "male":906.4,
@@ -208,7 +208,7 @@ var categories =
     },
     { 
         "id": "oxKq-H8w",
-        "name": "Real estate, renting and business activities",
+        "name": "Real estate,\n renting and\n business activities",
         "outrun":0,
         "percent":21.68,
         "male":1044.7,
@@ -288,7 +288,7 @@ var categories =
     },
     {
         "id": "DqFfYVGZ",
-        "name": "community, social and personal service activities",
+        "name": "Community, social and\n personal service activities",
         "outrun":0,
         "percent":32.51,
         "male":858.3,
@@ -309,7 +309,7 @@ var categories =
     // what todo here
     {
         "id": "hyn3wmKk",
-        "name": "Everyone",
+        "name": "Everywoman/man",
         "outrun":0,
         "percent":0,
         "male":0,
@@ -335,6 +335,7 @@ var interests =
     { 
         "id": "gfNDXD1g",
         "name": "Vacation", 
+        "icon":"vac",
         items:
         [
             { 
@@ -402,6 +403,7 @@ var interests =
     { 
         "id": "Rs2Uml6w",
         "name": "Gadgets",
+        "icon":"gad",
         items:
         [
             { 
@@ -474,6 +476,7 @@ var interests =
     { 
         "id": "KI3EFRI3",
         "name": "Education",
+        "icon":"edu",
         items:
         [
              { 
@@ -541,6 +544,7 @@ var interests =
     { 
         "id": "7fdCIojZ",
         "name": "Housing",
+        "icon":"hou",
         items:
         [
             { 
@@ -608,6 +612,7 @@ var interests =
     { 
         "id": "3QDbCRrq",
         "name": "Transportation",
+        "icon":"tra",
         items:
         [
             { 
@@ -675,14 +680,6 @@ var interests =
     //{ "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
 ];
 var int_ids = interests.map(function(d,i){return d.id;});
-var age_groups = 
-[
-        { "name":"adolescence", "min":18, "max":29},
-        { "name":"young_adulthood", "min":30, "max":39},
-        { "name":"middle_adulthood", "min":40, "max":49},
-        { "name":"advanced_adulthood", "min":50, "max":65}      
-]; 
-
 var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
 var sepilogue = { "class":"epilogue", "title":"Game Over"};
 
@@ -699,7 +696,9 @@ var locale = {
     your_gender:"Your Gender",
     your_age:"Your Age",
     your_job:"Your Job Sector",
-    choose_interest:"Choose Interest",
+    yout_salary:"Your Salary",
+    your_interest:"Your Interest",
+    your_percent:"HOW MUCH DO YOU SAVE UP FOR INTEREST",
     lorem:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     about_game:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     female:"Female",

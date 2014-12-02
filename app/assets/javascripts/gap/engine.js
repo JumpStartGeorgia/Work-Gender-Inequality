@@ -595,14 +595,6 @@ function isf(){ return user.gender=='f' }
 /***************************************************************
                   General Functions
 ***************************************************************/
-function agegroup_by_age(v)
-{
-  for(var i = 0; i < age_groups.length; ++i)
-  {
-    if(v >= age_groups[i].min && v <= age_groups[i].max)
-      return i+1;
-  }
-}
 function params_init()
 {
   if(params_read())

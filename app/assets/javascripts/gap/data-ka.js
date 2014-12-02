@@ -101,15 +101,6 @@ Te6f2mYy
 PcNAyqxL
 KOpdBfBy
 */
- 
-var age_groups = 
-[
-        { "name":"adolescence", "min":18, "max":29},
-        { "name":"young_adulthood", "min":30, "max":39},
-        { "name":"middle_adulthood", "min":40, "max":49},
-        { "name":"advanced_adulthood", "min":50, "max":65}      
-]; 
-
 var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
 var sepilogue = { "class":"epilogue", "title":"Game Over"};
 
