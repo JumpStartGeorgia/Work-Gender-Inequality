@@ -16,7 +16,7 @@ var poll = {
   show:function show()
   {
     //scr_clean();
-    s.append("<div class='poll'><div class='info'></div><div class='logo'></div></div>");
+    s.append("<div class='poll'><div class='info'></div></div>");
     if(steptogo == 0)
       this.gender();
     else 
@@ -163,7 +163,7 @@ var poll = {
   {
     poll.label(locale.poll.your_job); 
     params_set(2); 
-    user.category = user.category == null ? cat_ids[0] : user.category;
+    //user.category = user.category == null ? cat_ids[0] : user.category;
     poll.npicker_function = null;
     poll.next_function = function(){
 
@@ -184,14 +184,13 @@ var poll = {
 
     params_set(4); 
 
-    user.interest = user.interest == null ? int_ids[0] : user.interest;
+    //user.interest = user.interest == null ? int_ids[0] : user.interest;
     poll.next_function = function(){
       
       poll.choose_interest();
       onscrolldown = null;
       onscrollup = null;
       poll.npicker_function = null;
-      $('.character').off();
       d3.select('.poll .selector .interest-picker').remove();
       d3.select('.poll .selector .percent-picker').remove();
       params_set(6); 

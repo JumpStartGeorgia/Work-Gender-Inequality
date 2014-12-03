@@ -14,15 +14,8 @@ function init()
 function afterinit()
 {
   scr_clean();
-  //sound_button();
-  //share_button();
-   if(steptogo < 6) 
-      poll.show();
-    else 
-    {      
-      game_init(); game_on_load();
-    }
-    // test
+  if(steptogo < 6) poll.show();
+  else game_init(); 
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -145,7 +138,7 @@ function share_button()
   if(s.parent().find('.share').length == 0)
   {
     $(document).ready(function() {
-      var share = $('<div class="share">Share</div>').appendTo(s.parent());
+      var share = $('<div class="share"></div>').appendTo(s.parent());
       $.ajaxSetup({ cache: true });
       // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
        $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
@@ -226,15 +219,20 @@ function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
-  setTimeout(function(){
-  animated = true;
-  var tools = category.stage.frame.load;
-  male.animate(tools);
-  female.animate(tools);
+  setTimeout(function()
+  {
+    animated = true;
+    var tools = category.stage.frame.load;
+    male.animate(tools);
+    female.animate(tools);
   },1000);
   // animate humans to starting position (inside object where they work)
 }
 function game_init() {
+
+  sound_button();
+  share_button();
+
   gameon();
 
   if(isf())
@@ -283,6 +281,8 @@ function game_init() {
   redraw_game();
 
   player.background_play();  
+
+  game_on_load();
 }
 var img_scaler =  1;
 var bg_width = 0;
@@ -312,6 +312,11 @@ function draw_stage(v)
     bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
     bg_to_viewport+=bg_width;
   }
+  var bgOriginal2 = assets.filter(function(a){ return a.name == 'bg2'; })[0].element;
+
+  bgOriginal2.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+
+
   var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
   var fgOriginalO = assets.filter(function(a){ return a.name == category.fg+'_o'; })[0].element;
 
@@ -654,7 +659,7 @@ function params_validate()
   {
     steptogo = 5;
     user.interest = params.i;
-    poll.choose_interest();
+    poll.choose_interest();    
   }
   if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
   {   

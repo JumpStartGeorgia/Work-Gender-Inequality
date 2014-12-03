@@ -11,11 +11,30 @@
     font-weight: 200;
 }
 @font-face {
+    font-family: "gandhi-bi";    
+    src: url( '/assets/fonts/gandhi-sans-bi.otf') format("opentype");           
+    font-style: normal;
+    font-weight: 200;
+}
+@font-face {
     font-family: "hallo";    
+    src: url( '/assets/fonts/hallo-sans.otf') format("opentype");           
+    font-style: normal;
+    font-weight: 200;
+}
+@font-face {
+    font-family: "hallo-li";    
     src: url( '/assets/fonts/hallo-sans-li.otf') format("opentype");           
     font-style: normal;
     font-weight: 200;
 }
+@font-face {
+    font-family: "hallo-b";    
+    src: url( '/assets/fonts/hallo-sans-bss.otf') format("opentype");           
+    font-style: normal;
+    font-weight: 200;
+}
+
 body,html
 {
    overflow:hidden;
@@ -287,6 +306,18 @@ body,html
 {
    display:inline-block;
 }
+#screen .score .label
+{
+  font-family:hallo;
+  font-size:16px;
+  color:#d88166;  
+}
+#screen .score .value
+{
+  font-family:hallo-li-b;
+  font-size:16px;
+  color:#c85752;  
+}
 #screen .stage .fg .i{ z-index:33; }
 #screen .stage .fg .o{ z-index:36; }
 #screen .stage .bg,
@@ -334,10 +365,10 @@ body,html
 {  
    background-image:url("../gap/svg/human/casual/mr.svg");
    background-color:transparent;
-   background-size:46px 100px;
+   background-size:42px 180px;
    background-repeat:no-repeat;
-   width:46px;
-   height:100px;
+   width:42px;
+   height:180px;
    position:absolute;
    left:0px;
    display:none;
@@ -346,13 +377,17 @@ body,html
 {
    background:transparent url("../gap/svg/human/casual/fl.svg") no-repeat;
     background-color:transparent;
-   background-size:46px 100px;
+   background-size:38px 170px;
    background-repeat:no-repeat;
-   width:46px;
-   height:100px;
+   width:38px;
+   height:170px;
    position:absolute;
    left:0px;
  display:none;
+}
+.l.character
+{
+  transform:scale(-1,1);
 }
 /* poll z-index */
 .salary-picker,
@@ -365,7 +400,7 @@ body,html
 .category-picker,
 .interest-picker
 { z-index:32; } 
-.poll .logo,.poll .navigation, .poll .prompt { z-index:31; }
+.logo,.poll .navigation, .poll .prompt { z-index:31; }
 svg.stage-bk .mask{ z-index:31; }
 svg.stage-bk { z-index:30; }
 
@@ -408,7 +443,7 @@ svg.stage-bk { z-index:30; }
 #screen .timeline
 {
    position:absolute;
-   background-color:#ededed;
+   background-color:#fffef9;
    width:100%;
 }
 .timeline .canvas
@@ -435,6 +470,9 @@ svg.stage-bk { z-index:30; }
    width:81px;
    display:inline-block;
    text-align:center;
+   font-family:hallo;
+   font-size:16px;
+   color:#c85752;
 }
 .point-in-time .mask
 {
@@ -483,7 +521,7 @@ svg.stage-bk { z-index:30; }
 {
    cursor:pointer;
 }
-
+/*
 .mchar
 {
   position:absolute;
@@ -491,7 +529,7 @@ svg.stage-bk { z-index:30; }
    background-size:100px 151px;
    width:100px;
    height:151px;
-}
+}*/
 /*.mcharh:hover,.mcharh.selected
 {
    background:transparent url("../gap/svg/human/poll/m.svg") no-repeat; 
@@ -500,14 +538,14 @@ svg.stage-bk { z-index:30; }
    height:175px;
    cursor:pointer;
 }*/
-.fchar
+/*.fchar
 {
    position:absolute;
    background:transparent url("../gap/svg/human/poll/fd.svg") no-repeat;
    background-size:100px 151px;
    width:100px;
    height:151px;
-}
+}*/
 /*.fcharh:hover,.fcharh.selected
 {
   background:transparent url("../gap/svg/human/poll/f.svg") no-repeat; 
@@ -604,6 +642,8 @@ svg.stage-bk { z-index:30; }
   -ms-transition: all 400ms linear;
   -o-transition: all 400ms linear;
   transition: all 400ms linear;
+  z-index:51;
+  position:relative;
 }
 .category-item > img:hover,.interest-item > img:hover
 {
@@ -641,6 +681,7 @@ svg.stage-bk { z-index:30; }
   position:relative;
   visibility:hidden;
   display: inline-block;
+  z-index:50;
 }
 .interest-item > div.hint
 {
@@ -661,7 +702,7 @@ svg.stage-bk { z-index:30; }
 {
    height: 42px;
    width: 144px;
-   font-family: hallo;
+   font-family: hallo-li;
    font-size: 40px;
    color: #dd4832;
    line-height:40px;
@@ -688,7 +729,7 @@ svg.stage-bk { z-index:30; }
 {
    height: 44px;
    width: 28px;
-   font-family: hallo;
+   font-family: hallo-li;
    font-size: 45px;
    color: #dd4832;
    line-height:44px;
@@ -707,7 +748,7 @@ svg.stage-bk { z-index:30; }
 }
 .npicker div.t
 {
-  font-family:hallo;
+  font-family:hallo-li;
   font-size:30px;
   color:#7abec3;
   white-space: pre;
@@ -822,14 +863,14 @@ svg.stage-bk { z-index:30; }
 
 .volume
 {
-  width:32px;
-  height:32px;
-  background-size:32px;
+  width:23px;
+  height:18px;
+  background-size:23px 18px;
   background-repeat:no-repeat;
   background-position:0px;
   position:fixed;
   top:10px;
-  left:15px;
+  right:15px;
   z-index:36;
   cursor:pointer;
 }
@@ -844,9 +885,18 @@ svg.stage-bk { z-index:30; }
 .share
 {  
   position:fixed;
-  top:15px;
-  left:60px;
-  z-index:36;
+  bottom:0px;
+  right:0px;
+  z-index:36;  
+  opacity:0.6;
+  background:transparent url("../gap/svg/common/fb.svg") no-repeat;
+  background-size:33px;
+  width:33px;
+  height:33px;
+}
+.share:hover
+{
+  opacity:1;
   cursor:pointer;
 }
 
@@ -950,7 +1000,7 @@ svg.stage-bk { z-index:30; }
   text-align: center;
   top: -159px;
 }
-.poll .logo
+.logo
 {
   position: absolute;
   top: 50%;
@@ -1058,7 +1108,7 @@ svg.stage-bk { z-index:30; }
 
 .poll > .selector > div > .profile > .t
 {
-  font-family:hallo;
+  font-family:hallo-li;
   font-size:32.5px;
   color:#484849;
   text-align:center;
@@ -1066,7 +1116,7 @@ svg.stage-bk { z-index:30; }
 }
 .poll > .selector > div > .profile > .a
 {
-  font-family:hallo;
+  font-family:hallo-li;
   font-size:45px;
   color:#dd4832;
   text-align:center;
@@ -1078,7 +1128,7 @@ svg.stage-bk { z-index:30; }
 
 .poll > .selector > div > .profile > .t:first-letter
 {
-  font-family:hallo;
+  font-family:hallo-li;
   font-size:37.5px;
   color:#3f8b95;
   display:block;
@@ -1118,7 +1168,7 @@ svg.stage-bk { z-index:30; }
 }
 .poll .prompt .title .text
 {
-  font-family:hallo;
+  font-family:hallo-li;
   font-size:37.5px;
   color:#7abec3;
   margin: 0px 40px;
@@ -1207,5 +1257,13 @@ svg.stage-bk { z-index:30; }
   vertical-align: middle;
 /*  border-left:1px solid #a8d2d0;
   border-right:1px solid #a8d2d0;*/
+
+}
+.sun
+{
+  background:transparent url("../gap/svg/common/next.svg") no-repeat;
+  background-size:40px 40px;
+  width:40px;
+  height:40px;
 
 }

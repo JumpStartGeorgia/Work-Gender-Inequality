@@ -15,6 +15,7 @@ var categories =
         "female":463.2,
         "dress":"street", //technical
         "bg":"bg1",
+        "bg2":"bg2",
         "fg":"agriculture",
         "stage":
         {
@@ -135,7 +136,7 @@ var categories =
         "female":571.4,            
         "dress":"casual",
         "bg":"bg1",
-        "fg":"wholesale",
+        "fg":"other",//"wholesale",
         "stage":
         {
             "frame":
@@ -680,7 +681,7 @@ var interests =
     //{ "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
 ];
 var int_ids = interests.map(function(d,i){return d.id;});
-var sintro = { "class":"intro", "title":"Gap Game (Just scroll)"};
+var sintro = { "class":"intro", "title":"Gap Game"};
 var sepilogue = { "class":"epilogue", "title":"Game Over"};
 
 var color = {
