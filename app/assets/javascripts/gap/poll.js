@@ -166,15 +166,34 @@ var poll = {
     //user.category = user.category == null ? cat_ids[0] : user.category;
     poll.npicker_function = null;
     poll.next_function = function(){
-
-      poll.choose_category();
-      onscrolldown = null;
-      onscrollup = null;
       user.salary = poll.category_salary();
-      d3.select('.poll .selector .category-picker').remove();
-      d3.select('.poll .selector .salary-picker').remove();
+      if(user.category != null && user.salary > 0)
+      {
+        poll.choose_category();
+        onscrolldown = null;
+        onscrollup = null;
+        
+        $('.poll .selector .category-picker').remove();
+        $('.poll .selector .salary-picker').remove();
 
-      poll.interest();
+        poll.interest();
+      }
+      else
+      {
+        if(user.category == null)
+        {
+          $('.poll .selector .category-picker .category-item').each(function(i,d){
+            d = $(d);
+            setTimeout(function(){ d.addClass('zoom'); setTimeout(function(){ d.removeClass('zoom'); }, 100); },60*(i+1));
+          });
+        }
+        else
+        {   
+          var d = $('.poll .selector .salary-picker');
+          d.addClass('zoom');
+          setTimeout(function(){ d.removeClass('zoom'); }, 300);            
+        }
+      }
     };
     poll.category_picker_show();
   },
@@ -187,15 +206,34 @@ var poll = {
     //user.interest = user.interest == null ? int_ids[0] : user.interest;
     poll.next_function = function(){
       
-      poll.choose_interest();
-      onscrolldown = null;
-      onscrollup = null;
-      poll.npicker_function = null;
-      d3.select('.poll .selector .interest-picker').remove();
-      d3.select('.poll .selector .percent-picker').remove();
-      params_set(6); 
+      if(user.interest != null && user.salary_percent > 0)
+      {   
+        poll.choose_interest();
+        onscrolldown = null;
+        onscrollup = null;
+        poll.npicker_function = null;
+        $('.poll .selector .interest-picker').remove();
+        $('.poll .selector .percent-picker').remove();
+        params_set(6); 
+        game_init();
+      }
+      else
+      {
 
-      game_init();
+        if(user.interest == null)
+        {
+          $('.poll .selector .interest-picker .interest-item').each(function(i,d){
+            d = $(d);
+            setTimeout(function(){ d.addClass('zoom'); setTimeout(function(){ d.removeClass('zoom'); }, 100); },60*(i+1));
+          });
+        }
+        else
+        {   
+          var d = $('.poll .selector .percent-picker');
+          d.addClass('zoom');
+          setTimeout(function(){ d.removeClass('zoom'); }, 300);
+        }
+      }
     };
     poll.interest_picker_show();
   }, 
@@ -422,7 +460,7 @@ var poll = {
   interest_picker_show:function interest_picker_show()
   {
     var picker = $("<div class='interest-picker'></div>").appendTo('.poll .selector');
-    poll.npicker_create('.poll .selector','.percent_picker',user.salary,poll.npicker_sal_size,h2,w2+125,0,locale.poll.your_percent,'left');
+    poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,h2,w2+125,0,locale.poll.your_percent,'left');
     interests.forEach(function(d,i){
       var item = $("<div id='i"+d.id+"' class='interest-item'>"+
                       "<img src='/assets/gap/svg/interest/icons/"+d.icon+".svg' />" + 
@@ -509,8 +547,10 @@ var poll = {
   },
   create_navigation_buttons:function create_next_prev_buttons()
   {
-     var nav = $("<div class='navigation'><div class='prev' title='"+locale.general.prev+"'></div><div class='sep'></div><div class='next' title='"+locale.general.next+"'></div>").appendTo($('.poll'));
-     nav.find('.prev').click(function(e){ fn('poll.prev_function');  e.stopPropagation(); });
+     var nav = $("<div class='navigation'><div class='next' title='"+locale.general.next+"'></div>").appendTo($('.poll'));
+     //<div class='sep'></div>
+     //<div class='prev' title='"+locale.general.prev+"'></div>
+     //nav.find('.prev').click(function(e){ fn('poll.prev_function');  e.stopPropagation(); });
      nav.find('.next').click(function(e){ fn('poll.next_function');  e.stopPropagation(); });
   }, 
   prev_function:function prev_function()

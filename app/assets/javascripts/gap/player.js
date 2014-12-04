@@ -34,11 +34,13 @@ function playerObject()
 		//$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
 		//sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
 		//this.bgint = sOrig.clone()[0];
+		console.log();
 		this.bgint = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element[0];
 		this.bgint.loop = true;
 		//$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
 		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime } );
-
+		t.bgcat.volume = 0.2;
+		t.bgint.volume = 0.2;
 			t.bgcat.play();
 			t.bgint.play();
 

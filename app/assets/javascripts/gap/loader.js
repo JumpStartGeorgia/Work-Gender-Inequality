@@ -7,9 +7,9 @@ var assetsmeta =
 		path:"/assets/gap/svg/field/",count:16,amount:2 },
 	{ type:"interest", names:[ 'vac', 'gad', 'edu', 'hou', 'tra' ],
 		path:"/assets/gap/svg/interest/", amount:6, count:5,  },
-	{ type:"male", names:['casual','street','business','technical','construction'], amount:6, count:5,
+	{ type:"male", names:['casual','solid','business','technical','construction'], amount:3, count:5,
 		path:"/assets/gap/svg/human/" },
-	{ type:"female", names:['casual','street','business','technical','construction'], amount:6, count:5,
+	{ type:"female", names:['casual','solid','business','technical','construction'], amount:3, count:5,
 		path:"/assets/gap/svg/human/" },
 	{ name:"sound", type:"image", path:"/assets/gap/svg/common/sound.svg"},
 	{ name:"soundoff", type:"image", path:"/assets/gap/svg/common/soundoff.svg"},
@@ -22,6 +22,7 @@ var assetsmeta =
 	{ name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N"},
 	{ name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g"},
 	{ name:"mjDYS_Z1V", type:"sound", path:"/assets/gap/sounds/mjDYS_Z1V"},
+	{ name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
 
 
 	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
@@ -239,10 +240,9 @@ Game.Loader =
 		var t = this;
 		for(var i = 0; i < v.count; ++i)
 		{
-			for(var j = 1; j <= v.amount/2; ++j)
+			for(var j = 0; j < v.amount; ++j)
 			{
-				this.addimage(g+'r'+(j==1?'':j-1)+'_'+ v.names[i], v.path + v.names[i] + '/' + g +'r' + (j==1?'':j-1) + '.svg');
-				this.addimage(g+'l'+(j==1?'':j-1)+'_'+ v.names[i], v.path + v.names[i] + '/' + g +'l' + (j==1?'':j-1) + '.svg');
+				this.addimage(g+(j)+'_'+ v.names[i], v.path + v.names[i] + '/' + g + j + '.svg');
 			}			
 		}
 	},

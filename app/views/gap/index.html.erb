@@ -14,7 +14,8 @@
       <div id="fb-root"></div>      
       <div class="wrapper" id="content">
         <div id="screen"></div>
-        <div class='logo'></div>
+        <a href="<%= root_path %>" class='logo'></a>
+        <a href="<%= current_url %>" class='restart'></a>
       </div>
       <!-- vendor libraries -->
       <%= javascript_include_tag *(["game"]), :media => "all" %>     

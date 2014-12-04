@@ -90,7 +90,7 @@ var user =
   gender : 'n',
   _age : 0,
   category : null,
-  salary : 100,
+  salary : 0,
   interest : null,
   salary_percent : 0,
   sended : false  

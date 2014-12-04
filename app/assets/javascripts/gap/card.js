@@ -19,7 +19,7 @@ function cardObject(p)
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
 		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
-			.css({left:w*0.5,top: (this.p.place == "top" ? lh - 168 : h - 168) }).appendTo(treasure);
+			.css({left:w*0.5}).appendTo(treasure); //,top: (this.p.place == "top" ? lh - 168 : h - 168) 
 		this.scard = treasure.find('.card');		
 		this.scoins = this.scard.find('.coins');
 		this.stext = this.scard.find('.text');

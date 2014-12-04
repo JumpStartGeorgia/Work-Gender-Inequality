@@ -40,8 +40,9 @@ function redraw()
 function redraw_game()
 {            
   var t = $("#screen .top").height(lh).css('top',0);
-  t.find('.score').css({ left: w-t.find('.score').width()-30}); 
-  t.find('.treasure').css({ top : lh - 50 - 10 });
+  //t.find('.score').css({ left: w-t.find('.score').width()-30}); 
+  t.find('.treasure').css({ top : lh/2 - 25 });
+  t.find('.treasure .pedestal').css({ top : 10 });
 
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
@@ -50,8 +51,9 @@ function redraw_game()
   }
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
-  b.find('.score').css({ left: w-b.find('.score').width()-30, top: lh + th + 20});
+  b.find('.score').css({ top: lh + th + 20}); //left: w-b.find('.score').width()-30,
   b.find('.treasure').css({ top: lh + th + 10 });
+  b.find('.treasure .pedestal').css({ top: lh + th + lh/2 - 25 });
 
   redraw_human();
 }
@@ -232,6 +234,7 @@ function game_init() {
 
   sound_button();
   share_button();
+  $('a.restart').css('display','block');
 
   gameon();
 
@@ -290,6 +293,7 @@ var stage_offset = 0;
 var bg_initial_height = 0;
 var fgw = 0;
 var fgh = 0;
+var screenCount = 1;
 function draw_stage(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
@@ -307,16 +311,22 @@ function draw_stage(v)
   stage_offset = (w - bg_width)/2;
 
   var bg_to_viewport = bg_width;
-  while(bg_to_viewport < w+w2)
+  screenCount = 1;
+  while(bg_to_viewport < w)
   {
     bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
     bg_to_viewport+=bg_width;
-  }
+    ++screenCount;
+  }  
   var bgOriginal2 = assets.filter(function(a){ return a.name == 'bg2'; })[0].element;
-
   bgOriginal2.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
 
-
+  var extra = Math.ceil10(((w-bg_width)/2)/bg_width);
+  while(extra > 0)
+  {
+    bgOriginal.clone().css({ top:0,left:bg_to_viewport+bg_width, height:lh }).appendTo(bg);
+    --extra;
+  }
   var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
   var fgOriginalO = assets.filter(function(a){ return a.name == category.fg+'_o'; })[0].element;
 
@@ -324,13 +334,12 @@ function draw_stage(v)
 
   fgw = fg_i.width();
   fgh = fg_i.height();
-
   fg_i.addClass('i').css({ "height":fgh*img_scaler });
-  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  fg_i.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
   var fg_o = fgOriginalO.clone().appendTo(fg);
   fg_o.addClass('o').css({ "height":fgh*img_scaler });
-  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
   if(v===0) draw_stage(1);
 

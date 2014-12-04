@@ -97,14 +97,16 @@ function human(selector,title,height,width)
   });
 //*************************methods**********************************
 
-  this.position = function position(coord) {
+  this.position = function position(coord,noscale) {    
+      if(noscale === undefined) noscale = false;
       if(exist(coord))
       {
-        if(exist(coord.x)) this.x = coord.x*img_scaler;
+        if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
         if(exist(coord.y)) this.y = this.land - (this.land - coord.y*img_scaler + this.height);
         if(exist(coord.a)) this.angle = coord.a;
       }      
-      $(this.selector).css({ left: this.x + stage_offset, top: this.y });   
+      //stage_offset
+      $(this.selector).css({ left: this.x + 0 , top: this.y });   
       return { human:this.title ,x:this.x, y:this.y, a:this.angle };
   };
   this.toground = function toground() 
@@ -121,30 +123,31 @@ function human(selector,title,height,width)
   this.animate = function animate(v)
   {
 		this.animated = true;
-		this.path = v.path;
+    this.toground();
 		var t = this;
-    var slow_time = 150;
-    //var time_slower = v.duration*1000/150;
-    var slowerIndex = 4000/slow_time;
+    var intervalId = null;
+     var st = $('.' + t.place + ' .stage');
 		$(this.selector).animate({"color":'white'},{ duration:4000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
-         t.next_movement();    
+        intervalId = setInterval(function()
+        {
+          t.next_movement();   
+        },
+        (w2-t.width/2+100)/7); 
       },
 			progress:function(a,b,c) 
 			{ 
-        t.position(t.getpathcoordinates(b));
-        if(Math.floor10(c/slow_time) < slowerIndex)
-        {
-          --slowerIndex;          
-          t.next_movement();           
-        }
+        t.position({ x:(w2-t.width/2+100)*b-100, a:0 }, true);
+        st.css('left',-1*b*  (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
 			},
 			complete:function() 
 			{
 				t.animated = false;
         animated = t.animated || t.oppenent.animated;
+        clearInterval(intervalId);
+        t.stand_movement();
         t.work_frame();
 			}
 		});
@@ -184,17 +187,21 @@ function human(selector,title,height,width)
     }
   };  
   this.next_movement = function next_movement()
-  {        
+  {       
     this.movement = ++this.movement;
-    if(this.movement == 3) this.movement = 1;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
+    if(this.movement == 3) this.movement = 0;
+    $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
-    if(this.movement == 0) this.movement = 2;
-
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
+    if(this.movement == -1) this.movement = 2;
+    $(this.selector).addClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+  };
+  this.stand_movement = function stand_movement()
+  {       
+   this.movement = 0;
+    $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
   {
@@ -602,9 +609,8 @@ function human(selector,title,height,width)
     this.pedestal.init();
   };
 }; // human object with basic properties
-
-male = new human('.m.character',locale.poll.male,180,42); // male human object
-female = new human('.f.character',locale.poll.female,170,38); // female human object
+male = new human('.m.character',locale.poll.male,182,67); // male human object
+female = new human('.f.character',locale.poll.female,172,63); // female human object
 humans = male.outrun ? [male,female] : [female,male];
 
 function h_go_right()

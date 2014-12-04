@@ -675,7 +675,7 @@ var interests =
                 "source":"http://autopapa.ge/en/land-rover/range-rover-sport/356898?search_hash=af1eb936bd4cc037006c08f12654d754&offset=11",
                 "source_date":"25.09.2014",
                 "descr":"Land Rover Range Rover Sport, Suv, 2011" 
-            },
+            }
         ] 
     }
     //{ "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
