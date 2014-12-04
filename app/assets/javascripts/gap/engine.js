@@ -41,7 +41,7 @@ function redraw_game()
 {            
   var t = $("#screen .top").height(lh).css('top',0);
   //t.find('.score').css({ left: w-t.find('.score').width()-30}); 
-  t.find('.treasure').css({ top : lh/2 - 25 });
+  t.find('.treasure .red-carpet').css({ top : lh/2 - 25 });
   t.find('.treasure .pedestal').css({ top : 10 });
 
   $("#screen .timeline").height(th).css('top',h2-th/2);
@@ -52,8 +52,9 @@ function redraw_game()
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
   b.find('.score').css({ top: lh + th + 20}); //left: w-b.find('.score').width()-30,
-  b.find('.treasure').css({ top: lh + th + 10 });
-  b.find('.treasure .pedestal').css({ top: lh + th + lh/2 - 25 });
+  //b.find('.treasure').css({ top: lh + th + 10 });
+  b.find('.treasure .red-carpet').css({ top : lh/2 - 25 });
+  b.find('.treasure .pedestal').css({ top: lh + th + 10 });
 
   redraw_human();
 }
@@ -428,10 +429,12 @@ function timeline_point_draw()
           mCountTmp += male.event_by_month[j];
           fCountTmp += female.event_by_month[j];
         }
+        console.log('here',prevPosition);
         if(mCountTmp > 0)
         {
           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
           rew.css({heigth:th,line_height:th});
+          //console.log(prevPosition - interest_w2);
           rew.css({left: prevPosition - interest_w2});
           if(i<=gap.pos) { rew.hide();}
           for(var j = 0; j < mCountTmp; ++j)
@@ -673,7 +676,7 @@ function params_validate()
   if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
   {   
       steptogo = 6;
-      user.salary_percent = params.p;
+      user.saving = params.p;
       sendUserData();
   }  
   if(steptogo == 6 &&  exist(params.t) && isNumber(params.t))

@@ -149,8 +149,8 @@ Game.Loader =
 		    });
 
 
-		    $(window).on("swipeleft",function(){ walk(1); });
-		    $(window).on("swiperight",function(){ walk(-1); });
+		    //$(window).on("swipeleft",function(){ walk(1); });
+		    //$(window).on("swiperight",function(){ walk(-1); });
 		    // on resize redraw game   
 		    $( window ).resize(function() { init(); });
 

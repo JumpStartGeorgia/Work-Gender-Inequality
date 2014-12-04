@@ -18,7 +18,7 @@ class GapController < ApplicationController
         category:params[:user][:category],
         salary:params[:user][:salary],
         interest:params[:user][:interest],
-        saving_percent:params[:user][:salary_percent],
+        saving:params[:user][:saving],
         ip:request.remote_ip,
         country:request.location.country,
         city:request.location.city,

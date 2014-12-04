@@ -206,7 +206,7 @@ var poll = {
     //user.interest = user.interest == null ? int_ids[0] : user.interest;
     poll.next_function = function(){
       
-      if(user.interest != null && user.salary_percent > 0)
+      if(user.interest != null && user.saving > 0 && user.saving <= user.salary)
       {   
         poll.choose_interest();
         onscrolldown = null;
@@ -479,7 +479,7 @@ var poll = {
    poll.npicker_function = function(v){ 
       v=+v; 
       if(user.salary >= v) {
-        user.salary_percent = Math.round10((v*100)/user.salary);      
+        user.saving = v; //Math.round10((v*100)/user.salary);      
       }  
     }
 
