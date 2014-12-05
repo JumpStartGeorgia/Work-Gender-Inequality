@@ -12,8 +12,10 @@ function playerObject()
 	var volume = 1;	
 	var readySoundCount = 0;
 	var bgBothLoaded = 2;
+	var sound_ext = 'mp3';
 	this.init = function()
 	{
+		if(isOpera) sound_ext = 'ogg';
 		for(var i = 0; i < sounds.length; ++i)
 		{			
 			var item = sounds[i];
@@ -29,28 +31,50 @@ function playerObject()
 		var t = this;
 		//var sOrig = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element;  
 		//this.bgcat = sOrig.clone()[0];
-		this.bgcat = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element[0];
+		//console.log(category,interest);
+
+		this.bgcat = $('<audio>',
+		{
+	  			on: 
+	  			{
+					canplay: function() { t.background_ready(); },
+					error: function(e) { console.log(this,e,"error");}
+			  	},
+			  	"src":'/assets/gap/sounds/category/' +(user.gender + category.fg + '.' + sound_ext) 
+	  	}).get(0);
+		 //assets.filter(function(a){ return a.name == 'sound_'+(user.gender + category.fg); })[0].element[0];
 		this.bgcat.loop = true;
 		//$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
 		//sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
 		//this.bgint = sOrig.clone()[0];
-		console.log();
-		this.bgint = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element[0];
+		//console.log();
+		//
+		this.bgint = $('<audio>',
+		{
+	  			on: 
+	  			{
+					canplay: function() { t.background_ready(); },
+					error: function(e) { console.log(this,e,"error");}
+			  	},
+			  	"src":'/assets/gap/sounds/interest/' + interestAlias + '.' + sound_ext
+	  	}).get(0);
+		//assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element[0];
 		this.bgint.loop = true;
 		//$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
-		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime } );
-		t.bgcat.muted = true;
-		t.bgint.muted = true;
+		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
+		//t.bgcat.muted = true;
+		//t.bgint.muted = true;
 		t.bgcat.volume = 0.2;
 		t.bgint.volume = 0.2;
-			t.bgcat.play();
-			t.bgint.play();
+			//t.bgcat.play();
+		//	t.bgint.play();
 
 	};	
 	this.background_ready = function(t)
 	{	
+		var t = this;
 		--bgBothLoaded;
-		$(this).off('canplaythrough');
+		$(t).off('canplaythrough');
 
 		if(bgBothLoaded == 0)
 		{

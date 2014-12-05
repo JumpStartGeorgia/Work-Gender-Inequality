@@ -158,3 +158,5 @@ var player;
 var isAssetsLoaded = false;
 var isSoundLoaded = false;
 var interestAlias = '';
+var resizeId = 0;
+var isOpera = /opera/i.test(navigator.userAgent);

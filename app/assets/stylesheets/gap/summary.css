@@ -1,13 +1,13 @@
 .male
 {
-   background:transparent url("../gap/svg/human/casual/mr.svg") no-repeat center center;
+   background:transparent url("../gap/svg/human/casual/m0.svg") no-repeat center center;
    background-size:46px 100px;
     width:46px;
    height:100px;
 }
 .female
 {
-   background:transparent url("../gap/svg/human/casual/fr.svg") no-repeat center center;
+   background:transparent url("../gap/svg/human/casual/f0.svg") no-repeat center center;
    background-size:46px 100px;
    width:46px;
    height:100px;

@@ -7,9 +7,9 @@ var assetsmeta =
 		path:"/assets/gap/svg/field/",count:16,amount:2 },
 	{ type:"interest", names:[ 'vac', 'gad', 'edu', 'hou', 'tra' ],
 		path:"/assets/gap/svg/interest/", amount:6, count:5,  },
-	{ type:"male", names:['casual','solid','business','technical','construction'], amount:3, count:5,
+	{ type:"male", names:['casual','solid','business','technical','construction','doctor'], amount:3, count:6,
 		path:"/assets/gap/svg/human/" },
-	{ type:"female", names:['casual','solid','business','technical','construction'], amount:3, count:5,
+	{ type:"female", names:['casual','solid','business','technical','construction','doctor'], amount:3, count:6,
 		path:"/assets/gap/svg/human/" },
 	{ name:"sound", type:"image", path:"/assets/gap/svg/common/sound.svg"},
 	{ name:"soundoff", type:"image", path:"/assets/gap/svg/common/soundoff.svg"},
@@ -17,12 +17,13 @@ var assetsmeta =
 	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},	
-	{ name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC"},
-	{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w"},
-	{ name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N"},
-	{ name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g"},
-	{ name:"mjDYS_Z1V", type:"sound", path:"/assets/gap/sounds/mjDYS_Z1V"},
-	{ name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
+	
+	// { name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC"},
+	// { name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w"},
+	// { name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N"},
+	// { name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g"},
+	// { name:"mjDYS_Z1V", type:"sound", path:"/assets/gap/sounds/mjDYS_Z1V"},
+	// { name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
 
 
 	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
@@ -151,8 +152,12 @@ Game.Loader =
 
 		    //$(window).on("swipeleft",function(){ walk(1); });
 		    //$(window).on("swiperight",function(){ walk(-1); });
-		    // on resize redraw game   
-		    $( window ).resize(function() { init(); });
+		    // on resize redraw game   				
+
+		    $(window).resize(function() {
+		    	if (resizeId){clearTimeout(resizeId)};
+		    	resizeId = setTimeout(function(){ resize(); },500); 
+		    });
 
 		    history.replaceState({},'',window.location.href);
 

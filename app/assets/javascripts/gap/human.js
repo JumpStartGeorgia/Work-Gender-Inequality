@@ -9,6 +9,8 @@ function human(selector,title,height,width)
   this.canvas = 200;
   this.x = 0;
   this.y = 0;
+  this.prevX = 0;
+  this.prevY = 0;
   this.angle = 0;
   this.land = 0;  
   this.selector = selector;
@@ -35,6 +37,7 @@ function human(selector,title,height,width)
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject({complete:queueCompleteCallback});
   this.oppenent = null;
+  this.working = false;
   var mutator = {
     left:[],
     right:[],
@@ -67,14 +70,14 @@ function human(selector,title,height,width)
 	});
 	this.__defineSetter__("tsalary", function(val){
 	   this._tsalary = val;
-     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? Math.round10(val) : NaN);
+     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? formatNumber(Math.round10(val)) : NaN);
 	});
 	this.__defineGetter__("tsaved", function(){
 	     return this._tsaved;
 	 });
 	this.__defineSetter__("tsaved", function(val){
 	   this._tsaved = val;
-     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? Math.round10(val) : NaN);
+     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? formatNumber(Math.round10(val)) : NaN);
 	});
 	this.__defineGetter__("stage", function(){
 	   return this._stage;
@@ -97,16 +100,30 @@ function human(selector,title,height,width)
 //*************************methods**********************************
 
   this.position = function position(coord,noscale) {    
+
+      this.prevX = this.x;
+      this.prevY = this.y;
       if(noscale === undefined) noscale = false;
       if(exist(coord))
       {
         if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
         if(exist(coord.y)) this.y = this.land - (this.land - coord.y*img_scaler + this.height);
+        if(this.working)
+        {
+          this.x += $('.top .stage .fg img').first().offset().left;
+          this.y += $('.top .stage .fg img').first().offset().top;
+        }
         if(exist(coord.a)) this.angle = coord.a;
       }      
-      //stage_offset
-      $(this.selector).css({ left: this.x + 0 , top: this.y });   
-      return { human:this.title ,x:this.x, y:this.y, a:this.angle };
+      else this.toground();
+      
+
+      if(this.x > this.prevX) $(this.selector).removeClass('l');
+      else if(this.x < this.prevX) $(this.selector).addClass('l');
+
+      $(this.selector).css({ left: this.x , top: this.y });   
+
+      //return { human:this.title ,x:this.x, y:this.y, a:this.angle };
   };
   this.toground = function toground() 
   {
@@ -189,13 +206,13 @@ function human(selector,title,height,width)
   {       
     this.movement = ++this.movement;
     if(this.movement == 3) this.movement = 0;
-    $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
     if(this.movement == -1) this.movement = 2;
-    $(this.selector).addClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.stand_movement = function stand_movement()
   {       
@@ -221,7 +238,7 @@ function human(selector,title,height,width)
     else if(tmp <= 0) return;
     this.prev_movement();
     this.traversed_path = tmp;
-    //this.position(this.getpathcoordinates(this.traversed_path/100));
+    this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.work_frame = function work_frame()
   {
@@ -230,7 +247,7 @@ function human(selector,title,height,width)
     // else this.current_frame = 0;
     //console.log(category.stage.frame,this.current_frame,frame_sequence_length,frame_sequence,category.stage.frame[frame_sequence[this.current_frame]]);
     //console.log(frame);
-    
+    this.working = true;
     var frame = category.stage.frame['work'];
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
@@ -240,6 +257,7 @@ function human(selector,title,height,width)
 		var percent = Math.round10(progress*100);
 		var p1 = this.path.getPointAtLength(this.path_length * (percent-1)/100);
 		var p2 = this.path.getPointAtLength(this.path_length * (percent+1)/100);
+    //console.log(p1,p2);
 		var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
 		var p =  this.path.getPointAtLength(this.path_length * percent/100);
 		return { x:p.x,y:p.y, a:a };
@@ -295,7 +313,6 @@ function human(selector,title,height,width)
     var t = this;
     if(typeof which === "undefined") return;
     if(which == 1) events = t.event_by_period[gap.pos-1];
-    console.log("pos",gap.pos)
     if (typeof events === "undefined" || events == 0) 
     {
       this.queue.resume();  

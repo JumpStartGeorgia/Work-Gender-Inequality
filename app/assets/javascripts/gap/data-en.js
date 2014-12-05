@@ -286,7 +286,7 @@ var categories =
         "percent":41.39,
         "male":1023.8,
         "female":600.1,   
-        "dress":"solid",
+        "dress":"doctor",
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"health",

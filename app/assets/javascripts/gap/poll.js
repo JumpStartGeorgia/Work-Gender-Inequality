@@ -144,8 +144,8 @@ var poll = {
     onscrollafter = null;      
     poll.label(locale.poll.your_age); 
 
-    params_set(1);    
-    s3.select('.poll').classed(g(),true);
+    params_set(1);  
+    s.find('.poll').addClass(g());  
     poll.next_function = function()
     {
       onscrolldown = null;

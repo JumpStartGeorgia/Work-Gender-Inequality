@@ -191,6 +191,8 @@ function coordinateFromPath(progress,path,pathLength,widthScaler,heightScaler)
   var p =  path.getPointAtLength(pathLength * percent/100);
   return { x:p.x*widthScaler,y:p.y*heightScaler, a:a };
 } 
+function formatNumber(num) { return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); }
+
 /***************************************************************
                   Utility Functions End
 ***************************************************************/

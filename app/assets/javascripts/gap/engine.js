@@ -2,20 +2,24 @@
 * @description application initialization step, called after DOM elements and resources are loaded
 */
 function init()
-{
+{  
+  console.log('init');
   redraw(); // recalculate all dimensions 
   params_init();
-
   s = $('#screen');    
-  s3 = d3.select('#screen');    
-
+  //s3 = d3.select('#screen');    
   if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
 {
+ 
   scr_clean();
   if(steptogo < 6) poll.show();
   else game_init(); 
+}
+function resize()
+{
+   redraw(); // recalculate all dimensions 
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -30,6 +34,7 @@ function redraw()
 
   timeline_period_w = w*timeline_scale;
   timeline_month_w = timeline_period_w/reward_period;   
+
   if(ingame)
   { 
     redraw_game();
@@ -47,7 +52,7 @@ function redraw_game()
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
-    $('.canvas, .treasure .red-carpet').hide().css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+    $('.canvas, .treasure .red-carpet').hide().animate({color:'transparent'},{start:function(){ $(this).css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); }, complete:function(){ $(this).show(); } });
   }
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
@@ -56,13 +61,9 @@ function redraw_game()
   b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
   
   $('.canvas, .treasure .red-carpet').show();
-  redraw_human();
-}
-function redraw_human(v)
-{
-  if(typeof v === undefined) v = null;
-  male.position(v);
-  female.position(v);
+
+  male.position();
+  female.position();
 }
 function redraw_timeline()
 {
@@ -181,7 +182,7 @@ function epilogue()
   var whatnext = t.find('.whatnext');
   whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
 
-  $.getJSON( "gap/summary?" + window.location.hash.substr(1), function( data ) {
+  $.getJSON( "gap/summary?p=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
     whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
     t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
@@ -691,18 +692,16 @@ function params_validate()
         total_scrolls = gap.pos*scrolls_for_reward;        
       }
     }
-    // else
-    // {
-    //   if(params.t > pos_max)
-    //   {
-    //     pos = pos_max;
-    //     total_scrolls = (pos)*scrolls_for_reward;
-    //     epilogue();
-    //   }
-    // }
-
+    else
+    {
+      if(params.t > pos_max)
+      {
+        pos = pos_max;
+        total_scrolls = (pos)*scrolls_for_reward;
+        epilogue();
+      }
+    }
   }
-  
 }
 function params_set(v)
 {

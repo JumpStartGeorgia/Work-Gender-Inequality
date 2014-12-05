@@ -63,6 +63,7 @@ class GapController < ApplicationController
 
   def summary
     p = params_parse(params)
+
     facebook = params[:f].present? ? true : false
     tick = 3
     min_age = 18
@@ -194,6 +195,7 @@ class GapController < ApplicationController
 
   private
   def params_parse(params)
+
     filter = ['g','a','c','s','i','p','t']
     p = {}
     paramsOk = true
@@ -208,13 +210,14 @@ class GapController < ApplicationController
         p[k] =v if filter.include?(k)
       end
     end  
+    p['t'] = 300
     filter.each do |v| # check if parameter is missing
       if (!p.has_key?(v))  
         paramsOk = false 
         break
       end
     end
-
+logger.debug(paramsOk);
     p.each do |k,v| # remove extra parameters if exists
         p.delete(k) if !filter.include?(k)
     end
