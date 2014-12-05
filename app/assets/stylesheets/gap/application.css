@@ -260,21 +260,39 @@ body,html
 }
 .treasure .card
 {
-  position:fixed;    
-  z-index:49;
+  position:absolute; 
+  left:0px;
+  top:0px;   
+  z-index:51;
   min-height:56px;
-  max-height:112px;
   min-width:100px;
-  max-width:200px;
-  padding: 6px 10px;
-  border:1px solid #c4c4c4;
-  border-radius:5px;
-  background-color:#fafafa;
+  padding: 14px 15px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background-color:#fff;
   display:none;
+}
+.treasure > .card > div
+{
+  display:inline-block;
 }
 .treasure .card .coins
 {
-  width:100%;
+  /*width:100%;*/
+}
+.treasure > .card > .text
+{
+  font-family:gandhi-bi;
+  font-size:16px;
+  color:#a3af7f;
+  vertical-align:top;
+  padding-top:8px;
+
+}
+.treasure > .card > .text > .data
+{
+  font-family:gandhi;
 }
 .treasure .red-carpet .reward .item,
 .treasure .card .coins .coin.item
@@ -290,7 +308,20 @@ body,html
   transition: all 0.2s ease-out;
   position:relative;
 }
-
+.treasure > .card > .fb
+{
+  background:transparent url("../gap/svg/common/fb2.svg") no-repeat;
+  background-size:28px 28px;
+  width:28px;
+  height:28px;
+  position:absolute;
+  top:0px;
+  right:0px;
+}
+.treasure > .card > .fb:hover
+{
+  cursor:pointer;
+}
 #screen .top .score, #screen .bottom .score
 {     
   position: fixed;

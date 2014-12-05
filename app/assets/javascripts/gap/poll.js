@@ -205,8 +205,8 @@ var poll = {
 
     //user.interest = user.interest == null ? int_ids[0] : user.interest;
     poll.next_function = function(){
-      
-      if(user.interest != null && user.saving > 0 && user.saving <= user.salary)
+      console.log(user);
+      if(user.interest != null && user.salary_percent > 0)
       {   
         poll.choose_interest();
         onscrolldown = null;
@@ -283,7 +283,7 @@ var poll = {
     //onscrolldown=function(){ poll.category_up(); };
   },  
   category_select:function category_select()
-  {    
+  {
     if(!poll.npicker_binded) poll.npicker_bind();
     $('.poll .selector .category-picker .category-item').removeClass('selected');
     $('.poll .selector .category-picker .category-item#c' + user.category).addClass('selected');
@@ -479,7 +479,7 @@ var poll = {
    poll.npicker_function = function(v){ 
       v=+v; 
       if(user.salary >= v) {
-        user.saving = v; //Math.round10((v*100)/user.salary);      
+         user.salary_percent = (v*100)/user.salary;     
       }  
     }
 
@@ -487,7 +487,7 @@ var poll = {
   //onscrolldown=function(){ poll.interest_up(); };
   },
   interest_select:function interest_select()
-  {
+  {     console.log(user);
     if(!poll.npicker_binded) poll.npicker_bind();
     $('.poll .selector .interest-picker .interest-item').removeClass('selected');
     $('.poll .selector .interest-picker .interest-item#i' + user.interest).addClass('selected');
@@ -539,10 +539,14 @@ var poll = {
     interest = tmp.items.sort(function(a,b){ return a.cost - b.cost; });
     interestAlias = tmp.name.substring(0,3).toLowerCase();
 
-    interest_level_map = [];
-    for(var i = 1; i < interest.length; ++i)
+    for(var i = 0; i < interest.length-1; ++i)
     {        
-      interest_level_map.push(Math.ceil10(interest[i].cost/interest[0].cost));
+      states_mutation[i] = Math.floor10(interest[i+1].cost/interest[0].cost);
+    }
+    for(var i = 0, sum = 1; i < 6; ++i)
+    {
+      states_mutation_based[i] = sum*states_mutation[i];
+      sum = sum*states_mutation[i];
     }
   },
   create_navigation_buttons:function create_next_prev_buttons()

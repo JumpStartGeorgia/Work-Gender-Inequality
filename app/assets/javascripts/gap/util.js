@@ -111,7 +111,7 @@ function validateNumber(event) {
 function up(e,delta) { return delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0; }
 // backward down previous
 function down(e,delta) { return !(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0); }
-function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/.test(v); }
+function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d+)?\s*$/.test(v); }
 function isNumber(v) { return /^\d+$/.test(v); }
 function isNumberWithSign(v) { return /^-?\d+$/.test(v); }
 function fn(v)

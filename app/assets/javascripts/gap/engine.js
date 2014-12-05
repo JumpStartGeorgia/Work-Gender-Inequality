@@ -40,22 +40,22 @@ function redraw()
 function redraw_game()
 {            
   var t = $("#screen .top").height(lh).css('top',0);
-  //t.find('.score').css({ left: w-t.find('.score').width()-30}); 
-  t.find('.treasure .red-carpet').css({ top : lh/2 - 25 });
   t.find('.treasure .pedestal').css({ top : 10 });
+  t.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
+  
 
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+    $('.canvas, .treasure .red-carpet').hide().css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
   }
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
-  b.find('.score').css({ top: lh + th + 20}); //left: w-b.find('.score').width()-30,
-  //b.find('.treasure').css({ top: lh + th + 10 });
-  b.find('.treasure .red-carpet').css({ top : lh/2 - 25 });
+  b.find('.score').css({ top: lh + th + 20});
   b.find('.treasure .pedestal').css({ top: lh + th + 10 });
-
+  b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
+  
+  $('.canvas, .treasure .red-carpet').show();
   redraw_human();
 }
 function redraw_human(v)
@@ -151,7 +151,7 @@ function share_button()
            xfbml      : true,
            version    : 'v2.1'
          });     
-        $('.share').click(function()
+        $(document).on('click','.share, .fb',function()
         {
           FB.ui({
             method: 'share',
@@ -273,6 +273,8 @@ function game_init() {
 
   male.prepare_for_game();
   female.prepare_for_game();
+
+  start_by_time();
 
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
@@ -400,8 +402,8 @@ function timeline_point_draw()
   {
 
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
-    if(!timeline.find('.point-in-time[data-time=' + now.getTime() + ']').length)
-    {
+    //if(!timeline.find('.point-in-time[data-time=' + now.getTime() + ']').length)
+    //{
       var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
       point.css({heigth:th,line_height:th});
       
@@ -415,7 +417,7 @@ function timeline_point_draw()
         prevPosition += timeline_period_w;
         prevPositionLeft = prevPosition - Math.floor10(point.width()/2);
       }
-      //console.log(prevPosition,prevPositionLeft);
+      //console.log(timeline_period_w,prevPosition,prevPositionLeft);
       point.css({left: prevPositionLeft });
 
       if(i!=0)
@@ -429,7 +431,7 @@ function timeline_point_draw()
           mCountTmp += male.event_by_month[j];
           fCountTmp += female.event_by_month[j];
         }
-        console.log('here',prevPosition);
+        //console.log('here',prevPosition);
         if(mCountTmp > 0)
         {
           var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
@@ -466,7 +468,7 @@ function timeline_point_draw()
 
       point.find('.point').text(getMonthS(now) + " " + now.getFullYear());    
       point.attr('data-time',now.getTime());
-    }
+    //}
   }
  
   $('.treasure .red-carpet').css({width:pos_max*w}); 
@@ -673,10 +675,10 @@ function params_validate()
     user.interest = params.i;
     poll.choose_interest();    
   }
-  if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
-  {   
+  if(steptogo == 5 && exist(params.p) && isDecimal(params.p) && params.p >= 0 && params.p <= 100)
+  {       
       steptogo = 6;
-      user.saving = params.p;
+      user.salary_percent = params.p;
       sendUserData();
   }  
   if(steptogo == 6 &&  exist(params.t) && isNumber(params.t))
@@ -686,8 +688,7 @@ function params_validate()
       if(can_scroll((+params.t+1)*scrolls_for_reward))
       {
         gap.pos = +params.t;    
-        total_scrolls = gap.pos*scrolls_for_reward;
-        start_by_time();
+        total_scrolls = gap.pos*scrolls_for_reward;        
       }
     }
     // else
@@ -778,7 +779,7 @@ function restart()
   $.removeCookie("_game_id");
 }
 function start_by_time()
-{
+{  
   var tmp = gap.pos*reward_period;
   humans.forEach(function(d)
   {
@@ -824,23 +825,22 @@ function start_by_time()
 /***************************************************************
                   Key Hooks
 ***************************************************************/
-jwerty.key('space', function(){ 
-    console.log("jump");
-    //s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
-    //s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
+jwerty.key('space', function(){     
+    s.find(".m.character").animate({ top: male.y - male.height/3 }).animate({ top: male.y });  
+    s.find(".f.character").animate({ top: female.y - female.height/3 }).animate({ top:female.y });  
 });
 jwerty.key('arrow-right', function(){
   walk(1); 
 });
-// jwerty.key('W', function(){
-//   walk(1); 
-// });
+jwerty.key('D', function(){
+  walk(1); 
+});
 jwerty.key('arrow-left', function(){
   walk(-1); 
 });
-// jwerty.key('S', function(){
-//   walk(-1); 
-// });
+jwerty.key('A', function(){
+  walk(-1); 
+});
 /***************************************************************
                   Key Hooks End
 ***************************************************************/;

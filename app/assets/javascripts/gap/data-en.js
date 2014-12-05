@@ -15,7 +15,7 @@ var categories =
         "female":463.2,
         "dress":"technical",
         "bg":"bg1",
-        "bg2":"bg2",
+        "bg2":"bg3",
         "fg":"agriculture",
         "stage":
         {
@@ -43,7 +43,7 @@ var categories =
             "frame":
             {
                 "load":{ "a":true, "duration":1, "path":"M 22.142857,16.192333 C 15.714286,312.62091 29.551496,320.73391 35,329.76376 c 22.435114,37.1819 82.85714,41.42858 95.71429,42.14286 12.85714,0.71428 255.71428,-1.42857 255.71428,-1.42857 0,0 177.9121,17.31504 232.45105,-3.27557 32.51579,-12.27599 5.76504,-218.86518 5.76504,-218.86518"},
-                "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"},
+                "work":{ "a":false, "loop": true, "path":"M 340.34823,114.32031 L 8.1219464,114.32031 L 8.1219464,106.97189 L 338.80119,107.7454"},
                 "reward":{ "a":true, "loop":false, "path":"M 650.53824,148.3373 C 630.33519,370.57087 611.14229,374.61148 630.33519,370.57087 C 649.52809,366.53025 817.21341,369.56071 817.21341,369.56071"},
             }
         } 
@@ -742,7 +742,9 @@ var locale = {
     yearStatus: 'Show a different year', monthStatus: 'Show a different month',
     weekText: 'Wk', weekStatus: 'Week of the year',
     dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
-    isRTL: false
+    isRTL: false,
+    congrat:"Congrats!",
+    share_hint:"Share this point on facebook"
   },
   game:
   {

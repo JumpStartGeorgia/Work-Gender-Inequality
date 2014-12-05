@@ -34,7 +34,6 @@ function human(selector,title,height,width)
   this.card = new cardObject(this);
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject({complete:queueCompleteCallback});
-  this.future_reward = 0;
   this.oppenent = null;
   var mutator = {
     left:[],
@@ -204,8 +203,7 @@ function human(selector,title,height,width)
     $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
-  {
-    
+  {    
     var tmp = (this.traversed_path + (100/scrolls_for_reward));
     if(this.path_loop)
        tmp = tmp == 100 ? 100 : tmp%100;
@@ -213,7 +211,7 @@ function human(selector,title,height,width)
     
     this.next_movement();      
     this.traversed_path = tmp;
-    //this.position(this.getpathcoordinates(this.traversed_path/100));
+    this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.step_left = function step_left()
   {    
@@ -263,6 +261,7 @@ function human(selector,title,height,width)
       }
 
       overall += this.saving_for_tick;   
+      //if(this.title == 'Male') console.log(overall);
       var tmp = Math.floor10(overall / interest[0].cost);
       if(tmp > 0)
       {
@@ -289,8 +288,7 @@ function human(selector,title,height,width)
   };
   this.has_future_reward = function has_future_reward()
   {    
-    this.future_reward = this.event_by_period[gap.pos + 1];
-    return this.future_reward > 0;
+    return this.event_by_period[gap.pos-1] > 0;
   };
   this.mutate = function(which,events)
   {

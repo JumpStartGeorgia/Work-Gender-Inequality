@@ -78,7 +78,6 @@ var stage_offset = 0;
   var stage_id = -1;
 
 var interest = null;
-var interest_level_map = [];
 var category = null;
 
 
@@ -92,7 +91,7 @@ var user =
   category : null,
   salary : 0,
   interest : null,
-  saving : 0,
+  salary_percent : 0,
   sended : false  
 };
 user.__defineGetter__("age", function(){
@@ -115,7 +114,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   {"name":"category","alias":"c","nf":"poll.category"},
   {"name":"salary","alias":"s","nf":"poll.interest"},
   {"name":"interest","alias":"i","nf":"poll.interest"},
-  {"name":"saving","alias":"p","nf":"play"}
+  {"name":"salary_percent","alias":"p","nf":"play"}
 ];
 
 // timerInterval values for noscrolling event
@@ -145,13 +144,9 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  var states_mutation = [4,2,2,3,3,0];
+  var states_mutation = [0,0,0,0,0,0];
   var states_mutation_based = [1,0,0,0,0,0];
-  for(var i = 0, sum = 1; i < 6; ++i)
-  {
-    states_mutation_based[i] = sum*states_mutation[i];
-    sum = sum*states_mutation[i];
-  }
+
  
   var index = 1;
   var current_interests_count = 0;
