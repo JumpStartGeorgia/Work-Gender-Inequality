@@ -13,7 +13,7 @@ var categories =
         "percent":22.72,
         "male":599.4,
         "female":463.2,
-        "dress":"street", //technical
+        "dress":"technical",
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"agriculture",
@@ -36,6 +36,7 @@ var categories =
         "female":295.6,
         "dress":"technical",
         "bg":"bg1",
+        "bg2":"bg2",
         "fg":"fishing",
         "stage":
         {
@@ -56,6 +57,7 @@ var categories =
         "female":943.3,
         "dress":"construction",
         "bg":"bg1",
+        "bg2":"bg2",
         "fg":"mining",
         "stage":
         {
@@ -76,6 +78,7 @@ var categories =
         "female":547,
         "dress":"technical",
         "bg":"bg1",
+        "bg2":"bg1",
         "fg":"manufacturing",
         "stage":
         {
@@ -94,8 +97,9 @@ var categories =
         "percent":6.58,
         "male":979,
         "female":1047.9,
-        "dress":"street",
+        "dress":"solid",
         "bg":"bg1",
+        "bg2":"bg1",
         "fg":"production",
         "stage":
         {
@@ -116,6 +120,7 @@ var categories =
         "female":754.8,
         "dress":"construction",
         "bg":"bg1",
+        "bg2":"bg2",
         "fg":"construction",
         "stage":
         {
@@ -136,7 +141,8 @@ var categories =
         "female":571.4,            
         "dress":"casual",
         "bg":"bg1",
-        "fg":"other",//"wholesale",
+        "bg2":"bg1",
+        "fg":"wholesale",
         "stage":
         {
             "frame":
@@ -156,6 +162,7 @@ var categories =
         "female":431.2,           
         "dress":"business",
         "bg":"bg1",
+        "bg2":"bg1",
         "fg":"hotel",
         "stage":
         {
@@ -176,6 +183,7 @@ var categories =
         "female":946.9,   
         "dress":"casual",
         "bg":"bg1",
+        "bg2":"bg1",
         "fg":"transport",
         "stage":
         {
@@ -196,6 +204,7 @@ var categories =
         "female":1250.6,   
         "dress":"business",
         "bg":"bg1",
+        "bg2":"bg1",        
         "fg":"financial",
         "stage":
         {
@@ -216,6 +225,7 @@ var categories =
         "female":818.2,   
         "dress":"business",
         "bg":"bg1",
+        "bg2":"bg1",       
         "fg":"realestate",
         "stage":
         {
@@ -236,6 +246,7 @@ var categories =
         "female":1237.5,   
         "dress":"business",
         "bg":"bg1",
+        "bg2":"bg1",       
         "fg":"administration",
         "stage":
         {
@@ -256,6 +267,7 @@ var categories =
         "female":428.1,   
         "dress":"casual",
         "bg":"bg1",
+        "bg2":"bg1",       
         "fg":"education",
         "stage":
         {
@@ -274,8 +286,9 @@ var categories =
         "percent":41.39,
         "male":1023.8,
         "female":600.1,   
-        "dress":"street",
+        "dress":"solid",
         "bg":"bg1",
+        "bg2":"bg1",       
         "fg":"health",
         "stage":
         {
@@ -294,8 +307,9 @@ var categories =
         "percent":32.51,
         "male":858.3,
         "female":579.3,   
-        "dress":"street" ,
+        "dress":"solid" ,
         "bg":"bg1",
+        "bg2":"bg1",       
         "fg":"community",
         "stage":
         {
@@ -307,7 +321,6 @@ var categories =
             }
         } 
     },
-    // what todo here
     {
         "id": "hyn3wmKk",
         "name": "Everywoman/man",
@@ -317,6 +330,7 @@ var categories =
         "female":0,   
         "dress":"casual",
         "bg":"bg1",
+        "bg2":"bg1",    
         "fg":"other",
         "stage":
         {

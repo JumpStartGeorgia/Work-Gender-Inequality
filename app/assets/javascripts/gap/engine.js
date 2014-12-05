@@ -319,7 +319,7 @@ function draw_stage(v)
     bg_to_viewport+=bg_width;
     ++screenCount;
   }  
-  var bgOriginal2 = assets.filter(function(a){ return a.name == 'bg2'; })[0].element;
+  var bgOriginal2 = assets.filter(function(a){ return a.name == category.bg2; })[0].element;
   bgOriginal2.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
 
   var extra = Math.ceil10(((w-bg_width)/2)/bg_width);

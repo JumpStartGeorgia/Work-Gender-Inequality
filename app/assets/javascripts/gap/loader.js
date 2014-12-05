@@ -195,7 +195,7 @@ Game.Loader =
 	  			on: 
 	  			{
 					load: function() { t.dec(); },
-					error: function(e) { console.log(this,e,"errror");}
+					error: function(e) { console.log(this,' - not loaded'); }
 			  	},
 			  	"src":p
 		  	})
