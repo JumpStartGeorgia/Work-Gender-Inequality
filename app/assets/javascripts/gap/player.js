@@ -62,8 +62,8 @@ function playerObject()
 		this.bgint.loop = true;
 		//$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
 		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
-		//t.bgcat.muted = true;
-		//t.bgint.muted = true;
+		t.bgcat.muted = true;
+		t.bgint.muted = true;
 		t.bgcat.volume = 0.2;
 		t.bgint.volume = 0.2;
 			//t.bgcat.play();

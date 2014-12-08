@@ -6,6 +6,8 @@ function human(selector,title,height,width)
   this.age = 0;
   this.height = height;
   this.width = width;
+  this.init_height = height;
+  this.init_width = width;
   this.canvas = 200;
   this.x = 0;
   this.y = 0;
@@ -135,7 +137,23 @@ function human(selector,title,height,width)
   {
     this.y = 0 - this.height;
   };
-  
+  this.scale = function()
+  {
+
+    var bgsize = $(this.selector).css('background-size');
+    if(bgsize.replace(' ','').split('px').length == 3)
+    {
+      this.width = Math.floor10(img_scaler * this.init_width);
+      this.height = Math.floor10(img_scaler * this.init_height);
+
+      //console.log(bgw,bgh);
+      
+      $(this.selector).css({
+        width : this.width,
+        height : this.height,
+        'background-size':this.width + 'px ' + this.height + 'px'});
+    }
+  };
   this.animate = function animate(v)
   {
 		this.animated = true;

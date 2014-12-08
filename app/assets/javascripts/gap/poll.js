@@ -16,7 +16,7 @@ var poll = {
   show:function show()
   {
     //scr_clean();
-    s.append("<div class='poll'><div class='info'></div></div>");
+    s.append("<div class='poll'></div>");
     if(steptogo == 0)
       this.gender();
     else 
@@ -78,7 +78,7 @@ var poll = {
   },
   gender:function gender()
   {
-    s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
+    //s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
     var margin_between = 100;
     s.find('.poll').append("<div class='selector selectable'>" + 
                               "<div class='left f'><div class='profile'><div class='face f'></div><div class='t'>"+female.title.toUpperCase()+"</div><div class='a'>&nbsp;</div></div></div>" + 
@@ -119,7 +119,7 @@ var poll = {
     left.click(function(){ 
        $(this).addClass('selected');
        $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout right left');       
-       $('.poll .info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+       $('.info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
         $('.poll > .prompt > .title > .text').fadeOut(1000,"linear");
        f();
        poll.place_human_based_on_gender();
@@ -130,7 +130,7 @@ var poll = {
     { 
       $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout right left');       
       $(this).addClass('selected');
-      $('.poll .info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+      $('.info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
       $('.poll > .prompt > .title > .text').fadeOut(1000,"linear");
       m();
       poll.place_human_based_on_gender();

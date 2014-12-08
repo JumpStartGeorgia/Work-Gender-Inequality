@@ -203,21 +203,23 @@ class GapController < ApplicationController
         p = fparse(params[:f])
         paramsOk = p.present?
     elsif params[:b].present? 
-        p = fparse(params[:p])
+        p = fparse(params[:b])
         paramsOk = p.present?
     else 
       params.each do |k,v|
         p[k] =v if filter.include?(k)
       end
     end  
-    p['t'] = 300
+    if !p.has_key?('t') 
+      p['t'] = 0
+    end
     filter.each do |v| # check if parameter is missing
       if (!p.has_key?(v))  
         paramsOk = false 
         break
       end
     end
-logger.debug(paramsOk);
+    logger.debug(paramsOk)
     p.each do |k,v| # remove extra parameters if exists
         p.delete(k) if !filter.include?(k)
     end
@@ -226,6 +228,7 @@ logger.debug(paramsOk);
 
   def fparse(f)
     begin
+      logger.debug(f)
       p = {}
       f = Base64.urlsafe_decode64(f)
       f.split('&').each{|s| 

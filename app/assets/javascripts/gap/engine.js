@@ -3,19 +3,23 @@
 */
 function init()
 {  
-  console.log('init');
   redraw(); // recalculate all dimensions 
-  params_init();
+  params_init();  
   s = $('#screen');    
   //s3 = d3.select('#screen');    
   if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
-{
- 
+{ 
+
   scr_clean();
   if(steptogo < 6) poll.show();
-  else game_init(); 
+  else 
+  {
+    game_init(); 
+    $('.info').hide().remove();
+  }
+
 }
 function resize()
 {
@@ -38,17 +42,23 @@ function redraw()
   if(ingame)
   { 
     redraw_game();
-    redraw_timeline();
-    stage_init(0);
+    timeline_point_redraw();
+    stage_redraw(0);
+
+    male.scale();
+    female.scale();
+
+    male.position();
+    female.position();
   }
+
 }
 function redraw_game()
 {            
-  var t = $("#screen .top").height(lh).css('top',0);
+  var t = $("#screen .top").height(lh);
   t.find('.treasure .pedestal').css({ top : 10 });
   t.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
   
-
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
@@ -61,16 +71,6 @@ function redraw_game()
   b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
   
   $('.canvas, .treasure .red-carpet').show();
-
-  male.position();
-  female.position();
-}
-function redraw_timeline()
-{
-  if(pos_max != null) 
-  {
-    timeline_point_draw();
-  }
 }
 function scr_clean(klass)
 {
@@ -182,7 +182,7 @@ function epilogue()
   var whatnext = t.find('.whatnext');
   whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
 
-  $.getJSON( "gap/summary?p=" + window.location.hash.substr(1), function( data ) {
+  $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
     whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
     t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
@@ -280,10 +280,9 @@ function game_init() {
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
 
-  timeline_point_draw();
+  timeline_point_init();
 
-  draw_stage(0);
-
+  stage_init(0);
 
   redraw_game();
 
@@ -293,12 +292,11 @@ function game_init() {
 }
 var img_scaler =  1;
 var bg_width = 0;
-var stage_offset = 0;
 var bg_initial_height = 0;
 var fgw = 0;
 var fgh = 0;
 var screenCount = 1;
-function draw_stage(v)
+function stage_init(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
@@ -309,12 +307,13 @@ function draw_stage(v)
   bg.append(bgFirst);
   bg_initial_height = bgFirst.height();
   img_scaler = lh / bg_initial_height;
+
   bgFirst.css({ height:lh });
 
   bg_width = bgFirst.width();
-  stage_offset = (w - bg_width)/2;
 
   var bg_to_viewport = bg_width;
+
   screenCount = 1;
   while(bg_to_viewport < w)
   {
@@ -323,12 +322,14 @@ function draw_stage(v)
     ++screenCount;
   }  
   var bgOriginal2 = assets.filter(function(a){ return a.name == category.bg2; })[0].element;
-  bgOriginal2.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+  bgOriginal2.clone().addClass('bgmain').css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+  bg_to_viewport+=bg_width;
 
   var extra = Math.ceil10(((w-bg_width)/2)/bg_width);
   while(extra > 0)
   {
-    bgOriginal.clone().css({ top:0,left:bg_to_viewport+bg_width, height:lh }).appendTo(bg);
+    bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    bg_to_viewport+=bg_width;
     --extra;
   }
   var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
@@ -345,133 +346,213 @@ function draw_stage(v)
   fg_o.addClass('o').css({ "height":fgh*img_scaler });
   fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  if(v===0) draw_stage(1);
+  if(v===0) stage_init(1);
 
 }
-function stage_init(v)
+function stage_redraw(v)
 {
+ 
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
 
   var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;
   var bgs = bg.find('img');
-  var bgFirst = $(bgs[0]);
+  var bgFirst =bgs.first().css({ height: lh });
   
   img_scaler = lh / bg_initial_height;
-  bgFirst.css({ height:lh });
+
   bg_width = bgFirst.width();
-  stage_offset = (w - bg_width)/2;
+
   var bg_to_viewport = bg_width;
 
-  var i = 2;
-  while(bg_to_viewport < w+w2)
-  {
-    var tmp = bg.find('img:nth-child('+i+')');
-    if(tmp.length)
+
+
+  screenCount = 1;
+  var afterEl = bgFirst;
+  var bgmainIndex = 0;
+  bgs.each(function(i,d){
+    if(i==0) return true;
+    d = $(d);
+    if(!d.hasClass('bgmain'))
     {
-      tmp.css({ top:0,left:bg_to_viewport, height:lh })
+      if(bg_to_viewport < w)
+      {
+        d.css({ top:0,left:bg_to_viewport, height:lh });
+        bg_to_viewport+=bg_width;
+        ++screenCount;
+      }
+      else d.remove();
     }
+    else {
+      bgmainIndex = i; 
+      return false;
+    }
+  });
+
+  while(bg_to_viewport < w)
+  {
+    var tmp = bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).insertAfter(afterEl);
+    afterEl = tmp;
+    bg_to_viewport+=bg_width;
+    ++screenCount;
+  }  
+
+  afterEl = $(bgs[bgmainIndex]).css({ top:0, left:bg_to_viewport, height:lh });
+  bg_to_viewport+=bg_width;
+
+  var extra = Math.ceil10(((w-bg_width)/2)/bg_width);
+  for(i = bgmainIndex+1; i < bgs.length; ++i)
+  {
+    if(extra == 0) bgs[i].remove();
     else 
     {
-      bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+      $(bgs[i]).css({ top:0,left:bg_to_viewport, height:lh });
+      bg_to_viewport+=bg_width;
     }
-    bg_to_viewport+=bg_width;
-    ++i;
+
+    --extra;
   }
-  while(i <= bgs.length+1)
+  while(extra > 0)
   {
-    $(bgs[i-1]).remove();
-    ++i;
+    var tmp = bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).insertAfter(afterEl);
+    afterEl = tmp;
+    bg_to_viewport+=bg_width;
+    --extra;
   }
-  
 
-  var fg_i = fg.find('img.i');
-  fg_i.addClass('i').css({ "height":fgh*img_scaler });
-  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  var fg_i = fg.find('img.i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  var fg_o = fg.find('img.o');
-  fg_o.addClass('o').css({ "height":fgh*img_scaler });
-  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  var fg_o = fg.find('img.o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  if(v==0) stage_init(1);
+  bg.parent().css('left',-1*(bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
+
+  if(v===0) stage_redraw(1);
+
 }
-function timeline_point_draw()
+function timeline_point_init()
 {
   
-  var scaler = timeline_period_w/reward_period;
+  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
+  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
+
   for(var i = 0; i <= pos_max; ++i) 
   {
-
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
-    //if(!timeline.find('.point-in-time[data-time=' + now.getTime() + ']').length)
-    //{
-      var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
-      point.css({heigth:th,line_height:th});
-      
-      if(i == 0) 
-      { 
-        prevPosition = w2;
-        prevPositionLeft = w2 - Math.floor10(point.width()/2);
-      }
-      else 
-      {       
-        prevPosition += timeline_period_w;
-        prevPositionLeft = prevPosition - Math.floor10(point.width()/2);
-      }
-      //console.log(timeline_period_w,prevPosition,prevPositionLeft);
-      point.css({left: prevPositionLeft });
+    var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>')
+                  .css({heigth:th,line_height:th})
+                  .appendTo(timeline);
 
-      if(i!=0)
-      { 
-        var mCountTmp = 0;
-        var fCountTmp = 0;
-        var from = i * reward_period - 1;
-        var to = i*reward_period-reward_period;
-        for(var j = from; j >= to; --j)
-        {
-          mCountTmp += male.event_by_month[j];
-          fCountTmp += female.event_by_month[j];
-        }
-        //console.log('here',prevPosition);
-        if(mCountTmp > 0)
-        {
-          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
-          rew.css({heigth:th,line_height:th});
-          //console.log(prevPosition - interest_w2);
-          rew.css({left: prevPosition - interest_w2});
-          if(i<=gap.pos) { rew.hide();}
-          for(var j = 0; j < mCountTmp; ++j)
-          { 
-             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
-          }
-        }
-        if(fCountTmp > 0)
-        {
-           var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
-            rew.css({heigth:th,line_height:th});
-            rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-            if(i<=gap.pos) { rew.hide();}
-          for(var j = 0; j < fCountTmp; ++j)
-          { 
-             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
-          }
-        }
-      }
-      
-      if(i != pos_max)
+    var point_w2 = Math.floor10(parseFloat(css(point.get(0),'width'))/2); 
+    if(i == 0) 
+    { 
+      prevPosition = w2;
+      prevPositionLeft = w2 - point_w2;
+    }
+    else 
+    {       
+      prevPosition += timeline_period_w;
+      prevPositionLeft = prevPosition - point_w2;
+    }
+    point.css({left: prevPositionLeft });
+
+    if(i!=0)
+    { 
+      var mCountTmp = 0;
+      var fCountTmp = 0;
+      var from = i * reward_period - 1;
+      var to = i*reward_period-reward_period;
+      for(var j = from; j >= to; --j)
       {
-        for(var j = 0; j < reward_period-1; ++j)
-        {
-           $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
-           //console.log(prevPosition,prevPosition+(j+1)*scaler);
-        }
+        mCountTmp += male.event_by_month[j];
+        fCountTmp += female.event_by_month[j];
       }
-
-      point.find('.point').text(getMonthS(now) + " " + now.getFullYear());    
-      point.attr('data-time',now.getTime());
-    //}
+      //console.log('here',prevPosition);
+      if(mCountTmp > 0)
+      {
+        var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo(redCarpetM);
+       
+        for(var j = 0; j < mCountTmp; ++j)
+        { 
+           $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
+        }
+        rew.css({heigth:th,line_height:th});
+        rew.css({left: prevPosition - interest_w2});
+        if(i<=gap.pos) { rew.hide();}
+      }
+      if(fCountTmp > 0)
+      {
+        var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo(redCarpetF);        
+        for(var j = 0; j < fCountTmp; ++j)
+        { 
+          $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
+        }
+        rew.css({heigth:th,line_height:th});
+        rew.css({left: prevPosition - interest_w2}); 
+        if(i<=gap.pos) { rew.hide();}
+       
+      }
+    }
+    
+    if(i != pos_max)
+    {
+      for(var j = 0; j < reward_period-1; ++j)
+      {
+         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th }).appendTo(timeline);
+      }
+    }
   }
  
+  $('.treasure .red-carpet').css({width:pos_max*w}); 
+  timeline.css({width:pos_max*w}); 
+
+}
+function timeline_point_redraw()
+{
+  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
+  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
+
+  for(var i = 0; i <= pos_max; ++i) 
+  {
+    var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
+    var point = timeline.find('.point-in-time[data-time=' + now.getTime() + ']').css({heigth:th,line_height:th});    
+
+    var point_w2 = Math.floor10(parseFloat(css(point.get(0)),'width')/2); 
+    if(i == 0) 
+    { 
+      prevPosition = w2;
+      prevPositionLeft = w2 - point_w2;
+    }
+    else 
+    {       
+      prevPosition += timeline_period_w;
+      prevPositionLeft = prevPosition - point_w2;
+    }
+    point.css({left: prevPositionLeft });
+
+    if(i!=0)
+    { 
+      if(male.event_by_period[i] > 0)
+      {
+        var rew = redCarpetM.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
+        if(i<=gap.pos) { rew.hide(); }
+      }
+      if(female.event_by_period[j] > 0)
+      {
+        var rew = redCarpetF.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});       
+        if(i<=gap.pos) { rew.hide();}
+      }
+    }
+    
+    if(i != pos_max)
+    {
+      for(var j = 0; j < reward_period-1; ++j)
+      {
+        timeline.find('.serif:nth-child('+(j+1)+')').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th });
+      }
+    }
+  } 
   $('.treasure .red-carpet').css({width:pos_max*w}); 
   timeline.css({width:pos_max*w}); 
 

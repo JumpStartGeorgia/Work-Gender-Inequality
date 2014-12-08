@@ -192,7 +192,23 @@ function coordinateFromPath(progress,path,pathLength,widthScaler,heightScaler)
   return { x:p.x*widthScaler,y:p.y*heightScaler, a:a };
 } 
 function formatNumber(num) { return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); }
-
+function randomNumber(min,max)
+{
+  return Math.floor(Math.random()*(max-min+1)+min);
+}
+function css(e,p)
+{
+  if (e.currentStyle)
+  { 
+    return e.currentStyle[p]; 
+  }
+  else if (window.getComputedStyle) 
+  { 
+    return getComputedStyle(e,null).getPropertyValue(p);
+  }
+  
+  return 0;
+}
 /***************************************************************
                   Utility Functions End
 ***************************************************************/

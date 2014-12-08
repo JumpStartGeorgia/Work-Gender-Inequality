@@ -64,7 +64,7 @@ var onscrollbefore = null;
 var onscrollup = null;
 var onscrolldown = null;
 var onscrollafter = null;
-var fade_time = 0; // fade time
+var fade_time = 3000; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
 //var tick_count = 4; // year ticks to show in info bar
 var is = false;
@@ -72,7 +72,6 @@ var max_salary = 99999;
 var current_path_width = 0;
 var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 var pathl = 0;
-var stage_offset = 0;
 
   var prev_stage_id = -1;
   var stage_id = -1;

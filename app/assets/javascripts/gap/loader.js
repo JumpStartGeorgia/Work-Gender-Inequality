@@ -40,11 +40,13 @@ var isOpera = /opera/i.test(navigator.userAgent);
 Game.Loader = 
 {
 	timerId:null,
+	animTimerId:null,
 	timerStarted:false,
 	elapsedTime:0,
 	splash:null,
 	assetsCount:0,
 	sound_ext:'mp3',
+	assetsAmount:0,
 	load:function ()
 	{
 		var t = this;
@@ -56,6 +58,7 @@ Game.Loader =
 				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
 			});
 			t.assetsCount+=16+5;
+			t.assetsAmount = t.assetsCount;
 			t.starttimer();	
 			if(isOpera) t.sound_ext = 'ogg';
 			assetsmeta.forEach(function(d){
@@ -80,18 +83,18 @@ Game.Loader =
 
 	splash:function()
 	{
-  		this.splash = $("<div class='splash'></div>").appendTo(s);  	
+		var t = this;
+  		t.splash = $("<div class='splash'></div>").appendTo(s);  	
 
-  		var t = $('<div class="title">'+sintro.title+'</div>').appendTo(this.splash);
-  		var p = $('<div class="progress" style="font-size:30px;">/</div>').appendTo(this.splash);
-  		// var prg = $('<div id="cont" data-pct="0">'+
-    //             '<svg id="svg" width="120" height="120" viewPort="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg">'+
-    //               '<circle class="bk" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-    //               '<circle id="bar" r="50" cx="60" cy="60" fill="transparent" stroke-dasharray="314.16"></circle>'+
-    //             '</svg>'+
-    //           '</div>').appendTo(this.splash);    		
 
-		t.css({top: h/2-t.height()/2, left: w/2-t.width()/2 });
+  		$("<div class='box'><div class='percent'>0%</div><div class='coins'></div><div class='mask'></div></div>").appendTo(t.splash);
+  		for(i = 0; i < 20; ++i)
+  		{
+  			var coin = $("<div class='coin'></div>").appendTo('.splash .box .coins');
+  			coin.css({ top:randomNumber(0,20), left:randomNumber(-20,20) });
+
+  			if([1,3,8,10,14,15,17].indexOf(i)!= -1) coin.css('visibility','hidden');
+  		}
 	},
 	loading:function()
 	{
@@ -100,7 +103,8 @@ Game.Loader =
 		//console.log(t.assetsCount);
 		if(t.assetsCount==0) 
 		{
-			this.stoptimer();
+			t.stoptimer();
+			t.animate();
 			this.splash.fadeOut(fade_time,'linear',function()
 			{
 				t.splash.remove();
@@ -108,15 +112,21 @@ Game.Loader =
 			});
 		}
 	},
-	progress:function()
+	animate:function()
 	{
-		var p = $('.progress');
-		var tmp = p.text();
-		if(tmp == '–') tmp = '\\';
-		else if (tmp == '\\') tmp = '|';
-		else if (tmp == '|') tmp = '/';
-		else if (tmp == '/') tmp = '–';
-		p.text(tmp);
+		var t = this;
+		var per = Math.round10((t.assetsAmount - t.assetsCount) * 100 / t.assetsAmount);
+		t.splash.find('.percent').text( per + '%');
+		t.splash.find('.mask').css('bottom', 258*(per/100));	
+
+		var coins = t.splash.find('.coins .coin').each(function(i,d){
+			d = $(d);
+			var tTmp = d.position().top;
+			if(tTmp > 258) tTmp = -20;
+			d.css('top',tTmp + 10);
+		});
+
+
 	},
 	complete:function()
 	{		
@@ -156,7 +166,7 @@ Game.Loader =
 
 		    $(window).resize(function() {
 		    	if (resizeId){clearTimeout(resizeId)};
-		    	resizeId = setTimeout(function(){ resize(); },500); 
+		    	resizeId = setTimeout(function(){ resize(); },100); 
 		    });
 
 		    history.replaceState({},'',window.location.href);
@@ -179,12 +189,15 @@ Game.Loader =
 	starttimer:function()
 	{		  
 		var t = this;
-		this.timerId = setInterval(function(){ t.loading(); t.progress(); }, 100);
+		this.timerId = setInterval(function(){ t.loading(); }, 100);
+		this.animTimerId = setInterval(function(){ t.animate(); }, 300);
+		
 	},
 	stoptimer:function()
 	{
 		this.timerStarted=false;
 		clearInterval(this.timerId);
+		clearInterval(this.animTimerId);
 	},
 	dec:function()
 	{
