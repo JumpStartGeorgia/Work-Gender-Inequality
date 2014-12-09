@@ -173,14 +173,12 @@ var epilogueUp = true;
 function epilogue()
 {
   gameoff();
-  //scr_clean();
-  //s.toggleClass(sepilogue.class);
+  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
+  else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
-  if($('epilogue').length) return;
-
   var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
   var whatnext = t.find('.whatnext');
-  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
+  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("Statistics");
 
   $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
@@ -574,6 +572,8 @@ function calculate_process(v)
 }
 function walk_process(v)
 {
+
+  //player.play('motion');
   if(v==1)
     h_go_right();
   else if(v == -1)
@@ -645,7 +645,8 @@ function prepare_for_reward(v)
     },
     complete:function()
     {
-      v.queue.resume();     
+      player.play('award'); 
+      v.queue.resume();  
     }
   });
 }

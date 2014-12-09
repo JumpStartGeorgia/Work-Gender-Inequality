@@ -7,14 +7,20 @@
 							<div class='row'>
 								<div class='dummy'></div>
 								<div class='human-state'><%= "#{d[:fstate]}" %></div>
-								<div class='title-job'><%= d[:title_job] %></div>
+								<div class='title-job'><span><%= t('.job_sector') %>:&nbsp;</span><%= d[:title_job] %></div>
 								<div class='human-state'><%= "#{d[:sstate]}" %></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='<%= d[:fclass] %>'></div>
+								<div class='<%= d[:fclass][0] %> character'></div>
 								<div class='years-passed'><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
-								<div class='<%= d[:sclass] %>'></div>
+								<div class='<%= d[:sclass][0] %> character'></div>
+							</div>
+							<div class='row'>
+								<div class='dummy'></div>
+								<div class='human-salary'><%= d[:fsalary_total] %></div>
+								<div class='title-salary'><div class='box'><div class='sumlarrow'></div><%= t('.salary') %><div class='sumrarrow'></div></div></div>
+								<div class='human-salary'><%= d[:ssalary_total] %></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
@@ -23,29 +29,37 @@
 								<div class='dummy'></div>
 							</div>
 							<div class='row'>
-								<div class='title-salary'><%= t('.salary') %></div>
-								<div class='human-salary'><%= d[:fsalary_total] %></div>
+								<div class='dummy'></div>
+								<div class='dummy'></div>
 								<div class='human-salary-diff'><%= d[:salary_total_diff] %></div>
-								<div class='human-salary'><%= d[:ssalary_total] %></div>
+								<div class='dummy'></div>
 							</div>
 							<div class='row'>
-								<div class='title-saved'><%= t('.saved') %></div>
+								<div class='dummy'></div>
 								<div class='human-saved'><%= d[:fsaved_total] %></div>
-								<div class='human-saved-diff'><%= d[:saved_total_diff] %></div>
+								<div class='title-saved'><div class='sumlarrow'></div><%= t('.saved') %><div class='sumrarrow'></div></div>
 								<div class='human-saved'><%= d[:ssaved_total] %></div>
 							</div>
 							<div class='row'>
-								<div class='title-award'><%= t('.award') %></div>
+								<div class='dummy'></div>
+								<div class='dummy'></div>
+								<div class='title-diff'><%= t('.difference') %></div>
+								<div class='dummy'></div>
+							</div>
+							<div class='row'>
+								<div class='dummy'></div>
+								<div class='dummy'></div>
+								<div class='human-saved-diff'><%= d[:saved_total_diff] %></div>
+								<div class='dummy'></div>
+							</div>					
+							<div class='row'>	
+								<div class='dummy'></div>							
 								<div class='human-award'>
 									<% d[:faward].reverse.each_with_index { |x,i| %>
 										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
 									<% } %>
 								</div>
-								<div class='human-award-diff'>
-									<% d[:daward].reverse.each_with_index { |x,i| %>
-										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
-									<% } %>
-								</div>
+								<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>								
 								<div class='human-award'>
 									<% d[:saward].reverse.each_with_index { |x,i| %>
 										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
@@ -58,3 +72,10 @@
 						<div class='share btn'><%= t('.share') %></div>
 						<div class='play-again btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
 					</div>
+
+<!-- 
+					<div class='human-award-diff'>
+									<% d[:daward].reverse.each_with_index { |x,i| %>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='circle'><div class='x'>x</div><div><%= "#{x}" %></div></div></div>
+									<% } %>
+								</div> -->

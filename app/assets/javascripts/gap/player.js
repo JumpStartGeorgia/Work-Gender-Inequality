@@ -2,8 +2,6 @@ function playerObject()
 {
 	this.sounds = {};
 	this.sounds_list = [];
-	// this.background_sounds = {};
-	// this.background_sounds_list = [];
 	this.bgcat = null;
 	this.bgint = null;
 
@@ -16,24 +14,17 @@ function playerObject()
 	this.init = function()
 	{
 		if(isOpera) sound_ext = 'ogg';
-		for(var i = 0; i < sounds.length; ++i)
-		{			
-			var item = sounds[i];
-			this.sounds[item.name] = new Audio(item.path);
-			this.sounds[item.name].loop = item.loop;
-			this.sounds[item.name].preload = "auto";
-			$(this.sounds[item.name]).on('canplaythrough', this.canplaythrough);
-			this.sounds_list.push(item.name);
-		}		
+		this.sounds['award'] = assets.filter(function(d){return d.name == 'sound_award'; })[0].element[0];
+		this.sounds['upgrade'] = assets.filter(function(d){return d.name == 'sound_upgrade'; })[0].element[0];
+		this.sounds['endgood'] = assets.filter(function(d){return d.name == 'sound_endgood'; })[0].element[0];
+		this.sounds['endbad'] = assets.filter(function(d){return d.name == 'sound_endbad'; })[0].element[0];
+		this.sounds['motion'] = assets.filter(function(d){return d.name == 'sound_motion'; })[0].element[0];
+		this.sounds_list = ['award','upgrade','endgood','endbad','motion'];
 	};
 	this.background_play = function()
 	{
 		var t = this;
-		//var sOrig = assets.filter(function(a){ return a.name == 'sound_'+(user.gender +user.category); })[0].element;  
-		//this.bgcat = sOrig.clone()[0];
-		//console.log(category,interest);
-
-		this.bgcat = $('<audio>',
+		t.bgcat = $('<audio>',
 		{
 	  			on: 
 	  			{
@@ -42,14 +33,7 @@ function playerObject()
 			  	},
 			  	"src":'/assets/gap/sounds/category/' +(user.gender + category.fg + '.' + sound_ext) 
 	  	}).get(0);
-		 //assets.filter(function(a){ return a.name == 'sound_'+(user.gender + category.fg); })[0].element[0];
-		this.bgcat.loop = true;
-		//$(this.bgcat).on('canplaythrough', function(){ t.background_ready(t); });
-		//sOrig = assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element;  
-		//this.bgint = sOrig.clone()[0];
-		//console.log();
-		//
-		this.bgint = $('<audio>',
+		t.bgint = $('<audio>',
 		{
 	  			on: 
 	  			{
@@ -58,17 +42,13 @@ function playerObject()
 			  	},
 			  	"src":'/assets/gap/sounds/interest/' + interestAlias + '.' + sound_ext
 	  	}).get(0);
-		//assets.filter(function(a){ return a.name == 'sound_i'+user.interest; })[0].element[0];
-		this.bgint.loop = true;
-		//$(this.bgint).on('canplaythrough', function(){ t.background_ready(t); });
-		$(this.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
-		t.bgcat.muted = true;
-		t.bgint.muted = true;
+		t.bgint.loop = true;
+		t.bgcat.loop = true;
 		t.bgcat.volume = 0.2;
 		t.bgint.volume = 0.2;
-			//t.bgcat.play();
-		//	t.bgint.play();
-
+		//t.bgcat.muted = true;
+		//t.bgint.muted = true;
+		$(t.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
 	};	
 	this.background_ready = function(t)
 	{	
@@ -85,7 +65,6 @@ function playerObject()
 	}
 	this.play = function play(name)
 	{		
-	
 		if(this.valid(name))
 		{
 			this.stop(name);
@@ -126,8 +105,6 @@ function playerObject()
 				if(this.valid(name))
 				{
 					this.sounds[name].muted = true;
-					
-					
 				}
 			}
 			this.bgcat.muted = true;

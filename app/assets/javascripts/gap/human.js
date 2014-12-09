@@ -224,7 +224,7 @@ function human(selector,title,height,width)
   {       
     this.movement = ++this.movement;
     if(this.movement == 3) this.movement = 0;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)"); 
   };
   this.prev_movement = function prev_movement()
   {
@@ -328,6 +328,7 @@ function human(selector,title,height,width)
   };
   this.mutate = function(which,events)
   {
+    player.play('upgrade');
     var t = this;
     if(typeof which === "undefined") return;
     if(which == 1) events = t.event_by_period[gap.pos-1];

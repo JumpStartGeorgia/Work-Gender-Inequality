@@ -302,6 +302,7 @@ en:
       loser: Loser
       title_main: Congratulations you have won the pay game
       title_score: Final Score
+      job_sector: Job Sector
   imageuploader:
     missing: "An error occurred while processing your image. Please try again."
     invalid_type: "Invalid file type. Only .jpg or .png is allowed."

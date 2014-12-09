@@ -18,12 +18,13 @@ var assetsmeta =
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},	
 	
-	// { name:"m45bS4GyC", type:"sound", path:"/assets/gap/sounds/m45bS4GyC"},
-	// { name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w"},
-	// { name:"mFWrgJx0N", type:"sound", path:"/assets/gap/sounds/mFWrgJx0N"},
-	// { name:"igfNDXD1g", type:"sound", path:"/assets/gap/sounds/igfNDXD1g"},
-	// { name:"mjDYS_Z1V", type:"sound", path:"/assets/gap/sounds/mjDYS_Z1V"},
-	// { name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
+	{ name:"motion", type:"sound", path:"/assets/gap/sounds/effect/motion"},
+	{ name:"award", type:"sound", path:"/assets/gap/sounds/effect/award"},
+	{ name:"upgrade", type:"sound", path:"/assets/gap/sounds/effect/upgrade"},
+	{ name:"endbad", type:"sound", path:"/assets/gap/sounds/effect/endbad"},
+	{ name:"endgood", type:"sound", path:"/assets/gap/sounds/effect/endgood"},
+
+	//{ name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
 
 
 	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
@@ -85,15 +86,13 @@ Game.Loader =
 	{
 		var t = this;
   		t.splash = $("<div class='splash'></div>").appendTo(s);  	
-
-
   		$("<div class='box'><div class='percent'>0%</div><div class='coins'></div><div class='mask'></div></div>").appendTo(t.splash);
-  		for(i = 0; i < 20; ++i)
+  		for(i = 0; i < 24; ++i)
   		{
   			var coin = $("<div class='coin'></div>").appendTo('.splash .box .coins');
-  			coin.css({ top:randomNumber(0,20), left:randomNumber(-20,20) });
+  			coin.css({ top:Math.floor10(i/4)*22+(Math.floor10(i/4)*20) + randomNumber(-15,15) - 224, left:(i%4)*22+(4*(i%4)) }); //randomNumber(-20,20) 
 
-  			if([1,3,8,10,14,15,17].indexOf(i)!= -1) coin.css('visibility','hidden');
+  			if([1,3,8,10,14,15,17,19,20].indexOf(i)!= -1) coin.addClass('hidden').css('visibility','hidden');
   		}
 	},
 	loading:function()
@@ -105,35 +104,34 @@ Game.Loader =
 		{
 			t.stoptimer();
 			t.animate();
-			this.splash.fadeOut(fade_time,'linear',function()
-			{
+
+			setTimeout(function()
+			{	
 				t.splash.remove();
 				t.complete();
-			});
+			},500)
+		
+			// this.splash.fadeOut(1000,'linear',function() {});
 		}
 	},
 	animate:function()
 	{
+
 		var t = this;
 		var per = Math.round10((t.assetsAmount - t.assetsCount) * 100 / t.assetsAmount);
 		t.splash.find('.percent').text( per + '%');
 		t.splash.find('.mask').css('bottom', 258*(per/100));	
+		var bottomPoint = $(window).height()/2+129;
 
-		var coins = t.splash.find('.coins .coin').each(function(i,d){
+		var coins = t.splash.find('.coins .coin:not(.hidden)').each(function(i,d){
 			d = $(d);
-			var tTmp = d.position().top;
-			if(tTmp > 258) tTmp = -20;
-			d.css('top',tTmp + 10);
+			if(d.offset().top > bottomPoint) d.css({ top: -20 });	
+			else d.css({ top: $(this).position().top + 4 }); 
 		});
-
-
 	},
 	complete:function()
 	{		
 		 $(document).on('DOMMouseScroll mousewheel', function(e, delta) {
-
-		      // do nothing if is already animating
-		      //if($("html,body").is(":animated")) return false;
 
 		      // normalize the wheel delta -1 down, 1 up
 		      delta = delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120;
@@ -158,11 +156,6 @@ Game.Loader =
 		      if(func(onscrollafter)) onscrollafter()
 		      
 		    });
-
-
-		    //$(window).on("swipeleft",function(){ walk(1); });
-		    //$(window).on("swiperight",function(){ walk(-1); });
-		    // on resize redraw game   				
 
 		    $(window).resize(function() {
 		    	if (resizeId){clearTimeout(resizeId)};
@@ -190,7 +183,7 @@ Game.Loader =
 	{		  
 		var t = this;
 		this.timerId = setInterval(function(){ t.loading(); }, 100);
-		this.animTimerId = setInterval(function(){ t.animate(); }, 300);
+		this.animTimerId = setInterval(function(){ t.animate(); }, 50);
 		
 	},
 	stoptimer:function()
@@ -271,6 +264,7 @@ Game.Loader =
 			name:v.type+'_'+v.name,
 			element: $('<audio>',
 			{
+				preload:'auto',
 	  			on: 
 	  			{
 					canplay: function() { t.dec(); },

@@ -47,8 +47,9 @@
 .summary .header .title
 {
   width:100%;
-  font-family:Arial;
-  font-size:24px;
+  font-family:hallo;
+  font-size:37.5px;
+  color:#77b8c3;
   text-align:center;
   padding:30px 0px 20px 0px;
 }

@@ -2,8 +2,6 @@
 * outrun: 0 - male, 1 - female
 * dress casual street business technical construction
 */
-
-
 var categories = 
 [
     {   
@@ -695,15 +693,7 @@ var interests =
     //{ "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
 ];
 var int_ids = interests.map(function(d,i){return d.id;});
-var sintro = { "class":"intro", "title":"Gap Game"};
-var sepilogue = { "class":"epilogue", "title":"Game Over"};
 
-var color = {
-  'female':'rgb(255,148,248)',
-  'male':'rgb(173,210,255)',
-  'white':'rgb(255,255,255)',
-  'black':'rgb(0,0,0)'
-};
 // gap game localization
 var locale = {
   poll:
@@ -752,18 +742,3 @@ var locale = {
     total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
   }
 };
-var sounds = 
-[
-    //{ "name":"done",        loop:false, path:"/assets/gap/sounds/done.mp3" },
-    //{ "name":"applause",    loop:true,  path:"/assets/gap/sounds/happy.mp3" },    
-    //{ "name":"select",      loop:false, path:"/assets/gap/sounds/select.mp3" }//,
-    //{ "name":"background",  loop:true, path:"/assets/gap/sound/background.mp3" },
-];
-// var background_sounds = 
-// {
-//     sounds = 
-//     [
-//         { name:"done", type:"interest", loop:false, path:"/assets/gap/sound/gad_1.mp3" },
-//         { name:"done", type:"interest", loop:false, path:"/assets/gap/sound/gad_2.mp3" }
-//     ]
-// };
