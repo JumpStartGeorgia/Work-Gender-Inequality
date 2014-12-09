@@ -23,7 +23,7 @@ function afterinit()
 }
 function resize()
 {
-   redraw(); // recalculate all dimensions 
+   redraw(); // recalculate all dimensions    
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -38,7 +38,6 @@ function redraw()
 
   timeline_period_w = w*timeline_scale;
   timeline_month_w = timeline_period_w/reward_period;   
-
   if(ingame)
   { 
     redraw_game();
@@ -51,7 +50,7 @@ function redraw()
     male.position();
     female.position();
   }
-
+  //if(func(resizeCallback)) resizeCallback();
 }
 function redraw_game()
 {            
@@ -70,7 +69,7 @@ function redraw_game()
   b.find('.treasure .pedestal').css({ top: lh + th + 10 });
   b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
   
-  $('.canvas, .treasure .red-carpet').show();
+  //$('.canvas, .treasure .red-carpet').show();
 }
 function scr_clean(klass)
 {
@@ -152,7 +151,7 @@ function share_button()
            xfbml      : true,
            version    : 'v2.1'
          });     
-        $(document).on('click','.share, .fb',function()
+        $(document).on('click','.share, .fb, .sum-share',function()
         {
           FB.ui({
             method: 'share',
@@ -176,16 +175,16 @@ function epilogue()
   if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
   else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
-  var whatnext = t.find('.whatnext');
-  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("Statistics");
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.stats+"</div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var whatnext = t.find('.whatnext');//.css('height',h-70);
+    t.find('.summary').css('height',h-70);
+  //whatnext.css({ width: w-20, height:h-20 }).find('.content').text("Statistics");
 
   $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
-    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
-    t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+    t.find('.summary').find('.content').html(data.s); //.css({ width: w-20, height:h-120 })
+    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t); });
+    //t.fadeIn(fade_time, "linear"); //.css({width: w-20, height:h-20 })
   });
-  
 }
 function epilogue_trigger(t)
 {
@@ -193,25 +192,30 @@ function epilogue_trigger(t)
   var summary = t.find(".summary");
   var slider = t.find(".slider");
   var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
-  slider.animate({top: epilogueUp ? -1*(h-20)+100 : 0 },
+  slider.animate({top: epilogueUp ? -1*($(window).height())+70 : 0 },
   {
     duration:1000,
     start:function()
     {
       whatnext_trigger.off("mouseenter");
       epilogueTmp = true;
+      if(whatnext_trigger.hasClass('up'))  whatnext_trigger.find('.label').css('opacity', 0); 
     },
     progress:function(a,b,c)
     {
       if(epilogueTmp && b > 0.5)
       {
         epilogueTmp = false;
-        whatnext_trigger_arrow.toggleClass('arrow-down arrow-up');
+        whatnext_trigger_arrow.toggleClass('down up');
+        whatnext_trigger.toggleClass('down up');
       }
       whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
+      
     },
     complete:function()
     {
+      //whatnext_trigger.find('.label').css('opacity',epilogueUp ? 1 : 0);
+      whatnext_trigger.find('.label').css('opacity', whatnext_trigger.hasClass('up') ? 1 : 0);
       whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
       epilogueUp=!epilogueUp;
     }

@@ -159,3 +159,5 @@ var isSoundLoaded = false;
 var interestAlias = '';
 var resizeId = 0;
 var isOpera = /opera/i.test(navigator.userAgent);
+
+var resizeCallback = null;

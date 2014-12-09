@@ -707,7 +707,7 @@ var locale = {
     lorem:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     about_game:"Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     female:"Female",
-    male:"Male"
+    male:"Male"    
   },
   general:
   {
@@ -734,7 +734,8 @@ var locale = {
     dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
     isRTL: false,
     congrat:"Congrats!",
-    share_hint:"Share this point on facebook"
+    share_hint:"Share this point on facebook",
+    stats:"Statistics"
   },
   game:
   {

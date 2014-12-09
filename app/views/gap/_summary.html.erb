@@ -12,9 +12,9 @@
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='<%= d[:fclass][0] %> character'></div>
+								<div class='sum-<%= d[:fclass][0] %>'></div>
 								<div class='years-passed'><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
-								<div class='<%= d[:sclass][0] %> character'></div>
+								<div class='sum-<%= d[:sclass][0] %>'></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
@@ -70,7 +70,7 @@
 					</div>
 					<div class='footer'>
 						<div class='share btn'><%= t('.share') %></div>
-						<div class='play-again btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
+						<div class='replay btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
 					</div>
 
 <!-- 
