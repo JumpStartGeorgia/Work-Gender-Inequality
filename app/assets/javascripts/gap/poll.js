@@ -78,7 +78,6 @@ var poll = {
   },
   gender:function gender()
   {
-    //s.find('.info').append("<div class='triangle'></div><div class='text'>"+locale.poll.about_game+"</div>");
     var margin_between = 100;
     s.find('.poll').append("<div class='selector selectable'>" + 
                               "<div class='left f'><div class='profile'><div class='face f'></div><div class='t'>"+female.title.toUpperCase()+"</div><div class='a'>&nbsp;</div></div></div>" + 
@@ -143,7 +142,9 @@ var poll = {
   {    
     onscrollafter = null;      
     poll.label(locale.poll.your_age); 
-
+    resizeCallback = function() {
+      poll.age_picker_redraw();
+    };
     params_set(1);  
     s.find('.poll').addClass(g());  
     poll.next_function = function()
@@ -162,6 +163,7 @@ var poll = {
   category:function category()
   {
     poll.label(locale.poll.your_job); 
+  
     params_set(2); 
     //user.category = user.category == null ? cat_ids[0] : user.category;
     poll.npicker_function = null;
@@ -205,7 +207,6 @@ var poll = {
 
     //user.interest = user.interest == null ? int_ids[0] : user.interest;
     poll.next_function = function(){
-      console.log(user);
       if(user.interest != null && user.salary_percent > 0)
       {   
         poll.choose_interest();
@@ -215,6 +216,7 @@ var poll = {
         $('.poll .selector .interest-picker').remove();
         $('.poll .selector .percent-picker').remove();
         params_set(6); 
+        resizeCallback = null;
         game_init();
       }
       else
@@ -240,6 +242,25 @@ var poll = {
   category_picker_show:function category_picker_show()
   {
     var outer_radius = 200;
+
+    var picker = $("<div class='category-picker'></div>").appendTo('.poll .selector');
+    poll.npicker_create('.poll .selector','.salary-picker',99999,poll.npicker_sal_size,user.salary,locale.poll.your_salary);
+    resizeCallback = function() {
+      poll.category_redraw();
+    };
+    categories.forEach(function(d,i){
+      var item = $("<div id='c"+d.id+"' class='category-item'>"+
+                      "<img src='/assets/gap/svg/field/icons/"+d.fg+".svg' />" + 
+                      "<div class='hint'>"+d.name+"</div>" +
+                    "</div>")
+                    .on('click',function(){ poll.by_category(d.id); }).appendTo(picker);
+
+    });
+    poll.category_redraw();
+  },  
+  category_redraw:function category_redraw()
+  {
+    var outer_radius = 200;
     var cat_radius = 26;
     var cat_step = 360/categories.length;
     var xC = w2;
@@ -248,23 +269,17 @@ var poll = {
     var rTmp = bTmp = 0;
     var lTmpE,rTmpE,tTmpE,bTmpE;
 
-    var picker = $("<div class='category-picker'></div>").appendTo('.poll .selector');
-    poll.npicker_create('.poll .selector','.salary-picker',99999,poll.npicker_sal_size,h2,(w2+outer_radius*1.5),user.salary,locale.poll.your_salary);
-
     categories.forEach(function(d,i){
-      var item = $("<div id='c"+d.id+"' class='category-item'>"+
-                      "<img src='/assets/gap/svg/field/icons/"+d.fg+".svg' />" + 
-                      "<div class='hint'>"+d.name+"</div>" +
-                    "</div>")
+      var item = $(".poll .selector .category-item#c" +d.id)
                     .css({
                       'top': (h2 + (outer_radius) * Math.sin(Math.radians(i*cat_step)) - cat_radius) ,
                       'left': (w2 - (outer_radius) * Math.cos(Math.radians(i*cat_step)) - cat_radius)
-                    })
-                    .on('click',function(){ poll.by_category(d.id); }).appendTo(picker);
+                    });
 
       var hint = item.find('div.hint');
       var ol = hint.offset().left;
       var ot = hint.offset().top;
+
       if(lTmp > ol) { lTmp = ol; lTmpE = hint; }
       if(rTmp < ol) { rTmp = ol; rTmpE = hint; }
       if(tTmp > ot) { tTmp = ot; tTmpE = hint; }
@@ -278,10 +293,10 @@ var poll = {
     rTmpE.css({left:(cat_radius*2 + 3),top:-1*( 4 + rTmpE.outerHeight()/2+cat_radius)});
     tTmpE.css({left:-1*(tTmpE.outerWidth()/2-cat_radius),top:-1*( 4 + 4 + tTmpE.outerHeight()+2*cat_radius)});
     bTmpE.css({left:-1*(bTmpE.outerWidth()/2-cat_radius),top: 0});
+
+    poll.npicker_redraw(h2,w2+outer_radius*1.5);
     
-    //onscrollup=function(){ poll.category_down(); };
-    //onscrolldown=function(){ poll.category_up(); };
-  },  
+  },
   category_select:function category_select()
   {
     if(!poll.npicker_binded) poll.npicker_bind();
@@ -322,7 +337,7 @@ var poll = {
   age_picker_show:function age_picker_show()
   {
     s.find('.poll .selector').append(
-                            "<svg class='age-picker' width='288' height='288' style='top:"+(h2-288/2)+"px;left:"+(w2-288/2)+"px'>"+
+                            "<svg class='age-picker' width='288' height='288'>"+
                               "<path fill='none' stroke='#EED361' stroke-miterlimit='10' d='M256.383,233.715c19.512-24.406,31.176-55.357,31.176-89.034c0-78.81-63.888-142.696-142.697-142.696c-30.838,0-59.391,9.781-82.726,26.411'/>" + 
                               "<polyline fill='none' stroke='#EED361' stroke-miterlimit='10' points='257.653,221.191 256.403,233.715 267.653,231.197 '/>" + 
                               "<g class='age-mover' draggable='true' ondrag='poll.drag_age(event)'>" + 
@@ -331,7 +346,7 @@ var poll = {
                               "</g>" + 
                             "</svg>");
   
-
+    poll.age_picker_redraw();
     var diff = max_age-min_age;
 
     var degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
@@ -352,6 +367,10 @@ var poll = {
     poll.by_age(user.age);
 
 
+  },
+  age_picker_redraw:function age_picker_redraw()
+  {
+    s.find('.poll .selector .age-picker').css({top: h2-288/2, left: w2-288/2 });
   },
   age_check:function age_check()
   {     
@@ -460,21 +479,18 @@ var poll = {
   interest_picker_show:function interest_picker_show()
   {
     var picker = $("<div class='interest-picker'></div>").appendTo('.poll .selector');
-    poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,h2,w2+125,0,locale.poll.your_percent,'left');
+    poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,0,locale.poll.your_percent,'left');
+
+    resizeCallback = function() {
+      poll.interest_redraw();
+    };
     interests.forEach(function(d,i){
       var item = $("<div id='i"+d.id+"' class='interest-item'>"+
                       "<img src='/assets/gap/svg/interest/icons/"+d.icon+".svg' />" + 
                       "<div class='hint'>"+d.name+"</div>" +
-                    "</div>")
-                    .css({
-                      'top': (h2 - 210),
-                      'left': (w2 + 150 - 450 * ((4-i)/5) )
-                    })
+                    "</div>")                  
                     .on('click',function(){ poll.by_interest(d.id); }).appendTo(picker);
-      var hint = item.find('div.hint');
-      hint.css('left',-1*(hint.width()/2-26-8) + 'px');
     });
-
 
    poll.npicker_function = function(v){ 
       v=+v; 
@@ -482,12 +498,21 @@ var poll = {
          user.salary_percent = (v*100)/user.salary;     
       }  
     }
-
-//  onscrollup=function(){ poll.interest_down(); };
-  //onscrolldown=function(){ poll.interest_up(); };
+    poll.interest_redraw();
+  },
+  interest_redraw:function interest_redraw()
+  {
+    interests.forEach(function(d,i){
+      var item = $(".poll .selector .interest-item#i" +d.id)
+       .css({ 'top': h2 - 210,
+              'left': w2 + 150 - 450 * ((4-i)/5) });
+      var hint = item.find('div.hint');
+      hint.css('left',-1*(hint.width()/2-26-8) + 'px');
+    });  
+    poll.npicker_redraw(h2,w2+125);
   },
   interest_select:function interest_select()
-  {     console.log(user);
+  {     
     if(!poll.npicker_binded) poll.npicker_bind();
     $('.poll .selector .interest-picker .interest-item').removeClass('selected');
     $('.poll .selector .interest-picker .interest-item#i' + user.interest).addClass('selected');
@@ -561,13 +586,13 @@ var poll = {
   {
     params_back();
   },
-  npicker_create:function npicker_create(p,t,max,size,top,left,def,label,align)
+  npicker_create:function npicker_create(p,t,max,size,def,label,align)
   {    
     poll.npicker_binded = false;    
     var picker = $("<div class='" + t.replace(".","") + " abs npicker inactive' max='"+max+"'>"+
                   "<div class='t " + align + "'>"+label.toUpperCase()+"</div>" +
-               "</div>").css({'top':top-63, 'left':left}).appendTo(p);
-
+               "</div>").appendTo(p);
+    poll.npicker_redraw();
     for(i = 0; i < size; ++i)
     {
      picker.append("<div class='part' data-pos='"+(size-i)+"'>0</div>");
@@ -576,6 +601,10 @@ var poll = {
     picker.append("<div class='gel'></div>");
 
     poll.npicker_set(def,size);
+  },
+  npicker_redraw:function npicker_redraw(top,left)
+  {
+    $('.npicker').css({'top':top-63, 'left':left});
   },
   npicker_bind:function npicker_bind()
   {

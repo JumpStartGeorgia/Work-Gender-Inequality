@@ -125,12 +125,12 @@ function human(selector,title,height,width)
       if(this.x > this.prevX) 
       {
         $(this.selector).removeClass('l');
-        if(t.x - t.prevX >  10) t.next_movement();
+        if(t.x - t.prevX >  3) t.next_movement();
       }
       else if(this.x < this.prevX) 
       {
         $(this.selector).addClass('l');
-        if(t.prevX - t.x >  10) t.prev_movement();
+        if(t.prevX - t.x >  3) t.prev_movement();
       }
 
       $(this.selector).css({ left: this.x , top: this.y });   
@@ -171,7 +171,7 @@ function human(selector,title,height,width)
 		var t = this;
     var intervalId = null;
      var st = $('.' + t.place + ' .stage');
-		$(this.selector).animate({"color":'white'},{ duration:4000, easing:'linear',
+		$(this.selector).animate({"color":'white'},{ duration:10000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
@@ -554,7 +554,7 @@ function human(selector,title,height,width)
     var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
     var widthScaler = (cardItem.offset().left - offsetLeft)/100;
     var hForScaler = 0;
-    if(t.place=='top') hForScaler = lh - cardItem.offset().top - 32 - 10;
+    if(t.place=='top') hForScaler = cardItem.offset().top - 10;// lh - cardItem.offset().top - 32 - 10;
     else  hForScaler = cardItem.offset().top - lh - th - 10;
     var heightScaler = hForScaler/56;
     var dur = 200;//1500;   

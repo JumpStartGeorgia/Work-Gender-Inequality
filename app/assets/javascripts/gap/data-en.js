@@ -16,7 +16,7 @@ var categories =
         "bg2":"bg3",
         "fg":"agriculture",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "FWrgJx0N",
@@ -30,7 +30,7 @@ var categories =
         "bg2":"bg2",
         "fg":"fishing",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "TxbZicXP",
@@ -44,7 +44,7 @@ var categories =
         "bg2":"bg2",
         "fg":"mining",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "Zyb2KhON",
@@ -58,7 +58,7 @@ var categories =
         "bg2":"bg1",
         "fg":"manufacturing",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "8IkQeUfg",
@@ -72,7 +72,7 @@ var categories =
         "bg2":"bg1",
         "fg":"production",
         "sits":true,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "eibtNMge",
@@ -86,7 +86,7 @@ var categories =
         "bg2":"bg2",
         "fg":"construction",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "jDYS_Z1V",
@@ -114,7 +114,7 @@ var categories =
         "bg2":"bg1",
         "fg":"hotel",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "rn4bDK0j",
@@ -128,7 +128,7 @@ var categories =
         "bg2":"bg1",
         "fg":"transport",
         "sits":true,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "EmbBcc5x",
@@ -142,7 +142,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "sits":true,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "oxKq-H8w",
@@ -156,7 +156,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"realestate",
         "sits":true,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "dT-LWuT4",
@@ -170,7 +170,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"administration",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
         "id": "HxhM0Ejd",
@@ -198,7 +198,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"health",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     {
         "id": "DqFfYVGZ",
@@ -212,7 +212,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"community",
         "sits":false,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     {
         "id": "hyn3wmKk",
@@ -226,7 +226,7 @@ var categories =
         "bg2":"bg1",    
         "fg":"other",
         "sits":true,
-        "work":{ "a":false, "loop": true, "path":"M 645.48748,148.3373 L 625.28443,199.85508 L 479.82246,199.85508 L 453.55849,255.41347 L 422.24377,251.37286 L 483.86307,148.3373 z"}
+        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
 ];
 var cat_ids = categories.map(function(d,i){return d.id;});
@@ -309,68 +309,63 @@ var interests =
         [
             { 
                 "id": "NeRMinwu",
-                "type": "mobile",
-                "title":"Nokia 1280 Black/G",
-                "cost":41.99,
+                "title":"Ipod",
+                "cost":150,
                 "image":"gad_1.svg",
                 "class":"gad-1",
-                "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7708&NOKIA+1280+BLACK%2FG",
-                "source_date":"22.09.2014",
-                "descr":"Tab" 
+                "source":"http://pcshop.ge/index.php?page=shop.product_details&flypage=flypage-gur.tpl&product_id=1662&category_id=142&option=com_virtuemart&Itemid=6&lang=ka",
+                "source_date":"25.09.2014",
+                "descr":"Special Edition Ipod Shuffle (Product) Red" 
             },
             { 
                 "id": "Q3eeT2j9",
-                "type": "mobile",
-                "title":"SAMSUNG I9300 Galaxy S3 White",
-                "cost":700, 
+                "title":"Xbox",
+                "cost":600, 
                 "image":"gad_2.svg",
                 "class":"gad-2",
                 "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White",
                 "source_date":"22.09.2014",
-                "descr":"Mobile Phone" 
+                "descr":"" 
             },
             { 
                 "id": "4JAffVD6",
-                "type": "mobile", 
-                "title":"C",
-                "cost":1100,
+                "title":"Mobile Phone",
+                "cost":1400,
                 "image":"gad_3.svg",
                 "class":"gad-3",
-                "source":"", "source_date":"",
-                "descr":"Super Buper Thing" 
+                "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7605&APPLE+Iphone+5S+16GB+Gold",
+                "source_date":"25.09.2014",
+                "descr":"APPLE Iphone 5S 16 GB " 
             },
             { 
                 "id": "USLng33Z",
-                "type": "mobile",
-                "title":"E",
-                "cost":2000,
+                "title":"McBook Pro",
+                "cost":2836,
                 "image":"gad_4.svg",
                 "class":"gad-4",
-                "source":"",
-                "source_date":"",
-                "descr":"Theatre"
+                "source":"http://store.apple.com/uk/buy-mac/macbook-air?product=MD761B/B&step=config#",
+                "source_date":"02.10.2014",
+                "descr":"13-inch: 256GB"
             },
             { 
                 "id": "eLkVnL8n",
-                "type": "mobile", 
-                "title":"Apple Iphone 5S 64GB Gold",
-                "cost":1765,
+                "title":"Digital Camera",
+                "cost":5200,
                 "image":"gad_5.svg",
                 "class":"gad-5",
-                "source":"http://applecity.ge/shop/iphone/iphone-5s-64gb/",
-                "source_date":"22.09.2014",
-                "descr":"XBox"
+                "source":"http://www.amazon.com/Nikon-FX-Format-Digital-24-85mm-3-5-4-5G/dp/B00FOTFA7U/ref=sr_1_2?ie=UTF8&qid=1412256676&sr=8-2&keywords=nikon+d610",
+                "source_date":"25.09.2014",
+                "descr":"Nikon D610 with basic kit lens"
             },
             { 
                 "id": "kV1jvNlr",
-                "type": "mobile",
-                "title":"Vertu Signature Diamond",
-                "cost":154000,
+                "title":"3D Home Theater System",
+                "cost":9721,
                 "image":"gad_6.svg",
                 "class":"gad-6",
-                "source":"http://www.onlinenewspoint.com/top-10-most-expensive-mobile-phones-in-the-world-2014/",
-                "source_date":"22.09.2014",
-                "descr":"Notebook" 
+                "source":"http://www.amazon.com/Klipsch-Theater-System-Cherry-AVR-X4000/dp/B00NSEK30W/ref=sr_1_3?s=tv&ie=UTF8&qid=1411721442&sr=1-3",
+                "source_date":"26.09.2014",
+                "descr":"Klipsch RF-7 II 5.1 Home Theater System-SW-112 (Cherry) SW-115 Denon AVR-X4000" 
             }
         ]
     },   
@@ -593,7 +588,6 @@ var locale = {
     your_interest:"Your Interest",
     your_percent:"How much do\n you save up for\n your interest",
     lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
-    about_game: "Explore your wage gap!\nIn Georgia, men earn on average 39% more than women.\nAre you earning or are you losing?\nPlay and find out!",
     female:"Female",
     male:"Male"    
   },
@@ -623,7 +617,20 @@ var locale = {
     isRTL: false,
     congrat:"Congrats!",
     share_hint:"Share this point on facebook",
-    stats:"Statistics"
+    about:"About",
+    stats:"Statistics",
+    you_can_buy: "You can buy a ",
+    summary: "Our goal is to increase gender equality and women’s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.\
+The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.\
+This project is possible by the generous support of USAID and implemented by “Article 42 of the Constitution” and with the collaborative efforts of four partner organizations: Georgian Trade Union Confederation (GTUC), Center for Social Sciences at Tbilisi State University (CSS), New Media Advocacy Project (N-Map) and Jumpstart Georgia.\
+Game Credits:\
+Concept & Implementation: JumpStart Georgia\
+Sound designer: Brian Gillikin\
+Graphics: Mariam Kobuladze & Ruslan Beridze\
+Design: Mariam Kobuladze\
+Animation & Development: Anton Kamaryan\
+Development: Jason Addie\
+Data: National Statistics Office of Georgia"
   },
   game:
   {

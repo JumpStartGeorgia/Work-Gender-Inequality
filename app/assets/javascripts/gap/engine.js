@@ -13,11 +13,8 @@ function afterinit()
 { 
   scr_clean();
   if(steptogo < 6) poll.show();
-  else 
-  {
-    game_init(); 
-    $('.info').hide().remove();
-  }
+  else game_init(); 
+  if(steptogo != 0) $('.info').hide().remove();
 
 }
 function resize()
@@ -43,13 +40,10 @@ function redraw()
     timeline_point_redraw();
     stage_redraw(0);
 
-    male.scale();
-    female.scale();
-
     male.position();
     female.position();
   }
-  //if(func(resizeCallback)) resizeCallback();
+  if(func(resizeCallback)) resizeCallback();
 }
 function redraw_game()
 {            
@@ -67,7 +61,9 @@ function redraw_game()
   b.find('.score').css({ top: lh + th + 20});
   b.find('.treasure .pedestal').css({ top: lh + th + 10 });
   b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
-  
+
+  male.scale();
+  female.scale();
   //$('.canvas, .treasure .red-carpet').show();
 }
 function scr_clean(klass)
@@ -174,10 +170,9 @@ function epilogue()
   if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
   else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.stats+"</div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'>"+locale.general.summary+"</div></div></div></div>").appendTo(s.parent());
   var whatnext = t.find('.whatnext');//.css('height',h-70);
     t.find('.summary').css('height',h-70);
-  //whatnext.css({ width: w-20, height:h-20 }).find('.content').text("Statistics");
 
   $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary').find('.content').html(data.s); //.css({ width: w-20, height:h-120 })
@@ -198,23 +193,22 @@ function epilogue_trigger(t)
     {
       whatnext_trigger.off("mouseenter");
       epilogueTmp = true;
-      if(whatnext_trigger.hasClass('up'))  whatnext_trigger.find('.label').css('opacity', 0); 
+
     },
     progress:function(a,b,c)
     {
       if(epilogueTmp && b > 0.5)
       {
         epilogueTmp = false;
-        whatnext_trigger_arrow.toggleClass('down up');
         whatnext_trigger.toggleClass('down up');
+        whatnext_trigger.find('.label').text(whatnext_trigger.hasClass('up') ? locale.general.about : locale.general.stats);
       }
       whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
       
     },
     complete:function()
     {
-      //whatnext_trigger.find('.label').css('opacity',epilogueUp ? 1 : 0);
-      whatnext_trigger.find('.label').css('opacity', whatnext_trigger.hasClass('up') ? 1 : 0);
+      
       whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
       epilogueUp=!epilogueUp;
     }
@@ -597,10 +591,9 @@ function reward_process()
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
-      d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { prepare_for_reward(d); });      
+      d.queue.push(function() { card_prepare(d);  });
       d.queue.push(function() { d.mutate(1); });
-      d.queue.push(function() { start_reward_animation(d); });
       d.queue.push(function() { hide_card(d); });
       d.queue.push(function() { prepare_for_work(d); });
       d.queue.start();
@@ -620,7 +613,6 @@ function gopast()
 }
 function card_prepare(v)
 {
-  console.log('card_prepare');
   var c = gap.pos > prev_pos;
   var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
@@ -641,7 +633,7 @@ function prepare_for_reward(v)
   var init_left_pos = stage.offset().left;
 
   stage.animate({ "color": 'white'}, {
-    duration:2000,
+    duration:5000,
     progress:function(a,b,c){
       $(this).css({'left':init_left_pos + w2*b});
       v.prepare_reward(b,true);
@@ -659,7 +651,7 @@ function prepare_for_work(v)
   var stage = $('.' + v.place + ' .stage');
   var init_left_pos = stage.offset().left;
 
-  stage.animate({  "color": 'white'},{duration:2000,
+  stage.delay(2000).animate({  "color": 'white'},{duration:3000,
     progress:function(a,b,c){
       $(this).css({'left': init_left_pos - w2*b});
       v.prepare_reward(b,false);
@@ -672,14 +664,7 @@ function prepare_for_work(v)
 }
 function hide_card(v)
 {
-  console.log('hide_card');
   v.card.hide();
-  v.queue.resume();  
-}
-
-function start_reward_animation(v)
-{
-  console.log('start_reward_animation');
   v.queue.resume();  
 }
 
@@ -851,8 +836,6 @@ function sendUserData(fin)
     success:function(d)
     {
       user.sended = d.finished;
-      //console.log("Saved current user id will bi");
-      //player.play('done');  
     },
     error:function(d)
     {
@@ -860,10 +843,10 @@ function sendUserData(fin)
     }
   })
 }
-function restart()
-{
-  $.removeCookie("_game_id");
-}
+// function restart()
+// {
+//   $.removeCookie("_game_id");
+// }
 function start_by_time()
 {  
   var tmp = gap.pos*reward_period;

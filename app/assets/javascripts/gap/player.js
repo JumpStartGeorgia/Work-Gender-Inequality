@@ -44,8 +44,8 @@ function playerObject()
 	  	}).get(0);
 		t.bgint.loop = true;
 		t.bgcat.loop = true;
-		t.bgcat.volume = 0.2;
-		t.bgint.volume = 0.2;
+		t.bgcat.volume = 0.6;
+		t.bgint.volume = 0.6;
 		//t.bgcat.muted = true;
 		//t.bgint.muted = true;
 		$(t.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
@@ -68,7 +68,7 @@ function playerObject()
 		if(this.valid(name))
 		{
 			this.stop(name);
-			this.sounds[name].muted = false;
+			//this.sounds[name].muted = false;
 			this.sounds[name].play();
 		}
 	};
@@ -105,6 +105,7 @@ function playerObject()
 				if(this.valid(name))
 				{
 					this.sounds[name].muted = true;
+					console.log(name);
 				}
 			}
 			this.bgcat.muted = true;

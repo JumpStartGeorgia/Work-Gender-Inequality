@@ -44,7 +44,7 @@ function cardObject(p)
 	this.text = function(text)
 	{
 		if(typeof text !== undefined)
-			this.stext.text(text);
+			this.stext.text(locale.general.you_can_buy + text);
 	};
 	this.hide = function(immediate)
 	{
