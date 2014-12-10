@@ -31,8 +31,7 @@
         
   </head>
   <body>
-
-    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -42,16 +41,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <%= link_to(t('app.common.app_name'), root_path(:locale => I18n.locale),:class=>"navbar-brand font")%>
+          <div id="navbar-logo">
+            <div id="navbar-logo-inner">
+              <%= link_to root_path(:locale => I18n.locale), :class=>"navbar-brand font" do %>
+                <%= t('app.common.app_slogan') %>
+                <span class="glyphicon glyphicon-briefcase"></span>
+              <% end %>
+            </div>
+          </div>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav">
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= t('app.menu.get_involved') %>
-                <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li role="menuitem"><%= link_to t('app.menu.stories'), stories_path %></li>
@@ -62,26 +67,30 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <%= t('app.menu.stay_informed') %>
-                <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
                 <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>
                 <% if @laws_nav.present? %>
-                  <% @laws_nav.each do |law| %>
-                    <li>
-                     <%= link_to law['title'], law_path(law) %>
-                    </li>
+                  <li role="menuitem">
+                    <%= link_to t('app.menu.legislations'), '#' %>
+                    <ul id="menu-legislation" class="dropdown-menu">
+                      <% @laws_nav.each do |law| %>
+                        <li>
+                          <%= link_to law['title'], law_path(law) %>
+                        </li>
+                      </ul>
+                  </li>
                   <% end %>
                 <% end %>
               </ul>
             </li>
 
-            <li role="menuitem"><%= link_to t('app.menu.about'), about_path %></li>
+            <li class="split" role="menuitem"><%= link_to t('app.menu.about'), about_path %></li>
             <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
             <li role="menuitem">
               <%= link_to "https://www.facebook.com/pages/%E1%83%95%E1%83%98%E1%83%9B%E1%83%A3%E1%83%A8%E1%83%90%E1%83%9D%E1%83%97-%E1%83%97%E1%83%90%E1%83%9C%E1%83%90%E1%83%A1%E1%83%AC%E1%83%9D%E1%83%A0-%E1%83%92%E1%83%90%E1%83%A0%E1%83%94%E1%83%9B%E1%83%9D%E1%83%A8%E1%83%98-We-Want-to-Work-in-an-Equal-Environment/527579087370067" do %>
-                <%= image_tag "svg/facebook_w.svg", height: 18 %>
+                <%= image_tag "svg/facebook_b.svg", height: 18 %>
               <% end %>
             </li>
 

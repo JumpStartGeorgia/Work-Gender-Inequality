@@ -182,6 +182,7 @@ en:
       new: New
     common:
       app_name: Tanastsoroba
+      app_slogan: We want to work in an Equal Environment
       added_on: "Added on: %{date}" 
       jumpstart: JumpStart Georgia
       js_link_title: JumpStart Georgia - We communicate data better!
@@ -207,6 +208,7 @@ en:
       stories: Discrimination Stories
       share_stories: Share Discrimination Story
       game: Pay Gap Game
+      legislations: Legislations
   layouts:
     application:
       toggle: Toggle navigation
