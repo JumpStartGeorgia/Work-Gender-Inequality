@@ -61,7 +61,7 @@
 })();
 function same_sign(a,b)
 {
-  return (a ^ b) >= 0;
+  return (a >=0 && b >= 0) || (a < 0 && b < 0) || false;
 }
 
 if(!String.prototype.lpad)
@@ -111,7 +111,7 @@ function validateNumber(event) {
 function up(e,delta) { return delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0; }
 // backward down previous
 function down(e,delta) { return !(delta || -e.originalEvent.detail / 3 || e.originalEvent.wheelDelta / 120 < 0); }
-function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d{1,2})?\s*$/.test(v); }
+function isDecimal(v) { return /^\s*-?[1-9]\d*(\.\d+)?\s*$/.test(v); }
 function isNumber(v) { return /^\d+$/.test(v); }
 function isNumberWithSign(v) { return /^-?\d+$/.test(v); }
 function fn(v)
@@ -191,6 +191,24 @@ function coordinateFromPath(progress,path,pathLength,widthScaler,heightScaler)
   var p =  path.getPointAtLength(pathLength * percent/100);
   return { x:p.x*widthScaler,y:p.y*heightScaler, a:a };
 } 
+function formatNumber(num) { return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); }
+function randomNumber(min,max)
+{
+  return Math.floor(Math.random()*(max-min+1)+min);
+}
+function css(e,p)
+{
+  if (e.currentStyle)
+  { 
+    return e.currentStyle[p]; 
+  }
+  else if (window.getComputedStyle) 
+  { 
+    return getComputedStyle(e,null).getPropertyValue(p);
+  }
+  
+  return 0;
+}
 /***************************************************************
                   Utility Functions End
 ***************************************************************/

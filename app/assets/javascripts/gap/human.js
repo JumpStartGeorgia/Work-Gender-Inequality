@@ -1,14 +1,20 @@
-function human(selector,title) 
+function human(selector,title,height,width) 
 {
 //****************************var**********************************
   this.title = exist(title) ? title : "Human";
   this.alias = this.title[0].toLowerCase();
   this.age = 0;
-  this.height = 100;
-  this.width = 46;
+  this.height = height;
+  this.width = width;
+  this.init_height = height;
+  this.init_width = width;
   this.canvas = 200;
   this.x = 0;
   this.y = 0;
+  this.prevX = 0;
+  this.prevY = 0;
+  this.initX = 0;
+  this.initY = 0;
   this.angle = 0;
   this.land = 0;  
   this.selector = selector;
@@ -21,7 +27,6 @@ function human(selector,title)
   this.gap_percent = 0;
   this.saving_for_tick = 0;
   this.animated = false;
-  //this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
@@ -34,8 +39,8 @@ function human(selector,title)
   this.card = new cardObject(this);
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject({complete:queueCompleteCallback});
-  this.future_reward = 0;
   this.oppenent = null;
+  this.working = false;
   var mutator = {
     left:[],
     right:[],
@@ -68,14 +73,14 @@ function human(selector,title)
 	});
 	this.__defineSetter__("tsalary", function(val){
 	   this._tsalary = val;
-     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? Math.round10(val) : NaN);
+     $(this.selector).parent().find('.score .tsalary .value').text(val >= 0 ? formatNumber(Math.round10(val)) : NaN);
 	});
 	this.__defineGetter__("tsaved", function(){
 	     return this._tsaved;
 	 });
 	this.__defineSetter__("tsaved", function(val){
 	   this._tsaved = val;
-     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? Math.round10(val) : NaN);
+     $(this.selector).parent().find('.score .tsaved .value').text(val >= 0 ? formatNumber(Math.round10(val)) : NaN);
 	});
 	this.__defineGetter__("stage", function(){
 	   return this._stage;
@@ -97,15 +102,40 @@ function human(selector,title)
   });
 //*************************methods**********************************
 
-  this.position = function position(coord) {
+  this.position = function position(coord,noscale) {    
+
+      var t = this;
+      this.prevX = this.x;
+      this.prevY = this.y;
+      if(noscale === undefined) noscale = false;
       if(exist(coord))
       {
-        if(exist(coord.x)) this.x = coord.x*img_scaler;
-        if(exist(coord.y)) this.y = this.land - (this.land - coord.y*img_scaler + this.height);
+        if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
+        if(exist(coord.y)) this.y = noscale ? coord.y : this.land - (this.land - coord.y*img_scaler + this.height);
+        if(this.working)
+        {
+          this.x += $('.top .stage .fg img').first().offset().left;
+          this.y += $('.top .stage .fg img').first().offset().top;
+        }
         if(exist(coord.a)) this.angle = coord.a;
       }      
-      $(this.selector).css({ left: this.x + stage_offset, top: this.y });   
-      return { human:this.title ,x:this.x, y:this.y, a:this.angle };
+      else this.toground();
+      
+
+      if(this.x > this.prevX) 
+      {
+        $(this.selector).removeClass('l');
+        if(t.x - t.prevX >  10) t.next_movement();
+      }
+      else if(this.x < this.prevX) 
+      {
+        $(this.selector).addClass('l');
+        if(t.prevX - t.x >  10) t.prev_movement();
+      }
+
+      $(this.selector).css({ left: this.x , top: this.y });   
+
+      //return { human:this.title ,x:this.x, y:this.y, a:this.angle };
   };
   this.toground = function toground() 
   {
@@ -117,116 +147,129 @@ function human(selector,title)
   {
     this.y = 0 - this.height;
   };
-  
-  this.animate = function animate(v)
+  this.scale = function()
   {
+
+    var bgsize = $(this.selector).css('background-size');
+    if(bgsize.replace(' ','').split('px').length == 3)
+    {
+      this.width = Math.floor10(img_scaler * this.init_width);
+      this.height = Math.floor10(img_scaler * this.init_height);
+
+      //console.log(bgw,bgh);
+      
+      $(this.selector).css({
+        width : this.width,
+        height : this.height,
+        'background-size':this.width + 'px ' + this.height + 'px'});
+    }
+  };
+  this.animate = function animate()
+  {    
 		this.animated = true;
-		this.path = v.path;
+    this.toground();
 		var t = this;
-    var slow_time = 150;
-    //var time_slower = v.duration*1000/150;
-    var slowerIndex = 4000/slow_time;
+    var intervalId = null;
+     var st = $('.' + t.place + ' .stage');
 		$(this.selector).animate({"color":'white'},{ duration:4000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
-         t.next_movement();    
+        intervalId = setInterval(function()
+        {
+          t.next_movement();   
+        },
+        (w2-t.width/2+100)/7); 
       },
 			progress:function(a,b,c) 
 			{ 
-        t.position(t.getpathcoordinates(b));
-        if(Math.floor10(c/slow_time) < slowerIndex)
-        {
-          --slowerIndex;          
-          t.next_movement();           
-        }
+        t.position({ x:(w2-t.width/2+100)*b-100, a:0 }, true);
+        st.css('left',-1*b*  (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
 			},
 			complete:function() 
 			{
 				t.animated = false;
         animated = t.animated || t.oppenent.animated;
+        if(animated) canScroll = true;
+        clearInterval(intervalId);
+        t.stand_movement();
         t.work_frame();
+
 			}
 		});
   };
-  var prevX = 0;
-  var prevY = 0;
+  this.prevXTmp = 0;
+  this.prevYTmp = 0;
   var movementBound = 3;
-  this.prepare_reward = function prepare_for_reward(step,start)
+  this.rewardStarted = false;
+  this.prepare_reward = function prepare_reward(step,start)
   {
     var t = this;
     var istep = step;
     if(!start) step = 1 - step;
-    if(t.path != category.stage.frame['reward'].path)
+    if(!t.rewardStarted)
     {
-      var frame = category.stage.frame['reward'];
-      t.path = frame.path;
-      t.path_loop = exist(frame.loop) ? frame.loop : false;
+      t.rewardStarted = true;
+      t.working = false;
+      t.initX = t.x;
+      t.initY = t.y;
     }
+    t.position({ x:t.initX - (t.initX - w2 + t.width/2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, true);
 
-    
-    t.position(coordinateFromPath(step,t.path,t.path_length,1,1));
-    if(Math.abs(prevX-t.x) > movementBound)
+    if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
     {
       start ? t.next_movement() : t.prev_movement();
-      prevX = t.x;
-    }
-    if(Math.abs(prevY-t.y) > movementBound)
-    {
-      start ? t.next_movement() : t.prev_movement();
-      prevY = t.y;
-    }
+      t.prevXTmp = t.x;
+      t.prevYTmp = t.y;
+    }    
     if(!start && istep == 1)
     {
-      var frame = category.stage.frame['work'];
-      t.path = frame.path;
-      t.path_loop = exist(frame.loop) ? frame.loop : false;
+      t.working = true;
+      t.rewardStarted = false;
     }
   };  
   this.next_movement = function next_movement()
-  {        
+  {       
     this.movement = ++this.movement;
-    if(this.movement == 3) this.movement = 1;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"r"+ this.movement + ".svg)");    
+    if(this.movement == 3) this.movement = 0;
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)"); 
   };
   this.prev_movement = function prev_movement()
   {
     this.movement = --this.movement;
-    if(this.movement == 0) this.movement = 2;
-
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias +"l" + this.movement + ".svg)");    
+    if(this.movement == -1) this.movement = 2;
+    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+  };
+  this.stand_movement = function stand_movement()
+  {       
+   this.movement = 0;
+    $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
   this.step_right = function step_right()
-  {
-    
-    var tmp = (this.traversed_path + (100/scrolls_for_reward));
+  {    
+    var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
     if(this.path_loop)
        tmp = tmp == 100 ? 100 : tmp%100;
     else if(tmp > 100) return;
     
-    this.next_movement();      
+    //this.next_movement();      
     this.traversed_path = tmp;
-    //this.position(this.getpathcoordinates(this.traversed_path/100));
+    this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.step_left = function step_left()
   {    
-    var tmp = (this.traversed_path - (100/scrolls_for_reward));
+    var tmp = (this.traversed_path - 4);
     if(this.path_loop)
        tmp =  tmp <= 0 ? 100 : tmp%100;
     else if(tmp <= 0) return;
-    this.prev_movement();
+    //this.prev_movement();
     this.traversed_path = tmp;
-    //this.position(this.getpathcoordinates(this.traversed_path/100));
+    this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.work_frame = function work_frame()
   {
-    // if(this.current_frame < frame_sequence_length)
-    //   ++this.current_frame;
-    // else this.current_frame = 0;
-    //console.log(category.stage.frame,this.current_frame,frame_sequence_length,frame_sequence,category.stage.frame[frame_sequence[this.current_frame]]);
-    //console.log(frame);
-    
-    var frame = category.stage.frame['work'];
+    this.working = true;
+    var frame = category.work;
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
   };
@@ -235,6 +278,7 @@ function human(selector,title)
 		var percent = Math.round10(progress*100);
 		var p1 = this.path.getPointAtLength(this.path_length * (percent-1)/100);
 		var p2 = this.path.getPointAtLength(this.path_length * (percent+1)/100);
+    //console.log(p1,p2);
 		var a = Math.atan2(p2.y-p1.y,p2.x-p1.x)*180 / Math.PI;
 		var p =  this.path.getPointAtLength(this.path_length * percent/100);
 		return { x:p.x,y:p.y, a:a };
@@ -256,6 +300,7 @@ function human(selector,title)
       }
 
       overall += this.saving_for_tick;   
+      //if(this.title == 'Male') console.log(overall);
       var tmp = Math.floor10(overall / interest[0].cost);
       if(tmp > 0)
       {
@@ -282,15 +327,14 @@ function human(selector,title)
   };
   this.has_future_reward = function has_future_reward()
   {    
-    this.future_reward = this.event_by_period[gap.pos + 1];
-    return this.future_reward > 0;
+    return this.event_by_period[gap.pos-1] > 0;
   };
   this.mutate = function(which,events)
   {
+    player.play('upgrade');
     var t = this;
     if(typeof which === "undefined") return;
     if(which == 1) events = t.event_by_period[gap.pos-1];
-    console.log("pos",gap.pos)
     if (typeof events === "undefined" || events == 0) 
     {
       this.queue.resume();  
@@ -602,9 +646,8 @@ function human(selector,title)
     this.pedestal.init();
   };
 }; // human object with basic properties
-
-male = new human('.m.character','Male'); // male human object
-female = new human('.f.character','Female'); // female human object
+male = new human('.m.character',locale.poll.male,182,67); // male human object
+female = new human('.f.character',locale.poll.female,172,63); // female human object
 humans = male.outrun ? [male,female] : [female,male];
 
 function h_go_right()

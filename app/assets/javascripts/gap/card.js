@@ -18,11 +18,11 @@ function cardObject(p)
 	{
 		var treasure = $('.' + this.p.place + ' .treasure');
 		treasure.find('.card').remove();
-		$('<div class="card"><div class="coins"></div><div class="text"></div></div>')
-			.css({left:w*0.5,top: (this.p.place == "top" ? lh - 168 : h - 168) }).appendTo(treasure);
+		$('<div class="card"><div class="coins"></div><div class="text"><div class="title">'+locale.general.congrat+'</div><div class="data"></div></div><div class="fb" title="'+locale.general.share_hint+'"></div></div>')
+			.css({left:w2+80}).appendTo(treasure); //,top: (this.p.place == "top" ? lh - 168 : h - 168) 
 		this.scard = treasure.find('.card');		
 		this.scoins = this.scard.find('.coins');
-		this.stext = this.scard.find('.text');
+		this.stext = this.scard.find('.text .data');
 	};
 	this.next = function()
 	{

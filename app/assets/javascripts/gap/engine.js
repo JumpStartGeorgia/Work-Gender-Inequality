@@ -2,27 +2,27 @@
 * @description application initialization step, called after DOM elements and resources are loaded
 */
 function init()
-{
+{  
   redraw(); // recalculate all dimensions 
-  params_init();
-
+  params_init();  
   s = $('#screen');    
-  s3 = d3.select('#screen');    
-
+  //s3 = d3.select('#screen');    
   if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
-{
+{ 
   scr_clean();
-  sound_button();
-  share_button();
-   if(steptogo < 6) 
-      poll.show();
-    else 
-    {      
-      game_init(); game_on_load();
-    }
-    // test
+  if(steptogo < 6) poll.show();
+  else 
+  {
+    game_init(); 
+    $('.info').hide().remove();
+  }
+
+}
+function resize()
+{
+   redraw(); // recalculate all dimensions    
 }
 /**
 * @description recalculate all critical dimensions on resize or if redraw is needed
@@ -40,40 +40,35 @@ function redraw()
   if(ingame)
   { 
     redraw_game();
-    redraw_timeline();
-    stage_init(0);
+    timeline_point_redraw();
+    stage_redraw(0);
+
+    male.scale();
+    female.scale();
+
+    male.position();
+    female.position();
   }
+  //if(func(resizeCallback)) resizeCallback();
 }
 function redraw_game()
 {            
-  var t = $("#screen .top").height(lh).css('top',0);
-  t.find('.score').css({ left: w-t.find('.score').width()-30}); 
-  t.find('.treasure').css({ top : lh - 50 - 10 });
-
+  var t = $("#screen .top").height(lh);
+  t.find('.treasure .pedestal').css({ top : 10 });
+  t.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
+  
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
-    $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); 
+    $('.canvas, .treasure .red-carpet').hide().animate({color:'transparent'},{start:function(){ $(this).css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); }, complete:function(){ $(this).show(); } });
   }
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
-  b.find('.score').css({ left: w-b.find('.score').width()-30, top: lh + th + 20});
-  b.find('.treasure').css({ top: lh + th + 10 });
-
-  redraw_human();
-}
-function redraw_human(v)
-{
-  if(typeof v === undefined) v = null;
-  male.position(v);
-  female.position(v);
-}
-function redraw_timeline()
-{
-  if(pos_max != null) 
-  {
-    timeline_point_draw();
-  }
+  b.find('.score').css({ top: lh + th + 20});
+  b.find('.treasure .pedestal').css({ top: lh + th + 10 });
+  b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
+  
+  //$('.canvas, .treasure .red-carpet').show();
 }
 function scr_clean(klass)
 {
@@ -82,7 +77,7 @@ function scr_clean(klass)
 }  
 function walk(v)
 {
-  if(!ingame) return;
+  if(!canScroll) return;
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -145,7 +140,7 @@ function share_button()
   if(s.parent().find('.share').length == 0)
   {
     $(document).ready(function() {
-      var share = $('<div class="share">Share</div>').appendTo(s.parent());
+      var share = $('<div class="share"></div>').appendTo(s.parent());
       $.ajaxSetup({ cache: true });
       // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
        $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
@@ -155,7 +150,7 @@ function share_button()
            xfbml      : true,
            version    : 'v2.1'
          });     
-        $('.share').click(function()
+        $(document).on('click','.share, .fb, .sum-share',function()
         {
           FB.ui({
             method: 'share',
@@ -176,21 +171,19 @@ var epilogueUp = true;
 function epilogue()
 {
   gameoff();
-  //scr_clean();
-  //s.toggleClass(sepilogue.class);
+  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
+  else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
-  if($('epilogue').length) return;
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.stats+"</div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var whatnext = t.find('.whatnext');//.css('height',h-70);
+    t.find('.summary').css('height',h-70);
+  //whatnext.css({ width: w-20, height:h-20 }).find('.content').text("Statistics");
 
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger'><div class='arrow arrow-up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
-  var whatnext = t.find('.whatnext');
-  whatnext.css({ width: w-20, height:h-20, display:'inline-block' }).find('.content').text("General Data");
-
-  $.getJSON( "gap/summary?" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary').css({ width: w-20, height:h-120 }).find('.content').html(data.s);
-    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t)});
-    t.css({width: w-20, height:h-20 }).fadeIn(fade_time, "linear");
+  $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
+    t.find('.summary').find('.content').html(data.s); //.css({ width: w-20, height:h-120 })
+    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t); });
+    //t.fadeIn(fade_time, "linear"); //.css({width: w-20, height:h-20 })
   });
-  
 }
 function epilogue_trigger(t)
 {
@@ -198,25 +191,30 @@ function epilogue_trigger(t)
   var summary = t.find(".summary");
   var slider = t.find(".slider");
   var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
-  slider.animate({top: epilogueUp ? -1*(h-20)+100 : 0 },
+  slider.animate({top: epilogueUp ? -1*($(window).height())+70 : 0 },
   {
     duration:1000,
     start:function()
     {
       whatnext_trigger.off("mouseenter");
       epilogueTmp = true;
+      if(whatnext_trigger.hasClass('up'))  whatnext_trigger.find('.label').css('opacity', 0); 
     },
     progress:function(a,b,c)
     {
       if(epilogueTmp && b > 0.5)
       {
         epilogueTmp = false;
-        whatnext_trigger_arrow.toggleClass('arrow-down arrow-up');
+        whatnext_trigger_arrow.toggleClass('down up');
+        whatnext_trigger.toggleClass('down up');
       }
       whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
+      
     },
     complete:function()
     {
+      //whatnext_trigger.find('.label').css('opacity',epilogueUp ? 1 : 0);
+      whatnext_trigger.find('.label').css('opacity', whatnext_trigger.hasClass('up') ? 1 : 0);
       whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
       epilogueUp=!epilogueUp;
     }
@@ -227,14 +225,17 @@ function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
   setTimeout(function(){
-  animated = true;
-  var tools = category.stage.frame.load;
-  male.animate(tools);
-  female.animate(tools);
-  },1000);
-  // animate humans to starting position (inside object where they work)
+    animated = true;
+    male.animate();
+    female.animate();
+  },1000);  
 }
 function game_init() {
+
+  sound_button();
+  share_button();
+  $('a.restart').css('display','block');
+
   gameon();
 
   if(isf())
@@ -272,25 +273,30 @@ function game_init() {
   male.prepare_for_game();
   female.prepare_for_game();
 
+  start_by_time();
+
   male.pedestal.resume_by_position();
   female.pedestal.resume_by_position();
 
-  timeline_point_draw();
+  timeline_point_init();
 
-  draw_stage(0);
-
+  stage_init(0);
 
   redraw_game();
 
   player.background_play();  
+
+  game_on_load();
+  
+  
 }
 var img_scaler =  1;
 var bg_width = 0;
-var stage_offset = 0;
 var bg_initial_height = 0;
 var fgw = 0;
 var fgh = 0;
-function draw_stage(v)
+var screenCount = 1;
+function stage_init(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
@@ -301,16 +307,30 @@ function draw_stage(v)
   bg.append(bgFirst);
   bg_initial_height = bgFirst.height();
   img_scaler = lh / bg_initial_height;
+
   bgFirst.css({ height:lh });
 
   bg_width = bgFirst.width();
-  stage_offset = (w - bg_width)/2;
 
   var bg_to_viewport = bg_width;
-  while(bg_to_viewport < w+w2)
+
+  screenCount = 1;
+  while(bg_to_viewport < w)
   {
     bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
     bg_to_viewport+=bg_width;
+    ++screenCount;
+  }  
+  var bgOriginal2 = assets.filter(function(a){ return a.name == category.bg2; })[0].element;
+  bgOriginal2.clone().addClass('bgmain').css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+  bg_to_viewport+=bg_width;
+
+  var extra = Math.ceil10(((w-bg_width)/2)/bg_width);
+  while(extra > 0)
+  {
+    bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+    bg_to_viewport+=bg_width;
+    --extra;
   }
   var fgOriginalI = assets.filter(function(a){ return a.name == category.fg+'_i'; })[0].element;
   var fgOriginalO = assets.filter(function(a){ return a.name == category.fg+'_o'; })[0].element;
@@ -319,139 +339,220 @@ function draw_stage(v)
 
   fgw = fg_i.width();
   fgh = fg_i.height();
-
   fg_i.addClass('i').css({ "height":fgh*img_scaler });
-  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  fg_i.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
   var fg_o = fgOriginalO.clone().appendTo(fg);
   fg_o.addClass('o').css({ "height":fgh*img_scaler });
-  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  if(v===0) draw_stage(1);
+  if(v===0) stage_init(1);
 
 }
-function stage_init(v)
+function stage_redraw(v)
 {
+ 
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
   var fg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .fg');
 
   var bgOriginal = assets.filter(function(a){ return a.name == category.bg; })[0].element;
   var bgs = bg.find('img');
-  var bgFirst = $(bgs[0]);
+  var bgFirst =bgs.first().css({ height: lh });
   
   img_scaler = lh / bg_initial_height;
-  bgFirst.css({ height:lh });
+
   bg_width = bgFirst.width();
-  stage_offset = (w - bg_width)/2;
+
   var bg_to_viewport = bg_width;
 
-  var i = 2;
-  while(bg_to_viewport < w+w2)
-  {
-    var tmp = bg.find('img:nth-child('+i+')');
-    if(tmp.length)
+
+
+  screenCount = 1;
+  var afterEl = bgFirst;
+  var bgmainIndex = 0;
+  bgs.each(function(i,d){
+    if(i==0) return true;
+    d = $(d);
+    if(!d.hasClass('bgmain'))
     {
-      tmp.css({ top:0,left:bg_to_viewport, height:lh })
+      if(bg_to_viewport < w)
+      {
+        d.css({ top:0,left:bg_to_viewport, height:lh });
+        bg_to_viewport+=bg_width;
+        ++screenCount;
+      }
+      else d.remove();
     }
+    else {
+      bgmainIndex = i; 
+      return false;
+    }
+  });
+
+  while(bg_to_viewport < w)
+  {
+    var tmp = bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).insertAfter(afterEl);
+    afterEl = tmp;
+    bg_to_viewport+=bg_width;
+    ++screenCount;
+  }  
+
+  afterEl = $(bgs[bgmainIndex]).css({ top:0, left:bg_to_viewport, height:lh });
+  bg_to_viewport+=bg_width;
+
+  var extra = Math.ceil10(((w-bg_width)/2)/bg_width);
+  for(i = bgmainIndex+1; i < bgs.length; ++i)
+  {
+    if(extra == 0) bgs[i].remove();
     else 
     {
-      bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).appendTo(bg);
+      $(bgs[i]).css({ top:0,left:bg_to_viewport, height:lh });
+      bg_to_viewport+=bg_width;
     }
-    bg_to_viewport+=bg_width;
-    ++i;
+
+    --extra;
   }
-  while(i <= bgs.length+1)
+  while(extra > 0)
   {
-    $(bgs[i-1]).remove();
-    ++i;
+    var tmp = bgOriginal.clone().css({ top:0,left:bg_to_viewport, height:lh }).insertAfter(afterEl);
+    afterEl = tmp;
+    bg_to_viewport+=bg_width;
+    --extra;
   }
-  
 
-  var fg_i = fg.find('img.i');
-  fg_i.addClass('i').css({ "height":fgh*img_scaler });
-  fg_i.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  var fg_i = fg.find('img.i').css({ "height":fgh*img_scaler });
+  fg_i.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  var fg_o = fg.find('img.o');
-  fg_o.addClass('o').css({ "height":fgh*img_scaler });
-  fg_o.css({left: w2 - fg_i.width()/2 ,top:lh - fg_i.height()});
+  var fg_o = fg.find('img.o').css({ "height":fgh*img_scaler });
+  fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
-  if(v==0) stage_init(1);
+  bg.parent().css('left',-1*(bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
+
+  if(v===0) stage_redraw(1);
+
 }
-function timeline_point_draw()
+function timeline_point_init()
 {
   
-  var scaler = timeline_period_w/reward_period;
+  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
+  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
+
   for(var i = 0; i <= pos_max; ++i) 
   {
-
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
-    if(!timeline.find('.point-in-time[data-time=' + now.getTime() + ']').length)
-    {
-      var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>').appendTo(timeline);
-      point.css({heigth:th,line_height:th});
-      
-      if(i == 0) 
-      { 
-        prevPosition = w2;
-        prevPositionLeft = w2 - Math.floor10(point.width()/2);
-      }
-      else 
-      {       
-        prevPosition += timeline_period_w;
-        prevPositionLeft = prevPosition - Math.floor10(point.width()/2);
-      }
-      //console.log(prevPosition,prevPositionLeft);
-      point.css({left: prevPositionLeft });
+    var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>')
+                  .css({heigth:th,line_height:th})
+                  .appendTo(timeline);
 
-      if(i!=0)
-      { 
-        var mCountTmp = 0;
-        var fCountTmp = 0;
-        var from = i * reward_period - 1;
-        var to = i*reward_period-reward_period;
-        for(var j = from; j >= to; --j)
-        {
-          mCountTmp += male.event_by_month[j];
-          fCountTmp += female.event_by_month[j];
-        }
-        if(mCountTmp > 0)
-        {
-          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo($('.'+male.place+' .treasure .red-carpet'));
-          rew.css({heigth:th,line_height:th});
-          rew.css({left: prevPosition - interest_w2});
-          if(i<=gap.pos) { rew.hide();}
-          for(var j = 0; j < mCountTmp; ++j)
-          { 
-             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
-          }
-        }
-        if(fCountTmp > 0)
-        {
-           var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo($('.'+female.place+' .treasure .red-carpet'));
-            rew.css({heigth:th,line_height:th});
-            rew.css({left: prevPosition - interest_w2}); //+ indm*rew.width()+(indm>0?10:0)});
-            if(i<=gap.pos) { rew.hide();}
-          for(var j = 0; j < fCountTmp; ++j)
-          { 
-             $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
-          }
-        }
-      }
-      
-      if(i != pos_max)
+    var point_w2 = Math.floor10(parseFloat(css(point.get(0),'width'))/2); 
+    if(i == 0) 
+    { 
+      prevPosition = w2;
+      prevPositionLeft = w2 - point_w2;
+    }
+    else 
+    {       
+      prevPosition += timeline_period_w;
+      prevPositionLeft = prevPosition - point_w2;
+    }
+    point.css({left: prevPositionLeft });
+
+    if(i!=0)
+    { 
+      var mCountTmp = 0;
+      var fCountTmp = 0;
+      var from = i * reward_period - 1;
+      var to = i*reward_period-reward_period;
+      for(var j = from; j >= to; --j)
       {
-        for(var j = 0; j < reward_period-1; ++j)
-        {
-           $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*scaler,heigth:th,line_height:th }).appendTo(timeline);
-           //console.log(prevPosition,prevPosition+(j+1)*scaler);
-        }
+        mCountTmp += male.event_by_month[j];
+        fCountTmp += female.event_by_month[j];
       }
-
-      point.find('.point').text(getMonthS(now) + " " + now.getFullYear());    
-      point.attr('data-time',now.getTime());
+      //console.log('here',prevPosition);
+      if(mCountTmp > 0)
+      {
+        var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo(redCarpetM);
+       
+        for(var j = 0; j < mCountTmp; ++j)
+        { 
+           $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
+        }
+        rew.css({heigth:th,line_height:th});
+        rew.css({left: prevPosition - interest_w2});
+        if(i<=gap.pos) { rew.hide();}
+      }
+      if(fCountTmp > 0)
+      {
+        var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo(redCarpetF);        
+        for(var j = 0; j < fCountTmp; ++j)
+        { 
+          $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
+        }
+        rew.css({heigth:th,line_height:th});
+        rew.css({left: prevPosition - interest_w2}); 
+        if(i<=gap.pos) { rew.hide();}
+       
+      }
+    }
+    
+    if(i != pos_max)
+    {
+      for(var j = 0; j < reward_period-1; ++j)
+      {
+         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th }).appendTo(timeline);
+      }
     }
   }
  
+  $('.treasure .red-carpet').css({width:pos_max*w}); 
+  timeline.css({width:pos_max*w}); 
+
+}
+function timeline_point_redraw()
+{
+  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
+  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
+
+  for(var i = 0; i <= pos_max; ++i) 
+  {
+    var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
+    var point = timeline.find('.point-in-time[data-time=' + now.getTime() + ']').css({heigth:th,line_height:th});    
+
+    var point_w2 = Math.floor10(parseFloat(css(point.get(0)),'width')/2); 
+    if(i == 0) 
+    { 
+      prevPosition = w2;
+      prevPositionLeft = w2 - point_w2;
+    }
+    else 
+    {       
+      prevPosition += timeline_period_w;
+      prevPositionLeft = prevPosition - point_w2;
+    }
+    point.css({left: prevPositionLeft });
+
+    if(i!=0)
+    { 
+      if(male.event_by_period[i] > 0)
+      {
+        var rew = redCarpetM.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
+        if(i<=gap.pos) { rew.hide(); }
+      }
+      if(female.event_by_period[j] > 0)
+      {
+        var rew = redCarpetF.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});       
+        if(i<=gap.pos) { rew.hide();}
+      }
+    }
+    
+    if(i != pos_max)
+    {
+      for(var j = 0; j < reward_period-1; ++j)
+      {
+        timeline.find('.serif:nth-child('+(j+1)+')').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th });
+      }
+    }
+  } 
   $('.treasure .red-carpet').css({width:pos_max*w}); 
   timeline.css({width:pos_max*w}); 
 
@@ -473,6 +574,8 @@ function calculate_process(v)
 }
 function walk_process(v)
 {
+
+  //player.play('motion');
   if(v==1)
     h_go_right();
   else if(v == -1)
@@ -517,6 +620,7 @@ function gopast()
 }
 function card_prepare(v)
 {
+  console.log('card_prepare');
   var c = gap.pos > prev_pos;
   var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
@@ -533,29 +637,31 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  var bg = $('.' + v.place + ' .stage .bg');
-  var fg = $('.' + v.place + ' .stage .fg');
+  var stage = $('.' + v.place + ' .stage');
+  var init_left_pos = stage.offset().left;
 
-  bg.animate({  "color": 'white'},{duration:400,
+  stage.animate({ "color": 'white'}, {
+    duration:2000,
     progress:function(a,b,c){
-      bg.css({'left':move_size*b});
-      fg.css({'left':move_size*b});
+      $(this).css({'left':init_left_pos + w2*b});
       v.prepare_reward(b,true);
     },
     complete:function()
     {
-      v.queue.resume();     
+      v.stand_movement();
+      player.play('award'); 
+      v.queue.resume();  
     }
   });
 }
 function prepare_for_work(v)
 {  
-  var bg = $('.' + v.place + ' .stage .bg');
-  var fg = $('.' + v.place + ' .stage .fg');
-  bg.animate({  "color": 'white'},{duration:400,
+  var stage = $('.' + v.place + ' .stage');
+  var init_left_pos = stage.offset().left;
+
+  stage.animate({  "color": 'white'},{duration:2000,
     progress:function(a,b,c){
-      bg.css({'left':move_size - move_size*b});
-      fg.css({'left':move_size - move_size*b});
+      $(this).css({'left': init_left_pos - w2*b});
       v.prepare_reward(b,false);
     },
     complete:function()
@@ -564,15 +670,16 @@ function prepare_for_work(v)
     }
   });
 }
-
 function hide_card(v)
 {
+  console.log('hide_card');
   v.card.hide();
   v.queue.resume();  
 }
 
 function start_reward_animation(v)
 {
+  console.log('start_reward_animation');
   v.queue.resume();  
 }
 
@@ -595,14 +702,6 @@ function isf(){ return user.gender=='f' }
 /***************************************************************
                   General Functions
 ***************************************************************/
-function agegroup_by_age(v)
-{
-  for(var i = 0; i < age_groups.length; ++i)
-  {
-    if(v >= age_groups[i].min && v <= age_groups[i].max)
-      return i+1;
-  }
-}
 function params_init()
 {
   if(params_read())
@@ -662,10 +761,10 @@ function params_validate()
   {
     steptogo = 5;
     user.interest = params.i;
-    poll.choose_interest();
+    poll.choose_interest();    
   }
-  if(steptogo == 5 && exist(params.p) && isNumber(params.p) && params.p >= 0 && params.p <= 100)
-  {   
+  if(steptogo == 5 && exist(params.p) && isDecimal(params.p) && params.p >= 0 && params.p <= 100)
+  {       
       steptogo = 6;
       user.salary_percent = params.p;
       sendUserData();
@@ -677,22 +776,19 @@ function params_validate()
       if(can_scroll((+params.t+1)*scrolls_for_reward))
       {
         gap.pos = +params.t;    
-        total_scrolls = gap.pos*scrolls_for_reward;
-        start_by_time();
+        total_scrolls = gap.pos*scrolls_for_reward;        
       }
     }
-    // else
-    // {
-    //   if(params.t > pos_max)
-    //   {
-    //     pos = pos_max;
-    //     total_scrolls = (pos)*scrolls_for_reward;
-    //     epilogue();
-    //   }
-    // }
-
+    else
+    {
+      if(params.t > pos_max)
+      {
+        pos = pos_max;
+        total_scrolls = (pos)*scrolls_for_reward;
+        epilogue();
+      }
+    }
   }
-  
 }
 function params_set(v)
 {
@@ -769,7 +865,7 @@ function restart()
   $.removeCookie("_game_id");
 }
 function start_by_time()
-{
+{  
   var tmp = gap.pos*reward_period;
   humans.forEach(function(d)
   {
@@ -815,23 +911,22 @@ function start_by_time()
 /***************************************************************
                   Key Hooks
 ***************************************************************/
-jwerty.key('space', function(){ 
-    console.log("jump");
-    //s.find(".m.character").animate({ top: male.y - 100 }).animate({ top: male.y });  
-    //s.find(".f.character").animate({ top: female.y - 100 }).animate({ top:female.y });  
+jwerty.key('space', function(){     
+    s.find(".m.character").animate({ top: male.y - male.height/3 }).animate({ top: male.y });  
+    s.find(".f.character").animate({ top: female.y - female.height/3 }).animate({ top:female.y });  
 });
 jwerty.key('arrow-right', function(){
   walk(1); 
 });
-// jwerty.key('W', function(){
-//   walk(1); 
-// });
+jwerty.key('D', function(){
+  walk(1); 
+});
 jwerty.key('arrow-left', function(){
   walk(-1); 
 });
-// jwerty.key('S', function(){
-//   walk(-1); 
-// });
+jwerty.key('A', function(){
+  walk(-1); 
+});
 /***************************************************************
                   Key Hooks End
 ***************************************************************/;

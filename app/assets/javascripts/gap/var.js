@@ -30,7 +30,7 @@ var s3 = null;
 /** height of land for human, based on viewport height and timeline height 
 * @type double */
 var lh = 0; 
-
+var canScroll = false;
 var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
@@ -64,7 +64,7 @@ var onscrollbefore = null;
 var onscrollup = null;
 var onscrolldown = null;
 var onscrollafter = null;
-var fade_time = 0; // fade time
+var fade_time = 3000; // fade time
 var land = 0; // y position for land in each screen part(top, bottom)
 //var tick_count = 4; // year ticks to show in info bar
 var is = false;
@@ -72,13 +72,11 @@ var max_salary = 99999;
 var current_path_width = 0;
 var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 var pathl = 0;
-var stage_offset = 0;
 
   var prev_stage_id = -1;
   var stage_id = -1;
 
 var interest = null;
-var interest_level_map = [];
 var category = null;
 
 
@@ -90,7 +88,7 @@ var user =
   gender : 'n',
   _age : 0,
   category : null,
-  salary : 100,
+  salary : 0,
   interest : null,
   salary_percent : 0,
   sended : false  
@@ -145,13 +143,9 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  var states_mutation = [4,2,2,3,3,0];
+  var states_mutation = [0,0,0,0,0,0];
   var states_mutation_based = [1,0,0,0,0,0];
-  for(var i = 0, sum = 1; i < 6; ++i)
-  {
-    states_mutation_based[i] = sum*states_mutation[i];
-    sum = sum*states_mutation[i];
-  }
+
  
   var index = 1;
   var current_interests_count = 0;
@@ -163,3 +157,8 @@ var player;
 var isAssetsLoaded = false;
 var isSoundLoaded = false;
 var interestAlias = '';
+var resizeId = 0;
+var isOpera = /opera/i.test(navigator.userAgent);
+
+var resizeCallback = null;
+
