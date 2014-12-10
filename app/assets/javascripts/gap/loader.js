@@ -23,18 +23,6 @@ var assetsmeta =
 	{ name:"upgrade", type:"sound", path:"/assets/gap/sounds/effect/upgrade"},
 	{ name:"endbad", type:"sound", path:"/assets/gap/sounds/effect/endbad"},
 	{ name:"endgood", type:"sound", path:"/assets/gap/sounds/effect/endgood"},
-
-	//{ name:"i3QDbCRrq", type:"sound", path:"/assets/gap/sounds/i3QDbCRrq"},
-
-
-	//{ name:"iRs2Uml6w", type:"sound", path:"/assets/gap/sounds/iRs2Uml6w.mp3"}
-	//	{ name:"m45bS4GyC", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/m45bS4GyC.mp3"},
-	// { name:"iRs2Uml6w", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/iRs2Uml6w.mp3"},
-	// { name:"mFWrgJx0N", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/mFWrgJx0N.mp3"},
-	// { name:"igfNDXD1g", type:"sound", path:"http://dev-tanastsoroba.jumpstart.ge/assets/gap/sounds/igfNDXD1g.mp3"}
-	
-	//{ name:"applause", type:"sound", path:"/assets/gap/sounds/happy.mp3"},
-	//{ name:"select", type:"sound", path:"/assets/gap/sounds/select.mp3"}
 ];
 var assets = [];
 var isOpera = /opera/i.test(navigator.userAgent);
@@ -150,7 +138,7 @@ Game.Loader =
 		      { 
 		        clearInterval(noscrollTimerId); // clear last noscroll catcher
 		        walk(delta < 0 ? 1 : -1);
-		        noscrollTimerId = setInterval(function(){ console.log("Tap"); },noscrollEventTime); // create new noscroll interval trigger
+		        noscrollTimerId = setInterval(function(){ console.log("Tap"); }, noscrollEventTime); // create new noscroll interval trigger
 		      }
 
 		      if(func(onscrollafter)) onscrollafter()

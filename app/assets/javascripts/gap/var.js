@@ -30,7 +30,7 @@ var s3 = null;
 /** height of land for human, based on viewport height and timeline height 
 * @type double */
 var lh = 0; 
-
+var canScroll = false;
 var total_scrolls = 0;
 var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
@@ -161,3 +161,4 @@ var resizeId = 0;
 var isOpera = /opera/i.test(navigator.userAgent);
 
 var resizeCallback = null;
+

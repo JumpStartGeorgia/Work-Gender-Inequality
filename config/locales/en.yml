@@ -261,7 +261,7 @@ en:
   gap:
     index:
       title: Gap
-      about_html: Lorem ipsum dolor sit amet ka That is<br /> like each person in the watching a<br /> broadcast for Or one single<br /> person watching a<br /> broadcast <br /> continuously<br />for
+      about_html: "Explore your wage gap!<br />In Georgia, men earn on average 39% more than women.<br />Are you earning or are you losing?<br />Play and find out!"
     gamedata:
       gender:
         m: Male
@@ -303,6 +303,7 @@ en:
       title_main: Congratulations you have won the pay game
       title_score: Final Score
       job_sector: Job Sector
+      year_passed: Years passed
   imageuploader:
     missing: "An error occurred while processing your image. Please try again."
     invalid_type: "Invalid file type. Only .jpg or .png is allowed."

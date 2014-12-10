@@ -13,6 +13,8 @@ function human(selector,title,height,width)
   this.y = 0;
   this.prevX = 0;
   this.prevY = 0;
+  this.initX = 0;
+  this.initY = 0;
   this.angle = 0;
   this.land = 0;  
   this.selector = selector;
@@ -25,7 +27,6 @@ function human(selector,title,height,width)
   this.gap_percent = 0;
   this.saving_for_tick = 0;
   this.animated = false;
-  //this.current_frame = 0;
   this.treasure = [0,0,0,0,0,0];
   this._path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
   this.path_length = 0;
@@ -103,13 +104,14 @@ function human(selector,title,height,width)
 
   this.position = function position(coord,noscale) {    
 
+      var t = this;
       this.prevX = this.x;
       this.prevY = this.y;
       if(noscale === undefined) noscale = false;
       if(exist(coord))
       {
         if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
-        if(exist(coord.y)) this.y = this.land - (this.land - coord.y*img_scaler + this.height);
+        if(exist(coord.y)) this.y = noscale ? coord.y : this.land - (this.land - coord.y*img_scaler + this.height);
         if(this.working)
         {
           this.x += $('.top .stage .fg img').first().offset().left;
@@ -120,8 +122,16 @@ function human(selector,title,height,width)
       else this.toground();
       
 
-      if(this.x > this.prevX) $(this.selector).removeClass('l');
-      else if(this.x < this.prevX) $(this.selector).addClass('l');
+      if(this.x > this.prevX) 
+      {
+        $(this.selector).removeClass('l');
+        if(t.x - t.prevX >  10) t.next_movement();
+      }
+      else if(this.x < this.prevX) 
+      {
+        $(this.selector).addClass('l');
+        if(t.prevX - t.x >  10) t.prev_movement();
+      }
 
       $(this.selector).css({ left: this.x , top: this.y });   
 
@@ -154,8 +164,8 @@ function human(selector,title,height,width)
         'background-size':this.width + 'px ' + this.height + 'px'});
     }
   };
-  this.animate = function animate(v)
-  {
+  this.animate = function animate()
+  {    
 		this.animated = true;
     this.toground();
 		var t = this;
@@ -180,44 +190,42 @@ function human(selector,title,height,width)
 			{
 				t.animated = false;
         animated = t.animated || t.oppenent.animated;
+        if(animated) canScroll = true;
         clearInterval(intervalId);
         t.stand_movement();
         t.work_frame();
+
 			}
 		});
   };
-  var prevX = 0;
-  var prevY = 0;
+  this.prevXTmp = 0;
+  this.prevYTmp = 0;
   var movementBound = 3;
-  this.prepare_reward = function prepare_for_reward(step,start)
+  this.rewardStarted = false;
+  this.prepare_reward = function prepare_reward(step,start)
   {
     var t = this;
     var istep = step;
     if(!start) step = 1 - step;
-    if(t.path != category.stage.frame['reward'].path)
+    if(!t.rewardStarted)
     {
-      var frame = category.stage.frame['reward'];
-      t.path = frame.path;
-      t.path_loop = exist(frame.loop) ? frame.loop : false;
+      t.rewardStarted = true;
+      t.working = false;
+      t.initX = t.x;
+      t.initY = t.y;
     }
+    t.position({ x:t.initX - (t.initX - w2 + t.width/2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, true);
 
-    
-    t.position(coordinateFromPath(step,t.path,t.path_length,1,1));
-    if(Math.abs(prevX-t.x) > movementBound)
+    if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
     {
       start ? t.next_movement() : t.prev_movement();
-      prevX = t.x;
-    }
-    if(Math.abs(prevY-t.y) > movementBound)
-    {
-      start ? t.next_movement() : t.prev_movement();
-      prevY = t.y;
-    }
+      t.prevXTmp = t.x;
+      t.prevYTmp = t.y;
+    }    
     if(!start && istep == 1)
     {
-      var frame = category.stage.frame['work'];
-      t.path = frame.path;
-      t.path_loop = exist(frame.loop) ? frame.loop : false;
+      t.working = true;
+      t.rewardStarted = false;
     }
   };  
   this.next_movement = function next_movement()
@@ -239,34 +247,29 @@ function human(selector,title,height,width)
   };
   this.step_right = function step_right()
   {    
-    var tmp = (this.traversed_path + (100/scrolls_for_reward));
+    var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
     if(this.path_loop)
        tmp = tmp == 100 ? 100 : tmp%100;
     else if(tmp > 100) return;
     
-    this.next_movement();      
+    //this.next_movement();      
     this.traversed_path = tmp;
     this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.step_left = function step_left()
   {    
-    var tmp = (this.traversed_path - (100/scrolls_for_reward));
+    var tmp = (this.traversed_path - 4);
     if(this.path_loop)
        tmp =  tmp <= 0 ? 100 : tmp%100;
     else if(tmp <= 0) return;
-    this.prev_movement();
+    //this.prev_movement();
     this.traversed_path = tmp;
     this.position(this.getpathcoordinates(this.traversed_path/100));
   };
   this.work_frame = function work_frame()
   {
-    // if(this.current_frame < frame_sequence_length)
-    //   ++this.current_frame;
-    // else this.current_frame = 0;
-    //console.log(category.stage.frame,this.current_frame,frame_sequence_length,frame_sequence,category.stage.frame[frame_sequence[this.current_frame]]);
-    //console.log(frame);
     this.working = true;
-    var frame = category.stage.frame['work'];
+    var frame = category.work;
     this.path = frame.path;
     this.path_loop = exist(frame.loop) ? frame.loop : false;
   };

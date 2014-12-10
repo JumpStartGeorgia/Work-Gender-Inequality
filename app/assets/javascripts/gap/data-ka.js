@@ -33,8 +33,6 @@ var categories =
         { "id": "dJdfgktK","name": "Health and social work", "outrun":0, "percent":11, "dress":"business" },
         { "id": "DqFfYVGZ","name": "Other community, social and personal service activities", "outrun":0, "percent":11, "dress":"technical" }
 ];
-var frame_sequence = [ 'load','work','reward' ];
-var frame_sequence_length = frame_sequence.length;
 var cat_ids = categories.map(function(d,i){return d.id;});
 
 var interests = 

@@ -303,6 +303,7 @@ ka:
         title_main: Congratulations you have won the pay game
         title_score: Final Score
         job_sector: Job Sector
+        year_passed: Years passed
   imageuploader:
     missing: "გამოსახულების დამუშავებისას დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ ახლიდან."
     invalid_type: "არასწორი ფაილის ტიპი. დასაშვებია jpg და png ფორმატი"

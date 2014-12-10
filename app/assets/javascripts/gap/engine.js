@@ -11,7 +11,6 @@ function init()
 }
 function afterinit()
 { 
-
   scr_clean();
   if(steptogo < 6) poll.show();
   else 
@@ -78,7 +77,7 @@ function scr_clean(klass)
 }  
 function walk(v)
 {
-  if(!ingame) return;
+  if(!canScroll) return;
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -225,14 +224,11 @@ function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
 {
-  setTimeout(function()
-  {
+  setTimeout(function(){
     animated = true;
-    var tools = category.stage.frame.load;
-    male.animate(tools);
-    female.animate(tools);
-  },1000);
-  // animate humans to starting position (inside object where they work)
+    male.animate();
+    female.animate();
+  },1000);  
 }
 function game_init() {
 
@@ -291,6 +287,8 @@ function game_init() {
   player.background_play();  
 
   game_on_load();
+  
+  
 }
 var img_scaler =  1;
 var bg_width = 0;
@@ -622,6 +620,7 @@ function gopast()
 }
 function card_prepare(v)
 {
+  console.log('card_prepare');
   var c = gap.pos > prev_pos;
   var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
@@ -638,17 +637,18 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  var bg = $('.' + v.place + ' .stage .bg');
-  var fg = $('.' + v.place + ' .stage .fg');
+  var stage = $('.' + v.place + ' .stage');
+  var init_left_pos = stage.offset().left;
 
-  bg.animate({  "color": 'white'},{duration:400,
+  stage.animate({ "color": 'white'}, {
+    duration:2000,
     progress:function(a,b,c){
-      bg.css({'left':move_size*b});
-      fg.css({'left':move_size*b});
+      $(this).css({'left':init_left_pos + w2*b});
       v.prepare_reward(b,true);
     },
     complete:function()
     {
+      v.stand_movement();
       player.play('award'); 
       v.queue.resume();  
     }
@@ -656,12 +656,12 @@ function prepare_for_reward(v)
 }
 function prepare_for_work(v)
 {  
-  var bg = $('.' + v.place + ' .stage .bg');
-  var fg = $('.' + v.place + ' .stage .fg');
-  bg.animate({  "color": 'white'},{duration:400,
+  var stage = $('.' + v.place + ' .stage');
+  var init_left_pos = stage.offset().left;
+
+  stage.animate({  "color": 'white'},{duration:2000,
     progress:function(a,b,c){
-      bg.css({'left':move_size - move_size*b});
-      fg.css({'left':move_size - move_size*b});
+      $(this).css({'left': init_left_pos - w2*b});
       v.prepare_reward(b,false);
     },
     complete:function()
@@ -670,15 +670,16 @@ function prepare_for_work(v)
     }
   });
 }
-
 function hide_card(v)
 {
+  console.log('hide_card');
   v.card.hide();
   v.queue.resume();  
 }
 
 function start_reward_animation(v)
 {
+  console.log('start_reward_animation');
   v.queue.resume();  
 }
 

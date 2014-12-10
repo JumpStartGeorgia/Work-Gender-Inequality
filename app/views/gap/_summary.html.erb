@@ -13,7 +13,7 @@
 							<div class='row'>
 								<div class='dummy'></div>
 								<div class='sum-<%= d[:fclass][0] %>'></div>
-								<div class='years-passed'><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
+								<div class='years-passed'><span><%= t('.year_passed') %>:&nbsp;</span><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
 								<div class='sum-<%= d[:sclass][0] %>'></div>
 							</div>
 							<div class='row'>
