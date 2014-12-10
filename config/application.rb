@@ -62,8 +62,8 @@ module BootstrapStarter
     config.assets.precompile += %w( highcharts.js highcharts-exporting.js highcharts-map.js )    
     config.assets.precompile += %w( gap/* )  
 
-    config.assets.precompile += %w( jquery.ui.datepicker.js )    
-    config.assets.precompile += %w( jquery.ui.datepicker.css )    
+    config.assets.precompile += %w( jquery.ui.datepicker.js jquery.smartmenus.bootstrap.min.js jquery.smartmenus.min.js )    
+    config.assets.precompile += %w( jquery.ui.datepicker.css jquery.smartmenus.bootstrap.css )    
 
   end
 end
