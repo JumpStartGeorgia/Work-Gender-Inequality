@@ -1,3 +1,3 @@
 //= require bootstrap-select.min
-//= require jquery.smartmenus.bootstrap.min
-//= require jquery.smartmenus.min
+//= require jquery.smartmenus
+//= require jquery.smartmenus.bootstrap
