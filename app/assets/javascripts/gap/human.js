@@ -41,6 +41,8 @@ function human(selector,title,height,width)
   this.queue = new queueObject({complete:queueCompleteCallback});
   this.oppenent = null;
   this.working = false;
+  this.distance = 0;
+  this.walk_distance = 0;
   var mutator = {
     left:[],
     right:[],
@@ -125,12 +127,12 @@ function human(selector,title,height,width)
       if(this.x > this.prevX) 
       {
         $(this.selector).removeClass('l');
-        if(t.x - t.prevX >  3) t.next_movement();
+        //if(t.x - t.prevX >  3) t.next_movement();
       }
       else if(this.x < this.prevX) 
       {
         $(this.selector).addClass('l');
-        if(t.prevX - t.x >  3) t.prev_movement();
+        //if(t.prevX - t.x >  3) t.prev_movement();
       }
 
       $(this.selector).css({ left: this.x , top: this.y });   
@@ -171,6 +173,7 @@ function human(selector,title,height,width)
 		var t = this;
     var intervalId = null;
      var st = $('.' + t.place + ' .stage');
+     //10000
 		$(this.selector).animate({"color":'white'},{ duration:10000, easing:'linear',
       start:function()
       {
@@ -194,12 +197,13 @@ function human(selector,title,height,width)
         clearInterval(intervalId);
         t.stand_movement();
         t.work_frame();
+        
 
 			}
 		});
   };
-  this.prevXTmp = 0;
-  this.prevYTmp = 0;
+ // this.prevXTmp = 0;
+ // this.prevYTmp = 0;
   var movementBound = 3;
   this.rewardStarted = false;
   this.prepare_reward = function prepare_reward(step,start)
@@ -214,14 +218,14 @@ function human(selector,title,height,width)
       t.initX = t.x;
       t.initY = t.y;
     }
-    t.position({ x:t.initX - (t.initX - w2 + t.width/2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, true);
+    t.position({ x:t.initX - (t.initX - w2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, true);
 
-    if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
-    {
+   // if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
+    //{
       start ? t.next_movement() : t.prev_movement();
-      t.prevXTmp = t.x;
-      t.prevYTmp = t.y;
-    }    
+     // t.prevXTmp = t.x;
+     // t.prevYTmp = t.y;
+    //}    
     if(!start && istep == 1)
     {
       t.working = true;
@@ -240,10 +244,12 @@ function human(selector,title,height,width)
     if(this.movement == -1) this.movement = 2;
     $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
   };
-  this.stand_movement = function stand_movement()
-  {       
-   this.movement = 0;
-    $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+  this.stand_movement = function stand_movement(v)
+  { 
+    this.movement = 0;      
+    var t = $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");
+    if(v === 'l') t.addClass('l');
+
   };
   this.step_right = function step_right()
   {    

@@ -50,6 +50,7 @@ function redraw_game()
   var t = $("#screen .top").height(lh);
   t.find('.treasure .pedestal').css({ top : 10 });
   t.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
+  t.find('.treasure .card').css({right:w2+80});
   
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
@@ -61,7 +62,7 @@ function redraw_game()
   b.find('.score').css({ top: lh + th + 20});
   b.find('.treasure .pedestal').css({ top: lh + th + 10 });
   b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
-
+  b.find('.treasure .card').css({right:w2+80});
   male.scale();
   female.scale();
   //$('.canvas, .treasure .red-carpet').show();
@@ -74,7 +75,12 @@ function scr_clean(klass)
 function walk(v)
 {  
   if(!canScroll) return;
-  if(!scrolled) { $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); }); scrolled = true; }
+  if(!scrolled) 
+  { 
+    $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); });
+    $('.wrapper .top .character .you').fadeOut(1000, function(){ $(this).remove(); });   
+    scrolled = true; 
+  }
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -260,7 +266,7 @@ function game_init() {
 
   var t = $('<div class="top"></div>').appendTo(s)
     .append(tstr)
-    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"></div>');
+    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"></div></div>');
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
   var b = $('<div class="bottom"></div>').appendTo(s)
     .append(tstr)
@@ -639,18 +645,29 @@ function card_prepare(v)
 var move_size = -300;
 function prepare_for_reward(v)
 {
-  var stage = $('.' + v.place + ' .stage');
-  var init_left_pos = stage.offset().left;
+  var cur = $('.' + v.place);
+  var stage = cur.find('.stage');
+  var init_left_pos = stage.offset().left;  
+  v.walk_distance = cur.find('.character').offset().left - stage.find('.fg .o').offset().left;
+  v.distance = w2 - stage.find('.fg .o').offset().left + 110;
+
+  var hSteps = Math.round10(v.walk_distance/(v.width*img_scaler/2.3));
+
+  var nextSecond = 1;
 
   stage.animate({ "color": 'white'}, {
-    duration:3000,
+    duration: hSteps * 130,
     progress:function(a,b,c){
-      $(this).css({'left':init_left_pos + w2*b});
-      v.prepare_reward(b,true);
+      $(this).css({'left':init_left_pos + v.distance*b});
+      if(nextSecond < (hSteps)*b)
+      {
+        ++nextSecond;
+        v.prepare_reward(b,true);
+      }
     },
     complete:function()
-    {
-      v.stand_movement();
+    {      
+      v.stand_movement('l');
       player.play('award'); 
       v.queue.resume();  
     }
@@ -658,16 +675,27 @@ function prepare_for_reward(v)
 }
 function prepare_for_work(v)
 {  
-  var stage = $('.' + v.place + ' .stage');
-  var init_left_pos = stage.offset().left;
+  var cur = $('.' + v.place);
+  var stage = cur.find('.stage');
+  var init_left_pos = stage.offset().left;  
+  var hSteps = Math.round10(v.walk_distance/(v.width*img_scaler/2.3));
 
-  stage.delay(2000).animate({  "color": 'white'},{duration:3000,
+  var nextSecond = 1;
+
+  stage.delay(2000).animate({  "color": 'white'},{
+    duration: hSteps * 130,
     progress:function(a,b,c){
-      $(this).css({'left': init_left_pos - w2*b});
-      v.prepare_reward(b,false);
+      $(this).css({'left': init_left_pos - v.distance*b});
+      if(nextSecond < (hSteps)*b)
+      {
+        ++nextSecond;
+        v.prepare_reward(b,false);
+      }
     },
     complete:function()
     {
+      v.prepare_reward(1,false);
+      v.stand_movement();
       v.queue.resume();     
     }
   });
