@@ -75,7 +75,12 @@ function scr_clean(klass)
 function walk(v)
 {  
   if(!canScroll) return;
-  if(!scrolled) { $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); }); scrolled = true; }
+  if(!scrolled) 
+  { 
+    $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); });
+    $('.wrapper .top .character .you').fadeOut(1000, function(){ $(this).remove(); });   
+    scrolled = true; 
+  }
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -261,7 +266,7 @@ function game_init() {
 
   var t = $('<div class="top"></div>').appendTo(s)
     .append(tstr)
-    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"></div>');
+    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"></div></div>');
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
   var b = $('<div class="bottom"></div>').appendTo(s)
     .append(tstr)

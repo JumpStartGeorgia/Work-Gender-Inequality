@@ -174,7 +174,7 @@ function human(selector,title,height,width)
     var intervalId = null;
      var st = $('.' + t.place + ' .stage');
      //10000
-		$(this.selector).animate({"color":'white'},{ duration:1000, easing:'linear',
+		$(this.selector).animate({"color":'white'},{ duration:10000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
@@ -197,6 +197,7 @@ function human(selector,title,height,width)
         clearInterval(intervalId);
         t.stand_movement();
         t.work_frame();
+        
 
 			}
 		});
