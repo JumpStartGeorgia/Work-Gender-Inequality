@@ -172,29 +172,39 @@ function epilogue()
   else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
   var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'>"+locale.general.summary+"</div></div></div></div>").appendTo(s.parent());
-  var whatnext = t.find('.whatnext');//.css('height',h-70);
-    t.find('.summary').css('height',h-70);
+
+  
+  resizeCallback = function()
+  {
+    epilogue_redraw();
+  }
+  epilogue_redraw();
 
   $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary').find('.content').html(data.s); //.css({ width: w-20, height:h-120 })
-    whatnext.find('.whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(t); });
-    //t.fadeIn(fade_time, "linear"); //.css({width: w-20, height:h-20 })
+    t.find('.summary .content').html(data.s);
+    t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
   });
 }
-function epilogue_trigger(t)
+function epilogue_redraw()
 {
-  var whatnext_trigger = $(".whatnext-trigger");
-  var summary = t.find(".summary");
-  var slider = t.find(".slider");
+  var t = $('.wrapper .epilogue');
+  t.find('.summary').css('height',h-62);
+  t.find('.whatnext').css('height',h-42);
+  t.find('.slider').css('top', epilogueUp ? 0 : -h+104);
+}
+function epilogue_trigger()
+{
+  var slider = $('.wrapper .epilogue .slider');  
+  var whatnext_trigger = slider.find(".whatnext .whatnext-trigger");
   var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
-  slider.animate({top: epilogueUp ? -1*($(window).height())+70 : 0 },
+
+  slider.animate({top: epilogueUp ? -1*($(window).height())+104 : 0 },
   {
     duration:1500,
     start:function()
     {
       whatnext_trigger.off("mouseenter");
       epilogueTmp = true;
-
     },
     progress:function(a,b,c)
     {
@@ -203,13 +213,11 @@ function epilogue_trigger(t)
         epilogueTmp = false;
         whatnext_trigger.toggleClass('down up');
       }
-      whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
-      
     },
     complete:function()
     {
       
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger(t)});
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
       epilogueUp=!epilogueUp;
     }
   });
