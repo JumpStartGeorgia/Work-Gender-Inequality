@@ -495,8 +495,6 @@ body,html
 .treasure .card
 {
   position:absolute; 
-  left:0px;
-  top:0px;   
   z-index:51;
   min-height:56px;
   min-width:100px;
