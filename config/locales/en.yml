@@ -378,6 +378,8 @@ en:
     index:
       title: Gap
       about_html: "Explore your wage gap!<br />In Georgia, men earn on average 39% more than women.<br />Are you earning or<br />are you losing?<br />Play and<br />find<br />out!"
+      site_link_title: Learn more about gender discrimination in the workplace
+      game_settings_title: View and edit your game settings
     gamedata:
       gender:
         m: Male
@@ -417,11 +419,14 @@ en:
       saved: Saved
       loser: Loser
       title_main: Congratulations you have %{state} the pay game
+      title_win: Congratulations, you have won the pay gap game!
+      title_lose: So sorry, but you have lost the pay gap game!
       win: won
       lose: lose
       title_score: Final Score
       job_sector: Job Sector
       year_passed: You worked
+      fb_note: Your personal information about <br />salary and savings will not be shared
   imageuploader:
     missing: "An error occurred while processing your image. Please try again."
     invalid_type: "Invalid file type. Only .jpg or .png is allowed."

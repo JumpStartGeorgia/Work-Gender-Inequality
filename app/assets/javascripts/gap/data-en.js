@@ -247,7 +247,7 @@ var interests =
                 "class":"vac-1",
                 "source":"http://taoklarjeti.com/index.php/tours/turebi-sakartveloshi/svaneti-3-days",
                 "source_date":"26.09.2014",
-                "descr":"Tbilisi-Zugdidi-Mestia-Ushguli-Tbilisi,Transportation,3times meal,Accomodation,Guide" 
+                "descr":"Tbilisi-Zugdidi-Mestia-Ushguli-Tbilisi, transportation, 3 meals/day, accomodation, guide" 
             },
             { 
                 "id": "Pe23w2Lz",
@@ -257,7 +257,7 @@ var interests =
                 "class":"vac-2",
                 "source":"http://4travel.ge/package/barcelona-spain/",
                 "source_date":"26.09.2014",
-                "descr":"Barcelona, Spain; 6days/5nights, Round trip flight,Hotel,Travel insurance" 
+                "descr":"Barcelona, Spain: 6days/5nights, round trip flight, hotel, travel insurance" 
             },
             { 
                 "id": "j7hrF24w",
@@ -267,7 +267,7 @@ var interests =
                 "class":"vac-3",
                 "source":"http://discover-georgia.ge/index.php?l=2&menu=37&obj=216#.U_bwE8WSy3o",
                 "source_date":"26.09.2014",
-                "descr":"Travel to the mountains of Taishan,7days/8nights, Round trip air tickets,Hotel, Travel insurance" 
+                "descr":"Mountains of Taishan: 7days/8nights, round trip air tickets, hotel, travel insurance" 
             },    
             { 
                 "id": "LE-xVn5T",
@@ -277,7 +277,7 @@ var interests =
                 "class":"vac-4",
                 "source":"http://bonvoyage.ge/?page=tours&cat=2&id=186",
                 "source_date":"26.09.2014",
-                "descr":"Mexico,7days/6nights includes:Air Tickets,Accomodate at hotel and villa,3times meal,Excursions" 
+                "descr":"Mexico: 7days/6nights, round trip air tickets, hotel, 3 meals/day, excursions" 
             },     
             { 
                 "id": "8BHSiiS3",
@@ -287,7 +287,7 @@ var interests =
                 "class":"vac-5",
                 "source":"http://www.flightcentre.com.au/tours/australia/3122876",
                 "source_date":"26.09.2014",
-                "descr":"Kimberly coast cruise,Australia; Meals:Breakfast,Lunch,Dinner" 
+                "descr":"Cruise of Kimberly Coast, Australia: 3 meals/day" 
             },  
             { 
                 "id": "p_bINCPp",
@@ -297,7 +297,7 @@ var interests =
                 "class":"vac-6",
                 "source":"http://www.forbes.com/sites/forbestravelguide/2012/08/16/the-worlds-most-luxurious-cruises/",
                 "source_date":"26.09.2014",
-                "descr":"The cruise starts in Auckland, New Zealand and hits Sydney, Bali, Hong Kong and Alaska (among others) before anchoring in Los Angeles." 
+                "descr":"The cruise goes from New Zealand to Sydney, Bali, Hong Kong and Alaska (among others) and stops in Los Angeles." 
             }
         ] 
     },
@@ -309,7 +309,7 @@ var interests =
         [
             { 
                 "id": "NeRMinwu",
-                "title":"Ipod",
+                "title":"MP3 Player",
                 "cost":150,
                 "image":"gad_1.svg",
                 "class":"gad-1",
@@ -319,13 +319,13 @@ var interests =
             },
             { 
                 "id": "Q3eeT2j9",
-                "title":"Xbox",
+                "title":"Video Game System",
                 "cost":600, 
                 "image":"gad_2.svg",
                 "class":"gad-2",
-                "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7608&SAMSUNG+I9300+Galaxy+S3+White",
+                "source":"http://www.amazon.com/Xbox-One/dp/B00KAI3KW2/",
                 "source_date":"22.09.2014",
-                "descr":"" 
+                "descr":"Xbox One" 
             },
             { 
                 "id": "4JAffVD6",
@@ -339,13 +339,13 @@ var interests =
             },
             { 
                 "id": "USLng33Z",
-                "title":"McBook Pro",
+                "title":"Laptop",
                 "cost":2836,
                 "image":"gad_4.svg",
                 "class":"gad-4",
                 "source":"http://store.apple.com/uk/buy-mac/macbook-air?product=MD761B/B&step=config#",
                 "source_date":"02.10.2014",
-                "descr":"13-inch: 256GB"
+                "descr":"MacBook Pro 13-inch: 256GB"
             },
             { 
                 "id": "eLkVnL8n",
@@ -377,63 +377,63 @@ var interests =
         [
              { 
                 "id": "y_eZkaEO",
-                "title":"Georgian-Canadian educational centre",
+                "title":"Financial management course",
                 "cost":450,
                 "image":"edu_1.svg",
                 "class":"edu-1",
                 "source":"http://www.gceducentre.com/index.php?act=programs&id=9",
                 "source_date":"",
-                "descr":"Financial Management, 6 weeks course, Individual" 
+                "descr":"Georgian-Canadian Educational Centre Financial Management course: 6 weeks" 
             },
             { 
                 "id": "cuabVv82",
-                "title":"English language ",
+                "title":"English language course",
                 "cost":1776,
                 "image":"edu_2.svg",
                 "class":"edu-2",
                 "source":"http://www.britishcouncil.ge/english/courses-adults/general",
                 "source_date":"02.10.2014",
-                "descr":"10-months long General English language course at British Council" 
+                "descr":"British Council general English language 10-month long course" 
             },
             { 
                 "id": "mE3tEvWc",
-                "title":"Georgian Public University BA tuition fee ",
+                "title":"Public university bachelor's degree",
                 "cost":9000,
                 "image":"edu_3.svg",
                 "class":"edu-3",
                 "source":"",
                 "source_date":"",
-                "descr":"" 
+                "descr":"Georgian public university bachelor's degree" 
             },
             { 
                 "id": "nGgaI1SL",
-                "title":"Free University of Tbilisi",
+                "title":"Private university business degree",
                 "cost":30600,
                 "image":"edu_4.svg",
                 "class":"edu-4",
-                "source":"http://www.rgsl.edu.lv/en/apply-to-rgsl/admissions/tuition-fees/",
+                "source":"http://freeuni.edu.ge/ge/node/463",
                 "source_date":"25.09.2014",
-                "descr":"Business School(ESM), 4years" 
+                "descr":"Free University of Tbilisi Business School (ESM)" 
             },
             { 
                 "id": "egtsYjwP",
-                "title":"Central European Univeirsity",
+                "title":"2-year MBA",
                 "cost":71040,
                 "image":"edu_5.svg",
                 "class":"edu-5",
-                "source":"http://www.geducation.co.uk/chester-BABA.php",
+                "source":"http://www.ceu.hu/admissions/tuitionandfees/14-15",
                 "source_date":"26.09.2014",
-                "descr":"CEU Executive Master of Business Administration, 2 years" 
+                "descr":"Central European Univeirsity Executive Master of Business Administration" 
             },
             { 
                 "id": "k17y863W",
-                "title":"University of Cambridge",
+                "title":"12-month MBA",
                 "cost":105000,
                 "image":"edu_6.svg",
                 "class":"edu-6",
                 "source":"http://grad-schools.usnews.rankingsandreviews.com/best-graduate-schools/top-business-schools/mba-rankings",
                 "source_date":"02.10.2014",
-                "descr":"Master of Business administration, intensive 12 months, including maintanance" 
+                "descr":"University of Cambridge Master of Business Administration, intensive 12 months" 
             }
         ] 
     },
@@ -451,57 +451,57 @@ var interests =
                 "class":"hou-1",
                 "source":"http://myhome.ge/product_info.php?product_id=6036887",
                 "source_date":"13.10.2014",
-                "descr":"Dighomi Massive V" 
+                "descr":"1-room apartment in Dighomi Massive V" 
             },
             { 
                 "id": "FRyVRVZf",
-                "title":"2-rooms apartement",
+                "title":"2-room apartment",
                 "cost":80500,
                 "image":"hou_2.svg",
                 "class":"hou-2",
                 "source":"http://myhome.ge/product_info.php?product_id=5993384",
                 "source_date":"13.10.2014",
-                "descr":"Didi Dighomi, Ist district" 
+                "descr":"2-room apartment in Didi Dighomi, Ist district" 
             },
             { 
                 "id": "-ke7QwpJ",
-                "title":"3-rooms apartement",
+                "title":"3-room apartment",
                 "cost":101500,
                 "image":"hou_3.svg",
                 "class":"hou-3",
                 "source":"http://myhome.ge/product_info.php?product_id=5993369",
                 "source_date":"13.10.2014",
-                "descr":"Didi Dighomi, Petritsi Street" 
+                "descr":"3-room apartment in Didi Dighomi, Petritsi Street" 
             },
             { 
                 "id": "ODRpktbx",
-                "title":"4-rooms apartement",
+                "title":"4-room apartment",
                 "cost":113750,
                 "image":"hou_4.svg",
                 "class":"hou-4",
                 "source":"http://myhome.ge/product_info.php?product_id=5993386",
                 "source_date":"13.10.2014",
-                "descr":"Didi Dighomi, III district" 
+                "descr":"4-room apartment Didi Dighomi, III district" 
             },
             { 
                 "id": "2HIuYW5a",
-                "title":"5-rooms apartement",
+                "title":"5-room house",
                 "cost":236250,
                 "image":"hou_5.svg",
                 "class":"hou-5",
                 "source":"http://myhome.ge/product_info.php?product_id=6006503",
                 "source_date":"13.10.2014",
-                "descr":"2 flour house (Didi Dighomi)" 
+                "descr":"5-room, 2-floor house in Didi Dighomi" 
             },
             { 
                 "id": "5pTaH-Si",
-                "title":"6-rooms apartement",
+                "title":"6-room house",
                 "cost":332500,
                 "image":"hou_6.svg",
                 "class":"hou-6",
                 "source":"http://myhome.ge/product_info.php?product_id=5941408",
                 "source_date":"13.10.2014",
-                "descr":"2 flour house (Didi Dighomi)" 
+                "descr":"6-room, 2-floor house in Didi Dighomi" 
             }
         ] 
     },
@@ -559,7 +559,7 @@ var interests =
                 "class":"tra-5",
                 "source":"http://autopapa.ge/en/lexus/gx-470/359329?search_hash=2991cf9fb16ee648647d0fd6e0f9cade&offset=2",
                 "source_date":"25.09.2014",
-                "descr":"Lexus GX 470, Suv, 2009" 
+                "descr":"Lexus GX 470, SUV, 2009" 
             },
             { 
                 "id": "KOpdBfBy",
@@ -569,7 +569,7 @@ var interests =
                 "class":"tra-6",
                 "source":"http://autopapa.ge/en/land-rover/range-rover-sport/356898?search_hash=af1eb936bd4cc037006c08f12654d754&offset=11",
                 "source_date":"25.09.2014",
-                "descr":"Land Rover Range Rover Sport, Suv, 2011" 
+                "descr":"Land Rover Range Rover Sport, SUV, 2011" 
             }
         ] 
     }
@@ -585,6 +585,7 @@ var locale = {
     your_age:"Your Age",
     your_job:"Your Job Sector",
     your_salary:"Your Salary",
+    your_retirement:"You have ## years of working until retirement",
     your_interest:"Your Interest",
     your_percent:"How much do\n you save up for\n your interest",
     lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
