@@ -8,7 +8,6 @@ require 'csv'
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-=begin
 #####################
 ## Pages
 #####################
@@ -16,9 +15,103 @@ puts "Loading Pages"
 Page.delete_all
 PageTranslation.delete_all
 p = Page.create(:id => 1, :name => 'about')
-p.page_translations.create(:locale => 'en', :title => 'About Bootstrap Starter Project', :content => 'You have run rake db:seed and this is an example of translated content. Click the Language Switcher link in the top-right corner to view the text in another language.')
-p.page_translations.create(:locale => 'ka', :title => "'Bootstrap Starter' პროექტის შესახებ", :content => "თქვენ ჩაუშვით 'rake db:seed' და ეს არის კონტენტის თარგმანის მაგალით. ტექსტის სხვა ენაზე სანახავად დააჭირეთ ენის გადამრთველის ბმულს მარჯვენა ზედა კუთხეში.")
-=end
+p.page_translations.create(:locale => 'en', :title => 'About', :content => '<p dir="ltr"><span>Our goal is to increase gender equality and women&rsquo;s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.</span></p>
+<p>The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.</p>
+<p>This project is possible by the generous support of USAID and implemented by <a href="http://article42.ge/">&ldquo;Article 42 of the Constitution&rdquo;</a> and with the collaborative efforts of four partner organizations: <a href="http://www.eng.gtuc.ge/">Georgian Trade Union Confederation (GTUC)</a>, <a href="http://css.ge/">Center for Social Sciences at Tbilisi State University (CSS)</a>, <a href="http://www.newmediaadvocacy.org/">New Media Advocacy Project (N-Map)</a> and <a href="http://jumpstart.ge/en">Jumpstart Georgia</a>.</p>
+<p><span><span>&nbsp;</span></span></p>
+<p dir="ltr"><span>Partners:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Article 42 of the Constitution</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Article 42 of the Constitution is a non-governmental, non-political, human rights advocacy organization. The organization aims at promoting the establishment of the rule of law in Georgia through introduction of international standards for the protection of human rights and freedoms, and increase of legal awareness of the public.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>Center for Social Sciences at Tbilisi State University (CSS)</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>CSS&rsquo;s main objective is to develop academic and applied research in Social Sciences in Georgia, to ensure the integration of Georgian scientists into the international academic networks, to establish professional and ethical standards in Social Sciences and support evidence-based research and teaching. </span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>Georgian Trade Union Confederation (GTUC)</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>The Georgian Trade Unions Confederation represents a voluntary association of Trade Unions (Associations), Territorial Associations (Autonomous Republics) of trade unions based on the principles of common interests, goals, tasks and activities.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>JumpStart Georgia</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>New Media Advocacy Project (N-Map)</span></p>
+</li>
+</ul>')
+p.page_translations.create(:locale => 'ka', :title => "შესახებ", :content => '<p dir="ltr"><span>Our goal is to increase gender equality and women&rsquo;s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.</span></p>
+<p>The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.</p>
+<p>This project is possible by the generous support of USAID and implemented by <a href="http://article42.ge/">&ldquo;Article 42 of the Constitution&rdquo;</a> and with the collaborative efforts of four partner organizations: <a href="http://www.eng.gtuc.ge/">Georgian Trade Union Confederation (GTUC)</a>, <a href="http://css.ge/">Center for Social Sciences at Tbilisi State University (CSS)</a>, <a href="http://www.newmediaadvocacy.org/">New Media Advocacy Project (N-Map)</a> and <a href="http://jumpstart.ge/en">Jumpstart Georgia</a>.</p>
+<p><span><span>&nbsp;</span></span></p>
+<p dir="ltr"><span>Partners:</span></p>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Article 42 of the Constitution</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>Article 42 of the Constitution is a non-governmental, non-political, human rights advocacy organization. The organization aims at promoting the establishment of the rule of law in Georgia through introduction of international standards for the protection of human rights and freedoms, and increase of legal awareness of the public.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>Center for Social Sciences at Tbilisi State University (CSS)</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>CSS&rsquo;s main objective is to develop academic and applied research in Social Sciences in Georgia, to ensure the integration of Georgian scientists into the international academic networks, to establish professional and ethical standards in Social Sciences and support evidence-based research and teaching. </span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>Georgian Trade Union Confederation (GTUC)</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>The Georgian Trade Unions Confederation represents a voluntary association of Trade Unions (Associations), Territorial Associations (Autonomous Republics) of trade unions based on the principles of common interests, goals, tasks and activities.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>JumpStart Georgia</span></p>
+</li>
+<ul>
+<li dir="ltr">
+<p dir="ltr"><span>JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.</span></p>
+</li>
+</ul>
+<li dir="ltr">
+<p dir="ltr"><span>New Media Advocacy Project (N-Map)</span></p>
+</li>
+</ul>')
+p = Page.create(:id => 2, :name => 'about_short')
+p.page_translations.create(:locale => 'en', :title => 'About Short Version', :content => '<p dir="ltr"><span>Our goal is increase gender equality and women&rsquo;s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.</span></p>
+<p dir="ltr">The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.</p>
+<p dir="ltr"><span id="docs-internal-guid-aeb21e71-3af4-b4ab-2647-63f855b3a4ea">This project is possible by the generous support of USAID and implemented by <a href="http://article42.ge/">&ldquo;Article 42 of the Constitution&rdquo;</a> and with the collaborative efforts of four partner organizations: <a href="http://www.eng.gtuc.ge/">Georgian Trade Union Confederation (GTUC)</a>, <a href="http://css.ge/">Center for Social Sciences at Tbilisi State University (CSS)</a>, <a href="http://www.newmediaadvocacy.org/">New Media Advocacy Project (N-Map)</a> and <a href="http://jumpstart.ge/en">Jumpstart Georgia</a>.</span></p>')
+p.page_translations.create(:locale => 'ka', :title => "About Short Version", :content => '<p dir="ltr"><span>Our goal is increase gender equality and women&rsquo;s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.</span></p>
+<p dir="ltr">The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.</p>
+<p dir="ltr"><span id="docs-internal-guid-aeb21e71-3af4-b4ab-2647-63f855b3a4ea">This project is possible by the generous support of USAID and implemented by <a href="http://article42.ge/">&ldquo;Article 42 of the Constitution&rdquo;</a> and with the collaborative efforts of four partner organizations: <a href="http://www.eng.gtuc.ge/">Georgian Trade Union Confederation (GTUC)</a>, <a href="http://css.ge/">Center for Social Sciences at Tbilisi State University (CSS)</a>, <a href="http://www.newmediaadvocacy.org/">New Media Advocacy Project (N-Map)</a> and <a href="http://jumpstart.ge/en">Jumpstart Georgia</a>.</span></p>')
+p = Page.create(:id => 3, :name => 'discrimination')
+p.page_translations.create(:locale => 'en', :title => 'Discrimination Explanation', :content => nil)
+p.page_translations.create(:locale => 'ka', :title => "Discrimination Explanation", :content => nil)
+p = Page.create(:id => 4, :name => 'explore')
+p.page_translations.create(:locale => 'en', :title => 'Explore Data Explanation', :content => nil)
+p.page_translations.create(:locale => 'ka', :title => "Explore Data Explanation", :content => nil)
 
 =begin
 #####################

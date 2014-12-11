@@ -1,1 +1,5 @@
-<% title t('.title') %>
+<% title @about.title %>
+
+<% if @about.present? %>
+  <%= simple_format_no_tags(@about.content, {}, {sanitize: false}) %>
+<% end %>
