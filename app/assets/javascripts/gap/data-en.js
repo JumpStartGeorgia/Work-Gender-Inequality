@@ -619,7 +619,7 @@ var locale = {
     congrat:"Congrats!",
     share_hint:"Share this point on facebook",
     about:"About",
-    you_can_buy: "You can buy a ",
+    you_can_buy: "You can afford a ",
     summary: "Our goal is to increase gender equality and women’s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.\
 The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.\
 This project is possible by the generous support of USAID and implemented by “Article 42 of the Constitution” and with the collaborative efforts of four partner organizations: Georgian Trade Union Confederation (GTUC), Center for Social Sciences at Tbilisi State University (CSS), New Media Advocacy Project (N-Map) and Jumpstart Georgia.\
