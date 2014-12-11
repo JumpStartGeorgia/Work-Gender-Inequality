@@ -31,6 +31,9 @@ body { padding-top: 100px; }
 // Example:
 // @link-color: #ff0000;
 
+// set width of when navbar should collapse
+@grid-float-breakpoint: 970px;
+
 
 /* Sticky footer styles
 from: http://getbootstrap.com/examples/sticky-footer-navbar/
@@ -48,36 +51,36 @@ body {
 nav.navbar-default{
   background-color: #fff;
   border-color: #fff;
+  height: 117px;
 
   #navbar-logo{
+    z-index: 1040;
     position: absolute;
     left: 0;
     right: 0;
     margin: 0 auto;
-    width: 204px;
+    width: 224px;
+    height: 112px;
+    color: #cc5174;
+    &:hover{
+      color: #ef4273;
+      text-decoration: none;
+    }
     #navbar-logo-inner{
       position: relative;
-      width: 204px;
-      .navbar-brand{
+      width: 224px;
+      height: 112px;
+      img{
         position: relative;
         padding: 0;
         text-align: center;
-        width: 148px;
+        width: 106px;
         top: 10px;
-        left: 43px;
+        left: 60px;
         font-size: 11px;
         line-height: 12px;
         font-weight: bold;
         font-style: italic;
-        color: #cc5174;
-        &:hover{
-          color: #ef4273;
-        }
-        span{
-          display: block;
-          margin-top: 9px;
-          font-size: 2.1em;
-        }
       }
       &:before{
         position: absolute;
@@ -86,9 +89,12 @@ nav.navbar-default{
         content:"";
         width: 0; 
         height: 0; 
-        border-left: 100px solid transparent;
-        border-right: 100px solid transparent;
-        border-top: 100px solid #e0efef;
+        border-left: 110px solid transparent;
+        border-right: 110px solid transparent;
+        border-top: 110px solid #e0efef;
+      }
+      &:hover:before{
+        border-top: 110px solid #f0ffff;
       }
     }
     &:before{
@@ -96,19 +102,13 @@ nav.navbar-default{
       content:"";
       width: 0; 
       height: 0; 
-      border-left: 102px solid transparent;
-      border-right: 102px solid transparent;
-      border-top: 102px solid #8ac2cb;
+      border-left: 112px solid transparent;
+      border-right: 112px solid transparent;
+      border-top: 112px solid #8ac2cb;
     }
   }
 
   .navbar-nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 22px;
-    margin: 0 auto;
-    width: 777px;
     & > li {
       & > a{
         color: #a2ccd4;
@@ -134,8 +134,94 @@ nav.navbar-default{
         text-transform: capitalize;
       }
     }  
+
+    &#menu-left{
+      position: absolute;
+      left: 50%;
+      top: 22px;
+      margin-left: -455px;
+    }
+    &#menu-right{
+      position: absolute;
+      left: 50%;
+      top: 22px;
+      margin-left: 125px;
+    }
+    &#menu-extra{
+      position: absolute;
+      left: 50%;
+      top: 22px;
+      margin-left: 332px;
+      a.menu-language{
+        color: #dd95a7;
+        &:hover{
+          color: #cb496e;
+          border-bottom: solid 2px #a2ccd4;    
+        }
+      }
+      li.menu-fb {
+        margin-right: 20px;
+        div{
+          width: 28px;
+          height: 28px;
+          position: relative;
+          &:before{
+            position: absolute;
+            content:"";
+            top: 5px;
+            left: 0;
+            background-color: #77b8c3;
+            width: 28px;
+            height: 28px;
+            -webkit-transform: rotate(45deg);
+            -moz-transform:    rotate(45deg);
+            -ms-transform:     rotate(45deg);
+            -o-transform:      rotate(45deg);
+            transform:         rotate(45deg);      
+          }
+          &:hover:before{
+
+            background-color: #87c8d3;
+          }
+          a{
+            position: relative;
+            border-bottom: none;    
+            top: 8px;
+            left: 4px;
+            display: block;
+            &:hover{
+              border-bottom: none;    
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  .navbar-toggle{
+    position: absolute;
+    left: 50%;
+    top: 22px;
+    margin-left: -155px;
   }
 }
+
+@media (max-width: 970px) {
+  nav.navbar-default{
+    .navbar-nav#menu-extra{
+      margin-left: 120px;
+      li{
+        float: left;
+        &.menu-fb {
+          margin-right: 0;
+        }
+      }
+    }
+
+  }
+}
+
 
 footer {
   position: absolute;
