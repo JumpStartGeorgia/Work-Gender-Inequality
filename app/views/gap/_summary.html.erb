@@ -1,5 +1,5 @@
 <div class='header'>
-	<div class='title'><%= t('.title_main') %></div>
+	<div class='title'><%= t('.title_main', state: t('.' + d[:fstate])) %></div>
 	<div class='title-score'><%= t('.title_score') %></div>
 	<div class='title-job'><span><%= t('.job_sector') %>:&nbsp;</span><%= d[:title_job] %></div>
 	<div class='title-passed'><span><%= t('.year_passed') %>:&nbsp;</span><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>
@@ -24,7 +24,7 @@
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='human-salary-diff'><%= d[:salary_total_diff] %></div>
+								<div class='human-salary-diff diff-value'><%= d[:salary_total_diff] %></div>
 								<div class='dummy'></div>
 							</div>
 							<div class='row'>
@@ -39,7 +39,7 @@
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='human-saved-diff'><%= d[:saved_total_diff] %></div>
+								<div class='human-saved-diff diff-value'><%= d[:saved_total_diff] %></div>
 								<div class='dummy'></div>
 							</div>					
 							<div class='row'>	

@@ -50,7 +50,7 @@ var timeline_scale = 0.5; // each time interval will occupy timeline_scale*viewp
 // time line scaler calculated on redraw = width * timeline_scale
 var timeline_period_w = 0;
 var timeline_month_w = 0;
-var scroll_per_month = 3; // scroll number for month to change
+var scroll_per_month = 1; // scroll number for month to change
 var reward_period = 3;// month that show how often rewarding process will be shown, ex: 3 means every third month rewarding process occures
 var scrolls_for_reward = scroll_per_month * reward_period;
 var life_scroll_count = 0;
@@ -161,4 +161,4 @@ var resizeId = 0;
 var isOpera = /opera/i.test(navigator.userAgent);
 
 var resizeCallback = null;
-
+var scrolled = false;

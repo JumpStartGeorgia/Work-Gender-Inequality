@@ -216,7 +216,7 @@ var categories =
     },
     {
         "id": "hyn3wmKk",
-        "name": "Everywoman/man",
+        "name": "All Jobs",
         "outrun":0,
         "percent":0,
         "male":0,
@@ -618,7 +618,6 @@ var locale = {
     congrat:"Congrats!",
     share_hint:"Share this point on facebook",
     about:"About",
-    stats:"Statistics",
     you_can_buy: "You can buy a ",
     summary: "Our goal is to increase gender equality and women’s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.\
 The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.\

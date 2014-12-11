@@ -72,8 +72,9 @@ function scr_clean(klass)
   if(exist(klass)) s.removeClass(klass);
 }  
 function walk(v)
-{
+{  
   if(!canScroll) return;
+  if(!scrolled) { $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); }); scrolled = true; }
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -188,7 +189,7 @@ function epilogue_trigger(t)
   var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
   slider.animate({top: epilogueUp ? -1*($(window).height())+70 : 0 },
   {
-    duration:1000,
+    duration:1500,
     start:function()
     {
       whatnext_trigger.off("mouseenter");
@@ -201,7 +202,6 @@ function epilogue_trigger(t)
       {
         epilogueTmp = false;
         whatnext_trigger.toggleClass('down up');
-        whatnext_trigger.find('.label').text(whatnext_trigger.hasClass('up') ? locale.general.about : locale.general.stats);
       }
       whatnext_trigger_arrow.css('opacity', b<0.5 ? 1-b*2 : b);
       
@@ -279,6 +279,8 @@ function game_init() {
   redraw_game();
 
   player.background_play();  
+
+  $('.wrapper .hint').fadeIn(1000,'linear');
 
   game_on_load();
   
@@ -633,7 +635,7 @@ function prepare_for_reward(v)
   var init_left_pos = stage.offset().left;
 
   stage.animate({ "color": 'white'}, {
-    duration:5000,
+    duration:3000,
     progress:function(a,b,c){
       $(this).css({'left':init_left_pos + w2*b});
       v.prepare_reward(b,true);
@@ -667,7 +669,6 @@ function hide_card(v)
   v.card.hide();
   v.queue.resume();  
 }
-
 
 /***************************************************************
                      ON EACH TICK END

@@ -409,14 +409,16 @@ en:
       years: Years
       months: Months
       difference: Difference
-      play_again: Tell your story!
+      play_again: Play again
       share: Share
       award: Awards
       winner: Winner
       salary: Salary
       saved: Saved
       loser: Loser
-      title_main: Congratulations you have won the pay game
+      title_main: Congratulations you have %{state} the pay game
+      win: won
+      lose: lose
       title_score: Final Score
       job_sector: Job Sector
       year_passed: You worked

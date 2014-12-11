@@ -4,7 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="52px" height="52px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve">
 <g>
-	<circle fill="transparent" cx="26" cy="26" r="25"/>
+	<circle fill="#EFDA82" cx="26" cy="26" r="25"/>
 	<g>
 		<g>
 			<path fill="#797979" d="M16.852,45.789V18.121c0-1.498-1.367-2.713-3.052-2.713H3.354c-0.639,1.363-1.241,3.129-1.629,4.611

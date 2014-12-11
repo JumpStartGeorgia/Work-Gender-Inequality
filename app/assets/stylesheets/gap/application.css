@@ -86,6 +86,78 @@ body,html
    font-size:25px;
    font-size:10vmin;
 }
+/* ------------------------------- hint to scroll or use arrows <-,-> ------------------------------- */
+.wrapper > .hint
+{
+  position:fixed;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding:20px 30px;
+  font-family:gandhi;
+  font-size:18px;
+  color:#c4c0b1;
+  background-color:#fff;
+  margin:0px auto;
+  text-align:center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  display:none;
+}
+.wrapper > .hint > div
+{
+  padding-bottom:3px;
+}
+.wrapper > .hint span
+{
+  color:#dc4d39; 
+}
+.wrapper > .hint span.shift
+{
+  position:relative;
+  top:-9px;
+}
+.wrapper > .hint .key-scroll
+{
+  background-color:transparent;
+  background-size:20px 45px;
+  background-repeat:no-repeat;
+  width:20px;
+  height:45px;
+  margin:0px auto;
+}
+.wrapper > .hint .key-right,
+.wrapper > .hint .key-left
+{
+  background-color:transparent;
+  background-size:26px 26px;
+  background-repeat:no-repeat;
+  width:26px;
+  height:26px;
+  margin:0px auto;
+}
+.wrapper > .hint .key-scroll
+{
+  background:transparent url("../gap/svg/common/key_scroll.svg") no-repeat;
+}
+.wrapper > .hint .key-left
+{
+  background:transparent url("../gap/svg/common/key_left.svg") no-repeat;
+  margin-right:10px;
+}
+.wrapper > .hint .key-right
+{
+  background:transparent url("../gap/svg/common/key_right.svg") no-repeat;
+  margin-left:10px;
+}
+/*<div class='hint'><div>Use<span>scroll</span></div><div class='scroller'></div><div>or</div><div><div class='arrow-left'></div><span></span><div class='arror-right'></div></div></div>*/
+.wrapper > .hint > .inb > div
+{
+  display:inline-block;
+}
 /* ------------------------------- epilogue ------------------------------- */
 .epilogue
 {
@@ -145,7 +217,7 @@ body,html
 .epilogue .summary .content
 {
   max-width: 800px;
-  margin: 0px auto;
+  margin: 0px auto;  
 }
 .epilogue .summary .header,
 .epilogue .summary .content,
@@ -259,6 +331,12 @@ body,html
   font-size:22.5px;
   color:#db5c39;
 }
+.epilogue .summary .content .grid .row .diff-value,
+.epilogue .summary .content .grid .row .diff-value
+{
+  margin-bottom: 20px;  
+}
+
 .epilogue .summary .content .grid .row .title-salary,
 .epilogue .summary .content .grid .row .title-saved,
 .epilogue .summary .content .grid .row .title-award
@@ -374,7 +452,7 @@ body,html
 .whatnext .content
 {
   margin-top: 30px;
-  padding: 20px;
+  padding:30px 70px;
   font-family:hallo;
   font-size:37.5px;
   color:#f1efe7;
@@ -831,7 +909,7 @@ svg.stage-bk { z-index:30; }*/
 {
   width:52px;
   height:52px;
-  opacity:0.5;
+  opacity:0.7;
   -webkit-transition: all 400ms linear;
   -moz-transition: all 400ms linear;
   -ms-transition: all 400ms linear;
@@ -839,21 +917,30 @@ svg.stage-bk { z-index:30; }*/
   transition: all 400ms linear;
   z-index:51;
   position:relative;
+  border: 1px dashed #c24b3e;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
 }
 .category-item > img:hover,.interest-item > img:hover
 {
-  opacity:1;
+  opacity:1;  
+  background-color: #efda82;
+  border: 1px solid #efda82;
   cursor:pointer;
   -webkit-transition: opacity 400ms linear;
   -moz-transition: opacity 400ms linear;
   -ms-transition: opacity 400ms linear;
   -o-transition: opacity 400ms linear;
   transition: opacity 400ms linear;
+
 }
 .category-item.selected > img, .interest-item.selected > img
 {
   opacity:1;
-   -webkit-transition: opacity 400ms linear;
+  background-color: #efda82;
+  border: 1px solid #efda82;
+  -webkit-transition: opacity 400ms linear;
   -moz-transition: opacity 400ms linear;
   -ms-transition: opacity 400ms linear;
   -o-transition: opacity 400ms linear;
@@ -969,6 +1056,7 @@ svg.stage-bk { z-index:30; }*/
   color:#7abec3;
   white-space: pre;
   display:block;
+  line-height: 24px;
 }
 .npicker div.t.left
 {
@@ -977,6 +1065,7 @@ svg.stage-bk { z-index:30; }*/
   font-size:27.5px;
   margin-right:30px;
   vertical-align:middle;
+
 }
 .npicker div.gel
 {
@@ -1150,7 +1239,7 @@ svg.stage-bk { z-index:30; }*/
 {
  background-image:url("../gap/svg/common/soundoff.svg");
 }
-#screen .share
+.wrapper > .share
 {  
   position:fixed;
   bottom:0px;
@@ -1162,7 +1251,7 @@ svg.stage-bk { z-index:30; }*/
   width:33px;
   height:33px;
 }
-#screen .share:hover
+.wrapper > .share:hover
 {
   opacity:1;
   cursor:pointer;
@@ -1385,18 +1474,13 @@ svg.stage-bk { z-index:30; }*/
   transform: translateY(-50%);
   margin-top:22px;
 }
-.poll > .selector.selectable > div.f
+.poll > .selector.selectable > div
 {
-  cursor:w-resize;
-}
-.poll > .selector.selectable > div.m
-{
-  cursor:e-resize;
+  cursor:pointer;
 }
 .poll > .selector > div.f > .profile
 {
   right:35%;
-
 }
 .poll > .selector > div.m > .profile
 {

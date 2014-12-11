@@ -115,8 +115,8 @@ class GapController < ApplicationController
     d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs.floor
     d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs.floor
 
-    d[:fstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.winner') : t('gap.summary.loser')
-    d[:sstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.loser') : t('gap.summary.winner')
+    d[:fstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.win') : t('gap.summary.lose')
+    d[:sstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.lose') : t('gap.summary.win')
 
     if(d[:fsaved_total] > d[:ssaved_total])
       

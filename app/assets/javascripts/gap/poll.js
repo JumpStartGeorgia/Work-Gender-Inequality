@@ -221,7 +221,6 @@ var poll = {
       }
       else
       {
-
         if(user.interest == null)
         {
           $('.poll .selector .interest-picker .interest-item').each(function(i,d){
@@ -507,7 +506,7 @@ var poll = {
        .css({ 'top': h2 - 210,
               'left': w2 + 150 - 450 * ((4-i)/5) });
       var hint = item.find('div.hint');
-      hint.css('left',-1*(hint.width()/2-26-8) + 'px');
+      hint.css('left',-1*(hint.width()/2-28) + 'px');
     });  
     poll.npicker_redraw(h2,w2+125);
   },
@@ -610,6 +609,11 @@ var poll = {
   {
     var size = 5;
     var picker = $('.poll .selector .npicker');
+ 
+    picker.addClass('zoom');
+    setTimeout(function(){ picker.removeClass('zoom'); }, 300);
+
+
     picker.removeClass('inactive');
     picker.find('input').on('keypress',validateNumber).on('DOMMouseScroll mousewheel', function(e, delta) {  e.stopPropagation();  })
     .focusout(function(){ $(this).hide(); picker.find('div.part').show(); }).change(function(){  poll.npicker_set(+$(this).val(),size); });
@@ -664,14 +668,14 @@ var poll = {
     var t = $('.poll .selector .npicker');
 
     var max = t.attr('max') ? +t.attr('max') : Number.MAX_VALUE;
-    if(v < 0 || v > max) return false;
+    if(v < 0 || v > max || !isNumber(v)) return false;
 
     v = v.toString().lpad('0',size);
     for(var i = 0; i < size; ++i)
     {
       t.find('div[data-pos='+(size-i)+']').text(v[i]);
     }
-    t.find('input').val(v);
+    t.find('input').val(+v==0?"":+v);
 
     if(func(poll.npicker_function)) poll.npicker_function(v);
 
