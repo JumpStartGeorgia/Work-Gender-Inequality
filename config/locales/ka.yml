@@ -197,18 +197,16 @@ ka:
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
-      get_involved: Get Involved!
-      stay_informed: Stay Informed
-      explore_data: Explore Survey Data
-      faq: FAQ
-      laws: Legislation
-      news: News
-      publications: Publications
-      about: About
-      stories: Discrimination Stories
-      share_stories: Share Discrimination Story
+      get_involved: ჩაერთეთ!
+      stay_informed: იყავით ინფორმირებული
+      explore_data: კვლევის მონაცემთა შესწავლა
+      faq: ხშირად დასმული კითხვები
+      news: სიახლეები
+      publications: პუბლიკაციები
+      about: ჩვენ შესახებ
+      stories: ისტორიები დისკრიმინიაციაზე
       game: Pay Gap Game
-      legislations: Legislations
+      legislations: კანონმდებლობა
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -293,10 +291,8 @@ ka:
       na: N/A
       percent: Percent
       instructions:
-        header: Instructions
-        p1a: This page allows you to explore one question or the interaction between two questions from the Employment-related Resarch in Georgia Survey. 
-        p1b: "You may also choose to narrow the scope of this analysis by selecting a subset of data to analyze."
-        p2: "You can explore the analysis via a map (if one variable is 'Reg'), a chart, and a table."
+        header: About
+        p1: "Explore the survey data, entitled the Employment-related Research in Georgia, by the Center for Social Sciences. You can visualize the results of one question or the interaction (cross-tabulation) between the results of two questions. You may also choose to narrow the scope of this analysis by creating a subset of the data."
       form:
         row: Explore Question
         col: Compared with (optional)

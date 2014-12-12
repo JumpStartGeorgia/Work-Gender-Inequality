@@ -1,5 +1,7 @@
   var geojson, datatable, i, j, json_data, highmap;
 
+  var chart_colors = ['#76cbc5', '#ef4273', '#54a0a8', '#f7f1be', '#c7cf91', '#bebbbc', 
+                '#d3ecec', '#6f6e75', '#f8b6ad', '#ba5471', '#7d9a75', '#4e84be'];
 ////////////////////////////////////////////////
 // convert the querystring variables into json
 function queryStringToJSON(url) {
@@ -265,7 +267,8 @@ function build_crosstab_chart(json){
     Highcharts.setOptions({
       lang: {
         contextButtonTitle: gon.highcharts_context_title
-      }
+      },
+      colors: chart_colors
     });
 
     $('#chart').highcharts({
@@ -370,7 +373,8 @@ function build_pie_chart(json){
     Highcharts.setOptions({
       lang: {
         contextButtonTitle: gon.highcharts_context_title
-      }
+      },
+      colors: chart_colors
     });
 
     $('#chart').highcharts({

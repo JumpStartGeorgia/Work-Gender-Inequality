@@ -1,6 +1,8 @@
 class RootController < ApplicationController
 
   def index
+    @about_short = Page.find_by_name('about_short')
+    @discrimination_explanation = Page.find_by_name('discrimination')
 
     @news_items = NewsItem.published.sorted.limit(5)
     @publications = Publication.sorted.limit(5)
@@ -14,6 +16,7 @@ class RootController < ApplicationController
   end
 
   def about
+    @about = Page.find_by_name('about')
 
     respond_to do |format|
       format.html # index.html.erb

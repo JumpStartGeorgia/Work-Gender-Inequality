@@ -1,5 +1,35 @@
-<% title t('.title') %>
 
+
+<div class="row">
+  <div class="col-sm-6">
+    <% if @about_short.present? %>
+      <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
+    <% end %>
+  </div>
+  <div class="col-sm-6">
+    <%= image_tag 'landing-temp.png' %>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<% if @discrimination_explanation.present? %>
+  <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
+<% end %>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<hr />
 <% if @stories.present? %>
   <div class="col-sm-4">
     <h2><%= t('.header_stories') %></h2>
