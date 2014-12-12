@@ -404,8 +404,8 @@ var poll = {
 
       var cx = this.knobR * c + this.knobCX;
       var cy = this.knobCY - this.knobR * s;      
-      $(".age-mover circle").attr("cx",cx).attr("cy",cy);
-      poll.sublabel(user.age);
+      $(".age-mover circle").attr("cx",cx).attr("cy",cy);       
+      poll.sublabel(user.age + "<div class='b'><span>"+(max_age-user.age)+"</span>&nbsp;"+locale.general.retirement+"</div>");
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
      
@@ -686,7 +686,7 @@ var poll = {
   },
   sublabel:function sublabel(v)
   {
-    var t = $('.poll > .selector > div > .profile  > .a').text(v);    
+    var t = $('.poll > .selector > div > .profile  > .a').html(v);    
   },
   place_human_based_on_gender:function place_human_based_on_gender()
   {    

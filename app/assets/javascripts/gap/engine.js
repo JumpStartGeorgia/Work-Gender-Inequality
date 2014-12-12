@@ -5,7 +5,9 @@ function init()
 {  
   redraw(); // recalculate all dimensions 
   params_init();  
-  s = $('#screen');    
+  wr = $('.wrapper');
+  s = wr.find('#screen');  
+
   //s3 = d3.select('#screen');    
   if(!isAssetsLoaded) Game.Loader.load();
 }
@@ -120,9 +122,9 @@ function can_scroll(v)
 function sound_button()
 {
   // sound button init with binding click event for muting
-  if(s.parent().find('.volume').length == 0)
+  var volume = wr.find('> .volume');
+  if(volume.length != 0)
   {
-    var volume = $('<div class="volume on"></div>').appendTo(s.parent());
     volume.data('state',1);
     volume.click(function(){
       if(+volume.data('state') == 1)
@@ -136,14 +138,35 @@ function sound_button()
         player.unmute();
       }
     });
+    volume.show();
+  }
+}
+function about_button()
+{ 
+  var about = wr.find('> .about');
+  var about_window = wr.find('> .about-window');
+
+  if(about.length != 0)
+  {
+    about.click(function(){
+      wr.find('.about-window').fadeIn(500,function(){
+        $(document).click(function(){
+          $(this).off('click');
+          about_window.hide();
+        });        
+      });
+
+    });    
+    //about_window.click(function(){ $(this).hide(); });
+    about.show();
   }
 }
 function share_button()
 {
-  if(s.parent().find('.share').length == 0)
+  var share = $('.wrapper > .share');
+  if(share.length != 0)
   {
     $(document).ready(function() {
-      var share = $('<div class="share"></div>').appendTo(s.parent());
       $.ajaxSetup({ cache: true });
       // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
        $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
@@ -164,8 +187,9 @@ function share_button()
              } else {
                 console.log('Error while posting.');
              }
-          });
+          });          
         });
+        share.show()
       });
     });
   }
@@ -241,8 +265,9 @@ function game_on_load()
 function game_init() {
 
   sound_button();
+  about_button();
   share_button();
-  $('a.restart').css('display','block');
+  $('a.settings').css('display','block');
 
   gameon();
 
@@ -266,7 +291,7 @@ function game_init() {
 
   var t = $('<div class="top"></div>').appendTo(s)
     .append(tstr)
-    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"></div></div>');
+    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div>');
   timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
   var b = $('<div class="bottom"></div>').appendTo(s)
     .append(tstr)
@@ -938,15 +963,89 @@ jwerty.key('space', function(){
 jwerty.key('arrow-right', function(){
   walk(1); 
 });
-jwerty.key('D', function(){
-  walk(1); 
-});
 jwerty.key('arrow-left', function(){
-  walk(-1); 
-});
-jwerty.key('A', function(){
   walk(-1); 
 });
 /***************************************************************
                   Key Hooks End
-***************************************************************/;
+***************************************************************/
+var tiptip_padding = 5;
+var tiptip = {
+  tip:null,
+  p:null,
+  zindex:0,
+  padding:5
+};
+
+$(document).on('mouseenter','.tip',function(){
+  var t = $(this);
+console.log(t);
+  var type = t.attr('data-tip-type');
+  if(type === undefined) type = 'coin';
+
+  tiptip.p = t;
+  tiptip.tip = $("<div class='tiptip tip-" + type + "'></div>").insertAfter(t);
+
+  if(type == 'coin')
+  {
+    var wTmp2 = t.width()/2;
+    tiptip.tip.html(t.attr('data-tip')).css({  
+      top: t.offset().top,  
+      left:  t.offset().left +  wTmp2,
+      height: t.height() - tiptip.padding * 2,
+      //"line-height": (t.height() - tiptip.padding * 2) + 'px',
+      "padding-left": wTmp2+10,
+      "zIndex":700,
+
+    }).show();
+    tiptip.zindex = t.css('zIndex');
+    t.css('zIndex',701);
+  }
+  else if(type == 'logo')
+  {
+    var wTmp = t.width();
+    tiptip.tip.html(t.attr('data-tip')).css({  
+      top: t.offset().top,  
+      left:  0,
+      height: t.height() - tiptip.padding * 2,
+      "padding-left": wTmp + 10,
+      "zIndex":700,
+
+    }).show();
+    tiptip.zindex = t.css('zIndex');
+    t.css('zIndex',701);
+  }
+  else if (type == 'settings')
+  {
+    var wTmp = t.width();
+    tiptip.tip.html(t.attr('data-tip')).css({  
+      top: t.offset().top,  
+      right:  0,
+      height: t.height() - tiptip.padding * 2,
+      "padding-right": wTmp,
+      "zIndex":700,
+
+    }).show();
+    tiptip.zindex = t.css('zIndex');
+    t.css('zIndex',701);
+  }
+  else if(type == 'about')
+  {
+    var wTmp = t.width();
+    tiptip.tip.html(t.attr('data-tip')).css({  
+      bottom: 0,  
+      left:  0,
+      height: t.height() - tiptip.padding * 2,
+      "padding-left": wTmp,
+      "zIndex":700,
+
+    }).show();
+    tiptip.zindex = t.css('zIndex');
+    t.css('zIndex',701);
+  }
+});
+$(document).on('mouseleave','.tip',function(){
+
+  tiptip.p.css('zIndex',tiptip.zindex);
+  tiptip.tip.remove();
+});

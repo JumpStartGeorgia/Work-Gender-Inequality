@@ -382,8 +382,9 @@ en:
     index:
       title: Gap
       about_html: "Explore your wage gap!<br />In Georgia, men earn on average 39% more than women.<br />Are you earning or<br />are you losing?<br />Play and<br />find<br />out!"
-      site_link_title: Learn more about gender discrimination in the workplace
-      game_settings_title: View and edit your game settings
+      tip_logo: "<p>Learn more about gender<br />descrimination in the workplace</p>"
+      tip_settings: "<p>View and edit your settings</p>"
+      tip_about: "<p>About</p>"
     gamedata:
       gender:
         m: Male
@@ -430,6 +431,7 @@ en:
       title_score: Final Score
       job_sector: Job Sector
       year_passed: You worked
+      you: You
       fb_note: Your personal information about <br />salary and savings will not be shared
   imageuploader:
     missing: "An error occurred while processing your image. Please try again."

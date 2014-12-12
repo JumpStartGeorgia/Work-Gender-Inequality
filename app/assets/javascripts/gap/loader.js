@@ -13,8 +13,6 @@ var assetsmeta =
 		path:"/assets/gap/svg/human/" },
 	{ name:"sound", type:"image", path:"/assets/gap/svg/common/sound.svg"},
 	{ name:"soundoff", type:"image", path:"/assets/gap/svg/common/soundoff.svg"},
-	{ name:"arrowup", type:"image", path:"/assets/gap/svg/common/arrow-up.svg"},
-	{ name:"arrowdown", type:"image", path:"/assets/gap/svg/common/arrow-down.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},	
 	

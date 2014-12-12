@@ -27,6 +27,9 @@ var s = null;
 /** screen jquery object 
   * @type d3*/
 var s3 = null;
+
+var wr = null;
+
 /** height of land for human, based on viewport height and timeline height 
 * @type double */
 var lh = 0; 

@@ -630,7 +630,9 @@ Graphics: Mariam Kobuladze & Ruslan Beridze\
 Design: Mariam Kobuladze\
 Animation & Development: Anton Kamaryan\
 Development: Jason Addie\
-Data: National Statistics Office of Georgia"
+Data: National Statistics Office of Georgia",
+    you: "You",
+    retirement: "years until retirement"
   },
   game:
   {
