@@ -15,9 +15,16 @@
       <div class="wrapper" id="content">
         <div id="screen"></div>
         <div class='info'><div class='triangle'></div><div class='text'><%= t('gap.index.about_html') %></div></div>
+        <div class="volume on"></div>
         <div class='hint'><div>Use&nbsp;<span>scroll</span></div><div class='key-scroll'></div><div>or</div><div class='inb'><div class='key-left'></div><span class='shift'>arrow keys</span><div class='key-right'></div></div></div>
-        <a href="<%= root_path %>" class='logo'></a>
-        <a href="<%= current_url %>" class='restart'></a>
+        <a href="<%= root_path %>" class='logo tip' data-tip='<%= t('.tip_logo') %>' data-tip-type='logo'></a>
+        <a href="<%= current_url %>" class='settings tip' data-tip='<%= t('.tip_settings') %>' data-tip-type='settings'></a>
+        <div class="share"></div>
+        <div class='about tip' data-tip='<%= t('.tip_about') %>' data-tip-type='about'></div>
+        <div class='about-window'>
+          <div class='close'>x</div>
+          <div class='content'>About text</div>
+        </div>        
       </div>
       <!-- vendor libraries -->
       <%= javascript_include_tag *(["game"]), :media => "all" %>     
