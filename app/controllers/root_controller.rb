@@ -4,11 +4,13 @@ class RootController < ApplicationController
     @about_short = Page.find_by_name('about_short')
     @discrimination_explanation = Page.find_by_name('discrimination')
 
-    @news_items = NewsItem.published.sorted.limit(5)
-    @publications = Publication.sorted.limit(5)
-    @stories = Story.sorted.is_approved.public.limit(5)
+    @limit = 3
+    @news_items = NewsItem.published.sorted.limit(@limit)
+    @publications = Publication.sorted.limit(@limit)
+    @stories = Story.sorted.is_approved.public.limit(@limit)
 
     @css.push('root.css')
+    @js.push('root.js')
 
     respond_to do |format|
       format.html # index.html.erb

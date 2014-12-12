@@ -200,7 +200,7 @@ ka:
       get_involved: ჩაერთეთ!
       stay_informed: იყავით ინფორმირებული
       explore_data: კვლევის მონაცემთა შესწავლა
-      faq: ხშირად დასმული კითხვები
+      faq: ხდშ
       news: სიახლეები
       publications: პუბლიკაციები
       about: ჩვენ შესახებ
@@ -265,10 +265,18 @@ ka:
   root:
     index:
       title: Welcome to Tanastsoroba
+      img_link_row1: Tell
+      img_link_row2: your story
+      header_get_involved1: Get
+      header_get_involved2: Involved!
+      header_stories: Discrimination Stories
+      header_game: Pay Gap Game
+      header_explore: Explore Survey Data
+      header_video: Videos
       header_publications: Latest Publications
       header_news: Latest News
-      header_stories: Latest Discrimination Stories
-      more: View More
+      header_legislation: Latest Legislation
+      more: View All
     about:
       title: About Tanastsoroba
     news:
