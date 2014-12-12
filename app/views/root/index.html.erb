@@ -14,8 +14,10 @@
         <%= t('.img_link_row2') %>
       <% end %>
       <div>
-        <% if @discrimination_explanation.present? %>
+        <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
           <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
+        <% else %>
+          Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
         <% end %>
       </div>
     </div>
