@@ -201,14 +201,12 @@ en:
       stay_informed: Stay Informed
       explore_data: Explore Survey Data
       faq: FAQ
-      laws: Legislation
       news: News
       publications: Publications
       about: About
       stories: Discrimination Stories
-      share_stories: Share Discrimination Story
       game: Pay Gap Game
-      legislations: Legislations
+      legislations: Legislation
   layouts:
     application:
       toggle: Toggle navigation

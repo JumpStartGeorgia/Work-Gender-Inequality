@@ -197,18 +197,16 @@ ka:
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
-      get_involved: Get Involved!
-      stay_informed: Stay Informed
-      explore_data: Explore Survey Data
-      faq: FAQ
-      laws: Legislation
-      news: News
-      publications: Publications
-      about: About
-      stories: Discrimination Stories
-      share_stories: Share Discrimination Story
+      get_involved: ჩაერთეთ!
+      stay_informed: იყავით ინფორმირებული
+      explore_data: კვლევის მონაცემთა შესწავლა
+      faq: ხშირად დასმული კითხვები
+      news: სიახლეები
+      publications: პუბლიკაციები
+      about: ჩვენ შესახებ
+      stories: ისტორიები დისკრიმინიაციაზე
       game: Pay Gap Game
-      legislations: Legislations
+      legislations: კანონმდებლობა
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
