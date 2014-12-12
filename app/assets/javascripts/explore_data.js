@@ -418,7 +418,7 @@ function build_pie_chart(json){
         },
         series: [{
             type: 'pie',
-            data: json.chart.data
+            data: json.chart.data.reverse()
         }],
         exporting: {
           sourceWidth: 1280,
