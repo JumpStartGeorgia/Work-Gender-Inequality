@@ -830,7 +830,7 @@ svg.stage-bk { z-index:30; }*/
 
 /* screen 2 end */
 
-
+/* ------------------------------- timeline ------------------------------- */
 #screen .timeline
 {
    position:absolute;
@@ -887,7 +887,50 @@ svg.stage-bk { z-index:30; }*/
    background-position:0px 0px;
    display:inline-block;
 }
+.time-travel
+{
+  position: relative;
+  top: -30px;
+  text-align: center;
+  font-family:gandhi;
+  font-size:17.5px;
+  color:rgba(218,92,57,153);
+  width:100%;
+}
+.time-travel > div 
+{
+  display:inline-block;
+  line-height:30px;
+  vertical-align:middle;
+}
+.time-travel .backward
+{
+  background:transparent url('/assets/gap/svg/common/backward.svg') no-repeat;
+  background-size:26px 18px;
+  width:26px;
+  height:18px;
+}
+.time-travel .forward
+{
+  background:transparent url('/assets/gap/svg/common/forward.svg') no-repeat;
+  background-size:26px 18px;
+  width:26px;
+  height:18px;
+}
+.time-travel .forward:hover, .time-travel .backward:hover
+{
+  cursor:pointer;
+}
+.time-travel .now
+{
+  width:175px;
+}
+.time-travel .travel-point-back,.time-travel .travel-point-forw
+{
+  padding:0px 15px;
 
+}
+/* ------------------------------- timeline end ------------------------------- */
 
 .age-picker
 {
@@ -1282,8 +1325,9 @@ svg.stage-bk { z-index:30; }*/
    white-space: nowrap;
 }
 .treasure .pedestal .interestB > div.item,
-.treasure .pedestal .interestB > div.mutationB > div.item,
-.interest
+.treasure .pedestal .interestB > div.mutationB > div.item
+/*,
+.interest*/
 {
    width:50px;
    height:50px;
@@ -1542,7 +1586,7 @@ svg.stage-bk { z-index:30; }*/
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  background:transparent url("/assets/gap/svg/common/restart.svg") no-repeat;
+  background:transparent url("/assets/gap/svg/common/settings.svg") no-repeat;
   background-size:35px 69px;
   width:35px;
   height:69px;
@@ -1813,4 +1857,81 @@ svg.stage-bk { z-index:30; }*/
 /*  border-left:1px solid #a8d2d0;
   border-right:1px solid #a8d2d0;*/
 
+}
+
+
+
+/* --------------------- settings tap ----------------------------- */
+.settings-bar {
+
+  height:100%;
+  position:fixed;
+  right:-140px;/*-100px;*/
+  width:140px;
+}
+.settings-bar .options
+{
+  background-color:#83c0c6;
+  font-family:gandhi-bi;
+  font-size:20px;
+  color:#fff;
+  position: absolute;
+  top: 140px;
+  bottom: 140px;
+  width: 140px;
+  right: 0px;
+}
+.settings-bar .settings-decor-top {
+  position:absolute;
+  top:0px;
+  right:0px;
+  width: 0;
+  height: 0;
+  border-bottom: 140px solid #83c0c6;
+  border-left: 140px solid transparent;
+}
+.settings-bar .settings-decor-bottom {
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  width: 0;
+  height: 0;
+  border-top: 140px solid #83c0c6;
+  border-left: 140px solid transparent;
+}
+.settings-bar .options-wr
+{  
+  position: absolute;
+  top: 50%;
+  transition: translateYY(-50%);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+}
+.settings-bar .options .option
+{
+  padding:0px 15px;
+  text-align:center;
+  margin:0px auto;
+}
+.settings-bar .options .option .arrow
+{
+  background:transparent url("/assets/gap/svg/common/arrow_d.svg") no-repeat;
+  background-size:12px 5px;
+  width:12px;
+  height:5px;
+  margin:2px auto 5px;
+}
+.settings-bar .options .option .separator
+{
+  width:100%;
+  border-bottom:2px solid #fff;  
+}
+.settings-bar .options .edit
+{
+  color:#dc4a29;
+  background-color:#fff;
+  padding: 6px 5px;
+  margin: 10px 10px 0px;
 }

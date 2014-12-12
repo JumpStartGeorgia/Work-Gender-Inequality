@@ -16,14 +16,59 @@
         <div id="screen"></div>
         <div class='info'><div class='triangle'></div><div class='text'><%= t('gap.index.about_html') %></div></div>
         <div class="volume on"></div>
-        <div class='hint'><div>Use&nbsp;<span>scroll</span></div><div class='key-scroll'></div><div>or</div><div class='inb'><div class='key-left'></div><span class='shift'>arrow keys</span><div class='key-right'></div></div></div>
+        <div class='hint'><div><%= t('.hint1') %>&nbsp;<span><%= t('.hint2') %></span></div><div class='key-scroll'></div><div><%= t('.hint3') %></div><div class='inb'><div class='key-left'></div><span class='shift'><%= t('.hint4') %></span><div class='key-right'></div></div></div>
         <a href="<%= root_path %>" class='logo tip' data-tip='<%= t('.tip_logo') %>' data-tip-type='logo'></a>
-        <a href="<%= current_url %>" class='settings tip' data-tip='<%= t('.tip_settings') %>' data-tip-type='settings'></a>
+        <div href="<%= current_url %>" class='settings tip' data-tip='<%= t('.tip_settings') %>' data-tip-type='settings'>
+        </div>
         <div class="share"></div>
         <div class='about tip' data-tip='<%= t('.tip_about') %>' data-tip-type='about'></div>
         <div class='about-window'>
           <div class='close'>x</div>
           <div class='content'>About text</div>
+        </div>
+        <div class='settings-bar'>
+          <div class='settings-decor-top'></div>
+          <div class='options'>
+            <div class='options-wr'>
+              <div class='option gender'>
+                <div class='key'><%= t('.gender') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+                <div class='separator'></div>
+              </div>
+              <div class='option age'>
+                <div class='key'><%= t('.age') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+                <div class='separator'></div>
+              </div>
+              <div class='option category'>
+                <div class='key'><%= t('.job') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+                <div class='separator'></div>
+              </div>
+              <div class='option salary'>
+                <div class='key'><%= t('.salary') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+                <div class='separator'></div>
+              </div>
+              <div class='option interest'>
+                <div class='key'><%= t('.interest') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+                <div class='separator'></div>
+              </div>
+              <div class='option saving'>
+                <div class='key'><%= t('.saving') %></div>
+                <div class='arrow'></div>
+                <div class='value'></div>
+              </div>
+              <div class='edit'><%= t('.edit') %></div>
+            </div>
+          </div>
+          <div class='settings-decor-bottom'></div>
         </div>        
       </div>
       <!-- vendor libraries -->

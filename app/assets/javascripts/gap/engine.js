@@ -1,3 +1,12 @@
+
+var img_scaler =  1;
+var bg_width = 0;
+var bg_initial_height = 0;
+var fgw = 0;
+var fgh = 0;
+var screenCount = 1;
+var reward = false;
+var epilogueUp = true;
 /*
 * @description application initialization step, called after DOM elements and resources are loaded
 */
@@ -119,139 +128,8 @@ function can_scroll(v)
 {  
   return v >= 0 && v < life_scroll_count;
 }
-function sound_button()
-{
-  // sound button init with binding click event for muting
-  var volume = wr.find('> .volume');
-  if(volume.length != 0)
-  {
-    volume.data('state',1);
-    volume.click(function(){
-      if(+volume.data('state') == 1)
-      {
-        volume.removeClass('on').addClass('off').data('state',0);
-        player.mute();
-      }
-      else
-      {
-        volume.removeClass('off').addClass('on').data('state',1);
-        player.unmute();
-      }
-    });
-    volume.show();
-  }
-}
-function about_button()
-{ 
-  var about = wr.find('> .about');
-  var about_window = wr.find('> .about-window');
 
-  if(about.length != 0)
-  {
-    about.click(function(){
-      wr.find('.about-window').fadeIn(500,function(){
-        $(document).click(function(){
-          $(this).off('click');
-          about_window.hide();
-        });        
-      });
 
-    });    
-    //about_window.click(function(){ $(this).hide(); });
-    about.show();
-  }
-}
-function share_button()
-{
-  var share = $('.wrapper > .share');
-  if(share.length != 0)
-  {
-    $(document).ready(function() {
-      $.ajaxSetup({ cache: true });
-      // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
-       $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
-       {
-         FB.init({
-           appId: '737141426318491',
-           xfbml      : true,
-           version    : 'v2.1'
-         });     
-        $(document).on('click','.share, .fb, .sum-share',function()
-        {
-          FB.ui({
-            method: 'share',
-            href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
-          }, function(response){
-             if (response && !response.error_code) {
-                console.log('Posting completed.');
-             } else {
-                console.log('Error while posting.');
-             }
-          });          
-        });
-        share.show()
-      });
-    });
-  }
-}
-var epilogueUp = true;
-function epilogue()
-{
-  gameoff();
-  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
-  else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
-  sendUserData(true); // on finish update poll data
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'>"+locale.general.summary+"</div></div></div></div>").appendTo(s.parent());
-
-  
-  resizeCallback = function()
-  {
-    epilogue_redraw();
-  }
-  epilogue_redraw();
-
-  $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary .content').html(data.s);
-    t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
-  });
-}
-function epilogue_redraw()
-{
-  var t = $('.wrapper .epilogue');
-  t.find('.summary').css('height',h-62);
-  t.find('.whatnext').css('height',h-42);
-  t.find('.slider').css('top', epilogueUp ? 0 : -h+104);
-}
-function epilogue_trigger()
-{
-  var slider = $('.wrapper .epilogue .slider');  
-  var whatnext_trigger = slider.find(".whatnext .whatnext-trigger");
-  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
-
-  slider.animate({top: epilogueUp ? -1*($(window).height())+104 : 0 },
-  {
-    duration:1500,
-    start:function()
-    {
-      whatnext_trigger.off("mouseenter");
-      epilogueTmp = true;
-    },
-    progress:function(a,b,c)
-    {
-      if(epilogueTmp && b > 0.5)
-      {
-        epilogueTmp = false;
-        whatnext_trigger.toggleClass('down up');
-      }
-    },
-    complete:function()
-    {
-      
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
-      epilogueUp=!epilogueUp;
-    }
-  });
-}
 function gameon() { ingame = true; }
 function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
 function game_on_load()
@@ -265,9 +143,9 @@ function game_on_load()
 function game_init() {
 
   sound_button();
+  settings_button();
   about_button();
-  share_button();
-  $('a.settings').css('display','block');
+  share_button();  
 
   gameon();
 
@@ -292,7 +170,9 @@ function game_init() {
   var t = $('<div class="top"></div>').appendTo(s)
     .append(tstr)
     .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div>');
-  timeline = $('<div class="timeline"><div class="canvas"></div></div>').appendTo(s).find('.canvas');
+  timeline = $('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward"></div><div class="now"></div><div class="forward"></div><div class="travel-point-forw">'+jumper + ' ' + locale.general.years_forward +'</div></div></div>').appendTo(s).find('.canvas');
+  $('.timeline .time-travel .backward').click(function(){ timetravel_back(); });
+  $('.timeline .time-travel .forward').click(function(){ timetravel_forw(); });
   var b = $('<div class="bottom"></div>').appendTo(s)
     .append(tstr)
     .append('<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div>');
@@ -322,15 +202,38 @@ function game_init() {
   $('.wrapper .hint').fadeIn(1000,'linear');
 
   game_on_load();
-  
-  
 }
-var img_scaler =  1;
-var bg_width = 0;
-var bg_initial_height = 0;
-var fgw = 0;
-var fgh = 0;
-var screenCount = 1;
+function game_jump(v) //  -1 back 1 forw
+{
+  if(v === undefined) v = 1;
+  var isfine = false;
+
+  var toJump = jumper * 12 / reward_period * v + gap.pos;
+
+  if(toJump >=0 && toJump <= pos_max)
+  {
+    if(can_scroll(toJump*scrolls_for_reward))
+    {
+      gap.pos = toJump;    
+      total_scrolls = gap.pos*scrolls_for_reward;    
+
+      start_by_time();
+
+      male.pedestal.resume_by_position();
+      female.pedestal.resume_by_position();
+
+      timeline_point_redraw();
+
+      stage_redraw(0);
+
+      redraw_game();
+      isfine = true;    
+    }    
+  }
+  if(isfine) console.log('can\'t jump');
+  else console.log('jumping');
+}
+
 function stage_init(v)
 {
   var bg = $('.'+((v === 0) ? 'top' : 'bottom')+' .stage .bg');
@@ -618,7 +521,6 @@ function walk_process(v)
  
   $('.canvas, .treasure .red-carpet').css({left:-total_scrolls*(timeline_month_w/scroll_per_month)});
 }
-var reward = false;
 function any_reward()
 {
   humans.forEach(function(d){    
@@ -667,7 +569,6 @@ function card_prepare(v)
   }
   v.queue.resume();  
 }
-var move_size = -300;
 function prepare_for_reward(v)
 {
   var cur = $('.' + v.place);
@@ -905,10 +806,6 @@ function sendUserData(fin)
     }
   })
 }
-// function restart()
-// {
-//   $.removeCookie("_game_id");
-// }
 function start_by_time()
 {  
   var tmp = gap.pos*reward_period;
@@ -921,37 +818,6 @@ function start_by_time()
 }
 /***************************************************************
                   General Functions End
-***************************************************************/
-/***************************************************************
-                  Progress Bar
-***************************************************************/
-// function progress(val)
-// {
-//   if(val==100) 
-//   {
-//     intro_fade();
-//   }
-//   var $circle = $('#svg #bar');
-  
-//   if (isNaN(val)) {
-//    val = 0; 
-//   }
-//   else{
-//     var r = $circle.attr('r');
-//     var c = Math.PI*(r*2);
-   
-//     if (val < 0) { val = 0;}
-//     if (val > 100) { val = 100;}
-    
-//     var pct = ((100-val)/100)*c;
-    
-//     $circle.css({ strokeDashoffset: pct});
-    
-//     $('#cont').attr('data-pct',val);
-//   }
-// }
-/***************************************************************
-                  Progress Bar End
 ***************************************************************/
 /***************************************************************
                   Key Hooks
@@ -969,6 +835,9 @@ jwerty.key('arrow-left', function(){
 /***************************************************************
                   Key Hooks End
 ***************************************************************/
+/***************************************************************
+                  Tiptip module
+***************************************************************/
 var tiptip_padding = 5;
 var tiptip = {
   tip:null,
@@ -976,76 +845,236 @@ var tiptip = {
   zindex:0,
   padding:5
 };
-
 $(document).on('mouseenter','.tip',function(){
   var t = $(this);
-console.log(t);
   var type = t.attr('data-tip-type');
   if(type === undefined) type = 'coin';
 
   tiptip.p = t;
   tiptip.tip = $("<div class='tiptip tip-" + type + "'></div>").insertAfter(t);
 
+  var wTmp = t.width();
+  var wTmp2 = wTmp/2;
+  var custCss = {};
+  custCss['height'] = t.height() - tiptip.padding * 2;
+  custCss['zIndex'] = 700;
+
   if(type == 'coin')
   {
-    var wTmp2 = t.width()/2;
-    tiptip.tip.html(t.attr('data-tip')).css({  
-      top: t.offset().top,  
-      left:  t.offset().left +  wTmp2,
-      height: t.height() - tiptip.padding * 2,
-      //"line-height": (t.height() - tiptip.padding * 2) + 'px',
-      "padding-left": wTmp2+10,
-      "zIndex":700,
-
-    }).show();
-    tiptip.zindex = t.css('zIndex');
-    t.css('zIndex',701);
+    custCss['top'] = t.offset().top;
+    custCss['left'] = t.offset().left +  wTmp2;
+    custCss['padding-left'] = wTmp2+10;
   }
   else if(type == 'logo')
   {
-    var wTmp = t.width();
-    tiptip.tip.html(t.attr('data-tip')).css({  
-      top: t.offset().top,  
-      left:  0,
-      height: t.height() - tiptip.padding * 2,
-      "padding-left": wTmp + 10,
-      "zIndex":700,
-
-    }).show();
-    tiptip.zindex = t.css('zIndex');
-    t.css('zIndex',701);
+    custCss['top'] = t.offset().top;
+    custCss['left'] = 0;
+    custCss['padding-left'] = wTmp+10;  
   }
   else if (type == 'settings')
   {
-    var wTmp = t.width();
-    tiptip.tip.html(t.attr('data-tip')).css({  
-      top: t.offset().top,  
-      right:  0,
-      height: t.height() - tiptip.padding * 2,
-      "padding-right": wTmp,
-      "zIndex":700,
-
-    }).show();
-    tiptip.zindex = t.css('zIndex');
-    t.css('zIndex',701);
+    custCss['top'] = t.offset().top;
+    custCss['right'] = 0;
+    custCss['padding-right'] = wTmp;     
   }
   else if(type == 'about')
   {
-    var wTmp = t.width();
-    tiptip.tip.html(t.attr('data-tip')).css({  
-      bottom: 0,  
-      left:  0,
-      height: t.height() - tiptip.padding * 2,
-      "padding-left": wTmp,
-      "zIndex":700,
-
-    }).show();
-    tiptip.zindex = t.css('zIndex');
-    t.css('zIndex',701);
+    custCss['bottom'] = 0;
+    custCss['left'] = 0;
+    custCss['padding-left'] = wTmp;     
   }
+  tiptip.tip.html(t.attr('data-tip')).css(custCss).show();
+  tiptip.zindex = t.css('zIndex');
+  t.css('zIndex',701);
 });
-$(document).on('mouseleave','.tip',function(){
-
+$(document).on('mouseleave','.tip',function()
+{
   tiptip.p.css('zIndex',tiptip.zindex);
   tiptip.tip.remove();
 });
+/***************************************************************
+                  Tiptip module end
+***************************************************************/
+function timetravel_back()
+{
+  game_jump(-1);
+}
+function timetravel_forw()
+{
+  game_jump(1);
+}
+
+/***************************************************************
+                          Epilogue
+***************************************************************/
+function epilogue()
+{
+  gameoff();
+  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
+  else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
+  sendUserData(true); // on finish update poll data
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'>"+locale.general.summary+"</div></div></div></div>").appendTo(s.parent());
+
+  
+  resizeCallback = function()
+  {
+    epilogue_redraw();
+  }
+  epilogue_redraw();
+
+  $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
+    t.find('.summary .content').html(data.s);
+    t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
+  });
+}
+function epilogue_redraw()
+{
+  var t = $('.wrapper .epilogue');
+  t.find('.summary').css('height',h-62);
+  t.find('.whatnext').css('height',h-42);
+  t.find('.slider').css('top', epilogueUp ? 0 : -h+104);
+}
+function epilogue_trigger()
+{
+  var slider = $('.wrapper .epilogue .slider');  
+  var whatnext_trigger = slider.find(".whatnext .whatnext-trigger");
+  var whatnext_trigger_arrow = whatnext_trigger.find('.arrow');
+
+  slider.animate({top: epilogueUp ? -1*($(window).height())+104 : 0 },
+  {
+    duration:1500,
+    start:function()
+    {
+      whatnext_trigger.off("mouseenter");
+      epilogueTmp = true;
+    },
+    progress:function(a,b,c)
+    {
+      if(epilogueTmp && b > 0.5)
+      {
+        epilogueTmp = false;
+        whatnext_trigger.toggleClass('down up');
+      }
+    },
+    complete:function()
+    {
+      
+      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
+      epilogueUp=!epilogueUp;
+    }
+  });
+}
+/***************************************************************
+                          Epilogue End
+***************************************************************/
+/***************************************************************
+                          Buttons
+***************************************************************/
+function sound_button()
+{
+  // sound button init with binding click event for muting
+  var volume = wr.find('> .volume');
+  if(volume.length != 0)
+  {
+    volume.data('state',1);
+    volume.click(function(){
+      if(+volume.data('state') == 1)
+      {
+        volume.removeClass('on').addClass('off').data('state',0);
+        player.mute();
+      }
+      else
+      {
+        volume.removeClass('off').addClass('on').data('state',1);
+        player.unmute();
+      }
+    });
+    volume.show();
+  }
+}
+function about_button()
+{ 
+  var about = wr.find('> .about');
+  var about_window = wr.find('> .about-window');
+
+  if(about.length != 0)
+  {
+    about.click(function(){
+      wr.find('.about-window').fadeIn(500,function(){
+        $(document).click(function(){
+          $(this).off('click');
+          about_window.hide();
+        });        
+      });
+
+    });    
+    //about_window.click(function(){ $(this).hide(); });
+    about.show();
+  }
+}
+function settings_button()
+{
+  var settings = wr.find('> .settings');
+  var settings_bar = wr.find('> .settings-bar');
+
+  if(settings.length != 0)
+  {
+    var togo = settings.hasClass('on') ? -140 : 0;
+    settings.click(function()
+    {
+      settings.animate({right:togo},{
+        duration:1000,
+        start:function() { settings.toggleClass('on off'); },
+        complete:function(){
+          if(settings.hasClass('on'))
+          {
+            $(document).click(function(){ 
+              $(this).off('click'); 
+//todo here
+            });        
+          }          
+        }
+      });  
+      settings_bar.animate({right:togo},{
+        duration:1000       
+      });     
+    });
+    settings.show();
+  }
+}
+function share_button()
+{
+  var share = $('.wrapper > .share');
+  if(share.length != 0)
+  {
+    $(document).ready(function() {
+      $.ajaxSetup({ cache: true });
+      // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
+       $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
+       {
+         FB.init({
+           appId: '737141426318491',
+           xfbml      : true,
+           version    : 'v2.1'
+         });     
+        $(document).on('click','.share, .fb, .sum-share',function()
+        {
+          FB.ui({
+            method: 'share',
+            href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
+          }, function(response){
+             if (response && !response.error_code) {
+                console.log('Posting completed.');
+             } else {
+                console.log('Error while posting.');
+             }
+          });          
+        });
+        share.show()
+      });
+    });
+  }
+}
+/***************************************************************
+                          Buttons End
+***************************************************************/

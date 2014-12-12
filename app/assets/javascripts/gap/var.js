@@ -165,3 +165,4 @@ var isOpera = /opera/i.test(navigator.userAgent);
 
 var resizeCallback = null;
 var scrolled = false;
+var jumper = 5;

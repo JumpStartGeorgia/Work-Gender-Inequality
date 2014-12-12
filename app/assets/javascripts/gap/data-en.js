@@ -16,6 +16,7 @@ var categories =
         "bg2":"bg3",
         "fg":"agriculture",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -25,11 +26,12 @@ var categories =
         "percent":43.68,
         "male":524.9,
         "female":295.6,
-        "dress":"technical",
+        "dress":"fisher",
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"fishing",
         "sits":false,
+        "action":true,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -39,11 +41,12 @@ var categories =
         "percent":9.74,
         "male":1045.1,
         "female":943.3,
-        "dress":"construction",
+        "dress":"miner",
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"mining",
         "sits":false,
+        "action":true,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -58,6 +61,7 @@ var categories =
         "bg2":"bg1",
         "fg":"manufacturing",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -72,6 +76,7 @@ var categories =
         "bg2":"bg1",
         "fg":"production",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -86,6 +91,7 @@ var categories =
         "bg2":"bg2",
         "fg":"construction",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -100,6 +106,7 @@ var categories =
         "bg2":"bg1",
         "fg":"wholesale",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 340.34823,114.32031 L 8.1219464,114.32031 L 8.1219464,106.97189 L 338.80119,107.7454"}       
     },
     { 
@@ -114,6 +121,7 @@ var categories =
         "bg2":"bg1",
         "fg":"hotel",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -128,6 +136,7 @@ var categories =
         "bg2":"bg1",
         "fg":"transport",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -142,6 +151,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -156,6 +166,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"realestate",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -170,6 +181,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"administration",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     { 
@@ -179,11 +191,12 @@ var categories =
         "percent":21.45,
         "male":545,
         "female":428.1,   
-        "dress":"casual",
+        "dress":"teacher",
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"education",
         "sits":false,
+        "action":true,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     {
@@ -198,6 +211,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"health",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     {
@@ -212,6 +226,7 @@ var categories =
         "bg2":"bg1",       
         "fg":"community",
         "sits":false,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
     {
@@ -226,6 +241,7 @@ var categories =
         "bg2":"bg1",    
         "fg":"other",
         "sits":true,
+        "action":false,
         "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
     },
 ];
@@ -632,7 +648,12 @@ Animation & Development: Anton Kamaryan\
 Development: Jason Addie\
 Data: National Statistics Office of Georgia",
     you: "You",
-    retirement: "years until retirement"
+    retirement: "years until retirement",
+    details: "Details",
+    cost: "Cost",
+    years_back: " years back",
+    years_forward: " years forward"
+
   },
   game:
   {

@@ -27,7 +27,7 @@ function cardObject(p)
 	this.next = function()
 	{
 		this.show();
-		this.text(interest[0].descr);
+		this.text(interest[0]);
 		var cnt = this.p.event_by_period[gap.pos-1];
 		this.scoins.empty();
 		for(var i = 0; i < cnt; ++i)		
@@ -43,7 +43,7 @@ function cardObject(p)
 	this.text = function(text)
 	{
 		if(typeof text !== undefined)
-			this.stext.text(locale.general.you_can_buy + text);
+			this.stext.html(locale.general.you_can_buy + text.title + "<br/><br/>" + locale.general.details + ": " + text.descr + "<br/>" + locale.general.cost + ": " + text.cost);
 	};
 	this.hide = function(immediate)
 	{

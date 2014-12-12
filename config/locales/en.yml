@@ -377,6 +377,19 @@ en:
       tip_logo: "<p>Learn more about gender<br />descrimination in the workplace</p>"
       tip_settings: "<p>View and edit your settings</p>"
       tip_about: "<p>About</p>"
+      hint1: Use
+      hint2: scroll
+      hint3: or
+      hint4: arrow keys
+      gender: Gender
+      female: Female
+      male: Male
+      age: Age
+      job: Job Sector
+      salary: Salary
+      interest: Interest
+      saving: Saving
+      edit: Edit Settings
     gamedata:
       gender:
         m: Male
