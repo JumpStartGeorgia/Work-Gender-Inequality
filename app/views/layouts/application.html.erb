@@ -152,19 +152,38 @@
       </div><!--/row-->
     </div> <!-- /container-fluid -->
 
-    <footer class="clear">
-			<div id="left">&copy; <%= Time.now.year %></div>
-		  <div id="middle">
-				<ul class="list-unstyled">
-          <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
-          <li>|</li>
+    <footer class="clear row">
+      <div class="col-sm-4">
+        <%= image_tag 'logo.png' %>
+      </div>
+      <div class="col-sm-8">
+        <ul class="list-unstyled">
+          <li role="menuitem"><%= link_to t('app.menu.about'), about_path %></li>
+          <li>
+            <%= t('app.menu.get_involved') %>
+            <ul>
+              <li role="menuitem"><%= link_to t('app.menu.stories'), stories_path %></li>
+              <li role="menuitem"><%= link_to t('app.menu.game'), gap_path %></li>
+              <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
+            </ul>
+          </li>
+          <li>
+            <%= t('app.menu.get_involved') %>
+            <ul>
+              <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
+              <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>
+            </ul>
+          </li>
           <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
         </ul>
-			</div>
-			<div id="right" class="clear">
-				<%= link_to(image_tag("jumpstart-logo.png"), "http://www.jumpstart.ge", :target => "_blank",
-						:title => t('app.common.js_link_title')	) %>
-			</div>
+        <div class="menu-fb">
+          <div>
+            <%= link_to "https://www.facebook.com/pages/%E1%83%95%E1%83%98%E1%83%9B%E1%83%A3%E1%83%A8%E1%83%90%E1%83%9D%E1%83%97-%E1%83%97%E1%83%90%E1%83%9C%E1%83%90%E1%83%A1%E1%83%AC%E1%83%9D%E1%83%A0-%E1%83%92%E1%83%90%E1%83%A0%E1%83%94%E1%83%9B%E1%83%9D%E1%83%A8%E1%83%98-We-Want-to-Work-in-an-Equal-Environment/527579087370067" do %>
+              <%= image_tag "svg/facebook_w.svg", height: 20 %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </footer>
 
     <!-- Javascripts
