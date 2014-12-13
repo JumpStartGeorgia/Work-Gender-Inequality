@@ -1,165 +1,186 @@
 
+<div id="landing">
 
-<div id="into-content" class="row">
-  <div class="col-sm-6">
-    <% if @about_short.present? %>
-      <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
-    <% end %>
-  </div>
-  <div class="col-sm-6">
-    <div>
-      <%= image_tag 'landing-temp.png' %>
-      <%= link_to new_story_path do %>
-        <span><%= t('.img_link_row1') %></span>
-        <%= t('.img_link_row2') %>
+  <div id="into-content" class="row">
+    <div class="col-sm-6">
+      <% if @about_short.present? %>
+        <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
       <% end %>
+    </div>
+    <div class="col-sm-6">
       <div>
-        <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
-          <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
-        <% else %>
+        <%= image_tag 'landing-temp.png' %>
+        <%= link_to new_story_path do %>
+          <span><%= t('.img_link_row1') %></span>
+          <%= t('.img_link_row2') %>
+        <% end %>
+        <div>
+          <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
+            <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
+          <% else %>
+            Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="get-involved">
+    <h2 id="get-involved-header">
+      <span><%= t('.header_get_involved1') %></span>
+      <%= t('.header_get_involved2') %>
+    </h2>
+    <div id="get-involved-header2" class="row">
+      <div class="col-sm-4">
+        <%= t('.header_stories') %>
+      </div>
+      <div class="col-sm-4">
+        <%= t('.header_game') %>  
+      </div>
+      <div class="col-sm-4">
+        <%= t('.header_explore') %>
+      </div>
+    </div>
+    <div id="get-involved-content" class="row">
+      <div id="stories" class="col-sm-4">
+        <% if @stories.present? %>
+          <ul class="list-unstyled">
+            <% @stories.each do |story| %>
+              <li class="row">
+                <div class="col-sm-3">
+                  <div class="date"><%= l story.created_at, format: :date_only %></div>
+                  <div><%= story.discrimination_type.name %></div>
+                </div>
+                <div class="col-sm-9">
+                  <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 100), story_path(story) %>
+                </div>
+              </li> 
+            <% end %>
+          </ul>
+        <% end %>
+        <div id="story-links" class="row">
+          <div class="col-sm-6">
+            <%= link_to t('.tell_story'), new_story_path %>
+          </div>
+          <div class="col-sm-6">
+            <%= link_to t('.view_stories'), stories_path %>
+          </div>
+        </div>
+
+      </div>
+      <div id="game" class="col-sm-4">
+        <div id="game-explanation">
           Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
-        <% end %>
+        </div>
+        <div id="game-link">
+          <%= link_to t('.play'), gap_path %>
+        </div>
+      </div>
+      <div id="explore" class="col-sm-4">
+        <p>
+          <%= t('root.explore_data.instructions.p1') %>
+        </p>
+        <div id="explore-image">
+          <%= image_tag 'chart.png' %>
+        </div>
+        <div id="explore-link">
+          <%= link_to t('.explore'), explore_data_path %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div id="video-header">
+    <%= t('.header_video') %>
+  </div>
+  <div id="video-content" class="row">
+    <div class="col-sm-3">
+    video
+    </div>
+    <div class="col-sm-3">
+    video
+    </div>
+    <div class="col-sm-3">
+    video
+    </div>
+    <div class="col-sm-3">
+    video
+    </div>
+  </div>
 
 
-
-<h2 id="get-involved-header">
-  <span><%= t('.header_get_involved1') %></span>
-  <%= t('.header_get_involved2') %>
-</h2>
-<div id="get-involved-header2" class="row">
-  <div class="col-sm-4">
-    <%= t('.header_stories') %>
-  </div>
-  <div class="col-sm-4">
-    <%= t('.header_game') %>  
-  </div>
-  <div class="col-sm-4">
-    <%= t('.header_explore') %>
-  </div>
-</div>
-<div id="get-involved-content" class="row">
-  <div id="stories" class="col-sm-4">
-    <% if @stories.present? %>
-      <ul class="list-unstyled">
-        <% @stories.each do |story| %>
-          <li class="row">
-            <div class="col-sm-3">
-              <div class="date"><%= l story.created_at, format: :date_only %></div>
-              <div><%= story.discrimination_type.name %></div>
-            </div>
-            <div class="col-sm-9">
-              <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 100), story_path(story) %>
-            </div>
-          </li> 
-        <% end %>
-      </ul>
-      <div class="more">
-        <%= link_to t('.more'), stories_path %>
+  <div id="latest">
+    <div id="latest-header" class="row">
+      <div class="col-sm-4">
+        <div>
+          <%= t('.header_news') %>
+        </div>
       </div>
-    <% end %>
-  </div>
-  <div id="game" class="col-sm-4">
-    <div>
-      Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
-    </div>
-  </div>
-  <div id="explore" class="col-sm-4">
-    <p>
-      <%= t('root.explore_data.instructions.p1') %>
-    </p>
-  </div>
-</div>
-
-<div id="video-header">
-  <%= t('.header_video') %>
-</div>
-<div id="video-content" class="row">
-  <div class="col-sm-3">
-  video
-  </div>
-  <div class="col-sm-3">
-  video
-  </div>
-  <div class="col-sm-3">
-  video
-  </div>
-  <div class="col-sm-3">
-  video
-  </div>
-</div>
-
-
-<div id="latest-header" class="row">
-  <div class="col-sm-4">
-    <div>
-      <%= t('.header_news') %>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div>
-      <%= t('.header_publications') %>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div>
-      <%= t('.header_legislation') %>
-    </div>
-  </div>
-</div>
-
-<div id="latest-content" class="row">
-  <div class="col-sm-4">
-    <% if @news_items.present? %>
-      <ul class="list-unstyled latest-list">
-        <% @news_items.each do |news| %>
-          <li>
-            <div class="date"><%= l news.published_at %></div>
-            <div class="title"><%= link_to news.title, news_show_path(news) %></div>
-          </li> 
-        <% end %>
-      </ul>
-      <% if @news_items.length == @limit %>
-        <div class="more">
-          <%= link_to t('.more'), news_path %>
+      <div class="col-sm-4">
+        <div>
+          <%= t('.header_publications') %>
         </div>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="col-sm-4">
-    <% if @publications.present? %>
-      <ul class="list-unstyled latest-list">
-        <% @publications.each do |publication| %>
-          <li>
-            <div class="date"><%= l publication.published_at %></div>
-            <div class="title"><%= link_to publication.title, publications_show_path(publication) %></div>
-          </li> 
-        <% end %>
-      </ul>
-      <% if @publications.length == @limit %>
-        <div class="more">
-          <%= link_to t('.more'), news_path %>
+      </div>
+      <div class="col-sm-4">
+        <div>
+          <%= t('.header_legislation') %>
         </div>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="col-sm-4">
-    <% if @laws_nav.present? %>
-      <ul class="list-unstyled latest-list">
-        <% 
-          laws = @laws_nav.sort_by{|x| x.enacted_at}.reverse
-          stop = laws.length < 3 ? laws.length-1 : 2
-        %>
-        <% laws[0..stop].each do |law| %>
-          <li>
-            <div class="date"><%= l law.enacted_at %></div>
-            <div class="title"><%= link_to law.title.downcase, law_path(law) %></div>
-          </li> 
+      </div>
+    </div>
+
+    <div id="latest-content" class="row">
+      <div class="col-sm-4">
+        <% if @news_items.present? %>
+          <ul class="list-unstyled latest-list">
+            <% @news_items.each do |news| %>
+              <li>
+                <div class="date"><%= l news.published_at %></div>
+                <div class="title"><%= link_to news.title, news_show_path(news) %></div>
+              </li> 
+            <% end %>
+          </ul>
+          <% if @news_items.length == @limit %>
+            <div class="more">
+              <%= link_to t('.more'), news_path %>
+            </div>
+          <% end %>
         <% end %>
-      </ul>
-    <% end %>
+      </div>
+      <div class="col-sm-4">
+        <% if @publications.present? %>
+          <ul class="list-unstyled latest-list">
+            <% @publications.each do |publication| %>
+              <li>
+                <div class="date"><%= l publication.published_at %></div>
+                <div class="title"><%= link_to publication.title, publications_show_path(publication) %></div>
+              </li> 
+            <% end %>
+          </ul>
+          <% if @publications.length == @limit %>
+            <div class="more">
+              <%= link_to t('.more'), news_path %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-sm-4">
+        <% if @laws_nav.present? %>
+          <ul class="list-unstyled latest-list">
+            <% 
+              laws = @laws_nav.sort_by{|x| x.enacted_at}.reverse
+              stop = laws.length < 3 ? laws.length-1 : 2
+            %>
+            <% laws[0..stop].each do |law| %>
+              <li>
+                <div class="date"><%= l law.enacted_at %></div>
+                <div class="title"><%= link_to law.title.downcase, law_path(law) %></div>
+              </li> 
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
