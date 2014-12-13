@@ -380,49 +380,71 @@ ka:
       optional_explanation: These fields are optional. Providing them will help us gather data about whom discrimination is affecting in Georgia.
   gap:
     index:
-      title: Gap
+      title:  Pay Gap Game
+      about_html: "დაადგინეთ თქვენი სახელფასო სხვაობა!<br />საქარველოში მამაკაცების შემოსავალი 38%-ით მეტია ქალებისაზე.<br />გამოიმუშავებთ თუ<br />კარგავთ თანხას?<br />ითამაშეთ და გაიგეთ!"
+      tip_logo: "<p>გაიგეთ მეტი სამუშაო ადგილზე გენდერული დისკრიმინაციის შესახებ</p>"
+      tip_settings: "<p>ნახეთ და შეცვალეთ თქვენი მონაცემებით</p>"
+      tip_about: "<p>შესახებ</p>"
+      hint1: გამოიყენეთ
+      hint2: მაუსის რგოლი
+      hint3: ან
+      hint4: ისრები
+      gender: სქესი
+      female: ქალი
+      male: კაცი
+      age: ასაკი
+      job: სამუშაო სექტორი
+      salary: ხელფასი
+      interest: გატაცება
+      saving: დანაზოგი
+      edit: მონაცემების შეცვლა
     gamedata:
       gender:
         m: კაცი
         f: ქალი
       category:
-        45bS4GyC: Agriculture, hunting and forestry
-        FWrgJx0N: Fishing
-        TxbZicXP: Mining and quarrying
-        Zyb2KhON: Manufacturing
-        8IkQeUfg: Production and distribution of electricity, gas and water
-        eibtNMge: Construction
-        jDYS_Z1V: Wholesale and retail trade; repair of motor vehicles and personal and household goods
-        I52aZAVX: Hotels and restaurants
-        rn4bDK0j: Transport and communication
-        EmbBcc5x: Financial intermediation
-        oxKq-H8w: Real estate, renting and business activities
-        dT-LWuT4: Public administration
-        HxhM0Ejd: Education
-        dJdfgktK: Health and social work
-        DqFfYVGZ: Other community, social and personal service activities
+        45bS4GyC: სოფლის მეურნეობა, ნადირობა და სატყეო მეურნეობა
+        FWrgJx0N: თევზჭერა
+        TxbZicXP: სამთომოპოვებითი მრეწველობა
+        Zyb2KhON: დამამუშავებელი მრეწველობა
+        8IkQeUfg: ელ. ენერგიის, აირისა და წყლის წარმოება და განაწილება
+        eibtNMge: მშენებლობა
+        jDYS_Z1V: საბითუმო და საცალო ვაჭრობა; ავტომობილების, საყოფაცხოვრებო და პირადი მოხმარების საგნების რემონტი
+        I52aZAVX: სასტუმროები და რესტორნები
+        rn4bDK0j: ტრანსპორტი და კავშირგაბმულობა
+        EmbBcc5x: საფინანსო საქმიანობა
+        oxKq-H8w: ოპერაციები უძრავი ქონებით, იჯარა და მომხმარებლისთვის მომსახურების გაწევა
+        dT-LWuT4: სახელმწიფო მმართველობა
+        HxhM0Ejd: განათლება
+        dJdfgktK: ჯანმრთელობა და სოციალური დახმარება
+        DqFfYVGZ: სხვა კომუნალური, სოციალური და პერსონალური მომსახურების გაწევა
       interest:
-        gfNDXD1g: Vacation
-        Rs2Uml6w: Gadgets
-        KI3EFRI3: Education
-        7fdCIojZ: Housing
-        3QDbCRrq: Transportation
-        Cc8WWUmB: Health & Beauty
-      summary:
-        years: Years
-        months: Months
-        difference: Difference
-        play_again: Play again
-        share: Share
-        award: Awards
-        winner: Winner
-        salary: Salary
-        saved: Saved
-        loser: Loser
-        title_main: Congratulations you have won the pay game
-        title_score: Final Score
-        job_sector: Job Sector
-        year_passed: Years passed
+        gfNDXD1g: შვებულება
+        Rs2Uml6w: ელექტრო მოწყობილობები
+        KI3EFRI3: განათლება
+        7fdCIojZ: საცხოვრებელი
+        3QDbCRrq: ტრანსპორტირება
+    summary:
+      years: წელი
+      months: თვე
+      difference: განსხვავება
+      play_again: ხელახლა თამაში
+      share: გააზიარეთ
+      award: მიღწევები
+      winner: გამარჯვებული
+      salary: ხელფასი
+      saved: დაზოგილი
+      loser: წაგებული
+      title_main: Congratulations you have %{state} the pay game
+      title_win: გილოცავთ თქვენ მოიგეთ Pay Gap Game!
+      title_lose: სამწუხაროთ თქვენ წააგეთ Pay Gap Game!
+      win: won
+      lose: lose
+      title_score: საბოლოო ქულა
+      job_sector: სამუშაო სექტორი
+      year_passed: თქვენ იმუშავეთ
+      you: შენ
+      fb_note: "პირადი ინფორმაცია თქვენს ხელფასზე და დანაზოგზე არ იქნება გაზიარებული"
   imageuploader:
     missing: "გამოსახულების დამუშავებისას დაფიქსირდა შეცდომა. გთხოვთ, სცადოთ ახლიდან."
     invalid_type: "არასწორი ფაილის ტიპი. დასაშვებია jpg და png ფორმატი"

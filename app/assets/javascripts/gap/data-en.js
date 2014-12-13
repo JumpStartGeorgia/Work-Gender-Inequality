@@ -263,7 +263,7 @@ var interests =
                 "class":"vac-1",
                 "source":"http://taoklarjeti.com/index.php/tours/turebi-sakartveloshi/svaneti-3-days",
                 "source_date":"26.09.2014",
-                "descr":"Tbilisi-Zugdidi-Mestia-Ushguli-Tbilisi, transportation, 3 meals/day, accomodation, guide" 
+                "descr":"Tbilisi-Zugdidi-Mestia-Ushguli-Tbilisi, transportation, 3 meals/day, hotel, guide" 
             },
             { 
                 "id": "Pe23w2Lz",
@@ -273,17 +273,17 @@ var interests =
                 "class":"vac-2",
                 "source":"http://4travel.ge/package/barcelona-spain/",
                 "source_date":"26.09.2014",
-                "descr":"Barcelona, Spain: 6days/5nights, round trip flight, hotel, travel insurance" 
+                "descr":"Barcelona, Spain: 6 days/5 nights, round trip flight, hotel, travel insurance" 
             },
             { 
                 "id": "j7hrF24w",
-                "title":"7-day tour Travel to the mountains of Taishan",
+                "title":"7-day tour to the mountains of Taishan in China",
                 "cost":3978,
                 "image":"vac_3.svg",
                 "class":"vac-3",
                 "source":"http://discover-georgia.ge/index.php?l=2&menu=37&obj=216#.U_bwE8WSy3o",
                 "source_date":"26.09.2014",
-                "descr":"Mountains of Taishan: 7days/8nights, round trip air tickets, hotel, travel insurance" 
+                "descr":"Chinese Mountains of Taishan: 7 days/8 nights, round trip flight, hotel, travel insurance" 
             },    
             { 
                 "id": "LE-xVn5T",
@@ -293,7 +293,7 @@ var interests =
                 "class":"vac-4",
                 "source":"http://bonvoyage.ge/?page=tours&cat=2&id=186",
                 "source_date":"26.09.2014",
-                "descr":"Mexico: 7days/6nights, round trip air tickets, hotel, 3 meals/day, excursions" 
+                "descr":"Mexico: 7 days/6 nights, round trip flight, hotel, 3 meals/day, excursions" 
             },     
             { 
                 "id": "8BHSiiS3",
@@ -303,7 +303,7 @@ var interests =
                 "class":"vac-5",
                 "source":"http://www.flightcentre.com.au/tours/australia/3122876",
                 "source_date":"26.09.2014",
-                "descr":"Cruise of Kimberly Coast, Australia: 3 meals/day" 
+                "descr":"Cruise of the Australian Kimberly Coast: 3 meals/day" 
             },  
             { 
                 "id": "p_bINCPp",
@@ -351,7 +351,7 @@ var interests =
                 "class":"gad-3",
                 "source":"http://www.ee.ge/?m=268&cat_id=1211&pid=7605&APPLE+Iphone+5S+16GB+Gold",
                 "source_date":"25.09.2014",
-                "descr":"APPLE Iphone 5S 16 GB " 
+                "descr":"Apple Iphone 5S 16GB" 
             },
             { 
                 "id": "USLng33Z",
@@ -361,7 +361,7 @@ var interests =
                 "class":"gad-4",
                 "source":"http://store.apple.com/uk/buy-mac/macbook-air?product=MD761B/B&step=config#",
                 "source_date":"02.10.2014",
-                "descr":"MacBook Pro 13-inch: 256GB"
+                "descr":"Apple MacBook Pro 13-inch 256GB"
             },
             { 
                 "id": "eLkVnL8n",
@@ -371,7 +371,7 @@ var interests =
                 "class":"gad-5",
                 "source":"http://www.amazon.com/Nikon-FX-Format-Digital-24-85mm-3-5-4-5G/dp/B00FOTFA7U/ref=sr_1_2?ie=UTF8&qid=1412256676&sr=8-2&keywords=nikon+d610",
                 "source_date":"25.09.2014",
-                "descr":"Nikon D610 with basic kit lens"
+                "descr":"Nikon D610"
             },
             { 
                 "id": "kV1jvNlr",
@@ -381,7 +381,7 @@ var interests =
                 "class":"gad-6",
                 "source":"http://www.amazon.com/Klipsch-Theater-System-Cherry-AVR-X4000/dp/B00NSEK30W/ref=sr_1_3?s=tv&ie=UTF8&qid=1411721442&sr=1-3",
                 "source_date":"26.09.2014",
-                "descr":"Klipsch RF-7 II 5.1 Home Theater System-SW-112 (Cherry) SW-115 Denon AVR-X4000" 
+                "descr":"Klipsch RF-7 II 5.1 Home Theater System-\ SW-112, SW-115 Denon AVR-X4000" 
             }
         ]
     },   
@@ -601,7 +601,6 @@ var locale = {
     your_age:"Your Age",
     your_job:"Your Job Sector",
     your_salary:"Your Salary",
-    your_retirement:"You have ## years of working until retirement",
     your_interest:"Your Interest",
     your_percent:"How much do\n you save up for\n your interest",
     lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
@@ -633,9 +632,10 @@ var locale = {
     dayStatus: 'Select DD, M d', defaultStatus: 'Select a date',
     isRTL: false,
     congrat:"Congrats!",
-    share_hint:"Share this point on facebook",
+    share_hint:"Share this on facebook",
     about:"About",
     you_can_buy: "You can afford a ",
+    you_can_buy_education: "You can afford to finance a ",
     summary: "Our goal is to increase gender equality and women’s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.\
 The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.\
 This project is possible by the generous support of USAID and implemented by “Article 42 of the Constitution” and with the collaborative efforts of four partner organizations: Georgian Trade Union Confederation (GTUC), Center for Social Sciences at Tbilisi State University (CSS), New Media Advocacy Project (N-Map) and Jumpstart Georgia.\
@@ -645,7 +645,6 @@ Sound designer: Brian Gillikin\
 Graphics: Mariam Kobuladze & Ruslan Beridze\
 Design: Mariam Kobuladze\
 Animation & Development: Anton Kamaryan\
-Development: Jason Addie\
 Data: National Statistics Office of Georgia",
     you: "You",
     retirement: "years until retirement",

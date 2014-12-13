@@ -380,7 +380,7 @@ en:
       optional_explanation: These fields are optional. Providing them will help us gather data about whom discrimination is affecting in Georgia.
   gap:
     index:
-      title: Gap
+      title: Pay Gap Game
       about_html: "Explore your wage gap!<br />In Georgia, men earn on average 39% more than women.<br />Are you earning or<br />are you losing?<br />Play and<br />find<br />out!"
       tip_logo: "<p>Learn more about gender<br />descrimination in the workplace</p>"
       tip_settings: "<p>View and edit your settings</p>"
@@ -437,8 +437,8 @@ en:
       saved: Saved
       loser: Loser
       title_main: Congratulations you have %{state} the pay game
-      title_win: Congratulations, you have won the pay gap game!
-      title_lose: So sorry, but you have lost the pay gap game!
+      title_win: Congratulations, you have won the Pay Gap Game!
+      title_lose: So sorry, but you have lost the Pay Gap Game!
       win: won
       lose: lose
       title_score: Final Score
