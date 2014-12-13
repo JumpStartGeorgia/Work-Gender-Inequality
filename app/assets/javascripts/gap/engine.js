@@ -892,6 +892,11 @@ $(document).on('mouseleave','.tip',function()
   tiptip.p.css('zIndex',tiptip.zindex);
   tiptip.tip.remove();
 });
+function tiptip_destroy()
+{
+  tiptip.p.css('zIndex',tiptip.zindex);
+  tiptip.tip.remove();
+}
 /***************************************************************
                   Tiptip module end
 ***************************************************************/
@@ -1016,31 +1021,46 @@ function settings_button()
 {
   var settings = wr.find('> .settings');
   var settings_bar = wr.find('> .settings-bar');
-
+  var sbar_w = 140;
   if(settings.length != 0)
   {
-    var togo = settings.hasClass('on') ? -140 : 0;
+    
     settings.click(function()
     {
-      settings.animate({right:togo},{
-        duration:1000,
-        start:function() { settings.toggleClass('on off'); },
-        complete:function(){
-          if(settings.hasClass('on'))
-          {
-            $(document).click(function(){ 
-              $(this).off('click'); 
-//todo here
-            });        
-          }          
-        }
-      });  
-      settings_bar.animate({right:togo},{
-        duration:1000       
-      });     
+      settings.toggleClass('on off');
+
+      if(settings.hasClass('on')) { tiptip_destroy(); settings.removeClass('tip');  }
+      else  settings.addClass('tip');
+      
+      var togo = settings.hasClass('on') ? 0 : -sbar_w;
+      
+      settings.animate({right:togo+sbar_w},{ duration:1000 });  
+      settings_bar.animate({right:togo},{ duration:1000 });     
+
+
     });
+    settings_bar.click(function(){
+      settings.addClass('tip');
+        
+        var togo = settings.hasClass('on') ? -sbar_w : 0;
+        settings.toggleClass('on off');
+        settings.animate({right:togo+sbar_w},{ duration:1000 });  
+        settings_bar.animate({right:togo},{ duration:1000 });     
+    });
+   settings_bar_fill();
     settings.show();
   }
+}
+function settings_bar_fill()
+{
+   var opts = wr.find('.settings-bar .options');
+    opts.find('.option.gender > div.value').text(isf()?locale.general.female:locale.general.male);
+    opts.find('.option.age > div.value').text(user.age);
+    opts.find('.option.category > div.value').text(category.name);
+    opts.find('.option.salary > div.value').text(user.salary);
+    opts.find('.option.interest > div.value').text(interests.filter(function(a){ return a.id == user.interest; })[0].name);
+    opts.find('.option.saving > div.value').text(user.salary*user.salary_percent/100);
+
 }
 function share_button()
 {

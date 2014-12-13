@@ -1915,6 +1915,10 @@ svg.stage-bk { z-index:30; }*/
   text-align:center;
   margin:0px auto;
 }
+.settings-bar .options .option .value
+{
+  /*todo*/
+}
 .settings-bar .options .option .arrow
 {
   background:transparent url("/assets/gap/svg/common/arrow_d.svg") no-repeat;
