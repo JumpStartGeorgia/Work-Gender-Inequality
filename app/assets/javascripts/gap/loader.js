@@ -48,7 +48,6 @@ var assetsmeta =
 	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"}
 ];
 var assets = [];
-var isOpera = /opera/i.test(navigator.userAgent);
 Game.Loader = 
 {
 	timerId:null,
@@ -72,7 +71,7 @@ Game.Loader =
 			t.assetsCount+=16+5;
 			t.assetsAmount = t.assetsCount;
 			t.starttimer();	
-			if(isOpera) t.sound_ext = 'ogg';
+			if(isOpera || isFirefox) t.sound_ext = 'ogg';
 			assetsmeta.forEach(function(d){
 				t.whattoload(d);			
 			});			

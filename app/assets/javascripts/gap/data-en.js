@@ -651,8 +651,9 @@ Data: National Statistics Office of Georgia",
     details: "Details",
     cost: "Cost",
     years_back: " years back",
-    years_forward: " years forward"
-
+    years_forward: " years forward",
+    female:"Female",
+    male:"Male"   
   },
   game:
   {
