@@ -1,1136 +1,1114 @@
-Reg,1,Adjara
-Reg,2,Guria
-Reg,3,Tbilisi
-Reg,4,Imereti
-Reg,5,Kakheti
-Reg,6,Mtskheta-Mtianeti
-Reg,7,Samegrelo / Zemo Svaneti
-Reg,8,Samtskhe-Javakheti
-Reg,9,Kvemo Kartli
-Reg,10,Shida Kartli
-A1,1,Employed
-A1,2,Temporarily not working because of temporary illness/parental leave/vacation
-A1,3,Self-employed
-A1,4,Unemployed
-A2,1,Yes
-A2,2,No
-A3,1,Yes
-A3,2,"Yes, with one/some of my employers (in case of having many jobs)"
-A3,3,No
-A3.1_3,1,Yes
-A3.1_3,2,No
-A3.1_3,3,Limited time frame
-A3.1_3,8,filter
-A3.2,1,Yes
-A3.2,2,No
-A3.2,3,I don't know
-A3.2,8,filter
-A3.3,1,Yes
-A3.3,2,No
-A3.3,3,I don't know
-A3.3,8,filter
-A4.1,1,Full time
-A4.1,2,Part time
-A4.1,3,Work in shifts
-A4.1,4,Other
-A4.2,1,Yea
-A4.2,2,No
-A4.2,8,filter
-A5,1,Yes
-A5,2,No
-A5.1,1,Tbilisi
-A5.1,2,Suburbs or outskirts of Tbilisi
-A5.1,3,Town
-A5.1,4,Village
-A5.1,5,Farm or home in the countryside
-A5.1,8,filter
-A6,1,Private sector
-A6,2,Public sector
-A6,3,NGO
-A6,4,Other
-A7_zveli,1,"Agriculture, forestry and fishing"
-A7_zveli,2,Mining and quarrying
-A7_zveli,3,Manufacturing
-A7_zveli,4,"Electricity, gas, steam and air conditioning supply"
-A7_zveli,5,"Water supply, sewerage, waste management and remediation activities"
-A7_zveli,6,Construction
-A7_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
-A7_zveli,8,Transportation and storage
-A7_zveli,9,Accommodation and food service activities
-A7_zveli,10,Information and communication
-A7_zveli,11,Finance and insurance activities
-A7_zveli,12,Real estate activities
-A7_zveli,13,"Professional, scientific and technical activities"
-A7_zveli,14,Administrative and support service activities
-A7_zveli,15,"Public administration and defense, compulsory social security"
-A7_zveli,16,Education
-A7_zveli,17,Human health and social work activities
-A7_zveli,18,Other
-A8_zveli,1,"Agriculture, forestry and fishing"
-A8_zveli,2,Mining and quarrying
-A8_zveli,3,Manufacturing
-A8_zveli,4,"Electricity, gas, steam and air conditioning supply"
-A8_zveli,5,"Water supply, sewerage, waste management and remediation activities"
-A8_zveli,6,Construction
-A8_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
-A8_zveli,8,Transportation and storage
-A8_zveli,9,Accommodation and food service activities
-A8_zveli,10,Information and communication
-A8_zveli,11,Financial and insurance activities
-A8_zveli,12,Real estate activities
-A8_zveli,13,"Professional, scientific and technical activities"
-A8_zveli,14,Administrative and support service activities
-A8_zveli,15,"Public administration and defense, compulsory social security"
-A8_zveli,16,Education
-A8_zveli,17,Human health and social work activities
-A8_zveli,18,Other
-A7,1,"Agriculture, forestry and fishing"
-A7,2,Mining and quarrying
-A7,3,Manufacturing
-A7,4,"Electricity, gas, steam and air conditioning supply"
-A7,5,"Water supply, sewerage, waste management and remediation activities"
-A7,6,Construction
-A7,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles"
-A7,8,Transportation and storage
-A7,9,Accommodation and food service activities
-A7,10,Information and communication
-A7,11,Finance and insurance activities
-A7,12,Real estate activities
-A7,13,"Professional, scientific and technical activities"
-A7,14,Administrative and support service activities
-A7,15,"Public administration and defense, compulsory social security"
-A7,16,Education
-A7,17,Human health and social work activities
-A7,18,"Arts, entertainment and recreation"
-A7,19,Other service activities
-A7,20,"Activities of households as employers, undifferentiated goods- and service- producing activities of households for own use"
-A7,21,Activities of extraterritorial organizations and bodies
-A8,110,Commissioned armed forces officers
-A8,310,"Armed forces occupations, other ranks"
-A8,1120,Managing directors and chief executives
-A8,1211,Finance managers
-A8,1212,Human resource managers
-A8,1213,Policy and planning manager
-A8,1219,Business service and administration managers not elsewhere classified
-A8,1221,Sales and marketing manager
-A8,1222,Advertising and public relations managers
-A8,1311,Agricultural and forestry production managers
-A8,1321,Manufacturing managers
-A8,1324,"Supply, distribution and related managers"
-A8,1330,Information and communications technology service managers
-A8,1342,Health services managers
-A8,1344,Social welfare managers
-A8,1345,Education managers
-A8,1411,Hotel managers
-A8,1431,"Sports, recreation and cultural center managers"
-A8,1439,Services managers not elsewhere classified
-A8,2113,Chemists
-A8,2114,Geologists and geophysicists
-A8,2120,"Mathematicians, actuaries and statisticians"
-A8,2141,Industrial and production engineers
-A8,2144,Mechanical engineers
-A8,2146,"Mining engineers, metallurgists and related professionals"
-A8,2149,Engineering professionals not elsewhere classified
-A8,2151,Electrical engineers
-A8,2153,Telecommunications engineers
-A8,2161,Building architects
-A8,2163,Product and garment designers
-A8,2165,Cartographers and surveyors
-A8,2166,Graphic and multimedia designers
-A8,2211,Generalist medical practitioners
-A8,2212,Specialist medical practitioners
-A8,2221,Nursing Professionals
-A8,2222,Midwifery professionals
-A8,2240,Paramedical practitioners
-A8,2250,Veterinarians
-A8,2261,Dentists
-A8,2262,Pharmacists
-A8,2263,Environmental and occupational health and hygiene professionals
-A8,2310,University and higher education teachers
-A8,2341,Primary school teachers
-A8,2342,Early childhood educators
-A8,2351,Education methods specialists
-A8,2352,Special needs teachers
-A8,2353,Other language teachers
-A8,2354,Other music teachers
-A8,2355,Other arts teachers
-A8,2359,Teaching professionals not elsewhere classified
-A8,2411,Accountants
-A8,2412,Financial investment advisers
-A8,2413,Financial Analysts
-A8,2423,Personnel and careers professionals
-A8,2424,Training and staff development professionals
-A8,2431,Advertising and marketing professionals
-A8,2432,Public relations professionals
-A8,2519,Software and applications developers and analysts not elsewhere classified
-A8,2611,Lawyers
-A8,2619,Legal professionals not elsewhere classified
-A8,2621,Archivists and curators
-A8,2622,Librarians and related information professionals
-A8,2631,Economists
-A8,2635,Social work and counseling professionals
-A8,2642,Journalists
-A8,2643,"Translators, interpreters and other linguists"
-A8,2651,Visual artists
-A8,2652,"Musicians, singers and composers"
-A8,2653,Dancers and choreographers
-A8,2655,Actors
-A8,2656,"Announcers on radio, television and other media"
-A8,3111,Chemical and physical science technicians
-A8,3112,Building and fire inspectors
-A8,3113,Electrical engineering technicians
-A8,3115,Mechanical engineering technicians
-A8,3117,Mining and metallurgical technicians
-A8,3122,Manufacturing supervisors
-A8,3123,Construction supervisors
-A8,3134,Petroleum and natural gas refining plant operators
-A8,3142,Agricultural technicians
-A8,3152,Ships' deck officers and pilots
-A8,3153,Aircraft pilots and related associate professionals
-A8,3212,Medical and pathology laboratory technicians
-A8,3213,Pharmaceutical technicians and Assistants
-A8,3251,Dental Assistants and Therapists
-A8,3252,Medical records and health information technicians
-A8,3256,Medical Assistants
-A8,3258,Ambulance workers
-A8,3259,Health associate professionals not elsewhere classified
-A8,3312,Credit and loans officers
-A8,3315,Valuers and loss assessors
-A8,3321,Insurance representatives
-A8,3322,Commercial sales representatives
-A8,3323,Buyers
-A8,3324,Trade brokers
-A8,3332,Conference and event planners
-A8,3334,Real estate agents and property managers
-A8,3339,Business services agents not elsewhere classified
-A8,3341,Office supervisors
-A8,3343,Administrative and executive secretaries
-A8,3351,Customs and border inspectors
-A8,3355,Police inspectors and detectives
-A8,3359,Regulatory government associate professionals not elsewhere classified
-A8,3411,Legal and related associate professionals
-A8,3412,Social work associate professionals
-A8,3421,Athletes and sports players
-A8,3422,"Sports coaches, instructors and officials"
-A8,3433,"Gallery, museum and library technicians"
-A8,3434,Chefs
-A8,3435,Other artistic and cultural associate professionals
-A8,3511,Information and communications technology operations technicians
-A8,4211,Bank tellers and related clerks
-A8,4212,"Bookmakers, croupiers and related gaming workers"
-A8,4221,Travel consultants and clerks
-A8,4222,Contact center information clerks
-A8,4227,Survey and market research interviewers
-A8,4312,"Statistical, finance and insurance clerks"
-A8,4323,Transport clerks
-A8,4411,Library clerks
-A8,4416,Personnel clerks
-A8,5111,Travel attendants and travel stewards
-A8,5113,Travel guides
-A8,5120,Cooks
-A8,5131,Waiters
-A8,5141,Hairdressers
-A8,5151,"Cleaning and housekeeping supervisors in offices, hotels and other establishments"
-A8,5152,Domestic housekeepers
-A8,5211,Stall and market salespersons
-A8,5221,Shopkeepers
-A8,5222,shop supervisors
-A8,5223,Shop sales assistants
-A8,5230,Cashiers and ticket clerks
-A8,5245,Service station attendants
-A8,5249,Sales workers not elsewhere classified
-A8,5311,Child-care workers
-A8,5321,Health care assistants
-A8,5322,Home-based personal care workers
-A8,5411,Fire fighters
-A8,5412,Police officers
-A8,5414,Security guards
-A8,5419,Protective workers not elsewhere classified
-A8,6111,Field crop and vegetable growers
-A8,6113,"Gardeners, horticultural and nursery growers"
-A8,6122,Poultry producers
-A8,6330,Subsistence mixed crop and livestock farmers
-A8,7111,House builders
-A8,7115,Carpenters and joiners
-A8,7119,Building frame and related trade workers not elsewhere classified
-A8,7122,Floor layers and tile setters
-A8,7126,Plumbers and pipe fitters
-A8,7131,Painters and related workers
-A8,7211,Metal moulders and coremakers
-A8,7212,Welders and flamecutters
-A8,7213,Sheet-metal workers
-A8,7231,Motor vehicle mechanics and repairers
-A8,7315,"Glass Makers, Cutters, Grinders and Finishers"
-A8,7317,"Handicraft workers in wood, basketry an related materials"
-A8,7319,Handicraft workers not elsewhere classified
-A8,7413,Electrical Line Installers and Repairers
-A8,7512,"Bakers, pastry-cooks and confectionary makers"
-A8,7531,"Tailors, dressmakers, furriers and hatters"
-A8,7536,Shoemakers and related workers
-A8,8111,Miners and quarriers
-A8,8113,Well drillers and borers and related workers
-A8,8131,Chemical products plant and machine operators
-A8,8160,Food and related products machine operators
-A8,8189,Stationary plant and machine operators not elsewhere classified
-A8,8212,Electrical and electronic equipment assemblers
-A8,8311,Locomotive engine drivers
-A8,8312,"Railway brake, signal and switch operators"
-A8,8322,"Car, taxi and van drivers"
-A8,8331,Bus and tram drivers
-A8,8332,Heavy truck and lorry drivers
-A8,8343,"Crane, hoist and related plant operators"
-A8,9111,Domestic cleaners and helpers
-A8,9112,"Cleaners and helpers in offices, hotels and other establishments"
-A8,9129,Other cleaning workers
-A8,9211,Crop farm laborers
-A8,9311,Mining and quarrying laborers
-A8,9312,Civil engineering laborers
-A8,9313,Building construction laborers
-A8,9321,Hand Packers
-A8,9329,Manufacturing laborers not elsewhere classified
-A8,9411,Fast food preparers
-A8,9412,Kitchen helpers
-A8,9611,Garbage and recycling collectors
-A8,9613,Sweepers and related laborers
-A8,9621,"Messengers, package deliverers luggage porters"
-A8,9623,Meter Readers and vending-machine collectors
-A8,9629,Elementary workers not elsewhere classified
-A9,1,I work alone / I don’t have colleagues
-A9,2,Mostly women
-A9,3,Mostly men
-A9,4,Approximately same amount of men and women
-A9,5,I don't know
-A10,1,"Yes, I would like to have more women among my colleagues"
-A10,2,"Yes, I would like to have more men among my colleagues"
-A10,3,"I would like, but men/women couldn’t do the work"
-A10,4,No I like it as it is
-A10,5,I don't care
-A10,6,Other
-A11,1,With women
-A11,2,With men
-A11,3,Both men and women
-A12,1,Male
-A12,2,Female
-A12,3,I don't have one
-A13,1,"Yes, currently"
-A13,2,"Yes, previously but not currently"
-A13,3,"No, never"
-B1,1,Yes
-B1,2,No
-B1.1,1,Once
-B1.1,2,2-4 times
-B1.1,3,5-7 times
-B1.1,4,8-10 times
-B1.1,5,More than 10 times
-B1.1,6,Don't remember
-B1.1,8,filter
-B1.2_1,1,Yes
-B1.2_1,2,No
-B1.2_1,3,N/A
-B1.2_1,8,filter
-B1.2_2,1,Yes
-B1.2_2,2,No
-B1.2_2,3,N/A
-B1.2_2,8,filter
-B1.2_3,1,Yes
-B1.2_3,2,No
-B1.2_3,3,N/A
-B1.2_3,8,filter
-B1.2_4,1,Yes
-B1.2_4,2,No
-B1.2_4,3,N/A
-B1.2_4,8,filter
-B1.2_5,1,Yes
-B1.2_5,2,No
-B1.2_5,3,N/A
-B1.2_5,8,filter
-B1.2_6,1,Yes
-B1.2_6,2,No
-B1.2_6,3,N/A
-B1.2_6,8,filter
-B2,1,Through my friend/acquaintance/relative
-B2,2,"I found the job by myself, without help from others"
-B2,3,Other
-B3,1,No
-B3,2,Yes
-B3.1,1,Yes
-B3.1,2,No
-B3.1,8,filter
-B3.2_1,1,Yes
-B3.2_1,2,No
-B3.2_1,8,filter
-B3.2_2,1,Yes
-B3.2_2,2,No
-B3.2_2,8,filter
-B3.2_3,1,Yes
-B3.2_3,2,No
-B3.2_3,8,filter
-B3.2_4,1,Yes
-B3.2_4,2,No
-B3.2_4,8,filter
-B3.2_5,1,Yes
-B3.2_5,2,No
-B3.2_5,8,filter
-B3.2_6,1,Yes
-B3.2_6,2,No
-B3.2_6,8,filter
-B3.2_7,1,Yes
-B3.2_7,2,No
-B3.2_7,8,filter
-B3.2_8,1,Yes
-B3.2_8,2,No
-B3.2_8,8,filter
-B3.2_9,1,Yes
-B3.2_9,2,No
-B3.2_9,8,filter
-B3.2_10,1,Yes
-B3.2_10,2,No
-B3.2_10,8,filter
-B3.2_11,1,Yes
-B3.2_11,2,No
-B3.2_11,8,filter
-B3.2_12,1,Yes
-B3.2_12,2,No
-B3.2_12,8,filter
-B3.2_13,1,Yes
-B3.2_13,2,No
-B3.2_13,8,filter
-B3.2_14,1,Yes
-B3.2_14,2,No
-B3.2_14,8,filter
-B3.3_1,1,Yes
-B3.3_1,2,No
-B3.3_1,8,filter
-B3.3_2,1,Yes
-B3.3_2,2,No
-B3.3_2,8,filter
-B3.3_3,1,Yes
-B3.3_3,2,No
-B3.3_3,8,filter
-B3.3_4,1,Yes
-B3.3_4,2,No
-B3.3_4,8,filter
-B3.3_5,1,Yes
-B3.3_5,2,No
-B3.3_5,8,filter
-B3.3_6,1,Yes
-B3.3_6,2,No
-B3.3_6,8,filter
-B3.3_7,1,Yes
-B3.3_7,2,No
-B3.3_7,8,filter
-B3.3_8,1,Yes
-B3.3_8,2,No
-B3.3_8,8,filter
-B3.3_9,1,Yes
-B3.3_9,2,No
-B3.3_9,8,filter
-B3.3_10,1,Yes
-B3.3_10,2,No
-B3.3_10,8,filter
-B3.3_11,1,Yes
-B3.3_11,2,No
-B3.3_11,8,filter
-B3.3_12,1,Yes
-B3.3_12,2,No
-B3.3_12,8,filter
-B3.3_13,1,Yes
-B3.3_13,2,No
-B3.3_13,8,filter
-B3.3_14,1,Yes
-B3.3_14,2,No
-B3.3_14,8,filter
-B4,1,Yes
-B4,2,No
-B4.1_1,1,Yes
-B4.1_1,2,No
-B4.1_1,8,filter
-B4.1_2,1,Yes
-B4.1_2,2,No
-B4.1_2,8,filter
-B4.1_3,1,Yes
-B4.1_3,2,No
-B4.1_3,8,filter
-B4.1_4,1,Yes
-B4.1_4,2,No
-B4.1_4,8,filter
-B5_1,1,Yes
-B5_1,2,No
-B5_2,1,Yes
-B5_2,2,No
-B5_3,1,Yes
-B5_3,2,No
-B5_4,1,Yes
-B5_4,2,No
-B5_5,1,Yes
-B5_5,2,No
-B6_1,1,Yes
-B6_1,2,No
-B6_2,1,Yes
-B6_2,2,No
-B6_3,1,Yes
-B6_3,2,No
-B6_4,1,Yes
-B6_4,2,No
-B6_5,1,Yes
-B6_5,2,No
-B6_6,1,Yes
-B6_6,2,No
-C1,1,Yes
-C1,2,No
-C1,3,I have worked here less than 3 months and have no such experience so far
-C1.1,1,I applied for the job/promotion
-C1.1,2,I was offered the higher position
-C1.1,3,Other
-C1.1,8,filter
-C1.2,1,Yes
-C1.2,2,No
-C1.2,8,filter
-C1.3,1,Yes
-C1.3,2,No
-C1.3,8,filter
-C1.3.1_1,1,Yes
-C1.3.1_1,2,No
-C1.3.1_1,8,filter
-C1.3.1_2,1,Yes
-C1.3.1_2,2,No
-C1.3.1_2,8,filter
-C1.3.1_3,1,Yes
-C1.3.1_3,2,No
-C1.3.1_3,8,filter
-C1.3.1_4,1,Yes
-C1.3.1_4,2,No
-C1.3.1_4,8,filter
-C1.3.1_5,1,Yes
-C1.3.1_5,2,No
-C1.3.1_5,8,filter
-C1.3.1_6,1,Yes
-C1.3.1_6,2,No
-C1.3.1_6,8,filter
-C1.3.1_7,1,Yes
-C1.3.1_7,2,No
-C1.3.1_7,8,filter
-C1.3.1_8,1,Yes
-C1.3.1_8,2,No
-C1.3.1_8,8,filter
-C1.3.1_9,1,Yes
-C1.3.1_9,2,No
-C1.3.1_9,8,filter
-C1.3.1_10,1,Yes
-C1.3.1_10,2,No
-C1.3.1_10,8,filter
-C1.3.1_11,1,Yes
-C1.3.1_11,2,No
-C1.3.1_11,8,filter
-C1.3.2_1,1,Yes
-C1.3.2_1,2,No
-C1.3.2_1,8,filter
-C1.3.2_2,1,Yes
-C1.3.2_2,2,No
-C1.3.2_2,8,filter
-C1.3.2_3,1,Yes
-C1.3.2_3,2,No
-C1.3.2_3,8,filter
-C1.3.2_4,1,Yes
-C1.3.2_4,2,No
-C1.3.2_4,8,filter
-C1.3.2_5,1,Yes
-C1.3.2_5,2,No
-C1.3.2_5,8,filter
-C2,1,Yes
-C2,2,No
-C2,3,Other
-C2,8,filter
-C3,1,Yes
-C3,2,No
-C3,8,filter
-C3.1,1,"Mine, I asked for a promotion"
-C3.1,2,It was a general pay rise for all of the employees
-C3.1,3,It was my manager’s initiative
-C3.1,4,Other
-C3.1,8,filter
-C3.2,1,Yes
-C3.2,2,No
-C3.2,8,filter
-C4,1,Yes
-C4,2,No
-C4,8,filter
-C4.1,1,Yes
-C4.1,2,No
-C4.1,8,filter
-C4.1.1,1,I did not want to
-C4.1.1,2,The time of the training wasn’t convenient for me
-C4.1.1,3,I was not allowed by my employer
-C4.1.1,4,I missed it
-C4.1.1,5,Other
-C4.1.1,8,filter
-C4.2,1,"Yes, but my employer doesn’t provide trainings for employees"
-C4.2,2,"Yes, but my employer didn’t let/offer me go to the training"
-C4.2,3,"No, there are no trainings in our field"
-C4.2,4,No
-C4.2,8,filter
-D1,1,Yes
-D1,2,No
-D1,3,Don't want to answer
-D1.1,1,No
-D1.1,2,"Yes, once"
-D1.1,3,"Yes, more than once"
-D1.1,8,filter
-D1.2,1,Yes
-D1.2,2,No
-D1.2,3,I don't thinks so
-D1.2,8,filter
-D1.3,1,Yes
-D1.3,2,No
-D1.3,8,filter
-D1.3.1_1,1,Yes
-D1.3.1_1,2,No
-D1.3.1_1,8,filter
-D1.3.1_2,1,Yes
-D1.3.1_2,2,No
-D1.3.1_2,8,filter
-D1.3.1_3,1,Yes
-D1.3.1_3,2,No
-D1.3.1_3,8,filter
-D1.3.1_4,1,Yes
-D1.3.1_4,2,No
-D1.3.1_4,8,filter
-D1.3.1_5,1,Yes
-D1.3.1_5,2,No
-D1.3.1_5,8,filter
-D1.3.1_6,1,Yes
-D1.3.1_6,2,No
-D1.3.1_6,8,filter
-D1.3.1_7,1,Yes
-D1.3.1_7,2,No
-D1.3.1_7,8,filter
-D1.3.1_8,1,Yes
-D1.3.1_8,2,No
-D1.3.1_8,8,filter
-D1.3.1_9,1,Yes
-D1.3.1_9,2,No
-D1.3.1_9,8,filter
-D1.3.1_10,1,Yes
-D1.3.1_10,2,No
-D1.3.1_10,8,filter
-D1.3.1_11,1,Yes
-D1.3.1_11,2,No
-D1.3.1_11,8,filter
-D1.3.1_12,1,Yes
-D1.3.1_12,2,No
-D1.3.1_12,8,filter
-D1.3.2,1,Yes
-D1.3.2,2,No
-D1.3.2,8,filter
-D1.3.3_1,1,Yes
-D1.3.3_1,2,No
-D1.3.3_1,8,filter
-D1.3.3_2,1,Yes
-D1.3.3_2,2,No
-D1.3.3_2,8,filter
-D1.3.3_3,1,Yes
-D1.3.3_3,2,No
-D1.3.3_3,8,filter
-D1.3.3_4,1,Yes
-D1.3.3_4,2,No
-D1.3.3_4,8,filter
-D1.3.3_5,1,Yes
-D1.3.3_5,2,No
-D1.3.3_5,8,filter
-D1.3.3_6,1,Yes
-D1.3.3_6,2,No
-D1.3.3_6,8,filter
-D1.3.3_7,1,Yes
-D1.3.3_7,2,No
-D1.3.3_7,8,filter
-D1.3.3_8,1,Yes
-D1.3.3_8,2,No
-D1.3.3_8,8,filter
-D1.3.3_9,1,Yes
-D1.3.3_9,2,No
-D1.3.3_9,8,filter
-D1.3.3_10,1,Yes
-D1.3.3_10,2,No
-D1.3.3_10,8,filter
-D1.3.3_11,1,Yes
-D1.3.3_11,2,No
-D1.3.3_11,8,filter
-D1.3.3_12,1,Yes
-D1.3.3_12,2,No
-D1.3.3_12,8,filter
-D1.4,1,I don’t think the firing was unreasonable
-D1.4,2,"No, I did not contact/appeal to anyone or any institution"
-D1.4,3,"Yes, I appealed to the organization board"
-D1.4,4,"Yes, I contacted/appealed to a trade union"
-D1.4,5,"Yes, I appealed/contacted"
-D1.4,8,filter
-D2,1,"Yes, one"
-D2,2,"Yes, more than one"
-D2,3,No
-D2,4,I don't want to answer
-E1,1,No
-E1,2,Yes
-E1.1_1,1,Yes
-E1.1_1,2,No
-E1.1_1,8,filter
-E1.1_2,1,Yes
-E1.1_2,2,No
-E1.1_2,8,filter
-E1.1_3,1,Yes
-E1.1_3,2,No
-E1.1_3,8,filter
-E1.1_4,1,Yes
-E1.1_4,2,No
-E1.1_4,8,filter
-E1.1_5,1,Yes
-E1.1_5,2,No
-E1.1_5,8,filter
-E1.1_6,1,Yes
-E1.1_6,2,No
-E1.1_6,8,filter
-E1.1_7,1,Yes
-E1.1_7,2,No
-E1.1_7,8,filter
-E1.1_8,1,Yes
-E1.1_8,2,No
-E1.1_8,8,filter
-E1.1_9,1,Yes
-E1.1_9,2,No
-E1.1_9,8,filter
-E1.1_10,1,Yes
-E1.1_10,2,No
-E1.1_10,8,filter
-E1.1_11,1,Yes
-E1.1_11,2,No
-E1.1_11,8,filter
-E1.1_12,1,Yes
-E1.1_12,2,No
-E1.1_12,8,filter
-E2_1,0,None
-E2_1,1,Once
-E2_1,2,Twice
-E2_1,3,Three or more times
-E2_2,0,None
-E2_2,1,Once
-E2_2,2,Twice
-E2_2,3,Three or more times
-E3_1,0,N/A
-E3_1,1,I don't know
-E3_1,2,Disagree
-E3_1,3,Agree
-E3_2,0,N/A
-E3_2,1,I don't know
-E3_2,2,Disagree
-E3_2,3,Agree
-E3_3,0,N/A
-E3_3,1,I don't know
-E3_3,2,Disagree
-E3_3,3,Agree
-E3_4,0,N/A
-E3_4,1,I don't know
-E3_4,2,Disagree
-E3_4,3,Agree
-E3_5,0,N/A
-E3_5,1,I don't know
-E3_5,2,Disagree
-E3_5,3,Agree
-E3_6,0,N/A
-E3_6,1,I don't know
-E3_6,2,Disagree
-E3_6,3,Agree
-E3_7,0,N/A
-E3_7,1,I don't know
-E3_7,2,Disagree
-E3_7,3,Agree
-F1_1,1,The question is not relevant
-F1_1,2,I don't know
-F1_1,3,Negatively
-F1_1,4,Neutral
-F1_1,5,Understandingly
-F1_2,1,The question is not relevant
-F1_2,2,I don't know
-F1_2,3,Negatively
-F1_2,4,Neutral
-F1_2,5,Understandingly
-F2_1,0,N/A
-F2_1,1,Yes
-F2_1,2,No
-F2_2,0,N/A
-F2_2,1,Yes
-F2_2,2,No
-F2_3,0,N/A
-F2_3,1,Yes
-F2_3,2,No
-F2_4,0,N/A
-F2_4,1,Yes
-F2_4,2,No
-F2_5,0,N/A
-F2_5,1,Yes
-F2_5,2,No
-F2_6,0,N/A
-F2_6,1,Yes
-F2_6,2,No
-F2_7,0,N/A
-F2_7,1,Yes
-F2_7,2,No
-F2_8,0,N/A
-F2_8,1,Yes
-F2_8,2,No
-F3,1,Yes
-F3,2,No
-F3.1,1,"Yes, always"
-F3.1,2,In most cases
-F3.1,3,Sometimes
-F3.1,4,Never
-F3.1,8,filter
-F4,1,The question is irrelevant
-F4,2,Positively
-F4,3,I couldn’t be on parental leave as long as I wanted
-F4,4,I got fired because of that
-F4,5,When returning from parental leave I had to start working in lower position
-F4,6,When returning from parental leave I got promoted
-F4,7,When returning from parental leave I could work only part time (although I would have liked to work full time)
-F4,8,I quit my job on my own will
-F4,9,Other
-G1_1,0,I don't know
-G1_1,1,Discrimination
-G1_1,2,Unpleasant
-G1_1,3,Acceptable
-G1_2,0,I don't know
-G1_2,1,Discrimination
-G1_2,2,Unpleasant
-G1_2,3,Acceptable
-G1_3,0,I don't know
-G1_3,1,Discrimination
-G1_3,2,Unpleasant
-G1_3,3,Acceptable
-G1_4,0,I don't know
-G1_4,1,Discrimination
-G1_4,2,Unpleasant
-G1_4,3,Acceptable
-G1_5,0,I don't know
-G1_5,1,Discrimination
-G1_5,2,Unpleasant
-G1_5,3,Acceptable
-G2,1,Yes
-G2,2,No
-G2,3,I don't know
-G2,4,I don't want to answer
-G3,1,Yes
-G3,2,No
-G3,3,I don't know
-G3,4,I don't want to answer
-G3,8,filter
-G4_1,1,It would be unpleasant
-G4_1,2,It would not be unpleasant
-G4_1,3,It depends who would behave like that
-G4_1,4,Can't imagine
-G4_2,1,It would be unpleasant
-G4_2,2,It would not be unpleasant
-G4_2,3,It depends who would behave like that
-G4_2,4,Can't imagine
-G4_3,1,It would be unpleasant
-G4_3,2,It would not be unpleasant
-G4_3,3,It depends who would behave like that
-G4_3,4,Can't imagine
-G4_4,1,It would be unpleasant
-G4_4,2,It would not be unpleasant
-G4_4,3,It depends who would behave like that
-G4_4,4,Can't imagine
-G4_5,1,It would be unpleasant
-G4_5,2,It would not be unpleasant
-G4_5,3,It depends who would behave like that
-G4_5,4,Can't imagine
-G4_6,1,It would be unpleasant
-G4_6,2,It would not be unpleasant
-G4_6,3,It depends who would behave like that
-G4_6,4,Can't imagine
-G4_7,1,It would be unpleasant
-G4_7,2,It would not be unpleasant
-G4_7,3,It depends who would behave like that
-G4_7,4,Can't imagine
-G4_8,1,It would be unpleasant
-G4_8,2,It would not be unpleasant
-G4_8,3,It depends who would behave like that
-G4_8,4,Can't imagine
-G4_9,1,It would be unpleasant
-G4_9,2,It would not be unpleasant
-G4_9,3,It depends who would behave like that
-G4_9,4,Can't imagine
-G4_10,1,It would be unpleasant
-G4_10,2,It would not be unpleasant
-G4_10,3,It depends who would behave like that
-G4_10,4,Can't imagine
-G4_11,1,It would be unpleasant
-G4_11,2,It would not be unpleasant
-G4_11,3,It depends who would behave like that
-G4_11,4,Can't imagine
-G4_12,1,It would be unpleasant
-G4_12,2,It would not be unpleasant
-G4_12,3,It depends who would behave like that
-G4_12,4,Can't imagine
-G4_13,1,It would be unpleasant
-G4_13,2,It would not be unpleasant
-G4_13,3,It depends who would behave like that
-G4_13,4,Can't imagine
-G4_14,1,It would be unpleasant
-G4_14,2,It would not be unpleasant
-G4_14,3,It depends who would behave like that
-G4_14,4,Can't imagine
-G4_15,1,It would be unpleasant
-G4_15,2,It would not be unpleasant
-G4_15,3,It depends who would behave like that
-G4_15,4,Can't imagine
-G4_16,1,It would be unpleasant
-G4_16,2,It would not be unpleasant
-G4_16,3,It depends who would behave like that
-G4_16,4,Can't imagine
-G5_1,1,Yes
-G5_1,2,No
-G5_2,1,Yes
-G5_2,2,No
-G5_3,1,Yes
-G5_3,2,No
-G5_4,1,Yes
-G5_4,2,No
-G5_5,1,Yes
-G5_5,2,No
-G5_6,1,Yes
-G5_6,2,No
-G5_7,1,Yes
-G5_7,2,No
-G5_8,1,Yes
-G5_8,2,No
-G5_9,1,Yes
-G5_9,2,No
-G6,1,Yes
-G6,2,No
-G6,3,I don't know
-G7_1,1,Yes
-G7_1,2,No
-G7_1,9,Refuse to answer
-G7_2,1,Yes
-G7_2,2,No
-G7_2,9,Refuse to answer
-G7_3,1,Yes
-G7_3,2,No
-G7_3,9,Refuse to answer
-G7_4,1,Yes
-G7_4,2,No
-G7_4,9,Refuse to answer
-G7_5,1,Yes
-G7_5,2,No
-G7_5,9,Refuse to answer
-G7_6,1,Yes
-G7_6,2,No
-G7_6,9,Refuse to answer
-G7_7,1,Yes
-G7_7,2,No
-G7_7,9,Refuse to answer
-G7_8,1,Yes
-G7_8,2,No
-G7_8,9,Refuse to answer
-G7_9,1,Yes
-G7_9,2,No
-G7_9,9,Refuse to answer
-G7_10,1,Yes
-G7_10,2,No
-G7_10,9,Refuse to answer
-G7_11,1,Yes
-G7_11,2,No
-G7_11,9,Refuse to answer
-G7_12,1,Yes
-G7_12,2,No
-G7_12,9,Refuse to answer
-G7_13,1,Yes
-G7_13,2,No
-G7_13,9,Refuse to answer
-G7_14,1,Yes
-G7_14,2,No
-G7_14,9,Refuse to answer
-G7_15,1,Yes
-G7_15,2,No
-G7_15,9,Refuse to answer
-G7_16,1,Yes
-G7_16,2,No
-G7_16,9,Refuse to answer
-G8,1,Yes
-G8,2,No
-G8.1,1,Yes
-G8.1,2,No
-G8.1,3,I don't know
-G8.1,8,filter
-G8.2,1,Once
-G8.2,2,2-4 times
-G8.2,3,5 or more times
-G8.2,4,The situation continues
-G8.2,5,I don't know
-G8.2,8,filter
-G8.3,1,Yes
-G8.3,2,No
-G8.3,8,filter
-G8.3.1_1,1,Yes
-G8.3.1_1,2,No
-G8.3.1_1,8,filter
-G8.3.1_2,1,Yes
-G8.3.1_2,2,No
-G8.3.1_2,8,filter
-G8.3.1_3,1,Yes
-G8.3.1_3,2,No
-G8.3.1_3,8,filter
-G8.3.1_4,1,Yes
-G8.3.1_4,2,No
-G8.3.1_4,8,filter
-G8.3.1_5,1,Yes
-G8.3.1_5,2,No
-G8.3.1_5,8,filter
-G8.3.1_6,1,Yes
-G8.3.1_6,2,No
-G8.3.1_6,8,filter
-G8.3.1_7,1,Yes
-G8.3.1_7,2,No
-G8.3.1_7,8,filter
-G8.3.1_8,1,Yes
-G8.3.1_8,2,No
-G8.3.1_8,8,filter
-G8.3.2_1,1,Yes
-G8.3.2_1,2,No
-G8.3.2_1,8,filter
-G8.3.2_2,1,Yes
-G8.3.2_2,2,No
-G8.3.2_2,8,filter
-G8.3.2_3,1,Yes
-G8.3.2_3,2,No
-G8.3.2_3,8,filter
-G8.3.2_4,1,Yes
-G8.3.2_4,2,No
-G8.3.2_4,8,filter
-G8.3.2_5,1,Yes
-G8.3.2_5,2,No
-G8.3.2_5,8,filter
-G8.4_1,1,Yes
-G8.4_1,2,No
-G8.4_1,8,filter
-G8.4_2,1,Yes
-G8.4_2,2,No
-G8.4_2,8,filter
-G8.4_3,1,Yes
-G8.4_3,2,No
-G8.4_3,8,filter
-G8.4_4,1,Yes
-G8.4_4,2,No
-G8.4_4,8,filter
-G8.4_5,1,Yes
-G8.4_5,2,No
-G8.4_5,8,filter
-G8.4_6,1,Yes
-G8.4_6,2,No
-G8.4_6,8,filter
-G8.4_7,1,Yes
-G8.4_7,2,No
-G8.4_7,8,filter
-G8.4_8,1,Yes
-G8.4_8,2,No
-G8.4_8,8,filter
-G8.4_9,1,Yes
-G8.4_9,2,No
-G8.4_9,8,filter
-G8.4_10,1,Yes
-G8.4_10,2,No
-G8.4_10,8,filter
-G8.4_11,1,Yes
-G8.4_11,2,No
-G8.4_11,8,filter
-H1,1,Female
-H1,2,Male
-H2,1,18-25
-H2,2,26-35
-H2,3,36-45
-H2,4,46-55
-H2,5,56-65
-H2,6,65+
-H3,1,Tbilisi
-H3,2,Suburbs or outskirts of Tbilisi
-H3,3,Town
-H3,4,A country village
-H3,5,A farm or home in the countryside
-H4_2,0,No education
-H4_2,1,Educated
-H4.1,1,Elementary education
-H4.1,2,Secondary school level
-H4.1,3,Vocational education on the basis of secondary education
-H4.1,4,BA student
-H4.1,5,MA student
-H4.1,6,PhD student
-H4.1,7,Higher vocational education
-H4.1,8,Bachelor degree
-H4.1,9,Master’s degree
-H4.1,10,PhD
-H4.1,11,Soviet education
-H4.1,12,Other
-H5,1,Married
-H5,2,Having stable partner
-H5,3,I don't live with spouse but am still legally married
-H5,4,Divorced
-H5,5,Widowed
-H5,6,I have never been married
-H6,1,Georgian
-H6,2,Azeri
-H6,3,Armenian
-H6,4,Other Caucasian ethnic groups
-H6,5,Russian
-H7,1,No religion
-H7,2,Orthodox
-H7,3,Gregorian
-H7,4,Catholic
-H7,5,Protestant
-H7,6,Other Christian
-H8,1,Up to 130 GEL
-H8,2,130-250 GEL
-H8,3,251-400 GEL
-H8,4,401-700 GEL
-H8,5,701-1000 GEL
-H8,6,1001-1300 GEL
-H8,7,1301-2000 GEL
-H8,8,More than 2000 GEL
-H8,9,I can't answer
-H8,10,Refuse to answer
-H9,1,I don't have a spouse
-H9,2,He/she doesn't work
-H9,3,On daily basis
-H9,4,Retired
-H9,5,I don't know
-H9,6,Up to 130 GEL
-H9,7,130-250 GEL
-H9,8,251-400 GEL
-H9,9,401-700 GEL
-H9,10,701-1000 GEL
-H9,11,1001-1300 GEL
-H9,12,1301-2000 GEL
-H9,13,More than 2000 GEL
-H9,14,Difficult to answer
-H9,15,Refuse to answer
-Envelope,1,Closed
-Envelope,2,Open
-reg_weit,1,Adjara
-reg_weit,2,Guria
-reg_weit,3,Tbilisi
-reg_weit,4,Imereti
-reg_weit,5,Kakheti
-reg_weit,6,Mtskheta-Mtianeti
-reg_weit,7,Samegrelo / Zemo Svaneti
-reg_weit,8,Samtskhe-Javakheti
-reg_weit,9,Kvemo Kartli
-reg_weit,10,Shida Kartli
-gender_wei,1,Female
-gender_wei,2,Male
-age_wei,1,18-25
-age_wei,2,26-35
-age_wei,3,36-45
-age_wei,4,46-55
-age_wei,5,56-65
-age_wei,6,65+
-filter_$,0,Filter – Not Selected 
-filter_$,1,Filter – Selected
-PrimaryLast,0,Duplicate Case
-PrimaryLast,1,Primary Case
+Reg,1,Adjara,
+Reg,2,Guria,
+Reg,3,Tbilisi,
+Reg,4,Imereti,
+Reg,5,Kakheti,
+Reg,6,Mtskheta-Mtianeti,
+Reg,7,Samegrelo / Zemo Svaneti,
+Reg,8,Samtskhe-Javakheti,
+Reg,9,Kvemo Kartli,
+Reg,10,Shida Kartli,
+A1,1,the respondent is employed,რესპონდენტი დასაქმებულია
+A1,2,the respondent is temporarily not working because of temporary illness/parental leave/vacation,რესპონდენტი დროებით არ მუშაობს ავადმყოფობის/დეკრეტული შვებულების/შვებულების გამო
+A1,3,the respondent is self-employed,რესპონდენტი თვითდასაქმებულია
+A1,4,the respondent is unemployed,რესპონდენტი არ არის დასაქმებული
+A2,1,Yes,დიახ
+A2,2,No,არა
+A3,1,Yes,დიახ
+A3,2,"Yes, with one/some of my employers (in case of having many jobs)","დიახ, ერთ/რამდენიმე დამსაქმებელთან"
+A3,3,No,არა
+A3.1_3,1,Yes,დიახ
+A3.1_3,2,No,არა
+A3.1_3,3,Limited time frame,მუდმივი ხელშეკრულება
+A3.1_3,8,filter,
+A3.2,1,Yes,დიახ
+A3.2,2,"No, it doesn’t guarantee anything",არა
+A3.2,3,I don't know,არ ვიცი
+A3.2,8,filter,
+A3.3,1,Yes,დიახ
+A3.3,2,No,არა
+A3.3,3,I don’t know / I’m not sure,არ ვიცი / არ ვარ დარწმუნებული
+A3.3,8,filter,
+A4.1,1,Full time,სრულ განაკვეთზე
+A4.1,2,Part time,ნახევარ განაკვეთზე
+A4.1,3,Work in shifts,ცვლაში ვმუშაობ
+A4.1,4,Other,სხვა
+A4.2,1,Yes,დიახ
+A4.2,2,No,არა
+A4.2,8,filter,
+A5,1,Yes,დიახ
+A5,2,No,არა
+A5.1,1,A big city (Tbilisi),თბილისში
+A5.1,2,The suburbs or outskirts of a big city,თბილისის შემოგარენში
+A5.1,3,A small city or a town,ქალაქში
+A5.1,4,A country village,სოფელში
+A5.1,5,Farm or home in the countryside,ფერმაში ან ქალაქგარეთ სახლში
+A5.1,8,filter,
+A6,1,Private employer,კერძო სექტორში
+A6,2,Public employer,საჯარო სექტორში
+A6,3,NGO,არასამთავრობო სექტორში
+A6,4,Other,სხვა
+A7_zveli,1,"Agriculture, forestry and fishing",
+A7_zveli,2,Mining and quarrying,
+A7_zveli,3,Manufacturing,
+A7_zveli,4,"Electricity, gas, steam and air conditioning supply",
+A7_zveli,5,"Water supply, sewerage, waste management and remediation activities",
+A7_zveli,6,Construction,
+A7_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles",
+A7_zveli,8,Transportation and storage,
+A7_zveli,9,Accommodation and food service activities,
+A7_zveli,10,Information and communication,
+A7_zveli,11,Finance and insurance activities,
+A7_zveli,12,Real estate activities,
+A7_zveli,13,"Professional, scientific and technical activities",
+A7_zveli,14,Administrative and support service activities,
+A7_zveli,15,"Public administration and defense, compulsory social security",
+A7_zveli,16,Education,
+A7_zveli,17,Human health and social work activities,
+A7_zveli,18,Other,სხვა
+A8_zveli,1,"Agriculture, forestry and fishing",
+A8_zveli,2,Mining and quarrying,
+A8_zveli,3,Manufacturing,
+A8_zveli,4,"Electricity, gas, steam and air conditioning supply",
+A8_zveli,5,"Water supply, sewerage, waste management and remediation activities",
+A8_zveli,6,Construction,
+A8_zveli,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles",
+A8_zveli,8,Transportation and storage,
+A8_zveli,9,Accommodation and food service activities,
+A8_zveli,10,Information and communication,
+A8_zveli,11,Financial and insurance activities,
+A8_zveli,12,Real estate activities,
+A8_zveli,13,"Professional, scientific and technical activities",
+A8_zveli,14,Administrative and support service activities,
+A8_zveli,15,"Public administration and defense, compulsory social security",
+A8_zveli,16,Education,
+A8_zveli,17,Human health and social work activities,
+A8_zveli,18,Other,სხვა
+A7,1,"Agriculture, forestry and fishing","სოფლის მეურნეობის, მეტყევეობა და მეთევზეობა"
+A7,2,Mining and quarrying,სამთომომპოვებითი მრეწველობა
+A7,3,Manufacturing,მრეწველობა
+A7,4,"Electricity, gas, steam and air conditioning supply","ელექტროენერგიის, გაზის, ორთქლის და კონდიცირების მომარაგება"
+A7,5,"Water supply, sewerage, waste management and remediation activities","წყალმომარაგების, კანალიზაციის, ნარჩენების მართვისა და აღდგენის ღონისძიებების"
+A7,6,Construction,მშენებლობა
+A7,7,"Wholesale and retail trade, repair of motor vehicles and motorcycles","საბითუმო და საცალო ვაჭრობა, ავტომობილების და მოტოციკლების შეკეთება"
+A7,8,Transportation and storage,გადაზიდვები
+A7,9,Accommodation and food service activities,განსახლება და კვების მომსახურება
+A7,10,Information and communication,ინფორმაცია და კომუნიკაცია
+A7,11,Finance and insurance activities,ფინანსთა და სადაზღვევო საქმიანობა
+A7,12,Real estate activities,უძრავი ქონება
+A7,13,"Professional, scientific and technical activities","პროფესიული, სამეცნიერო და ტექნიკური საქმიანობის"
+A7,14,Administrative and support service activities,ადმინისტრაციული სფერო
+A7,15,"Public administration and defense, compulsory social security",საჯარო მმართველობისა და თავდაცვის სფერო
+A7,16,Education,განათლება
+A7,17,Human health and social work activities,ჯანმრთელობის დაცვა და სოციალური დახმარება
+A7,18,"Arts, entertainment and recreation","ხელოვნება, გართობა და რეკრეაცია"
+A7,19,Other service activities,სხვა მომსახურებები
+A7,20,"Activities of households as employers, undifferentiated goods- and service- producing activities of households for own use",დიასახლისი ან თვითდასაქმებული
+A7,21,Activities of extraterritorial organizations and bodies,ექსტრატერიტორიული ორგანიზაციების და მათი უწყებების საქმიანობა
+A8,110,Commissioned armed forces officers,შეიარაღებული ძალების ოფიცრები
+A8,310,"Armed forces occupations, other ranks","შეიარაღებული ძალების დასაქმებული, სხვა წოდებები"
+A8,1120,Managing directors and chief executives,დირექტორები და მთავარი აღმასრულებლები
+A8,1211,Finance managers,ფინანსური მენეჯერები
+A8,1212,Human resource managers,ადამიანური რესურსების მენეჯერები
+A8,1213,Policy and planning manager,პოლიტიკისა და დაგეგმვის მენეჯერები
+A8,1219,Business service and administration managers not elsewhere classified,ბიზნეს მომსახურების და ადმინისტრაციის მმართველნი
+A8,1221,Sales and marketing manager,გაყიდვების და მარკეტინგის მენეჯერები
+A8,1222,Advertising and public relations managers,სარეკლამო და საზოგადოებასთან ურთიერთობის მენეჯერები
+A8,1311,Agricultural and forestry production managers,სასოფლო-სამეურნეო და სატყეო წარმოების მენეჯერები
+A8,1321,Manufacturing managers,სამრეწველო სფეროს მენეჯერები
+A8,1324,"Supply, distribution and related managers","მომარაგება, დისტრიბუცია და მასთან სფეროს მენეჯერები"
+A8,1330,Information and communications technology service managers,საინფორმაციო და საკომუნიკაციო ტექნოლოგიების სფეროს მენეჯერები
+A8,1342,Health services managers,ჯანდაცვის სფეროს მენეჯერები
+A8,1344,Social welfare managers,სოციალური უზრუნველყოფის სფეროს მენეჯერები
+A8,1345,Education managers,საგანმანათლებლო სფეროს მენეჯერები
+A8,1411,Hotel managers,სასტუმროს სფეროს მენეჯერები
+A8,1431,"Sports, recreation and cultural center managers","სპორტის, დასვენებისა და კულტურული ცენტრების მენეჯერები"
+A8,1439,Services managers not elsewhere classified,სხვა სერვისების მენეჯერები
+A8,2113,Chemists,ქიმიკოსები
+A8,2114,Geologists and geophysicists,გეოლოგები და გეოფიზიკოსები
+A8,2120,"Mathematicians, actuaries and statisticians","მათმატიკოსები, სტატისტიკოსები"
+A8,2141,Industrial and production engineers,სამრეწველო და წარმოების ინჟინრები
+A8,2144,Mechanical engineers,მექანიკოსები
+A8,2146,"Mining engineers, metallurgists and related professionals","სამთო ინჟინრები, მეტალურგები "
+A8,2149,Engineering professionals not elsewhere classified,სხვა ინჟინერები
+A8,2151,Electrical engineers,ელექტრიკოსები
+A8,2153,Telecommunications engineers,სატელეკომუნიკაციო ინჟინერები
+A8,2161,Building architects,არქიტექტორები
+A8,2163,Product and garment designers,ტანსაცმლის დიზაინერები
+A8,2165,Cartographers and surveyors,კარტოგრაფები
+A8,2166,Graphic and multimedia designers,გრაფიკული და მულტიმედია დიზაინერები
+A8,2211,Generalist medical practitioners,ზოგადი სამედიცინო პრაქტიკოსები
+A8,2212,Specialist medical practitioners,სპეციალისტი სამედიცინო პრაქტიკოსი
+A8,2221,Nursing Professionals,ექთნები
+A8,2222,Midwifery professionals,მეანი ქალი
+A8,2240,Paramedical practitioners,გადაუდებელი სასწრაფო დახმარების ექიმები
+A8,2250,Veterinarians,ვეტერინარები
+A8,2261,Dentists,სტომატოლოგები
+A8,2262,Pharmacists,ფარმაცევტები
+A8,2263,Environmental and occupational health and hygiene professionals,"გარემოს დაცვის, ჯანმრთელობისა და ჰიგიენის სპეციალისტები"
+A8,2310,University and higher education teachers,უნივერსიტეტის ან უმაღლესი განათლების პროფესორ-მასწავლებლები
+A8,2341,Primary school teachers,დაწყებითი კლასების მასწავლებლები
+A8,2342,Early childhood educators,ადრეული განათლების მასწავლებლები
+A8,2351,Education methods specialists,სასწავლო მეთოდების სპეციალისტები
+A8,2352,Special needs teachers,სპეციალური საჭიროებების მქონე ბავშვთა პედაგოგები
+A8,2353,Other language teachers,"სხვა, უცხო ენების პედაგოგები"
+A8,2354,Other music teachers,"სხვა, მუსიკის პედაგოგები"
+A8,2355,Other arts teachers,"სხვა, ხელოვნების პედაგოგები"
+A8,2359,Teaching professionals not elsewhere classified,სხვა მასწავლებლები
+A8,2411,Accountants,ბუღალტრები
+A8,2412,Financial investment advisers,ფინანსური მრჩევლები
+A8,2413,Financial Analysts,გინანსური ანალიტიკოსები
+A8,2423,Personnel and careers professionals,პერსონალისა და კარიერის დაგეგმვის სფეროს წარმომადგენლები
+A8,2424,Training and staff development professionals,ტრენინგებისა და კადრების განვითარების სფეროს წარმომადგენლები
+A8,2431,Advertising and marketing professionals,სარეკლამო და მარკეტინგის სფეროს წარმომადგენლები
+A8,2432,Public relations professionals,საზოგადოებასთან ურთიერთობის სფეროს წარმომადგენლები
+A8,2519,Software and applications developers and analysts not elsewhere classified,"სხვა, პროგრამული უზრუნველყოფის სპეციალისტები, დეველოპერები და ანალიტიკოსები"
+A8,2611,Lawyers,იურისტები
+A8,2619,Legal professionals not elsewhere classified,სხვა იურიდიული სფეროს წარმომადგენლები
+A8,2621,Archivists and curators,კურატორები და საარქივო საქმიანობის სფეროში დასაქმებულები
+A8,2622,Librarians and related information professionals,ბიბლიოთაში დასაქმებული ადამიანები
+A8,2631,Economists,ეკონომისტები
+A8,2635,Social work and counseling professionals,სოციალური მუშაკები და ფსიქოლოგები
+A8,2642,Journalists,ჟურნალისტები
+A8,2643,"Translators, interpreters and other linguists",თარჯიმნები და ლინგვისტები
+A8,2651,Visual artists,მხატვრები
+A8,2652,"Musicians, singers and composers","მუსიკოსები, მომღერლები, კომპოზიტორები"
+A8,2653,Dancers and choreographers,მოცეკვავეები და ქორეოგრაფები
+A8,2655,Actors,მსახიობები
+A8,2656,"Announcers on radio, television and other media","ტელე, რადიო წამყვანები"
+A8,3111,Chemical and physical science technicians,ქიმიისა და ფიზიკის მეცნიერებებში დასაქმებული პირები
+A8,3112,Building and fire inspectors,სამშენებლო და სახანძრო ინსპექტორები
+A8,3113,Electrical engineering technicians,ელექტრო-საინჟინრო ტექნიკოსები
+A8,3115,Mechanical engineering technicians,ინჟინერ-ტექნიკოსები
+A8,3117,Mining and metallurgical technicians,სამთო და მეტალურგიული ტექნიკოსები
+A8,3122,Manufacturing supervisors,წარმოების ხელმძღვანელები
+A8,3123,Construction supervisors,სამშენებლო ხელმძღვანელები
+A8,3134,Petroleum and natural gas refining plant operators,ნავთობისა და ბუნებრივი აირის გადამუშავებაში დასაქმებული პირები
+A8,3142,Agricultural technicians,სასოფლო-სამეურნეო სფეროში დასაქმებული პირები
+A8,3152,Ships' deck officers and pilots,საზღვაო და საჰაერო სფეროში დასაქმებუელბი
+A8,3153,Aircraft pilots and related associate professionals,თვითმფრინავის მფრინავები და მასთან დაკავშირებული დამხმარე პერსონალი
+A8,3212,Medical and pathology laboratory technicians,სამედიცინო ლაბორატორიის ტექნიკოსები
+A8,3213,Pharmaceutical technicians and Assistants,ფარმაცევტები
+A8,3251,Dental Assistants and Therapists,სტომატოლოგები
+A8,3252,Medical records and health information technicians,სამედიცინო საინფორმაციო ტექნიკოსები
+A8,3256,Medical Assistants,სამედიცინო თანაშემწეები
+A8,3258,Ambulance workers,სასწრაფოს დახმარების თანამშრომლები
+A8,3259,Health associate professionals not elsewhere classified,სხვა სამედიცინო სფეროს წარმომადგენლები
+A8,3312,Credit and loans officers,საკრედიტო ოფიცრები
+A8,3315,Valuers and loss assessors,ღირებულებებისა და დანაკარგების შეფასების სპეციალისტი
+A8,3321,Insurance representatives,სადაზღვეო კომპანიის წარმომადგენლები
+A8,3322,Commercial sales representatives,კომერციული გაყიდვების სპეციალისტი
+A8,3323,Buyers,შესყიდვების სამსახურის თანამშრომელი
+A8,3324,Trade brokers,სავაჭრო ბროკერი
+A8,3332,Conference and event planners,კომფერენციებისა და ღონისძიებების დამგეგმავი
+A8,3334,Real estate agents and property managers,უძრავი ქონების აგენტები და ქონების მენეჯერები
+A8,3339,Business services agents not elsewhere classified,სხვა ბიზნეს მომსახურების აგენტები
+A8,3341,Office supervisors,ოფისის ხელმძღვანელები
+A8,3343,Administrative and executive secretaries,ადმინისტრაციული და აღმასრულებელი მდივანი
+A8,3351,Customs and border inspectors,საბაჟო და სასაზღვრო ინსპექტორების
+A8,3355,Police inspectors and detectives,პოლიციელები და დეტექტივები
+A8,3359,Regulatory government associate professionals not elsewhere classified,სხვა მარეგულირებელი ხელისუფლების წარმომადგენლები
+A8,3411,Legal and related associate professionals,იურიდიული და მასთან დაკავშირებული სფეროს წარმომადგენელბი
+A8,3412,Social work associate professionals,სოციალური მუშაკები
+A8,3421,Athletes and sports players,სპორცმენები
+A8,3422,"Sports coaches, instructors and officials","მწვრთნელები, ინსტრუქტორები"
+A8,3433,"Gallery, museum and library technicians","გალერეაში, მუზეუმებში და ბიბლიოთეკებში მომუშავე პირები"
+A8,3434,Chefs,შეფმზარეულები
+A8,3435,Other artistic and cultural associate professionals,სხვა ხელოვანები 
+A8,3511,Information and communications technology operations technicians,საინფორმაციო და საკომუნიკაციო ტექნოლოგიების სფეროში დასაქმებული პირები
+A8,4211,Bank tellers and related clerks,ბანკის ოპერატორები
+A8,4212,"Bookmakers, croupiers and related gaming workers",სათამასო ბიზნესში დასაქმებული პირები
+A8,4221,Travel consultants and clerks,ტურისტული კონსულტანტები
+A8,4222,Contact center information clerks,საინფორამციო ცენტრის თანამშრომლები
+A8,4227,Survey and market research interviewers,კვლევებისა და ბაზრის კვლევა ინტერვიუერები
+A8,4312,"Statistical, finance and insurance clerks",საფინანსო და სადაზღვევო სპეციალისტები
+A8,4323,Transport clerks,ტრანსპორტის სპეციალისტები
+A8,4411,Library clerks,ბიბლიოთეკის თანამშრომლები
+A8,4416,Personnel clerks,პირადი ასისტენტები
+A8,5111,Travel attendants and travel stewards,სამოგზაურო და ბორტ გამცილებლები
+A8,5113,Travel guides,გიდები
+A8,5120,Cooks,მზარეულები
+A8,5131,Waiters,მიმტანები
+A8,5141,Hairdressers,პარიკმახერები
+A8,5151,"Cleaning and housekeeping supervisors in offices, hotels and other establishments","დასუფთავების და სხვა მომსხარუხების ხელმძღვანელები ოფისებში, სასტუმროებსა და სხვა დაწესებულებებში"
+A8,5152,Domestic housekeepers,დამლაგებლები
+A8,5211,Stall and market salespersons,გამყიდველები
+A8,5221,Shopkeepers,მაღაზიის მფლობელები
+A8,5222,shop supervisors,მაღაზიის ხელმძღვანელები
+A8,5223,Shop sales assistants,მაღაზიის კონსულტანტები
+A8,5230,Cashiers and ticket clerks,მოლარე და ბილეთების კლერკები
+A8,5245,Service station attendants,სერვის ცენტრების თანამშრომლები
+A8,5249,Sales workers not elsewhere classified,სხვა გაყიდვების სფეროს წარმომადგენლები
+A8,5311,Child-care workers,საბავშო ბაღის თანამშრომლები
+A8,5321,Health care assistants,ჯანდაცვის ასისტენტები
+A8,5322,Home-based personal care workers,ბინაზე მომვლელები
+A8,5411,Fire fighters,მეხანძრეები
+A8,5412,Police officers,პოლიციელები
+A8,5414,Security guards,დაცვის თანამშრომლები
+A8,5419,Protective workers not elsewhere classified,სხვა დაცვის სფეროში მომუშავე პირები
+A8,6111,Field crop and vegetable growers,ბოსტნეულის მწარმოებლები
+A8,6113,"Gardeners, horticultural and nursery growers",მებაღეები
+A8,6122,Poultry producers,მეფრინველეობაში დასაქმებული პირები
+A8,6330,Subsistence mixed crop and livestock farmers,მარცვლეული კულტურების მწარმოებლები
+A8,7111,House builders,მშენებლები
+A8,7115,Carpenters and joiners,დურგლები
+A8,7119,Building frame and related trade workers not elsewhere classified,სხვა მშენებლობასთან დაკავშირებული პირები
+A8,7122,Floor layers and tile setters,იატაკის და ფილების ხელოსნები
+A8,7126,Plumbers and pipe fitters,მეწყალსადენები
+A8,7131,Painters and related workers,მღებავები 
+A8,7211,Metal moulders and coremakers,ზეინკალი
+A8,7212,Welders and flamecutters,შემდუღებლები
+A8,7213,Sheet-metal workers,ლითონის ფირფიტების კონსტრუქციის ხელოსნები
+A8,7231,Motor vehicle mechanics and repairers,ავტომობილის მექანიკოსები
+A8,7315,"Glass Makers, Cutters, Grinders and Finishers",მინაზე მომუშავე ხელოსნები
+A8,7317,"Handicraft workers in wood, basketry an related materials",დურგლები და ხეზე მომუშავე ადამიანები
+A8,7319,Handicraft workers not elsewhere classified,სხვა ხელოსნები
+A8,7413,Electrical Line Installers and Repairers,ელექტრიკოსები 
+A8,7512,"Bakers, pastry-cooks and confectionary makers",კონდიტერები და მცხობელები
+A8,7531,"Tailors, dressmakers, furriers and hatters",მკერავები
+A8,7536,Shoemakers and related workers,მეწაღეები
+A8,8111,Miners and quarriers,მაღაროელები
+A8,8113,Well drillers and borers and related workers,მბურღავები
+A8,8131,Chemical products plant and machine operators,ქიმიური პროდუქციის მწარმოებლები
+A8,8160,Food and related products machine operators,კვების მრეწველობაში დასაქმებული პირი
+A8,8189,Stationary plant and machine operators not elsewhere classified,სხვა დანადგარებზე და მანქანებზე მომუშავე პირები
+A8,8212,Electrical and electronic equipment assemblers,ელექტრონიკის სფეროს წარმომადგენლები
+A8,8311,Locomotive engine drivers,მემანქანე
+A8,8312,"Railway brake, signal and switch operators",რკინიგზის ოპერატორები
+A8,8322,"Car, taxi and van drivers",სამარშუტო და ტაქსის მძღოლები
+A8,8331,Bus and tram drivers,ავტობუსის მძღოლები და ტრამვაის მემანქანეები
+A8,8332,Heavy truck and lorry drivers,სატვირთოს მძღოლები
+A8,8343,"Crane, hoist and related plant operators",ამწეკრანი მემანქანეები
+A8,9111,Domestic cleaners and helpers,სახლის დამლაგებლები
+A8,9112,"Cleaners and helpers in offices, hotels and other establishments","ოფისის, სასტუმროების და სახვა დაწესებულებების დამლაგებლები"
+A8,9129,Other cleaning workers,სხვა დამლაგებლები
+A8,9211,Crop farm laborers,მარცვლეული კულტურების ფერმის მუშები
+A8,9311,Mining and quarrying laborers,მაღაროელები
+A8,9312,Civil engineering laborers,საინჟინრო მუშახელი
+A8,9313,Building construction laborers,სამშენებლო მუშახელი
+A8,9321,Hand Packers,შეფუთვის სპეციალისტი
+A8,9329,Manufacturing laborers not elsewhere classified,სხვა საწარმოო მუშახელი
+A8,9411,Fast food preparers,სწრაფი კვების ობიექტებში დასაქმებული პირები
+A8,9412,Kitchen helpers,სამზარეულოში მომუშავე პიერები
+A8,9611,Garbage and recycling collectors,დასუფთავების სამსახურის თანამშრომლები
+A8,9613,Sweepers and related laborers,მეეზოვეები
+A8,9621,"Messengers, package deliverers luggage porters",კურიერები
+A8,9623,Meter Readers and vending-machine collectors,მრიცხველების შემმოწმებლები და ავტომატური გაყიდვების ჯიხურების მომმარაგებლები
+A8,9629,Elementary workers not elsewhere classified,სხვა მუშები
+A9,1,I work alone / I don’t have colleagues,მარტო ვმუშაობ / თანამშრომლები არ მყავს
+A9,2,Mostly women,უმრავლესობა ქალია
+A9,3,Mostly men,უმრავლესობა კაცია
+A9,4,Approximately same amount of men and women,ქალების და კაცების თითქმის ერთნაირი რაოდენობაა
+A9,5,I don't know,არ ვიცი
+A10,1,"Yes, I would like to have more women among my colleagues",ვისურვებდი უფრო მეტი ქალი თანამშრომლის ყოლას
+A10,2,"Yes, I would like to have more men among my colleagues",ვისურვებდი უფრო მეტი კაცი თანამშრომლის ყოლას
+A10,3,"I would like, but men/women couldn’t do the work","ვისურვებდი, მაგრამ ქალი/კაცი ვერ შეძლებს ამ სამუშაოს შესრულებას"
+A10,4,No I like it as it is,"არა, მომწონს ისე, როგორც არის"
+A10,5,I don't care,არ აქვს მნიშვნელობა
+A10,6,Other,სხვა
+A11,1,With women,ქალებთან
+A11,2,With men,კაცებთან
+A11,3,Both men and women,ქალებთან და კაცებთან თანაბრად
+A12,1,Male,მამაკაცია
+A12,2,Female,ქალია
+A12,3,I don't have one,არ მყავს
+A13,1,"Yes, currently","დიახ, ამჟამად ვარ"
+A13,2,"Yes, previously but not currently","დიახ, ვყოფილვარ, მაგრამ ახლა არ ვარ"
+A13,3,"No, never","არა, არასდროს ვყოფილვარ"
+B1,1,Yes,დიახ
+B1,2,No,არა
+B1.1,1,Once,ერთხელ
+B1.1,2,2-4 times,2-4 ჯერ
+B1.1,3,5-7 times,5-7 ჯერ
+B1.1,4,8-10 times,8-10 ჯერ
+B1.1,5,More than 10 times,ათზე მეტჯერ
+B1.1,6,Don't remember,არ მახსოვს
+B1.1,8,filter,
+B1.2_1,1,Yes,დიახ
+B1.2_1,2,No,არა
+B1.2_1,3,N/A,უარი პასუხზე
+B1.2_1,8,filter,
+B1.2_2,1,Yes,დიახ
+B1.2_2,2,No,არა
+B1.2_2,3,N/A,უარი პასუხზე
+B1.2_2,8,filter,
+B1.2_3,1,Yes,დიახ
+B1.2_3,2,No,არა
+B1.2_3,3,N/A,უარი პასუხზე
+B1.2_3,8,filter,
+B1.2_4,1,Yes,დიახ
+B1.2_4,2,No,არა
+B1.2_4,3,N/A,უარი პასუხზე
+B1.2_4,8,filter,
+B1.2_5,1,Yes,დიახ
+B1.2_5,2,No,არა
+B1.2_5,3,N/A,უარი პასუხზე
+B1.2_5,8,filter,
+B1.2_6,1,Yes,დიახ
+B1.2_6,2,No,არა
+B1.2_6,3,N/A,უარი პასუხზე
+B1.2_6,8,filter,
+B2,1,Through my friend/acquaintance/relative,ჩემი მეგობრების/ნაცნობების/ნათესავების დახმარებით
+B2,2,"I found the job by myself, without help from others",თვითონ ვიშოვე სამსახური სხვების დახმარების გარეშე
+B2,3,Other,სხვა
+B3,1,No,არა
+B3,2,Yes,დიახ
+B3.1,1,Yes,დიახ
+B3.1,2,No,არა
+B3.1,8,filter,
+B3.2_1,1,Yes,დიახ
+B3.2_1,2,No,არა
+B3.2_1,8,filter,
+B3.2_2,1,Yes,დიახ
+B3.2_2,2,No,არა
+B3.2_2,8,filter,
+B3.2_3,1,Yes,დიახ
+B3.2_3,2,No,არა
+B3.2_3,8,filter,
+B3.2_4,1,Yes,დიახ
+B3.2_4,2,No,არა
+B3.2_4,8,filter,
+B3.2_5,1,Yes,დიახ
+B3.2_5,2,No,არა
+B3.2_5,8,filter,
+B3.2_6,1,Yes,დიახ
+B3.2_6,2,No,არა
+B3.2_6,8,filter,
+B3.2_7,1,Yes,დიახ
+B3.2_7,2,No,არა
+B3.2_7,8,filter,
+B3.2_8,1,Yes,დიახ
+B3.2_8,2,No,არა
+B3.2_8,8,filter,
+B3.2_9,1,Yes,დიახ
+B3.2_9,2,No,არა
+B3.2_9,8,filter,
+B3.2_10,1,Yes,დიახ
+B3.2_10,2,No,არა
+B3.2_10,8,filter,
+B3.2_11,1,Yes,დიახ
+B3.2_11,2,No,არა
+B3.2_11,8,filter,
+B3.2_12,1,Yes,დიახ
+B3.2_12,2,No,არა
+B3.2_12,8,filter,
+B3.2_13,1,Yes,დიახ
+B3.2_13,2,No,არა
+B3.2_13,8,filter,
+B3.2_14,1,Yes,დიახ
+B3.2_14,2,No,არა
+B3.2_14,8,filter,
+B3.3_1,1,Yes,დიახ
+B3.3_1,2,No,არა
+B3.3_1,8,filter,
+B3.3_2,1,Yes,დიახ
+B3.3_2,2,No,არა
+B3.3_2,8,filter,
+B3.3_3,1,Yes,დიახ
+B3.3_3,2,No,არა
+B3.3_3,8,filter,
+B3.3_4,1,Yes,დიახ
+B3.3_4,2,No,არა
+B3.3_4,8,filter,
+B3.3_5,1,Yes,დიახ
+B3.3_5,2,No,არა
+B3.3_5,8,filter,
+B3.3_6,1,Yes,დიახ
+B3.3_6,2,No,არა
+B3.3_6,8,filter,
+B3.3_7,1,Yes,დიახ
+B3.3_7,2,No,არა
+B3.3_7,8,filter,
+B3.3_8,1,Yes,დიახ
+B3.3_8,2,No,არა
+B3.3_8,8,filter,
+B3.3_9,1,Yes,დიახ
+B3.3_9,2,No,არა
+B3.3_9,8,filter,
+B3.3_10,1,Yes,დიახ
+B3.3_10,2,No,არა
+B3.3_10,8,filter,
+B3.3_11,1,Yes,დიახ
+B3.3_11,2,No,არა
+B3.3_11,8,filter,
+B3.3_12,1,Yes,დიახ
+B3.3_12,2,No,არა
+B3.3_12,8,filter,
+B3.3_13,1,Yes,დიახ
+B3.3_13,2,No,არა
+B3.3_13,8,filter,
+B3.3_14,1,Yes,დიახ
+B3.3_14,2,No,არა
+B3.3_14,8,filter,
+B4,1,Yes,დიახ
+B4,2,No,არა
+B4.1_1,1,Yes,დიახ
+B4.1_1,2,No,არა
+B4.1_1,8,filter,
+B4.1_2,1,Yes,დიახ
+B4.1_2,2,No,არა
+B4.1_2,8,filter,
+B4.1_3,1,Yes,დიახ
+B4.1_3,2,No,არა
+B4.1_3,8,filter,
+B4.1_4,1,Yes,დიახ
+B4.1_4,2,No,არა
+B4.1_4,8,filter,
+B5_1,1,Yes,დიახ
+B5_1,2,No,არა
+B5_2,1,Yes,დიახ
+B5_2,2,No,არა
+B5_3,1,Yes,დიახ
+B5_3,2,No,არა
+B5_4,1,Yes,დიახ
+B5_4,2,No,არა
+B5_5,1,Yes,დიახ
+B5_5,2,No,არა
+B6_1,1,Yes,დიახ
+B6_1,2,No,არა
+B6_2,1,Yes,დიახ
+B6_2,2,No,არა
+B6_3,1,Yes,დიახ
+B6_3,2,No,არა
+B6_4,1,Yes,დიახ
+B6_4,2,No,არა
+B6_5,1,Yes,დიახ
+B6_5,2,No,არა
+B6_6,1,Yes,დიახ
+B6_6,2,No,არა
+C1,1,Yes,დიახ
+C1,2,No,არა
+C1,3,I have worked here less than 3 months and have no such experience so far,"სამ თვეზე ნაკლებია, რაც ამ სამსახურში ვმუშაობ და ასეთი გამოცდილება ჯერ არ მქონია"
+C1.1,1,I applied for the job/promotion,ჩემი ინიციატივით/მე მოვითხოვე
+C1.1,2,I was offered the higher position,უფრო მაღალი პოზიცია შემომთავაზეს
+C1.1,3,Other,სხვა
+C1.1,8,filter,
+C1.2,1,Yes,დიახ
+C1.2,2,No,არა
+C1.2,8,filter,
+C1.3,1,Yes,დიახ
+C1.3,2,No,არა
+C1.3,8,filter,
+C1.3.1_1,1,Yes,დიახ
+C1.3.1_1,2,No,არა
+C1.3.1_1,8,filter,
+C1.3.1_2,1,Yes,დიახ
+C1.3.1_2,2,No,არა
+C1.3.1_2,8,filter,
+C1.3.1_3,1,Yes,დიახ
+C1.3.1_3,2,No,არა
+C1.3.1_3,8,filter,
+C1.3.1_4,1,Yes,დიახ
+C1.3.1_4,2,No,არა
+C1.3.1_4,8,filter,
+C1.3.1_5,1,Yes,დიახ
+C1.3.1_5,2,No,არა
+C1.3.1_5,8,filter,
+C1.3.1_6,1,Yes,დიახ
+C1.3.1_6,2,No,არა
+C1.3.1_6,8,filter,
+C1.3.1_7,1,Yes,დიახ
+C1.3.1_7,2,No,არა
+C1.3.1_7,8,filter,
+C1.3.1_8,1,Yes,დიახ
+C1.3.1_8,2,No,არა
+C1.3.1_8,8,filter,
+C1.3.1_9,1,Yes,დიახ
+C1.3.1_9,2,No,არა
+C1.3.1_9,8,filter,
+C1.3.1_10,1,Yes,დიახ
+C1.3.1_10,2,No,არა
+C1.3.1_10,8,filter,
+C1.3.1_11,1,Yes,დიახ
+C1.3.1_11,2,No,არა
+C1.3.1_11,8,filter,
+C1.3.2_1,1,Yes,დიახ
+C1.3.2_1,2,No,არა
+C1.3.2_1,8,filter,
+C1.3.2_2,1,Yes,დიახ
+C1.3.2_2,2,No,არა
+C1.3.2_2,8,filter,
+C1.3.2_3,1,Yes,დიახ
+C1.3.2_3,2,No,არა
+C1.3.2_3,8,filter,
+C1.3.2_4,1,Yes,დიახ
+C1.3.2_4,2,No,არა
+C1.3.2_4,8,filter,
+C1.3.2_5,1,Yes,დიახ
+C1.3.2_5,2,No,არა
+C1.3.2_5,8,filter,
+C2,1,Yes,დიახ
+C2,2,No,არა
+C2,3,Other,სხვა
+C2,8,filter,
+C3,1,Yes,დიახ
+C3,2,No,არა
+C3,8,filter,
+C3.1,1,"Mine, I asked for a promotion","ჩემი, თავად ვითხოვე ანაზღაურების გაზრდა"
+C3.1,2,It was a general pay rise for all of the employees,ყველა თანამშრომელს გაუზარდეს ხელფასი
+C3.1,3,It was my manager’s initiative,ჩემი ხელმძღვანელის/მენეჯერის ინიციატივა იყო
+C3.1,4,Other,სხვა
+C3.1,8,filter,
+C3.2,1,Yes,დიახ
+C3.2,2,No,არა
+C3.2,8,filter,
+C4,1,Yes,დიახ
+C4,2,No,არა
+C4,8,filter,
+C4.1,1,Yes,დიახ
+C4.1,2,No,არა
+C4.1,8,filter,
+C4.1.1,1,I did not want to,არ მქონდა სურვილი
+C4.1.1,2,The time of the training wasn’t convenient for me,ტრეინინგის დრო არ მაწყობდა
+C4.1.1,3,I was not allowed by my employer,"ჩემმა დამსაქმებელმა/ხელმძღვანელმა არ მომცა დასწრების უფლება აღნიშნეთ, რატომ:"
+C4.1.1,4,I missed it,გამომრჩა
+C4.1.1,5,Other,სხვა
+C4.1.1,8,filter,
+C4.2,1,"Yes, but my employer doesn’t provide trainings for employees","დიახ, თუმცა ჩემი დამსაქმებელი თანამშრომლებისთვის ტრენინგების მოწყობას არ უზრუნველყოფს"
+C4.2,2,"Yes, but my employer didn’t let/offer me go to the training","დიახ, მაგრამ ჩემმა დამსაქმებელმა არ გამიშვა"
+C4.2,3,"No, there are no trainings in our field","არა, ჩვენს სფეროში ტრეინინგები არ ტარდება"
+C4.2,4,No,არა
+C4.2,8,filter,
+D1,1,Yes,დიახ
+D1,2,No,არა
+D1,3,Don't want to answer,არ მსურს პასუხის გაცემა
+D1.1,1,No,არა
+D1.1,2,"Yes, once","დიახ, ერთხელ"
+D1.1,3,"Yes, more than once","დიახ, ერთ ჯერზე მეტად"
+D1.1,8,filter,
+D1.2,1,Yes,დიახ
+D1.2,2,No,არა
+D1.2,3,I don't thinks so,არ მგონია
+D1.2,8,filter,
+D1.3,1,Yes,დიახ
+D1.3,2,No,არა
+D1.3,8,filter,
+D1.3.1_1,1,Yes,დიახ
+D1.3.1_1,2,No,არა
+D1.3.1_1,8,filter,
+D1.3.1_2,1,Yes,დიახ
+D1.3.1_2,2,No,არა
+D1.3.1_2,8,filter,
+D1.3.1_3,1,Yes,დიახ
+D1.3.1_3,2,No,არა
+D1.3.1_3,8,filter,
+D1.3.1_4,1,Yes,დიახ
+D1.3.1_4,2,No,არა
+D1.3.1_4,8,filter,
+D1.3.1_5,1,Yes,დიახ
+D1.3.1_5,2,No,არა
+D1.3.1_5,8,filter,
+D1.3.1_6,1,Yes,დიახ
+D1.3.1_6,2,No,არა
+D1.3.1_6,8,filter,
+D1.3.1_7,1,Yes,დიახ
+D1.3.1_7,2,No,არა
+D1.3.1_7,8,filter,
+D1.3.1_8,1,Yes,დიახ
+D1.3.1_8,2,No,არა
+D1.3.1_8,8,filter,
+D1.3.1_9,1,Yes,დიახ
+D1.3.1_9,2,No,არა
+D1.3.1_9,8,filter,
+D1.3.1_10,1,Yes,დიახ
+D1.3.1_10,2,No,არა
+D1.3.1_10,8,filter,
+D1.3.1_11,1,Yes,დიახ
+D1.3.1_11,2,No,არა
+D1.3.1_11,8,filter,
+D1.3.1_12,1,Yes,დიახ
+D1.3.1_12,2,No,არა
+D1.3.1_12,8,filter,
+D1.3.2,1,Yes,დიახ
+D1.3.2,2,No,არა
+D1.3.2,8,filter,
+D1.3.3_1,1,Yes,დიახ
+D1.3.3_1,2,No,არა
+D1.3.3_1,8,filter,
+D1.3.3_2,1,Yes,დიახ
+D1.3.3_2,2,No,არა
+D1.3.3_2,8,filter,
+D1.3.3_3,1,Yes,დიახ
+D1.3.3_3,2,No,არა
+D1.3.3_3,8,filter,
+D1.3.3_4,1,Yes,დიახ
+D1.3.3_4,2,No,არა
+D1.3.3_4,8,filter,
+D1.3.3_5,1,Yes,დიახ
+D1.3.3_5,2,No,არა
+D1.3.3_5,8,filter,
+D1.3.3_6,1,Yes,დიახ
+D1.3.3_6,2,No,არა
+D1.3.3_6,8,filter,
+D1.3.3_7,1,Yes,დიახ
+D1.3.3_7,2,No,არა
+D1.3.3_7,8,filter,
+D1.3.3_8,1,Yes,დიახ
+D1.3.3_8,2,No,არა
+D1.3.3_8,8,filter,
+D1.3.3_9,1,Yes,დიახ
+D1.3.3_9,2,No,არა
+D1.3.3_9,8,filter,
+D1.3.3_10,1,Yes,დიახ
+D1.3.3_10,2,No,არა
+D1.3.3_10,8,filter,
+D1.3.3_11,1,Yes,დიახ
+D1.3.3_11,2,No,არა
+D1.3.3_11,8,filter,
+D1.3.3_12,1,Yes,დიახ
+D1.3.3_12,2,No,არა
+D1.3.3_12,8,filter,
+D1.4,1,I don’t think the firing was unreasonable,"არ ვფიქრობ, რომ უსაფუძვლოდ გამათავისუფლეს"
+D1.4,2,"No, I did not contact/appeal to anyone or any institution","არა, არავისთვის/არც ერთი ორგანიზაციისთვის არ შემიტყობინებია/გამისაჩივრებია"
+D1.4,3,"Yes, I appealed to the organization board","დიახ, გავასაჩივრე ორგანიზაციის მმართველობაში"
+D1.4,4,"Yes, I contacted/appealed to a trade union","დიახ, დავუკავშირდი/გავასაჩივრე პროფკავშირებში"
+D1.4,5,"Yes, I appealed/contacted","დიახ, დავუკავშირდი/გავასაჩივრე. დააკონკრეტეთ, ვის/რომელ ორგანიზაციას"
+D1.4,8,filter,
+D2,1,"Yes, one","დიახ, ერთი კოლეგა"
+D2,2,"Yes, more than one","დიახ, ერთზე მეტი კოლეგა"
+D2,3,No,არა
+D2,4,I don't want to answer,არ მსურს პასუხის გაცემა
+E1,1,No,არა
+E1,2,Yes,დიახ
+E1.1_1,1,Yes,დიახ
+E1.1_1,2,No,არა
+E1.1_1,8,filter,
+E1.1_2,1,Yes,დიახ
+E1.1_2,2,No,არა
+E1.1_2,8,filter,
+E1.1_3,1,Yes,დიახ
+E1.1_3,2,No,არა
+E1.1_3,8,filter,
+E1.1_4,1,Yes,დიახ
+E1.1_4,2,No,არა
+E1.1_4,8,filter,
+E1.1_5,1,Yes,დიახ
+E1.1_5,2,No,არა
+E1.1_5,8,filter,
+E1.1_6,1,Yes,დიახ
+E1.1_6,2,No,არა
+E1.1_6,8,filter,
+E1.1_7,1,Yes,დიახ
+E1.1_7,2,No,არა
+E1.1_7,8,filter,
+E1.1_8,1,Yes,დიახ
+E1.1_8,2,No,არა
+E1.1_8,8,filter,
+E1.1_9,1,Yes,დიახ
+E1.1_9,2,No,არა
+E1.1_9,8,filter,
+E1.1_10,1,Yes,დიახ
+E1.1_10,2,No,არა
+E1.1_10,8,filter,
+E1.1_11,1,Yes,დიახ
+E1.1_11,2,No,არა
+E1.1_11,8,filter,
+E1.1_12,1,Yes,დიახ
+E1.1_12,2,No,არა
+E1.1_12,8,filter,
+E2_1,0,None,არც ერთხელ
+E2_1,1,Once,ერთხელ
+E2_1,2,Twice,ორჯერ
+E2_1,3,Three or more times,სამჯერ და მეტჯერ
+E2_2,0,None,არც ერთხელ
+E2_2,1,Once,ერთხელ
+E2_2,2,Twice,ორჯერ
+E2_2,3,Three or more times,სამჯერ და მეტჯერ
+E3_1,0,N/A,უარი პასუხზე
+E3_1,1,I don't know,არ ვიცი
+E3_1,2,Disagree,არ ვეთანხმები
+E3_1,3,Agree,ვეთანხმები
+E3_2,0,N/A,უარი პასუხზე
+E3_2,1,I don't know,არ ვიცი
+E3_2,2,Disagree,არ ვეთანხმები
+E3_2,3,Agree,ვეთანხმები
+E3_3,0,N/A,უარი პასუხზე
+E3_3,1,I don't know,არ ვიცი
+E3_3,2,Disagree,არ ვეთანხმები
+E3_3,3,Agree,ვეთანხმები
+E3_4,0,N/A,უარი პასუხზე
+E3_4,1,I don't know,არ ვიცი
+E3_4,2,Disagree,არ ვეთანხმები
+E3_4,3,Agree,ვეთანხმები
+E3_5,0,N/A,უარი პასუხზე
+E3_5,1,I don't know,არ ვიცი
+E3_5,2,Disagree,არ ვეთანხმები
+E3_5,3,Agree,ვეთანხმები
+E3_6,0,N/A,უარი პასუხზე
+E3_6,1,I don't know,არ ვიცი
+E3_6,2,Disagree,არ ვეთანხმები
+E3_6,3,Agree,ვეთანხმები
+E3_7,0,N/A,უარი პასუხზე
+E3_7,1,I don't know,არ ვიცი
+E3_7,2,Disagree,არ ვეთანხმები
+E3_7,3,Agree,ვეთანხმები
+F1_1,1,The question is not relevant,შეუსაბამო კითხვაა
+F1_1,2,I don't know,არ ვიცი
+F1_1,3,Negatively,უარყოფითი
+F1_1,4,Neutral,ნეიტრალური
+F1_1,5,Understandingly,გაგებით მოეკიდებიან
+F1_2,1,The question is not relevant,შეუსაბამო კითხვაა
+F1_2,2,I don't know,არ ვიცი
+F1_2,3,Negatively,უარყოფითი
+F1_2,4,Neutral,ნეიტრალური
+F1_2,5,Understandingly,გაგებით მოეკიდებიან
+F2_1,0,N/A,უარი პასუხზე
+F2_1,1,Yes,დიახ
+F2_1,2,No,არა
+F2_2,0,N/A,უარი პასუხზე
+F2_2,1,Yes,დიახ
+F2_2,2,No,არა
+F2_3,0,N/A,უარი პასუხზე
+F2_3,1,Yes,დიახ
+F2_3,2,No,არა
+F2_4,0,N/A,უარი პასუხზე
+F2_4,1,Yes,დიახ
+F2_4,2,No,არა
+F2_5,0,N/A,უარი პასუხზე
+F2_5,1,Yes,დიახ
+F2_5,2,No,არა
+F2_6,0,N/A,უარი პასუხზე
+F2_6,1,Yes,დიახ
+F2_6,2,No,არა
+F2_7,0,N/A,უარი პასუხზე
+F2_7,1,Yes,დიახ
+F2_7,2,No,არა
+F2_8,0,N/A,უარი პასუხზე
+F2_8,1,Yes,დიახ
+F2_8,2,No,არა
+F3,1,Yes,დიახ
+F3,2,No,არა
+F3.1,1,"Yes, always","დიახ, ყოველ ჯერზე"
+F3.1,2,In most cases,უმეტეს შემთხვევაში
+F3.1,3,Sometimes,ზოგჯერ
+F3.1,4,Never,არასოდეს
+F3.1,8,filter,
+F4,1,The question is irrelevant,შეუსაბამო კითხვაა
+F4,2,Positively,დადებითად
+F4,3,I couldn’t be on parental leave as long as I wanted,"არ შემეძლო დეკრეტში იმდენ ხანს ყოფნა, რამდენიც მსურდა"
+F4,4,I got fired because of that,სამსახურიდან დამითხოვეს ამის გამო
+F4,5,When returning from parental leave I had to start working in lower position,"დეკრეტული შვებულებიდან დაბრუნების შემდეგ უფრო დაბალ თანამდებობაზე გავაგრძელე
+მუშაობა, ვიდრე მანამდე ვმუშაობდი"
+F4,6,When returning from parental leave I got promoted,დეკრეტული შვებულებიდან დაბრუნების შემდეგ დამაწინაურეს
+F4,7,When returning from parental leave I could work only part time (although I would have liked to work full time),"დეკრეტული შვებულებიდან დაბრუნების შემდეგ მხოლოდ ნახევარ განაკვეთზე შემეძლო
+მუშაობა (მიუხედავად იმისა, რომ სრულ განაკვეთზე მინდოდა მუშაობა)"
+F4,8,I quit my job on my own will,საკუთარი სურვილით დავანებე სამსახურს თავი
+F4,9,Other,სხვა
+G1_1,0,I don't know,არ ვიცი
+G1_1,1,Discrimination,დისკრიმინაციაა
+G1_1,2,Unpleasant,უსიამოვნოა
+G1_1,3,Acceptable,მისაღებია
+G1_2,0,I don't know,არ ვიცი
+G1_2,1,Discrimination,დისკრიმინაციაა
+G1_2,2,Unpleasant,უსიამოვნოა
+G1_2,3,Acceptable,მისაღებია
+G1_3,0,I don't know,არ ვიცი
+G1_3,1,Discrimination,დისკრიმინაციაა
+G1_3,2,Unpleasant,უსიამოვნოა
+G1_3,3,Acceptable,მისაღებია
+G1_4,0,I don't know,არ ვიცი
+G1_4,1,Discrimination,დისკრიმინაციაა
+G1_4,2,Unpleasant,უსიამოვნოა
+G1_4,3,Acceptable,მისაღებია
+G1_5,0,I don't know,არ ვიცი
+G1_5,1,Discrimination,დისკრიმინაციაა
+G1_5,2,Unpleasant,უსიამოვნოა
+G1_5,3,Acceptable,მისაღებია
+G2,1,Yes,დიახ
+G2,2,No,არა
+G2,3,I don't know,არ ვიცი
+G2,4,I don't want to answer,არ მსურს პასუხის გაცემა
+G3,1,Yes,დიახ
+G3,2,No,არა
+G3,3,I don't know,არ ვიცი
+G3,4,I don't want to answer,არ მსურს პასუხის გაცემა
+G3,8,filter,
+G4_1,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_1,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_1,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_1,4,Can't imagine,მიჭირს წარმოდგენა
+G4_2,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_2,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_2,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_2,4,Can't imagine,მიჭირს წარმოდგენა
+G4_3,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_3,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_3,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_3,4,Can't imagine,მიჭირს წარმოდგენა
+G4_4,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_4,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_4,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_4,4,Can't imagine,მიჭირს წარმოდგენა
+G4_5,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_5,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_5,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_5,4,Can't imagine,მიჭირს წარმოდგენა
+G4_6,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_6,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_6,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_6,4,Can't imagine,მიჭირს წარმოდგენა
+G4_7,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_7,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_7,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_7,4,Can't imagine,მიჭირს წარმოდგენა
+G4_8,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_8,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_8,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_8,4,Can't imagine,მიჭირს წარმოდგენა
+G4_9,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_9,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_9,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_9,4,Can't imagine,მიჭირს წარმოდგენა
+G4_10,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_10,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_10,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_10,4,Can't imagine,მიჭირს წარმოდგენა
+G4_11,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_11,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_11,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_11,4,Can't imagine,მიჭირს წარმოდგენა
+G4_12,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_12,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_12,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_12,4,Can't imagine,მიჭირს წარმოდგენა
+G4_13,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_13,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_13,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_13,4,Can't imagine,მიჭირს წარმოდგენა
+G4_14,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_14,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_14,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_14,4,Can't imagine,მიჭირს წარმოდგენა
+G4_15,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_15,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_15,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_15,4,Can't imagine,მიჭირს წარმოდგენა
+G4_16,1,It would be unpleasant,უსიამოვნო იქნებოდა
+G4_16,2,It would not be unpleasant,არ იქნებოდა უსიამოვნო
+G4_16,3,It depends who would behave like that,"დამოკიდებულია იმაზე, თუ ვინ მოიქცევა ასე და/ან რას იტყვის"
+G4_16,4,Can't imagine,მიჭირს წარმოდგენა
+G5_1,1,Yes,დიახ
+G5_1,2,No,არა
+G5_2,1,Yes,დიახ
+G5_2,2,No,არა
+G5_3,1,Yes,დიახ
+G5_3,2,No,არა
+G5_4,1,Yes,დიახ
+G5_4,2,No,არა
+G5_5,1,Yes,დიახ
+G5_5,2,No,არა
+G5_6,1,Yes,დიახ
+G5_6,2,No,არა
+G5_7,1,Yes,დიახ
+G5_7,2,No,არა
+G5_8,1,Yes,დიახ
+G5_8,2,No,არა
+G5_9,1,Yes,დიახ
+G5_9,2,No,არა
+G6,1,Yes,დიახ
+G6,2,No,არა
+G6,3,I don't know,არ ვიცი
+G7_1,1,Yes,დიახ
+G7_1,2,No,არა
+G7_1,9,Refuse to answer,
+G7_2,1,Yes,დიახ
+G7_2,2,No,არა
+G7_2,9,Refuse to answer,
+G7_3,1,Yes,დიახ
+G7_3,2,No,არა
+G7_3,9,Refuse to answer,
+G7_4,1,Yes,დიახ
+G7_4,2,No,არა
+G7_4,9,Refuse to answer,
+G7_5,1,Yes,დიახ
+G7_5,2,No,არა
+G7_5,9,Refuse to answer,
+G7_6,1,Yes,დიახ
+G7_6,2,No,არა
+G7_6,9,Refuse to answer,
+G7_7,1,Yes,დიახ
+G7_7,2,No,არა
+G7_7,9,Refuse to answer,
+G7_8,1,Yes,დიახ
+G7_8,2,No,არა
+G7_8,9,Refuse to answer,
+G7_9,1,Yes,დიახ
+G7_9,2,No,არა
+G7_9,9,Refuse to answer,
+G7_10,1,Yes,დიახ
+G7_10,2,No,არა
+G7_10,9,Refuse to answer,
+G7_11,1,Yes,დიახ
+G7_11,2,No,არა
+G7_11,9,Refuse to answer,
+G7_12,1,Yes,დიახ
+G7_12,2,No,არა
+G7_12,9,Refuse to answer,
+G7_13,1,Yes,დიახ
+G7_13,2,No,არა
+G7_13,9,Refuse to answer,
+G7_14,1,Yes,დიახ
+G7_14,2,No,არა
+G7_14,9,Refuse to answer,
+G7_15,1,Yes,დიახ
+G7_15,2,No,არა
+G7_15,9,Refuse to answer,
+G7_16,1,Yes,დიახ
+G7_16,2,No,არა
+G7_16,9,Refuse to answer,
+G8,1,Yes,დიახ
+G8,2,No,არა
+G8.1,1,Yes,დიახ
+G8.1,2,No,არა
+G8.1,3,I don't know,არ ვიცი
+G8.1,8,filter,
+G8.2,1,Once,ერთხელ
+G8.2,2,2-4 times,2-4-ჯერ
+G8.2,3,5 or more times,5-ჯერ ან მეტჯერ
+G8.2,4,The situation continues,ეს სიტუაცია დღემდე გრძელდება
+G8.2,5,I don't know,არ ვიცი
+G8.2,8,filter,
+G8.3,1,Yes,დიახ
+G8.3,2,No,არა
+G8.3,8,filter,
+G8.3.1_1,1,Yes,დიახ
+G8.3.1_1,2,No,არა
+G8.3.1_1,8,filter,
+G8.3.1_2,1,Yes,დიახ
+G8.3.1_2,2,No,არა
+G8.3.1_2,8,filter,
+G8.3.1_3,1,Yes,დიახ
+G8.3.1_3,2,No,არა
+G8.3.1_3,8,filter,
+G8.3.1_4,1,Yes,დიახ
+G8.3.1_4,2,No,არა
+G8.3.1_4,8,filter,
+G8.3.1_5,1,Yes,დიახ
+G8.3.1_5,2,No,არა
+G8.3.1_5,8,filter,
+G8.3.1_6,1,Yes,დიახ
+G8.3.1_6,2,No,არა
+G8.3.1_6,8,filter,
+G8.3.1_7,1,Yes,დიახ
+G8.3.1_7,2,No,არა
+G8.3.1_7,8,filter,
+G8.3.1_8,1,Yes,დიახ
+G8.3.1_8,2,No,არა
+G8.3.1_8,8,filter,
+G8.3.2_1,1,Yes,დიახ
+G8.3.2_1,2,No,არა
+G8.3.2_1,8,filter,
+G8.3.2_2,1,Yes,დიახ
+G8.3.2_2,2,No,არა
+G8.3.2_2,8,filter,
+G8.3.2_3,1,Yes,დიახ
+G8.3.2_3,2,No,არა
+G8.3.2_3,8,filter,
+G8.3.2_4,1,Yes,დიახ
+G8.3.2_4,2,No,არა
+G8.3.2_4,8,filter,
+G8.3.2_5,1,Yes,დიახ
+G8.3.2_5,2,No,არა
+G8.3.2_5,8,filter,
+G8.4_1,1,Yes,დიახ
+G8.4_1,2,No,არა
+G8.4_1,8,filter,
+G8.4_2,1,Yes,დიახ
+G8.4_2,2,No,არა
+G8.4_2,8,filter,
+G8.4_3,1,Yes,დიახ
+G8.4_3,2,No,არა
+G8.4_3,8,filter,
+G8.4_4,1,Yes,დიახ
+G8.4_4,2,No,არა
+G8.4_4,8,filter,
+G8.4_5,1,Yes,დიახ
+G8.4_5,2,No,არა
+G8.4_5,8,filter,
+G8.4_6,1,Yes,დიახ
+G8.4_6,2,No,არა
+G8.4_6,8,filter,
+G8.4_7,1,Yes,დიახ
+G8.4_7,2,No,არა
+G8.4_7,8,filter,
+G8.4_8,1,Yes,დიახ
+G8.4_8,2,No,არა
+G8.4_8,8,filter,
+G8.4_9,1,Yes,დიახ
+G8.4_9,2,No,არა
+G8.4_9,8,filter,
+G8.4_10,1,Yes,დიახ
+G8.4_10,2,No,არა
+G8.4_10,8,filter,
+G8.4_11,1,Yes,დიახ
+G8.4_11,2,No,არა
+G8.4_11,8,filter,
+H1,1,Female,მდედრობითი
+H1,2,Male,მამრობითი
+H2,1,18-25,18-25
+H2,2,26-35,26-35
+H2,3,36-45,36-45
+H2,4,46-55,46-55
+H2,5,56-65,56-65
+H2,6,65+,65+
+H3,1,Tbilisi,თბილისი
+H3,2,Suburbs or outskirts of Tbilisi,თბილისის შემოგარენი
+H3,3,Town,ქალაქი ან დაბა
+H3,4,A country village,სოფელი
+H3,5,A farm or home in the countryside,ფერმა ან დასახლება სოფლად
+H4_2,2,No education,არ მიმიღია განათლება
+H4_2,1,Educated,_________ წელი
+H4.1,1,Elementary education,დაწყებითი სკოლა
+H4.1,2,Secondary school level,საშუალო სკოლა
+H4.1,3,Vocational education on the basis of secondary education,პროფესიული განათლება საშუალო განათლების ბაზაზე
+H4.1,4,BA student,სტუდენტი ბაკალავრიატის
+H4.1,5,MA student,სტუდენტი მაგისტრატურის
+H4.1,6,PhD student,სტუდენტი დოქტორანტურის
+H4.1,7,Higher vocational education,უმაღლესი პროფესიული განათლება
+H4.1,8,Bachelor degree,ბაკალავრის ხარისხი
+H4.1,9,Master’s degree,მაგისტრის ხარისხი
+H4.1,10,PhD,დოქტორის ხარისხი
+H4.1,11,Soviet education,საბჭოთა პერიოდში მიღებული უმაღლესი განათლება
+H4.1,12,Other,სხვა
+H5,1,Married,დაოჯახებული
+H5,2,Having stable partner,მყავს სტაბილური პარტნიორი
+H5,3,I don't live with spouse but am still legally married,"მეუღლესთან არ ვცხოვრობ, თუმცა ოფიციალურად ისევ ქორწინებაში ვიმყოფები"
+H5,4,Divorced,განქორწინებული ვარ მეუღლესთან
+H5,5,Widowed,ქვრივი
+H5,6,I have never been married,არასოდეს ვყოფილვარ ქორწინებაში/არასოდეს მყოლია პარტნიორი
+H6,1,Georgian,ქართველი
+H6,2,Azeri,აზერბაიჯანელი
+H6,3,Armenian,სომეხი
+H6,4,Other Caucasian ethnic groups,"სხვა კავკასიური ეთნიკური ჯგუფი (ოსი, აფხაზი, ქისტი და სხვა)"
+H6,5,Russian,რუსი
+H7,1,No religion,არც ერთ რელიგიას არ მივაკუთვნებ თავს
+H7,2,Orthodox,მართლმადიდებელი
+H7,3,Gregorian,გრიგორიანელი
+H7,4,Catholic,კათოლიკე
+H7,5,Protestant,პროტესტანტი
+H7,6,Other Christian,სხვა ქრისტიანი
+H8,1,Up to 130 GEL,130 ლარამდე
+H8,2,130-250 GEL,130 – 250 ლარი
+H8,3,251-400 GEL,251 – 400 ლარი
+H8,4,401-700 GEL,GEL 401 – 700 ლარი
+H8,5,701-1000 GEL,GEL 701 – 1000 ლარი
+H8,6,1001-1300 GEL,GEL 1001- 1300 ლარი
+H8,7,1301-2000 GEL,1301 – 2000 ლარი
+H8,8,More than 2000 GEL,2000 ლარზე მეტი
+H8,9,I can't answer,მიჭირს პასუხის გაცემა
+H8,10,Refuse to answer,უარი პასუხზე
+H9,1,I don't have a spouse,არ მყავს მეუღლე/პარტნიორი
+H9,2,He/she doesn't work,არ მუშაობს
+H9,3,On daily basis,გამომუშავებაზეა
+H9,4,Retired,პენსიონერია
+H9,5,I don't know,არ ვიცი
+H9,6,Up to 130 GEL,130 ლარამდე
+H9,7,130-250 GEL,130 – 250 ლარი
+H9,8,251-400 GEL,251 – 400 ლარი
+H9,9,401-700 GEL,GEL 401 – 700 ლარი
+H9,10,701-1000 GEL,GEL 701 – 1000 ლარი
+H9,11,1001-1300 GEL,GEL 1001- 1300 ლარი
+H9,12,1301-2000 GEL,1301 – 2000 ლარი
+H9,13,More than 2000 GEL,2000 ლარზე მეტი
+H9,14,Difficult to answer,მიჭირს პასუხის გაცემა
+H9,15,Refuse to answer,უარი პასუხზე
