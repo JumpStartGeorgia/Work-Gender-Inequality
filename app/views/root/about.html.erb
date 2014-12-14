@@ -1,5 +1,78 @@
-<% title @about.title %>
+<% title t('.title') %>
 
-<% if @about.present? %>
-  <%= simple_format_no_tags(@about.content, {}, {sanitize: false}) %>
-<% end %>
+<div id="about">
+
+  <% if @about.present? %>
+    <%= simple_format_no_tags(@about.content, {}, {sanitize: false}) %>
+  <% end %>
+
+
+  <div id="donor">
+    <h2><%= t('.donor') %></h2>
+    <div class="img">
+      <%= link_to(image_tag('logos/USAID.png', alt: t('sponsors.usaid'), title: t('sponsors.usaid')), "http://www.usaid.gov/georgia", target: :blank) %>
+    </div>
+  </div>
+
+  <div id="partners">
+    <h2><%= t('.partners') %></h2>
+    <div class="row">
+      <div id="a42" class="col-sm-6 org-block">
+        <div>
+          
+          
+          
+          
+          
+
+        
+          <div class="img"><%= link_to(image_tag('logos/a42.png', alt: t('sponsors.a42'), title: t('sponsors.a42')), "http://article42.ge/", target: :blank) %></div>
+          <h3><%= @a42.title %></h3>
+          <div class="story">
+            <%= simple_format_no_tags(@a42.content, {}, {sanitize: false}) %>
+          </div>
+        </div>
+      </div>
+      <div id="css" class="col-sm-6 org-block">
+        <div>
+          <div class="img"><%= link_to(image_tag('logos/css.png', alt: t('sponsors.css'), title: t('sponsors.css')), "http://css.ge/", target: :blank) %></div>
+          <h3><%= @cs.title %></h3>
+          <div class="story">
+            <%= simple_format_no_tags(@cs.content, {}, {sanitize: false}) %>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <div class="row">
+      <div id="gtuc" class="col-sm-6 org-block">
+        <div>
+          <div class="img"><%= link_to(image_tag('logos/gtuc.png', alt: t('sponsors.gtuc'), title: t('sponsors.gtuc')), "http://gtuc.ge/", target: :blank) %></div>
+          <h3><%= @gtuc.title %></h3>
+          <div class="story">
+            <%= simple_format_no_tags(@gtuc.content, {}, {sanitize: false}) %>
+          </div>
+        </div>
+      </div>
+      <div id="nmap" class="col-sm-6 org-block">
+        <div>
+          <div class="img"><%= link_to(image_tag('logos/nmap.png', alt: t('sponsors.nmap'), title: t('sponsors.nmap')), "http://www.newmediaadvocacy.org/", target: :blank) %></div>
+          <h3><%= @nmap.title %></h3>
+          <div class="story">
+            <%= simple_format_no_tags(@nmap.content, {}, {sanitize: false}) %>
+          </div>
+        </div>
+      </div>
+    </div>  
+    <div class="row">
+      <div id="js" class="col-sm-6 org-block">
+        <div>
+          <div class="img"><%= link_to(image_tag('logos/js.png', alt: t('sponsors.js'), title: t('sponsors.js')), "http://jumpstart.ge/en", target: :blank) %></div>
+          <h3><%= @js.title %></h3>
+          <div class="story">
+            <%= simple_format_no_tags(@js.content, {}, {sanitize: false}) %>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

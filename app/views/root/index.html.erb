@@ -3,9 +3,11 @@
 
   <div id="into-content" class="row">
     <div class="col-sm-6">
-      <% if @about_short.present? %>
-        <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
-      <% end %>
+      <div>
+        <% if @about_short.present? %>
+          <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
+        <% end %>
+      </div>
     </div>
     <div class="col-sm-6">
       <div>

@@ -9,9 +9,22 @@
   }
 
   #into-content{
+    & > div:first-of-type {
+      position: relative;
+      & > div{
+        position: absolute;
+        top: 0;
+        right: 10px;
+        max-width: 500px;
+      }
+    }
     & > div:last-of-type > div{
       position: relative;
-      width: 682px;
+      max-width: 500px;
+      margin-left: 10px;
+      img{
+        max-width: 500px;
+      }
       a{
         position: absolute;
         right: 0;

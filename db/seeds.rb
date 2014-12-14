@@ -113,6 +113,21 @@ p = Page.create(:id => 4, :name => 'explore')
 p.page_translations.create(:locale => 'en', :title => 'Explore Data Explanation', :content => nil)
 p.page_translations.create(:locale => 'ka', :title => "Explore Data Explanation", :content => nil)
 =end
+p = Page.create(:id => 5, :name => 'about_a42')
+p.page_translations.create(:locale => 'en', :title => 'Article 42 of the Constitution', :content => 'Article 42 of the Constitution is a non-governmental, non-political, human rights advocacy organization. The organization aims at promoting the establishment of the rule of law in Georgia through introduction of international standards for the protection of human rights and freedoms, and increase of legal awareness of the public.')
+p.page_translations.create(:locale => 'ka', :title => "კონსტიტუციის 42-ე მუხლი", :content => 'კონსტიტუციის 42-ე მუხლი არის არასამთავრობო, აპოლიტიკური, ადამიანის უფლებათა დამცველი ორგანიზაცია. ორგანიზაციის მთავარი მიზანია ხელი შეუწყოს კანონის უზენაესობის დამკვიდრებას საქართველოში, ადამიანის უფლებების და თავისუფლებების საერთაშორისო სტანტარტების დამკვიდრების ადვოკატირებით. ასევე, ორგანიზაცია ესწრაფვის ხელი შეუწყოს ადამიანის უფლებების დაცვის კანონით გათვალისწინებული ეროვნული მექანიზმების შესახებ საზოგადოების ცნობიერების ამაღლებას.')
+p = Page.create(:id => 6, :name => 'about_css')
+p.page_translations.create(:locale => 'en', :title => 'Center for Social Sciences at Tbilisi State University (CSS)', :content => 'CSS’s main objective is to develop academic and applied research in Social Sciences in Georgia, to ensure the integration of Georgian scientists into the international academic networks, to establish professional and ethical standards in Social Sciences and support evidence-based research and teaching.')
+p.page_translations.create(:locale => 'ka', :title => "თბილისის სახელმწიფო უნივერსიტეტის სოციალურ მეცნიერებათა ცენტრი  (CSS)", :content => 'სოციალურ მეცნიერებათა ცენტრის საქმიანობა მიზნად ისახავს საქართველოში აკადემიური და გამოყენებითი სოციალური მეცნიერებების განვითარებას, საერთაშორისო აკადემიური ქსელში ქართველ მკვლევართა ინტეგრირებას, სოციალურ მეცნიერებებში პროფესიული და ეთიკური სტანდარტების დანერგვას და მონაცემებზე დაფუძნებული კვლევისა და სწავლების ხელშეწყობას.')
+p = Page.create(:id => 7, :name => 'about_gtuc')
+p.page_translations.create(:locale => 'en', :title => 'Georgian Trade Union Confederation (GTUC)', :content => 'The Georgian Trade Unions Confederation represents a voluntary association of Trade Unions (Associations), Territorial Associations (Autonomous Republics) of trade unions based on the principles of common interests, goals, tasks and activities.')
+p.page_translations.create(:locale => 'ka', :title => "საქართველოს პროფესიული კავშირების გაერთიანება (GTUC)", :content => 'საქართველოს პროფესიული კავშირების გაერთიანება წარმოადგენს პროფესიული კავშირების (ასოციაციების), პროფესიული კავშირების ტერიტორიული გაერთიანებების, (ავტონომიური რესპუბლიკების), ნებაყოფლობით გაერთიანებას, მათი საერთო ინტერესების, მიზნების, ამოცანებისა და საქმიანობის პრინციპების საფუძველზე.')
+p = Page.create(:id => 8, :name => 'about_nmap')
+p.page_translations.create(:locale => 'en', :title => 'New Media Advocacy (N-Map)', :content => nil)
+p.page_translations.create(:locale => 'ka', :title => "New Media Advocacy (N-Map)", :content => nil)
+p = Page.create(:id => 9, :name => 'about_js')
+p.page_translations.create(:locale => 'en', :title => 'JumpStart Georgia', :content => 'JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.')
+p.page_translations.create(:locale => 'ka', :title => "ჯამპსტარტ ჯორჯია", :content => 'JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.')
 
 =begin
 #####################
@@ -149,6 +164,8 @@ dt = DiscriminationType.create(:id => 9, :sort => 9)
 dt.discrimination_type_translations.create(:locale => 'en', :name => 'Harassment')
 dt.discrimination_type_translations.create(:locale => 'ka', :name => "Harassment")
 =end
+
+=begin
 #####################
 ## Survey Questions
 #####################
@@ -271,7 +288,7 @@ CSV.foreach("#{Rails.root}/db/spreadsheets/survey_results.csv") do |row|
 
   ActiveRecord::Base.connection.execute(sql)
 end
-
+=end
 
 =begin
 #####################

@@ -208,16 +208,16 @@ en:
       stories: Discrimination Stories
       game: Pay Gap Game
       legislations: Legislation
+  sponsors:
+    usaid: USAID Georgia
+    a42: Article 42 of the Constitution
+    gtuc: Georgian Trade Union Confederation
+    css: Center for Social Sciences
+    nmap: New Media Advocacy Project
+    js: JumpStart Georgia
   layouts:
     application:
       toggle: Toggle navigation
-      logos:
-        usaid: USAID Georgia
-        a42: Article 42 of the Constitution
-        gtuc: Georgian Trade Union Confederation
-        css: Center for Social Sciences
-        nmap: New Media Advocacy Project
-        js: JumpStart Georgia
     unsupported_browser:
       title: Unsupported Browser
       p1: We are sorry to report that your browser is out of date and will not properly render the content from this website.
@@ -305,7 +305,7 @@ en:
       header_legislation: Latest Legislation
       more: View All
     about:
-      title: About Tanastsoroba
+      title: About
     news:
       title: News
       no_news: At this time no news has been posted.

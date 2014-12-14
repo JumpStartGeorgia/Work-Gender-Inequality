@@ -1,0 +1,106 @@
+@pink-color: #ef4273;
+@blue-header-color: #77b8c3;
+@grey-background: #f0f0f0;
+
+#about{
+
+  #donor{
+    margin-top: 40px;
+    h2{
+      margin: 0 0 0 -45px;
+      display: inline-block;
+      padding: 45px;
+      color: #fff;
+      background-color: @pink-color;
+      font-size: 21px;
+      line-height: 22px;
+      font-family: "hallo-b";   
+    }
+    div.img{
+      display: inline-block;
+      margin-left: 90px;
+    }
+  }
+
+  #partners{
+    margin-top: 40px;
+    h2{
+      margin: 0 0 0 -45px;
+      display: inline-block;
+      padding: 10px 45px;
+      color: @blue-header-color;
+      background-color: @grey-background;
+      font-size: 19px;
+      line-height: 20px;
+      font-family: "hallo";   
+    }
+    .row{
+      margin: 6px 0;
+      .org-block{
+        padding: 6px;
+        & > div{
+          padding-top: 30px;
+          height: 400px;
+          position: relative;
+          .img{
+            text-align: center;
+            margin-bottom: 40px;
+          }
+          h3{
+            position: absolute;
+            top: 150px;
+            padding: 0 15px;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 19px;
+            line-height: 20px;
+            font-family: "hallo";   
+          }
+          .story{
+            position: absolute;
+            bottom: 50px;
+            text-align: center;
+            padding: 0 15px;
+          }
+        }
+        &#a42 > div{
+          background-color: #f0f0f0;
+          img{
+            height: 70px;
+          }
+        }
+        &#css > div{
+          background-color: #e0ebea;
+          padding-top: 45px;
+          img{
+            height: 40px;
+          }
+          .story{
+            bottom: 70px;
+          }
+        }
+        &#gtuc > div{
+          background-color: #eee5e9;
+          img{
+            height: 85px;
+          }
+        }
+        &#nmap > div{
+          background-color: #faf4ec;
+          padding-top: 47px;
+          img{
+            height: 50px;
+          }
+        }
+        &#js > div{
+          background-color: #ecefe4;
+          img{
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+}

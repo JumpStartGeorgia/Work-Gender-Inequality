@@ -16,7 +16,15 @@ class RootController < ApplicationController
   end
 
   def about
-    @about = Page.find_by_name('about')
+    @about = Page.find_by_name('about_short')
+
+    @a42 = Page.find_by_name('about_a42')
+    @cs = Page.find_by_name('about_css')
+    @gtuc = Page.find_by_name('about_gtuc')
+    @nmap = Page.find_by_name('about_nmap')
+    @js = Page.find_by_name('about_js')
+
+    @css.push('about.css')
 
     respond_to do |format|
       format.html # index.html.erb

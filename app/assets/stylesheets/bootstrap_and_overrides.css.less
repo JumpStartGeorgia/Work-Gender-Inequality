@@ -37,6 +37,8 @@ body { padding-top: 100px; }
 
 @blue-link-color: #a2ccd4;
 @pink-color: #ef4273;
+@blue-header-color: #77b8c3;
+@grey-background: #f0f0f0;
 
 /* set default font */
 @font-family-base: gandhi;
@@ -50,7 +52,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 351px;
+  margin-bottom: 215px;
 }
 
 /* navbar */
@@ -124,6 +126,9 @@ nav.navbar-default{
         font-family: "hallo";   
         font-size: 18px;
         font-weight: bold;
+        &:lang(ka){
+          font-size: 16px;
+        }
         &:hover{
           color: @blue-link-color;
           border-bottom: solid 2px #cb496e;    
@@ -505,10 +510,19 @@ footer {
   padding: 10px;
 }
 
+
+/* page header */
 .page-header{
-  margin: 0 0 20px;
+  margin: 0 0 0 -45px;
+  border-bottom: none;
   h1{
-    margin-top: 0;
+    display: inline-block;
+    padding: 10px 45px;
+    color: @blue-header-color;
+    background-color: @grey-background;
+    font-size: 19px;
+    line-height: 20px;
+    font-family: "hallo";   
   }
 }
 
