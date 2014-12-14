@@ -42,6 +42,7 @@ var assetsmeta =
 	{ name:"upgrade", type:"sound", path:"/assets/gap/sounds/effect/upgrade"},
 	{ name:"endbad", type:"sound", path:"/assets/gap/sounds/effect/endbad"},
 	{ name:"endgood", type:"sound", path:"/assets/gap/sounds/effect/endgood"},
+	{ name:"popup-arrow", type:"image", path:"/assets/gap/svg/common/popup_arrow.svg"},
 	{ name:"sound", type:"image", path:"/assets/gap/svg/common/sound.svg"},
 	{ name:"soundoff", type:"image", path:"/assets/gap/svg/common/soundoff.svg"},
 	{ name:"splash", type:"image", path:"/assets/gap/svg/common/splash.svg"},
@@ -170,7 +171,6 @@ Game.Loader =
 		      }
 
 		      if(func(onscrollafter)) onscrollafter()
-		      
 		    });
 
 		    $(window).resize(function() {
@@ -182,9 +182,9 @@ Game.Loader =
 
 			 player = new playerObject();
 
-			window.onpopstate = function(e){
-				console.log('popstate');
-			   if(e.state !== null) { hist = true; redraw(); hist = false; } 
+			window.onpopstate = function(e){	
+			console.log(e);			
+			   if(e.state !== null) { hist = true;  params_init(); afterinit(); hist = false; } 
 			   //else { // no state data available,load initial page which was there at first page load }
 			};
 

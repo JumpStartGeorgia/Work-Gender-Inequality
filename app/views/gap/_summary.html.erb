@@ -1,5 +1,5 @@
 <div class='header'>
-	<div class='title'><%= t('.title_main', state: t('.' + d[:fstate])) %></div>
+	<div class='title'><%= d[:fstate] ? t('.title_win') : t('.title_lose')  %></div>
 	<div class='title-score'><%= t('.title_score') %></div>
 	<div class='title-job'><span><%= t('.job_sector') %>:&nbsp;</span><%= d[:title_job] %></div>
 	<div class='title-passed'><span><%= t('.year_passed') %>:&nbsp;</span><%= "#{d[:years_passed]} #{ t('.years')}" %><%= ", #{d[:months_passed]} #{ t('.months')}" if d[:months_passed] != 0 %> </div>

@@ -13,16 +13,25 @@ var poll = {
   npicker_function : null,
   npicker_sal_size:5,
   npicker_binded:false,
-  show:function show(resume)
+  show:function show(resume,resume_by_interest)
   {
     if(typeof resume === 'undefined') resume = false;
+    if(typeof resume_by_interest === 'undefined') resume_by_interest = false;
 
     scr_clean();
     s.append("<div class='poll'></div>");
     if(resume)
     {
-      if(!hist) history.pushState({},'',window.location.pathname);
-      this.gender();
+      if(resume_by_interest)
+      {
+        poll.draw_character();
+        poll.interest(); 
+      }
+      else 
+      {
+        if(!hist) history.pushState({},'',window.location.pathname);
+        this.gender();
+      }
     }
     else
     {
@@ -598,15 +607,8 @@ var poll = {
   create_navigation_buttons:function create_next_prev_buttons()
   {
      var nav = $("<div class='navigation'><div class='next' title='"+locale.general.next+"'></div>").appendTo($('.poll'));
-     //<div class='sep'></div>
-     //<div class='prev' title='"+locale.general.prev+"'></div>
-     //nav.find('.prev').click(function(e){ fn('poll.prev_function');  e.stopPropagation(); });
      nav.find('.next').click(function(e){ fn('poll.next_function');  e.stopPropagation(); });
   }, 
-  prev_function:function prev_function()
-  {
-    params_back();
-  },
   npicker_create:function npicker_create(p,t,max,size,def,label,align)
   {    
     poll.npicker_binded = false;    

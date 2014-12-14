@@ -438,11 +438,8 @@ ka:
       salary: ხელფასი
       saved: დაზოგილი
       loser: წაგებული
-      title_main: Congratulations you have %{state} the pay game
       title_win: გილოცავთ თქვენ მოიგეთ Pay Gap Game!
       title_lose: სამწუხაროთ თქვენ წააგეთ Pay Gap Game!
-      win: won
-      lose: lose
       title_score: საბოლოო ქულა
       job_sector: სამუშაო სექტორი
       year_passed: თქვენ იმუშავეთ

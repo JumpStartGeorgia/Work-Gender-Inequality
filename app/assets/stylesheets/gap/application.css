@@ -62,9 +62,15 @@ body,html
 {
    overflow:hidden;
    height:100%;
+   width:100%;
    margin:0px;
    padding:0px;
    background-color:#d3eded;
+}
+.wrapper
+{
+  height:100%;
+   width:100%;
 }
 #screen
 {
@@ -1866,8 +1872,9 @@ svg.stage-bk { z-index:30; }*/
 
   height:100%;
   position:fixed;
-  right:-140px;/*-100px;*/
+  right:-140px;
   width:140px;
+  overflow:hidden;
 }
 .settings-bar .options
 {
@@ -1880,6 +1887,8 @@ svg.stage-bk { z-index:30; }*/
   bottom: 140px;
   width: 140px;
   right: 0px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .settings-bar .settings-decor-top {
   position:absolute;
@@ -1947,3 +1956,103 @@ svg.stage-bk { z-index:30; }*/
   text-align: center;
   cursor:pointer;
 }
+/* --------------------------------- popup -------------------------------- */
+.popup
+{
+  width:100%;
+  height:100%;
+  display:none;
+  z-index:800;
+}
+.popup .shield
+{
+  width:100%;
+  height:100%;
+  background-color:transparent;
+  position:fixed;
+  z-index:801;
+}
+
+.popup .wr
+{
+  font-family:hallo;
+  font-size:27.5px;
+  color:#5e5e5e;  
+
+  position:fixed;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  background-color:#fff;
+-webkit-border-top-left-radius: 8px;
+-webkit-border-top-right-radius: 8px;
+-moz-border-radius-topleft: 8px;
+-moz-border-radius-topright: 8px;
+border-top-left-radius: 8px;
+border-top-right-radius: 8px;
+    z-index:802;
+}
+.popup .wr .content
+{
+  width:100%;
+  text-align:center;
+  vertical-align:middle;
+}
+.popup .wr .content .text
+{
+  padding:20px;
+  white-space: pre;
+}
+.popup .wr .buttons
+{
+  font-size:20px;
+  color:#fff;  
+  background-color:#AB4939;
+  display:table;
+  width:100%;
+}
+.popup .wr .buttons > div
+{
+  display: table-cell;
+  width: 50%;
+  height:39px;
+  line-height:39px;
+  vertical-align:middle;
+  text-align:center;
+  cursor:pointer;
+}
+.popup .wr .buttons > div.left
+{
+  border-right:1px solid #fff;
+}
+.popup .wr .buttons > div.right
+{
+
+  /*border-left:1px solid #fff;*/
+}
+.popup.sorry .wr .buttons > div.left .ar
+{
+  background:transparent url("/assets/gap/svg/common/popup_arrow.svg") no-repeat;
+  background-size:10px 39px;
+  width:10px;
+  height:39px;
+  transform:scale(-1,1);
+  float: left;
+  position: relative;
+  left: -10px;
+}
+.popup.sorry .wr .buttons > div.right .ar
+{
+  background:transparent url("/assets/gap/svg/common/popup_arrow.svg") no-repeat;
+  background-size:10px 39px;
+  width:10px;
+  height:39px;
+  float: right;
+  position: relative;
+  right: -10px;
+}
+
+
+
