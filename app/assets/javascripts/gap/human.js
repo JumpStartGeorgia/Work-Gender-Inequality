@@ -110,10 +110,13 @@ function human(selector,title)
 
   this.position = function position(coord,noscale) {    
 
+
+
       var t = this;
       this.prevX = this.x;
       this.prevY = this.y;
-      if(noscale === undefined) noscale = false;
+      console.log(coord,noscale);
+      if(typeof noscale === 'undefined') noscale = false;
       if(exist(coord))
       {
         if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
@@ -127,7 +130,7 @@ function human(selector,title)
       }      
       else this.toground();
       
-
+ console.log(this.x,this.y);
       if(this.x > this.prevX) 
       {
         $(this.selector).removeClass('l');
@@ -138,7 +141,7 @@ function human(selector,title)
         $(this.selector).addClass('l');
         //if(t.prevX - t.x >  3) t.prev_movement();
       }
-
+console.log(this.x);
       $(this.selector).css({ left: this.x , top: this.y });   
 
       //return { human:this.title ,x:this.x, y:this.y, a:this.angle };
@@ -148,6 +151,7 @@ function human(selector,title)
     var half = (h-th)/2;
     this.land = half;
     this.y = half - this.height;
+    console.log('toground',half,this.height);
   };
   this.tosky = function toground() 
   {
@@ -155,13 +159,13 @@ function human(selector,title)
   };
   this.scale = function()
   {
-    
     this.get_dimentions();
     $(this.selector).css({
       width : this.width,
       height : this.height,
       'background-size':this.width + 'px ' + this.height + 'px'
     });
+    this.position();
   };
   this.get_dimentions = function()
   {
@@ -341,6 +345,26 @@ function human(selector,title)
         this.event_by_month.push(0);
       }
     }
+    if(this.place == 'top')
+    {
+      jumper_threshold = 60;
+      if(jumper_threshold*this.saving_for_tick < interest[0].cost)
+      {
+         for(var i = jumper_threshold+1; i <= life; ++i) 
+         {
+            if(i*this.saving_for_tick > interest[0].cost)
+            {
+              jumper_threshold = Math.floor10(i/reward_period)-1;
+              show_jumper_prompt = true;
+              break;
+            }
+         }
+      }
+
+      show_not_enough_prompt = (this.place == 'top' && this.saving_for_tick*life < interest[0].cost);
+
+    }
+  
   };
   this.has_future_reward = function has_future_reward()
   {    
@@ -533,6 +557,7 @@ function human(selector,title)
                       var prevImage = interest[zIndex].class;
                       var nextImage = interest[zIndex+1].class;
                       $(this).removeClass(prevImage).css('transform','scale(1,1)').addClass(nextImage).css('opacity',1);
+                      console.log('change now fix');
                       t.queue.resume();
                     }
                   });

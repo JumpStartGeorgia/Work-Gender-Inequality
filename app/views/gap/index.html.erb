@@ -24,7 +24,13 @@
         <div class='about tip' data-tip='<%= t('.tip_about') %>' data-tip-type='about'></div>
         <div class='about-window'>
           <div class='close'>x</div>
-          <div class='content'>About text</div>
+          <div class='content'>
+            <div class='title'></div>
+            <div class='text'>
+            <% if @about_short.present? %>
+              <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
+            <% end %></div>
+          </div>
         </div>
         <div class='settings-bar'>
           <div class='settings-decor-top'></div>
@@ -69,7 +75,19 @@
             </div>
           </div>
           <div class='settings-decor-bottom'></div>
-        </div>        
+        </div>  
+
+        <div class='popup'>
+          <div class='shield'></div>
+          <div class='wr'>
+            <div class='content'><div class='text'></div></div>
+            <div class='buttons'>
+              <div class='left'><div class='ar'></div><span></span></div>
+              <div class='right'><div class='ar'></div><span></span></div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <!-- vendor libraries -->
       <%= javascript_include_tag *(["game"]), :media => "all" %>     

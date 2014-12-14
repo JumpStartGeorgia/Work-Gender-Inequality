@@ -648,6 +648,12 @@ Graphics: Mariam Kobuladze & Ruslan Beridze\
 Design: Mariam Kobuladze\
 Animation & Development: Anton Kamaryan\
 Data: National Statistics Office of Georgia",
+    sorry: "So sorry,\n but saving &1 a month will never\n be enough for you to afford\n something in &2.\n Do you want to start the game over?",
+    wanna_jump: "Saving &1 a month will take you \n&2 years before you can purchase \nsomething.\nDo you want to jump ahead to get your \nfirst purchase?",
+    another_interest: "Choose another interest",
+    continue_anyway: "Continue anyway",
+    yes: "Yes",
+    no: "No",
     you: "You",
     retirement: "years until retirement",
     details: "Details",
@@ -663,3 +669,4 @@ Data: National Statistics Office of Georgia",
     total_saved:"&nbsp;|&nbsp;Total Saved:&nbsp;"
   }
 };
+var lg = locale.general;

@@ -426,6 +426,10 @@ en:
       interest: Interest
       saving: Saving
       edit: Edit Settings
+      another_interest: CHOOSE ANOTHER INTEREST
+      continue_anyway: CONTINUE ANYWAY
+      yes: YES
+      no: NO
     gamedata:
       gender:
         m: Male
@@ -463,11 +467,8 @@ en:
       salary: Salary
       saved: Saved
       loser: Loser
-      title_main: Congratulations you have %{state} the pay game
       title_win: Congratulations, you have won the Pay Gap Game!
       title_lose: So sorry, but you have lost the Pay Gap Game!
-      win: won
-      lose: lose
       title_score: Final Score
       job_sector: Job Sector
       year_passed: You worked

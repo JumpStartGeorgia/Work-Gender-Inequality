@@ -1,6 +1,7 @@
 class GapController < ApplicationController
   layout false 
   def index  	
+    @about_short = Page.find_by_name('about_short')
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -115,8 +116,8 @@ class GapController < ApplicationController
     d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs.floor
     d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs.floor
 
-    d[:fstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.win') : t('gap.summary.lose')
-    d[:sstate] = gender == 'm' && category[:outrun] == 0 ? t('gap.summary.lose') : t('gap.summary.win')
+    d[:fstate] = gender == 'm' && category[:outrun] == 0 ? true : false
+    d[:sstate] = gender == 'm' && category[:outrun] == 0 ? false : true
 
     if(d[:fsaved_total] > d[:ssaved_total])
       

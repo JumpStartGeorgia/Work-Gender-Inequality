@@ -1,5 +1,6 @@
 
 var img_scaler =  1;
+var prev_img_scaler = 1;
 var bg_width = 0;
 var bg_initial_height = 0;
 var fgw = 0;
@@ -48,12 +49,9 @@ function redraw()
   timeline_month_w = timeline_period_w/reward_period;   
   if(ingame)
   { 
-    redraw_game();
-    timeline_point_redraw();
     stage_redraw(0);
-
-    male.position();
-    female.position();
+    redraw_game();
+    timeline_point_redraw();  
   }
   if(func(resizeCallback)) resizeCallback();
 }
@@ -95,6 +93,7 @@ function walk(v)
     $('.wrapper .top .character .you').fadeOut(1000, function(){ $(this).remove(); });   
     scrolled = true; 
   }
+  
   if(!can_scroll(total_scrolls+v)) return;
 
   total_scrolls+=v;
@@ -104,8 +103,11 @@ function walk(v)
     if(gap.pos+1>pos_max) { epilogue(); return; }
     if(total_scrolls % scrolls_for_reward == 0)
     {
+      if(show_jumper_prompt && total_scrolls == scrolls_for_reward) // if no reward at all then prompt to choose new interest
+      { 
+        wanna_jump_popup();         
+      }
       ++gap.pos;
-      calculate_process(v);
       if(!reward) 
       { 
         if(any_reward())
@@ -120,10 +122,20 @@ function walk(v)
     if(gap.pos >= 0 && total_scrolls % scrolls_for_reward != 0 && (total_scrolls - Math.floor10(total_scrolls/scrolls_for_reward)*scrolls_for_reward) % (scrolls_for_reward-1) == 0)
     {      
       --gap.pos;      
-      calculate_process(v);
       gopast();
     }
   }
+  
+  if(v==1 && total_scrolls % (scrolls_for_score * scroll_per_month) == 0)
+  {
+    calculate_process(v);
+  }
+  else if(v==-1 && total_scrolls % (scrolls_for_score * scroll_per_month-1) == 0)
+    calculate_process(v);
+
+  
+
+
   if(needWalk) walk_process(v);
   else walk_process(0);
 }
@@ -144,7 +156,7 @@ function game_on_load()
   },1000);  
 }
 function game_init() {
-  
+  console.log('game_inti');
   scr_clean();
 
   sound_button();
@@ -206,15 +218,21 @@ function game_init() {
 
   game_on_load();
 
+  if(show_not_enough_prompt) // if no reward at all then prompt to choose new interest
+  { 
+    sorry_popup(); 
+  }
+
   if(init) init = false;
 }
-function game_jump(v) //  -1 back 1 forw
+function game_jump(v,jumper_step) //  -1 back 1 forw
 {
   if(v === undefined) v = 1;
+  var jstep = typeof jumper_step !== 'undefined' && isNumber(jumper_step) ? jumper_step : jumper;
+
   var isfine = false;
 
-  var toJump = jumper * 12 / reward_period * v + gap.pos;
-
+  var toJump = jstep * 12 / reward_period * v + gap.pos;
   if(toJump >=0 && toJump <= pos_max)
   {
     if(can_scroll(toJump*scrolls_for_reward))
@@ -229,9 +247,16 @@ function game_jump(v) //  -1 back 1 forw
 
       timeline_point_redraw();
 
-      stage_redraw(0);
-
+ 
+console.log(img_scaler);
       redraw_game();
+
+     stage_redraw(0);
+console.log(img_scaler);
+    male.scale();
+    female.scale();
+
+
       isfine = true;    
     }    
   }
@@ -249,6 +274,7 @@ function stage_init(v)
 
   bg.append(bgFirst);
   bg_initial_height = bgFirst.height();
+  prev_img_scaler = img_scaler;
   img_scaler = lh / bg_initial_height;
 
   bgFirst.css({ height:lh });
@@ -309,6 +335,7 @@ function stage_redraw(v)
   var bgs = bg.find('img');
   var bgFirst =bgs.first().css({ height: lh });
   
+  prev_img_scaler = img_scaler;
   img_scaler = lh / bg_initial_height;
 
   bg_width = bgFirst.width();
@@ -449,6 +476,7 @@ function timeline_point_init()
     {
       for(var j = 0; j < reward_period-1; ++j)
       {
+        if(j% 3 == 2)
          $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th }).appendTo(timeline);
       }
     }
@@ -514,7 +542,8 @@ function calculate_process(v)
 {
   if(gap.pos >= 0)
   {
-    var tmp = v*reward_period;
+    var tmp = v* scrolls_for_score;//reward_period;
+   // console.log(gap.pos,tmp,total_scrolls);
     humans.forEach(function(d)
     {
       d.tsalary += tmp*d.salary;
@@ -694,6 +723,7 @@ function params_read()
 }
 function params_validate()
 {
+  steptogo = 0;
   if(steptogo == 0 && exist(params.g) && (params.g=="f" || params.g=="m"))
   {  
     steptogo = 1;   
@@ -759,8 +789,8 @@ function params_set(v)
     for(var i = 0; i < steptogo; ++i)
       hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
     if(hash[0]=='&') hash=hash.substr(1);
-    hash = Base64.encode(hash);
-    if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
+    hash = Base64.encode(hash)
+    if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash); 
   }  
 }
 function params_time_set()
@@ -770,32 +800,30 @@ function params_time_set()
     hash+= "&" + hash_map[i].alias + "=" + user[hash_map[i].name];
   hash+= "&t=" + gap.pos;
 
-  if(hash[0]=='&') hash=hash.substr(1);
-  hash = Base64.encode(hash);
-  if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" + hash);
+  if(hash[0]=='&') hash=hash.substr(1); 
+  hash=Base64.encode(hash);
+  if(!hist) history.pushState({'hash':hash},'',window.location.pathname + "#" +  hash);
 }
-function params_back()
-{
-  if(params_read())
-  {
-    var indexTmp = 0;
-    var order = ['g','a','c','s','i','p'];
-    for(var i = 0; i < 6; ++i)
-    {       
-      if(typeof params[order[i]] !== "undefined") indexTmp = i;
-      else break;
-    }
-    var loc = "#";
-    for(var i = 0; i < indexTmp; ++i)
-    {
-      loc+= order[i] + "=" + params[order[i]] + "&";
-    }
-    loc = loc.slice(0,-1);
+// function params_back()
+// {
 
-    window.location.hash = Base64.encode(loc);
-    window.location.reload();
-  } 
-}
+//     // var indexTmp = 0;
+//     // var order = ['g','a','c','s','i','p','t'];
+//     // for(var i = 0; i < 7; ++i)
+//     // {       
+//     //   if(typeof params[order[i]] !== "undefined") indexTmp = i;
+//     //   else break;
+//     // }
+//     // var loc = "#";
+//     // for(var i = 0; i <= indexTmp; ++i)
+//     // {
+//     //   loc+= order[i] + "=" + params[order[i]] + "&";
+//     // }
+//     // loc = loc.slice(0,-1);
+
+//    // window.location.hash = Base64.encode(loc);
+//    // window.location.reload();
+// }
 // when all data is collected, send data to server
 function sendUserData(fin)
 {
@@ -1112,3 +1140,48 @@ function share_button()
 /***************************************************************
                           Buttons End
 ***************************************************************/
+
+function popup(text,lbtn,rbtn,lcallback,rcallback,klass)
+{
+  var popup = wr.find('.popup');
+  if(typeof klass !== 'undefined') popup.addClass(klass);
+  popup.find('.content .text').html(text.toUpperCase());
+  popup.find('.buttons .left span').html(lbtn.toUpperCase());
+  popup.find('.buttons .right span').html(rbtn.toUpperCase());
+  popup.find('.buttons .left').click(function(){ gameon(); popup.hide(); if(typeof klass !== 'undefined') popup.removeClass(klass); lcallback(); });
+  popup.find('.buttons .right').click(function(){ gameon(); popup.hide(); if(typeof klass !== 'undefined') popup.removeClass(klass);  rcallback(); });
+  popup.find('.shield').click(function(e){
+    gameon();
+    popup.hide();    
+    if(typeof klass !== 'undefined') popup.removeClass(klass);
+    e.stopPropagation();
+  });
+  popup.fadeIn(1000);
+}
+function sorry_popup()
+{
+  show_not_enough_prompt = false;
+  gameoff();
+  popup(
+    lg.sorry.replace('&1',user.salary*user.salary_percent/100).replace('&2',interests.filter(function(a){ return a.id == user.interest; })[0].name),
+    lg.another_interest,
+    lg.continue_anyway,
+    function()
+    {  
+      poll.show(true,true);
+    },function(){ },
+    'sorry'
+  );
+}
+function wanna_jump_popup()
+{
+  show_jumper_prompt = false;
+  gameoff();        
+  popup(
+    lg.wanna_jump.replace('&1',user.salary*user.salary_percent/100).replace('&2',jumper_threshold+2),
+    lg.yes,
+    lg.no,
+    function(){ game_jump(1,jumper_threshold); },
+    function(){ }    
+  );
+}
