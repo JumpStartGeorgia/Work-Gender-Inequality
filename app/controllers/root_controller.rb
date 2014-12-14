@@ -22,7 +22,7 @@ class RootController < ApplicationController
     @cs = Page.find_by_name('about_css')
     @gtuc = Page.find_by_name('about_gtuc')
     @nmap = Page.find_by_name('about_nmap')
-    @js = Page.find_by_name('about_js')
+    @jsg = Page.find_by_name('about_js')
 
     @css.push('about.css')
 
