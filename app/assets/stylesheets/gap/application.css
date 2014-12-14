@@ -345,7 +345,6 @@ body,html
 {  
    position:relative;
    top:-30px;
-   left:-6px;
    margin:0px auto;
    width:30px;
 }
@@ -479,6 +478,16 @@ body,html
   padding: 0px 42px 0px 23px;
 
 
+}
+.epilogue .summary .footer .share_note
+{
+  font-family: gandhi;
+  font-size: 17.5px;
+  color:#6383ba;
+  clear:both;
+  float:right;
+  position:relative;
+  top:7px;
 }
 .epilogue .summary .footer .replay
 {
@@ -724,12 +733,7 @@ body,html
 }*/
 #screen .m.character
 {  
-   background-image:url("/assets/gap/svg/human/casual/m0.svg");
-   background-color:transparent;
-   background-size:67px 182px;
-   background-repeat:no-repeat;
-   width:67px;
-   height:182px;
+   background:transparent url("/assets/gap/svg/human/casual/m0.svg") no-repeat;
    position:absolute;
    left:0px;
    display:none;
@@ -738,7 +742,6 @@ body,html
 {  
    position:relative;
    top:-30px;
-   left:-6px;
    margin:0px auto;
    width:30px;
 }
@@ -762,9 +765,6 @@ body,html
 #screen .f.character
 {
    background:transparent url("/assets/gap/svg/human/casual/f0.svg") no-repeat;
-   background-size:63px 172px;
-   width:63px;
-   height:172px;
    position:absolute;
    left:0px;
    display:none;
@@ -1915,9 +1915,15 @@ svg.stage-bk { z-index:30; }*/
   text-align:center;
   margin:0px auto;
 }
+.settings-bar .options .option .key
+{
+  margin-top:2px;
+}
 .settings-bar .options .option .value
 {
-  /*todo*/
+  font-family:gandhi;
+  font-size:18px;
+  color:#efde95;
 }
 .settings-bar .options .option .arrow
 {
@@ -1936,6 +1942,8 @@ svg.stage-bk { z-index:30; }*/
 {
   color:#dc4a29;
   background-color:#fff;
-  padding: 6px 5px;
+  padding: 6px 5px 4px;
   margin: 10px 10px 0px;
+  text-align: center;
+  cursor:pointer;
 }

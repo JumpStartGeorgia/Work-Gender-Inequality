@@ -25,7 +25,8 @@ function afterinit()
   scr_clean();
   if(steptogo < 6) poll.show();
   else game_init(); 
-  if(steptogo != 0) $('.info').hide().remove();
+  if(steptogo != 0) $('.info').hide();
+  player.mute();
 
 }
 function resize()
@@ -81,6 +82,8 @@ function redraw_game()
 function scr_clean(klass)
 {
   s.empty();
+  wr.find('.info,.volume,.hint,.settings,.share,.about,.settings-bar').hide(); 
+  player.background_stop();
   if(exist(klass)) s.removeClass(klass);
 }  
 function walk(v)
@@ -141,6 +144,8 @@ function game_on_load()
   },1000);  
 }
 function game_init() {
+  
+  scr_clean();
 
   sound_button();
   settings_button();
@@ -160,8 +165,6 @@ function game_init() {
     female.salary = user.salary + (female.outrun ? 1 : -1)*(user.salary * (female.outrun ? female.gap_percent : male.gap_percent) / 100);
   }
  
-  scr_clean();
-  
   var tstr =  '<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
                 '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>' + 
               '<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>' + 
@@ -202,6 +205,8 @@ function game_init() {
   $('.wrapper .hint').fadeIn(1000,'linear');
 
   game_on_load();
+
+  if(init) init = false;
 }
 function game_jump(v) //  -1 back 1 forw
 {
@@ -277,6 +282,7 @@ function stage_init(v)
 
   fgw = fg_i.width();
   fgh = fg_i.height();
+
   fg_i.addClass('i').css({ "height":fgh*img_scaler });
   fg_i.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
@@ -284,7 +290,13 @@ function stage_init(v)
   fg_o.addClass('o').css({ "height":fgh*img_scaler });
   fg_o.css({left: bg_width*(screenCount) + (bg_width/2 - fg_i.width()/2),top:lh - fg_i.height()});
 
+
   if(v===0) stage_init(1);
+  else 
+  {
+    fgw = fg_i.width();
+    fgh = fg_i.height();
+  }
 
 }
 function stage_redraw(v)
@@ -979,7 +991,7 @@ function sound_button()
 {
   // sound button init with binding click event for muting
   var volume = wr.find('> .volume');
-  if(volume.length != 0)
+  if(init)
   {
     volume.data('state',1);
     volume.click(function(){
@@ -994,15 +1006,15 @@ function sound_button()
         player.unmute();
       }
     });
-    volume.show();
   }
+  volume.show();
 }
 function about_button()
 { 
   var about = wr.find('> .about');
   var about_window = wr.find('> .about-window');
 
-  if(about.length != 0)
+  if(init)
   {
     about.click(function(){
       wr.find('.about-window').fadeIn(500,function(){
@@ -1014,15 +1026,15 @@ function about_button()
 
     });    
     //about_window.click(function(){ $(this).hide(); });
-    about.show();
   }
+  about.show();
 }
 function settings_button()
 {
   var settings = wr.find('> .settings');
   var settings_bar = wr.find('> .settings-bar');
-  var sbar_w = 140;
-  if(settings.length != 0)
+  var sbar_w = 140;  
+  if(init)
   {
     
     settings.click(function()
@@ -1047,9 +1059,11 @@ function settings_button()
         settings.animate({right:togo+sbar_w},{ duration:1000 });  
         settings_bar.animate({right:togo},{ duration:1000 });     
     });
-   settings_bar_fill();
-    settings.show();
+    settings_bar.find('.options .edit').click(function(){ gameoff(); poll.show(true); });
   }
+  settings_bar_fill();
+  settings_bar.show();
+  settings.show();
 }
 function settings_bar_fill()
 {
@@ -1065,7 +1079,7 @@ function settings_bar_fill()
 function share_button()
 {
   var share = $('.wrapper > .share');
-  if(share.length != 0)
+  if(init)
   {
     $(document).ready(function() {
       $.ajaxSetup({ cache: true });
@@ -1090,10 +1104,10 @@ function share_button()
              }
           });          
         });
-        share.show()
       });
     });
   }
+  share.show()
 }
 /***************************************************************
                           Buttons End
