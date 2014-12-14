@@ -54,7 +54,7 @@
                   <div><%= story.discrimination_type.name %></div>
                 </div>
                 <div class="col-sm-9">
-                  <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 100), story_path(story) %>
+                  <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 250), story_path(story) %>
                 </div>
               </li> 
             <% end %>
@@ -65,7 +65,9 @@
             <%= link_to t('.tell_story'), new_story_path %>
           </div>
           <div class="col-sm-6">
-            <%= link_to t('.view_stories'), stories_path %>
+            <% if @stories.present? %>
+              <%= link_to t('.view_stories'), stories_path %>
+            <% end %>
           </div>
         </div>
 
@@ -141,11 +143,9 @@
               </li> 
             <% end %>
           </ul>
-          <% if @news_items.length == @limit %>
-            <div class="more">
-              <%= link_to t('.more'), news_path %>
-            </div>
-          <% end %>
+          <div class="more">
+            <%= link_to t('.more'), news_path %>
+          </div>
         <% end %>
       </div>
       <div class="col-sm-4">
@@ -158,11 +158,9 @@
               </li> 
             <% end %>
           </ul>
-          <% if @publications.length == @limit %>
-            <div class="more">
-              <%= link_to t('.more'), news_path %>
-            </div>
-          <% end %>
+          <div class="more">
+            <%= link_to t('.more'), news_path %>
+          </div>
         <% end %>
       </div>
       <div id="laws" class="col-sm-4">
