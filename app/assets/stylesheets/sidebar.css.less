@@ -1,0 +1,123 @@
+@pink-color: #ef4273;
+@text-color: #989898;
+@grey-line: #b2b2b2;
+@blue-background: #77b8c3;
+
+#sidebar{
+  #sidebar-header{
+    text-align: center;
+    color: @pink-color;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: "hallo";   
+    span{
+      font-family: "hallo-b";   
+      font-size: 25px;
+    }
+  }
+
+  h3{
+    text-align: center;
+    color: #fff;
+    background-color: @blue-background;
+    font-size: 18px;
+    font-family: "hallo";   
+    padding: 5px;
+  }
+
+  #sidebar-stories{
+    ul{
+      li{
+        & > div:first-of-type{
+          color: @pink-color;
+          font-style: italic;
+          font-size: 12px;
+          font-weight: bold;
+          text-align: right;
+        }
+        & > div:last-of-type{
+          border-left: solid 1px @pink-color;
+          font-weight: bold;
+          a{
+            color: @text-color;
+          }
+        }
+      }
+    }
+    #sidebar-story-links{
+      margin-top: 15px;
+      & > div{
+        text-align: center;
+        &:first-of-type a{
+          font-family: "hallo";   
+          color: #fff;
+          background-color: @pink-color;
+          padding: 10px 18px;
+          font-size: 18px;
+        }
+        &:last-of-type a{
+          font-family: "hallo";   
+          color: #fff;
+          background-color: @blue-background;
+          padding: 10px 18px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  #sidebar-game{
+    margin-top: 25px;
+    background-image: url('/assets/game.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+    position: relative;
+    min-height: 170px;
+    #sidebar-game-explanation{
+      margin: 10px 0 50px;
+      color: #fff;
+      background-color: #c65551;
+      opacity: 0.9;
+      padding: 4px 12px;
+      font-weight: bold;
+    }  
+    #sidebar-game-link{
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      a{
+        color: #fff;
+        background-color: @blue-background;
+        padding: 10px 18px;
+        text-transform: uppercase;
+        font-family: "hallo";   
+        font-size: 18px;
+      }
+    }
+  }
+
+  #sidebar-explore{
+    margin-top: 25px;
+    #sidebar-explore-image{
+      text-align: center;
+      img{
+        width: 100%;
+      }
+    }
+    #sidebar-explore-link{
+      text-align: center;
+      margin-top: 15px;
+      a{
+        color: #fff;
+        background-color: @blue-background;
+        padding: 10px 18px;
+        font-family: "hallo";   
+        font-size: 18px;
+      }
+    }        
+  }
+  
+}

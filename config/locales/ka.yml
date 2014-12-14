@@ -220,6 +220,17 @@ ka:
       ie: Internet Explorer (მხოლოდ Windows-ზე)
       opera: Opera
       Safari: Safari
+    sidebar:
+      header_get_involved1: Get
+      header_get_involved2: Involved!
+      header_stories: Discrimination Stories
+      header_game: Pay Gap Game
+      header_explore: Explore Survey Data
+      header_video: Videos
+      tell_story: Tell Your Story
+      view_stories: View All Stories
+      play: Play Game
+      explore: Explore Data
   admin:
     index:
       title: ადმინისტრატორის განყოფილება

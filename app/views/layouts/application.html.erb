@@ -135,19 +135,46 @@
 						</div>
 					<% end %>
 
+          <% if @show_sidebar %>
 
-					<% if content_for?(:title) %>
-            <div class="page-header">
-              <h1>
-                <%= yield(:title) %>
-                <% if content_for?(:title_right) %>
-                  <span class="pull-right"><%= yield(:title_right) %></span>
+            <div class="row">
+              <div class="col-sm-9">
+                <% if content_for?(:title) %>
+                  <div class="page-header">
+                    <h1>
+                      <%= yield(:title) %>
+                      <% if content_for?(:title_right) %>
+                        <span class="pull-right"><%= yield(:title_right) %></span>
+                      <% end %>
+                    </h1>
+                  </div>
                 <% end %>
-              </h1>
-            </div>
-					<% end %>
 
-          <%= yield %>
+                <%= yield %>
+              </div>
+
+              <div class="col-sm-3">
+                <%= render partial: 'layouts/sidebar' %>
+              </div>
+            </div>
+
+          <% else %>
+
+  					<% if content_for?(:title) %>
+              <div class="page-header">
+                <h1>
+                  <%= yield(:title) %>
+                  <% if content_for?(:title_right) %>
+                    <span class="pull-right"><%= yield(:title_right) %></span>
+                  <% end %>
+                </h1>
+              </div>
+  					<% end %>
+
+            <%= yield %>
+
+          <% end %>
+
         </div><!--/span-->
       </div><!--/row-->
     </div> <!-- /container-fluid -->
@@ -169,7 +196,7 @@
             </ul>
           </li>
           <li>
-            <%= t('app.menu.get_involved') %>
+            <%= t('app.menu.stay_informed') %>
             <ul>
               <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
               <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>

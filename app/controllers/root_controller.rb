@@ -4,7 +4,6 @@ class RootController < ApplicationController
     @about_short = Page.find_by_name('about_short')
     @discrimination_explanation = Page.find_by_name('discrimination')
 
-    @limit = 3
     @news_items = NewsItem.published.sorted.limit(@limit)
     @publications = Publication.sorted.limit(@limit)
     @stories = Story.sorted.is_approved.public.limit(@limit)
