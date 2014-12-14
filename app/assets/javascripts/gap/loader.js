@@ -1,17 +1,23 @@
 var Game = {};
 var assetsmeta = 
 [
-	{ type:"bg", path:"/assets/gap/svg/field/bg/", count:2},
+	{ type:"bg", path:"/assets/gap/svg/field/bg/", count:3},
+
 	{ type:"fg",names:['agriculture','fishing','mining','manufacturing','production','construction',
 	'wholesale','hotel','transport','financial','realestate','administration','education','health','community','other'],
 		path:"/assets/gap/svg/field/",count:16,amount:2 },
-	{ type:"interest", names:[ 'vac', 'gad', 'edu', 'hou', 'tra' ],
-		path:"/assets/gap/svg/interest/", amount:6, count:5,  },
-	{ type:"male", names:['casual','solid','business','technical','construction','doctor','fisher','miner','teacher'], amount:3, count:6,
+
+	{ type:"interest", names:[ 'vac', 'gad', 'edu', 'hou', 'tra' ], path:"/assets/gap/svg/interest/", amount:6, count:5,  },
+
+	{ type:"male", names:['casual','solid','business','technical','construction','doctor','fisher','miner','teacher'], amount:3, count:9,
+		path:"/assets/gap/svg/human/" },	
+
+	{ type:"female", names:['casual','solid','business','technical','construction','doctor','fisher','miner','teacher'], amount:3, count:9,
 		path:"/assets/gap/svg/human/" },
-	{ type:"female", names:['casual','solid','business','technical','construction','doctor','fisher','miner','teacher'], amount:3, count:6,
-		path:"/assets/gap/svg/human/" },
-	
+
+	{ type:"human_sits", names:['casual','solid','business'], amount:1, count:3, path:"/assets/gap/svg/human/" },
+	{ type:"human_actions", names:['fisher','miner','teacher'], amount:2, count:3, path:"/assets/gap/svg/human/" },
+
 	{ name:"about", type:"image", path:"/assets/gap/svg/common/about.svg"},	
 	{ name:"arrow-d", type:"image", path:"/assets/gap/svg/common/arrow_d.svg"},	
 	{ name:"arrow-d-lblue", type:"image", path:"/assets/gap/svg/common/arrow_d_lblue.svg"},	
@@ -30,7 +36,6 @@ var assetsmeta =
 	{ name:"next", type:"image", path:"/assets/gap/svg/common/next.svg"},
 	{ name:"pointmask", type:"image", path:"/assets/gap/svg/common/point_mask.svg"},
 	{ name:"rarrow", type:"image", path:"/assets/gap/svg/common/rarrow.svg"},
-	{ name:"settings", type:"image", path:"/assets/gap/svg/common/settings.svg"},
 	{ name:"settings", type:"image", path:"/assets/gap/svg/common/settings.svg"},
 	{ name:"motion", type:"sound", path:"/assets/gap/sounds/effect/motion"},
 	{ name:"award", type:"sound", path:"/assets/gap/sounds/effect/award"},
@@ -68,7 +73,7 @@ Game.Loader =
 			assetsmeta.forEach(function(d){
 				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
 			});
-			t.assetsCount+=16+5;
+			t.assetsCount+=16+5+3+6; // category icons, interes icons, human_sits for second human, human_actions for second human
 			t.assetsAmount = t.assetsCount;
 			t.starttimer();	
 			if(isOpera || isFirefox) t.sound_ext = 'ogg';
@@ -88,6 +93,8 @@ Game.Loader =
 			case 'interest': t.readinterest(v); break;
 			case 'male': t.readhuman(v,'m'); break;
 			case 'female': t.readhuman(v,'f'); break;
+			case 'human_sits': t.human_sits(v); break;
+			case 'human_actions': t.human_actions(v); break;			
 			case 'sound': t.readsound(v); break;
 		}
 	},
@@ -109,7 +116,6 @@ Game.Loader =
 	{
 		var t = this;
 		t.elapsedTime+=100;	
-		//console.log(t.assetsCount);
 		if(t.assetsCount==0) 
 		{
 			t.stoptimer();
@@ -177,6 +183,7 @@ Game.Loader =
 			 player = new playerObject();
 
 			window.onpopstate = function(e){
+				console.log('popstate');
 			   if(e.state !== null) { hist = true; redraw(); hist = false; } 
 			   //else { // no state data available,load initial page which was there at first page load }
 			};
@@ -238,9 +245,9 @@ Game.Loader =
 		var t = this;
 		for(var i = 0; i < v.count; ++i)
 		{
-			this.addimage(v.names[i]+'_i',v.path + "fg/" + v.names[i]+'_i' +'.svg');
-			this.addimage(v.names[i]+'_o',v.path + "fg/" + v.names[i]+'_o' +'.svg');
-			this.addimage(v.names[i]+'_icon',v.path + "icons/" + v.names[i] +'.svg');
+			t.addimage(v.names[i]+'_i',v.path + "fg/" + v.names[i]+'_i' +'.svg');
+			t.addimage(v.names[i]+'_o',v.path + "fg/" + v.names[i]+'_o' +'.svg');
+			t.addimage(v.names[i]+'_icon',v.path + "icons/" + v.names[i] +'.svg');
 		}
 		//assets.forEach(function(d){ console.log(d.name);});
 	},
@@ -249,10 +256,10 @@ Game.Loader =
 		var t = this;
 		for(var i = 0; i < v.count; ++i)
 		{
-			this.addimage(v.names[i]+'_icon', v.path + 'icons/' + v.names[i] +'.svg');
+			t.addimage(v.names[i]+'_icon', v.path + 'icons/' + v.names[i] +'.svg');
 			for(var j = 1; j <= v.amount; ++j)
 			{
-				this.addimage(v.names[i]+'_'+j, v.path + v.names[i]+'_'+j+'.svg');
+				t.addimage(v.names[i]+'_'+j, v.path + v.names[i]+'_'+j+'.svg');
 			}
 		}
 	},
@@ -263,7 +270,28 @@ Game.Loader =
 		{
 			for(var j = 0; j < v.amount; ++j)
 			{
-				this.addimage(g+(j)+'_'+ v.names[i], v.path + v.names[i] + '/' + g + j + '.svg');
+				t.addimage(g+(j)+'_'+ v.names[i], v.path + v.names[i] + '/' + g + j + '.svg');
+			}			
+		}
+	},
+	human_sits:function(v)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			t.addimage('ms_'+ v.names[i], v.path + v.names[i] + '/ms.svg');
+			t.addimage('fs_'+ v.names[i], v.path + v.names[i] + '/fs.svg');			
+		}
+	},
+	human_actions:function(v)
+	{
+		var t = this;
+		for(var i = 0; i < v.count; ++i)
+		{
+			for(var j = 0; j < v.amount; ++j)
+			{
+				t.addimage('ma'+(j)+'_'+ v.names[i], v.path + v.names[i] + '/ma'+(j)+'.svg');	
+				t.addimage('fa'+(j)+'_'+ v.names[i], v.path + v.names[i] + '/fa'+(j)+'.svg');	
 			}			
 		}
 	},

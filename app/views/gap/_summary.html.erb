@@ -51,6 +51,7 @@
 								<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>		
 								<div class='human-award'>
 									<% d[:saward].reverse.each_with_index { |x,i| %>
+									<% Rails.logger.debug(x) %>
 										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='x'>x<%= "#{x}" %></div></div>
 									<% } %>
 								</div>
@@ -64,6 +65,7 @@
 						</table>
 					</div>
 					<div class='footer'>
-						<div class='share btn'><%= t('.share') %></div>
 						<div class='replay btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
+						<div class='share btn'><%= t('.share') %></div>
+						<div class='share_note'><%= t('.fb_note').html_safe %></div>
 					</div>

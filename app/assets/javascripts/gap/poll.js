@@ -13,16 +13,26 @@ var poll = {
   npicker_function : null,
   npicker_sal_size:5,
   npicker_binded:false,
-  show:function show()
+  show:function show(resume)
   {
-    //scr_clean();
+    if(typeof resume === 'undefined') resume = false;
+
+    scr_clean();
     s.append("<div class='poll'></div>");
-    if(steptogo == 0)
-      this.gender();
-    else 
+    if(resume)
     {
-      poll.draw_character();
-      fn(hash_map[steptogo-1].nf); 
+      if(!hist) history.pushState({},'',window.location.pathname);
+      this.gender();
+    }
+    else
+    {
+      if(steptogo == 0)
+        this.gender();
+      else 
+      {
+        poll.draw_character();
+        fn(hash_map[steptogo-1].nf); 
+      }
     }
   },
   draw_character:function draw_character()
@@ -118,7 +128,8 @@ var poll = {
     left.click(function(){ 
        $(this).addClass('selected');
        $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout right left');       
-       $('.info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+       $('.poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+       $('.info').fadeOut(1000,"linear");
         $('.poll > .prompt > .title > .text').fadeOut(1000,"linear");
        f();
        poll.place_human_based_on_gender();
@@ -129,14 +140,18 @@ var poll = {
     { 
       $(this).parent().removeClass('selectable').find('> div').off('click hover').removeClass('zoomout right left');       
       $(this).addClass('selected');
-      $('.info, .poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+      $('.poll > .prompt > .title > .larrow, .poll > .prompt > .title > .rarrow').fadeOut(1000,"linear", function(){ $(this).remove(); });
+      $('.info').fadeOut(1000,"linear");
       $('.poll > .prompt > .title > .text').fadeOut(1000,"linear");
       m();
       poll.place_human_based_on_gender();
       poll.character_picked();
 
     });
-
+    if(!init)
+    {
+      isf() ? right.addClass('zoomout') : left.addClass('zoomout');
+    }
   },
   age:function age()
   {    
@@ -256,6 +271,10 @@ var poll = {
 
     });
     poll.category_redraw();
+    if(!init && user.category != null)
+    {
+      poll.by_category(user.category);
+    }
   },  
   category_redraw:function category_redraw()
   {
@@ -322,11 +341,8 @@ var poll = {
   },
   by_category:function by_category(v)
   {        
-    if(user.category != v)
-    {
       user.category = v; 
       this.category_select();
-    }
   },
   category_salary:function category_salary(v)
   {
@@ -345,16 +361,18 @@ var poll = {
                               "</g>" + 
                             "</svg>");
   
-    poll.age_picker_redraw();
+   
     var diff = max_age-min_age;
-
     var degree_sum = poll.degrees[1] + 360 - poll.degrees[2];
   
     poll.degree_step = degree_sum / (diff+1);
+    poll.degree_steps = [];
     for(var i = 0; i <= diff; ++i)
     {
       poll.degree_steps.push(poll.degrees[1] - (diff-i)*poll.degree_step);       
     }           
+    poll.age_picker_redraw();
+
     $('.age-mover').draggable();
 
     $(document).on('click',function (e) {
@@ -478,7 +496,9 @@ var poll = {
   interest_picker_show:function interest_picker_show()
   {
     var picker = $("<div class='interest-picker'></div>").appendTo('.poll .selector');
-    poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,0,locale.poll.your_percent,'left');
+    var savingTmp = 0;
+    if(!init) savingTmp = user.salary * user.salary_percent / 100;
+    poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,savingTmp,locale.poll.your_percent,'left');
 
     resizeCallback = function() {
       poll.interest_redraw();
@@ -498,6 +518,11 @@ var poll = {
       }  
     }
     poll.interest_redraw();
+
+    if(!init && user.interest != null)
+    {
+      poll.by_interest(user.interest);
+    }
   },
   interest_redraw:function interest_redraw()
   {
@@ -536,11 +561,8 @@ var poll = {
   },  
   by_interest:function by_interest(v)
   {            
-    if(user.interest != v)
-    {
       user.interest = v;        
       this.interest_select();
-    }
   },  
   choose_category: function choose_category()
   {
@@ -610,8 +632,12 @@ var poll = {
     var size = 5;
     var picker = $('.poll .selector .npicker');
  
-    picker.addClass('zoom');
-    setTimeout(function(){ picker.removeClass('zoom'); }, 300);
+    
+    if(init)
+    {
+      picker.addClass('zoom');
+      setTimeout(function(){ picker.removeClass('zoom'); }, 300);
+    }
 
 
     picker.removeClass('inactive');

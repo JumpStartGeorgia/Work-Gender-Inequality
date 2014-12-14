@@ -1,13 +1,17 @@
-function human(selector,title,height,width) 
+function human(selector,title) 
 {
 //****************************var**********************************
   this.title = exist(title) ? title : "Human";
   this.alias = this.title[0].toLowerCase();
   this.age = 0;
-  this.height = height;
-  this.width = width;
-  this.init_height = height;
-  this.init_width = width;
+  this.height = 0;
+  this.width = 0;
+  this.init_height = 0;
+  this.init_width = 0;
+  this.extra_height = 0;
+  this.extra_width = 0;
+  this.init_extra_height = 0;
+  this.init_extra_width = 0;
   this.canvas = 200;
   this.x = 0;
   this.y = 0;
@@ -116,7 +120,7 @@ function human(selector,title,height,width)
         if(exist(coord.y)) this.y = noscale ? coord.y : this.land - (this.land - coord.y*img_scaler + this.height);
         if(this.working)
         {
-          this.x += $('.top .stage .fg img').first().offset().left;
+          this.x += $('.top .stage .fg img').first().offset().left-this.width/2;
           this.y += $('.top .stage .fg img').first().offset().top;
         }
         if(exist(coord.a)) this.angle = coord.a;
@@ -151,20 +155,25 @@ function human(selector,title,height,width)
   };
   this.scale = function()
   {
+    
+    this.get_dimentions();
+    $(this.selector).css({
+      width : this.width,
+      height : this.height,
+      'background-size':this.width + 'px ' + this.height + 'px'
+    });
+  };
+  this.get_dimentions = function()
+  {
+    var t = this;
+    var hTmp = assets.filter(function(a){ return a.name == t.alias + '0_' + category.dress; })[0].element[0];
 
-    var bgsize = $(this.selector).css('background-size');
-    if(bgsize.replace(' ','').split('px').length == 3)
-    {
-      this.width = Math.floor10(img_scaler * this.init_width);
-      this.height = Math.floor10(img_scaler * this.init_height);
+    this.init_width = hTmp.width;
+    this.init_height = hTmp.height;
 
-      //console.log(bgw,bgh);
-      
-      $(this.selector).css({
-        width : this.width,
-        height : this.height,
-        'background-size':this.width + 'px ' + this.height + 'px'});
-    }
+    this.width = Math.floor10(img_scaler * this.init_width);
+    this.height = Math.floor10(img_scaler * this.init_height);
+
   };
   this.animate = function animate()
   {    
@@ -174,6 +183,8 @@ function human(selector,title,height,width)
     var intervalId = null;
      var st = $('.' + t.place + ' .stage');
      //10000
+     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - this.width/2;
+     var yDistance = category.work_point.y*img_scaler;
 		$(this.selector).animate({"color":'white'},{ duration:1, easing:'linear',
       start:function()
       {
@@ -186,8 +197,8 @@ function human(selector,title,height,width)
       },
 			progress:function(a,b,c) 
 			{ 
-        t.position({ x:(w2-t.width/2+100)*b-100, a:0 }, true);
-        st.css('left',-1*b*  (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
+        t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, true);
+        st.css('left',-1*b* (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
 			},
 			complete:function() 
 			{
@@ -650,10 +661,11 @@ function human(selector,title,height,width)
   {
     this.card.init();    
     this.pedestal.init();
+    this.get_dimentions();
   };
 }; // human object with basic properties
-male = new human('.m.character',locale.poll.male,182,67); // male human object
-female = new human('.f.character',locale.poll.female,172,63); // female human object
+male = new human('.m.character',locale.poll.male); // male human object
+female = new human('.f.character',locale.poll.female); // female human object
 humans = male.outrun ? [male,female] : [female,male];
 
 function h_go_right()

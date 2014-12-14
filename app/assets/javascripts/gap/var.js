@@ -166,3 +166,4 @@ var isFirefox = /firefox/i.test(navigator.userAgent);
 var resizeCallback = null;
 var scrolled = false;
 var jumper = 5;
+var init = true;

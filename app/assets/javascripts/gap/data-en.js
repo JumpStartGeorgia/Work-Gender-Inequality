@@ -182,7 +182,8 @@ var categories =
         "fg":"administration",
         "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 244.01475,205.42934 L 246.79497,205.42934 L 246.79497,205.97373 L 244.02758,205.97373 z"},
+        "work_point":{"x":244,"y":40}
     },
     { 
         "id": "HxhM0Ejd",
@@ -197,7 +198,8 @@ var categories =
         "fg":"education",
         "sits":false,
         "action":true,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 655.8153,314.85376 L 180.6514,314.85376 L 180.6514,314.56599 L 655.81649,314.56599 z"},
+        "work_point":{"x":655,"y":0}
     },
     {
         "id": "dJdfgktK",

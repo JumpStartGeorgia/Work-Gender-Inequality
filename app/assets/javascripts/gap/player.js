@@ -60,8 +60,18 @@ function playerObject()
 		{
 			t.bgcat.play();
 			t.bgint.play();
+		}		
+	}
+	this.background_stop = function()
+	{
+		var t = this;
+		if(t.bgcat != null && t.bgint != null)
+		{
+			t.bgcat.pause();
+			t.bgint.pause();
+			t.bgcat.currentTime = 0;
+			t.bgint.currentTime = 0;
 		}
-		
 	}
 	this.play = function play(name)
 	{		
@@ -105,7 +115,6 @@ function playerObject()
 				if(this.valid(name))
 				{
 					this.sounds[name].muted = true;
-					console.log(name);
 				}
 			}
 			this.bgcat.muted = true;
