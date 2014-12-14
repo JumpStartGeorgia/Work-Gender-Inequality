@@ -7,7 +7,7 @@ require 'csv'
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+=begin
 #####################
 ## Pages
 #####################
@@ -112,6 +112,7 @@ p.page_translations.create(:locale => 'ka', :title => "Discrimination Explanatio
 p = Page.create(:id => 4, :name => 'explore')
 p.page_translations.create(:locale => 'en', :title => 'Explore Data Explanation', :content => nil)
 p.page_translations.create(:locale => 'ka', :title => "Explore Data Explanation", :content => nil)
+=end
 
 =begin
 #####################
@@ -156,9 +157,11 @@ SurveyQuestion.delete_all
 questions = CSV.read("#{Rails.root}/db/spreadsheets/survey_questions.csv")
 questions.each do |question|
   q = SurveyQuestion.new(:code => question[0].strip)
-  I18n.available_locales.each do |locale|
-    q.survey_question_translations.new(:locale => locale, :question => question[1].strip)
-  end
+  #en
+  q.survey_question_translations.new(:locale => 'en', :question => question[1].strip)
+  #ka
+  # - if ka text not provided, use en text
+  q.survey_question_translations.new(:locale => 'ka', :question => question[2].present? && question[2].strip.present? ? question[2].strip : question[1].strip)
   q.save
 end 
 #sql = "insert into survey_questions (code, text) values "
@@ -175,7 +178,7 @@ end
 ## record that question to exclude
 #####################
 puts "Flagging questions to exclude"
-exclude = ['N', 'Interv_code', 'Reg', 'start_time', 'fin_time', 'date', 'Envelope', 'reg_weit', 'gender_wei', 'age_wei', 'weight', 'filter_$', 'PrimaryLast']
+exclude = ['N', 'Interv_code', 'Reg', 'start_time', 'fin_time', 'date', 'Envelope', 'reg_weit', 'gender_wei', 'age_wei', 'weight', 'filter_$', 'PrimaryLast', 'A3.1_1', 'A3.1_2']
 SurveyQuestion.where(:code => exclude).update_all(:exclude => true)
 
 #####################
@@ -201,9 +204,11 @@ SurveyAnswer.delete_all
 answers = CSV.read("#{Rails.root}/db/spreadsheets/survey_answers.csv")
 answers.each do |answer|
   a = SurveyAnswer.new(:code => answer[0].strip, :value => answer[1].strip)
-  I18n.available_locales.each do |locale|
-    a.survey_answer_translations.new(:locale => locale, :answer => answer[2].strip)
-  end
+  #en
+  a.survey_answer_translations.new(:locale => 'en', :answer => answer[2].strip)
+  #ka
+  # - if ka text not provided, use en text
+  a.survey_answer_translations.new(:locale => 'ka', :answer => answer[3].present? && answer[3].strip.present? ? answer[3].strip : answer[2].strip)
   a.save
 end 
 #sql = "insert into survey_answers (code, value, text) values "

@@ -319,10 +319,11 @@ en:
       header_files: Related Files
       link:
         spss: SPSS Data File
-        report: Report (English/Georgian)
+        report_en: Report (English)
+        report_ka: Report (Georgian)
         codebook: Codebook (Georgian)
-        anon_quest_en: Anonymous Questionnaire (English)
-        anon_quest_ka: Anonymous Questionnaire (Georgian)
+        quest_en: Questionnaire (English)
+        quest_ka: Questionnaire (Georgian)
       tabs:
         map: Map
         chart: Chart

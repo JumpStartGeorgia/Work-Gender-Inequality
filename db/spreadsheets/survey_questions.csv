@@ -1,289 +1,307 @@
-N,Number of questionnaire
-Interv_code,Code of invterviewers
-Reg,Region of sampling
-start_time,Interview start time
-fin_time,Interview end time
-date,Date of the interview
-A1,Employment status
-A2,Do you have more than one employer?
-A3,Do you have a valid contract with your employer(s)?
-A3.1_1,How long is your current contract? months
-A3.1_2,How long is your current contract? years
-A3.1_dro_weli,How long is your current contract? years
-A3.1_3,How long is your current contract? unlimited
-A3.2,Do you feel the contract guarantees you work (at least until the due-date)?
-A3.3,Does your employment contract include a provision establishing the confidentiality of the amount of salary you earn?
-A4,How many hours do you work in a week on average?
-A4.1,Do you work full time or part time (among your main employer)?
-A4.2,Would you like to work full-time? 
-A5,Do you go to work in the same city/town/village where you live?
-A5.1,Where do you work?
-A6,Do you work for a public or a private employer?
-A7_zveli,What is the field of your work? (Original Question)
-A8_zveli,What do you do at your work? (Original Question)
-A7,What is the field of your work?
-A8,What do you do at your work?
-A9,"Among your colleagues, are there mostly women or men?"
-A10,Would you like to have more women or men?
-A11,"In your work do you cooperate/collaborate (for example with co-partners, clients, patients, students, etc) more with men or women?"
-A12,What is the gender of your direct manager?
-A13,"Are you, or have you ever been, a member of a trade union or similar organization? If yes: is that currently or previously?"
-B1,Have you ever participated in a job interview?
-B1.1,How many times have you been in a job interview?
-B1.2_1,In a job interview have you been asked questions concerning: Your marital status
-B1.2_2,In a job interview have you been asked questions concerning: Your plans to get married
-B1.2_3,In a job interview have you been asked questions concerning: Number of children you have
-B1.2_4,In a job interview have you been asked questions concerning: Your plans to have children
-B1.2_5,In a job interview have you been asked questions concerning: Doctoral proof that you are not pregnant
-B1.2_6,In a job interview have you been asked questions concerning: Other
-B2,How did you get hired for the job you are working currently?
-B3,Have you ever been turned down for a job you applied for?
-B3.1,Did you get any feedback why you did not get the job you applied for?
-B3.2_1,Please specify what was the formal reason? Too high expectations for salary
-B3.2_2,Please specify what was the formal reason? For being pregnant
-B3.2_3,Please specify what was the formal reason? Due to my gender
-B3.2_4,Please specify what was the formal reason? Due to my age
-B3.2_5,Please specify what was the formal reason? Due to my care responsibilities
-B3.2_6,Please specify what was the formal reason? Due to my plans to have children
-B3.2_7,Please specify what was the formal reason? Due to the lack of experience
-B3.2_8,Please specify what was the formal reason? Due to the lack of my skills
-B3.2_9,Please specify what was the formal reason? Due to my education (for example the level of education was too low/high or the vocation/subject where education received wasn't right
-B3.2_10,Please specify what was the formal reason? Due to my difference of opinions
-B3.2_11,Please specify what was the formal reason? Due to my sexual orientation
-B3.2_12,Please specify what was the formal reason? Due to my marital status
-B3.2_13,Please specify what was the formal reason? Due to my appearance
-B3.2_14,Please specify what was the formal reason? Other
-B3.3_1,What do you think was the reason for not getting the job you applied for? I don't know
-B3.3_2,What do you think was the reason for not getting the job you applied for? Too high expectations for salary
-B3.3_3,What do you think was the reason for not getting the job you applied for? Due to the lack of experience
-B3.3_4,What do you think was the reason for not getting the job you applied for? Due to the lack of my skills
-B3.3_5,What do you think was the reason for not getting the job you applied for? Due to my education (for example the level of education was too low/too high or the vocation/subject where education received wasn’t right)
-B3.3_6,What do you think was the reason for not getting the job you applied for? Due to my difference of opinions
-B3.3_7,What do you think was the reason for not getting the job you applied for? For being pregnant
-B3.3_8,What do you think was the reason for not getting the job you applied for? Due to my gender
-B3.3_9,What do you think was the reason for not getting the job you applied for? Due to my age
-B3.3_10,What do you think was the reason for not getting the job you applied for? Due to my care responsibilities
-B3.3_11,What do you think was the reason for not getting the job you applied for? Due to my sexual orientation
-B3.3_12,What do you think was the reason for not getting the job you applied for? Due to my marital status
-B3.3_13,What do you think was the reason for not getting the job you applied for? Due to my plans to have children
-B3.3_14,What do you think was the reason for not getting the job you applied for? Other
-B4,"When looking for a job, have you experienced a job advertisement you were interested in that had some criteria not related to potential workers’ skills, education, experience, etc. "
-B4.1_1,"Please specify, what were the criterias? Only women can apply"
-B4.1_2,"Please specify, what were the criterias? Only men can apply"
-B4.1_3,"Please specify, what were the criterias? Only people in certain age can apply"
-B4.1_4,"Please specify, what were the criterias? Other"
-B5_1,What channels have you used the most for finding a job? Internet recruitment sites
-B5_2,What channels have you used the most for finding a job? Friends/family/acquaintances
-B5_3,What channels have you used the most for finding a job? Newspaper message board
-B5_4,What channels have you used the most for finding a job? Recruitment companies
-B5_5,What channels have you used the most for finding a job? Other
-B6_1,"For the job where you are working currently, what channels did you use for finding the job? I was promoted in my company/organization"
-B6_2,"For the job where you are working currently, what channels did you use for finding the job? Internet recruitment sites"
-B6_3,"For the job where you are working currently, what channels did you use for finding the job? Friends/family/acquaintances"
-B6_4,"For the job where you are working currently, what channels did you use for finding the job? Newspaper message board"
-B6_5,"For the job where you are working currently, what channels did you use for finding the job? Recruitment companies"
-B6_6,"For the job where you are working currently, what channels did you use for finding the job? Other"
-C1,"In your current work, have you been promoted career wise?"
-C1.1,How were you promoted?
-C1.2,Have you had opportunities to run for/apply for a higher/other position offered by your employer during last 2 years?
-C1.3,Did you apply for the higher/other position available?
-C1.3.1_1,"If you did not get the applied for job, what do you think was the reason? My skills"
-C1.3.1_2,"If you did not get the applied for job, what do you think was the reason? My gender "
-C1.3.1_3,"If you did not get the applied for job, what do you think was the reason? The employer had a personal preference"
-C1.3.1_4,"If you did not get the applied for job, what do you think was the reason? There was a better candidate"
-C1.3.1_5,"If you did not get the applied for job, what do you think was the reason? My age"
-C1.3.1_6,"If you did not get the applied for job, what do you think was the reason? My marital status"
-C1.3.1_7,"If you did not get the applied for job, what do you think was the reason? Sexual orientation"
-C1.3.1_8,"If you did not get the applied for job, what do you think was the reason? Educational level"
-C1.3.1_9,"If you did not get the applied for job, what do you think was the reason? Lack of experience"
-C1.3.1_10,"If you did not get the applied for job, what do you think was the reason? I don't know"
-C1.3.1_11,"If you did not get the applied for job, what do you think was the reason? Other"
-C1.3.2_1,Why didn’t you apply? I felt I would not meet the expectations for the job
-C1.3.2_2,Why didn’t you apply? Due to my care responsibilities
-C1.3.2_3,Why didn’t you apply? I was not interested in that position
-C1.3.2_4,Why didn’t you apply? Too much responsibility in the job
-C1.3.2_5,Why didn’t you apply? Other
-C2,Do you feel that your employer has provided you enough work tasks which would help you to prove yourself to the employer and help to get promoted career-wise?
-C3,"In your current work, have you been promoted pay wise?"
-C3.1,"If yes, whose initiative was it?"
-C3.2,Have you asked for a pay wise promotion?
-C4,Have you had opportunities provided by your current employer to participate in training?
-C4.1,Have  you gone to the training(s)?
-C4.1.1,Why didn’t you go to the training? 
-C4.2,Would you have liked to participate in a training?
-D1,Have you ever been fired?
-D1.1,Have you been fired during last 2 years?
-D1.2,Did you get any warnings that you might get fired?
-D1.3,Did you get any feedback why you were fired?
-D1.3.1_1,Please specify the reason behind firing you (based on the employer’s feedback): Bankruptcy of the company
-D1.3.1_2,Please specify the reason behind firing you (based on the employer’s feedback): My age
-D1.3.1_3,Please specify the reason behind firing you (based on the employer’s feedback): My gender
-D1.3.1_4,Please specify the reason behind firing you (based on the employer’s feedback): My ethnic origin
-D1.3.1_5,Please specify the reason behind firing you (based on the employer’s feedback): Disagreements with the employer
-D1.3.1_6,Please specify the reason behind firing you (based on the employer’s feedback): I didn’t fulfill the expectations of the employer
-D1.3.1_7,Please specify the reason behind firing you (based on the employer’s feedback): I got pregnant
-D1.3.1_8,Please specify the reason behind firing you (based on the employer’s feedback): Having children
-D1.3.1_9,Please specify the reason behind firing you (based on the employer’s feedback): Marital status
-D1.3.1_10,Please specify the reason behind firing you (based on the employer’s feedback): My position was made redundant /eliminated
-D1.3.1_11,Please specify the reason behind firing you (based on the employer’s feedback): My appearance
-D1.3.1_12,Please specify the reason behind firing you (based on the employer’s feedback): Other
-D1.3.2,Did you believe that this was the actual reason?
-D1.3.3_1,"In your opinion, what do you think was the reason behind firing you? Bankruptcy of the company"
-D1.3.3_2,"In your opinion, what do you think was the reason behind firing you? My age"
-D1.3.3_3,"In your opinion, what do you think was the reason behind firing you? My gender"
-D1.3.3_4,"In your opinion, what do you think was the reason behind firing you? My ethnic origin"
-D1.3.3_5,"In your opinion, what do you think was the reason behind firing you? Disagreements with the employer"
-D1.3.3_6,"In your opinion, what do you think was the reason behind firing you? I didn’t fulfill the expectations of the employer"
-D1.3.3_7,"In your opinion, what do you think was the reason behind firing you? I got pregnant"
-D1.3.3_8,"In your opinion, what do you think was the reason behind firing you? Having children"
-D1.3.3_9,"In your opinion, what do you think was the reason behind firing you? Marital status"
-D1.3.3_10,"In your opinion, what do you think was the reason behind firing you? My position was made redundant /eliminated"
-D1.3.3_11,"In your opinion, what do you think was the reason behind firing you? My appearance"
-D1.3.3_12,"In your opinion, what do you think was the reason behind firing you? Other"
-D1.4,"If you felt that your firing was unreasonable, did you contact/appeal to anyone or any institution?"
-D2,Have you had a colleague fired from a job because of giving birth to baby during last 5 years?
-E1,"Do you have any additional compensation, benefits provided by your employer?"
-E1.1_1,What are the compensations/benefits? Mobile phone provided by the employer
-E1.1_2,What are the compensations/benefits? Usage of mobile phone 
-E1.1_3,What are the compensations/benefits? Possibility to use company’s car
-E1.1_4,What are the compensations/benefits? Compensation of using personal car
-E1.1_5,What are the compensations/benefits? Free transportation to work
-E1.1_6,What are the compensations/benefits? Lunch or other course of food provided by the employer
-E1.1_7,What are the compensations/benefits? Health insurance
-E1.1_8,What are the compensations/benefits? Trainings
-E1.1_9,What are the compensations/benefits? Going abroad / business trips to foreign countries
-E1.1_10,What are the compensations/benefits? Premia
-E1.1_11,What are the compensations/benefits? Bonus
-E1.1_12,What are the compensations/benefits? Other
-E2_1,How many times have you got any PREMIA during last year?
-E2_2,How many times have you got any BONUSES during last year?
-E3_1,The amount of my salary is fair
-E3_2,The way my employer promotes employees is fair
-E3_3,Men and women have equal opportunities for promotion
-E3_4,"Men and women, who do the same work (who are employed in the same position) get paid equally"
-E3_5,Men and women have equal opportunities  for wage increase 
-E3_6,Men and women have equal opportunities for compensations/ benefits
-E3_7,Men and women have equal opportunities for bonuses
-F1_1,"If you have had to be absent from your work due to your child’s or close family member’s illness, how has it been taken in your workplace? Manager(s)"
-F1_2,"If you have had to be absent from your work due to your child’s or close family member’s illness, how has it been taken in your workplace? Colleagues"
-F2_1,Do you feel that your current employer has ever treated you unrightfully in the following matters? Division of work-related tasks
-F2_2,Do you feel that your current employer has ever treated you unrightfully in the following matters? Salary wise
-F2_3,Do you feel that your current employer has ever treated you unrightfully in the following matters? In providing facilities and equipment for work
-F2_4,Do you feel that your current employer has ever treated you unrightfully in the following matters? When planning vacation
-F2_5,Do you feel that your current employer has ever treated you unrightfully in the following matters? In compiling work schedule  (in case of working in shifts)
-F2_6,Do you feel that your current employer has ever treated you unrightfully in the following matters? Providing trainings
-F2_7,Do you feel that your current employer has ever treated you unrightfully in the following matters? In recruitment process
-F2_8,Do you feel that your current employer has ever treated you unrightfully in the following matters? Working hours 
-F3,Have you been asked to work overtime?
-F3.1,Have those tasks been compensated?
-F4,"If you have wanted to be or you have been on parental leave, what was the reaction of your employer?"
-G1_1,"During a job interview, a potential employer asks woman about personal life"
-G1_2,Employer fired one after he/she discovers she is pregnant
-G1_3,Coworkers doing the same job have different salary
-G1_4,Employer refuses to send woman to a one week training abroad only because she has small kid (although woman wants to go)
-G1_5,Employer doesn't want to have woman mechanic in the office because he/she thinks that she has no technical skills
-G2,Have you ever been harassed in your workplace? 
-G3,Have you been harassed in your workplace in the last 12 months? 
-G4_1,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your appearance or body
-G4_2,"Would you consider it unpleasant if someone in your workplace would behave like this: Tells you, or in the presence of you, suggestive jokes of a sexual nature"
-G4_3,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your private life or marital status
-G4_4,Would you consider it unpleasant if someone in your workplace would behave like this: Refers to you or calls you with a nickname of a sexual nature
-G4_5,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your sexual life
-G4_6,Would you consider it unpleasant if someone in your workplace would behave like this: Suggests you to spend your spare time with him/her although you have refused previously
-G4_7,Would you consider it unpleasant if someone in your workplace would behave like this: Uses obscene gestures or sounds when talking to you
-G4_8,Would you consider it unpleasant if someone in your workplace would behave like this: Sends you mail or text messages of sexual nature
-G4_9,"Would you consider it unpleasant if someone in your workplace would behave like this: Sends you personal mail or text messages (unrelated to your work), which makes you feel uncomfortable"
-G4_10,"Would you consider it unpleasant if someone in your workplace would behave like this: Touches intimate parts of your body (i.e your bottom, breasts, etc) "
-G4_11,"Would you consider it unpleasant if someone in your workplace would behave like this: Touches other body parts on purpose (i.e hand, shoulder, back) in a situation where touching is unnecessary"
-G4_12,Would you consider it unpleasant if someone in your workplace would behave like this: Proposes to have sex with him/her
-G4_13,Would you consider it unpleasant if someone in your workplace would behave like this: Forces to have sex with him/her
-G4_14,Would you consider it unpleasant if someone in your workplace would behave like this: Refuses to give you responsibility or work-related tasks because you are a man/woman
-G4_15,"Would you consider it unpleasant if someone in your workplace would behave like this: Gives you additional tasks, which are not related to your work, because you are a man/woman  (i.e moving furniture, making coffee)"
-G4_16,Would you consider it unpleasant if someone in your workplace would behave like this: Ignores your suggestions or opinions because you are a man/woman
-G5_1,"If you would have to deal with such behavior (listed in previous question), what would you do? I don't know"
-G5_2,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably try to deal with the situation myself"
-G5_3,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell my manager"
-G5_4,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell the police"
-G5_5,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell to my colleagues"
-G5_6,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably not do anything"
-G5_7,"If you would have to deal with such behavior (listed in previous question), what would you do? I would tell the trade union representatives"
-G5_8,"If you would have to deal with such behavior (listed in previous question), what would you do? I would quit the job"
-G5_9,"If you would have to deal with such behavior (listed in previous question), what would you do? Something else"
-G6,"Does your organization/company have any internal procedure rules, which prohibit such behavior (listed before) and which you could refer to in case such situation(s) would happen to you? "
-G7_1,"In last 12 months, has someone in your workplace done something like: Commented on your appearance or body"
-G7_2,"In last 12 months, has someone in your workplace done something like: Told you, or in the presence of you, suggestive jokes of a sexual nature"
-G7_3,"In last 12 months, has someone in your workplace done something like: Commented on your private life or marital status"
-G7_4,"In last 12 months, has someone in your workplace done something like: Referred to you or called you with a nickname of a sexual nature"
-G7_5,"In last 12 months, has someone in your workplace done something like: Commented on your sexual life"
-G7_6,"In last 12 months, has someone in your workplace done something like: Suggest you spend your spare time with him/her although you have refused previously (or asked you to come on a date)"
-G7_7,"In last 12 months, has someone in your workplace done something like: Used obscene gestures or sounds when talking to you"
-G7_8,"In last 12 months, has someone in your workplace done something like: Sent you mail or text messages of sexual nature "
-G7_9,"In last 12 months, has someone in your workplace done something like: Sent you personal mail or text messages (unrelated to your work), which made you feel uncomfortable"
-G7_10,"In last 12 months, has someone in your workplace done something like: Touched intimate parts of your body (i.e your bottom, breasts, etc) "
-G7_11,"In last 12 months, has someone in your workplace done something like: Touched other body parts on purpose (i.e hand, shoulder, back) in a situation where touching was unnecessary"
-G7_12,"In last 12 months, has someone in your workplace done something like: Proposed to have sex with him/her"
-G7_13,"In last 12 months, has someone in your workplace done something like: Forced to have sex with him/her"
-G7_14,"In last 12 months, has someone in your workplace done something like: Refused to give you responsibility or work-related tasks because you are a man/woman"
-G7_15,"In last 12 months, has someone in your workplace done something like: Given you additional tasks, which are not related to your work, because you are a man/woman  (i.e moving furniture, making coffee)"
-G7_16,"In last 12 months, has someone in your workplace done something like: Ignored your suggestions or opinions because you are a man/woman"
-G8,Was this situation(s) unpleasant for you?
-G8.1,Did you feel during or after the incident that it was somehow your fault?
-G8.2,Please think of the most unpleasant situation listed in question G6 which has happened to you during last 12 months. How many times has this situation occurred in the last 12 months? 
-G8.3,Have you talked about this situation to anyone?
-G8.3.1_1,"To whom did you tell about this situation? Friend, acquaintance"
-G8.3.1_2,To whom did you tell about this situation? Colleague
-G8.3.1_3,To whom did you tell about this situation? Family member
-G8.3.1_4,To whom did you tell about this situation? Police
-G8.3.1_5,To whom did you tell about this situation? My manager
-G8.3.1_6,To whom did you tell about this situation? Psychologist
-G8.3.1_7,To whom did you tell about this situation? Priest
-G8.3.1_8,To whom did you tell about this situation? Someone else
-G8.3.2_1,Why didn’t you tell anyone about this situation? I was ashamed
-G8.3.2_2,Why didn’t you tell anyone about this situation? Because I’m afraid of losing my job
-G8.3.2_3,Why didn’t you tell anyone about this situation? I did not want to
-G8.3.2_4,Why didn’t you tell anyone about this situation? I think I have to take care of it myself
-G8.3.2_5,Why didn’t you tell anyone about this situation? Other
-G8.4_1,Who behaved like that with you? Male manager or a colleague on a higher position
-G8.4_2,Who behaved like that with you? Female manager or a colleague on a higher position 
-G8.4_3,Who behaved like that with you? Male colleague who works in same position 
-G8.4_4,Who behaved like that with you? Female colleague who works in same position 
-G8.4_5,Who behaved like that with you? Male colleague on a lower position 
-G8.4_6,Who behaved like that with you? Female colleague on a lower position 
-G8.4_7,"Who behaved like that with you? Male client, patient, student, or other "
-G8.4_8,"Who behaved like that with you? Female client, patient, student, or other "
-G8.4_9,Who behaved like that with you? Male corporate (cooperation) partner who is not from your company or institution 
-G8.4_10,Who behaved like that with you? Female corporate (cooperation) partner who is not from your company or institution 
-G8.4_11,Who behaved like that with you? Other
-H1,Gender
-H2,Age
-H3,Place of residence
-H4_1,How many years (full-time equivalent) of formal education have you had?
-H4_2,I have no formal education
-H4.1,What is the highest level of education you have attained?
-H5,What is your current legal marital status?
-H6,Ethic group
-H7,Religion
-H8,What is the average range of your salary (net)?
-H9,What is the average range of your spouse's salary (net)?
-H10_1,"Including yourself, how many people – including children – usually live in your household? Adults of 18 years and older "
-H10_2,"Including yourself, how many people – including children – usually live in your household? Children between 7-17 years of age "
-H10_3,"Including yourself, how many people – including children – usually live in your household? Children up to the age of 6"
-H10_4,"Including yourself, how many people – including children – usually live in your household? In total"
-I1_1,Do you agree with the following statements? It is hard for me to combine family duties with work
-I1_2,Do you agree with the following statements? It is hard for me to combine taking care of children with work
-I1_3,Do you agree with the following statements? My family members support me in my career development
-I2_1,To what extent do you agree with the following statements? Men are better political leaders compared to women
-I2_2,To what extent do you agree with the following statements? Men are better suited than women for politics
-I2_3,To what extent do you agree with the following statements? A woman politician is weaker and it’s harder for her to take serious responsibility
-I2_4,To what extent do you agree with the following statements? It will be hard for a woman to cope with the workload that is required by involvement in politics
-I2_5,"To what extent do you agree with the following statements? A woman politician is softer, when compared to a man, and that’s why she might be more compliant and less principled"
-I2_6,To what extent do you agree with the following statements? Politics is dirty business and that’s why it’s not suitable for a woman
-I2_7,To what extent do you agree with the following statements? It will be hard for a woman to be successful in politics because family duties will distract her
-I2_8,To what extent do you agree with the following statements? It will be hard for a woman to be successful in business because family duties will distract her
-Envelope,Envelope was either open or closed
-reg_weit,Weighted Region of sampling
-gender_wei,Weighted Gender
-age_wei,Weighted  Age
-weight,Weight
-filter_$,N<>VAR00003 (FILTER)
-PrimaryLast,Indicator of each last matching case as Primary
+N,Number of questionnaire,კითხვარის ნომერი
+Interv_code,Code of invterviewers,კითხვარის კოდი შეტანისას
+Reg,Region of sampling,შერჩევის რეგიონი:
+start_time,Interview start time,ინტერვიუს დაწყების დრო:
+fin_time,Interview end time,დასრულების დრო:
+date,Date of the interview,ინტერვიუს ჩატარების თარიღი:
+A1,What do you do for living? ,დასაქმების სტატუსი
+A2,Do you have more than one employer?,გყავთ თუ არა ერთზე მეტი დამსაქმებელი?
+A3,Do you have a valid contract with your employer(s)?,"გაქვთ თუ არა გაფორმებული შრომითი ხელშეკრულება თქვენს
+დამსაქმებელთან/დამსაქმებლებთან?"
+A3.1_1,How long is your current contract? months,თქვენი ამჟამინდელი შრომითი ხელშეკრულების ხანგრძლივობაა? თვე
+A3.1_2,How long is your current contract? years,თქვენი ამჟამინდელი შრომითი ხელშეკრულების ხანგრძლივობაა? წელი
+A3.1_dro_weli,How long is your current contract? years,თქვენი ამჟამინდელი შრომითი ხელშეკრულების ხანგრძლივობაა? წელი
+A3.1_3,How long is your current contract? permanent contract,თქვენი ამჟამინდელი შრომითი ხელშეკრულების ხანგრძლივობაა? მუდმივი ხელშეკრულება
+A3.2,Do you feel the contract guarantees you work (at least until the due-date)?,"როგორ ფიქრობთ, არის თუ არა დადებული შრომითი ხელშეკრულება თქვენი
+დასაქმებულობის გარანტი?"
+A3.3,Does your employment contract include a provision establishing the confidentiality of the amount of salary you earn?,"არის თუ არა თქვენს შრომით ხელშეკრულებაში დებულება, რომლის მიხედვითაც თქვენი
+ანაზღაურების ოდენობა კონფიდენციალურია?"
+A4,Do you work full time or part time (among your main employer)?,საშუალოდ რამდენ საათს მუშაობთ კვირაში?
+A4.1,Do you work full time or part time (among your main employer)?,სრულ განაკვეთზე მუშაობთ თუ ნახევარზე (თქვენს ძირითად სამსახურში)?
+A4.2,Would you like to work full-time?,ისურვებდით თუ არა სრულ განაკვეთზე მუშაობას?
+A5,Do you go to work in the same city/town/village where you live?,"მუშაობთ თუ არა იმავე ქალაქში/სოფელში, სადაც ცხოვრობთ?"
+A5.1,Where do you work?,თქვენი სამსახური მდებარეობს
+A6,Do you work for a public or a private employer?,რომელ სექტორში მუშაობთ?
+A7_zveli,What is the field of your work? (Original Question),თქვენი საქმიანობის სფეროა
+A8_zveli,What do you do at your work? (Original Question),რას საქმიანობთ?
+A7,What is the field of your work?,თქვენი საქმიანობის სფეროა
+A8,Occupation,რას საქმიანობთ?
+A9,"Among your colleagues, are there mostly women or men?",თქვენს თანამშრომლებს შორის უმრავლესობა ქალია თუ კაცი?
+A10,Would you like to have more women or men?,ისურვებდით თუ არა უფრო მეტი ქალი ან კაცი თანამშრომლის ყოლას?
+A11,"In your work do you cooperate/collaborate (for example with co-partners, clients, patients, students, etc) more with men or women?","თქვენი სამუშაოს შესრულება უფრო მეტად ქალებთან თანამშრომლობას
+ითვალისწინებს/მოითხოვს თუ კაცებთან?"
+A12,What is the gender of your direct manager?,თქვენი უშუალო ხელმძღვანელი/მენეჯერი?
+A13,"Are you, or have you ever been, a member of a trade union or similar organization? If yes: is that currently or previously?","ამჟამად ხართ თუ არა, ან როდესმე ყოფილხართ თუ არა პროფკავშირის წევრი?"
+B1,Have you ever participated in a job interview?,ზოგადად ყოფილხართ თუ არა გასაუბრებაზე პოტენციურ დამსაქმებელთან?
+B1.1,How many times have you been in a job interview?,რამდენჯერ ყოფილხართ გასაუბრებაზე პოტენციურ დამსაქმებელთან?
+B1.2_1,In a job interview have you been asked questions concerning: Your marital status,"გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: თქვენი ოჯახური მდგომარეობა"
+B1.2_2,In a job interview have you been asked questions concerning: Your plans to get married,"გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: თქვენი გეგმები დაოჯახებასთან დაკავშირებით"
+B1.2_3,In a job interview have you been asked questions concerning: The number of children,"გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: შვილების რაოდენობა"
+B1.2_4,In a job interview have you been asked questions concerning: Your plans to have children,"გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: თქვენი ოჯახური მდგომარეობა"
+B1.2_5,In a job interview have you been asked questions concerning: Doctoral proof that you are not pregnant,"გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: თქვენი გეგმები შვილების ყოლასთან დაკავშირებით"
+B1.2_6,"In a job interview have you been asked questions concerning: Something else not related to your skills, education,
+
+experience","გასაუბრებაზე დაუსვამთ თუ არა თქვენთვის კითხვები ისეთი თემების შესახებ, როგორიცაა: რაიმე სხვა, რაც არ არის დაკავშირებული თქვენს განათლებასთან, პროფესიულ უნარებთან და გამოცდილებასთან"
+B2,How did you get hired for the job you are working currently?,"როგორ დასაქმდით იმ სამსახურში, სადაც ამჟამად მუშაობთ?"
+B3,Have you ever been turned down for a job you applied for?,როდესმე მიგიღიათ თუ არა უარი სამსახურში აყვანაზე?
+B3.1,Did you get any feedback why you did not get the job you applied for?,"მიგიღიათ თუ არა ახსნა-განმარტება, თუ რატომ არ აგიყვანეს სამსახურში?"
+B3.2_1,Please specify what was the formal reason? Too high expectations for salary,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემს მიერ მოთხოვნილი ანაზღაურება"
+B3.2_2,Please specify what was the formal reason? For being pregnant,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ორსულობა"
+B3.2_3,Please specify what was the formal reason? Due to my gender,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი სქესი"
+B3.2_4,Please specify what was the formal reason? Due to my age,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი ასაკი"
+B3.2_5,Please specify what was the formal reason? Due to my care responsibilities,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? სხვაზე (შვილები, ოჯახის წევრები) ზრუნვის პასუხისმგებლობა"
+B3.2_6,Please specify what was the formal reason? Due to my plans to have children,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ბავშვის გაჩენის განზრახვა"
+B3.2_7,Please specify what was the formal reason? Due to the lack of experience,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? შესაბამისი სამუშაო გამოცდილების არ ქონა/სიმწირე"
+B3.2_8,Please specify what was the formal reason? Due to the lack of my skills,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? შესაბამისი პროფესიული უნარების არ ქონა/სიმწირე"
+B3.2_9,Please specify what was the formal reason? Due to my education (for example the level of education was too low/high or the vocation/subject where education received wasn't right),"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი განათლება (მაგ., ვაკანსიისთვის შეუსაბამო განათლების ტიპი; განათლების ზედმეტად მაღალი/არასაკმარისი დონე)"
+B3.2_10,Please specify what was the formal reason? Due to my difference of opinions,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი განსხვავებული ხედვა/მოსაზრება"
+B3.2_11,Please specify what was the formal reason? Due to my sexual orientation,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი სექსუალური ორიენტაცია"
+B3.2_12,Please specify what was the formal reason? Due to my marital status,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი ოჯახური მდგომარეობა"
+B3.2_13,Please specify what was the formal reason? Due to my appearance,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი გარეგნობა"
+B3.2_14,Please specify what was the formal reason? Other,"გთხოვთ, მიუთითოთ, რა იყო ოფიციალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? სხვა:"
+B3.3_1,What do you think was the reason for not getting the job you applied for? I don't know,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? არ ვიცი"
+B3.3_2,What do you think was the reason for not getting the job you applied for? Too high expectations for salary,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემს მიერ მოთხოვნილი ანაზღაურება"
+B3.3_3,What do you think was the reason for not getting the job you applied for? Due to the lack of experience,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? შესაბამისი სამუშაო გამოცდილების არ ქონა/სიმწირე"
+B3.3_4,What do you think was the reason for not getting the job you applied for? Due to the lack of my skills,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? შესაბამისი პროფესიული უნარების არ ქონა/სიმწირე"
+B3.3_5,What do you think was the reason for not getting the job you applied for? Due to my education (for example the level of education was too low/too high or the vocation/subject where education received wasn’t right),"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი განათლება (მაგ., ვაკანსიისთვის შეუსაბამო განათლების ტიპი; განათლების ზედმეტად მაღალი/არადამაკმაყოფილებელი დონე)"
+B3.3_6,What do you think was the reason for not getting the job you applied for? Due to my difference of opinions,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი განსხვავებული ხედვა/მოსაზრება"
+B3.3_7,What do you think was the reason for not getting the job you applied for? For being pregnant,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ორსულობა"
+B3.3_8,What do you think was the reason for not getting the job you applied for? Due to my gender,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი სქესი"
+B3.3_9,What do you think was the reason for not getting the job you applied for? Due to my age,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი ასაკი"
+B3.3_10,What do you think was the reason for not getting the job you applied for? Due to my care responsibilities,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? სხვაზე (შვილები, ოჯახის წევრები) ზრუნვის პასუხისმგებლობა"
+B3.3_11,What do you think was the reason for not getting the job you applied for? Due to my sexual orientation,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ჩემი სექსუალური ორიენტაცია"
+B3.3_12,What do you think was the reason for not getting the job you applied for? Due to my marital status,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ოჯახური მდგომარეობა"
+B3.3_13,What do you think was the reason for not getting the job you applied for? Due to my plans to have children,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? ბავშვის გაჩენის განზრახვა"
+B3.3_14,What do you think was the reason for not getting the job you applied for? Other,"თქვენი აზრით, რა იყო რეალური მიზეზი, რის გამოც არ აგიყვანეს სამსახურში? სხვა:"
+B4,"When looking for a job, have you experienced a job advertisement you were interested in, had some criteria not related to potential workers’ skills, education, experience, etc.","გთხოვთ, გაიხსენოთ, გინახავთ თუ არა თქვენთვის საინტერესო სამსახურის თაობაზე
+განცხადებაში კანდიდატების შერჩევის ისეთი კრიტერიუმები, რომლებიც არ უკავშირდებოდა პოტენციური დასაქმებულის პროფესიულ უნარებს, გამოცდილებას, 
+განათლებას და ა. შ."
+B4.1_1,"Please specify, what were the criterias? Only women can apply","გთხოვთ, აღნიშნოთ, სამსახურში აყვანის რომელი კრიტერიუმი იყო მითითებული. მხოლოდ ქალები შეუძლიათ კონკურსში/შერჩევაში მონაწილეობა"
+B4.1_2,"Please specify, what were the criterias? Only men can apply","გთხოვთ, აღნიშნოთ, სამსახურში აყვანის რომელი კრიტერიუმი იყო მითითებული. მხოლოდ კაცებს შეუძლიათ კონკურსში/შერჩევაში მონაწილეობა"
+B4.1_3,"Please specify, what were the criterias? Only people in certain age can apply","გთხოვთ, აღნიშნოთ, სამსახურში აყვანის რომელი კრიტერიუმი იყო მითითებული. მხოლოდ გარკვეული ასაკის ადამიანებს შეუძლიათ კონკურსში/შერჩევაში მონაწილეობის მიღება"
+B4.1_4,"Please specify, what were the criterias? Other","გთხოვთ, აღნიშნოთ, სამსახურში აყვანის რომელი კრიტერიუმი იყო მითითებული. სხვა:"
+B5_1,What channels have you used the most for finding a job? Internet recruitment sites,"სამსახურის მოსაძებნად, მეტწილად, რა საშუალებას მიმართავთ? ინტერნეტში განთავსებულ განცხადებებს"
+B5_2,What channels have you used the most for finding a job? Friends/family/acquaintances,"სამსახურის მოსაძებნად, მეტწილად, რა საშუალებას მიმართავთ? მეგობრებს/ნაცნობებს/ნათესავებს"
+B5_3,What channels have you used the most for finding a job? Newspaper message board,"სამსახურის მოსაძებნად, მეტწილად, რა საშუალებას მიმართავთ? საგაზეთო განცხადებებს"
+B5_4,What channels have you used the most for finding a job? Recruitment companies,"სამსახურის მოსაძებნად, მეტწილად, რა საშუალებას მიმართავთ? დასაქმების სააგენტოებს"
+B5_5,What channels have you used the most for finding a job? Other,"სამსახურის მოსაძებნად, მეტწილად, რა საშუალებას მიმართავთ? სხვა:"
+B6_1,"For the job where you are working currently, what channels did you use for finding the job? I was promoted in my company/organization","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? ჩემმა კომპანიამ/ორგანიზაციამ დამაწინაურა"
+B6_2,"For the job where you are working currently, what channels did you use for finding the job? Internet recruitment sites","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? ინტერნეტში გამოქვეყნებული განცხადებების საშუალებით"
+B6_3,"For the job where you are working currently, what channels did you use for finding the job? Friends/family/acquaintances","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? მეგობრების/ნაცნობების/ნათესავების დახმარებით"
+B6_4,"For the job where you are working currently, what channels did you use for finding the job? Newspaper message board","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? საგაზეთო განცხადებების კითხვით"
+B6_5,"For the job where you are working currently, what channels did you use for finding the job? Recruitment companies","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? დასაქმების სააგენტოების დახმარებით"
+B6_6,"For the job where you are working currently, what channels did you use for finding the job? Other","საიდან შეიტყვეთ იმ პოზიციაზე არსებული ვაკანსიის შესახებ, რომელზეც ამჟამად მუშაობთ? სხვა:"
+C1,"In your current work, have you been promoted career wise?","პროფესიულად დაწინაურებულხართ თუ არა სამსახურში, რომელშიც ამჟამად მუშაობთ?"
+C1.1,How were you promoted?,როგორ მოხდა თქვენი პროფესიული დაწინაურება?
+C1.2,Have you had opportunities to run for/apply for a higher/other position offered by your employer during last 2 years?,გქონიათ თუ არა სამსახურში პროფესიული დაწინაურების შესაძლებლობა (უფრო მაღალ ან სხვა პოზიციაზე)?
+C1.3,Did you apply for the higher/other position available?,გამოთქვით თუ არა პროფესიული დაწინაურების სურვილი?
+C1.3.1_1,"If you did not get the applied for job, what do you think was the reason? My skills","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? არასაკმარისი პროფესიული უნარები"
+C1.3.1_2,"If you did not get the applied for job, what do you think was the reason? My gender","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? ჩემი სქესი (მაგ. დაინტერსებულ კანდიდატს უთხრეს, რომ აღნიშნული სამუშაო
+არ არის განკუთვნილი ქალებისთვის/კაცებისთვის)"
+C1.3.1_3,"If you did not get the applied for job, what do you think was the reason? The employer had a personal preference","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? დამსაქმებელის პირადი სიმპათიები"
+C1.3.1_4,"If you did not get the applied for job, what do you think was the reason? There was a better candidate","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? უკეთესი კანდიდატები"
+C1.3.1_5,"If you did not get the applied for job, what do you think was the reason? My age","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? ჩემი ასაკი"
+C1.3.1_6,"If you did not get the applied for job, what do you think was the reason? My marital status","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? ოჯახური მდგომარეობა"
+C1.3.1_7,"If you did not get the applied for job, what do you think was the reason? Sexual orientation","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? სექსუალური ორიენტაცია"
+C1.3.1_8,"If you did not get the applied for job, what do you think was the reason? Educational level","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? განათლების დონე"
+C1.3.1_9,"If you did not get the applied for job, what do you think was the reason? Lack of experience","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? სამუშაო გამოცდილების სიმწირე"
+C1.3.1_10,"If you did not get the applied for job, what do you think was the reason? I don't know","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? არ ვიცი"
+C1.3.1_11,"If you did not get the applied for job, what do you think was the reason? Other","თუ არ დაგაწინაურეს, როგორ ფიქრობთ, რა იყოს უარის თქმის მიზეზი? სხვა:"
+C1.3.2_1,Why didn’t you apply? I felt I would not meet the expectations for the job,"რატომ არ გამოთქვით პროფესიული დაწინაურების სურვილი? ვიფიქრე, რომ სამუშაო მოთხოვნებს ვერ დავაკმაყოფილებდი (მაგ. არასაკმარისი პროფესიული უნარები, გამოცდილება, განათლება)"
+C1.3.2_2,Why didn’t you apply? Due to my care responsibilities,"რატომ არ გამოთქვით პროფესიული დაწინაურების სურვილი? სხვაზე (ბავშვზე, ოჯახის წევრზე) ზრუნვის პასუხისმგებლობის გამო"
+C1.3.2_3,Why didn’t you apply? I was not interested in that position,რატომ არ გამოთქვით პროფესიული დაწინაურების სურვილი? არ ვიყავი დაინტერესებული შემოთავაზებით
+C1.3.2_4,Why didn’t you apply? Too much responsibility in the job,რატომ არ გამოთქვით პროფესიული დაწინაურების სურვილი? მომატებული პასუხისმგებლობის გამო
+C1.3.2_5,Why didn’t you apply? Other,"რატომ არ გამოთქვით პროფესიული დაწინაურების სურვილი? სხვა, გთხოვთ, დააკონკრეტოთ:"
+C2,Do you feel that your employer has provided you enough work tasks which would help you to prove yourself to the employer and help to get promoted career-wise?,"როგორ ფიქრობთ, თქვენი დამსაქმებელი გაძლევდათ ისეთ დავალებებს, რომლის
+შესრულებაც თქვენს შესაძლებლობებს კარგად გამოავლენდა და დაგეხმარებოდათ 
+პროფესიულ დაწინაურებაში?"
+C3,"In your current work, have you been promoted pay wise?","გაგზრდიათ თუ არა ანაზღაურება სამსახურში, რომელშიც ამჟამად მუშაობთ?"
+C3.1,"If yes, whose initiative it was?","თუ კი, ვისი ინიციატივით?"
+C3.2,Have you asked for promotion?,მოგითხოვიათ თუ არა ხელფასის მომატება?
+C4,Have you had opportunities provided by your current employer to participate in training?,მოუცია თუ არა თქვენს ამჟამინდელ დამსაქმებელს ტრეინინგზე დასწრების შესაძლებლობა?
+C4.1,Have you gone to the training(s)?,დაესწარით ტრენინგ(ებ)ს?
+C4.1.1,Why didn’t you go to the training?,რატომ არ დაესწარით ტრეინინგს?
+C4.2,Would you have liked to participate in a training?,ისურვებდით ტრენინგზე დასწრებას?
+D1,Have you ever been fired?,როდესმე თუ გაუთავისუფლებიხართ სამსახურიდან?
+D1.1,Have you been fired during last 2 years?,გაუთავისუფლებიხართ თუ არა სამსახურიდან ბოლო 2 წლის განმავლობაში?
+D1.2,Did you get any warnings that you might get fired?,"გაგაფრთხილეს თუ არა წინასწარ, რომ, შესაძლოა, სამსახურიდან გაეთავისუფლებინეთ"
+D1.3,Did you get any feedback why you were fired?,"გითხრეს თუ არა, რატომ გაგათავისუფლეს სამსახურიდან"
+D1.3.1_1,Please specify the reason behind firing you (based on the employer’s feedback): Bankruptcy of the company,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? კომპანიის გაკოტრება"
+D1.3.1_2,Please specify the reason behind firing you (based on the employer’s feedback): My age,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ჩემი ასაკი"
+D1.3.1_3,Please specify the reason behind firing you (based on the employer’s feedback): My gender,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ჩემი სქესი (მაგალითად, დამსაქმებელი თვლიდა, რომ ვერ შევძლებდი მისი ზოგიერთი დავალების შესრულებას, რადგან არასაკმარისად ძლიერი ვარ, არვფლობ კონკრეტულ უნარებს, როგორც ქალი/მამაკაცი)"
+D1.3.1_4,Please specify the reason behind firing you (based on the employer’s feedback): My ethnic origin,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ჩემი ეროვნება/ეთნიკური წარმომავლობა"
+D1.3.1_5,Please specify the reason behind firing you (based on the employer’s feedback): Disagreements with the employer,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? დამსაქმებელთან უთანხმოება"
+D1.3.1_6,Please specify the reason behind firing you (based on the employer’s feedback): I didn’t fulfill the expectations of the employer,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ვერ გავამართლე დამსაქმებლის მოლოდინები"
+D1.3.1_7,Please specify the reason behind firing you (based on the employer’s feedback): I got pregnant,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? დავორსულდი"
+D1.3.1_8,Please specify the reason behind firing you (based on the employer’s feedback): Having children,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ბავშვები მყავს"
+D1.3.1_9,Please specify the reason behind firing you (based on the employer’s feedback): Marital status,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ოჯახური მდგომარეობა"
+D1.3.1_10,Please specify the reason behind firing you (based on the employer’s feedback): My position was made redundant /eliminated,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? შტატების შემცირებაში მოვყევი"
+D1.3.1_11,Please specify the reason behind firing you (based on the employer’s feedback): My appearance,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? ჩემი გარეგნობა"
+D1.3.1_12,Please specify the reason behind firing you (based on the employer’s feedback): Other,"გთხოვთ, დააკონკრეტოთ, რატომ გაგათავისუფლეს სამსახურიდან (დამსაქმებლის ნათქვამიდან გამომდინარე) (შეგიძლიათ რამდენიმე პასუხის შემოხაზვა)? სხვა:"
+D1.3.2,Do you believe that it was the actual reason?,"გჯერათ, რომ ეს რეალური მიზეზი იყო?"
+D1.3.3_1,"In your opinion, what do you think was the reason behind firing you? Bankruptcy of the company","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? კომპანიის გაკოტრება"
+D1.3.3_2,"In your opinion, what do you think was the reason behind firing you? My age","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ჩემი ასაკი"
+D1.3.3_3,"In your opinion, what do you think was the reason behind firing you? My gender","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ჩემი სქესი (მაგალითად, დამსაქმებელი თვლიდა, რომ ვერ შევძლებდი მისიზოგიერთი დავალების შესრულებას, რადგან არასაკმარისად ძლიერი ვარ, არ ვფლობ კონკრეტულ უნარებს, როგორც ქალი/მამაკაცი)"
+D1.3.3_4,"In your opinion, what do you think was the reason behind firing you? My ethnic origin","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ჩემი ეროვნება/ეთნიკური წარმომავლობა"
+D1.3.3_5,"In your opinion, what do you think was the reason behind firing you? Disagreements with the employer","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? დამსაქმებელთან უთანხმოება"
+D1.3.3_6,"In your opinion, what do you think was the reason behind firing you? I didn’t fulfill the expectations of the employer","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ვერ გავამართლე დამსაქმებლის მოლოდინები"
+D1.3.3_7,"In your opinion, what do you think was the reason behind firing you? I got pregnant","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? დავორსულდი"
+D1.3.3_8,"In your opinion, what do you think was the reason behind firing you? Having children","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ბავშვები მყავს"
+D1.3.3_9,"In your opinion, what do you think was the reason behind firing you? Marital status","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ოჯახური მდგომარეობა"
+D1.3.3_10,"In your opinion, what do you think was the reason behind firing you? My position was made redundant /eliminated","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? შტატების შემცირებაში მოვყევი"
+D1.3.3_11,"In your opinion, what do you think was the reason behind firing you? My appearance","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? ჩემი გარეგნობა"
+D1.3.3_12,"In your opinion, what do you think was the reason behind firing you? Other","როგორ ფიქრობთ, რა იყო თქვენი სამსახურიდან გათავისუფლების რეალური მიზეზი (შესაძლებელია რამდენიმე პასუხის შემოხაზვა)? სხვა:"
+D1.4,"If you felt that your firing was unreasonable, did you contact/appeal to anyone or any institution?","თუ თვლიდით, რომ თქვენი სამსახურიდან გათავისუფლება უსაფუძვლო იყო, შეატყობინეთ თუ არა ამის შესახებ ვინმეს/რომელიმე ორგანიზაციას ან თუ გაასაჩივრეთ?"
+D2,Have you had a colleague fired from a job because of giving birth to baby during last 5 years?,თქვენი რომელიმე კოლეგა გაათავისუფლეს თუ არა სამსახურიდან ორსულობის ან ბავშვის გაჩენის გამო უკანასკნელი ხუთი წლის განმავლობაში.
+E1,"Do you have any additional compensation, benefits provided by your employer?","გაძლევთ თუ არა რაიმე დამატებით კომპენსაციას ან სარგებელს თქვენი დამსაქმებელი (მაგალითად, მობილურ ტელეფონს, მანქანას და ა.შ.)?"
+E1.1_1,What are the compensations/benefits? Mobile phone provided by the employer,რა სახის კომპენსაციას/სარგებელს იღებთ? დამსაქმებლის მიერ მოცემული მობილური ტელეფონი
+E1.1_2,What are the compensations/benefits? Usage of mobile phone,რა სახის კომპენსაციას/სარგებელს იღებთ? მობილური ტელეფონის გამოყენების ხარჯები (დამსაქმებელი ყოველთვიურად ანაზღაურებს გარკვეულ თანხას)
+E1.1_3,What are the compensations/benefits? Possibility to use company’s car,რა სახის კომპენსაციას/სარგებელს იღებთ? კომპანიის მანქანის გამოყენების შესაძლებლობა
+E1.1_4,What are the compensations/benefits? Compensation of using personal car,რა სახის კომპენსაციას/სარგებელს იღებთ? საკუთარი მანქანის გამოყენების კომპენსირება
+E1.1_5,What are the compensations/benefits? Free transportation to work,რა სახის კომპენსაციას/სარგებელს იღებთ? უფასო ტრანსპორტი სამსახურამდე
+E1.1_6,What are the compensations/benefits? Lunch or other course of food provided by the employer,რა სახის კომპენსაციას/სარგებელს იღებთ? უფასო კვება
+E1.1_7,What are the compensations/benefits? Health insurance,რა სახის კომპენსაციას/სარგებელს იღებთ? ჯანმრთელობის დაზღვევა
+E1.1_8,What are the compensations/benefits? Trainings,რა სახის კომპენსაციას/სარგებელს იღებთ? ტრენინგი
+E1.1_9,What are the compensations/benefits? Going abroad / business trips to foreign countries,რა სახის კომპენსაციას/სარგებელს იღებთ? საზღვარგარეთ გაშვება/საქმიანი ვიზიტები უცხოეთში
+E1.1_10,What are the compensations/benefits? Premia,რა სახის კომპენსაციას/სარგებელს იღებთ? პრემია
+E1.1_11,What are the compensations/benefits? Bonus,რა სახის კომპენსაციას/სარგებელს იღებთ? ბონუსი
+E1.1_12,What are the compensations/benefits? Other,"რა სახის კომპენსაციას/სარგებელს იღებთ? სხვა, გთხოვთ, დააკონკრეტოთ:"
+E2_1,How many times have you got any PREMIA during last year?,რამდენჯერ მიიღეთ რაიმე სახის პრემია/ბონუსი ბოლო წლის განმავლობაში? პრემია
+E2_2,How many times have you got any BONUSES during last year?,რამდენჯერ მიიღეთ რაიმე სახის პრემია/ბონუსი ბოლო წლის განმავლობაში? ბონუსი
+E3_1,"If you think about your company/organization where you are working, do you agree ordisagree with the following assertions:The amount of my salary is fair","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: სწორედ იმდენს ვიღებ ხელფასს, რამდენიც სამართლიანად მეკუთვნის"
+E3_2,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:The way my employer promotes employees is fair","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: დასაქმებულების დაწინაურება სამართლიანად ხდება"
+E3_3,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:Men and women have equal opportunities for promotion","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: ქალებსა და მამაკაცებს დაწინაურების თანაბარი შანსები აქვთ"
+E3_4,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:Men and women, who do the same work (who are employed in the same position) get paid equally","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: მამაკაცები და ქალები თუ ერთსა და იმავე საქმეს აკეთებენ (ერთი და იგივე თანამდებობაზე მუშაობენ), ანაზღაურებასაც ერთნაირად იღებენ"
+E3_5,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:Men and women have equal opportunities for wage increase","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: მამაკაცებსა და ქალებს ხელფასების მატების ერთნაირი შანსები აქვთ"
+E3_6,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:Men and women have equal opportunities for compensations/ benefits","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: მამაკაცებს და ქალებს კომპენსაციების/ სარგებლის მიღების ერთნაირი შანსები აქვთ"
+E3_7,"If you think about your company/organization where you are working, do you agree or disagree with the following assertions:Men and women have equal opportunities for bonuses","თქვენს სამსახურზე თუ იფიქრებთ, ეთანხმებით თუ არ ეთანხმებით ქვემოთ მოცემულ დებულებებს: მამაკაცებსა და ქალებს ბონუსების მიღების ერთნაირი შანსები აქვთ"
+F1_1,"If you have had to be absent from your work due to your child’s or close family member’s illness, how has it been taken in your workplace? Manager(s)","ბავშვის ან ოჯახის წევრის ავადმყოფობის გამო რომ მოგიწიოთ სამსახურის გაცდენა, რა დამოკიდებულება ექნებათ? უფროს(ებ)ს"
+F1_2,"If you have had to be absent from your work due to your child’s or close family member’s illness, how has it been taken in your workplace? Colleagues","ბავშვის ან ოჯახის წევრის ავადმყოფობის გამო რომ მოგიწიოთ სამსახურის გაცდენა, რა დამოკიდებულება ექნებათ? კოლეგებს"
+F2_1,Do you feel that your current employer has ever treated you unrightfully in the following matters? Division of work-related tasks,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? სამუშაოსთან დაკავშირებული საკითხების განაწილებისას"
+F2_2,Do you feel that your current employer has ever treated you unrightfully in the following matters? Salary wise,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? ხელფასის თვალსაზრისით"
+F2_3,Do you feel that your current employer has ever treated you unrightfully in the following matters? In providing facilities and equipment for work,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? სამუშაოს შესასრულებლად საჭირო აღჭურვილობითა თუ საშუალებებით უზრუნველყოფის თვალსაზრისით"
+F2_4,Do you feel that your current employer has ever treated you unrightfully in the following matters? When planning vacation,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? შვებულების დაგეგმვისას"
+F2_5,Do you feel that your current employer has ever treated you unrightfully in the following matters? In compiling work schedule (in case of working in shifts),"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? სამუშაო განრიგის შედგენისას (ცვლაში მუშაობის შემთხვევაში)"
+F2_6,Do you feel that your current employer has ever treated you unrightfully in the following matters? Providing trainings,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? ტრენინგებზე თანამშრომლების გაშვებისას"
+F2_7,Do you feel that your current employer has ever treated you unrightfully in the following matters? In recruitment process,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? დაწინაურების თვალსაზრისით"
+F2_8,Do you feel that your current employer has ever treated you unrightfully in the following matters? Working hours,"გაქვთ თუ არა განცდა, რომ თქვენი ამჟამინდელი დამსაქმებელი ოდესმე უსამართლოდ მოგექცათ? სამუშაო საათების თვალსაზრისით"
+F3,Have you been asked to work overtime?,გიწევთ თუ არა დამატებით საათებში მუშაობა?
+F3.1,Have those tasks been compensated?,გინაზღაურებენ თუ არა ამ საათებში შესრულებულ სამუშაოს?
+F4,"If you have wanted to be or you have been on parental leave, how your employer has taken it?","თუ გსურდათ გასულიყავით ან იყავით დეკრეტულ შვებულებაში, როგორ მიიღო ეს
+თქვენმა დამსაქმებელმა (შეგიძლია წარსულიდან ნებისმიერი დამსაქმებლის შესახებ 
+უპასუხოთ, თუ ამჟამინდელ სამსახურში ყოფნისას ბავშვები არ გაგიჩენიათ)?"
+G1_1,"Please assess what do you think about such situations:In job interview the employer asks from
+woman questions about private life","რას ფიქრობთ იმ სიტუაციების შესახებ, რომლებიც ქვემოთ არის წარმოდგენილი. გასაუბრებაზე პოტენციური დამსაქმებელი ქალს პირადი ცხოვრების (ოჯახური მდგომარეობის, შვილების რაოდენობის) შესახებ უსვამს კითხვებს."
+G1_2,"Please assess what do you think about such situations:The employer will fire an employee after
+hearing about her pregnancy","რას ფიქრობთ იმ სიტუაციების შესახებ, რომლებიც ქვემოთ არის წარმოდგენილი. დამსაქმებელი მას შემდეგ ათავისუფლებს სამსახურიდან დასაქმებულს, რაც გაიგებს, რომ ის ორსულად არის."
+G1_3,Please assess what do you think about such situations:Employees  who are in the same position get paid differently,"რას ფიქრობთ იმ სიტუაციების შესახებ, რომლებიც ქვემოთ არის წარმოდგენილი. თანამშრომლები, რომლებიც ერთ სამსახურში და ერთნაირ თანამდებობაზე მუშაობენ (და ერთნაირ/მსგავს სამუშაოს ასრულებენ) სხვადასხვა ხელფასი აქვთ."
+G1_4,"Please assess what do you think about such situations:The employer decides not to send the female employee for a week to a training abroad, because the woman has little child (although the woman would want to go)","რას ფიქრობთ იმ სიტუაციების შესახებ, რომლებიც ქვემოთ არის წარმოდგენილი. დამსაქმებელი გადაწყვეტს, რომ მხოლოდ იმიტომ არ გაუშვას ქალი თანამშრომელი ერთკვირიან ტრენინგზე საზღვარგარეთ, რომ მას პატარა ბავშვი ჰყავს (თუმცა ქალს სურს წასვლა)."
+G1_5,"Please assess what do you think about such situations:An employer doesn’t want to hire an educated female mechanic, assuming that she doesn’t have technical skills","რას ფიქრობთ იმ სიტუაციების შესახებ, რომლებიც ქვემოთ არის წარმოდგენილი. დამსაქმებელს არ სურს განათლებული ქალი მექანიკოსის სამსახურში აყვანა, რადგან დარწმუნებულია, რომ მას არ ექნება ტექნიკური უნარები."
+G2,Have you ever been harassed in your workplace?,გქონიათ თუ არა სექსუალური შევიწროვების გამოცდილება სამსახურში?
+G3,Have you been harassed in your workplace in the last 12 months?,გქონიათ თუ არა სექსუალური შევიწროვების გამოცდილება სამსახურში ბოლო 12 თვის განმავლობაში?
+G4_1,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your appearance or body,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? თქვენი გარეგნობის ან სხეულის შესახებ იტყვის რაიმეს"
+G4_2,"Would you consider it unpleasant if someone in your workplace would behave like this: Tells you, or in the presence of you, suggestive jokes of a sexual nature","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? გამომწვევი სექსუალური ხასიათის მქონე ანეგდოტს მოგიყვებათ/ მოყვება თქვენი თანდასწრებით"
+G4_3,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your private life or marital status,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? თქვენი პირადი ცხოვრების ან ოჯახური მდგომარეობის შესახებ იტყვის რაიმეს"
+G4_4,Would you consider it unpleasant if someone in your workplace would behave like this: Refers to you or calls you with a nickname of a sexual nature,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? სექსუალური ხასიათის ზედმეტსახელით მოგმართავთ ან მოგიხსენიებთ"
+G4_5,Would you consider it unpleasant if someone in your workplace would behave like this: Comments on your sexual life,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? თქვენი სექსუალური ცხოვრების შესახებ იტყვის რაიმეს"
+G4_6,Would you consider it unpleasant if someone in your workplace would behave like this: Suggests you to spend your spare time with him/her although you have refused previously,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? მიუხედავად იმისა, რომ ადრე უკვე ნათქვამი გაქვთ უარი, თავისუფალი დროის ერთად გატარებას შემოგთავაზებთ"
+G4_7,Would you consider it unpleasant if someone in your workplace would behave like this: Uses obscene gestures or sounds when talking to you,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? უხამს ჟესტებს ან ხმებს იყენებს თქვენთან საუბრისას"
+G4_8,Would you consider it unpleasant if someone in your workplace would behave like this: Sends you mail or text messages of sexual nature,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? სექსუალური ხასიათის წერილებს ან მოკლე ტექსტურ შეტყობინებებს გიგზავნით"
+G4_9,"Would you consider it unpleasant if someone in your workplace would behave like this: Sends you personal mail or text messages (unrelated to your work), which makes you feel uncomfortable","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? პირადი ხასიათის წერილებს ან მოკლე ტექსტურ შეტყობინებებს (რომლებიც არ უკავშირდება სამსახურს) გიგზავნით, რომლებიც თავს უხერხულად გაგრძნობინებთ"
+G4_10,"Would you consider it unpleasant if someone in your workplace would behave like this: Touches intimate parts of your body (i.e your bottom, breasts, etc)","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? სხეულის ინტიმურ ადგილებზე გეხებათ (მაგალითად, მკერდზე, საჯდომზე)"
+G4_11,"Would you consider it unpleasant if someone in your workplace would behave like this: Touches other body parts on purpose (i.e hand, shoulder, back) in a situation where touching is unnecessary","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? მიზანმიმართულად გეხებათ სხეულის სხვა ნაწილებზე (მაგალითად, მხარზე, ხელზე, ზურგზე) ისეთ სიტუაციებში, როდესაც შეხება საერთოდ არ არის საჭირო"
+G4_12,Would you consider it unpleasant if someone in your workplace would behave like this: Proposes to have sex with him/her,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? მასთან სექსს გთავაზობთ"
+G4_13,Would you consider it unpleasant if someone in your workplace would behave like this: Forces to have sex with him/her,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? გაიძულებთ, რომ მასთან სექსი გქონდეთ"
+G4_14,Would you consider it unpleasant if someone in your workplace would behave like this: Refuses to give you responsibility or work-related tasks because you are a man/woman,"უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? უარს გეუბნებათ საპასუხისმგებლო საქმეების მოცემაზე იმის გამო, რომ მამაკაცი/ქალი ხართ"
+G4_15,"Would you consider it unpleasant if someone in your workplace would behave like this: Gives you additional tasks, which are not related to your work, because you are a man/woman (i.e moving furniture, making coffee)","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? დამატებით საქმეს გავალებთ, რომელსაც არაფერი აქვს საერთო თქვენს სამუშაოსთან და ეს იმიტომ, რომ მამაკაცი/ქალი ხართ (მაგალითად, ავეჯის გადალაგება ოფისში, ყავის მოდუღება)"
+G4_16,"Would you consider it unpleasant if someone in your workplace would behave like this: Leaves your suggestions or opinions uncountable, because you are a man/woman","უსიამოვნების განცდა დაგეუფლებათ თუ არა, თუ ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში ისე მოიქცევა, როგორც ქვემოთ არის აღწერილი? უყურადღებოდ ტოვებს თქვენს შეთავაზებებს ან მოსაზრებებს, რადგან მამაკაცი/ქალი ხართ"
+G5_1,"If you would have to deal with such behavior (listed in previous question), what would you do? I don't know","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? არ ვიცი"
+G5_2,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably try to deal with the situation myself","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? ალბათ, შევეცდებოდი, რომ თავად გავმკლავებოდი სიტუაციას"
+G5_3,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell my manager","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? ალბათ ჩემს ხელმძღვანელს/მენეჯერს/უფროსს ვეტყოდი"
+G5_4,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell the police","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? ალბათ, პოლიციას შევატყობინებდი"
+G5_5,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably tell to my colleagues","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? ალბათ, კოლეგებს მოვუყვებოდი"
+G5_6,"If you would have to deal with such behavior (listed in previous question), what would you do? I would probably not do anything","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? ალბათ, არაფერს გავაკეთებდი"
+G5_7,"If you would have to deal with such behavior (listed in previous question), what would you do? I would tell the trade union representatives","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? პროფკავშირების წარმომადგენელს ჩავაყენებდი საქმის კურსში"
+G5_8,"If you would have to deal with such behavior (listed in previous question), what would you do? I would quit the job","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? წამოვიდოდი სამსახურიდან"
+G5_9,"If you would have to deal with such behavior (listed in previous question), what would you do? Something else","მსგავს სიტუაციაში (წინა კითხვაში აღწერილ) რომ აღმოჩნდეთ, რას მოიმოქმედებდით? რაიმე სხვას მოვიმოქმედებდი. გთხოვთ, დააკონკრეტოთ:"
+G6,"Does your organization/company have any internal procedure rules, which prohibit such behavior (listed before) and which you could refer to in case such situation(s) would happen to you?","აქვს თუ არა თქვენს ორგანიზაციას/კომპანიას რაიმე სახის შინაგანაწესი, რომელიც კრძალავს ასეთ (ზემოთ ჩამოთვლილ) ქცევებს და შეგიძლიათ გამოიყენოთ, თუ მსგავს სიტუაციაში აღმოჩნდებით?"
+G7_1,"In last 12 months, has someone in your workplace done something like: Commented on your appearance or body","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? თქვენი გარეგნობის ან სხეულის შესახებ თქვა რაიმე"
+G7_2,"In last 12 months, has someone in your workplace done something like: Told you, or in the presence of you, suggestive jokes of a sexual nature","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? გამომწვევი სექსუალური ხასიათის მქონე ანეგდოტი მოგიყვათ ან მოყვა თქვენი თანდასწრებით"
+G7_3,"In last 12 months, has someone in your workplace done something like: Commented on your private life or marital status","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? თქვენი პირადი ცხოვრების ან ოჯახური მდგომარეობის შესახებ თქვა რაიმე"
+G7_4,"In last 12 months, has someone in your workplace done something like: Referred to you or called you with a nickname of a sexual nature","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? სექსუალური ხასიათის ზედმეტსახელით მოგმართათ ან მოგიხსენიათ"
+G7_5,"In last 12 months, has someone in your workplace done something like: Commented on your sexual life","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? თქვენი სექსუალური ცხოვრების შესახებ თქვა რაიმე"
+G7_6,"In last 12 months, has someone in your workplace done something like: Suggest you spend your spare time with him/her although you have refused previously (or asked you to come on a date)","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? მიუხედავად იმისა, რომ ადრე უკვე ნათქვამი გქონდათ უარი, თავისუფალი დროის ერთად გატარებას შემოგთავაზათ"
+G7_7,"In last 12 months, has someone in your workplace done something like: Used obscene gestures or sounds when talking to you","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? თქვენთან საუბრისას უხამსი ჟესტები ან ხმები გამოიყენა"
+G7_8,"In last 12 months, has someone in your workplace done something like: Sent you mail or text messages of sexual nature","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? სექსუალური ხასიათის წერილები ან მოკლე ტექსტური შეტყობინებები გამოგიგზავნათ"
+G7_9,"In last 12 months, has someone in your workplace done something like: Sent you personal mail or text messages (unrelated to your work), which made you feel uncomfortable","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? პირადი ხასიათის წერილები ან მოკლე ტექსტური შეტყობინებები (რომლებიც არ უკავშირდება სამსახურს) გამოგიგზავნათ, რომლებმაც თავი უხერხულად გაგრძნობინათ"
+G7_10,"In last 12 months, has someone in your workplace done something like: Touched intimate parts of your body (i.e your bottom, breasts, etc)","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? სხეულის ინტიმურ ადგილებში შეგეხოთ (მაგალითად, მკერდზე, სასქესო ორგანოებზე, საჯდომზე)"
+G7_11,"In last 12 months, has someone in your workplace done something like: Touched other body parts on purpose (i.e hand, shoulder, back) in a situation where touching was unnecessary","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? მიზანმიმართულად შეგეხოთ სხეულის სხვა ნაწილებზე (მაგალითად, მხარზე, ხელზე, ზურგზე) ისეთ სიტუაციებში, როდესაც შეხება საერთოდ არ არის საჭირო"
+G7_12,"In last 12 months, has someone in your workplace done something like: Proposed to have sex with him/her","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? მასთან სექსი შემოგთავაზათ"
+G7_13,"In last 12 months, has someone in your workplace done something like: Forced to have sex with him/her","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? გაიძულათ, რომ მასთან სექსი გქონოდათ"
+G7_14,"In last 12 months, has someone in your workplace done something like: Refused to give you responsibility or work-related tasks because you are a man/woman","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? უარიგითხრათ საპასუხისმგებლო საქმეების მოცემაზე იმის გამო, რომ მამაკაცი/ქალი ხართ"
+G7_15,"In last 12 months, has someone in your workplace done something like: Given you additional tasks, which are not related to your work, because you are a man/woman (i.e moving furniture, making coffee)","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? დამატებითი საქმე დაგავალათ, რომელსაც არაფერი ჰქონდა საერთო თქვენს სამუშაოსთან და ეს იმიტომ, რომ მამაკაცი/ქალი ხართ (მაგალითად, ავეჯის გადალაგება ოფისში, ყავის მოდუღება)"
+G7_16,"In last 12 months, has someone in your workplace done something like: Left your suggestions or opinions uncountable, because you are a man/woman","ბოლო 12 თვის განმავლობაში ვინმე (კოლეგა, მენეჯერი, კლიენტი ან ვინმე სხვა, ვისთანაც გიწევთ ურთიერთობა მუშაობის დროს) თქვენთან სამსახურში მოქცეულა თუ არა ისე, როგორც ქვემოთ არის აღწერილი? უყურადღებოდ დატოვა თქვენი შეთავაზებები ან მოსაზრებები, რადგან მამაკაცი/ქალი ხართ"
+G8,Was this situation(s) unpleasant for you?,იყო თუ არა ეს სიტუაცია/სიტუაციები თქვენთვის უსიამოვნო?
+G8.1,Did you feel during or after the incident that it was somehow your fault?,"გქონდათ თუ არა განცდა იმ სიტუაციაში ან მას შემდეგ, რომ ეს რაღაცნაირად თქვენი ბრალი იყო?"
+G8.2,Please think of the most unpleasant situation listed in question G6 which has happened to you during last 12 months. How many times has this situation occurred in the last 12 months?,"გთხოვთ, გაიხსენოთ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუცია, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში. რამდენჯერ აღმოჩნდით ასეთ სიტუაციაში ბოლო 12 თვის განმავლობაში?"
+G8.3,Have you talked about this situation to anyone?,ესაუბრეთ თუ არა ვინმეს ამ სიტუაციის შესახებ?
+G8.3.1_1,"To whom you told about this situation? Friend, acquaintance","ვის ესაუბრეთ ამ სიტუაციის შესახებ? მეგობარს, ნაცნობს"
+G8.3.1_2,To whom you told about this situation? Colleague,ვის ესაუბრეთ ამ სიტუაციის შესახებ? კოლეგას
+G8.3.1_3,To whom you told about this situation? Family member,ვის ესაუბრეთ ამ სიტუაციის შესახებ? ოჯახის წევრს
+G8.3.1_4,To whom you told about this situation? Police,ვის ესაუბრეთ ამ სიტუაციის შესახებ? პოლიციას
+G8.3.1_5,To whom you told about this situation? My manager,ვის ესაუბრეთ ამ სიტუაციის შესახებ? ჩემს უფროსს
+G8.3.1_6,To whom you told about this situation? Psychologist,ვის ესაუბრეთ ამ სიტუაციის შესახებ? ფსიქოლოგს
+G8.3.1_7,To whom you told about this situation? My priest,ვის ესაუბრეთ ამ სიტუაციის შესახებ? მოძღვარს
+G8.3.1_8,To whom you told about this situation? Someone else,"ვის ესაუბრეთ ამ სიტუაციის შესახებ? სხვას. გთხოვთ, დააკონკრეტოთ:"
+G8.3.2_1,Why didn’t you tell anyone about this situation? I was ashamed,რატომ არავის ესაუბრეთ ამ სიტუაციის შესახებ? მომერიდა იმ ადამიანის
+G8.3.2_2,Why didn’t you tell anyone about this situation? Because I’m afraid of losing my job,რატომ არავის ესაუბრეთ ამ სიტუაციის შესახებ? სამსახურის დაკარგვის შემეშინდა
+G8.3.2_3,Why didn’t you tell anyone about this situation? I did not want to,"რატომ არავის ესაუბრეთ ამ სიტუაციის შესახებ? არ მინდოდა, ვინმეს (თანამშრომლების, მეზობლების, ოჯახის წევრების, ნათესავების) სალაპარაკო გავმხდარიყავი"
+G8.3.2_4,Why didn’t you tell anyone about this situation? I think I have to take care of it myself,"რატომ არავის ესაუბრეთ ამ სიტუაციის შესახებ? ვფიქრობ, საკუთარ თავს თავადვე უნდა მივხედო"
+G8.3.2_5,Why didn’t you tell anyone about this situation? Other,რატომ არავის ესაუბრეთ ამ სიტუაციის შესახებ? სხვა:
+G8.4_1,Who behaved like that with you? Male manager or a colleague on a higher position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? მამაკაცი უფროსი/მენეჯერი ან თანამშრომელი, რომელსაც ჩემზე მაღალი თანამდებობა უკავია"
+G8.4_2,Who behaved like that with you? Female manager or a colleague on a higher position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? ქალი უფროსი/მენეჯერი ან თანამშრომელი, რომელსაც ჩემზე მაღალი თანამდებობა უკავია"
+G8.4_3,Who behaved like that with you? Male colleague who works in same position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? თანამშრომელი მამაკაცი, რომელსაც ჩემი მსგავსი თანამდებობა უკავია"
+G8.4_4,Who behaved like that with you? Female colleague who works in same position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? თანამშრომელი ქალი, რომელსაც ჩემი მსგავსი თანამდებობა უკავია"
+G8.4_5,Who behaved like that with you? Male colleague on a lower position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? თანამშრომელი მამაკაცი, რომელსაც ჩემზე დაბალი თანამდებობა უკავია"
+G8.4_6,Who behaved like that with you? Female colleague on a lower position,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? თანამშრომელი ქალი, რომელსაც ჩემზე დაბალი თანამდებობა უკავია"
+G8.4_7,"Who behaved like that with you? Male client, patient, student, or other","თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? მამაკაცი კლიენტი, პაციენტი, სტუდენტი ან სხვა"
+G8.4_8,"Who behaved like that with you? Female client, patient, student, or other","თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? ქალი კლიენტი, პაციენტი, სტუდენტი ან სხვა"
+G8.4_9,Who behaved like that with you? Male corporate (cooperation) partner who is not from your company or institution,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? მამაკაცი კოლეგა-პარტნიორი, რომელიც არ მუშაობს ჩემს ორგანიზაციაში/კომპანიაში/დაწესებულებაში/ინსტიტუტში"
+G8.4_10,Who behaved like that with you? Female corporate (cooperation) partner who is not from your company or institution,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? ქალი კოლეგა-პარტნიორი, რომელიც არ მუშაობს ჩემს ორგანიზაციაში/კომპანიაში/დაწესებულებაში/ინსტიტუტში"
+G8.4_11,Who behaved like that with you? Other,"თუ G6 კითხვაში ჩამოთვლილი სიტუაციებიდან თქვენთვის ყველაზე უსიამოვნო სიტუციაზე ვისაუბრებთ, რომელშიც აღმოჩენილხართ ბოლო 12 თვის განმავლობაში, ვინ მოგექცათ ასე? ვიღაც სხვა. გთხოვთ, დააკონკრეტეთ:"
+H1,Gender,სქესი
+H2,Age,ასაკი
+H3,Place of residence,საცხოვრებელი ადგილი
+H4_1,How many years (full-time equivalent) have you been in formal education?,"სკოლიდან დაწყებული, დღემდე მიღებული განათლების ყველა საფეხურის ჩათვლით
+(დაწყებითი და საშუალო სკოლა, უნივერსიტეტი, სრული პროფესიული განათლება), 
+სულ რამდენი წელი ისწავლეთ სასწავლო დაწესებულებაში? თუ ამჟამად განათლებას 
+იღებთ, დათვალეთ დღემდე დაგროვილი წლების რაოდენობა. წელი"
+H4_2,I have no formal education,არ მიმიღია განათლება
+H4.1,What is the highest level of education that you have attained?,თქვენი განათლების უმაღლესი საფეხურია
+H5,What is your current legal marital status?,ოჯახური მდგომარეობა
+H6,Ethic group,ეთნიკური მიკუთვნებულობა
+H7,Religion,რელიგიურობა
+H8,What is the average range of your salary (net)?,"გთხოვთ, მიუთითეთ თქვენი პირადი ხელზე ასაღები თვიური ხელფასი"
+H9,What is the average range of your spouse's salary (net)?,"გთხოვთ, მიუთითეთ თქვენი მეუღლის/პარტნიორის საშუალო ხელზე ასაღები ხელფასი"
+H10_1,"Including yourself, how many people – including children – usually live in your household? Adults of 18 years and older","თქვენი და ბავშვების ჩათვლით, ჩვეულებრივ, რამდენი ადამიანი ცხოვრობს თქვენს ოჯახში? 18 წლისა და უფროსი ასაკის მოზრდილები"
+H10_2,"Including yourself, how many people – including children – usually live in your household? Children between 7-17 years of age","თქვენი და ბავშვების ჩათვლით, ჩვეულებრივ, რამდენი ადამიანი ცხოვრობს თქვენს ოჯახში? 7-17 წლის ბავშვები"
+H10_3,"Including yourself, how many people – including children – usually live in your household? Children up to the age of 6","თქვენი და ბავშვების ჩათვლით, ჩვეულებრივ, რამდენი ადამიანი ცხოვრობს თქვენს ოჯახში? 6 წლამდე ასაკის ბავშვები"
+H10_4,"Including yourself, how many people – including children – usually live in your household? In total","თქვენი და ბავშვების ჩათვლით, ჩვეულებრივ, რამდენი ადამიანი ცხოვრობს თქვენს ოჯახში? ჯამში"
+I1_1,Do you agree with the following statements? It is hard for me to combine family duties with work,ეთანხმებით თუ არა ქვემოთ მოცემულ დებულებებს? მიჭირს საოჯახო საქმეების შეთავსება სამსახურთან
+I1_2,Do you agree with the following statements? It is hard for me to combine taking care of children with work,ეთანხმებით თუ არა ქვემოთ მოცემულ დებულებებს? მიჭირს ბავშვების მოვლისა და აღზრდის შეთავსება სამსახურთან
+I1_3,Do you agree with the following statements? My family members support me in my career development,ეთანხმებით თუ არა ქვემოთ მოცემულ დებულებებს? ჩემი ოჯახის წევრები ხელს მიწყობენ კარიერულ წინსვლაში
+I2_1,To what extent do you agree with the following statements? Men are better political leaders compared to women,რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? კაცები ქალებთან შედარებით უკეთესი პოლიტიკური ლიდერები არიან
+I2_2,To what extent do you agree with the following statements? Men are better suited than women for politics,"რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? კაცს უფრო შეეფერება პოლიტიკური საქმიანობა, ვიდრე ქალს"
+I2_3,To what extent do you agree with the following statements? A woman politician is weaker and it’s harder for her to take serious responsibility,რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? პოლიტიკოსი ქალი უფრო სუსტია და უჭირს დიდი პასუხისმგებლობის აღება საკუთარ თავზე
+I2_4,To what extent do you agree with the following statements? It will be hard for a woman to cope with the workload that is required by involvement in politics,"რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? ქალს გაუჭირდება გაუძლოს იმ დატვირთვას, რასაც პოლიტიკური საქმიანობა მოითხოვს"
+I2_5,"To what extent do you agree with the following statements? A woman politician is softer, when compared to a man, and that’s why she might be more compliant and less principled","რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? პოლიტიკოსი ქალი უფრო რბილია კაცთან შედარებით, ამიტომ შეიძლება უფრო დამთმობი და ნაკლებად პრინციპული იყოს"
+I2_6,To what extent do you agree with the following statements? Politics is dirty business and that’s why it’s not suitable for a woman,რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? პოლიტიკა ბინძური საქმეა და ამიტომ ქალს არ შეეფერება
+I2_7,To what extent do you agree with the following statements? It will be hard for a woman to be successful in politics because family duties will distract her,"რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? ქალს გაუჭირდება წარმატებული იყოს პოლიტიკაში, რადგან მას საოჯახო საქმეები შეუშლის ხელს"
+I2_8,To what extent do you agree with the following statements? It will be hard for a woman to be successful in business because family duties will distract her,"რამდენად ეთანხმებით ქვემოთ მოცემულ დებულებებს? ქალს გაუჭირდება წარმატებული იყოს ბიზნესში, რადგან მას საოჯახო საქმეები შეუშლის ხელს"
+Envelope,Envelope was either open or closed,
+reg_weit,Weighted Region of sampling,
+gender_wei,Weighted Gender,
+age_wei,Weighted Age,
+weight,Weight,
+filter_$,N<>VAR00003 (FILTER),
+PrimaryLast,Indicator of each last matching case as Primary,
