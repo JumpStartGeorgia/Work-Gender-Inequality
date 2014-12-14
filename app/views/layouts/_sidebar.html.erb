@@ -1,13 +1,23 @@
 <div id="sidebar">
-  <h2 id="sidebar-header">
-    <span><%= t('.header_get_involved1') %></span>
-    <%= t('.header_get_involved2') %>
-  </h2>
-
   <div id="sidebar-stories">
     <h3>
       <%= t('.header_stories') %>
+
+      <div id="sidebar-story-tell" class="pull-right">
+        <%= link_to new_story_path do %>
+          <span><%= t('.img_link_row1') %></span>
+          <%= t('.img_link_row2') %>
+        <% end %>
+      </div>
     </h3>
+    <div id="sidebar-story-explanation">
+      <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
+        <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
+      <% else %>
+        Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+      <% end %>
+    </div>
+
     <% if @latest_stories.present? %>
       <ul class="list-unstyled">
         <% @latest_stories.each do |story| %>
@@ -23,42 +33,43 @@
         <% end %>
       </ul>
     <% end %>
-    <div id="sidebar-story-links" class="row">
-      <div class="col-sm-6">
-        <%= link_to t('.tell_story'), new_story_path %>
-      </div>
-      <div class="col-sm-6">
-        <% if @latest_stories.present? %>
-          <%= link_to t('.view_stories'), stories_path %>
-        <% end %>
-      </div>
+    <div id="sidebar-story-links">
+      <% if @latest_stories.present? %>
+        <%= link_to t('.view_stories'), stories_path %>
+      <% end %>
     </div>
   </div>
 
   <div id="sidebar-game">
     <h3>
       <%= t('.header_game') %>  
+      <span id="sidebar-game-link" class="pull-right">
+        <%= link_to new_story_path do %>
+          <span><%= t('.play') %></span>
+          <%= t('.game') %>
+        <% end %>
+      </span>
     </h3>
     <div id="sidebar-game-explanation">
       Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
-    </div>
-    <div id="sidebar-game-link">
-      <%= link_to t('.play'), gap_path %>
     </div>
   </div>
 
   <div id="sidebar-explore">
     <h3>
       <%= t('.header_explore') %>
+      <span id="sidebar-explore-link" class="pull-right">
+        <%= link_to explore_data_path do %>
+          <span><%= t('.explore') %></span>
+          <%= t('.data') %>
+        <% end %>
+      </span>
     </h3>
     <p>
       <%= t('root.explore_data.instructions.p1') %>
     </p>
     <div id="sidebar-explore-image">
       <%= image_tag 'chart.png' %>
-    </div>
-    <div id="sidebar-explore-link">
-      <%= link_to t('.explore'), explore_data_path %>
     </div>
   </div>
 

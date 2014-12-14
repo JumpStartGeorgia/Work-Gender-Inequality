@@ -67,6 +67,8 @@ class ApplicationController < ActionController::Base
     # get the list of laws for navigation
     @laws_nav = Law.basic_info
 
+    @discrimination_explanation = Page.find_by_name('discrimination')
+
     # show the sidebar by default if not in admin section
     @show_sidebar = false
     if !(params[:controller].starts_with?('admin') || params[:controller].starts_with?('devise') || 
