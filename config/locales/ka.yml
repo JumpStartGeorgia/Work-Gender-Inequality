@@ -211,6 +211,13 @@ ka:
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
+      logos:
+        usaid: USAID Georgia
+        a42: Article 42 of the Constitution
+        gtuc: Georgian Trade Union Confederation
+        css: Center for Social Sciences
+        nmap: New Media Advocacy Project
+        js: JumpStart Georgia
     unsupported_browser:
       title: არასათანადო ბრაუზერი
       p1: სამწუხაროდ თქვენი ინტერნეტ ბრაუზერის მოხმარების ვადა გასულია და ვერ მოხდება ვებ-გვერდთან სრულად დაკავშირება.

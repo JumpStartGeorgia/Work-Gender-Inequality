@@ -211,6 +211,13 @@ en:
   layouts:
     application:
       toggle: Toggle navigation
+      logos:
+        usaid: USAID Georgia
+        a42: Article 42 of the Constitution
+        gtuc: Georgian Trade Union Confederation
+        css: Center for Social Sciences
+        nmap: New Media Advocacy Project
+        js: JumpStart Georgia
     unsupported_browser:
       title: Unsupported Browser
       p1: We are sorry to report that your browser is out of date and will not properly render the content from this website.
