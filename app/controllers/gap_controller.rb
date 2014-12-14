@@ -1,6 +1,7 @@
 class GapController < ApplicationController
   layout false 
   def index  	
+    @about_short = Page.find_by_name('about_short')
     respond_to do |format|
       format.html # index.html.erb
     end

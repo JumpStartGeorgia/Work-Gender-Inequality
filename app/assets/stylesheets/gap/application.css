@@ -190,7 +190,7 @@ body,html
   transform: translate(-50%,-50%);
   top: 50%;
   left: 50%;
-  background-color:#c15d46;
+  background-color:#e2dfd3;
   opacity:0.95;
   padding:20px;
   color:#fff;
@@ -198,6 +198,77 @@ body,html
   -moz-border-radius: 4px;
   border-radius: 4px;
   display:none;
+}
+.wrapper > .about-window .content .title
+{
+  font-family:hallo;
+  font-size:37.5px;
+  color:#77b8c3;
+}
+.wrapper > .about-window .content
+{
+    font-family:gandhi;
+  font-size:20px;
+  color:#545352;
+}
+.wrapper > .about-window .content .text a
+{
+  text-decoration:none;
+  font-family:gandhi-bi;
+  font-size:20px;
+  color:#545352;
+}
+.wrapper > .about-window .content .credits
+{
+  font-size:17.5px;
+  color:#444341;
+}
+.wrapper > .about-window .content .credits span
+{
+  color:#6eb0b7;
+}
+.wrapper > .about-window .content .logobar
+{
+
+}
+.wrapper > .about-window .content .logobar .logo-a42
+{
+  
+}
+.wrapper > .about-window .content .logobar .logo-css
+{
+  background:transparent url("/assets/gap/svg/common/logo_css.svg") no-repeat;
+  background-size:79px 55px;
+  width:79px;
+  height:55px;
+}
+.wrapper > .about-window .content .logobar .logo-usaid
+{
+  background:transparent url("/assets/gap/svg/common/logo_usaid.svg") no-repeat;
+  background-size:400px 55px;
+  width:400px;
+  height:55px;
+}
+.wrapper > .about-window .content .logobar .logo-nmap
+{
+  background:transparent url("/assets/gap/svg/common/logo_nmap.svg") no-repeat;
+  background-size:159px 55px;
+  width:159px;
+  height:55px;
+}
+.wrapper > .about-window .content .logobar .logo-gtuc
+{
+  background:transparent url("/assets/gap/svg/common/logo_gtuc.svg") no-repeat;
+  background-size:51px 55px;
+  width:51px;
+  height:55px;
+}
+.wrapper > .about-window .content .logobar .logo-js
+{
+  background:transparent url("/assets/gap/svg/common/logo_js.svg") no-repeat;
+  background-size:133px 55px;
+  width:133px;
+  height:55px;
 }
 .wrapper > .about-window > .close
 {
@@ -207,7 +278,7 @@ body,html
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
   border-radius: 100%;
-  background-color: #c15d46;
+  background-color: #e2dfd3;
   width: 20px;
   height: 20px;
   text-align: center;
@@ -270,7 +341,7 @@ body,html
 {
   display:inline-block;
   z-index:66;
-  background-color:#c15d46;
+  background-color:#e2dfd3;
   display:inline-block;
   height:100%;
   width:100%;
