@@ -322,8 +322,8 @@ en:
         report_en: Report (English)
         report_ka: Report (Georgian)
         codebook: Codebook (Georgian)
-        anon_quest_en: Questionnaire (English)
-        anon_quest_ka: Questionnaire (Georgian)
+        quest_en: Questionnaire (English)
+        quest_ka: Questionnaire (Georgian)
       tabs:
         map: Map
         chart: Chart
