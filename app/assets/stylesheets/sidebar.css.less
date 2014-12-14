@@ -1,0 +1,180 @@
+@pink-color: #ef4273;
+@text-color: #989898;
+@grey-line: #b2b2b2;
+@blue-background: #77b8c3;
+@grey-background: #f0f0f0;
+
+#sidebar{
+  background-image: url('/assets/gplaypattern.png');
+
+  h3{
+    color: @blue-background;
+    background-color: @grey-background;
+    font-size: 19px;
+    line-height: 20px;
+    font-family: "hallo";   
+    padding: 20px 20px 20px 30px;
+    margin-left: -10px;
+  }
+
+  #sidebar-stories{
+    padding-top: 10px;
+    h3{
+      margin-top: 0;
+      #sidebar-story-tell{
+        display: inline-block;
+        margin-top: -20px;
+        margin-right: -20px;
+        a{
+          display: block;
+          color: #fff;
+          background-color: @pink-color;
+          padding: 12px 24px 13px 18px;
+          line-height: 18px;
+          font-family: "hallo";   
+          font-size: 18px;        
+          span{
+            display: block;
+            text-transform: uppercase;
+            font-family: "hallo-b";   
+          }
+        }
+      }
+    }
+    #sidebar-story-explanation{
+      padding: 0 10px;
+      line-height: 15px;
+      color: @text-color;
+      font-family: "gandhi-b";
+    }
+    ul{
+      li{
+        & > div:first-of-type{
+          color: @pink-color;
+          font-size: 12px;
+          text-align: right;
+          font-family: "gandhi-i";
+        }
+        & > div:last-of-type{
+          border-left: solid 1px @pink-color;
+          font-size: 14px;
+          line-height: 15px;
+          a{
+            color: @text-color;
+            font-family: "gandhi-b";
+          }
+        }
+      }
+    }
+    #sidebar-story-links{
+      margin-top: 15px;
+      text-align: right;
+      font-family: "hallo";   
+      color: @blue-background;
+      padding: 0 18px;
+      font-size: 15px;
+      line-height: 15px;
+      a{
+        text-decoration: underline;
+      }
+    }
+  }
+
+  #sidebar-game{
+    margin-top: 25px;
+    padding-top: 10px;
+    background-image: url('/assets/game.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+    position: relative;
+    min-height: 293px;
+
+    h3{
+      margin-top: 0;
+      #sidebar-game-link{
+        display: block;
+        margin-top: -20px;
+        margin-right: -20px;
+        a{
+          color: #fff;
+          background-color: #77b8c3;
+          padding: 20px 24px 21px 18px;
+          font-family: "hallo";
+          font-size: 18px;
+          line-height: 18px;
+          display: block;
+          span{
+            text-transform: uppercase;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    #sidebar-game-explanation{
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      color: #fff;
+      background-color: #c65551;
+      opacity: 0.9;
+      padding: 4px 12px;
+      font-family: "gandhi-b";
+      font-size: 14px;
+    }  
+  }
+
+  #sidebar-explore{
+    h3{
+      margin-top: 0;
+      #sidebar-explore-link{
+        display: block;
+        margin-top: -20px;
+        margin-right: -20px;
+        a{
+          display: block;
+          color: #fff;
+          background-color: #77b8c3;
+          padding: 12px 24px 13px 18px;
+          line-height: 18px;
+          font-family: "hallo";   
+          font-size: 18px;        
+          text-align: left;
+          span{
+            display: block;
+            text-transform: uppercase;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    p{
+      font-size: 14px;
+      padding: 0 10px;
+      line-height: 15px;
+      color: @text-color;
+      font-family: "gandhi-b";
+    }
+    #sidebar-explore-image{
+      text-align: center;
+      img{
+        width: 100%;
+      }
+    }
+    #sidebar-explore-link{
+      text-align: center;
+      margin-top: 15px;
+      a{
+        color: #fff;
+        background-color: @blue-background;
+        padding: 10px 18px;
+        font-family: "hallo";   
+        font-size: 15px;
+        line-height: 15px;
+        display: inline-block;
+      }
+    }        
+  }
+  
+}

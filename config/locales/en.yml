@@ -197,6 +197,7 @@ en:
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
+      home: Home
       get_involved: Get Involved!
       stay_informed: Stay Informed
       explore_data: Explore Survey Data
@@ -210,6 +211,13 @@ en:
   layouts:
     application:
       toggle: Toggle navigation
+      logos:
+        usaid: USAID Georgia
+        a42: Article 42 of the Constitution
+        gtuc: Georgian Trade Union Confederation
+        css: Center for Social Sciences
+        nmap: New Media Advocacy Project
+        js: JumpStart Georgia
     unsupported_browser:
       title: Unsupported Browser
       p1: We are sorry to report that your browser is out of date and will not properly render the content from this website.
@@ -219,6 +227,21 @@ en:
       ie: Internet Explorer (Windows only)
       opera: Opera
       Safari: Safari
+    sidebar:
+      header_get_involved1: Get
+      header_get_involved2: Involved!
+      header_stories: Discrimination Stories
+      header_game: Pay Gap Game
+      header_explore: Survey Data
+      header_video: Videos
+      tell_story: Tell Your Story
+      img_link_row1: Tell
+      img_link_row2: your story
+      view_stories: View All Stories
+      play: Play
+      game: game
+      explore: Explore
+      data: data
   admin:
     index:
       title: Administration Section
@@ -271,7 +294,7 @@ en:
       header_get_involved2: Involved!
       header_stories: Discrimination Stories
       header_game: Pay Gap Game
-      header_explore: Explore Survey Data
+      header_explore: Survey Data
       header_video: Videos
       tell_story: Tell Your Story
       view_stories: View All Stories

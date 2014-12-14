@@ -61,8 +61,26 @@ class ApplicationController < ActionController::Base
     # indicate that whether login should allow local and omniauth or just locale
 	  @enable_omniauth = true
 
+    # limit to get the most recent items
+    @limit = 3
+
     # get the list of laws for navigation
     @laws_nav = Law.basic_info
+
+    @discrimination_explanation = Page.find_by_name('discrimination')
+
+    # show the sidebar by default if not in admin section
+    @show_sidebar = false
+    if !(params[:controller].starts_with?('admin') || params[:controller].starts_with?('devise') || 
+          (params[:controller] == 'root' && (params[:action] == 'index' || params[:action] == 'explore_data')))
+
+      @show_sidebar = true
+
+      # latest stories
+      @latest_stories = Story.sorted.is_approved.public.limit(@limit)
+    end
+
+    logger.debug "//////////// conroller = #{params[:controller]}"
 
     # for loading extra css/js files    
     @css = []

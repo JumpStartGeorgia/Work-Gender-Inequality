@@ -1,5 +1,5 @@
 @pink-color: #ef4273;
-@text-color: #989898;
+@text-color: #6e6d6d;
 @grey-line: #b2b2b2;
 @blue-background: #77b8c3;
 
@@ -99,16 +99,15 @@
           li{
             & > div:first-of-type{
               color: @pink-color;
-              font-style: italic;
+              font-family: "gandhi-i";
               font-size: 12px;
-              font-weight: bold;
               text-align: right;
             }
             & > div:last-of-type{
               border-left: solid 1px @pink-color;
-              font-weight: bold;
               a{
                 color: @text-color;
+                font-family: "gandhi-b";
               }
             }
           }
@@ -123,6 +122,8 @@
               background-color: @pink-color;
               padding: 10px 18px;
               font-size: 18px;
+              line-height: 18px;
+              display: inline-block;
             }
             &:last-of-type a{
               font-family: "hallo";   
@@ -130,6 +131,8 @@
               background-color: @blue-background;
               padding: 10px 18px;
               font-size: 18px;
+              line-height: 18px;
+              display: inline-block;
             }
           }
         }
@@ -147,7 +150,7 @@
           background-color: #c65551;
           opacity: 0.9;
           padding: 4px 12px;
-          font-weight: bold;
+          font-family: "gandhi-b";
         }  
         #game-link{
           position: absolute;
@@ -168,6 +171,13 @@
 
       #explore{
         padding: 20px;
+        p{
+          font-size: 14px;
+          padding: 0 10px;
+          line-height: 15px;
+          color: @text-color;
+          font-family: "gandhi-b";
+        }
         #explore-image{
           text-align: center;
           img{

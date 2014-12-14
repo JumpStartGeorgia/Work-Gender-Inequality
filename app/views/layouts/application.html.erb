@@ -31,6 +31,7 @@
         
   </head>
   <body>
+    <div id="fb-root"></div>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -135,56 +136,90 @@
 						</div>
 					<% end %>
 
+          <% if @show_sidebar %>
 
-					<% if content_for?(:title) %>
-            <div class="page-header">
-              <h1>
-                <%= yield(:title) %>
-                <% if content_for?(:title_right) %>
-                  <span class="pull-right"><%= yield(:title_right) %></span>
+            <div class="row">
+              <div class="col-sm-9">
+                <% if content_for?(:title) %>
+                  <div class="page-header">
+                    <h1>
+                      <%= yield(:title) %>
+                      <% if content_for?(:title_right) %>
+                        <span class="pull-right"><%= yield(:title_right) %></span>
+                      <% end %>
+                    </h1>
+                  </div>
                 <% end %>
-              </h1>
-            </div>
-					<% end %>
 
-          <%= yield %>
+                <%= yield %>
+              </div>
+
+              <div class="col-sm-3">
+                <%= render partial: 'layouts/sidebar' %>
+              </div>
+            </div>
+
+          <% else %>
+
+  					<% if content_for?(:title) %>
+              <div class="page-header">
+                <h1>
+                  <%= yield(:title) %>
+                  <% if content_for?(:title_right) %>
+                    <span class="pull-right"><%= yield(:title_right) %></span>
+                  <% end %>
+                </h1>
+              </div>
+  					<% end %>
+
+            <%= yield %>
+
+          <% end %>
+
         </div><!--/span-->
       </div><!--/row-->
     </div> <!-- /container-fluid -->
 
-    <footer class="clear row">
-      <div class="col-sm-4">
-        <%= image_tag 'logo.png' %>
+    <footer>
+      <div id="footer-gray">
+        <div id="footer-menu">
+          <ul class="list-unstyled list-inline">
+            <li role="menuitem"><%= link_to t('app.menu.home'), root_path %></li>
+            <li role="menuitem"><%= link_to t('app.menu.about'), about_path %></li>
+            <li>
+              <%= t('app.menu.get_involved') %>
+              <ul class="list-unstyled">
+                <li role="menuitem"><%= link_to t('app.menu.stories'), stories_path %></li>
+                <li role="menuitem"><%= link_to t('app.menu.game'), gap_path %></li>
+                <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
+              </ul>
+            </li>
+            <li>
+              <%= t('app.menu.stay_informed') %>
+              <ul class="list-unstyled">
+                <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
+                <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>
+              </ul>
+            </li>
+            <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
+          </ul>
+        </div>
+        <div id="footer-fb">
+          <div class="fb-like-box" data-href="https://www.facebook.com/pages/%E1%83%95%E1%83%98%E1%83%9B%E1%83%A3%E1%83%A8%E1%83%90%E1%83%9D%E1%83%97-%E1%83%97%E1%83%90%E1%83%9C%E1%83%90%E1%83%A1%E1%83%AC%E1%83%9D%E1%83%A0-%E1%83%92%E1%83%90%E1%83%A0%E1%83%94%E1%83%9B%E1%83%9D%E1%83%A8%E1%83%98-We-Want-to-Work-in-an-Equal-Environment/527579087370067" data-width="225px" data-height="100px" data-colorscheme="dark" data-show-faces="false" data-header="true" data-stream="false" data-show-border="true"></div>
+        </div>
       </div>
-      <div class="col-sm-8">
-        <ul class="list-unstyled">
-          <li role="menuitem"><%= link_to t('app.menu.about'), about_path %></li>
-          <li>
-            <%= t('app.menu.get_involved') %>
-            <ul>
-              <li role="menuitem"><%= link_to t('app.menu.stories'), stories_path %></li>
-              <li role="menuitem"><%= link_to t('app.menu.game'), gap_path %></li>
-              <li role="menuitem"><%= link_to t('app.menu.explore_data'), explore_data_path %></li>
-            </ul>
-          </li>
-          <li>
-            <%= t('app.menu.get_involved') %>
-            <ul>
-              <li role="menuitem"><%= link_to t('app.menu.news'), news_path %></li>
-              <li role="menuitem"><%= link_to t('app.menu.publications'), publications_path %></li>
-            </ul>
-          </li>
-          <li role="menuitem"><%= link_to t('app.menu.faq'), faq_path %></li>
-        </ul>
-        <div class="menu-fb">
-          <div>
-            <%= link_to "https://www.facebook.com/pages/%E1%83%95%E1%83%98%E1%83%9B%E1%83%A3%E1%83%A8%E1%83%90%E1%83%9D%E1%83%97-%E1%83%97%E1%83%90%E1%83%9C%E1%83%90%E1%83%A1%E1%83%AC%E1%83%9D%E1%83%A0-%E1%83%92%E1%83%90%E1%83%A0%E1%83%94%E1%83%9B%E1%83%9D%E1%83%A8%E1%83%98-We-Want-to-Work-in-an-Equal-Environment/527579087370067" do %>
-              <%= image_tag "svg/facebook_w.svg", height: 20 %>
-            <% end %>
-          </div>
+      <div id="footer-white">
+        <div>
+          <%= link_to(image_tag('logos/USAID.png', alt: t('.logos.usaid'), title: t('.logos.usaid')), "http://www.usaid.gov/georgia", target: :blank) %>
+          <%= link_to(image_tag('logos/a42.png', alt: t('.logos.a42'), title: t('.logos.a42')), "http://article42.ge/", target: :blank) %>
+          <%= link_to(image_tag('logos/gtuc.png', alt: t('.logos.gtuc'), title: t('.logos.gtuc')), "http://gtuc.ge/", target: :blank) %>
+          <%= link_to(image_tag('logos/css.png', alt: t('.logos.css'), title: t('.logos.css')), "http://css.ge/", target: :blank) %>
+          <%= link_to(image_tag('logos/nmap.png', alt: t('.logos.nmap'), title: t('.logos.nmap')), "http://www.newmediaadvocacy.org/", target: :blank) %>
+          <%= link_to(image_tag('logos/js.png', alt: t('.logos.js'), title: t('.logos.js')), "http://jumpstart.ge/en", target: :blank) %>
         </div>
       </div>
     </footer>
+
 
     <!-- Javascripts
     ================================================== -->
@@ -195,6 +230,15 @@
 			I18n.defaultLocale = "<%= I18n.default_locale %>";
 			I18n.locale = "<%= I18n.locale %>";
 		</script>
+
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1744853692407339&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 		<% if Rails.env.production? %>
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
