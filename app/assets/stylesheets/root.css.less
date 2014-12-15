@@ -1,4 +1,4 @@
-@pink-color: #ef4273;
+  @pink-color: #ef4273;
 @text-color: #6e6d6d;
 @grey-line: #b2b2b2;
 @blue-background: #77b8c3;
@@ -325,3 +325,21 @@
   }
 }
 
+@media (max-width: 768px) {
+  #landing{
+    #into-content{
+      & > div:first-of-type {
+        & > div{
+          position: inherit;
+        }
+      }
+    }
+    #latest{
+      #latest-content{
+        & > div {
+          border-right: none;
+        }
+      }
+    }
+  }
+}

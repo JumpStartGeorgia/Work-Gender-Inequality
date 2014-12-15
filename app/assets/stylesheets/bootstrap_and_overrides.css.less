@@ -226,7 +226,12 @@ nav.navbar-default{
     position: absolute;
     left: 50%;
     top: 22px;
-    margin-left: -155px;
+    margin-left: -160px;
+    background-color: @blue-header-color;
+    border-color: #fff;
+    .icon-bar{
+      background-color: #fff !important;
+    }
   }
 }
 
@@ -269,19 +274,39 @@ nav.navbar-default{
 
 @media (max-width: 970px) {
   nav.navbar-default{
-    .navbar-nav#menu-extra{
-      margin-left: 120px;
-      &:lang(ka){
-        margin-left: 120px;
+    .navbar-collapse{
+      margin-top: 50px;
+      border: none;
+    }
+    .navbar-nav{
+      &#menu-left{
+        position: inherit;
+        /*left: 50%;
+        top: 22px;
+        */margin-left: 0;
+        &:lang(ka){
+          margin-left: 0;
+        }
       }
-      li{
-        float: left;
-        &.menu-fb {
-          margin-right: 0;
+      &#menu-right{
+        position: inherit;
+        /*left: 50%;
+        top: 22px;*/
+        margin-left: 0;
+      }
+      &#menu-extra{
+        margin-left: 120px;
+        &:lang(ka){
+          margin-left: 120px;
+        }
+        li{
+          float: left;
+          &.menu-fb {
+            margin-right: 0;
+          }
         }
       }
     }
-
   }
 }
 

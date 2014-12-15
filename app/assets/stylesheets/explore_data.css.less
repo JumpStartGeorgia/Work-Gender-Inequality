@@ -1,8 +1,15 @@
 @import "twitter/bootstrap/variables.less";
 
+@text-color: #6e6d6d;
+@blue-link-color: #a2ccd4;
+@pink-color: #ef4273;
+@blue-header-color: #77b8c3;
+@grey-background: #f0f0f0;
+
 #explore-data{
   margin-top: 20px;
-
+  color: @text-color;
+  
   #no-matches{
     font-size: 16px;
     text-align: center;
@@ -11,20 +18,55 @@
   }
 
   #panel-instructions{
-    .panel-heading{
+    padding: 0 15px;
+    .panel-default > .panel-heading{
+      background-color: @blue-header-color;
+      border-color: @blue-header-color;
+      color: #fff;
       padding: 0;
       .panel-title{
         font-size: 14px;
         a{
+          font-family: "gandhi-b";   
           display: block;
           padding: 10px 15px;
+          .caret{
+            margin-top: 5px;
+          }
         }
       }
     }
   }
 
-  select{
-    width: 200px;
+  form#form-explore-data{
+    select, textarea, input{
+      border: solid 1px @blue-header-color;
+    }
+    .btn-default.selectpicker{
+      border: solid 1px @blue-header-color;
+      .caret{
+        border-top-color: @blue-header-color;
+      }
+    }
+
+    select{
+      width: 200px;
+    }
+
+    .btn-form{
+      color: #fff;
+      background-color: #9a9a9a;
+      padding: 7px 15px !important;
+      border: none;
+      font-family: "gandhi-b";   
+      font-size: 16px;
+      &#btn-submit{
+        background-color: #92c6ce;
+      }
+      &#btn-reset{
+        background-color: #e95b83;
+      }
+    }
   }
 
   /* allow the text to wrap in the drop downs for long text will make the drop down too wide */
@@ -57,6 +99,23 @@
   label#lbl_exclude_dkra{
     font-weight: normal;
     font-size: 13px;
+  }
+
+
+  .nav-tabs{
+    border-bottom: 1px solid @blue-header-color;
+    li a{
+      font-weight: bold;
+      color: @text-color;
+      &:hover
+      {
+        background-color: #e0efef;
+      }
+    }
+    li.active a{
+      border: 1px solid @blue-header-color;
+      border-bottom-color: transparent;
+    }
   }
 
   .table-nonfluid {
