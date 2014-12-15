@@ -34,19 +34,11 @@
       <span><%= t('.header_get_involved1') %></span>
       <%= t('.header_get_involved2') %>
     </h2>
-    <div id="get-involved-header2" class="row">
-      <div class="col-sm-4">
-        <%= t('.header_stories') %>
-      </div>
-      <div class="col-sm-4">
-        <%= t('.header_game') %>  
-      </div>
-      <div class="col-sm-4">
-        <%= t('.header_explore') %>
-      </div>
-    </div>
     <div id="get-involved-content" class="row">
       <div id="stories" class="col-sm-4">
+        <h3>
+          <%= t('.header_stories') %>
+        </h3>
         <% if @stories.present? %>
           <ul class="list-unstyled">
             <% @stories.each do |story| %>
@@ -75,6 +67,9 @@
 
       </div>
       <div id="game" class="col-sm-4">
+        <h3>
+          <%= t('.header_game') %>  
+        </h3>
         <div id="game-explanation">
           Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
         </div>
@@ -83,6 +78,9 @@
         </div>
       </div>
       <div id="explore" class="col-sm-4">
+        <h3>
+          <%= t('.header_explore') %>
+        </h3>
         <p>
           <%= t('root.explore_data.instructions.p1') %>
         </p>
@@ -101,41 +99,40 @@
   </div>
   <div id="video-content" class="row">
     <div class="col-sm-3">
-    video
+      <iframe width="100%" src="//www.youtube.com/embed/p0FhFHbgPoc?rel=0" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">
+        <%= t('.video_titles.interviews') %>
+      </div>
     </div>
     <div class="col-sm-3">
-    video
+      <iframe width="100%" src="//www.youtube.com/embed/bg4ZCwQ93uc?rel=0" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">
+        <%= t('.video_titles.pregnancy') %>
+      </div>
     </div>
     <div class="col-sm-3">
-    video
+      <iframe width="100%" src="//www.youtube.com/embed/kmPDbTHrCik?rel=0" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">
+        <%= t('.video_titles.wages') %>
+      </div>
     </div>
     <div class="col-sm-3">
-    video
+      <iframe width="100%" src="//www.youtube.com/embed/VsrQhd2nLEU?rel=0" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">
+        <%= t('.video_titles.harassment') %>
+      </div>
     </div>
   </div>
 
 
   <div id="latest">
-    <div id="latest-header" class="row">
-      <div class="col-sm-4">
-        <div>
-          <%= t('.header_news') %>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div>
-          <%= t('.header_publications') %>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div>
-          <%= t('.header_legislation') %>
-        </div>
-      </div>
-    </div>
-
     <div id="latest-content" class="row">
       <div class="col-sm-4">
+        <h3>
+          <div>
+            <%= t('.header_news') %>
+          </div>
+        </h3>
         <% if @news_items.present? %>
           <ul class="list-unstyled latest-list">
             <% @news_items.each do |news| %>
@@ -151,6 +148,11 @@
         <% end %>
       </div>
       <div class="col-sm-4">
+        <h3>
+          <div>
+            <%= t('.header_publications') %>
+          </div>
+        </h3>
         <% if @publications.present? %>
           <ul class="list-unstyled latest-list">
             <% @publications.each do |publication| %>
@@ -166,6 +168,11 @@
         <% end %>
       </div>
       <div id="laws" class="col-sm-4">
+        <h3>
+          <div>
+            <%= t('.header_legislation') %>
+          </div>
+        </h3>
         <% if @laws_nav.present? %>
           <ul class="list-unstyled latest-list">
             <% 
