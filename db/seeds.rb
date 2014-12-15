@@ -127,10 +127,10 @@ p.page_translations.create(:locale => 'ka', :title => "New Media Advocacy (N-Map
 p = Page.create(:id => 9, :name => 'about_js')
 p.page_translations.create(:locale => 'en', :title => 'JumpStart Georgia', :content => 'JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.')
 p.page_translations.create(:locale => 'ka', :title => "ჯამპსტარტ ჯორჯია", :content => 'JumpStart Georgia seeks to translate complex issues into a language a wider audience can understand and use to participate in fact-based discussions and ultimately make more informed decisions. JumpStart advocates for open data in government, businesses, and civil society. In addition, JumpStart builds data-driven tools to inform and engage Georgians about issues of social importance. Finally, JumpStart collaborates with organizations to strengthen their capacities to use data to inform and engage the public.')
-=end
 p = Page.create(:id => 10, :name => 'game')
 p.page_translations.create(:locale => 'en', :title => 'Game Explanation', :content => 'Explore your wage gap! In Georgia, men earn on average 39% more than women. Are you earning or are you losing? Play and find out!')
 p.page_translations.create(:locale => 'ka', :title => "Game Explanation", :content => 'დაადგინეთ თქვენი სახელფასო სხვაობა! საქარველოში მამაკაცების შემოსავალი 38%-ით მეტია ქალებისაზე. გამოიმუშავებთ თუ კარგავთ თანხას? ითამაშეთ და გაიგეთ!')
+=end
 
 =begin
 #####################
@@ -168,7 +168,6 @@ dt.discrimination_type_translations.create(:locale => 'en', :name => 'Harassment
 dt.discrimination_type_translations.create(:locale => 'ka', :name => "Harassment")
 =end
 
-=begin
 #####################
 ## Survey Questions
 #####################
@@ -291,7 +290,6 @@ CSV.foreach("#{Rails.root}/db/spreadsheets/survey_results.csv") do |row|
 
   ActiveRecord::Base.connection.execute(sql)
 end
-=end
 
 =begin
 #####################

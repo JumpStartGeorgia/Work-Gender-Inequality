@@ -8,10 +8,10 @@ Reg,7,Samegrelo / Zemo Svaneti,
 Reg,8,Samtskhe-Javakheti,
 Reg,9,Kvemo Kartli,
 Reg,10,Shida Kartli,
-A1,1,the respondent is employed,რესპონდენტი დასაქმებულია
-A1,2,the respondent is temporarily not working because of temporary illness/parental leave/vacation,რესპონდენტი დროებით არ მუშაობს ავადმყოფობის/დეკრეტული შვებულების/შვებულების გამო
-A1,3,the respondent is self-employed,რესპონდენტი თვითდასაქმებულია
-A1,4,the respondent is unemployed,რესპონდენტი არ არის დასაქმებული
+A1,1,Respondent is employed,რესპონდენტი დასაქმებულია
+A1,2,Respondent is temporarily not working because of temporary illness/parental leave/vacation,რესპონდენტი დროებით არ მუშაობს ავადმყოფობის/დეკრეტული შვებულების/შვებულების გამო
+A1,3,Respondent is self-employed,რესპონდენტი თვითდასაქმებულია
+A1,4,Respondent is unemployed,რესპონდენტი არ არის დასაქმებული
 A2,1,Yes,დიახ
 A2,2,No,არა
 A3,1,Yes,დიახ
@@ -910,52 +910,52 @@ G6,2,No,არა
 G6,3,I don't know,არ ვიცი
 G7_1,1,Yes,დიახ
 G7_1,2,No,არა
-G7_1,9,Refuse to answer,
+G7_1,9,Refuse to answer,უარი პასუხზე
 G7_2,1,Yes,დიახ
 G7_2,2,No,არა
-G7_2,9,Refuse to answer,
+G7_2,9,Refuse to answer,უარი პასუხზე
 G7_3,1,Yes,დიახ
 G7_3,2,No,არა
-G7_3,9,Refuse to answer,
+G7_3,9,Refuse to answer,უარი პასუხზე
 G7_4,1,Yes,დიახ
 G7_4,2,No,არა
-G7_4,9,Refuse to answer,
+G7_4,9,Refuse to answer,უარი პასუხზე
 G7_5,1,Yes,დიახ
 G7_5,2,No,არა
-G7_5,9,Refuse to answer,
+G7_5,9,Refuse to answer,უარი პასუხზე
 G7_6,1,Yes,დიახ
 G7_6,2,No,არა
-G7_6,9,Refuse to answer,
+G7_6,9,Refuse to answer,უარი პასუხზე
 G7_7,1,Yes,დიახ
 G7_7,2,No,არა
-G7_7,9,Refuse to answer,
+G7_7,9,Refuse to answer,უარი პასუხზე
 G7_8,1,Yes,დიახ
 G7_8,2,No,არა
-G7_8,9,Refuse to answer,
+G7_8,9,Refuse to answer,უარი პასუხზე
 G7_9,1,Yes,დიახ
 G7_9,2,No,არა
-G7_9,9,Refuse to answer,
+G7_9,9,Refuse to answer,უარი პასუხზე
 G7_10,1,Yes,დიახ
 G7_10,2,No,არა
-G7_10,9,Refuse to answer,
+G7_10,9,Refuse to answer,უარი პასუხზე
 G7_11,1,Yes,დიახ
 G7_11,2,No,არა
-G7_11,9,Refuse to answer,
+G7_11,9,Refuse to answer,უარი პასუხზე
 G7_12,1,Yes,დიახ
 G7_12,2,No,არა
-G7_12,9,Refuse to answer,
+G7_12,9,Refuse to answer,უარი პასუხზე
 G7_13,1,Yes,დიახ
 G7_13,2,No,არა
-G7_13,9,Refuse to answer,
+G7_13,9,Refuse to answer,უარი პასუხზე
 G7_14,1,Yes,დიახ
 G7_14,2,No,არა
-G7_14,9,Refuse to answer,
+G7_14,9,Refuse to answer,უარი პასუხზე
 G7_15,1,Yes,დიახ
 G7_15,2,No,არა
-G7_15,9,Refuse to answer,
+G7_15,9,Refuse to answer,უარი პასუხზე
 G7_16,1,Yes,დიახ
 G7_16,2,No,არა
-G7_16,9,Refuse to answer,
+G7_16,9,Refuse to answer,უარი პასუხზე
 G8,1,Yes,დიახ
 G8,2,No,არა
 G8.1,1,Yes,დიახ
@@ -1056,8 +1056,8 @@ H3,2,Suburbs or outskirts of Tbilisi,თბილისის შემოგა
 H3,3,Town,ქალაქი ან დაბა
 H3,4,A country village,სოფელი
 H3,5,A farm or home in the countryside,ფერმა ან დასახლება სოფლად
+H4_2,1,Educated,განათლებული
 H4_2,2,No education,არ მიმიღია განათლება
-H4_2,1,Educated,_________ წელი
 H4.1,1,Elementary education,დაწყებითი სკოლა
 H4.1,2,Secondary school level,საშუალო სკოლა
 H4.1,3,Vocational education on the basis of secondary education,პროფესიული განათლება საშუალო განათლების ბაზაზე
