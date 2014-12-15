@@ -427,7 +427,7 @@ en:
       saving: Saving
       edit: Edit Settings
       another_interest: CHOOSE ANOTHER INTEREST
-      continue_anyway: CONTINUE ANYWAY
+      continue_anyway: CONTINUE ANYWAY      
       yes: YES
       no: NO
     gamedata:
@@ -474,6 +474,9 @@ en:
       year_passed: You worked
       you: You
       fb_note: "* Your personal information about <br />salary and savings will not be shared"
+    about:
+      title: About
+      credits: "<span class='title'>GAME CREDITS:</span><br /><span>Concept & Implementation:</span> JUMPSTART GEORGIA<br /><span>Sound designer:</span> BRIAN GILLIKIN<br /><span>Graphics:</span> RUSLAN BERIDZE & MARIAM KOBULADZE<br /><span>Design:</span> MARIAM KOBULADZE<br /><span>Animation & Development:</span> ANTON KAMARYAN<br /><span>Development:</span> JASON ADDIE<br /><span>Data:</span>NATIONAL STATISTICS OFFICE OF GEORGIA<br />"
   imageuploader:
     missing: "An error occurred while processing your image. Please try again."
     invalid_type: "Invalid file type. Only .jpg or .png is allowed."

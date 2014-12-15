@@ -191,98 +191,123 @@ body,html
   top: 50%;
   left: 50%;
   background-color:#e2dfd3;
-  opacity:0.95;
-  padding:20px;
   color:#fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   display:none;
+  max-height:90%;
+  max-width:90%;
+  overflow-y:auto;  
+  overflow-x:hidden;  
 }
-.wrapper > .about-window .content .title
+.wrapper > .about-window .content > .title
 {
   font-family:hallo;
   font-size:37.5px;
   color:#77b8c3;
+  width:100%;
+  text-align:center;
+  margin: 18px 0px 0px;
 }
-.wrapper > .about-window .content
+.wrapper > .about-window .content,
+.epilogue .whatnext .content
 {
-    font-family:gandhi;
+  font-family:gandhi;
   font-size:20px;
   color:#545352;
 }
-.wrapper > .about-window .content .text a
+.wrapper > .about-window .content .text,
+.epilogue .whatnext .content .text
+{
+ padding: 20px 60px;
+}
+.wrapper > .about-window .content .credits,
+.epilogue .whatnext .content .credits
+{
+ padding: 40px 60px;
+   font-size:17.5px;
+  color:#444341;
+}
+.wrapper > .about-window .content .text a,
+.epilogue .whatnext .content .text a
 {
   text-decoration:none;
   font-family:gandhi-bi;
   font-size:20px;
   color:#545352;
 }
-.wrapper > .about-window .content .credits
-{
-  font-size:17.5px;
-  color:#444341;
-}
-.wrapper > .about-window .content .credits span
+.wrapper > .about-window .content .credits span,
+.epilogue .whatnext .content .credits span
 {
   color:#6eb0b7;
-}
-.wrapper > .about-window .content .logobar
-{
-
-}
-.wrapper > .about-window .content .logobar .logo-a42
-{
-  
-}
-.wrapper > .about-window .content .logobar .logo-css
-{
-  background:transparent url("/assets/gap/svg/common/logo_css.svg") no-repeat;
-  background-size:79px 55px;
-  width:79px;
-  height:55px;
-}
-.wrapper > .about-window .content .logobar .logo-usaid
-{
-  background:transparent url("/assets/gap/svg/common/logo_usaid.svg") no-repeat;
-  background-size:400px 55px;
-  width:400px;
-  height:55px;
-}
-.wrapper > .about-window .content .logobar .logo-nmap
-{
-  background:transparent url("/assets/gap/svg/common/logo_nmap.svg") no-repeat;
-  background-size:159px 55px;
-  width:159px;
-  height:55px;
-}
-.wrapper > .about-window .content .logobar .logo-gtuc
-{
-  background:transparent url("/assets/gap/svg/common/logo_gtuc.svg") no-repeat;
-  background-size:51px 55px;
-  width:51px;
-  height:55px;
-}
-.wrapper > .about-window .content .logobar .logo-js
-{
-  background:transparent url("/assets/gap/svg/common/logo_js.svg") no-repeat;
-  background-size:133px 55px;
-  width:133px;
-  height:55px;
+  line-height: 24px;
 }
 .wrapper > .about-window > .close
 {
+  background:transparent url("/assets/gap/svg/common/close.svg") no-repeat;
+  background-size:23px 23px;
+  width:23px;
+  height:23px;
   position: absolute;
-  right: -9px;
-  top: -6px;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  border-radius: 100%;
+  right: 10px;
+  top: 10px;
+  right: 15px;
+  top: 10px;
   background-color: #e2dfd3;
-  width: 20px;
-  height: 20px;
   text-align: center;
   cursor:pointer;
+}
+.wrapper > .about-window > .content .logos table,
+.epilogue .whatnext .content .logos table
+{
+  border-spacing: 0px;
+  width:100%;
+}
+.wrapper > .about-window > .content .logos table img,
+.epilogue .whatnext .content .logos table img
+{
+  vertical-align: middle;
+}
+.wrapper > .about-window > .content .logos table td,
+.epilogue .whatnext .content .logos table td
+{
+  padding: 0px;
+}
+.wrapper > .about-window > .content .logos > table >tbody> tr > td:first-of-type,
+.epilogue .whatnext .content .logos > table > tbody > tr > td:first-of-type
+{
+  width:550px;
+  }
+.wrapper > .about-window > .content .logos table table,
+.epilogue .whatnext .content .logos table table
+{
+  background-color: #fff;
+  height: 87px;
+  margin-left: -1px;
+}
+.wrapper > .about-window > .content .logos table table td,
+.epilogue .whatnext .content .logos table table td
+{
+  padding: 0px 20px;
+}
+
+.wrapper > .about-window > .content .logos table table td:first-of-type,
+.epilogue .whatnext .content .logos table table td:first-of-type
+{
+  padding-left:40px;
+}
+
+.wrapper > .about-window > .content .logos table table td,
+.epilogue .whatnext .content .logos table table td
+{
+  height:55px;
+  background-color:#fff;
+}
+.wrapper > .about-window > .content .logos table table td a.last img,
+.epilogue .whatnext .content .logos table table td a.last img
+{
+  padding-right:80px;
 }
 /* ------------------------------- tiptip tooltip ------------------------------- */
 .tiptip
@@ -319,6 +344,7 @@ body,html
    height:100%;
    background-color:#f1efe7;
    overflow:hidden;
+   display:none;
 }
 .epilogue .slider
 {
@@ -601,7 +627,7 @@ body,html
 {
   font-family:hallo;
   font-size:37.5px;
-  color:#f1efe7;
+  color:#77b8c3;
   position:relative;  
   text-align:center;
   top:16px;
@@ -622,14 +648,6 @@ body,html
 {
   background:transparent url("/assets/gap/svg/common/sum_arrow_down.svg") no-repeat center center;
   top:-17px;
-}
-.epilogue .whatnext .content
-{
-  margin-top: 30px;
-  padding:30px 70px;
-  font-family:hallo;
-  font-size:37.5px;
-  color:#f1efe7;
 }
 /* ------------------------------- epilogue end ------------------------------- */
 
@@ -1494,9 +1512,13 @@ svg.stage-bk { z-index:30; }*/
 {
   overflow:visible !important;
 }
-.human-award > div 
+.human-award > div
 {
-  /*display:inline-block;*/
+  margin-bottom: 5px;
+}
+.human-award > div > div 
+{
+  display:inline-block;
 }
 .title-award
 {
@@ -1508,37 +1530,16 @@ svg.stage-bk { z-index:30; }*/
   font-size:25px;
   color:#c15d46;
   text-align:center;
+  vertical-align: top;
+  line-height: 50px;
 }
-.human-award div.circle,.human-award-diff div.circle
-{
-  position: relative;
-  left: -6px;
-  top: -19px;
-  display:inline-block;
-  z-index:36;
-  background-color:#efefef;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-family:Arial;
-  font-color:#fff;
-  padding:5px;  
-}
-.human-award div.circle .x,.human-award-diff div.circle .x
-{
-  padding-right:2px;
-  display:inline-block;
-}
-.human-award div.circle > div,.human-award-diff div.circle > div
-{
-  display:inline-block;
-}
-.human-award .interest, .human-award-diff .interest
+
+.human-award .interest
 {
    width:50px;
    height:50px;
    display:inline-block;
-   margin-left:10px;
+   margin:0px 10px;
    background-size:50px;
    background-repeat:no-repeat;
    background-position:0px;

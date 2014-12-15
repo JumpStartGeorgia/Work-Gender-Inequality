@@ -3,9 +3,11 @@
    <head>  
       <title><%= t('.title') %></title>
       <meta charset="utf-8">  
-      <meta property="og:title"content="Gap Game Title" />
-      <meta property="og:site_name" content="Gap Game"/>
-      <meta property="og:description" content="Game Itself" />
+      <meta property="og:title"content="<%= t('.title') %>" />
+      <meta property="og:site_name" content="<%= t('app.common.app_name') %>"/>
+      <meta property="og:description" content="<%= t('.about_html') %>" />
+      <meta property="og:url" content="<%= current_url %>" />
+      <meta property="og:image" content="" />
       <meta property="og:type" content="website" />
       <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
@@ -23,14 +25,8 @@
         <div class="share"></div>
         <div class='about tip' data-tip='<%= t('.tip_about') %>' data-tip-type='about'></div>
         <div class='about-window'>
-          <div class='close'>x</div>
-          <div class='content'>
-            <div class='title'></div>
-            <div class='text'>
-            <% if @about_short.present? %>
-              <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
-            <% end %></div>
-          </div>
+          <div class='close'></div>
+          <%= render partial: "gap/about" %>
         </div>
         <div class='settings-bar'>
           <div class='settings-decor-top'></div>

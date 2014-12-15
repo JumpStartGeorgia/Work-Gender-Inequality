@@ -13,9 +13,9 @@
 						<td class='grid-wrapper'>
 						<div class='grid'>
 							<div class='row'>
-								<div class='human-salary'><%= d[:fsalary_total] %></div>
+								<div class='human-salary'><%=  number_with_delimiter(d[:fsalary_total]) %></div>
 								<div class='title-salary'><div class='box'><div class='sumlarrow'></div><%= t('.salary') %><div class='sumrarrow'></div></div></div>
-								<div class='human-salary'><%= d[:ssalary_total] %></div>
+								<div class='human-salary'><%=  number_with_delimiter(d[:ssalary_total]) %></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
@@ -24,13 +24,13 @@
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='human-salary-diff diff-value'><%= d[:salary_total_diff] %></div>
+								<div class='human-salary-diff diff-value'><%=  number_with_delimiter(d[:salary_total_diff]) %></div>
 								<div class='dummy'></div>
 							</div>
 							<div class='row'>
-								<div class='human-saved'><%= d[:fsaved_total] %></div>
+								<div class='human-saved'><%=  number_with_delimiter(d[:fsaved_total]) %></div>
 								<div class='title-saved'><div class='sumlarrow'></div><%= t('.saved') %><div class='sumrarrow'></div></div>
-								<div class='human-saved'><%= d[:ssaved_total] %></div>
+								<div class='human-saved'><%=  number_with_delimiter(d[:ssaved_total]) %></div>
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
@@ -39,13 +39,13 @@
 							</div>
 							<div class='row'>
 								<div class='dummy'></div>
-								<div class='human-saved-diff diff-value'><%= d[:saved_total_diff] %></div>
+								<div class='human-saved-diff diff-value'><%=  number_with_delimiter(d[:saved_total_diff]) %></div>
 								<div class='dummy'></div>
 							</div>					
 							<div class='row'>	
 								<div class='human-award'>
 									<% d[:faward].reverse.each_with_index { |x,i| %>
-										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='x'><%= "#{x}" %>x</div></div>
+										<div><div class='x'><%= "#{x}" %>x</div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div></div>
 									<% } %>
 								</div>
 								<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>		

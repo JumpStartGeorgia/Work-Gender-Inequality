@@ -26,8 +26,8 @@ function afterinit()
   scr_clean();
   if(steptogo < 6) poll.show();
   else game_init(); 
-  if(steptogo != 0) $('.info').hide();
-  player.mute();
+  if(steptogo == 0) $('.info').show();
+  player.mute(); //dev
 
 }
 function resize()
@@ -156,7 +156,9 @@ function game_on_load()
   },1000);  
 }
 function game_init() {
-  console.log('game_inti');
+
+  gap.pos = 0;
+  total_scrolls = 0;
   scr_clean();
 
   sound_button();
@@ -834,7 +836,7 @@ function sendUserData(fin)
   data.flag = fin;
   $.ajax({
     type: "POST",
-    url: "gap/poll",
+    url: "game/poll",
     data: data,
     success:function(d)
     {
@@ -955,21 +957,27 @@ function timetravel_forw()
 function epilogue()
 {
   gameoff();
-  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood')
+  player.background_stop();
+  if(isf()) category.outrun == 0 ? player.play('endbad') : player.play('endgood');
   else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'>"+locale.general.summary+"</div></div></div></div>").appendTo(s.parent());
-
   
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+
+  var aboutTmp = $('.about-window .content').clone();
+  aboutTmp.find('>div.title').remove();
+  t.find('.whatnext .content').html(aboutTmp.html());
   resizeCallback = function()
   {
     epilogue_redraw();
   }
   epilogue_redraw();
 
-  $.getJSON( "gap/summary?b=" + window.location.hash.substr(1), function( data ) {
+  $.getJSON( "game/summary?b=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary .content').html(data.s);
     t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
+    s.fadeOut(3000);
+    t.fadeIn(3000);
   });
 }
 function epilogue_redraw()
@@ -1045,8 +1053,10 @@ function about_button()
   if(init)
   {
     about.click(function(){
+      gameoff();
       wr.find('.about-window').fadeIn(500,function(){
         $(document).click(function(){
+          gameon();
           $(this).off('click');
           about_window.hide();
         });        
@@ -1066,11 +1076,11 @@ function settings_button()
   {
     
     settings.click(function()
-    {
+    {     
       settings.toggleClass('on off');
 
-      if(settings.hasClass('on')) { tiptip_destroy(); settings.removeClass('tip');  }
-      else  settings.addClass('tip');
+      if(settings.hasClass('on')) { gameoff(); tiptip_destroy(); settings.removeClass('tip');  }
+      else { gameon(); settings.addClass('tip'); }
       
       var togo = settings.hasClass('on') ? 0 : -sbar_w;
       
@@ -1080,14 +1090,16 @@ function settings_button()
 
     });
     settings_bar.click(function(){
-      settings.addClass('tip');
+
+        gameon();
+        settings.addClass('tip');
         
         var togo = settings.hasClass('on') ? -sbar_w : 0;
         settings.toggleClass('on off');
         settings.animate({right:togo+sbar_w},{ duration:1000 });  
         settings_bar.animate({right:togo},{ duration:1000 });     
     });
-    settings_bar.find('.options .edit').click(function(){ gameoff(); poll.show(true); });
+    settings_bar.find('.options .edit').click(function(){ wr.find('*').clearQueue().finish();  gameoff(); poll.show(true); });
   }
   settings_bar_fill();
   settings_bar.show();
@@ -1123,7 +1135,7 @@ function share_button()
         {
           FB.ui({
             method: 'share',
-            href: "http://dev-tanastsoroba.jumpstart.ge/en/gap/share?b=" + window.location.hash.substr(1)
+            href: "http://dev-tanastsoroba.jumpstart.ge/en/game/share?b=" + window.location.hash.substr(1)
           }, function(response){
              if (response && !response.error_code) {
                 console.log('Posting completed.');

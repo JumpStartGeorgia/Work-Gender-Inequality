@@ -1,0 +1,27 @@
+<div class='content'>
+  <div class='title'><%= t('.title') %></div>
+  <div class='text'>
+    <% if @about_short.present? %>
+      <%= simple_format_no_tags(@about_short.content, {}, {sanitize: false}) %>
+    <% end %>
+  </div>
+  <div class='logos'>
+    <table>
+      <tr>
+        <td><%= link_to(image_tag('gap/svg/common/logo_usaid.png', alt: t('sponsors.usaid'), title: t('sponsors.usaid')), "http://www.usaid.gov/georgia", target: :blank) %></td>
+        <td> 
+          <table>
+            <tr>
+              <td><%= link_to(image_tag('gap/svg/common/logo_a42.svg', alt: t('sponsors.a42'), title: t('sponsors.a42')), "http://article42.ge/", target: :blank) %></td>
+              <td><%= link_to(image_tag('gap/svg/common/logo_gtuc.svg', alt: t('sponsors.gtuc'), title: t('sponsors.gtuc')), "http://gtuc.ge/", target: :blank) %></td>
+              <td><%= link_to(image_tag('gap/svg/common/logo_css.svg', alt: t('sponsors.css'), title: t('sponsors.css')), "http://css.ge/", target: :blank) %></td>
+              <td><%= link_to(image_tag('gap/svg/common/logo_nmap.png', alt: t('sponsors.nmap'), title: t('sponsors.nmap')), "http://www.newmediaadvocacy.org/", target: :blank) %></td>
+              <td><%= link_to(image_tag('gap/svg/common/logo_js.svg', alt: t('sponsors.js'), title: t('sponsors.js')), "http://jumpstart.ge/en", target: :blank, class: 'last') %></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class='credits'><%= t('.credits').html_safe %></div>
+</div>
