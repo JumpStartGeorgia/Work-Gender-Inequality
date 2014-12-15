@@ -6,7 +6,7 @@
           </div>
           <div class="story-title"><%= link_to news.title, news_show_path(news) %></div>
           <p>
-            <%= truncate(strip_tags(news.content), separator: ' ', omission: '...', length: 250) %>
+            <%= truncate(strip_tags(news.content.gsub('&nbsp;', '')), separator: ' ', omission: '...', length: 250) %>
           </p>
         </div> 
 

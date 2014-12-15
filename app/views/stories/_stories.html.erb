@@ -7,7 +7,7 @@
           </div>
           <p>
             <%= link_to story_path(story) do %>
-              <%= truncate(story.content, separator: ' ', omission: '...', length: 250) %>
+              <%= truncate(story.content.gsub('&nbsp;', ''), separator: ' ', omission: '...', length: 250) %>
             <% end %>
           </p>
         </div> 
