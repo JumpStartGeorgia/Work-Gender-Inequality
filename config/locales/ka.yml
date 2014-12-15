@@ -9,7 +9,7 @@ ka:
       law: Legislation
       publication: Publication
       news_item: News Item
-      story: Discrimination Story
+      story: ისტორიები დისკრიმინაციაზე
       discrimination_type: Discrimination Type
     attributes:
       user:
@@ -54,18 +54,18 @@ ka:
         title: Title
         content: Content
       story:
-        content: Please share you story of discrimination
-        original_content: Original story that was shared
-        discrimination_type_id: Discrimination Type
-        contact_a42: Would you like Article 42 to contact you about this discrimination?
-        is_public: Can we share your story on our website?
-        moderator_status: Moderator Status
-        name: Name
-        gender: Gender
-        email: Email
-        age: Age
-        region: Region you live in
-        created_at: Date Shared
+        content: გაგვიზიარეთ თქვენი დისკრიმინაციის ისტორია
+        original_content: გაზიარებული ისტორიის ორიგინალური ვერსია
+        discrimination_type_id: დისკრიმინაციის ტიპი
+        contact_a42: გსურთ თუ არა, რომ კონსტიტუციის 42 მუხლი დაგიკავშირდეთ ამ დისკრიმინაციის შესახებ?
+        is_public: შეგიძლიათ თუ არა, რომ გააზიაროთ თქვენი ამბავი ჩვენს ვებ გვერდზე?
+        moderator_status: მოდერაციის სტატუსი
+        name: სახელი
+        gender: სქესი
+        email: ელ-ფოსტა
+        age: ასაკი
+        region: საცხოვრებელი ადგილი
+        created_at: გაზიარების თარიღი
       discrimination_type:
         sort: Sort Order
       discrimination_type_translation:
@@ -80,8 +80,8 @@ ka:
     a42: Wants Article 42 to Contact
     type: Discrimination Type
   gender:
-    male: Male
-    female: Female
+    male: კაცი
+    female: ქალი
   moderator_status:
     pending: 
       title: Pending
@@ -97,26 +97,26 @@ ka:
       explanation: Story can not be shared with the public
   datatable:
     copy: 
-      title: Copy
-      tooltip: Copy to clipboard
+      title: კოპირება
+      tooltip: კოპირება
     csv: 
       title: CSV
-      tooltip: Save as CSV
+      tooltip: CSV ფორმატში შენახვა
     xls: 
       title: XLS
-      tooltip: Save as XLS
+      tooltip: XLS ფორმატში შენახვა
     pdf: 
       title: PDF
-      tooltip: Save as PDF
+      tooltip: PDF ფორმატში შენახვა
     print: 
-      title: Print
-      tooltip: Print the table
+      title: ამობეჭდვა
+      tooltip: ცხრილის ამობეჭდვა
   highcharts:
-    context_title: Save this chart
-    png: PNG Image
-    jpg: JPG Image
-    pdf: PDF Document
-    svg: SVG Vector Image
+    context_title: გრაფიკის შენახვა
+    png: PNG ფოტო
+    jpg: JPG ფოტო
+    pdf: PDF დოკუმენტი
+    svg: SVG ვექტორული ფოტო
   mailer:
     closing: "პატივისცემით,"
     signature: “ჯამპსტარტ ჯორჯია”
@@ -153,9 +153,9 @@ ka:
       like: მოწონება
       likes: მოწონება
       menu: მენიუ
-      view_story: View Story
-      add_story: Add Your Story
-      all_stories: View All Stories
+      view_story: ამბის ნახვა
+      add_story: თქვენი ამბის დამატება
+      all_stories: ყველა ამბის ნახვა
       load_more: Load More
     titles:
       edit: "შეცვლა %{model}"
@@ -183,7 +183,7 @@ ka:
       new: ახალი            
     common:
       app_name: თანასწორობა
-      app_slogan: We want to work in an Equal Environment
+      app_slogan: ჩვენ გვსურს თანაბარ გარემოში მუშაობა
       added_on: "დამატებულია: %{date}" 
       jumpstart: “ჯამპსტარტ ჯორჯია”
       js_link_title: “ჯამპსტარტ ჯორჯია” - ჩვენ გაწვდით მონაცემებს უკეთ!
@@ -192,13 +192,13 @@ ka:
       not_authorized: თქვენ არ გაქვთ ამ გვერდის ნახვის უფლება.
       success_created: "%{obj} შექმნილია."
       success_updated: "%{obj} განახლებულია."
-      story_add_moderate: Thank you for submitting your story. 
-      story_add_moderate_public: Thank you for submitting your story. After revewing your story we will make it available on the site.
+      story_add_moderate: გმადლობთ, რომ გაგვიზიარეთ თქვენი ამბავი!
+      story_add_moderate_public: გმადლობთ, რომ გაგვიზიარეთ თქვენი ამბავი! განხილვის შემდეგ, თქვენი ამბავი ხელმისაწვდომი გახდის ჩვენს ვებ გვერდზე.
       story_moderated_approved: The story has been approved.
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
     menu:
-      home: Home
+      home: მთავარი გვერდი
       get_involved: ჩაერთეთ!
       stay_informed: იყავით ინფორმირებული
       explore_data: კვლევის მონაცემთა შესწავლა
@@ -206,16 +206,16 @@ ka:
       news: სიახლეები
       publications: პუბლიკაციები
       about: ჩვენ შესახებ
-      stories: ისტორიები დისკრიმინიაციაზე
+      stories: ისტორიები დისკრიმინაციაზე
       game: Pay Gap Game
       legislations: კანონმდებლობა
   sponsors:
     usaid: USAID Georgia
-    a42: Article 42 of the Constitution
-    gtuc: Georgian Trade Union Confederation
-    css: Center for Social Sciences
+    a42: კონსტიტუციის 42 მუხლი
+    gtuc: საქართველოს პროფესიული კავშირების გაერთიანება (სპკგ)
+    css: თბილისის სახელმწიფო უნივერსიტეტის სოციალურ მეცნიერებათა ცენტრი
     nmap: New Media Advocacy Project
-    js: JumpStart Georgia
+    js: ჯამპსტარტ ჯორჯია
   layouts:
     application:
       toggle: ნავიგაციის ჩართვა/გამორთვა
@@ -229,18 +229,18 @@ ka:
       opera: Opera
       Safari: Safari
     sidebar:
-      header_stories: Discrimination Stories
+      header_stories: ისტორიები დისკრიმინაციაზე
       header_game: Pay Gap Game
-      header_explore: Survey Data
-      header_video: Videos
-      tell_story: Tell Your Story
-      img_link_row1: Tell
-      img_link_row2: your story
-      view_stories: View All Stories
-      play: Play
-      game: game
-      explore: Explore
-      data: data
+      header_explore: კვლევის მონაცემები
+      header_video: ვიდეოები
+      tell_story: გვიამბეთ თქვენი ისტორია
+      img_link_row1: გვიამბეთ
+      img_link_row2: თქვენი ისტორია
+      view_stories: ყველა ამბის ნახვა
+      play: ითამაშე
+      game:  ''
+      explore: შეისწავლე
+      data: მონაცემები
   admin:
     index:
       title: ადმინისტრატორის განყოფილება
@@ -286,133 +286,133 @@ ka:
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
   root:
     index:
-      img_link_row1: Tell
-      img_link_row2: your story
-      header_get_involved1: Get
-      header_get_involved2: Involved!
-      header_stories: Discrimination Stories
+      img_link_row1: გვიამბეთ
+      img_link_row2: თქვენი ისტორია
+      header_get_involved1: ჩაერთეთ     
+      header_get_involved2: '!'
+      header_stories: ისტორიები დისკრიმინაციაზე
       header_game: Pay Gap Game
-      header_explore: Survey Data
-      header_video: Videos
-      tell_story: Tell Your Story
-      view_stories: View All Stories
-      play: Play Game
-      explore: Explore Data
-      header_publications: Latest Publications
-      header_news: Latest News
-      header_legislation: Latest Legislation
-      more: View All
+      header_explore: კვლევის მონაცემები
+      header_video: ვიდეოები
+      tell_story: გვიამბეთ თქვენი ისტორია
+      view_stories: ყველა ამბის ნახვა
+      play: ითამაშეთ
+      explore: შეისწავლე მონაცემები
+      header_publications: უახლესი პუბლიკაციები
+      header_news: უახლესი ამბები
+      header_legislation: უახლესი კანონმდებლობა
+      more: ყველას ნახვა
       video_titles:
-        interviews: Job interviews
-        pregnancy: Pregnancy
-        wages: Wages, promotions, benefits 
-        harassment: Harassment
+        interviews: გასაუბრებები
+        pregnancy: ორსულობა
+        wages: ხელფასები, დაწინაურება, სარგებელი
+        harassment: შევიწროვება
     about:
-      title: About
+      title: შესახებ
     news:
-      title: News
-      no_news: At this time no news has been posted.
+      title: სიახლეები
+      no_news: ამ დროისთვის არ არის დამატებული სიახლეები.
     news_show:
-      title: "News: '%{title}'"
-      all: "All News"
+      title: "სიახლეები: '%{title}'"
+      all: "ყველა სიახლე"
     publications:
-      title: Publications
-      no_publications: At this time there are no publications.
+      title: პუბლიკაციები
+      no_publications: ამ დროისთვის არ არის დამატებული პუბლიკაციები.
     publications_show:
-      title: "Publication: '%{title}'"
-      all: "All Publications"
+      title: "პუბლიკაციები: '%{title}'"
+      all: "ყველა პუბლიკაცია"
     explore_data:
-      title: Explore the Data
-      no_matches: Your selections returned no data. Please try again with a different selection.
+      title: Explore the 'Gender Discrimination in Georgian Labour Market' Survey
+      no_matches: თქვენს არჩევანზე არ მოიძებნა მონაცემები. გთხოვთ აირჩიოთ სხვა კითხვა.
       no_data: Data is not on file yet - have you run rake db:seed yet?
       hover_region: Hover over a Region
-      na: N/A
-      percent: Percent
+      na: პასუცი არ მოიძებნა
+      percent: პროცენტი
       instructions:
-        header: About
-        p1: "Explore the survey data, entitled the Employment-related Research in Georgia, by the Center for Social Sciences. You can visualize the results of one question or the interaction (cross-tabulation) between the results of two questions. You may also choose to narrow the scope of this analysis by creating a subset of the data."
+        header: შესახებ
+        p1: "შეისწავლეთ სოციალურ მეცნიერებათა ცენტრის მიერ ჩატარებული კვლევის მონაცემები საქართველოში დასაქმების შესახებ. თქვენ შეგიძლიათ ვიზუალურად გამოსახოთ თითოეული კითხვის შედეგები ან დაადგინოთ ურთიერთმიმართება (კროსტაბულაცია) ორ კითხვას შორის. თქვენ ასევე შეგიძლიათ დაავიწროვოთ გასაანალიზებელი მასალა მონაცემთა ქვეჯგუფის შექმნით."
       form:
-        row: Explore Question
-        col: Compared with (optional)
-        no_col: No Comparison
-        swap: Swap the Questions
-        submit: Run Analysis
-        reset: Reset 
-        filter_variable: Use Subset of Data
-        no_filter: Use Complete Data Set
-        filter_value: With Value
-        exclude_dkra: Exclude "Don't know" & "Refuse"
-      header_files: Related Files
+        row: კითხვების შესწავლა
+        col: შევადაროთ
+        no_col: არ არის შედარება
+        swap: კითხვის შეტრიალება
+        submit: გაანალიზება
+        reset: გადატვირთვა
+        filter_variable: გამოიყენეთ მონაცემთა ქვეჯგუფი
+        no_filter: გამოიყენეთ მონაცემთა სრული ბაზა
+        filter_value: პასუხები
+        exclude_dkra: '"არ ვიცი" და "უარი"-ს გამოკლება'
+      header_files: დაკავშირებული ფაილები
       link:
-        spss: SPSS Data File
-        report_en: Report (English)
-        report_ka: Report (Georgian)
-        codebook: Codebook (Georgian)
-        quest_en: Questionnaire (English)
-        quest_ka: Questionnaire (Georgian)
+        spss: SPSS მონაცემთა ფაილი
+        report_en: ანგარიში (ინგლისურად)
+        report_ka: ანგარიში (ქართულად)
+        codebook: Codebook (ქართულად)
+        quest_en: კითხვარი (ინგლისურად)
+        quest_ka: კითხვარი (ქართულად)
       tabs:
-        map: Map
-        chart: Chart
-        table: Table
-        details: Details
+        map: რუკა
+        chart: გრაფიკი
+        table: ცხრილი
+        details: ვრცლად
       crosstab:
         html:
-          title: "%{row} <br /> <span class='title-highlight'>by</span> %{col}"
-          title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
+          title: "%{row} <br /> <span class='title-highlight'>და</span> %{col}"
+          title_filter: "<br /> <span class='title-highlight'>სადაც</span> %{variable} = %{value}"
           map:
             title: "%{row} "
-            title_col: "<br /> <span class='title-highlight'>where</span> %{col} = [replace] "
-            title_filter: "<br /> <span class='title-highlight'>and</span> %{variable} = %{value}"
+            title_col: "<br /> <span class='title-highlight'>სადაც</span> %{col} = [replace] "
+            title_filter: "<br /> <span class='title-highlight'>და</span> %{variable} = %{value}"
         text:
-          title: "%{row} by %{col} "
-          title_filter: "where %{variable} = %{value}"
+          title: "%{row} და %{col} "
+          title_filter: "სადაც %{variable} = %{value}"
           map:
             title: "%{row} "
-            title_col: "where %{col} = [replace] "
-            title_filter: "and %{variable} = %{value}"
+            title_col: "სადაც %{col} = [replace] "
+            title_filter: "და %{variable} = %{value}"
       onevar:
         html:
           title: "%{row}"
-          title_filter: "<br /> <span class='title-highlight'>where</span> %{variable} = %{value}"
+          title_filter: "<br /> <span class='title-highlight'>სადაც</span> %{variable} = %{value}"
         text:
           title: "%{row}"
-          title_filter: " where %{variable} = %{value}"
+          title_filter: " სადაც %{variable} = %{value}"
       subtitle:
-        html: "Total Responses: %{num}"
-        text: "Total Responses: %{num}"
-        weighted_html: "Total Responses (weighted*): %{num}"
-        weighted_text: "Total Responses (weighted*): %{num}"
+        html: "ყველა პასუხი: %{num}"
+        text: "ყველა პასუხი: %{num}"
+        weighted_html: "ყველა პასუხი (სკალირებული*): %{num}"
+        weighted_text: "ყველა პასუხი (სკალირებული*): %{num}"
       footer:
-        html: "*weighted results may not sum precisely due to rounding"
-        text: "*weighted results may not sum precisely due to rounding"
+        html: "*სკალირებული შედეგები შეიძლება არ დაჯამდეს დამრგვალების გამო"
+        text: "*სკალირებული შედეგები შეიძლება არ დაჯამდეს დამრგვალების გამო"
       map:
-        filter: "Filter map by selecting an answer to '%{text}':"
+        filter: "რულის გაფილტვრა '%{text}':- ზე პასუხის შერჩევით"
       table:
-        count: Count
-        percent: Percent
+        count: გამოთვლა
+        percent: პროცენტი
       details:
-        variable: Variable
-        answers: Possible Answers    
+        variable: ცვლადი
+        answers: სავარაუდო პასუხები    
     faq:
       title: ხშირად დასმული კითხვები (FAQ)
-      no_faqs: Sorry, at this time no FAQs have been created.
-      top: top      
+      no_faqs: სამწუხაროდ ამ დროისთვის არ მოიძებნა ხშირად დასმული კითხვები
+      top: დასაწყისში დაბრუნება
   stories:
     index:
-      title: Discrimination Stories
-      no_stories: At this time no stories have been shared.
+      title: ისტორიები დისკრიმინაციაზე
+      no_stories: ამ დროისთვის ჯერ არ არის გაზიარებული ისტორიები.
       img_link_row1: Tell
       img_link_row2: your story
     show:
-      title: A Discrimination Story
+      title: ისტორიები დისკრიმინაციაზე
       img_link_row1: Tell
       img_link_row2: your story
     new:
-      title: Share Your Discrimination Story
+      title: გაგვიზიარეთ თქვენი დისკრიმინაციის ისტორია
     form:
-      contact_explanation1: If you would like to discuss your discrimination more, please indicate that you would like Article 42 to contact you and provide your name and email address. 
-      contact_explanation2: IMPORTANT - Tanastsoroba.ge will never make your name or email address public.
-      optional_explanation: These fields are optional. Providing them will help us gather data about whom discrimination is affecting in Georgia.
+      contact_explanation1: თუ გსურთ განიხილოს თქვენი დისკრიმინაცია და დაუკავშირდეთ კონსტიტუციის 42 მუხლს, მიუთითეთ თქვენი სახელი და ელექტრონული ფოსტის მისამართი.
+      contact_explanation2: Tanastsoroba.ge არ გაასაჯაროებს თქვენს სახელსა და ელექტრონული ფოსტის მისამართს.
+      optional_explanation: ეს სექციები ნებაყოფლობითია. მათი შევსებით დაგვეხმარებით გავიგოთ, თუ ვისზე ახდეს გავლენას დისკრიმინაცია საქართველოში.
   gap:
     index:
       title:  Pay Gap Game
