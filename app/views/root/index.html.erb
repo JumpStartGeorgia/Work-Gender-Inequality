@@ -71,7 +71,11 @@
           <%= t('.header_game') %>  
         </h3>
         <div id="game-explanation">
-          Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+          <% if @game_explanation.present? && @game_explanation.content.present? %>
+            <%= simple_format_no_tags(@game_explanation.content, {}, {sanitize: false}) %>
+          <% else %>
+            Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+          <% end %>
         </div>
         <div id="game-link">
           <%= link_to t('.play'), gap_path %>

@@ -51,7 +51,11 @@
       </span>
     </h3>
     <div id="sidebar-game-explanation">
-      Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+      <% if @game_explanation.present? && @game_explanation.content.present? %>
+        <%= simple_format_no_tags(@game_explanation.content, {}, {sanitize: false}) %>
+      <% else %>
+        Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.
+      <% end %>
     </div>
   </div>
 

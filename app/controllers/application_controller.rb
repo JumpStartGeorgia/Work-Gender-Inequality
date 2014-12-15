@@ -68,6 +68,7 @@ class ApplicationController < ActionController::Base
     @laws_nav = Law.basic_info
 
     @discrimination_explanation = Page.find_by_name('discrimination')
+    @game_explanation = Page.find_by_name('game')
 
     # show the sidebar by default if not in admin section
     @show_sidebar = false
