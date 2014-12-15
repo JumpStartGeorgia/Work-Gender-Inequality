@@ -57,6 +57,11 @@
         width: 100%;
         font-weight: bold;
         font-family: "hallo";   
+        p{
+          color: #fff;
+          font-weight: bold;
+          font-family: "hallo";   
+        }
       }
     }
   }
@@ -106,8 +111,32 @@
       background-image: url('/assets/gplaypattern.png');
       margin-top: 0;
       min-height: 275px;
+      vertical-align: top;
+
+      h3{
+        margin: 0 -15px 20px;
+        text-align: center;
+        color: #fff;
+        background-color: @blue-background;
+        font-size: 18px;
+        font-family: "hallo";   
+        padding: 10px 0;
+        position: relative;
+        &:before{
+          position: absolute;
+          bottom: -10px;
+          left: 50%;
+          margin-left: -20px;
+          content:"";
+          width: 0; 
+          height: 0; 
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          border-top: 10px solid @blue-background;
+          z-index: 500;
+        }
+      }
       #stories{
-        padding-top: 20px;
         ul{
           li{
             & > div:first-of-type{
@@ -157,6 +186,7 @@
         background-position: center center;
         background-size: auto 100%;
         position: relative;
+        min-height: 275px;
         #game-explanation{
           margin: 50px -15px 0;
           color: #fff;
@@ -183,8 +213,8 @@
       }
 
       #explore{
-        padding: 20px;
         p{
+          padding: 20px;
           font-size: 14px;
           padding: 0 10px;
           line-height: 15px;
@@ -222,25 +252,35 @@
     text-transform: uppercase;
   }
   #video-content{
-    padding: 0 20px 15px;  
+    padding: 0 20px;  
     & > div{
       text-align: center;
+      margin-bottom: 25px;
+      .video-title{
+        color: @pink-color;
+        font-family: "gandhi-b";
+      }
     }
   }
 
   #latest{
-    margin-left: -30px;
-    margin-right: -30px;
-    #latest-header{
-      margin-top: 80px;
-      margin-bottom: 0;
-      & > div {
+    margin: 80px -30px 0;
+
+    #latest-content{
+      background-image: url('/assets/gplaypattern.png');
+      margin-top: 0;
+      padding: 0 20px 15px;  
+
+      h3 {
+        background-color: #fff;
+        margin: 0 -35px 20px;
         text-align: center;
         color: @pink-color;
         font-size: 14px;
         border-bottom: solid 1px @grey-line;
         padding: 10px 0;
         position: relative;
+        margin-bottom: 30px;
         & > div{
           font-family: "hallo";   
           font-size: 18px;
@@ -271,15 +311,9 @@
           border-top: 10px solid @grey-line;
         }
       }
-    }
 
-    #latest-content{
-      background-image: url('/assets/gplaypattern.png');
-      margin-top: 0;
-      padding: 0 20px 15px;  
       & > div {
         border-right: solid 1px @grey-line;
-        margin-top: 30px;
         padding: 0 20px;
         &:last-of-type{
           border-right: none;
