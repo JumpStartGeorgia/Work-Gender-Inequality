@@ -102,26 +102,31 @@
     <%= t('.header_video') %>
   </div>
   <div id="video-content" class="row">
+    <% 
+      ids = {}
+      ids[:en] = ['8otR0NbWBs8', 'lFkB_WrKFoA', 'lolRjjq3_QA', 'ZwRm9dJsYJ0']
+      ids[:ka] = ['p0FhFHbgPoc', 'bg4ZCwQ93uc', 'kmPDbTHrCik', 'VsrQhd2nLEU']
+    %>
     <div class="col-sm-3">
-      <iframe width="100%" src="//www.youtube.com/embed/p0FhFHbgPoc?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" src="//www.youtube.com/embed/<%= ids[I18n.locale][0] %>?rel=0" frameborder="0" allowfullscreen></iframe>
       <div class="video-title">
         <%= t('.video_titles.interviews') %>
       </div>
     </div>
     <div class="col-sm-3">
-      <iframe width="100%" src="//www.youtube.com/embed/bg4ZCwQ93uc?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" src="//www.youtube.com/embed/<%= ids[I18n.locale][1] %>?rel=0" frameborder="0" allowfullscreen></iframe>
       <div class="video-title">
         <%= t('.video_titles.pregnancy') %>
       </div>
     </div>
     <div class="col-sm-3">
-      <iframe width="100%" src="//www.youtube.com/embed/kmPDbTHrCik?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" src="//www.youtube.com/embed/<%= ids[I18n.locale][2] %>?rel=0" frameborder="0" allowfullscreen></iframe>
       <div class="video-title">
         <%= t('.video_titles.wages') %>
       </div>
     </div>
     <div class="col-sm-3">
-      <iframe width="100%" src="//www.youtube.com/embed/VsrQhd2nLEU?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" src="//www.youtube.com/embed/<%= ids[I18n.locale][3] %>?rel=0" frameborder="0" allowfullscreen></iframe>
       <div class="video-title">
         <%= t('.video_titles.harassment') %>
       </div>

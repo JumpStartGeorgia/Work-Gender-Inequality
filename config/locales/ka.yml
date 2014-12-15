@@ -324,7 +324,6 @@ ka:
     explore_data:
       title: Explore the 'Gender Discrimination in Georgian Labour Market' Survey
       no_matches: თქვენს არჩევანზე არ მოიძებნა მონაცემები. გთხოვთ აირჩიოთ სხვა კითხვა.
-      no_data: Data is not on file yet - have you run rake db:seed yet?
       hover_region: Hover over a Region
       na: პასუცი არ მოიძებნა
       percent: პროცენტი
@@ -401,12 +400,12 @@ ka:
     index:
       title: ისტორიები დისკრიმინაციაზე
       no_stories: ამ დროისთვის ჯერ არ არის გაზიარებული ისტორიები.
-      img_link_row1: Tell
-      img_link_row2: your story
+      img_link_row1: გვიამბეთ
+      img_link_row2: თქვენი ისტორია
     show:
       title: ისტორიები დისკრიმინაციაზე
-      img_link_row1: Tell
-      img_link_row2: your story
+      img_link_row1: გვიამბეთ
+      img_link_row2: თქვენი ისტორია
     new:
       title: გაგვიზიარეთ თქვენი დისკრიმინაციის ისტორია
     form:
