@@ -66,7 +66,7 @@ class GapController < ApplicationController
     p = params_parse(params)
 
     facebook = params[:f].present? ? true : false
-    tick = 3
+    tick = 12
     min_age = 18
     gender = p['g']
     age = p['a'].to_i

@@ -108,14 +108,12 @@ function human(selector,title)
   });
 //*************************methods**********************************
 
-  this.position = function position(coord,noscale) {    
-
-
-
+  this.position = function position(coord,noscale) {   
+      console.log(coord); 
       var t = this;
       this.prevX = this.x;
       this.prevY = this.y;
-      console.log(coord,noscale);
+     // console.log(coord,noscale);
       if(typeof noscale === 'undefined') noscale = false;
       if(exist(coord))
       {
@@ -130,7 +128,7 @@ function human(selector,title)
       }      
       else this.toground();
       
- console.log(this.x,this.y);
+// console.log(this.x,this.y);
       if(this.x > this.prevX) 
       {
         $(this.selector).removeClass('l');
@@ -141,21 +139,25 @@ function human(selector,title)
         $(this.selector).addClass('l');
         //if(t.prevX - t.x >  3) t.prev_movement();
       }
-console.log(this.x);
+console.log(this.x,this.y);
+
       $(this.selector).css({ left: this.x , top: this.y });   
 
       //return { human:this.title ,x:this.x, y:this.y, a:this.angle };
   };
   this.toground = function toground() 
   {
-    var half = (h-th)/2;
-    this.land = half;
-    this.y = half - this.height;
-    console.log('toground',half,this.height);
+    this.land = lh;
+    this.y = lh - this.height;
   };
-  this.tosky = function toground() 
-  {
-    this.y = 0 - this.height;
+  this.reset = function reset() 
+  {    
+    this.scale();
+    this.toground();
+    this.prevX = this.x;
+    this.prevY = this.y;
+    this.x = 0;
+    $(this.selector).css({ left: 0 , top: this.y });   
   };
   this.scale = function()
   {
@@ -165,7 +167,7 @@ console.log(this.x);
       height : this.height,
       'background-size':this.width + 'px ' + this.height + 'px'
     });
-    this.position();
+    //this.position();
   };
   this.get_dimentions = function()
   {
@@ -182,14 +184,15 @@ console.log(this.x);
   this.animate = function animate()
   {    
 		this.animated = true;
-    this.toground();
+    this.working = false;
+    this.reset();
 		var t = this;
     var intervalId = null;
      var st = $('.' + t.place + ' .stage');
      //10000
      var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - this.width/2;
      var yDistance = category.work_point.y*img_scaler;
-		$(this.selector).animate({"color":'white'},{ duration:1, easing:'linear',
+		$(this.selector).animate({"color":'white'},{ duration:10000, easing:'linear',
       start:function()
       {
         $(t.selector).show();
@@ -201,6 +204,7 @@ console.log(this.x);
       },
 			progress:function(a,b,c) 
 			{ 
+        //console.log(xDistance*b);
         t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, true);
         st.css('left',-1*b* (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
 			},

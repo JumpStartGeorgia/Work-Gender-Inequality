@@ -167,7 +167,8 @@ var categories =
         "fg":"realestate",
         "sits":true,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 244.01475,205.42934 L 246.79497,205.42934 L 246.79497,205.97373 L 244.02758,205.97373 z"},
+        "work_point":{"x":244,"y":40}
     },
     { 
         "id": "dT-LWuT4",
@@ -235,9 +236,9 @@ var categories =
         "id": "hyn3wmKk",
         "name": "All Jobs",
         "outrun":0,
-        "percent":0,
-        "male":0,
-        "female":0,   
+        "percent":39.11,
+        "male":1051.4,
+        "female":640.2,   
         "dress":"casual",
         "bg":"bg1",
         "bg2":"bg1",    

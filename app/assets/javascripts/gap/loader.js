@@ -51,7 +51,14 @@ var assetsmeta =
 	{ name:"sum-arrow-right", type:"image", path:"/assets/gap/svg/common/sum_arrow_right.svg"},
 	{ name:"sum-arrow-up", type:"image", path:"/assets/gap/svg/common/sum_arrow_up.svg"},
 	{ name:"sumfb", type:"image", path:"/assets/gap/svg/common/sumfb.svg"},
-	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"}
+	{ name:"timelinetick", type:"image", path:"/assets/gap/svg/common/timeline_tick.svg"},
+	{ name:"logo_a42", type:"image", path:"/assets/gap/svg/common/logo_a42.svg"},
+	{ name:"logo_css", type:"image", path:"/assets/gap/svg/common/logo_css.svg"},
+	{ name:"logo_gtuc", type:"image", path:"/assets/gap/svg/common/logo_gtuc.svg"},
+	{ name:"logo_js", type:"image", path:"/assets/gap/svg/common/logo_js.svg"},
+	{ name:"logo_nmap", type:"image", path:"/assets/gap/svg/common/logo_nmap.png"},
+	{ name:"logo_usaid", type:"image", path:"/assets/gap/svg/common/logo_usaid.png"}
+
 ];
 var assets = [];
 Game.Loader = 
