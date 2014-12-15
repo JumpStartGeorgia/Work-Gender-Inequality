@@ -67,6 +67,7 @@ class ApplicationController < ActionController::Base
     # get the list of laws for navigation
     @laws_nav = Law.basic_info
 
+    @about_short = Page.find_by_name('about_short')
     @discrimination_explanation = Page.find_by_name('discrimination')
     @game_explanation = Page.find_by_name('game')
 
