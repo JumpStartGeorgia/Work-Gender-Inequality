@@ -26,8 +26,8 @@ gem "useragent", :git => "https://github.com/jilion/useragent.git" # browser det
 #gem "rails_autolink", "~> 1.0.9" # convert string to link if it is url
 gem 'paperclip', '~> 3.4.0' # to upload files
 #gem "has_permalink", "~> 0.1.4" # create permalink slugs for nice urls
-gem "will_paginate", "~> 3.0.5" # add paging to long lists
-#gem "kaminari", "~> 0.15.1" # paging
+#gem "will_paginate", "~> 3.0.5" # add paging to long lists
+gem "kaminari", "~> 0.16.1" # paging
 gem "geocoder", :git => "https://github.com/alexreisner/geocoder.git" #geocoder gets location by ip
 gem "subexec", "~> 0.2.3" # run command line commands
 

@@ -39,16 +39,16 @@ en:
       law_translation:
         title: Title
         content: Content
-        url: Url to Legislation
+        url: URL to Legislation
       publication:
         published_at: Date Published
       publication_translation:
         title: Title
         description: Description
-        url: Url to Publication
+        url: URL to Publication
         pub_file: PDF File
       news_item:
-        published_at: Publish Date
+        published_at: Date Published
         is_published: Is Published?
       news_item_translation:
         title: Title
@@ -156,6 +156,7 @@ en:
       view_story: View Story
       add_story: Add Your Story
       all_stories: View All Stories
+      load_more: Load More
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -400,8 +401,12 @@ en:
     index:
       title: Discrimination Stories
       no_stories: At this time no stories have been shared.
+      img_link_row1: Tell
+      img_link_row2: your story
     show:
       title: A Discrimination Story
+      img_link_row1: Tell
+      img_link_row2: your story
     new:
       title: Share Your Discrimination Story
     form:

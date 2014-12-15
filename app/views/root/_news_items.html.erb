@@ -1,0 +1,13 @@
+    <% @news_items.each do |news| %>
+
+        <div class="story col-sm-4">
+          <div class="clear story-header">
+            <div class="date"><%= l news.published_at %></div>
+          </div>
+          <div class="story-title"><%= link_to news.title, news_show_path(news) %></div>
+          <p>
+            <%= truncate(strip_tags(news.content.gsub('&nbsp;', '')), separator: ' ', omission: '...', length: 250) %>
+          </p>
+        </div> 
+
+      <% end %>

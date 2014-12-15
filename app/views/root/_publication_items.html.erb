@@ -1,0 +1,13 @@
+    <% @publications.each do |publication| %>
+
+        <div class="story col-sm-4">
+          <div class="clear story-header">
+            <div class="date"><%= l publication.published_at %></div>
+          </div>
+          <div class="story-title"><%= link_to publication.title, publications_show_path(publication) %></div>
+          <p>
+            <%= truncate(strip_tags(publication.description.gsub('&nbsp;', '')), separator: ' ', omission: '...', length: 250) %>
+          </p>
+        </div> 
+
+      <% end %>

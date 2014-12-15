@@ -1,14 +1,20 @@
 <%- model_class = NewsItem -%>
 <%- model_class_trans = NewsItemTranslation -%>
 <% title t('.title', :title => @news_item.title) %>
-<% title_right link_to(t('.all'), news_path, class: 'btn btn-default') %>
+<% title_right link_to(t('.all'), news_path, :class => 'view-all') %>
 
 
-<p>
-  <%= l @news_item.published_at if @news_item.published_at.present? %>
-</p>
+<div id="story-show">
 
-<div class="tinymce_format">
-  <%= simple_format_no_tags(@news_item.content, {}, {sanitize: false}) %>
+  <ul id="story-meta-list" class="list-inline">
+    <li>
+      <%= model_class.human_attribute_name(:published_at) %>:<br />
+      <span><%= l @news_item.published_at %></span>
+    </li>
+  </ul>
+
+  <div class="tinymce_format">
+    <%= simple_format_no_tags(@news_item.content, {}, {sanitize: false}) %>
+  </div>
+
 </div>
-

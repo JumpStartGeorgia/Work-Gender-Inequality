@@ -1,20 +1,20 @@
-<%- model_class = Publication -%>
-<%- model_class_trans = PublicationTranslation -%>
 <% title t('.title') %>
 
-<% if @publications.present? %>
-  <ul class="list-unstyled publications-list">
-    <% @publications.each do |publication| %>
-      <li class="publications-list-spacing">
-        <div class="title"><%= link_to publication.title, publications_show_path(publication) %></div>
-        <div class="date"><%= publication.published_at %></div>
-      </li> 
-    <% end %>
-  </ul>
+<div id="stories-list">
 
-<% else %>
-  <p>
-  <%= t('.no_publications') %>
-  </p>
-<% end %>
+  <% if @publications.present? %>
 
+      <div id="stories" class="clear">
+        <%= render partial: 'root/publication_items' %>
+      </div>
+      <div id="pagination">
+        <%= link_to_next_page(@publications, t('helpers.links.load_more'), :remote => true) %>      
+      </div>
+
+  <% else %>
+    <p>
+    <%= t('.no_publications') %>
+    </p>
+  <% end %>
+
+</div>
