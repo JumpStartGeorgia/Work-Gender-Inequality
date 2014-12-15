@@ -15,8 +15,8 @@ var assetsmeta =
 	{ type:"female", names:['casual','solid','business','technical','construction','doctor','fisher','miner','teacher'], amount:3, count:9,
 		path:"/assets/gap/svg/human/" },
 
-	{ type:"human_sits", names:['casual','solid','business'], amount:1, count:3, path:"/assets/gap/svg/human/" },
-	{ type:"human_actions", names:['fisher','miner','teacher'], amount:2, count:3, path:"/assets/gap/svg/human/" },
+	//{ type:"human_sits", names:[], amount:1, count:3, path:"/assets/gap/svg/human/" },
+	{ type:"human_actions", names:['fisher','miner','teacher','casual','solid','business'], amount:1, count:6, path:"/assets/gap/svg/human/" },
 
 	{ name:"about", type:"image", path:"/assets/gap/svg/common/about.svg"},	
 	{ name:"arrow-d", type:"image", path:"/assets/gap/svg/common/arrow_d.svg"},	
@@ -81,7 +81,7 @@ Game.Loader =
 			assetsmeta.forEach(function(d){
 				t.assetsCount += 'count' in d ? ('amount' in d ? d.amount*d.count:d.count) : 1;
 			});
-			t.assetsCount+=16+5+3+6; // category icons, interes icons, human_sits for second human, human_actions for second human
+			t.assetsCount+=16+5+6; // category icons, interes icons, human_sits for second human, human_actions for second human
 			t.assetsAmount = t.assetsCount;
 			t.starttimer();	
 			if(isOpera || isFirefox) t.sound_ext = 'ogg';
@@ -101,7 +101,7 @@ Game.Loader =
 			case 'interest': t.readinterest(v); break;
 			case 'male': t.readhuman(v,'m'); break;
 			case 'female': t.readhuman(v,'f'); break;
-			case 'human_sits': t.human_sits(v); break;
+			//case 'human_sits': t.human_sits(v); break;
 			case 'human_actions': t.human_actions(v); break;			
 			case 'sound': t.readsound(v); break;
 		}
@@ -230,7 +230,7 @@ Game.Loader =
 	  			on: 
 	  			{
 					load: function() { t.dec(); },
-					error: function(e) { console.log(this,' - not loaded'); }
+					error: function(e) { console.log(this,' - not loaded',e); }
 			  	},
 			  	"src":p
 		  	})
@@ -281,15 +281,15 @@ Game.Loader =
 			}			
 		}
 	},
-	human_sits:function(v)
-	{
-		var t = this;
-		for(var i = 0; i < v.count; ++i)
-		{
-			t.addimage('ms_'+ v.names[i], v.path + v.names[i] + '/ms.svg');
-			t.addimage('fs_'+ v.names[i], v.path + v.names[i] + '/fs.svg');			
-		}
-	},
+	// human_sits:function(v)
+	// {
+	// 	var t = this;
+	// 	for(var i = 0; i < v.count; ++i)
+	// 	{
+	// 		t.addimage('ms_'+ v.names[i], v.path + v.names[i] + '/ms.svg');
+	// 		t.addimage('fs_'+ v.names[i], v.path + v.names[i] + '/fs.svg');			
+	// 	}
+	// },
 	human_actions:function(v)
 	{
 		var t = this;

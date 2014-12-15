@@ -15,8 +15,8 @@ function human(selector,title)
   this.canvas = 200;
   this.x = 0;
   this.y = 0;
-  this.prevX = 0;
-  this.prevY = 0;
+  this.prevX = -1;
+  this.prevY = -1;
   this.initX = 0;
   this.initY = 0;
   this.angle = 0;
@@ -47,6 +47,14 @@ function human(selector,title)
   this.working = false;
   this.distance = 0;
   this.walk_distance = 0;
+  this.initialized = false;
+  this.frames = [
+    { w:0, h:0 },
+    { w:0, h:0 },
+    { w:0, h:0 },
+    { w:0, h:0 },
+    { w:0, h:0 }
+  ];
   var mutator = {
     left:[],
     right:[],
@@ -107,51 +115,42 @@ function human(selector,title)
      return tmp;
   });
 //*************************methods**********************************
-
-  this.position = function position(coord,noscale) {   
-      console.log(coord); 
+this.stop_counter = -2;
+  this.position = function position(coord,scale) {   
+    //  console.log(coord); 
       var t = this;
-      this.prevX = this.x;
-      this.prevY = this.y;
+      //this.prevX = this.x;
+     // this.prevY = this.y;
      // console.log(coord,noscale);
-      if(typeof noscale === 'undefined') noscale = false;
+      if(typeof scale === 'undefined') scale = false;
       if(exist(coord))
       {
-        if(exist(coord.x)) this.x = noscale ? coord.x : coord.x*img_scaler;
-        if(exist(coord.y)) this.y = noscale ? coord.y : this.land - (this.land - coord.y*img_scaler + this.height);
-        if(this.working)
-        {
-          this.x += $('.top .stage .fg img').first().offset().left-this.width/2;
-          this.y += $('.top .stage .fg img').first().offset().top;
-        }
-        if(exist(coord.a)) this.angle = coord.a;
+        if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;
+        t.choose_movement();
+        if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
+        //if(t.working)
+        //{
+        //  t.x ;
+          //t.y += $('.top .stage .fg img').first().offset().top;
+        //}
+        //if(exist(coord.a)) this.angle = coord.a;
       }      
-      else this.toground();
-      
-// console.log(this.x,this.y);
-      if(this.x > this.prevX) 
-      {
-        $(this.selector).removeClass('l');
-        //if(t.x - t.prevX >  3) t.next_movement();
-      }
-      else if(this.x < this.prevX) 
-      {
-        $(this.selector).addClass('l');
-        //if(t.prevX - t.x >  3) t.prev_movement();
-      }
-console.log(this.x,this.y);
+      //else this.toground();
 
-      $(this.selector).css({ left: this.x , top: this.y });   
-
-      //return { human:this.title ,x:this.x, y:this.y, a:this.angle };
+      if(!t.stopped)
+      {
+        $(t.selector).css({ left: t.x , top: t.y });   
+      }
   };
+  
   this.toground = function toground() 
   {
     this.land = lh;
     this.y = lh - this.height;
   };
   this.reset = function reset() 
-  {    
+  { 
+    this.get_dimentions();   
     this.scale();
     this.toground();
     this.prevX = this.x;
@@ -161,135 +160,179 @@ console.log(this.x,this.y);
   };
   this.scale = function()
   {
-    this.get_dimentions();
-    $(this.selector).css({
-      width : this.width,
-      height : this.height,
-      'background-size':this.width + 'px ' + this.height + 'px'
-    });
-    //this.position();
+    var t = this;
+    $(t.selector).css({
+      width : t.frames[t.movement].w,
+      height : t.frames[t.movement].h,
+      'background-size':t.frames[t.movement].w + 'px ' + t.frames[t.movement].h + 'px'
+    }); 
   };
+  var actionsBound = 1;
+  this.step_size = 0;
   this.get_dimentions = function()
   {
     var t = this;
-    var hTmp = assets.filter(function(a){ return a.name == t.alias + '0_' + category.dress; })[0].element[0];
+    for(i = 0; i < movementBound; ++i)
+    {
+      var hTmp = assets.filter(function(a){ return a.name == t.alias + i + '_' + category.dress; })[0].element;
+      var hTmpCloned = hTmp.clone();      
+      $('.black-hole').append(hTmpCloned);
+      hTmpCloned.height(hTmpCloned.height()*img_scaler);
+      t.frames[i].h = hTmpCloned.height();
+      t.frames[i].w = hTmpCloned.width();
+      $('.black-hole').empty();
+    }
+    t.step_size = t.frames[0].w/2.3;
 
-    this.init_width = hTmp.width;
-    this.init_height = hTmp.height;
-
-    this.width = Math.floor10(img_scaler * this.init_width);
-    this.height = Math.floor10(img_scaler * this.init_height);
-
-  };
-  this.animate = function animate()
-  {    
-		this.animated = true;
-    this.working = false;
-    this.reset();
-		var t = this;
-    var intervalId = null;
-     var st = $('.' + t.place + ' .stage');
-     //10000
-     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - this.width/2;
-     var yDistance = category.work_point.y*img_scaler;
-		$(this.selector).animate({"color":'white'},{ duration:10000, easing:'linear',
-      start:function()
+    if(category.action)
+    {
+      for(i = 0; i < actionsBound; ++i)
       {
-        $(t.selector).show();
-        intervalId = setInterval(function()
-        {
-          t.next_movement();   
-        },
-        (w2-t.width/2+100)/7); 
-      },
-			progress:function(a,b,c) 
-			{ 
-        //console.log(xDistance*b);
-        t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, true);
-        st.css('left',-1*b* (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
-			},
-			complete:function() 
-			{
-				t.animated = false;
-        animated = t.animated || t.oppenent.animated;
-        if(animated) canScroll = true;
-        clearInterval(intervalId);
-        t.stand_movement();
-        t.work_frame();
-        
+        var hTmp = assets.filter(function(a){ return a.name == t.alias  +'a'+ i + '_' + category.dress; })[0].element;
+        var hTmpCloned = hTmp.clone();      
+        $('.black-hole').append(hTmpCloned);
+        hTmpCloned.height(hTmpCloned.height()*img_scaler);
+        t.frames[movementBound+i].h = hTmpCloned.height();
+        t.frames[movementBound+i].w = hTmpCloned.width();
+        $('.black-hole').empty();
+      }
+    }
 
-			}
-		});
+    $(this.selector).css({
+        width : t.frames[t.movement].w,
+        height : t.frames[t.movement].h,
+        'background-size':t.frames[t.movement].w + 'px ' + t.frames[t.movement].h + 'px'
+    });    
   };
+ 
  // this.prevXTmp = 0;
  // this.prevYTmp = 0;
   var movementBound = 3;
   this.rewardStarted = false;
-  this.prepare_reward = function prepare_reward(step,start)
+    this.stopped = false;
+  this.was_stopped = false;
+  
+
+  this.choose_movement = function choose_movement()
   {
     var t = this;
-    var istep = step;
-    if(!start) step = 1 - step;
-    if(!t.rewardStarted)
+    if(t.prevX == -1) // after animation prev is not correct so reseting them
     {
-      t.rewardStarted = true;
-      t.working = false;
-      t.initX = t.x;
-      t.initY = t.y;
+      t.prevX = t.x;
+      t.prevY = t.y;
+      return;
     }
-    t.position({ x:t.initX - (t.initX - w2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, true);
-
-   // if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
-    //{
-      start ? t.next_movement() : t.prev_movement();
-     // t.prevXTmp = t.x;
-     // t.prevYTmp = t.y;
-    //}    
-    if(!start && istep == 1)
+    var distanceDiff = Math.abs(t.prevX - t.x);
+    if(distanceDiff > t.step_size)
     {
-      t.working = true;
-      t.rewardStarted = false;
+      if(!t.stopped)
+      {
+        if(t.working && category.action &&  !t.was_stopped && t.stop_counter != -1 &&
+               ((category.action_points[0].d == 1 && t.prevX < t.x &&
+               t.x > category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w) ||
+               (category.action_points[0].d == -1 && t.prevX > t.x &&
+               t.x < category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w)))
+        {
+          t.action_movement();
+          t.stop_counter = 3;  
+          t.stopped = true; 
+          t.was_stopped = true;
+        }  
+        if(t.x > t.prevX) // moving right
+        {
+          $(this.selector).removeClass('l'); 
+          if(!t.stopped) this.next_movement();
+        }
+        else 
+        {
+          $(this.selector).addClass('l');  
+          if(!t.stopped) this.prev_movement();      
+        }
+        t.prevX = t.x;
+        t.prevY = t.y;
+      }
     }
-  };  
+  };
   this.next_movement = function next_movement()
-  {       
-    this.movement = ++this.movement;
-    if(this.movement == 3) this.movement = 0;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)"); 
+  {      
+    var t = this; 
+    t.movement = ++t.movement;
+    if(t.movement >= 3) t.movement = 0;
+    t.before_movement();
   };
   this.prev_movement = function prev_movement()
   {
-    this.movement = --this.movement;
-    if(this.movement == -1) this.movement = 2;
-    $(this.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");    
+    var t = this;
+    t.movement = --t.movement;
+    if(t.movement == -1) t.movement = 2;
+    t.before_movement();
+  };
+  this.action_movement = function action_movement()
+  {
+    var t = this;
+    if(category.action)
+    { 
+      t.movement = 3; 
+      var hDiff = t.frames[t.movement].h-t.height;      
+      var wDiff = t.frames[t.movement].w-t.width;
+
+      t.prevX = t.prevX - wDiff;
+      t.prevY = t.prevY - hDiff; 
+      t.x = t.x - wDiff;
+      t.y = t.y - hDiff;
+      $(t.selector).css({ left: t.x, top: t.y });  
+      
+
+      t.before_movement('a0');
+    }
+  };
+  this.before_movement = function before_movement(ext)
+  {
+    var t = this;
+    if(typeof ext === 'undefined') ext = t.movement;
+    t.width = t.frames[t.movement].w;
+    t.height = t.frames[t.movement].h;
+
+    $(t.selector).css({
+      width : t.width,
+      height : t.height,
+      'background-size':t.width + 'px ' + t.height + 'px'
+    });
+    $(t.selector).css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + t.alias + ext + ".svg)");
   };
   this.stand_movement = function stand_movement(v)
   { 
-    this.movement = 0;      
-    var t = $(this.selector).removeClass('l').css("background-image","url(/assets/gap/svg/human/" + category.dress + "/" + this.alias + this.movement + ".svg)");
-    if(v === 'l') t.addClass('l');
-
+    var t = this;
+    t.movement = 0;    
+    t.before_movement(); 
+    if(v === 'l') $(t.selector).addClass('l');
+    else $(t.selector).removeClass('l');
   };
   this.step_right = function step_right()
   {    
-    var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
-    if(this.path_loop)
-       tmp = tmp == 100 ? 100 : tmp%100;
-    else if(tmp > 100) return;
-    
-    //this.next_movement();      
-    this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+    var t = this;
+    if(t.stop_counter-- == 0) t.stopped = false;
+    if(!t.stopped)
+    {
+      var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
+      if(this.path_loop)
+         tmp = tmp == 100 ? 100 : tmp%100;
+      else if(tmp > 100) return;
+      
+      if(t.was_stopped && tmp < 5) t.was_stopped = false;
+      this.traversed_path = tmp;
+      this.position(this.getpathcoordinates(this.traversed_path/100),true);
+    } 
   };
   this.step_left = function step_left()
   {    
-    var tmp = (this.traversed_path - 4);
-    if(this.path_loop)
-       tmp =  tmp <= 0 ? 100 : tmp%100;
-    else if(tmp <= 0) return;
-    //this.prev_movement();
-    this.traversed_path = tmp;
-    this.position(this.getpathcoordinates(this.traversed_path/100));
+      var tmp = (this.traversed_path - 4);
+      if(this.path_loop)
+         tmp =  tmp <= 0 ? 100 : tmp%100;
+      else if(tmp <= 0) return;
+
+      this.traversed_path = tmp;
+      this.position(this.getpathcoordinates(this.traversed_path/100),true);
   };
   this.work_frame = function work_frame()
   {
@@ -308,6 +351,32 @@ console.log(this.x,this.y);
 		var p =  this.path.getPointAtLength(this.path_length * percent/100);
 		return { x:p.x,y:p.y, a:a };
   };
+  this.prepare_reward = function prepare_reward(step,start)
+  {
+    var t = this;
+    var istep = step;
+    if(!start) step = 1 - step;
+    if(!t.rewardStarted)
+    {
+      t.rewardStarted = true;
+      t.working = false;
+      t.initX = t.x;
+      t.initY = t.y;
+    }
+    t.position({ x:t.initX - (t.initX - w2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, false);
+
+   // if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
+    //{
+      //start ? t.next_movement() : t.prev_movement();
+     // t.prevXTmp = t.x;
+     // t.prevYTmp = t.y;
+    //}    
+    if(!start && istep == 1)
+    {
+      t.working = true;
+      t.rewardStarted = false;
+    }
+  };  
   this.prepare_for_game = function prepare_for_game()
   {    
     var life = (max_age - user.age) * 12;
@@ -369,6 +438,39 @@ console.log(this.x,this.y);
 
     }
   
+  };
+  this.animate = function animate()
+  { 
+    var t = this;
+
+    this.animated = true;
+    this.working = false;
+
+    this.reset();
+
+    var t = this;
+    var intervalId = null;
+    var st = $('.' + t.place + ' .stage');
+    var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - t.frames[t.movement].w;
+    var yDistance = category.work_point.y*img_scaler;
+    $(this.selector).show().animate({"color":'white'},{ 
+      duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
+      progress:function(a,b,c) 
+      { 
+        t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, false);
+        st.css('left',-1*b* (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
+      },
+      complete:function() 
+      {
+        t.animated = false;
+        animated = t.animated || t.oppenent.animated;
+        if(animated) canScroll = true;       
+        t.stand_movement();
+        t.work_frame();
+        t.prevX = -1;
+        t.prevY = -1;   
+      }
+    });
   };
   this.has_future_reward = function has_future_reward()
   {    

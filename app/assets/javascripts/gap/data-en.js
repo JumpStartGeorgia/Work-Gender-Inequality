@@ -15,9 +15,9 @@ var categories =
         "bg":"bg1",
         "bg2":"bg3",
         "fg":"agriculture",
-        "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 59.818847,205.81734 L 1177.9035,206.39464 L 1177.9035,205.27178 L 59.818846,206.90233 z"},
+        "work_point":{ "x":60,"y":27 }    
     },
     { 
         "id": "FWrgJx0N",
@@ -45,9 +45,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"mining",
-        "sits":false,
         "action":true,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action_points":[{"x":396,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 33.107821,289.61203 L 33.107821,291.27324 L 709.11961,291.27324 L 709.11961,289.95167 z"},
+        "work_point":{"x":70,"y":0}        
     },
     { 
         "id": "Zyb2KhON",
@@ -60,9 +61,9 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",
         "fg":"manufacturing",
-        "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 114.69192,284.55042 L 388.65288,284.55042 L 388.65288,282.33241 L 114.69192,282.73297 z"},
+        "work_point":{"x":150,"y":4}     
     },
     { 
         "id": "8IkQeUfg",
@@ -75,9 +76,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",
         "fg":"production",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action":true,
+        "action_points":[{"x":720,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 230.35687,313.02843 L 791.89208,313.02843 L 792.73154,309.89554 L 229.28545,309.89554 z"},
+        "work_point":{"x":229,"y":4}     
     },
     { 
         "id": "eibtNMge",
@@ -135,9 +137,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",
         "fg":"transport",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action":true,
+        "action_points":[{"x":630,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "EmbBcc5x",
@@ -150,9 +153,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",        
         "fg":"financial",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action":true,
+        "action_points":[{"x":870,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "oxKq-H8w",
@@ -165,10 +169,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"realestate",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 244.01475,205.42934 L 246.79497,205.42934 L 246.79497,205.97373 L 244.02758,205.97373 z"},
-        "work_point":{"x":244,"y":40}
+        "action":true,
+        "action_points":[{"x":690,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 204.55565,312.67655 L 855.34567,312.67655 L 855.34567,311.39807 L 204.53464,311.43312 z"},
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "dT-LWuT4",
@@ -181,7 +185,6 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"administration",
-        "sits":false,
         "action":false,
         "work":{ "a":false, "loop": true, "path":"M 244.01475,205.42934 L 246.79497,205.42934 L 246.79497,205.97373 L 244.02758,205.97373 z"},
         "work_point":{"x":244,"y":40}
@@ -196,11 +199,12 @@ var categories =
         "dress":"teacher",
         "bg":"bg1",
         "bg2":"bg1",       
-        "fg":"education",
-        "sits":false,
+        "fg":"education",        
         "action":true,
+        "action_points":[{"x":526,"y":0,"d":-1}],    // 1 right -1 left
         "work":{ "a":false, "loop": true, "path":"M 655.8153,314.85376 L 180.6514,314.85376 L 180.6514,314.56599 L 655.81649,314.56599 z"},
-        "work_point":{"x":655,"y":0}
+        "work_point":{"x":655,"y":0},
+        "animate_points":{ "left": {"x":270,"y":0},"right":{"x":500,"y":0} }
     },
     {
         "id": "dJdfgktK",
@@ -213,9 +217,9 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"health",
-        "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 203.2094,285.14853 L 801.49568,285.14853 L 801.37754,283.84893 L 203.17203,283.84893 z"},
+        "work_point":{"x":200,"y":0}     
     },
     {
         "id": "DqFfYVGZ",
@@ -228,9 +232,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",       
         "fg":"community",
-        "sits":false,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action":true,
+        "action_points":[{"x":970,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 202.61407,313.43416 L 981.10951,313.43416 L 981.15687,312.67655 L 202.61406,312.67655 z"},
+        "work_point":{"x":200,"y":4}     
     },
     {
         "id": "hyn3wmKk",
@@ -243,9 +248,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",    
         "fg":"other",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action":true,
+        "action_points":[{"x":970,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 202.61407,313.43416 L 981.10951,313.43416 L 981.15687,312.67655 L 202.61406,312.67655 z"},
+        "work_point":{"x":200,"y":4} 
     },
 ];
 var cat_ids = categories.map(function(d,i){return d.id;});
