@@ -30,18 +30,22 @@ class RootController < ApplicationController
   end
 
   def news
-    @news_items = NewsItem.published.sorted
+    @news_items = NewsItem.published.sorted.page(params[:page]).per(12)
 
     @css.push('root.css')
+    @css.push('stories.css')
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @news_items }
     end
   end
 
   def news_show
     @news_item = NewsItem.published.find(params[:id])
+
+    @css.push('stories.css')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -50,18 +54,22 @@ class RootController < ApplicationController
   end
 
   def publications
-    @publications = Publication.sorted
+    @publications = Publication.sorted.page(params[:page]).per(12)
 
     @css.push('root.css')
+    @css.push('stories.css')
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @publications }
     end
   end
 
   def publications_show
     @publication = Publication.find(params[:id])
+
+    @css.push('stories.css')
 
     respond_to do |format|
       format.html # index.html.erb

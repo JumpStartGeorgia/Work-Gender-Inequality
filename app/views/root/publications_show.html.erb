@@ -1,20 +1,27 @@
 <%- model_class = Publication -%>
 <%- model_class_trans = PublicationTranslation -%>
 <% title t('.title', :title => @publication.title) %>
-<% title_right link_to(t('.all'), publications_path, class: 'btn btn-default') %>
+<% title_right link_to(t('.all'), publications_path, :class => 'view-all') %>
 
+<div id="story-show">
 
-<p>
-  <%= l @publication.published_at if @publication.published_at.present? %>
-</p>
+  <ul id="story-meta-list" class="list-inline">
+    <li>
+      <%= model_class.human_attribute_name(:published_at) %>:<br />
+      <span><%= l @publication.published_at %></span>
+    </li>
+    <li>
+      <%= model_class_trans.human_attribute_name(:pub_file) %>:<br />
+      <span><%= link_to t('helpers.links.view'), @publication.pub_file.url, :target => :blank if @publication.pub_file.present? %></span>
+    </li>
+    <li>
+      <%= model_class_trans.human_attribute_name(:url) %>:<br />
+      <span><%= link_to @publication.url, @publication.url, :target => :blank if @publication.url.present? %></span>
+    </li>
+  </ul>
+  
+  <div class="tinymce_format">
+    <%= simple_format_no_tags(@publication.description, {}, {sanitize: false}) %>
+  </div>
 
-<p><strong><%= model_class_trans.human_attribute_name(:pub_file) %>:</strong>
-<%= link_to t('helpers.links.view'), @publication.pub_file.url, :target => :blank if @publication.pub_file.present? %></p>
-
-<p><strong><%= model_class_trans.human_attribute_name(:url) %>:</strong>
-<%= link_to @publication.url, @publication.url, :target => :blank if @publication.url.present? %></p>
-
-<div class="tinymce_format">
-  <%= simple_format_no_tags(@publication.description, {}, {sanitize: false}) %>
 </div>
-

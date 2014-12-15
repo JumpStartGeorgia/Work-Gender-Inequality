@@ -1,36 +1,32 @@
 <%- model_class = Story -%>
 <% title t '.title' %>
-<% 
-  links = link_to(t('helpers.links.add_story'), new_story_path, :class => 'btn btn-primary')
-  title_right links 
-%>
-<div id="stories-show">
-<% if @stories.present? %>
-  <% @stories.each_with_index do |story, index| %>
-    <% if index%3 == 0 %>
-      <% if index != 0 %>
-        </div>
-      <% end %>
-      <div class="row story-item-row">
-    <% end %>
 
-    <div class="col-sm-4">
-      <div class="clear story-header">
-        <div class="pull-left date"><%= l story.created_at, format: :date_only %></div>
-        <div class="pull-right type"><%= story.discrimination_type.name %></div>
-      </div>
-      <p><%= truncate(story.content, separator: ' ', omission: '...', length: 100) %></p>
-      <div class="pull-right"><%= link_to t('helpers.links.view_story'), story_path(story), class: 'btn btn-default btn-sm' %></div>
-    </div> 
+<div id="stories-list">
 
-    <% if index == @stories.length-1 %>
-      </div>
-    <% end %>
+  <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
+    <%= simple_format_no_tags(@discrimination_explanation.content, {}, {sanitize: false}) %>
+  <% else %>
+    <p>Urna est mauris, velit magna integer dis massa integer, scelerisque in purus, hac natoque dapibus! Aenean.</p>
   <% end %>
-<% else %>
-  <p>
-    <%= t('.no_stories') %>
-  </p>
-<% end %>
+
+  <div id="tell-story">
+    <%= link_to new_story_path do %>
+      <span><%= t('.img_link_row1') %></span>
+      <%= t('.img_link_row2') %>
+    <% end %>
+  </div>
+
+  <% if @stories.present? %>
+    <div id="stories" class="clear">
+      <%= render partial: 'stories/stories' %>
+    </div>
+    <div id="pagination">
+      <%= link_to_next_page(@stories, t('helpers.links.load_more'), :remote => true) %>      
+    </div>
+  <% else %>
+    <p>
+      <%= t('.no_stories') %>
+    </p>
+  <% end %>
 
 </div>

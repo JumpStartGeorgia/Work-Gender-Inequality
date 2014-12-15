@@ -1,41 +1,48 @@
 <%- model_class = Story -%>
 <% title t '.title' %>
 <% 
-  links = link_to(t('helpers.links.add_story'), new_story_path, :class => 'btn btn-primary')
-  links << '  '
-  links << link_to(t('helpers.links.all_stories'), stories_path, :class => 'btn btn-default') 
+  links = link_to(t('helpers.links.all_stories'), stories_path, :class => 'view-all') 
 %>
 <% title_right links %>
 
+<div id="story-show">
 
-<ul id="story-meta-list" class="list-inline">
-  <li>
-    <strong><%= model_class.human_attribute_name(:created_at) %>:</strong><br />
-    <%= l @story.created_at, :format => :date_only %>
-  </li>
-  <li>
-    <strong><%= model_class.human_attribute_name(:discrimination_type) %>:</strong><br />
-    <%= @story.discrimination_type.name if @story.discrimination_type_id.present? %>
-  </li>
-  <% if @story.gender.present? %>
+  <ul id="story-meta-list" class="list-inline">
     <li>
-      <strong><%= model_class.human_attribute_name(:gender) %>:</strong><br />
-      <%= @story.gender_formatted %>
+      <%= model_class.human_attribute_name(:created_at) %>:<br />
+      <span><%= l @story.created_at, :format => :date_only %></span>
     </li>
-  <% end %>
-  <% if @story.age.present? %>
     <li>
-      <strong><%= model_class.human_attribute_name(:age) %>:</strong><br />
-      <%= @story.age %>
+      <%= model_class.human_attribute_name(:discrimination_type) %>:<br />
+      <span><%= @story.discrimination_type.name if @story.discrimination_type_id.present? %></span>
     </li>
-  <% end %>
-  <% if @story.region.present? %>
-    <li>
-      <strong><%= model_class.human_attribute_name(:region) %>:</strong><br />
-      <%= @story.region %>
-    </li>
-  <% end %>
-</ul>
+    <% if @story.gender.present? %>
+      <li>
+        <%= model_class.human_attribute_name(:gender) %>:<br />
+        <span><%= @story.gender_formatted %></span>
+      </li>
+    <% end %>
+    <% if @story.age.present? %>
+      <li>
+        <%= model_class.human_attribute_name(:age) %>:<br />
+        <span><%= @story.age %></span>
+      </li>
+    <% end %>
+    <% if @story.region.present? %>
+      <li>
+        <%= model_class.human_attribute_name(:region) %>:<br />
+        <span><%= @story.region %></span>
+      </li>
+    <% end %>
+  </ul>
 
-<%= simple_format(@story.content) %>
+  <%= simple_format(@story.content) %>
 
+  <div id="tell-story">
+    <%= link_to new_story_path do %>
+      <span><%= t('.img_link_row1') %></span>
+      <%= t('.img_link_row2') %>
+    <% end %>
+  </div>
+
+</div>

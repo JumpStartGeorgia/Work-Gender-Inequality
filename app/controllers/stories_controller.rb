@@ -2,12 +2,13 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.sorted.is_approved
+    @stories = Story.sorted.is_approved.page(params[:page]).per(12)
 
     @css.push('stories.css')
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js 
       format.json { render json: @stories }
     end
   end

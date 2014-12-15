@@ -3,7 +3,7 @@
 
   <%= f.inputs do %>
     <%= f.input :discrimination_type_id, :as => :select, :collection => @types %>
-    <%= f.input :content, :as => :text, rows: 50 %>
+    <%= f.input :content, :as => :text, :input_html => {rows: 10} %>
     <%= f.input :is_public, as: :radio, :required => false, :inline => true %>
   <% end %>
 
@@ -14,7 +14,7 @@
       </p>
 
       <%= f.inputs do %>
-        <%= f.input :gender, as: :radio, :collection => @genders, :inline => true %>
+        <%= f.input :gender, as: :radio, required: false, :collection => @genders, :inline => true %>
         <%= f.input :age, as: :string, :input_html => { :size => 10 } %>
         <%= f.input :region, :input_html => { :size => 30 } %>
       <% end %>
@@ -38,9 +38,9 @@
 
 
   <div class="form-group">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= f.submit t('helpers.links.reset'), :class => 'btn btn-warning', :type => :reset, :name => :reset %>
-    <%= link_to t('helpers.links.cancel'), stories_path, :class => 'btn btn-mini btn-warning' %>
+    <%= f.submit nil, :class => 'btn-submit btn-form' %>
+    <%= f.submit t('helpers.links.reset'), :class => 'btn-reset btn-form', :type => :reset, :name => :reset %>
+    <%= link_to t('helpers.links.cancel'), stories_path, :class => 'btn-cancel btn-form' %>
   </div>
 <% end %>
 

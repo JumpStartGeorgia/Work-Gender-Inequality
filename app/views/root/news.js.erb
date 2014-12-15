@@ -1,0 +1,7 @@
+$('#stories').append('<%= escape_javascript(render "root/news_items" )%>');
+$('#pagination a').html('<%= escape_javascript(link_to_next_page(@news_items, t("helpers.links.load_more"), :remote => true).to_s) %>');
+if ($('#pagination a').html() == ''){
+  $('#pagination a').hide();
+}else{
+  $('#pagination a').show();
+}

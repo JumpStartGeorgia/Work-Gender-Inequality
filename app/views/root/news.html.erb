@@ -1,20 +1,20 @@
-<%- model_class = NewsItem -%>
-<%- model_class_trans = NewsItemTranslation -%>
 <% title t('.title') %>
 
-<% if @news_items.present? %>
+<div id="stories-list">
 
-  <ul class="list-unstyled news-list">
-    <% @news_items.each do |news| %>
-      <li class="news-list-spacing">
-        <div class="title"><%= link_to news.title, news_show_path(news) %></div>
-        <div class="date"><%= news.published_at %></div>
-      </li> 
-    <% end %>
-  </ul>
+  <% if @news_items.present? %>
 
-<% else %>
-  <p>
-  <%= t('.no_news') %>
-  </p>
-<% end %>
+      <div id="stories" class="clear">
+        <%= render partial: 'root/news_items' %>
+      </div>
+      <div id="pagination">
+        <%= link_to_next_page(@news_items, t('helpers.links.load_more'), :remote => true) %>      
+      </div>
+
+  <% else %>
+    <p>
+    <%= t('.no_news') %>
+    </p>
+  <% end %>
+
+</div>

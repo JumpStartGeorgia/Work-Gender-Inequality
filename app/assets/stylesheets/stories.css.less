@@ -1,10 +1,30 @@
+@text-color: #6e6d6d;
+@blue-link-color: #a2ccd4;
+@pink-color: #ef4273;
+@blue-header-color: #77b8c3;
+@grey-background: #f0f0f0;
+
 form.story{
+  select, textarea, input{
+    border: solid 1px @blue-header-color;
+  }
+  label{
+    font-weight: normal;
+  }
+  select.form-control{
+    display: inline-block;
+    margin-left: 10px;
+  }
+  .radio{
+    display: inline-block;
+    margin-left: 15px;
+  }
   #row1{
     margin-bottom: 35px;
   }
   .story-box{
     padding: 5px 10px;
-    border-right: solid 1px #cdcdcd;
+    border-right: solid 1px @pink-color;
     &:last-of-type{
       border-right: none;
     }
@@ -13,23 +33,155 @@ form.story{
   p {
     margin-bottom: 10px;
   }
+
+  .form-group{
+    .btn-form{
+      color: #fff;
+      background-color: #9a9a9a;
+      padding: 7px 15px !important;
+      border: none;
+      font-family: "gandhi";   
+      &.btn-submit{
+        background-color: #92c6ce;
+      }
+      &.btn-reset{
+        background-color: #e95b83;
+      }
+      &.btn-cancel{
+      padding: 10px 15px !important;
+      }
+    }
+  }
 }
 
 ul#story-meta-list li{
   vertical-align: top;
 }
 
-div#stories-show{
-  .story-item-row{
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    .story-header{
-      border-bottom: solid 1px #ededed;
-      padding-bottom: 5px;
-      margin-bottom: 5px;
-      .date{
-        font-style: italic;
+
+h1 span{
+  margin-left: 80px;
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-right: -45px;
+  a.view-all{
+    display: block;
+    color: #fff;
+    background-color: @pink-color;
+    padding: 10px 24px 10px 18px;
+    font-family: "hallo";   
+    line-height: 20px;
+    font-size: 15px;        
+  }
+}
+
+#story-show{
+  #story-meta-list{
+    margin-bottom: 20px;
+    li{
+      padding: 0 15px;
+      border-right: solid 1px #ccc;
+      &:first-of-type{
+        padding-left: 0;
       }
+      &:last-of-type{
+        border-right: none;
+        padding-right: 0;
+      }
+      span{
+        color: @pink-color;
+        font-family: "gandhi-i";
+        font-size: 13px;
+      }
+    }
+  }
+
+  #tell-story {
+    margin-top: 40px;
+    a{
+      display: inline-block;
+      color: #fff;
+      background-color: @pink-color;
+      padding: 10px 24px 10px 18px;
+      font-family: "hallo";   
+      line-height: 18px;
+      font-size: 18px;        
+      span{
+        display: block;
+        text-transform: uppercase;
+        font-family: "hallo-b";   
+      }
+    }
+  }
+}
+
+div#stories-list{
+  #tell-story {
+    margin: 40px 0 60px;
+    position: relative;
+    border-bottom: solid 2px @pink-color;
+    a{
+      position: absolute;
+      left: 0;
+      top: -26px;
+      display: block;
+      color: #fff;
+      background-color: @pink-color;
+      padding: 10px 24px 10px 18px;
+      font-family: "hallo";   
+      line-height: 18px;
+      font-size: 18px;        
+      span{
+        display: block;
+        text-transform: uppercase;
+        font-family: "hallo-b";   
+      }
+    }
+  }
+
+
+  #stories{
+    .story{
+      padding: 15px;
+      margin-bottom: 10px;
+      .story-header{
+        color: @pink-color;
+        font-family: "gandhi-i";
+        font-size: 13px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+      }
+      .story-title a{
+        line-height: 15px;
+        font-size: 15px;        
+        color: @text-color;
+        font-family: "gandhi-b";
+      }
+      p{
+        line-height: 15px;
+        font-size: 15px;        
+        color: @text-color;
+        font-family: "gandhi";
+        a{
+          line-height: 15px;
+          font-size: 15px;        
+          color: @text-color;
+          font-family: "gandhi";
+        }
+      }
+    }
+  }
+
+
+  #pagination {
+    text-align: center;
+    a{
+      padding: 10px 45px;
+      color: @blue-header-color;
+      background-color: @grey-background;
+      font-size: 19px;
+      line-height: 20px;
+      font-family: "hallo";  
     }
   }
 }
