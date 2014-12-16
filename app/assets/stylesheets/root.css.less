@@ -24,9 +24,8 @@
       }
       a{
         position: absolute;
-        right: 0;
-        top: 50%;
-        margin-top: -20px;
+        left: 0;
+        top: 50px;
         display: block;
         color: #fff;
         background-color: @pink-color;
@@ -46,11 +45,13 @@
       }
       div{
         position: absolute;
-        bottom: 0;
+        bottom: 6px;
         opacity: 0.9;
         background-color: @blue-header-color;
         color: #fff;
-        padding: 4px 12px;
+        padding: 4px 8px;
+        font-size: 18px;
+        line-height: 18px;
         width: 100%;
         font-weight: bold;
         font-family: "title-font";   
@@ -70,12 +71,12 @@
       margin-top: 80px;
       text-align: center;
       color: @pink-color;
-      font-size: 20px;
+      font-size: 26px;
       text-transform: uppercase;
       font-family: "title-font";   
       span{
         font-family: "title-font-bold";   
-        font-size: 25px;
+        font-size: 34px;
       }
     }
     #get-involved-content{
@@ -120,7 +121,7 @@
               border-left: solid 1px @pink-color;
               a{
                 color: @text-color;
-                font-family: "main-font-bold";
+                font-family: "main-font";
               }
             }
           }
@@ -158,17 +159,24 @@
         background-size: auto 100%;
         position: relative;
         min-height: 275px;
+        h3{
+          background-color: @darker-blue-header-color;
+          &:before{
+            border-top: 10px solid @darker-blue-header-color;
+          }
+        }
         #game-coming{
           margin-top: 50px;
           text-align: center;
           div{
             font-family: "title-font";
-            background-color: @blue-header-color;
+            background-color: @darker-blue-header-color;
             font-size: 25px;
             color: #fff;
             display: inline-block;
             padding: 10px 18px;
             text-align: center;
+            text-transform: uppercase;
             span{
               font-family: "title-font-bold";
             }
@@ -185,7 +193,7 @@
           background-color: #c65551;
           opacity: 0.9;
           padding: 4px 12px;
-          font-family: "main-font-bold";
+          font-family: "main-font";
         }  
         #game-link{
           display: none;
@@ -218,7 +226,6 @@
         #explore-image{
           text-align: center;
           img{
-            width: 75%;
             margin-top: -30px;
           }
         }
@@ -243,7 +250,7 @@
     text-align: center;
     color: #7f8080;
     font-family: "title-font";   
-    font-size: 24px;
+    font-size: 26px;
     text-transform: uppercase;
   }
   #video-content{
@@ -252,8 +259,9 @@
       text-align: center;
       margin-bottom: 25px;
       .video-title{
+        font-size: 16px;
         color: @pink-color;
-        font-family: "main-font-bold";
+        font-family: "main-font";
       }
     }
   }
@@ -271,7 +279,7 @@
         margin: 0 -35px 20px;
         text-align: center;
         color: @pink-color;
-        font-size: 14px;
+        font-size: 20px;
         border-bottom: solid 1px @grey-line;
         padding: 10px 0;
         position: relative;
@@ -323,7 +331,6 @@
         li{
           margin-bottom: 20px;
           .title{
-            font-weight: bold;
             a{
               color: @text-color;
             }
