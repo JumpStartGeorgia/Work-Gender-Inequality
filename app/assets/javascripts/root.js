@@ -57,4 +57,10 @@ $(document).ready(function(){
   $(window).bind('resize', resize_videos);
 
 
+  $('#explore').hover(function(){
+    $('#explore #explore-popup').css('visibility', 'visible');
+  }, function(){
+    $('#explore #explore-popup').css('visibility', 'hidden');
+  });
+
 });

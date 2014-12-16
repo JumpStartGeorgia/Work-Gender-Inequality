@@ -289,8 +289,8 @@ ka:
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
   root:
     index:
-      header_get_involved1: ჩაერთეთ     
-      header_get_involved2: '!'
+      header_get_involved1: ჩაერთეთ!  
+      header_get_involved2: ''
       header_stories: ისტორიები დისკრიმინაციაზე
       header_game: Pay Gap Game
       header_explore: კვლევის მონაცემები

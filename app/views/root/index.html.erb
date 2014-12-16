@@ -93,10 +93,13 @@
           <%= t('.header_explore') %>
         </h3>
         <div id="explore-image">
-          <%= link_to(image_tag("chart_#{I18n.locale}.png"), explore_data_path, title: t('root.explore_data.instructions.p1')) %>
+          <%= link_to(image_tag("chart_#{I18n.locale}.png"), explore_data_path, alt: t('root.explore_data.instructions.p1')) %>
         </div>
-        <div id="explore-link">
-          <%= link_to t('.explore'), explore_data_path %>
+        <div id="explore-popup">
+          <p><%= t('root.explore_data.instructions.p1') %></p>
+          <div id="explore-link">
+            <%= link_to t('.explore'), explore_data_path %>
+          </div>
         </div>
       </div>
     </div>
