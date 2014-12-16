@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-6">
       <div>
-        <%= image_tag 'landing-temp.png' %>
+        <%= image_tag 'landing.png' %>
         <%= link_to new_story_path do %>
           <span><%= t('helpers.links.tell_story1') %></span>
           <%= t('helpers.links.tell_story2') %>
@@ -92,11 +92,8 @@
         <h3>
           <%= t('.header_explore') %>
         </h3>
-        <p>
-          <%= t('root.explore_data.instructions.p1') %>
-        </p>
         <div id="explore-image">
-          <%= link_to(image_tag("chart_#{I18n.locale}.png"), explore_data_path) %>
+          <%= link_to(image_tag("chart_#{I18n.locale}.png"), explore_data_path, title: t('root.explore_data.instructions.p1')) %>
         </div>
         <div id="explore-link">
           <%= link_to t('.explore'), explore_data_path %>
