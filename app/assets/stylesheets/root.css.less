@@ -1,7 +1,4 @@
-  @pink-color: #ef4273;
-@text-color: #6e6d6d;
-@grey-line: #b2b2b2;
-@blue-background: #77b8c3;
+@import "variables.css.less";
 
 #landing{
   p{
@@ -36,12 +33,12 @@
         padding: 10px 24px 10px 18px;
         font-size: 17px;
         line-height: 17px;
-        font-family: "hallo";   
+        font-family: "title-font";   
         font-size: 18px;        
         span{
           display: block;
           text-transform: uppercase;
-          font-family: "hallo-b";   
+          font-family: "title-font-bold";   
         }
         &:hover{
           text-decoration: none;
@@ -51,16 +48,16 @@
         position: absolute;
         bottom: 0;
         opacity: 0.9;
-        background-color: @blue-background;
+        background-color: @blue-header-color;
         color: #fff;
         padding: 4px 12px;
         width: 100%;
         font-weight: bold;
-        font-family: "hallo";   
+        font-family: "title-font";   
         p{
           color: #fff;
           font-weight: bold;
-          font-family: "hallo";   
+          font-family: "title-font";   
         }
       }
     }
@@ -75,9 +72,9 @@
       color: @pink-color;
       font-size: 20px;
       text-transform: uppercase;
-      font-family: "hallo";   
+      font-family: "title-font";   
       span{
-        font-family: "hallo-b";   
+        font-family: "title-font-bold";   
         font-size: 25px;
       }
     }
@@ -91,9 +88,9 @@
         margin: 0 -15px 20px;
         text-align: center;
         color: #fff;
-        background-color: @blue-background;
+        background-color: @blue-header-color;
         font-size: 18px;
-        font-family: "hallo";   
+        font-family: "title-font";   
         padding: 10px 0;
         position: relative;
         &:before{
@@ -106,7 +103,7 @@
           height: 0; 
           border-left: 20px solid transparent;
           border-right: 20px solid transparent;
-          border-top: 10px solid @blue-background;
+          border-top: 10px solid @blue-header-color;
           z-index: 500;
         }
       }
@@ -115,7 +112,7 @@
           li{
             & > div:first-of-type{
               color: @pink-color;
-              font-family: "gandhi-i";
+              font-family: "main-font-italic";
               font-size: 12px;
               text-align: right;
             }
@@ -123,7 +120,7 @@
               border-left: solid 1px @pink-color;
               a{
                 color: @text-color;
-                font-family: "gandhi-b";
+                font-family: "main-font-bold";
               }
             }
           }
@@ -133,7 +130,7 @@
           & > div{
             text-align: center;
             &:first-of-type a{
-              font-family: "hallo";   
+              font-family: "title-font";   
               color: #fff;
               background-color: @pink-color;
               padding: 10px 18px;
@@ -142,9 +139,9 @@
               display: inline-block;
             }
             &:last-of-type a{
-              font-family: "hallo";   
+              font-family: "title-font";   
               color: #fff;
-              background-color: @blue-background;
+              background-color: @blue-header-color;
               padding: 10px 18px;
               font-size: 18px;
               line-height: 18px;
@@ -167,7 +164,7 @@
           background-color: #c65551;
           opacity: 0.9;
           padding: 4px 12px;
-          font-family: "gandhi-b";
+          font-family: "main-font-bold";
         }  
         #game-link{
           position: absolute;
@@ -177,10 +174,10 @@
           text-align: center;
           a{
             color: #fff;
-            background-color: @blue-background;
+            background-color: @blue-header-color;
             padding: 10px 18px;
             text-transform: uppercase;
-            font-family: "hallo";   
+            font-family: "title-font";   
             font-size: 18px;
           }
         }
@@ -193,7 +190,7 @@
           padding: 0 10px;
           line-height: 15px;
           color: @text-color;
-          font-family: "gandhi-b";
+          font-family: "main-font-bold";
         }
         #explore-image{
           text-align: center;
@@ -207,9 +204,9 @@
           margin-top: 15px;
           a{
             color: #fff;
-            background-color: @blue-background;
+            background-color: @blue-header-color;
             padding: 10px 18px;
-            font-family: "hallo";   
+            font-family: "title-font";   
             font-size: 18px;
           }
         }        
@@ -222,7 +219,7 @@
     margin-top: 80px;
     text-align: center;
     color: #7f8080;
-    font-family: "hallo";   
+    font-family: "title-font";   
     font-size: 24px;
     text-transform: uppercase;
   }
@@ -233,7 +230,7 @@
       margin-bottom: 25px;
       .video-title{
         color: @pink-color;
-        font-family: "gandhi-b";
+        font-family: "main-font-bold";
       }
     }
   }
@@ -257,7 +254,7 @@
         position: relative;
         margin-bottom: 30px;
         & > div{
-          font-family: "hallo";   
+          font-family: "title-font";   
           font-size: 18px;
           
           &:before{

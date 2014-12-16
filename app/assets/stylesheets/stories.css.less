@@ -1,8 +1,4 @@
-@text-color: #6e6d6d;
-@blue-link-color: #a2ccd4;
-@pink-color: #ef4273;
-@blue-header-color: #77b8c3;
-@grey-background: #f0f0f0;
+@import "variables.css.less";
 
 form.story{
   select, textarea, input{
@@ -40,7 +36,7 @@ form.story{
       background-color: #9a9a9a;
       padding: 7px 15px !important;
       border: none;
-      font-family: "gandhi";   
+      font-family: "main-font";   
       &.btn-submit{
         background-color: #92c6ce;
       }
@@ -69,7 +65,7 @@ h1 span{
     color: #fff;
     background-color: @pink-color;
     padding: 10px 24px 10px 18px;
-    font-family: "hallo";   
+    font-family: "title-font";   
     line-height: 20px;
     font-size: 15px;        
   }
@@ -90,7 +86,7 @@ h1 span{
       }
       span{
         color: @pink-color;
-        font-family: "gandhi-i";
+        font-family: "main-font-italic";
         font-size: 13px;
       }
     }
@@ -103,13 +99,13 @@ h1 span{
       color: #fff;
       background-color: @pink-color;
       padding: 10px 24px 10px 18px;
-      font-family: "hallo";   
+      font-family: "title-font";   
       line-height: 18px;
       font-size: 18px;        
       span{
         display: block;
         text-transform: uppercase;
-        font-family: "hallo-b";   
+        font-family: "title-font-bold";   
       }
     }
   }
@@ -128,13 +124,13 @@ div#stories-list{
       color: #fff;
       background-color: @pink-color;
       padding: 10px 24px 10px 18px;
-      font-family: "hallo";   
+      font-family: "title-font";   
       line-height: 18px;
       font-size: 18px;        
       span{
         display: block;
         text-transform: uppercase;
-        font-family: "hallo-b";   
+        font-family: "title-font-bold";   
       }
     }
   }
@@ -146,7 +142,7 @@ div#stories-list{
       margin-bottom: 10px;
       .story-header{
         color: @pink-color;
-        font-family: "gandhi-i";
+        font-family: "main-font-italic";
         font-size: 13px;
         padding-bottom: 5px;
         margin-bottom: 5px;
@@ -155,18 +151,18 @@ div#stories-list{
         line-height: 15px;
         font-size: 15px;        
         color: @text-color;
-        font-family: "gandhi-b";
+        font-family: "main-font-bold";
       }
       p{
         line-height: 15px;
         font-size: 15px;        
         color: @text-color;
-        font-family: "gandhi";
+        font-family: "main-font";
         a{
           line-height: 15px;
           font-size: 15px;        
           color: @text-color;
-          font-family: "gandhi";
+          font-family: "main-font";
         }
       }
     }
@@ -181,7 +177,7 @@ div#stories-list{
       background-color: @grey-background;
       font-size: 19px;
       line-height: 20px;
-      font-family: "hallo";  
+      font-family: "title-font";  
     }
   }
 }

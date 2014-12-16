@@ -1,18 +1,14 @@
-@pink-color: #ef4273;
-@text-color: #989898;
-@grey-line: #b2b2b2;
-@blue-background: #77b8c3;
-@grey-background: #f0f0f0;
+@import "variables.css.less";
 
 #sidebar{
   background-image: url('/assets/gplaypattern.png');
 
   h3{
-    color: @blue-background;
+    color: @blue-header-color;
     background-color: @grey-background;
     font-size: 19px;
     line-height: 20px;
-    font-family: "hallo";   
+    font-family: "title-font";   
     padding: 20px 20px 20px 30px;
     margin-left: -10px;
   }
@@ -31,12 +27,12 @@
           background-color: @pink-color;
           padding: 12px 24px 13px 18px;
           line-height: 18px;
-          font-family: "hallo";   
+          font-family: "title-font";   
           font-size: 18px;        
           span{
             display: block;
             text-transform: uppercase;
-            font-family: "hallo-b";   
+            font-family: "title-font-bold";   
           }
         }
       }
@@ -45,7 +41,7 @@
       padding: 0 10px;
       line-height: 15px;
       color: @text-color;
-      font-family: "gandhi-b";
+      font-family: "main-font-bold";
     }
     ul{
       li{
@@ -53,7 +49,7 @@
           color: @pink-color;
           font-size: 11px;
           text-align: right;
-          font-family: "gandhi-i";
+          font-family: "main-font-italic";
         }
         & > div:last-of-type{
           border-left: solid 1px @pink-color;
@@ -61,7 +57,7 @@
           line-height: 15px;
           a{
             color: @text-color;
-            font-family: "gandhi-b";
+            font-family: "main-font-bold";
           }
         }
       }
@@ -69,8 +65,8 @@
     #sidebar-story-links{
       margin-top: 15px;
       text-align: right;
-      font-family: "hallo";   
-      color: @blue-background;
+      font-family: "title-font";   
+      color: @blue-header-color;
       padding: 0 18px;
       font-size: 15px;
       line-height: 15px;
@@ -100,7 +96,7 @@
           color: #fff;
           background-color: #77b8c3;
           padding: 20px 24px 21px 18px;
-          font-family: "hallo";
+          font-family: "title-font";
           font-size: 18px;
           line-height: 18px;
           display: block;
@@ -120,7 +116,7 @@
       background-color: #c65551;
       opacity: 0.9;
       padding: 4px 12px;
-      font-family: "gandhi-b";
+      font-family: "main-font-bold";
       font-size: 14px;
     }  
 
@@ -139,7 +135,7 @@
           background-color: #77b8c3;
           padding: 12px 24px 13px 18px;
           line-height: 18px;
-          font-family: "hallo";   
+          font-family: "title-font";   
           font-size: 18px;        
           text-align: left;
           span{
@@ -155,7 +151,7 @@
       padding: 0 10px;
       line-height: 15px;
       color: @text-color;
-      font-family: "gandhi-b";
+      font-family: "main-font-bold";
     }
     #sidebar-explore-image{
       text-align: center;
@@ -169,9 +165,9 @@
       margin-top: 15px;
       a{
         color: #fff;
-        background-color: @blue-background;
+        background-color: @blue-header-color;
         padding: 10px 18px;
-        font-family: "hallo";   
+        font-family: "title-font";   
         font-size: 15px;
         line-height: 15px;
         display: inline-block;

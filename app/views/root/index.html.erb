@@ -13,8 +13,8 @@
       <div>
         <%= image_tag 'landing-temp.png' %>
         <%= link_to new_story_path do %>
-          <span><%= t('.img_link_row1') %></span>
-          <%= t('.img_link_row2') %>
+          <span><%= t('helpers.links.tell_story1') %></span>
+          <%= t('helpers.links.tell_story2') %>
         <% end %>
         <div>
           <% if @discrimination_explanation.present? && @discrimination_explanation.content.present? %>
