@@ -157,6 +157,8 @@ ka:
       add_story: თქვენი ამბის დამატება
       all_stories: ყველა ამბის ნახვა
       load_more: Load More
+      tell_story1: გვიამბეთ
+      tell_story2: თქვენი ისტორია
     titles:
       edit: "შეცვლა %{model}"
       save: "შენახვა %{model}"
@@ -234,8 +236,6 @@ ka:
       header_explore: კვლევის მონაცემები
       header_video: ვიდეოები
       tell_story: გვიამბეთ თქვენი ისტორია
-      img_link_row1: გვიამბეთ
-      img_link_row2: თქვენი ისტორია
       view_stories: ყველა ამბის ნახვა
       play: ითამაშე
       game:  ''
@@ -286,8 +286,6 @@ ka:
         p3: "თქვენი პაროლი იგივე დარჩება, სანამ არ გადახვალთ ზემოთ მითითებულ ბმულზე და შექმნით ახალ პაროლს."    
   root:
     index:
-      img_link_row1: გვიამბეთ
-      img_link_row2: თქვენი ისტორია
       header_get_involved1: ჩაერთეთ     
       header_get_involved2: '!'
       header_stories: ისტორიები დისკრიმინაციაზე
@@ -400,12 +398,8 @@ ka:
     index:
       title: ისტორიები დისკრიმინაციაზე
       no_stories: ამ დროისთვის ჯერ არ არის გაზიარებული ისტორიები.
-      img_link_row1: გვიამბეთ
-      img_link_row2: თქვენი ისტორია
     show:
       title: ისტორიები დისკრიმინაციაზე
-      img_link_row1: გვიამბეთ
-      img_link_row2: თქვენი ისტორია
     new:
       title: გაგვიზიარეთ თქვენი დისკრიმინაციის ისტორია
     form:

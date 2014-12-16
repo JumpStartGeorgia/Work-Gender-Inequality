@@ -154,9 +154,11 @@ en:
       likes: Likes      
       menu: Menu
       view_story: View Story
-      add_story: Add Your Story
+      add_story: Tell Your Story
       all_stories: View All Stories
       load_more: Load More
+      tell_story1: Tell
+      tell_story2: your story
     titles:
       edit: "Edit %{model}"
       save: "Save %{model}"
@@ -234,8 +236,6 @@ en:
       header_explore: Survey Data
       header_video: Videos
       tell_story: Tell Your Story
-      img_link_row1: Tell
-      img_link_row2: your story
       view_stories: View All Stories
       play: Play
       game: game
@@ -286,8 +286,6 @@ en:
         p3: "Your password won't change until you access the link above and create a new one."                
   root:
     index:
-      img_link_row1: Tell
-      img_link_row2: your story
       header_get_involved1: Get
       header_get_involved2: Involved!
       header_stories: Discrimination Stories
@@ -400,12 +398,8 @@ en:
     index:
       title: Discrimination Stories
       no_stories: At this time no stories have been shared.
-      img_link_row1: Tell
-      img_link_row2: your story
     show:
       title: A Discrimination Story
-      img_link_row1: Tell
-      img_link_row2: your story
     new:
       title: Share Your Discrimination Story
     form:
