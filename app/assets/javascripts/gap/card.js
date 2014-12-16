@@ -43,7 +43,7 @@ function cardObject(p)
 	this.text = function(text)
 	{
 		if(typeof text !== undefined)
-			this.stext.html(locale.general.you_can_buy + text.title + "<br/><br/>" + locale.general.details + ": " + text.descr + "<br/>" + locale.general.cost + ": " + text.cost);
+			this.stext.html(locale.general.you_can_buy + text.title + "<br/><br/>" + locale.general.details + ": " + text.descr + "<br/>" + locale.general.cost + ": " + text.cost + ' ' + lg.gel);
 	};
 	this.hide = function(immediate)
 	{

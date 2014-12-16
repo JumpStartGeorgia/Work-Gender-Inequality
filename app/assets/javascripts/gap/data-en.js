@@ -30,9 +30,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"fishing",
-        "sits":false,
         "action":true,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "action_points":[{"x":200,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 83.655568,140.40349 L 862.15103,140.40349 L 862.19839,139.64588 L 83.655558,139.64588 z"},
+        "work_point":{ "x":80,"y":27 }    
     },
     { 
         "id": "TxbZicXP",
@@ -92,9 +93,9 @@ var categories =
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"construction",
-        "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 101.61337,360.77881 L 566.10882,360.77881 L 566.15618,360.0212 L 101.61336,360.0212 z"},
+        "work_point":{"x":100,"y":0}
     },
     { 
         "id": "jDYS_Z1V",
@@ -107,9 +108,10 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",
         "fg":"wholesale",
-        "sits":true,
-        "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 340.34823,114.32031 L 8.1219464,114.32031 L 8.1219464,106.97189 L 338.80119,107.7454"}       
+        "action":true,
+        "action_points":[{"x":870,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 204.6976,316.08581 L 949.19303,316.08581 L 949.24039,315.3282 L 204.69759,315.3282 z"},
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "I52aZAVX",
@@ -122,9 +124,9 @@ var categories =
         "bg":"bg1",
         "bg2":"bg1",
         "fg":"hotel",
-        "sits":false,
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 223.30862,314.1047 L 652.88994,314.1047 L 663.51835,314.18371 L 663.51835,313.20699 L 223.30862,313.20699 z"}
+        "work":{ "a":false, "loop": true, "path":"M 204.6886,287.48502 L 783.18403,287.48502 L 783.23139,286.72741 L 204.68859,286.72741 z"},
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "rn4bDK0j",
@@ -668,7 +670,8 @@ Data: National Statistics Office of Georgia",
     years_back: " years back",
     years_forward: " years forward",
     female:"Female",
-    male:"Male"   
+    male:"Male",
+    gel: "GEL" 
   },
   game:
   {
