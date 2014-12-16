@@ -63,6 +63,7 @@ class GapController < ApplicationController
 
 
   def summary
+
     p = params_parse(params)
 
     facebook = params[:f].present? ? true : false
