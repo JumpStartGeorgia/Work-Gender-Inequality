@@ -10,11 +10,14 @@
       <meta property="og:image" content="/assets/gap/svg/common/fb_image.png" />
       <meta property="og:type" content="website" />
       <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
+      <% if @css.present? %>
+        <%= stylesheet_link_tag  *( "gap/fonts_#{I18n.locale}.css" ), :media => "all" %>  
+      <% end %>
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
    </head>
    <body>
       <div id="fb-root"></div>      
-      <div class="wrapper" id="content">
+      <div class="wrapper">
         <div id="screen"></div>
         <div class="black-hole"></div>
         <div class='info'><div class='triangle'></div><div class='text'><%= t('gap.index.about_html') %></div></div>
