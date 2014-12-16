@@ -1,5 +1,8 @@
 # encoding: utf-8
 en:
+  comming1: Coming
+  comming2: 19
+  comming3: December
   activerecord:
     models:
       user: User

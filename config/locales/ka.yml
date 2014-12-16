@@ -1,16 +1,19 @@
 # encoding: utf-8
 ka:
+  comming1: გაეშვება
+  comming2: 19
+  comming3: დეკემბერს
   activerecord:
     models:
       user: მომხმარებელი
       page: ტექსტი გვერდებისთვის
-      faq_category: FAQ Category
-      faq: FAQ
-      law: Legislation
-      publication: Publication
-      news_item: News Item
+      faq_category: კატეგორია ხდკ
+      faq: ხდკ
+      law: კანონმდებლობა
+      publication: პუბლიკაციები
+      news_item: სიახლეები
       story: ისტორიები დისკრიმინაციაზე
-      discrimination_type: Discrimination Type
+      discrimination_type: დისკრიმინაციის ტიპი
     attributes:
       user:
         email: ელ.ფოსტა
@@ -25,34 +28,34 @@ ka:
         title: სათაური, რომელიც გამოჩნდება კონტენტის ზემოთ
         content: კონტენტი
       faq_category:
-        sort: Sort Order
+        sort: დალაგება
       faq_category_translation:
-        name: Category Name
+        name: კატეგორიის სახელი
       faq:
-        sort: Sort Order
-        faq_category_id: FAQ Category
+        sort: დალაგება
+        faq_category_id: კატეგორია ხდკ
       faq_translation:
-        question: Question
-        answer: Answer
+        question: კითხვები
+        answer: პასუხები
       law:
-        enacted_at: Date Enacted
+        enacted_at: დადგენის თარიღი
       law_translation:
-        title: Title
-        content: Content
-        url: URL to Legislation
+        title: სათაური
+        content: შინაარსი
+        url: კანონმდებლობა
       publication:
-        published_at: Date Published
+        published_at: გამოქვეყნების თარიღი
       publication_translation:
-        title: Title
-        description: Description
-        url: URL to Publication
-        pub_file: PDF File
+        title: სათაური
+        description: აღწერილობა
+        url: პუბლიკაცია
+        pub_file: PDF ფაილი
       news_item:
-        published_at: Date Published
-        is_published: Is Published?
+        published_at: გამოქვეყნების თარიღი
+        is_published: გამოქვეყნებულია?
       news_item_translation:
-        title: Title
-        content: Content
+        title: სათაური
+        content: შინაარსი
       story:
         content: გაგვიზიარეთ თქვენი დისკრიმინაციის ისტორია
         original_content: გაზიარებული ისტორიის ორიგინალური ვერსია
@@ -67,34 +70,34 @@ ka:
         region: საცხოვრებელი ადგილი
         created_at: გაზიარების თარიღი
       discrimination_type:
-        sort: Sort Order
+        sort: დალაგება
       discrimination_type_translation:
-        name: Name
+        name: სათაური
     errors:
       messages:
         required_field: "სავალდებულო ველი"
         already_exists: 'უკვე არსებობს მონაცემთა ბაზაში'
   story_headers:
-    story: Story
-    status: Status
-    a42: Wants Article 42 to Contact
-    type: Discrimination Type
+    story: ისტორია
+    status: სტატუსი
+    a42: სურს, რომ “კონსტიტუციის 42-ე მუხლი” დაუკავშირდეს
+    type: დისკრიმინაციის ტიპი
   gender:
-    male: კაცი
-    female: ქალი
+    M: კაცი
+    F: ქალი
   moderator_status:
     pending: 
-      title: Pending
-      explanation: Story can be public and needs to be moderated
+      title: განხილვის მოლოდინში
+      explanation: ამბავი შეიძლება გამოქვეყნდეს და საჭიროებს მოდერაციას
     approved: 
-      title: Approved
-      explanation: Story can be public and has been approved by moderators
+      title: დამტკიცებული
+      explanation: ამბავი შეიძლება გამოქვეყნდეს და დამტკიცებულია მოდერატორების მიერ
     denied: 
-      title: Denied
-      exaplanation: Story can be public but has been denied by moderators
+      title: უარყოფილია
+      exaplanation: ამბავი შეიძლება გამოქვეყნდეს, მაგრამ იგი უარყოფილია მოდერატორების მიერ
     private: 
-      title: Private
-      explanation: Story can not be shared with the public
+      title: პირადი
+      explanation: ამბის გამოქვეყნება არ შეიძლება
   datatable:
     copy: 
       title: კოპირება
@@ -156,7 +159,7 @@ ka:
       view_story: ამბის ნახვა
       add_story: თქვენი ამბის დამატება
       all_stories: ყველა ამბის ნახვა
-      load_more: Load More
+      load_more: მეტის ჩამოტვირთვა
       tell_story1: გვიამბეთ
       tell_story2: თქვენი ისტორია
     titles:
@@ -196,9 +199,9 @@ ka:
       success_updated: "%{obj} განახლებულია."
       story_add_moderate: გმადლობთ, რომ გაგვიზიარეთ თქვენი ამბავი!
       story_add_moderate_public: გმადლობთ, რომ გაგვიზიარეთ თქვენი ამბავი! განხილვის შემდეგ, თქვენი ამბავი ხელმისაწვდომი გახდის ჩვენს ვებ გვერდზე.
-      story_moderated_approved: The story has been approved.
-      story_moderated_denied: The story has been denied.
-      story_updated: The story was updated.
+      story_moderated_approved: ამბავი დამტკიცებულია.
+      story_moderated_denied: ამბავი უარყოფილია.
+      story_updated: მბავი ატვირთულია.
     menu:
       home: მთავარი გვერდი
       get_involved: ჩაერთეთ!
@@ -246,14 +249,14 @@ ka:
       title: ადმინისტრატორის განყოფილება
       users: მომხმარებლები
       pages: საიტზე ტექსტის რედაქტირება
-      faq_categories: FAQ Categories
-      faqs: FAQs
+      faq_categories: კატეგორია ხდკ
+      faqs: ხდკ
       gamedata: Game Poll Data (csv)      
-      laws: Legislation
-      publications: Publications
-      news_items: News Items
-      discrimination_types: Discrimination Types
-      stories: Moderate Discrimination Stories
+      laws: კანონმდებლობა
+      publications: პუბლიკაციები
+      news_items: სიახლეები
+      discrimination_types: დისკრიმინაციის ტიპი
+      stories: დისკრიმინაციის ისტორიების მოდერირება
     users:
       edit:
         title: ცვლილებების შეტანა მომხმარებლის გვერდზე
@@ -265,17 +268,17 @@ ka:
         title: მომხმარებლის დეტალები
     stories:
       index:
-        title: Moderate Discrimination Stories
-        no_stories: At this time no stories have been shared.
+        title: დისკრიმინაციის ისტორიების მოდერირება
+        no_stories: ამ დროისთვის ჯერ არ არის გაზიარებული ისტორიები.
       show:
-        title: Moderate Discrimination Story
-        approve: Approve
-        deny: Deny
-        story: Story
-        story_edited: Edited Story
-        original_story: Original, Unedited Story
-        edit_story: Edit the Story
-        delete_story: Remove Edited Story
+        title: დისკრიმინაციის ისტორიების მოდერირება
+        approve: დამტკიცება
+        deny: უარყოფა
+        story: ისტორია
+        story_edited: რედაქტირებული ისტორია
+        original_story: ორიგინალი, არა რედაქტირებული ისტორია
+        edit_story: ამბის რედაქტირება
+        delete_story: რედაქტირებული ამბის წაშლა
   devise:
     mailer:
       reset_password_instructions:
@@ -320,7 +323,7 @@ ka:
       title: "პუბლიკაციები: '%{title}'"
       all: "ყველა პუბლიკაცია"
     explore_data:
-      title: Explore the 'Gender Discrimination in Georgian Labour Market' Survey
+      title: შეისწავლე კვლევა “გენდერული დისკრიმინაცია საქართველოს შრომის ბაზარზე”
       no_matches: თქვენს არჩევანზე არ მოიძებნა მონაცემები. გთხოვთ აირჩიოთ სხვა კითხვა.
       hover_region: Hover over a Region
       na: პასუცი არ მოიძებნა

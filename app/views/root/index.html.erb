@@ -70,6 +70,13 @@
         <h3>
           <%= t('.header_game') %>  
         </h3>
+        <div id="game-coming">
+          <div>
+            <%= t('comming1') %>
+            <span><%= t('comming2') %></span>
+            <%= t('comming3') %>
+          </div>
+        </div>
         <div id="game-explanation">
           <% if @game_explanation.present? && @game_explanation.content.present? %>
             <%= simple_format_no_tags(@game_explanation.content, {}, {sanitize: false}) %>
