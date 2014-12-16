@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
     logger.debug "//////////// conroller = #{params[:controller]}"
 
     # for loading extra css/js files    
-    @css = ['variables.css']
+    @css = ['variables.css', "fonts_#{I18n.locale}.css"]
     @js = []
   end
 
