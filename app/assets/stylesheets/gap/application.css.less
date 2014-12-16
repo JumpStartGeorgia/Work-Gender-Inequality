@@ -113,6 +113,7 @@ body,html
             text-align:center;
             background-color:#fff;
             padding:3px 0px;
+            &:lang(ka){ font-size:11px; };
           }
           .arrow-d
           {
@@ -145,7 +146,12 @@ body,html
           {
             font-family:hallo;
             font-size:16px;
-            color:#d88166;  
+            color:#d88166; 
+            &:lang(ka)
+            { 
+              font-family:en-gandhi; 
+              font-size:12px; 
+            }; 
           }
           .value
           {
@@ -238,7 +244,7 @@ body,html
               color:#a3af7f;
               vertical-align:top;
               padding-top:8px;
-
+              &:lang(ka){ font-size:14px; }
               > .data { font-family:gandhi-i; }
             }
             .fb
@@ -351,7 +357,8 @@ body,html
              font-family:hallo;
              font-size:16px;
              color:#c85752;
-          }
+             &:lang(ka){ font-size:13px; }
+          }          
           .mask
           {
              position:relative;
@@ -479,6 +486,7 @@ body,html
                 width:106px;
                 height:166px;
                 background:transparent url("/assets/gap/svg/human/poll/md.svg") no-repeat; 
+                padding-bottom:10px;
               }
               > .face.f
               { 
@@ -491,6 +499,7 @@ body,html
                 width:105px;
                 height:160px;
                 background:transparent url("/assets/gap/svg/human/poll/fd.svg") no-repeat;
+                padding-bottom:10px;
               }
               > .t
               {
@@ -506,6 +515,14 @@ body,html
                   color:#3f8b95;
                   display:block;
                 }
+                &:lang(ka)
+                {
+                  font-size:23px;                  
+                }
+                &:lang(ka):first-letter
+                {
+                  font-size:27px;
+                }
               }
               > .a
               {
@@ -517,6 +534,8 @@ body,html
                 position: relative;
                 top: -135px;
                 left: 93px;
+                &:lang(ka){ font-family:en-hallo-li;}
+
                 > .b
                 {
                   font-family:hallo-li;
@@ -530,7 +549,13 @@ body,html
                   {
                     color:#dd4832;
                     font-size:30px;
-                  }
+                    &:lang(ka){ font-family:en-hallo-li; }
+                  }                          
+                }
+                > .b:lang(ka)
+                {
+                  font-family:gandhi;
+                  font-size:15px;
                 }
               }
             }
@@ -596,6 +621,10 @@ body,html
             /* Rules below not implemented in browsers yet */
               -o-user-select: none;
               user-select: none;
+            }
+            .text:lang(ka)
+            {
+              font-size:26px;
             }
           }
           .larrow
@@ -784,6 +813,10 @@ body,html
           display: inline-block;
           z-index:50;
         }
+        .category-item > div.hint:lang(ka)
+        {
+          font-size:13px;
+        }
         .interest-item > div.hint
         {
           color:#c24b3e;
@@ -793,6 +826,11 @@ body,html
           white-space: pre;
           position:relative;
           display: inline-block;
+          text-align:center;
+        }
+        .interest-item > div.hint:lang(ka)
+        {
+          font-size:11px;
         }
         .salary-picker.zoom, .percent-picker.zoom
         {
@@ -827,6 +865,10 @@ body,html
              display:none;
              outline:none;  
              margin-right:10px; 
+            &:lang(ka)
+            {
+              font-family: en-hallo-li;
+            }
           }
           div:nth-child(6)
           {
@@ -853,6 +895,10 @@ body,html
             -o-user-select: none;
             user-select: none;
             cursor:row-resize;
+            &:lang(ka)
+            {
+              font-family: en-hallo-li;
+            }
           }
           div.t
           {
@@ -870,6 +916,11 @@ body,html
               margin-right:30px;
               vertical-align:middle;
 
+            }
+            &:lang(ka)
+            {
+              font-size:21px;
+              padding-top: 2px;
             }
           }
           div.gel
@@ -1074,7 +1125,10 @@ body,html
       -moz-border-radius: 4px;
       border-radius: 4px;
       display:none;
-
+      &:lang(ka)
+      {
+        font-size:14px;
+      }
       > div { padding-bottom:3px; }
       span { color:#dc4d39; }
       span.shift
@@ -1295,7 +1349,7 @@ body,html
         right: 0px;
         overflow-y: auto;
         overflow-x: hidden;
-
+        &:lang(ka){ font-size:14px; }
         .option
         {
           padding:0px 15px;
@@ -1320,7 +1374,9 @@ body,html
           .separator
           {
             width:100%;
-            border-bottom:2px solid #fff;  
+            border-bottom:2px solid #fff; 
+            margin-top: 4px;
+            margin-bottom: 9px; 
           }
         }
         .edit
@@ -1388,7 +1444,7 @@ body,html
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         z-index:802;
-
+        &:lang(ka){ font-size:19px;}
         .content
         {
           width:100%;
@@ -1407,7 +1463,7 @@ body,html
           background-color:#AB4939;
           display:table;
           width:100%;
-
+          &:lang(ka){ font-size:14px;}
           > div
           {
             display: table-cell;
@@ -1563,6 +1619,7 @@ body,html
                 text-align:center;
                 background-color:#79b9c3;
                 padding:3px 0px;
+                &:lang(ka){ font-size:11px; };
               }
               .arrow-d
               { 
@@ -1678,6 +1735,7 @@ body,html
             float:right;
             position:relative;
             top:7px;
+            &:lang(ka){ font-size:13px; }
           }
           .replay
           {
@@ -1697,7 +1755,7 @@ body,html
             font-size: 20px;
             color:#c15d46;
             opacity:0.8;
-
+            &:lang(ka){ font-size:14px; }
             &:hover
             {
               cursor:pointer;
@@ -1826,6 +1884,7 @@ body,html
       font-size:20px;
       color:#fff; 
       background-color:#83c0c6;
+      &:lang(ka){ font-size:14px; }
     }
     &.tip-about p { margin-top:5px; }
   }

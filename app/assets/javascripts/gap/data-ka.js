@@ -6,7 +6,7 @@ var categories =
 [
     {   
         "id": "45bS4GyC",
-        "name": "სოფლის მეურნეობა, ნადირობა და სატყეო მეურნეობა",
+        "name": "სოფლის მეურნეობა, \nნადირობა და სატყეო მეურნეობა",
         "outrun":0,
         "percent":22.72,
         "male":599.4,
@@ -68,7 +68,7 @@ var categories =
     },
     { 
         "id": "8IkQeUfg",
-        "name": "ელ. ენერგიის, აირისა და წყლის წარმოება და განაწილება",
+        "name": "ელ. ენერგიის, აირისა და \nწყლის წარმოება და განაწილება",
         "outrun":1, 
         "percent":6.58,
         "male":979,
@@ -99,7 +99,7 @@ var categories =
     },
     { 
         "id": "jDYS_Z1V",
-        "name": "საბითუმო და საცალო ვაჭრობა; ავტომობილების, საყოფაცხოვრებო და პირადი მოხმარების საგნების რემონტი",
+        "name": "საბითუმო და საცალო ვაჭრობა; \nავტომობილების, საყოფაცხოვრებო და \nპირადი მოხმარების საგნების რემონტი",
         "outrun":0,
         "percent":36.96,
         "male":906.4,
@@ -162,7 +162,7 @@ var categories =
     },
     { 
         "id": "oxKq-H8w",
-        "name": "ოპერაციები უძრავი ქონებით, იჯარა და მომხმარებლისთვის მომსახურების გაწევა",
+        "name": "ოპერაციები უძრავი ქონებით,\n იჯარა და მომხმარებლისთვის \nმომსახურების გაწევა",
         "outrun":0,
         "percent":21.68,
         "male":1044.7,
@@ -209,7 +209,7 @@ var categories =
     },
     {
         "id": "dJdfgktK",
-        "name": "ჯანმრთელობა და სოციალური დახმარება",
+        "name": "ჯანმრთელობა და \nსოციალური დახმარება",
         "outrun":0,
         "percent":41.39,
         "male":1023.8,
@@ -224,7 +224,7 @@ var categories =
     },
     {
         "id": "DqFfYVGZ",
-        "name": "სხვა კომუნალური, სოციალური და პერსონალური მომსახურების გაწევა",
+        "name": "სხვა კომუნალური, სოციალური და \nპერსონალური მომსახურების გაწევა",
         "outrun":0,
         "percent":32.51,
         "male":858.3,
@@ -261,7 +261,7 @@ var interests =
 [
     { 
         "id": "gfNDXD1g",
-        "name": "შვებულება", 
+        "name": "მოგზაურობა", 
         "icon":"vac",
         items:
         [
@@ -329,7 +329,7 @@ var interests =
     },
     { 
         "id": "Rs2Uml6w",
-        "name": "ელექტრო მოწყობილობები",
+        "name": "ელექტრო \nმოწყობილობები",
         "icon":"gad",
         items:
         [
@@ -533,7 +533,7 @@ var interests =
     },
     { 
         "id": "3QDbCRrq",
-        "name": "ტრანსპორტირება",
+        "name": "ტრანსპორტი",
         "icon":"tra",
         items:
         [
@@ -606,13 +606,12 @@ var int_ids = interests.map(function(d,i){return d.id;});
 var locale = {
   poll:
   {
-    your_gender:"თქვენი სქესი",
-    your_age:"თქვენი ასაკი",
-    your_job:"სამუშაო სექტორი",
+    your_gender:"აირჩიეთ სქესი",
+    your_age:"აირჩიეთ ასაკი",
+    your_job:"აირჩიეთ სამუშაო სფერო",
     your_salary:"თქვენი ხელფასი",
-    your_interest:"თქვენი გატაცება",
-    your_percent:"რამდენის დაზოგვას ახერხებთ თქვენი გატაცებისთვის",
-    lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
+    your_interest:"აირჩიეთ ინტერესი",
+    your_percent:"რა თანხას \nზოგავთ თქვენი \nინტერესისთვის?",    
     female:"ქალი",
     male:"კაცი",
     f:"f",
@@ -664,7 +663,7 @@ var locale = {
     yes: "კი",
     no: "არა",
     you: "შენ",
-    retirement: "პენსიაში გასვლამდე დარჩენილი წლები",
+    retirement: "წელი პენსიამდე",
     details: "დაწვრილებით",
     cost: "ღირებულება",
     years_back: " წლით უკან",
