@@ -34,6 +34,11 @@
     font-style: normal;
     font-weight: 200;
 }
+/*Hallo sans regular UPPERCASE regular- DejaVu sans M extralight
+Hallo sans regular UPPERCASE bold- DejaVu sans M regular
+Hallo sans regular lowercase - DejaVu sans condensed
+gandhi sans italic - DejaVu sans Oblique
+gandhi sans regular - DejaVu sans*/
 *::-webkit-scrollbar-track
 {
   /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
@@ -1849,6 +1854,11 @@ svg.stage-bk { z-index:30; }*/
 /* Rules below not implemented in browsers yet */
   -o-user-select: none;
   user-select: none;
+}
+}
+.poll .prompt .title .text:lang(ka)
+{
+
 }
 .poll .prompt .larrow
 {
