@@ -192,8 +192,8 @@ en:
       not_authorized: You are not authorized to view that page.
       success_created: "%{obj} was successfully created."
       success_updated: "%{obj} was successfully updated."
-      story_add_moderate: Thank you for submitting your story. 
-      story_add_moderate_public: Thank you for submitting your story. After revewing your story we will make it available on the site.
+      story_add_moderate: Thank you for submitting your story! 
+      story_add_moderate_public: Thank you for submitting your story! After revewing your story we will make it available on the site.
       story_moderated_approved: The story has been approved.
       story_moderated_denied: The story has been denied.
       story_updated: The story was updated.
@@ -324,7 +324,6 @@ en:
     explore_data:
       title: Explore the 'Gender Discrimination in Georgian Labour Market' Survey
       no_matches: Your selections returned no data. Please try again with a different selection.
-      no_data: Data is not on file yet - have you run rake db:seed yet?
       hover_region: Hover over a Region
       na: N/A
       percent: Percent

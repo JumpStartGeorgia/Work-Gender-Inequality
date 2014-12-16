@@ -28,4 +28,17 @@ $(document).ready(function(){
 		.off('click.dropdown touchstart.dropdown.data-api', '.dropdown')
 		.on('click.dropdown touchstart.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() });
 
+
+  // hack to get toggle header menu to push down the existing content
+  $('.navbar-toggle').on('click', function() {
+    console.log('click!');
+    if ($('.navbar-collapse').hasClass('in')){
+      console.log('is closed');
+      $('body').css('padding-top','100px');
+    }else{
+      console.log('is open');
+      $('body').css('padding-top','230px');
+    }
+  });
+
 });
