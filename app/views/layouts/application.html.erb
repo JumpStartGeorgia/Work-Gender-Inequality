@@ -30,7 +30,7 @@
     <meta property="og:url" content="<%= current_url %>" />
     <meta property="og:image" content="<%= full_url('/assets/share.png') %>" />
     <meta property="og:site_name" content="<%= t('app.common.app_name') %>" />
-
+    <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>" />
 
     <%= stylesheet_link_tag  *(@css.present? ? ["application",@css].flatten : ["application"]), :media => "all" %>      
 
@@ -43,7 +43,7 @@
 
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
+    <%= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
 
     <meta name="google-translate-customization" content="96b7e61e32e17813-dbafed83cbb35732-gf27199dcd6109f12-f"></meta>
         
@@ -62,7 +62,7 @@
           </button>
           <%= link_to root_path(:locale => I18n.locale), :id=>"navbar-logo" do %>
             <div id="navbar-logo-inner">
-              <%= image_tag 'logo.png', alt: t('app.common.app_slogan') %>
+              <%= image_tag "logo_#{I18n.locale}.png", alt: t('app.common.app_slogan') %>
             </div>
           <% end %>
         </div>

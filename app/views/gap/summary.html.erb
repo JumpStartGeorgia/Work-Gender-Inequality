@@ -9,7 +9,8 @@
       <meta property="og:url" content="<%= current_url %>" />
       <meta property="og:image" content="<%= full_url('/assets/gap/svg/common/fb_image.png') %>" />
       <meta property="og:type" content="website" />
-      <%= favicon_link_tag '/favicon.ico', :rel => 'shortcut icon' %>
+      <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>" />
+      <%= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
       <link rel="stylesheet" type="text/css" href="/assets/gap/summary.css">
    </head>
    <body>
