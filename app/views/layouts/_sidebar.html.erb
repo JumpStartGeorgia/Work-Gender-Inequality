@@ -5,7 +5,7 @@
       <h3>
         <%= t('.header_stories') %>
 
-        <div id="sidebar-story-tell" class="pull-right">
+        <div id="sidebar-story-tell" class="header-link pull-right">
           <%= link_to new_story_path do %>
             <span><%= t('helpers.links.tell_story1') %></span>
             <%= t('helpers.links.tell_story2') %>
@@ -72,7 +72,7 @@
   <div id="sidebar-explore">
     <h3>
       <%= t('.header_explore') %>
-      <span id="sidebar-explore-link" class="pull-right">
+      <span id="sidebar-explore-link" class="header-link pull-right">
         <%= link_to explore_data_path do %>
           <span><%= t('.explore') %></span>
           <%= t('.data') %>
