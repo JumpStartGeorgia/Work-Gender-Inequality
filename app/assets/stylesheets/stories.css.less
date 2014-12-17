@@ -92,6 +92,10 @@ h1 span{
     }
   }
 
+  .geo-text-in-en{
+    font-family: "main-font-ka";
+  }
+
   #tell-story {
     margin-top: 40px;
     a{
@@ -115,7 +119,7 @@ div#stories-list{
   #tell-story {
     margin: 40px 0 60px;
     position: relative;
-    border-bottom: solid 2px @pink-color;
+    border-bottom: solid 1px @pink-color;
     a{
       position: absolute;
       left: 0;
@@ -142,8 +146,9 @@ div#stories-list{
       margin-bottom: 10px;
       .story-header{
         color: @pink-color;
+        font-size: 11px;
+        text-align: right;
         font-family: "main-font-italic";
-        font-size: 13px;
         padding-bottom: 5px;
         margin-bottom: 5px;
       }
@@ -154,15 +159,20 @@ div#stories-list{
         font-family: "main-font-bold";
       }
       p{
-        line-height: 15px;
-        font-size: 15px;        
-        color: @text-color;
-        font-family: "main-font";
         a{
           line-height: 15px;
           font-size: 15px;        
           color: @text-color;
           font-family: "main-font";
+          &.geo-text-in-en{
+            font-size: 14px;
+            line-height: 16px;
+            font-family: "main-font-ka";
+          }
+          &:lang(ka){
+            font-size: 14px;
+            line-height: 16px;
+          }
         }
       }
     }

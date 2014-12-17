@@ -36,7 +36,9 @@
     <% end %>
   </ul>
 
-  <%= simple_format(@story.content) %>
+  <div class="<%= @story.content.is_georgian? ? 'geo-text-in-en' : '' %>" >
+    <%= simple_format(@story.content) %>
+  </div>
 
   <div id="tell-story">
     <%= link_to new_story_path do %>

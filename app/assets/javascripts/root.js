@@ -57,6 +57,7 @@ $(document).ready(function(){
   $(window).bind('resize', resize_videos);
 
 
+  // when hover over explore box, show popup
   $('#explore').hover(function(){
     $('#explore #explore-popup').css('visibility', 'visible');
   }, function(){
