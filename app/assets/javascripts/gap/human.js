@@ -150,6 +150,7 @@ this.stop_counter = -2;
   };
   this.reset = function reset() 
   { 
+    console.log('here',this.title);
     this.get_dimentions();   
     this.scale();
     this.toground();
@@ -793,6 +794,7 @@ this.stop_counter = -2;
     this.card.init();    
     this.pedestal.init();
     this.get_dimentions();
+    this.reset();   
   };
 }; // human object with basic properties
 male = new human('.m.character',locale.poll.male,'m'); // male human object

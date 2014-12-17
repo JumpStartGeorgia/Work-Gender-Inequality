@@ -155,9 +155,13 @@ body,html
           }
           .value
           {
-            font-family:hallo-li-b;
+            font-family:hallo-b;
             font-size:16px;
-            color:#c85752;  
+            color:#c85752; 
+            &:lang(ka)
+            { 
+              font-family:'en-hallo-b'; 
+            };  
           }
         }
 
@@ -306,14 +310,14 @@ body,html
 
           &.m
           {  
-             background:transparent url("/assets/gap/svg/human/casual/m0.svg") no-repeat;
+             //background:transparent url("/assets/gap/svg/human/casual/m0.svg") no-repeat;
              position:absolute;
              left:0px;
              display:none;
           }
           &.f
           {
-             background:transparent url("/assets/gap/svg/human/casual/f0.svg") no-repeat;
+             //background:transparent url("/assets/gap/svg/human/casual/f0.svg") no-repeat;
              position:absolute;
              left:0px;
              display:none;
@@ -503,14 +507,14 @@ body,html
               }
               > .t
               {
-                font-family:hallo-li;
+                font-family:hallo-l;
                 font-size:32.5px;
                 color:#484849;
                 text-align:center;
                 display:block;
                 &:first-letter
                 {
-                  font-family:hallo-li;
+                  font-family:hallo-l;
                   font-size:37.5px;
                   color:#3f8b95;
                   display:block;
@@ -526,7 +530,7 @@ body,html
               }
               > .a
               {
-                font-family:hallo-li;
+                font-family:hallo-l;
                 font-size:45px;
                 color:#dd4832;
                 text-align:center;
@@ -534,11 +538,11 @@ body,html
                 position: relative;
                 top: -135px;
                 left: 93px;
-                &:lang(ka){ font-family:en-hallo-li;}
+                &:lang(ka){ font-family:en-hallo-l;}
 
                 > .b
                 {
-                  font-family:hallo-li;
+                  font-family:hallo-l;
                   font-size:24px;
                   color:#484849;
                   display:inline-block;
@@ -549,7 +553,7 @@ body,html
                   {
                     color:#dd4832;
                     font-size:30px;
-                    &:lang(ka){ font-family:en-hallo-li; }
+                    &:lang(ka){ font-family:en-hallo-l; }
                   }                          
                 }
                 > .b:lang(ka)
@@ -611,7 +615,7 @@ body,html
             }
             .text
             {
-              font-family:hallo-li;
+              font-family:hallo-l;
               font-size:37.5px;
               color:#7abec3;
               margin: 0px 40px;
@@ -856,7 +860,7 @@ body,html
           {
              height: 42px;
              width: 144px;
-             font-family: hallo-li;
+             font-family: hallo-l;
              font-size: 40px;
              color: #dd4832;
              line-height:40px;
@@ -867,7 +871,7 @@ body,html
              margin-right:10px; 
             &:lang(ka)
             {
-              font-family: en-hallo-li;
+              font-family: en-hallo-l;
             }
           }
           div:nth-child(6)
@@ -879,7 +883,7 @@ body,html
           {
              height: 44px;
              width: 28px;
-             font-family: hallo-li;
+             font-family: hallo-l;
              font-size: 45px;
              color: #dd4832;
              line-height:44px;
@@ -897,12 +901,12 @@ body,html
             cursor:row-resize;
             &:lang(ka)
             {
-              font-family: en-hallo-li;
+              font-family: en-hallo-l;
             }
           }
           div.t
           {
-            font-family:hallo-li;
+            font-family:hallo-l;
             font-size:30px;
             color:#7abec3;
             white-space: pre;
@@ -973,6 +977,7 @@ body,html
         font-size:37.5px;
         color:#77b8c3;
         z-index:63;
+        &:lang(ka){font-family:'en-hallo';}
       }
       .mask
       {
@@ -1216,13 +1221,15 @@ body,html
       width:100%;
       text-align:center;
       margin: 18px 0px 0px;
+      &:lang(ka){ font-family:gandhi; font-size:22px; }
     }
     > .about-window .content,
     .epilogue .whatnext .content
     {
-      font-family:gandhi-i;
-      font-size:20px;
+      font-family:gandhi;
+      font-size:16px;
       color:#545352;
+
     }
     > .about-window .content .text,
     .epilogue .whatnext .content .text
@@ -1232,23 +1239,29 @@ body,html
     > .about-window .content .credits,
     .epilogue .whatnext .content .credits
     {
-     padding: 40px 60px;
-       font-size:17.5px;
+
+      padding: 40px 60px;
+      font-family:gandhi-i;
+      font-size:16px;
       color:#444341;
+      &:lang(ka){ font-size:14px; }
     }
     > .about-window .content .text a,
     .epilogue .whatnext .content .text a
     {
       text-decoration:none;
-      font-family:gandhi-i-bi;
-      font-size:20px;
+      font-family:gandhi-b;
+      font-size:16px;
       color:#545352;
+      &:lang(ka){ font-family:dejavusans-b; font-size:14px; }
     }
     > .about-window .content .credits span,
     .epilogue .whatnext .content .credits span
     {
       color:#6eb0b7;
-      line-height: 24px;
+      font-size:16px;
+      line-height: 21px;
+      &:lang(ka){ font-size:14px; }
     }
     > .about-window > .close
     {
@@ -1334,6 +1347,7 @@ body,html
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
+        height:100%;
 
       }
       .options
@@ -1383,7 +1397,7 @@ body,html
         {
           color:#dc4a29;
           background-color:#fff;
-          padding: 6px 5px 4px;
+          padding: 6px 5px 7px;
           margin: 10px 10px 0px;
           text-align: center;
           cursor:pointer;
@@ -1551,16 +1565,17 @@ body,html
           {
             width:100%;
             font-family:hallo;
-            font-size:37.5px;
+            font-size:30px;
             color:#77b8c3;
             text-align:center;
             padding:30px 0px 5px 0px;
+            &:lang(ka){ font-size:26px;}
           }
           .title-score
           {
             width:100%;
             font-family:hallo-b;
-            font-size:30px;
+            font-size:24px;
             color:#77b8c3;
             text-align:center;
             margin-bottom:40px;
@@ -1569,11 +1584,16 @@ body,html
           .title-passed
           {
             font-family:hallo;
-            font-size:25px;
+            font-size:20px;
             color:#db5c39;
             width:100%;
             text-align:center;
             span { color:#77b8c3; }
+            &:lang(ka){ 
+              font-family:gandhi;
+              font-size:17px;
+              line-height: 30px;
+            }            
           }
         }
         .content
@@ -1660,6 +1680,7 @@ body,html
               font-family:hallo;
               font-size:25px;
               color:#db5c39;
+              &:lang(ka){ font-family:en-hallo; }
             }
             .human-salary-diff,
             .human-saved-diff
@@ -1667,6 +1688,7 @@ body,html
               font-family:hallo;
               font-size:22.5px;
               color:#db5c39;
+              &:lang(ka){ font-family:en-hallo; }
             }
             .diff-value
             {
@@ -1677,14 +1699,26 @@ body,html
             .title-award
             {
               font-family:hallo;
-              font-size:25px;
+              font-size:20px;
               color:#77b8c3;
+              &:lang(ka)
+              { 
+                font-family:gandhi;
+                font-size:15px;
+                line-height: 30px;
+              }      
             }
             .title-diff
             {
               font-family:hallo;
-              font-size:22.5px;
+              font-size:18px;
               color:#77b8c3;
+              &:lang(ka)
+              { 
+                font-family:gandhi;
+                font-size:13px;
+                line-height: 24px;
+              }  
             }
             .box { width:100%; }
             .sumlarrow
@@ -1714,7 +1748,7 @@ body,html
 
         .footer
         {
-          height: 60px;
+          height: 80px;
 
           .share
           {
@@ -1729,7 +1763,7 @@ body,html
           .share_note
           {
             font-family: gandhi-i;
-            font-size: 17.5px;
+            font-size: 14px;
             color:#6383ba;
             clear:both;
             float:right;
@@ -1752,10 +1786,10 @@ body,html
             -moz-border-radius: 4px;
             border-radius: 4px;
             font-family: gandhi-i;
-            font-size: 20px;
+            font-size: 16px;
             color:#c15d46;
             opacity:0.8;
-            &:lang(ka){ font-size:14px; }
+            &:lang(ka){ font-size:14px; line-height: 32px; }
             &:hover
             {
               cursor:pointer;
@@ -1780,15 +1814,6 @@ body,html
           display:inline-block;
           z-index:67;
 
-          .label
-          {
-            font-family:hallo;
-            font-size:37.5px;
-            color:#77b8c3;
-            position:relative;  
-            text-align:center;
-            top:16px;
-          }
           .arrow
           {
             position:absolute;
@@ -1799,18 +1824,29 @@ body,html
           &.up .arrow
           {
             background:transparent url("/assets/gap/svg/common/sum_arrow_up.svg") no-repeat center center;
-            top:-25px;
+            top:-38px;
           }
           &.down .arrow
           {
             background:transparent url("/assets/gap/svg/common/sum_arrow_down.svg") no-repeat center center;
-            top:-17px;
+            top: -32px;
           }
         }
         .content
         {
             overflow-y:auto;
             overflow-x:hidden;  
+            height:100%;
+            > .title
+            {
+              font-family:hallo;
+              font-size:30px;
+              color:#77b8c3;
+              position:relative;  
+              text-align:center;
+              top:9px;
+              &:lang(ka){ font-family:gandhi; font-size:22px; }
+            }
         }
       }
 
@@ -1838,11 +1874,12 @@ body,html
         .x
         {
           font-family:hallo;
-          font-size:25px;
+          font-size:20px;
           color:#c15d46;
           text-align:center;
           vertical-align: top;
           line-height: 50px;
+          &:lang(ka){ font-family:en-hallo; }
         }
         .interest
         {
@@ -1877,7 +1914,7 @@ body,html
     font-size:17px;
     color:#a2ae7e;
     margin:0px;
-
+    &:lang(ka){ font-family:en-gandhi-i; font-size:14px; }
     &.tip-logo, &.tip-settings
     { 
       font-family:gandhi-i;
@@ -1886,7 +1923,10 @@ body,html
       background-color:#83c0c6;
       &:lang(ka){ font-size:14px; }
     }
+    &.tip-logo:lang(ka) { line-height: 20px; }
+    &.tip-settings:lang(ka) { line-height: 32px; }
     &.tip-about p { margin-top:5px; }
+    &.tip-coin:lang(ka) { line-height: 21px; }
   }
 
 /* ----------- interest icons ------- */

@@ -612,7 +612,6 @@ var locale = {
     your_salary:"Your Salary",
     your_interest:"Your Interest",
     your_percent:"How much do\n you save up for\n your interest",
-    lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     female:"Female",
     male:"Male",
     f:"f",
@@ -646,17 +645,7 @@ var locale = {
     share_hint:"Share this on facebook",
     about:"About",
     you_can_buy: "You can afford a ",
-    you_can_buy_education: "You can afford to finance a ",
-    summary: "Our goal is to increase gender equality and women’s economic empowerment in Georgia and ensure inclusive economic growth in which women participate in the workforce on an equal basis with men.\
-The challenges to this goal are many, yet we recognize that we all benefit the closer Georgia moves towards it.\
-This project is possible by the generous support of USAID and implemented by “Article 42 of the Constitution” and with the collaborative efforts of four partner organizations: Georgian Trade Union Confederation (GTUC), Center for Social Sciences at Tbilisi State University (CSS), New Media Advocacy Project (N-Map) and Jumpstart Georgia.\
-Game Credits:\
-Concept & Implementation: JumpStart Georgia\
-Sound designer: Brian Gillikin\
-Graphics: Mariam Kobuladze & Ruslan Beridze\
-Design: Mariam Kobuladze\
-Animation & Development: Anton Kamaryan\
-Data: National Statistics Office of Georgia",
+    you_can_buy_education: "You can afford to finance a ",    
     sorry: "So sorry,\n but saving &1 a month will never\n be enough for you to afford\n something in &2.\n Do you want to start the game over?",
     wanna_jump: "Saving &1 a month will take you \n&2 years before you can purchase \nsomething.\nDo you want to jump ahead to get your \nfirst purchase?",
     another_interest: "Choose another interest",

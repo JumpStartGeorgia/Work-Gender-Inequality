@@ -94,7 +94,8 @@ class GapController < ApplicationController
       fsalary = salary
       msalary = salary + (category[:outrun]==1 ? -1 : 1)*(salary * category[:percent] / 100);     
     end
-
+    msalary = msalary.round
+    fsalary = fsalary.round
     msaving_for_tick = percent * msalary / 100;
     fsaving_for_tick = percent * fsalary / 100;
 
