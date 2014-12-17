@@ -1,21 +1,44 @@
+@import "variables.css.less";
+
 #faqs{
   #faq-links{
     & > li{
       margin-top: 10px;
+      ul{
+        padding-left: 25px;
+      }
+      a{
+        color: @text-color;
+      }
+      & > a{
+        font-size: 18px;
+        color: @pink-color;
+      }
     }
     li{
-        line-height: 1.5;
+      line-height: 1.5;
     }
   }
   #faq-list .faq-list-category {
     margin-top: 40px;
-    border-top: 1px solid #ddd;
+    border-top: 2px solid @pink-color;
+    h2{
+      font-size: 18px;
+      color: @pink-color;
+    }
+    h3{
+      font-size: 18px;
+      text-decoration: underline;
+    }
     .faq-list-item{
       .link-to-top{
         font-size: 12px;
         text-align: center;
         margin-top: 5px;
-        font-style: italic;
+        a{
+          font-family: "main-font-italic";
+          color: @pink-color;
+        }
       }
     }
   }
