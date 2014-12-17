@@ -203,10 +203,9 @@ var categories =
         "bg2":"bg1",       
         "fg":"education",        
         "action":true,
-        "action_points":[{"x":526,"y":0,"d":-1}],    // 1 right -1 left
+        "action_points":[{"x":526,"y":0,"d":-1}],  
         "work":{ "a":false, "loop": true, "path":"M 655.8153,314.85376 L 180.6514,314.85376 L 180.6514,314.56599 L 655.81649,314.56599 z"},
         "work_point":{"x":655,"y":0},
-        "animate_points":{ "left": {"x":270,"y":0},"right":{"x":500,"y":0} }
     },
     {
         "id": "dJdfgktK",
@@ -600,7 +599,6 @@ var interests =
             }
         ] 
     }
-    //{ "id": "Cc8WWUmB","name": "Health & Beauty", items:[] }
 ];
 var int_ids = interests.map(function(d,i){return d.id;});
 
@@ -616,7 +614,9 @@ var locale = {
     your_percent:"How much do\n you save up for\n your interest",
     lorem: "Lorem ipsum dolor sit amet ka That is\n like each person in the watching a\n broadcast for Or one single\n person watching a\n broadcast\n continuously\nfor",
     female:"Female",
-    male:"Male"    
+    male:"Male",
+    f:"f",
+    m:"m"
   },
   general:
   {

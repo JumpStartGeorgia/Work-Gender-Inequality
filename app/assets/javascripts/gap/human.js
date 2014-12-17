@@ -1,8 +1,8 @@
-function human(selector,title) 
+function human(selector,title,alias) 
 {
 //****************************var**********************************
   this.title = exist(title) ? title : "Human";
-  this.alias = this.title[0].toLowerCase();
+  this.alias = alias;
   this.age = 0;
   this.height = 0;
   this.width = 0;
@@ -795,8 +795,8 @@ this.stop_counter = -2;
     this.get_dimentions();
   };
 }; // human object with basic properties
-male = new human('.m.character',locale.poll.male); // male human object
-female = new human('.f.character',locale.poll.female); // female human object
+male = new human('.m.character',locale.poll.male,'m'); // male human object
+female = new human('.f.character',locale.poll.female,'f'); // female human object
 humans = male.outrun ? [male,female] : [female,male];
 
 function h_go_right()

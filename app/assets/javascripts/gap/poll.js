@@ -592,7 +592,7 @@ var poll = {
     var tmp = interests.filter(function(a){ return a.id == user.interest; })[0];
 
     interest = tmp.items.sort(function(a,b){ return a.cost - b.cost; });
-    interestAlias = tmp.name.substring(0,3).toLowerCase();
+    interestAlias = tmp.icon;
 
     for(var i = 0; i < interest.length-1; ++i)
     {        
@@ -613,7 +613,7 @@ var poll = {
   {    
     poll.npicker_binded = false;    
     var picker = $("<div class='" + t.replace(".","") + " abs npicker inactive' max='"+max+"'>"+
-                  "<div class='t " + align + "'>"+label.toUpperCase()+"</div>" +
+                  "<div class='t" + (exist(align)?' '+align:'') + "'>"+label.toUpperCase()+"</div>" +
                "</div>").appendTo(p);
     poll.npicker_redraw();
     for(i = 0; i < size; ++i)
