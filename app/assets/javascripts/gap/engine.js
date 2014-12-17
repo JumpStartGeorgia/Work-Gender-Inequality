@@ -962,11 +962,9 @@ function epilogue()
   else category.outrun == 0 ? player.play('endgood') : player.play('endbad');
   sendUserData(true); // on finish update poll data
   
-  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div><div class='label'>"+locale.general.about+"</div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
+  var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
 
-  var aboutTmp = $('.about-window .content').clone();
-  aboutTmp.find('>div.title').remove();
-  t.find('.whatnext .content').html(aboutTmp.html());
+  t.find('.whatnext .content').html($('.about-window .content').html());
   resizeCallback = function()
   {
     epilogue_redraw();
