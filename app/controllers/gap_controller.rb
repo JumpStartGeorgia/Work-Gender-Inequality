@@ -83,7 +83,7 @@ class GapController < ApplicationController
     require 'game_data'
     d = {}
     @category = GameData.category(cat)
-    @interest = GameData.interest(int_id)
+    @interest = GameData.interest(int_id,I18n.locale)
 
     msalary = 0
     if(gender=='m')

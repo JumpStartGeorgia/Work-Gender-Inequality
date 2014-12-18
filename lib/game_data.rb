@@ -80,18 +80,79 @@ class GameData
         ]  
     }
 	]
+  @@interests_ka = 
+  [
+    { id: "gfNDXD1g", name: "მოგზაურობა",
+      items:
+      [
+        { id: "77A79Lr_", title: "3 დღიანი ტური საქართველოში", cost: 340, descr: "თბილისი-ზუგდიდი-მესტია-უშგული-თბილისი, \nტრანსპორტირება, სამჯერადი კვება, სასტუმრო, გიდი", klass: "vac-1" },
+        { id: "Pe23w2Lz", title: "6 დღიანი ტური ესპანეთში", cost: 1328, descr: "ბარსელონა, ესპანეთი: 6 დღე/5 ღამე, \nავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა", klass: "vac-2" },
+        { id: "j7hrF24w", title: "7 დღიანი ტური მთა ტაიშანზე ჩინეთში", cost: 3978, descr: "ტაიშანის მთები: 7 დღე/8 ღამე, \nავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა", klass: "vac-3" },
+        { id: "LE-xVn5T", title: "7 დღიანი ტური მექსიკაში", cost: 7873, descr: "მექსიკა: 7 დღე/6 ღამე, \nავიაბილეთები, სასტუმრო, \nსამჯერადი კვება, ექსკურსიები", klass: "vac-4" },
+        { id: "8BHSiiS3", title: "11 დღიანი ტური ავსტრალიაში", cost: 17491, descr: "კრუიზი ავსტრალიის კიმბერლის სანაპიროზე: \nსამჯერადი კვება", klass: "vac-5" },
+        { id: "p_bINCPp", title: "98 დღიანი კრუიზი წყნარ ოკეანეზე", cost: 57987, descr: "კრუიზი სათავეს იღებს ახალ ზელანდიაში, \nდანიშნულების ადგილებია: \nსიდნეი, ბალი, ჰონკონგი და ალიასკლა (სხვა ადგილებთან ერთად). \nკრუიზი სრულდება ლოს ანჯელესში.", klass: "vac-6" }
+      ] 
+    },
+    { id: "Rs2Uml6w",name: "ელექტრო \nმოწყობილობები", 
+     items:
+     [
+       { id: "NeRMinwu", title: "MP3 ფლეერი", cost: 150, descr: "სპეციალური გამოშვება \nIpod Shuffle (Product) Red", klass: "gad-1" },
+       { id: "Q3eeT2j9", title: "ვიდეო თამაშების სისტემა", cost: 600, descr: "Xbox One", klass: "gad-2" },
+       { id: "4JAffVD6", title: "მობილური ტელეფონი", cost: 1400, descr: "Apple Iphone 5S 16GB", klass: "gad-3" },
+       { id: "USLng33Z", title: "ლეპტოპი", cost: 2836, descr: "Apple MacBook Pro 13-inch 256GB", klass: "gad-4" },
+       { id: "eLkVnL8n", title: "ციფრული კამერა", cost: 5200, descr: "Nikon D610", klass: "gad-5" },
+       { id: "kV1jvNlr", title: "3D სახლის კინოთეატრი", cost: 9721, descr: "Klipsch RF-7 II 5.1 სახლის კინოთეატრი \nSW-112, SW-115 Denon AVR-X4000", klass: "gad-6" }
+     ]
+    },   
+    {  id: "KI3EFRI3", name: "განათლება",
+        items:
+        [
+          { id: "y_eZkaEO", title: "ფინანსური მენეჯმენტის კურსი", cost: 450, descr: "ქართულ-კანადური საგანმანათლებლო ცენტრი, \n6 კვირიანი ფინანსური მენეჯმენტის კურსი", klass: "edu-1" },
+          { id: "cuabVv82", title: "ინგლისური ენის კურსი", cost: 1776, descr: "ბრიტანული საბჭო, \n10 თვიანი ინგლისური ენის ზოგადი კურსი", klass: "edu-2" },
+          { id: "mE3tEvWc", title: "ბაკალავრიატის პროგრამა \nსახელმწიფო უნივერსიტეტში", cost: 9000, descr: "საქართველოს სახელმწიფო \nუნივერსიტეტი, ბაკალავრიატი", klass: "edu-3" },
+          { id: "nGgaI1SL", title: "ბიზნეს პროგრამა კერძო უნივერსიტეტში", cost: 30600, descr: "თბილისის თავისუფალი \nუნივერსიტეტი ბიზნეს სკოლა (ESM)", klass: "edu-4" },
+          { id: "egtsYjwP", title: "2-წლიანი MBA", cost: 71040, descr: "ცენტრალური ევროპის უნივერსიტეტი, \nბიზნეს ადმინისტრირების სამაგისტრო პროგრამა", klass: "edu-5" },
+          { id: "k17y863W", title: "12-თვიანი ბიზნეს ადმინისტრირების \nსამაგისტრო პროგრამა", cost: 105000, descr: "კემბრიჯის უნივერსიტეტი, \nბიზნეს ადმინისტრირების სამაგისტრო პროგრამა, \n12 თვიანი ინტენსიური პროგრამა", klass: "edu-6" }
+        ]  
+    },
+    {  id: "7fdCIojZ", name: "საცხოვრებელი",
+        items:
+        [
+          { id: "6MhsbW7j", title: "1-ოთახიანი ბინა", cost: 48125, descr: "1-ოთახიანი ბინა \nდიღმის მასივში, V კვარტალი.", klass: "hou-1" },
+          { id: "FRyVRVZf", title: "2-ოთახიანი ბინა", cost: 80500, descr: "2-ოთახიანი ბინა \nდიდ-დიღომში, I მკრ.", klass: "hou-2" },
+          { id: "ke7QwpJ", title: "3-ოთახიანი ბინა", cost: 101500, descr: "3-ოთახიანი ბინა \nდიდ-დიღომში, პეტრიწის ქ.", klass: "hou-3" },
+          { id: "ODRpktbx", title: "4-ოთახიანი ბინა", cost: 113750, descr: "4-ოთახიანი ბინა \nდიდ-დიღომში, III მკრ.", klass: "hou-4" },
+          { id: "2HIuYW5a", title: "5-ოთახიანი სახლი", cost: 236250, descr: "5-ოთახიანი,\n 2-სართულიანი სახლი დიდ-დიღომში", klass: "hou-5" },
+          { id: "5pTaH-Si", title: "6-ოთახიანი სახლი", cost: 332500, descr: "6-ოთახიანი,\n 2-ორსართუოლიანი სახლი დიდ-დიღომში", klass: "hou-6" }
+        ]  
+    },
+    {  id: "3QDbCRrq", name: "ტრანსპორტი",
+        items:
+        [
+          { id: "grHOtIbx", title: "ველოსიპედი", cost: 936, descr: "SCOTT Aspect 660", klass: "tra-1" },
+          { id: "fndmDZlb", title: "მოტოციკლი", cost: 4723, descr: "Suzuki, GSX-R750, 2001", klass: "tra-2" },
+          { id: "_ejo7U7H", title: "Mazda", cost: 12600, descr: "Mazda 3, ჰეჩბეკი, 2008", klass: "tra-3" },
+          { id: "Te6f2mYy", title: "BMW", cost: 27125, descr: "BMW 528, სედანი, 2009", klass: "tra-4" },
+          { id: "PcNAyqxL", title: "Lexus", cost: 56000, descr: "Lexus GX 470, ჯიპი, 2009", klass: "tra-5" },
+          { id: "KOpdBfBy", title: "Land Rover", cost: 91000, descr: "Land Rover Range Rover Sport, ჯიპი, 2011", klass: "tra-6" }
+        ]  
+    }
+  ]
 
  	def self.categories
  		@@categories
   	end  
   	def self.interests
- 		@@interests
+ 		 @@interests
   	end
+    def self.interests_ka
+     @@interests_ka
+    end
   	def self.category(id)
   		@@categories.find {|v| v[:id] == id }
   	end
-  	def self.interest(id)
-  		cat = @@interests.find {|v| v[:id] == id }
+  	def self.interest(id,lc)
+  		cat = ((lc != :ka) ? @@interests.find {|v| v[:id] == id } : @@interests_ka.find {|v| v[:id] == id })
   		cat[:items].sort!{|x,y| x[:cost] <=> y[:cost]}
       return cat
   	end
