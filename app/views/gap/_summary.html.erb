@@ -8,7 +8,7 @@
 					<table> 
 					<tr>
 						<td class='char'>
-							<div class='<%= d[:fclass][0] %>'><div class="you"><div class="text"><%= t('.you') %></div><div class="arrow-d"></div></div></div>
+							<div class='<%= d[:fclass][0] %>'><div class="you"><div class="text"><%= t('.you') %></div><div class="arrow-d"></div></div><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:fclass][0]}" %>0.svg'/></div>
 						</td>
 						<td class='grid-wrapper'>
 						<div class='grid'>
@@ -43,9 +43,10 @@
 								<div class='dummy'></div>
 							</div>					
 							<div class='row'>	
-								<div class='human-award'>
+								<div class='human-award'>	 
 									<% d[:faward].reverse.each_with_index { |x,i| %>
-										<div><div class='x'><%= "#{x}" %>x</div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>' title='<%=  "#{@interest[:items][i][:descr]} - #{@interest[:items][i][:cost]} GEL" %>'>
+										<div><div class='x'><%= "#{x}" %>x</div><div class='tip interest <%= "#{@interest[:items][i][:klass]}" %>' data-tip='<%=  "#{@interest[:items][i][:descr]}\n#{number_with_delimiter(@interest[:items][i][:cost])} GEL" %>'
+										data-tip-type='coin'>
 
 										</div></div>
 									<% } %>
@@ -53,14 +54,14 @@
 								<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>		
 								<div class='human-award'>
 									<% d[:saward].reverse.each_with_index { |x,i| %>
-										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>' title='<%=  "#{@interest[:items][i][:descr]} - #{@interest[:items][i][:cost]} GEL" %>'></div><div class='x'>x<%= "#{x}" %></div></div>
+										<div><div class='tip interest <%= "#{@interest[:items][i][:klass]}" %>' data-tip='<%=  "#{@interest[:items][i][:descr]}\n#{number_with_delimiter(@interest[:items][i][:cost])} GEL" %>' data-tip-type='coin'></div><div class='x'>x<%= "#{x}" %></div></div>
 									<% } %>
 								</div>
 							</div>
 						</div>
 						</td>
 						<td class='char'>
-							<div class='<%= d[:sclass][0] %> l'></div>
+							<div class='<%= d[:sclass][0] %> l'><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:sclass][0]}" %>0.svg'/></div>
 						</td>
 						</tr>
 						</table>

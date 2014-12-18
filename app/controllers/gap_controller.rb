@@ -9,7 +9,6 @@ class GapController < ApplicationController
   def poll
     game_id = cookies['_game_id']
     flag = params[:flag].to_bool
-    logger.debug(params)
     if game_id.blank? && !flag
 
       user_agent = UserAgent.parse(request.user_agent)
@@ -83,32 +82,25 @@ class GapController < ApplicationController
 
     require 'game_data'
     d = {}
-    category = GameData.category(cat)
+    @category = GameData.category(cat)
     @interest = GameData.interest(int_id)
 
     msalary = 0
     if(gender=='m')
       msalary = salary
-      fsalary = salary + (category[:outrun]==1 ? 1 : -1)*(salary * category[:percent] / 100);     
+      fsalary = salary + (@category[:outrun]==1 ? 1 : -1)*(salary * @category[:percent] / 100);     
     else
       fsalary = salary
-      msalary = salary + (category[:outrun]==1 ? -1 : 1)*(salary * category[:percent] / 100);     
+      msalary = salary + (@category[:outrun]==1 ? -1 : 1)*(salary * @category[:percent] / 100);     
     end
-    #msalary = msalary.round
-    #fsalary = fsalary.round
-     Rails.logger.debug("#{msalary}-----------");
-    Rails.logger.debug("#{fsalary}-----------");
-    Rails.logger.debug("#{percent}-----------");
-
+    
     msaving_for_tick = percent * msalary / 100;
     fsaving_for_tick = percent * fsalary / 100;
-    Rails.logger.debug("#{msaving_for_tick}-----------");
-    Rails.logger.debug("#{fsaving_for_tick}-----------");
 
     d[:years_passed] = (cur_ticks * tick) / 12
     d[:months_passed] = ((cur_ticks * tick) % 12) * tick
-    d[:title_job] = I18n.t("gap.gamedata.category.#{category[:id]}")
-    d[:outrun] = category[:outrun] == 0 ? 'm' : 'f'
+    d[:title_job] = I18n.t("gap.gamedata.category.#{@category[:id]}")
+    d[:outrun] = @category[:outrun] == 0 ? 'm' : 'f'
     d[:fclass] = 'female'
     d[:sclass] = 'male'
 
@@ -124,8 +116,8 @@ class GapController < ApplicationController
     d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs.floor
     d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs.floor
 
-    d[:fstate] = gender == 'm' && category[:outrun] == 0 ? true : false
-    d[:sstate] = gender == 'm' && category[:outrun] == 0 ? false : true
+    d[:fstate] = gender == 'm' && @category[:outrun] == 0 ? true : false
+    d[:sstate] = gender == 'm' && @category[:outrun] == 0 ? false : true
 
 
     ftmp = d[:fsaved_total]
@@ -252,7 +244,6 @@ class GapController < ApplicationController
         break
       end
     end
-    #logger.debug(paramsOk)
     p.each do |k,v| # remove extra parameters if exists
         p.delete(k) if !filter.include?(k)
     end
@@ -261,7 +252,6 @@ class GapController < ApplicationController
 
   def fparse(f)
     begin
-     # logger.debug(f)
       p = {}
       f = Base64.urlsafe_decode64(f)
       f.split('&').each{|s| 

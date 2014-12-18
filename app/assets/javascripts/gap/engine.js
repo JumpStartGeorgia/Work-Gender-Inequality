@@ -51,17 +51,16 @@ function redraw()
   { 
     stage_redraw(0);
     redraw_game();
-    timeline_point_redraw();  
+    timeline_point_redraw(); 
+    male.get_dimentions();
+    female.get_dimentions(); 
   }
   if(func(resizeCallback)) resizeCallback();
 }
 function redraw_game()
 {            
   var t = $("#screen .top").height(lh);
-  t.find('.treasure .pedestal').css({ top : 10 });
-  t.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
-  t.find('.treasure .card').css({right:w2+80});
-  
+
   $("#screen .timeline").height(th).css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
@@ -69,13 +68,11 @@ function redraw_game()
   }
 
   var b = $("#screen .bottom").height(lh).css('top',lh+th);
-  b.find('.score').css({ top: lh + th + 20});
   b.find('.treasure .pedestal').css({ top: lh + th + 10 });
-  b.find('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
-  b.find('.treasure .card').css({right:w2+80});
-  male.scale();
-  female.scale();
-  //$('.canvas, .treasure .red-carpet').show();
+
+
+  $('.treasure .card').css({right:w2+80});
+  $('.treasure .red-carpet, .treasure .card').css({ top : lh/2 - 25 });
 }
 function scr_clean(klass)
 {
@@ -158,8 +155,11 @@ function game_on_load()
 }
 function game_init() {
 
-  //gap.pos = 0;
-  //total_scrolls = 0;
+  if(!init)
+  {
+    gap.pos = 0;
+    total_scrolls = 0;
+  }
   scr_clean();
 
   sound_button();
@@ -182,40 +182,28 @@ function game_init() {
  
   var tstr =  '<div class="score"><div class="tsalary"><div class="label">'+locale.game.total_salary+'</div><div class="value">0</div></div>'+
                 '<div class="tsaved"><div class="label">'+locale.game.total_saved+'</div><div class="value">0</div></div></div>' + 
-              '<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div></div>' + 
+              '<div class="treasure"><div class="pedestal"></div><div class="red-carpet"></div>'+
+                '<div class="card"><div class="wr"><div class="title">'+lg.congrat+'</div><div class="sub-title"></div><div class="coins"></div></div><div class="fb" title="'+lg.share_hint+'"></div></div>' +
+              '</div>' + 
               '<div class="stage"><div class="bg"></div><div class="fg"></div></div>';
+  s.append('<div class="top">' + tstr+'<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div></div>');
+  
+  s.append('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward" onclick="timetravel_back()"></div><div class="now"></div><div class="forward" onclick="timetravel_forw()"></div><div class="travel-point-forw">'+jumper + ' ' + locale.general.years_forward +'</div></div></div>');
 
-  var t = $('<div class="top"></div>').appendTo(s)
-    .append(tstr)
-    .append('<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div>');
-  timeline = $('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward"></div><div class="now"></div><div class="forward"></div><div class="travel-point-forw">'+jumper + ' ' + locale.general.years_forward +'</div></div></div>').appendTo(s).find('.canvas');
-  $('.timeline .time-travel .backward').click(function(){ timetravel_back(); });
-  $('.timeline .time-travel .forward').click(function(){ timetravel_forw(); });
-  var b = $('<div class="bottom"></div>').appendTo(s)
-    .append(tstr)
-    .append('<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div>');
+  s.append('<div class="bottom">' + tstr+'<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div></div>');
+
+  redraw_game();
+
+  stage_init(0);
 
   male.init();
   female.init();
-  
-  male.oppenent = female;
-  female.oppenent = male;
-
-  male.prepare_for_game();
-  female.prepare_for_game();
 
   card_moment.forEach(function(d,i){ card_moment[i] = male.card_moment[i] > female.card_moment[i] ? female.card_moment[i] : male.card_moment[i]; });
 
   start_by_time();
 
-  male.pedestal.resume_by_position();
-  female.pedestal.resume_by_position();
-
   timeline_point_init();
-
-  stage_init(0);
-
-  redraw_game();
 
   player.background_play();  
 
@@ -235,8 +223,6 @@ function game_jump(v,jumper_step) //  -1 back 1 forw
   if(v === undefined) v = 1;
   var jstep = typeof jumper_step !== 'undefined' && isNumber(jumper_step) ? jumper_step : jumper;
 
-  var isfine = false;
-
   var toJump = jstep * 12 / reward_period * v + gap.pos;
   if(toJump >=0 && toJump <= pos_max)
   {
@@ -247,24 +233,16 @@ function game_jump(v,jumper_step) //  -1 back 1 forw
 
       start_by_time();
 
+      redraw_game();
+
+      stage_redraw(0);
+
       male.pedestal.resume_by_position();
       female.pedestal.resume_by_position();
 
       timeline_point_redraw();
-
-      redraw_game();
-
-     stage_redraw(0);
-
-    male.scale();
-    female.scale();
-
-
-      isfine = true;    
     }    
   }
-  if(isfine) console.log('can\'t jump');
-  else console.log('jumping');
 }
 
 function stage_init(v)
@@ -321,12 +299,6 @@ function stage_init(v)
 
 
   if(v===0) stage_init(1);
-  else 
-  {
-    fgw = fg_i.width();
-    fgh = fg_i.height();
-  }
-
 }
 function stage_redraw(v)
 {
@@ -409,29 +381,20 @@ function stage_redraw(v)
   bg.parent().css('left',-1*(bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
 
   if(v===0) stage_redraw(1);
-
 }
 function timeline_point_init()
 {
+  var tt = $('.timeline .canvas');
+  var cnt = 0;
   for(var i = 0; i <= pos_max; ++i) 
   {
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
-    var point = $('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>')
-                  .css({heigth:th,line_height:th})
-                  .appendTo(timeline);
+    tt.append('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>');
 
-    var point_w2 = Math.floor10(parseFloat(css(point.get(0),'width'))/2); 
-    if(i == 0) 
-    { 
-      prevPosition = w2;
-      prevPositionLeft = w2 - point_w2;
+    if(i != pos_max)
+    {
+       tt.append('<div class="serif" data-id="'+ ++cnt +'"></div><div class="serif" data-id="'+ ++cnt +'"></div><div class="serif" data-id="'+ ++cnt +'"></div>');      
     }
-    else 
-    {       
-      prevPosition += timeline_period_w;
-      prevPositionLeft = prevPosition - point_w2;
-    }
-    point.css({left: prevPositionLeft });
 
     if(i!=0)
     { 
@@ -439,43 +402,38 @@ function timeline_point_init()
       {
         if(d.event_by_period_sum[i-1] > 0)
         {
-          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+d.event_by_period_sum[i-1]+'"></div>').appendTo(d.carpet);
+          var strTmp = '<div class="reward" data-id="'+i+'"  data-count="'+d.event_by_period_sum[i-1]+'">'
+          
           for(j = 0; j < 6; ++j)
           {
             for(q = 0; q < d.event_by_period[i-1][j]; ++q)
             {
-              $('<div class="item ' + interest[j].class  + '"></div>').appendTo(rew);
+              strTmp += '<div class="item ' + interest[j].class  + '"></div>';
             }
           }
-          rew.css({heigth:th,line_height:th});
-          rew.css({left: prevPosition - interest_w2});
+          strTmp += '</div>';
+          var rew = $(strTmp).appendTo(d.carpet);
           if(i<=gap.pos) { rew.hide();}
         }
       });    
     }
     
-    if(i != pos_max)
-    {
-      for(var j = 0; j < reward_period-1; ++j)
-      {
-        if(j % 3 == 2)
-         $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th }).appendTo(timeline);
-      }
-    }
   }
  
   $('.treasure .red-carpet').css({width:pos_max*w}); 
-  timeline.css({width:pos_max*w}); 
-
+  tt.css({width:pos_max*w}); 
+  setTimeout(function(){timeline_point_redraw();},2000);
+  
 }
 function timeline_point_redraw()
 {
+  var cnt = 1;
   for(var i = 0; i <= pos_max; ++i) 
   {
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
-    var point = timeline.find('.point-in-time[data-time=' + now.getTime() + ']').css({heigth:th,line_height:th});    
-
-    var point_w2 = Math.floor10(parseFloat(css(point.get(0)),'width')/2); 
+    var point = $('.timeline .point-in-time[data-time=' + now.getTime() + ']');    
+    var point_w2 = point.width()/2; 
+    
     if(i == 0) 
     { 
       prevPosition = w2;
@@ -494,7 +452,7 @@ function timeline_point_redraw()
       {
         if(d.event_by_period_sum[i-1] > 0)
         {
-          var rew = d.carpet.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
+          var rew = d.carpet.find('.reward[data-id=' + i + ']').css({ left: prevPosition - interest_w2});
           if(i<=gap.pos) { rew.hide(); }
         }
       });
@@ -502,14 +460,16 @@ function timeline_point_redraw()
     
     if(i != pos_max)
     {
-      for(var j = 0; j < reward_period-1; ++j)
+      for(var j = 1; j <= 3; ++j)
       {
-        timeline.find('.serif:nth-child('+(j+1)+')').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th });
+        $('.timeline .canvas .serif[data-id='+cnt+']').css({ left: prevPosition+j*3*timeline_month_w });
+        ++cnt;
       }
     }
   } 
+
   $('.treasure .red-carpet').css({width:pos_max*w}); 
-  timeline.css({width:pos_max*w}); 
+  $('.timeline .canvas').css({width:pos_max*w}); 
 
 }
 /***************************************************************

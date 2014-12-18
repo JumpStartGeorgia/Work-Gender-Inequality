@@ -135,12 +135,13 @@ body,html
       /* ----------- wrapper->screen->top||bottom->score ----------- */
         .score
         {     
-          position: fixed;
+          position: relative;
           top: 11px;
-          display:inline-block;
-          z-index:35;
           right:60px;
-
+          width: 100%;
+          text-align: right;
+          z-index:35;
+         
           div { display:inline-block; }
           .label
           {
@@ -178,7 +179,8 @@ body,html
             z-index:50;
             width:auto;
             position:fixed;
-            left:10px; 
+            left:10px;
+            top:10px; 
 
             > .interestB
             {
@@ -394,6 +396,7 @@ body,html
            top:0px;   
            width:1px;
            height:30px;
+           line-height:30px;
            background:transparent url('/assets/gap/svg/common/timeline_tick.svg') no-repeat;
            background-size:1px 30px;
            background-position:0px 0px;
@@ -431,7 +434,8 @@ body,html
           }
           .forward:hover, .backward:hover { cursor:pointer; }
           .now { width:175px; }
-          .travel-point-back, .travel-point-forw { padding:0px 15px; }
+          .travel-point-back, .travel-point-forw { background-color: rgb(255, 254, 249); width:130px; }
+          .travel-point-back { padding-right:15px; } .travel-point-forw { padding-left:15px; }
         }
       }
 
@@ -1618,24 +1622,6 @@ body,html
           {
             width:80px;
             vertical-align: top;
-            .m
-            {
-               background-image:url("/assets/gap/svg/human/casual/m0.svg");
-               background-color:transparent;
-               background-size:67px 182px;
-               background-repeat:no-repeat;
-               width:67px;
-               height:182px;
-            }
-            .f
-            {
-              background:transparent url("/assets/gap/svg/human/casual/f0.svg") no-repeat;
-              background-color:transparent;
-              background-size:63px 172px;
-              background-repeat:no-repeat;
-              width:63px;
-              height:172px;
-            }
             .l { transform:scale(-1,1); }
             .you
             {  

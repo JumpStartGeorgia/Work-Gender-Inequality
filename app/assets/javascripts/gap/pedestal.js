@@ -18,7 +18,7 @@ function pedestalObject(p)
     var parent = t.sp.find('div.interestB[data-id=' + which + ']');
     for(var i = start+1; i <= start+how; ++i)
     {
-      var item = $('<div data-id=' + i + '>').addClass('tip item ' + interest[which-1].class).attr({'data-tip':interest[which-1].descr + '\n' + interest[which-1].cost, 'data-tip-type':'coin' }); 
+      var item = $('<div data-id=' + i + '>').addClass('tip item ' + interest[which-1].class).attr({'data-tip':interest[which-1].descr + '\n' + formatNumber(+interest[which-1].cost) + ' GEL', 'data-tip-type':'coin' }); 
       parent.append(item);
     }
   };
@@ -33,7 +33,7 @@ function pedestalObject(p)
         t.sp.find('div.interestB[data-id=1]')
           .append($('<div data-id=' + (t.p.treasure[0]+j) + '>')
             .addClass('tip item ' + interest[0].class)
-            .attr({'data-tip':interest[0].descr + '\n' + interest[0].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));    
+            .attr({'data-tip':interest[0].descr + '\n' + formatNumber(+interest[0].cost) + ' GEL', 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));    
 
       }
       t.p.treasure[0]+=t.p.event_by_period[gap.pos-1][0];
@@ -58,7 +58,7 @@ function pedestalObject(p)
           t.sp.find('div.interestB[data-id=' + (i+2) + ']')
             .append($('<div data-id=' + (t.p.treasure[i+1]+j) + '>')
               .addClass('tip item ' + interest[i+1].class)
-              .attr({'data-tip':interest[i+1].descr + '\n' + interest[i+1].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));                
+              .attr({'data-tip':interest[i+1].descr + '\n' + formatNumber(+interest[i+1].cost)+ ' GEL', 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));                
             //    player.play('upgrade');
         }
         t.p.treasure[i+1]+=t.p.event_by_period[gap.pos-1][i+1];
@@ -96,6 +96,7 @@ function pedestalObject(p)
     treasure.forEach(function(d,i){
       t.sp.append('<div class="interestB" data-id="'+(i+1)+'">');
     }); 
+   t.resume_by_position();
   };
   this.resume_by_position = function()
   {    
@@ -111,7 +112,7 @@ function pedestalObject(p)
       var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
       for(var j = 0; j < states[i]; ++j)
       {
-        var item = $('<div data-id=' + (j+1) + '>').addClass('tip item ' + interest[i].class).attr({ 'data-tip': interest[i].descr + '\n' + interest[i].cost, 'data-tip-type':'coin' } ); 
+        var item = $('<div data-id=' + (j+1) + '>').addClass('tip item ' + interest[i].class).attr({ 'data-tip': interest[i].descr + '\n' + formatNumber(+interest[i].cost) + ' GEL', 'data-tip-type':'coin' } ); 
         parent.append(item);
       }
     }

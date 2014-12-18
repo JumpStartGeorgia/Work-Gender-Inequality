@@ -35,7 +35,6 @@ var wr = null;
 var lh = 0; 
 var canScroll = false;
 var total_scrolls = 0;
-var timeline = null; // timeline jq pointer
 var th = 30; // timeline height in px
 var today = new Date(); // current date
 //var timeline_point = new Date(today.getFullYear(),today.getMonth(),1,0,0,0,0); // only for declaration

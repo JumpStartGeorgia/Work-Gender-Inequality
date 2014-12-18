@@ -71,6 +71,13 @@ function human(selector,title,alias)
       //this.place=[];
     } 
   };
+  var actionsBound = 1;
+  this.step_size = 0;
+  var movementBound = 3;
+  this.rewardStarted = false;
+  this.stopped = false;
+  this.was_stopped = false;
+  
 //*************************set & get**********************************
 	this.__defineGetter__("salary", function(){
 	   return this._salary;
@@ -153,26 +160,14 @@ this.stop_counter = -3;
   };
   this.reset = function reset() 
   { 
-    //console.log('here',this.title);
-    this.get_dimentions();   
-    this.scale();
+    this.get_dimentions();
     this.toground();
     this.prevX = this.x;
     this.prevY = this.y;
     this.x = 0;
     $(this.selector).css({ left: 0 , top: this.y });   
   };
-  this.scale = function()
-  {
-    var t = this;
-    $(t.selector).css({
-      width : t.frames[t.movement].w,
-      height : t.frames[t.movement].h,
-      'background-size':t.frames[t.movement].w + 'px ' + t.frames[t.movement].h + 'px'
-    }); 
-  };
-  var actionsBound = 1;
-  this.step_size = 0;
+
   this.get_dimentions = function()
   {
     var t = this;
@@ -208,15 +203,6 @@ this.stop_counter = -3;
         'background-size':t.frames[t.movement].w + 'px ' + t.frames[t.movement].h + 'px'
     });    
   };
- 
- // this.prevXTmp = 0;
- // this.prevYTmp = 0;
-  var movementBound = 3;
-  this.rewardStarted = false;
-    this.stopped = false;
-  this.was_stopped = false;
-  
-
   this.choose_movement = function choose_movement()
   {
     var t = this;
@@ -363,6 +349,8 @@ this.stop_counter = -3;
     if(!t.rewardStarted)
     {
       t.rewardStarted = true;
+      t.stopped = false;
+      t.stop_counter = -3;
       t.working = false;
       t.initX = t.x;
       t.initY = t.y;
@@ -502,10 +490,14 @@ this.stop_counter = -3;
   this.init = function()
   {
     var t = this;
-    this.card.init();    
-    this.pedestal.init();
-    this.reset();
-    this.carpet = $('.' + t.place + ' .treasure .red-carpet');
+    t.oppenent = (t.alias=='m') ? female : male;
+
+    t.prepare_for_game();
+    t.reset();
+
+    t.card.init();    
+    t.pedestal.init();
+    t.carpet = $('.' + t.place + ' .treasure .red-carpet');
     
   };
 }; // human object with basic properties

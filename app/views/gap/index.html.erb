@@ -11,9 +11,7 @@
       <meta property="og:type" content="website" />
       <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>" />
       <%= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
-      <% if @css.present? %>
-        <%= stylesheet_link_tag  *( "gap/fonts_#{I18n.locale}.css" ), :media => "all" %>  
-      <% end %>
+      <%= stylesheet_link_tag  *( "gap/fonts_#{I18n.locale}.css" ), :media => "all" %>  
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
    </head>
    <body>

@@ -11,6 +11,7 @@
       <meta property="og:type" content="website" />
       <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>" />
       <%= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
+      <%= stylesheet_link_tag  *( "gap/fonts_#{I18n.locale}.css" ), :media => "all" %>  
       <link rel="stylesheet" type="text/css" href="/assets/gap/summary.css">
    </head>
    <body>
@@ -29,7 +30,7 @@
 								<table> 
 								<tr>
 								<td class='char'>
-									<div class='<%= d[:fclass][0] %>'><div class="you"><div class="text"><%= t('.you') %></div><div class="arrow-d"></div></div></div>
+									<div class='<%= d[:fclass][0] %>'><div class="you"><div class="text"><%= t('.you') %></div><div class="arrow-d"></div></div><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:fclass][0]}" %>0.svg'/></div>
 								</td>
 								<td class='grid-wrapper'>
 								<div class='grid'>
@@ -65,22 +66,24 @@
 									</div>					
 									<div class='row'>	
 										<div class='human-award'>
-											<% d[:faward].reverse.each_with_index { |x,i| %>
-												<div><div class='x'><%= "#{x}" %>x</div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div></div>
-											<% } %>
+										<% d[:faward].reverse.each_with_index { |x,i| %>
+										<div><div class='x'><%= "#{x}" %>x</div><div class='tip interest <%= "#{@interest[:items][i][:klass]}" %>' data-tip='<%=  "#{@interest[:items][i][:descr]}\n#{number_with_delimiter(@interest[:items][i][:cost])} GEL" %>'
+										data-tip-type='coin'>
+
+										</div></div>
+									<% } %>
 										</div>
 										<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>		
 										<div class='human-award'>
-											<% d[:saward].reverse.each_with_index { |x,i| %>
-											<% Rails.logger.debug(x) %>
-												<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='x'>x<%= "#{x}" %></div></div>
-											<% } %>
+										<% d[:saward].reverse.each_with_index { |x,i| %>
+										<div><div class='tip interest <%= "#{@interest[:items][i][:klass]}" %>' data-tip='<%=  "#{@interest[:items][i][:descr]}\n#{number_with_delimiter(@interest[:items][i][:cost])} GEL" %>' data-tip-type='coin'></div><div class='x'>x<%= "#{x}" %></div></div>
+									<% } %>
 										</div>
 									</div>
 								</div>
 								</td>
 								<td class='char'>
-									<div class='<%= d[:sclass][0] %> l'></div>
+										<div class='<%= d[:sclass][0] %> l'><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:sclass][0]}" %>0.svg'/></div>
 								</td>
 								</tr>
 								</table>
@@ -100,57 +103,7 @@
 					</div>
 			</div>	
 		</div>
-<%= javascript_include_tag *(["game-summary"]), :media => "all" %>     
-<script>
-$(document).ready(function(){
-	redraw();	
-	$( window ).resize(function() { redraw(); });
-}); 
-var epilogueUp = true;
-var w = h = 0;
-function redraw()
-{
-
-  w = $(window).width();
-  h = $(window).height();
-  var t = $('.wrapper .epilogue');
-  t.find('.summary').css('height',h-62);
-  t.find('.whatnext').css('height',h-42);
-  t.find('.slider').css('top', epilogueUp ? 0 : -h+104);
-  $('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger()});
-}
-function epilogue_trigger()
-{
-  var slider = $('.wrapper .epilogue .slider');  
-  var whatnext_trigger = slider.find(".whatnext .whatnext-trigger");  
-
-  slider.animate({top: epilogueUp ? -1*($(window).height())+104 : 0 },
-  {
-    duration:1500,
-    start:function()
-    {
-      whatnext_trigger.off("mouseenter");
-      epilogueTmp = true;
-    },
-    progress:function(a,b,c)
-    {
-      if(epilogueTmp && b > 0.5)
-      {
-        epilogueTmp = false;
-        whatnext_trigger.toggleClass('down up');
-      }
-    },
-    complete:function()
-    {
-      
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
-      epilogueUp=!epilogueUp;
-    }
-  });
-}
-</script>
-
-
+    <%= javascript_include_tag *(["game-summary"]), :media => "all" %>     
     <% if Rails.env.production? %>
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
