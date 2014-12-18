@@ -52,14 +52,12 @@ function pedestalObject(p)
     {
       if(t.p.mutate_by_period[gap.pos-1][i] > 0)
       {
-        //console.log('mut_count',t.p.mutate_by_period[gap.pos-1][i],t.title);
         var mut = t.p.mutate_by_period[gap.pos-1][i];
         for(j = t.p.treasure[i]; j > t.p.treasure[i]-mut; --j)
         {
           t.sp.find('div.interestB[data-id=' + (i+1) + '] div.item[data-id=' + j + ']').fadeOut(1000,function(){ $(this).remove(); });
         }
         t.p.treasure[i]-=mut;
-        //console.log(t.p.treasure,t.p.title);
       }
 
       if(t.p.event_by_period[gap.pos-1][i+1] > 0)
@@ -76,14 +74,16 @@ function pedestalObject(p)
           t.sp.find('div.interestB[data-id=' + (i+2) + ']')
             .append($('<div data-id=' + (t.p.treasure[i+1]+j) + '>')
               .addClass('tip item ' + interest[i+1].class)
-              .attr({'data-tip':interest[i+1].descr + '\n' + interest[i+1].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));    
+              .attr({'data-tip':interest[i+1].descr + '\n' + interest[i+1].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));                
+            //    player.play('upgrade');
         }
         t.p.treasure[i+1]+=t.p.event_by_period[gap.pos-1][i+1];
       }
     }
     if(showcard)
     {
-      t.p.card.show(showcard_which);      
+      t.p.card.show(showcard_which);  
+
     }
     this.p.queue.resume();      
   }  
@@ -91,10 +91,6 @@ function pedestalObject(p)
   {
     this.resume_by_position();
   };
-  // this.next = function(v)
-  // {     
-  //   this.up(1,this.p.event_by_month[v]);
-  // };
   this.prev = function(v)
   {     
     this.down();
@@ -102,30 +98,6 @@ function pedestalObject(p)
   this.move = function()
   {  
     gap.pos > prev_pos ? this.up() : this.down();
-  };
-  this.delay = function()
-  {
-    var t = this;
-    setTimeout(function()
-    {        
-      if(t.mutationDone)
-      {
-        var item = t.up_stack.shift();
-        t.up(item.which,item.how,item.hidden);
-      }
-      else
-      {
-        t.delay();
-      }          
-    },1000);      
-  }; 
-
-
-  this.inrange = function(which)
-  {
-    if(which >=1 && which < 6)
-      return true;
-    return false;
   };
   this.init = function()
   {    
@@ -135,35 +107,15 @@ function pedestalObject(p)
       t.sp.append('<div class="interestB" data-id="'+(i+1)+'">');
     }); 
   };
-  // this.resume = function(states)
-  // {
-  //   var t = this;
-  //   if(typeof states !== Array && states.length != 6) return;
-  //   for(var i = 0; i < 6; ++i)
-  //   {
-  //     var state = states[i];
-  //     var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
-  //     for(var j = 0; j < state; ++j)
-  //     {
-  //       var item = $('<div data-id=' + (j+1) + '>').addClass('tip item ' + interest[i].class).attr({ 'data-tip': interest[i].descr + '\n' + interest[i].cost, 'data-tip-type':'coin' } ); 
-  //       parent.append(item);
-  //     }
-  //     treasure[i] = state;
-  //   }
-  // };  
   this.resume_by_position = function()
-  {
-    
+  {    
     var t = this;
     var states = [0,0,0,0,0,0];
 
     if(gap.pos >= 1)
     {
-      //console.log('resume_by_position',gap.pos-1,t.p.treasure_by_period[gap.pos-1]);
       states = t.p.treasure_by_period[gap.pos-1].slice();
-      //console.log('resume_by_position',t.p.treasure_by_period[gap.pos-1],gap.pos-1);
     }
-
     for(var i = 0; i < 6; ++i)
     {
       var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();

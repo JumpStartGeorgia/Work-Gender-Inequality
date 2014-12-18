@@ -593,20 +593,6 @@ var poll = {
 
     interest = tmp.items.sort(function(a,b){ return a.cost - b.cost; });
     interestAlias = tmp.icon;
-
-    for(var i = 0; i < interest.length-1; ++i)
-    {        
-      states_mutation[i] = Math.floor10(interest[i+1].cost/interest[0].cost);
-    }
-    for(i = 1; i <= 5; ++i)
-    {
-      mutation_step[i-1] = Math.ceil10(interest[i].cost/interest[i-1].cost);
-    }
-    for(var i = 0, sum = 1; i < 6; ++i)
-    {
-      states_mutation_based[i] = sum*states_mutation[i];
-      sum = sum*states_mutation[i];
-    }
   },
   create_navigation_buttons:function create_next_prev_buttons()
   {
