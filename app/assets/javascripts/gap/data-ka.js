@@ -32,8 +32,8 @@ var categories =
         "fg":"fishing",
         "action":true,
         "action_points":[{"x":200,"y":0,"d":1}],
-        "work":{ "a":false, "loop": true, "path":"M 83.655568,140.40349 L 862.15103,140.40349 L 862.19839,139.64588 L 83.655558,139.64588 z"},
-        "work_point":{ "x":80,"y":27 }   
+        "work":{ "a":false, "loop": true, "path":"M 15.655567,182.40349 L 1056.151,182.40349 L 1056.1984,181.64588 L 15.655557,181.64588 z"},
+        "work_point":{ "x":10,"y":0 }      
     },
     { 
         "id": "TxbZicXP",

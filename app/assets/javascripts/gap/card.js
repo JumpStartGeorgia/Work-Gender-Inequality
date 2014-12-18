@@ -47,7 +47,7 @@ function cardObject(p)
 		congrat = congrat.substr(0,congrat.length-lg.and.length-1);
 		t.ssubtitle.text(congrat);
 		var time = 2000;
-		this.scard.fadeIn(time);
+		this.scard.fadeIn(time,function(){ player.play('upgrade'); });
 		this.scard.delay(time).fadeOut(time,function(){});
 
 	  t.p.queue.resume();  

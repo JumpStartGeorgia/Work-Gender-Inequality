@@ -118,7 +118,7 @@ function human(selector,title,alias)
      return tmp;
   });
 //*************************methods**********************************
-this.stop_counter = -2;
+this.stop_counter = -3;
   this.position = function position(coord,scale) {   
     //  console.log(coord); 
       var t = this;
@@ -238,7 +238,7 @@ this.stop_counter = -2;
                t.x < category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w)))
         {
           t.action_movement();
-          t.stop_counter = 3;  
+          t.stop_counter = 4;  
           t.stopped = true; 
           t.was_stopped = true;
         }  
@@ -468,17 +468,17 @@ this.stop_counter = -2;
     this.animated = true;
     this.working = false;
 
-    this.reset();
+    //this.reset();
 
     var t = this;
-    var intervalId = null;
     var st = $('.' + t.place + ' .stage');
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
-    $(this.selector).show().animate({"color":'white'},{ 
-      duration: 1,//Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
+    $(this.selector).animate({"color":'white'},{ 
+      duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      
       progress:function(a,b,c) 
       { 
+        if(b>0.1)$(this).show();
         t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, false);
         st.css('left',-1*b* (bg_width*screenCount + bg_width/2 - w2 - bg_width/7));
       },
@@ -504,9 +504,9 @@ this.stop_counter = -2;
     var t = this;
     this.card.init();    
     this.pedestal.init();
-    this.get_dimentions();
+    this.reset();
     this.carpet = $('.' + t.place + ' .treasure .red-carpet');
-    this.reset();   
+    
   };
 }; // human object with basic properties
 male = new human('.m.character',locale.poll.male,'m'); // male human object

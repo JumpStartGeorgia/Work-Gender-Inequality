@@ -27,7 +27,7 @@ function afterinit()
   if(steptogo < 6) poll.show();
   else game_init(); 
   if(steptogo == 0) $('.info').show();
-  player.mute(); //dev
+  //player.mute(); //dev
 
 }
 function resize()
@@ -252,12 +252,10 @@ function game_jump(v,jumper_step) //  -1 back 1 forw
 
       timeline_point_redraw();
 
- 
-console.log(img_scaler);
       redraw_game();
 
      stage_redraw(0);
-console.log(img_scaler);
+
     male.scale();
     female.scale();
 
@@ -531,8 +529,6 @@ function calculate_process(v)
 }
 function walk_process(v)
 {
-
-  //player.play('motion');
   if(v==1)
     h_go_right();
   else if(v == -1)
@@ -559,6 +555,7 @@ function reward_process()
       //d.queue.push(function() { hide_card(d); });
       //d.queue.push(function() { prepare_for_work(d); });
       d.queue.start();
+      player.play('award'); 
     }
   });
 }
@@ -606,8 +603,7 @@ function prepare_for_reward(v)
     },
     complete:function()
     {      
-      v.stand_movement('l');
-      player.play('award'); 
+      v.stand_movement('l');      
       v.queue.resume();  
     }
   });
