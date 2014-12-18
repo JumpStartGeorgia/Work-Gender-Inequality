@@ -3,9 +3,10 @@
   <% if params[:controller] != 'stories' %>
     <div id="sidebar-stories">
       <h3>
-        <%= t('.header_stories') %>
+        <span><%= t('.header_stories1') %></span>
+        <span><%= t('.header_stories2') %></span>
 
-        <div id="sidebar-story-tell" class="header-link pull-right">
+        <div id="sidebar-story-tell" class="header-link">
           <%= link_to new_story_path do %>
             <span><%= t('helpers.links.tell_story1') %></span>
             <%= t('helpers.links.tell_story2') %>
@@ -24,11 +25,11 @@
         <ul class="list-unstyled">
           <% @latest_stories.each do |story| %>
             <li class="row">
-              <div class="col-sm-3">
+              <div class="col-md-3 clear">
                 <div class="date"><%= l story.created_at, format: :date_only %></div>
                 <div><%= story.discrimination_type.name %></div>
               </div>
-              <div class="col-sm-9">
+              <div class="col-md-9">
                 <% cls = story.content.is_georgian? ? 'geo-text-in-en' : '' %>
                 <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 100), story_path(story), class: cls %>
               </div>
@@ -46,8 +47,10 @@
   
   <div id="sidebar-game">
     <h3>
-      <%= t('.header_game') %>  
-      <span id="sidebar-game-link" class="pull-right">
+      <span><%= t('.header_game1') %></span>
+      <span><%= t('.header_game2') %></span>
+
+      <span id="sidebar-game-link" class="header-link pull-right">
         <%= link_to new_story_path do %>
           <span><%= t('.play') %></span>
           <%= t('.game') %>
@@ -72,7 +75,9 @@
 
   <div id="sidebar-explore">
     <h3>
-      <%= t('.header_explore') %>
+      <span><%= t('.header_explore1') %></span>
+      <span><%= t('.header_explore2') %></span>
+
       <span id="sidebar-explore-link" class="header-link pull-right">
         <%= link_to explore_data_path do %>
           <span><%= t('.explore') %></span>

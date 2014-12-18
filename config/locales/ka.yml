@@ -235,8 +235,14 @@ ka:
       Safari: Safari
     sidebar:
       header_stories: ისტორიები დისკრიმინაციაზე
+      header_stories1: ისტორიები
+      header_stories2: დისკრიმინაციაზე
       header_game: Pay Gap Game
+      header_game1: Pay Gap
+      header_game2: Game
       header_explore: კვლევის მონაცემები
+      header_explore1: კვლევის
+      header_explore2: მონაცემები
       header_video: ვიდეოები
       tell_story: გვიამბეთ თქვენი ისტორია
       view_stories: ყველა ამბის ნახვა
@@ -310,6 +316,8 @@ ka:
         harassment: შევიწროვება
     about:
       title: შესახებ
+      donor: დონორი
+      partners: პარტნიორები
     news:
       title: სიახლეები
       no_news: ამ დროისთვის არ არის დამატებული სიახლეები.
@@ -342,7 +350,7 @@ ka:
         no_filter: გამოიყენეთ მონაცემთა სრული ბაზა
         filter_value: პასუხები
         exclude_dkra: '"არ ვიცი" და "უარი"-ს გამოკლება'
-      header_files: დაკავშირებული ფაილები
+      header_files: თემატური ფაილები
       link:
         spss: SPSS მონაცემთა ფაილი
         report_en: ანგარიში (ინგლისურად)

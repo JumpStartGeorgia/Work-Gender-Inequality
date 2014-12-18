@@ -235,8 +235,14 @@ en:
       Safari: Safari
     sidebar:
       header_stories: Discrimination Stories
+      header_stories1: Discrimination
+      header_stories2: Stories
       header_game: Pay Gap Game
+      header_game1: Pay Gap
+      header_game2: Game
       header_explore: Survey Data
+      header_explore1: Survey
+      header_explore2: Data
       header_video: Videos
       tell_story: Tell Your Story
       view_stories: View All Stories
@@ -310,6 +316,8 @@ en:
         harassment: Harassment
     about:
       title: About
+      donor: Donor
+      partners: Partners
     news:
       title: News
       no_news: At this time no news has been posted.
