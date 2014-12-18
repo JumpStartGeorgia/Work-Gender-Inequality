@@ -12,7 +12,31 @@
     font-family: "title-font";   
     padding: 20px 20px 20px 30px;
     margin-left: -10px;
+    position: relative;
     &:lang(ka){
+      padding: 20px 20px 20px 10px;      
+    }
+    .header-link{ 
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      a{
+        display: block;
+        color: #fff;
+        background-color: @pink-color;
+        padding: 12px 24px 13px 18px;
+        line-height: 18px;
+        font-family: "title-font";   
+        font-size: 18px;        
+        span{
+          display: block;
+          text-transform: uppercase;
+          font-family: "title-font-bold";   
+        }
+      }
+    }
+/*    &:lang(ka){
       margin-bottom: 80px;
       font-size: 15px;
     }
@@ -24,14 +48,14 @@
         line-height: 16px !important;
       }
     }
-  }
+*/  }
 
   #sidebar-stories{
     padding-top: 10px;
     h3{
       margin-top: 0;
       #sidebar-story-tell{
-        display: inline-block;
+/*        display: inline-block;
         margin-top: -20px;
         margin-right: -20px;
         a{
@@ -48,7 +72,7 @@
             font-family: "title-font-bold";   
           }
         }
-      }
+*/      }
     }
     #sidebar-story-explanation{
       padding: 0 10px;
@@ -113,16 +137,16 @@
         margin-bottom: 0;
       }
       #sidebar-game-link{
-        display: block;
+/*        display: block;
         margin-top: -20px;
         margin-right: -20px;
-        a{
-          display: none !important;
-
-
-          color: #fff;
-          background-color: #77b8c3;
-          padding: 20px 24px 21px 18px;
+*/        a{
+            color: #fff;
+            background-color: @blue-header-color;
+            &:lang(ka){
+              padding: 22px 24px 22px 18px;
+            }
+/*          padding: 20px 24px 21px 18px;
           font-family: "title-font";
           font-size: 18px;
           line-height: 18px;
@@ -131,7 +155,7 @@
             text-transform: uppercase;
             font-size: 20px;
           }
-        }
+*/        }
       }
     }
 
@@ -182,13 +206,10 @@
     h3{
       margin-top: 0;
       #sidebar-explore-link{
-        display: block;
-        margin-top: -20px;
-        margin-right: -20px;
         a{
-          display: block;
           color: #fff;
-          background-color: #77b8c3;
+          background-color: @blue-header-color;
+/*          display: block;
           padding: 12px 24px 13px 18px;
           line-height: 18px;
           font-family: "title-font";   
@@ -199,7 +220,7 @@
             text-transform: uppercase;
             font-size: 20px;
           }
-        }
+*/        }
       }
     }
     p{
@@ -237,22 +258,8 @@
           line-height: 16px;
         }
       }
-      #explore-link{
-        text-align: center;
-        margin-top: 25px;
-        a{
-          color: #fff;
-          background-color: @blue-header-color;
-          padding: 10px 18px;
-          font-family: "title-font";   
-          font-size: 18px;
-          &:lang(ka){
-            font-size: 13px;
-          }
-        }
-      }        
     }
-    #sidebar-explore-link{
+/*    #sidebar-explore-link{
       text-align: center;
       margin-top: 15px;
       a{
@@ -265,11 +272,188 @@
         display: inline-block;
       }
     }        
-  }
+*/  }
   
 }
 
-@media (max-width: 1608px) {
+
+@media (max-width: 1675px) {
+  #sidebar:lang(ka){
+    h3{
+      & > span{
+        display: block;
+      }
+      .header-link{
+        a{
+          padding: 22px 24px 23px 18px !important;        
+        }
+      }
+    }
+    #sidebar-game-coming{
+      margin-top: 12px !important;
+    }
+    #sidebar-game-link{
+      a{
+        padding: 31px 24px 32px 18px !important;
+      }          
+    }
+    #sidebar-game-explanation{
+      font-size: 13px !important;
+      line-height: 15px !important;
+    }  
+    #sidebar-explore-image{
+      img{
+        margin-top: -20px !important;
+      }
+    }
+    #sidebar-explore-popup{
+      top: 80px !important;
+    }
+  }
+}
+
+
+@media (max-width: 1315px) {
+  #sidebar:lang(en){
+    h3{
+      font-size: 17px;
+      padding: 20px 20px 20px 20px;
+      .header-link{
+        a{
+          padding: 12px 18px 12px 18px;
+          font-size: 16px;        
+        }
+      }
+    }
+    #sidebar-game-link{
+      a{
+        padding: 12px 18px 13px 18px;
+      }          
+    }
+  }
+}
+
+@media (max-width: 1315px) {
+  #sidebar:lang(ka){
+    h3{
+      font-size: 16px;
+      .header-link{
+        a{
+          font-size: 16px !important;
+          line-height: 17px !important
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1215px) {
+  #sidebar:lang(en){
+
+    h3{
+      font-size: 15px;
+      padding: 20px 10px 20px 20px;
+      .header-link{
+        a{
+         padding: 14px 12px 14px 12px;
+         font-size: 14px;
+         line-height: 16px;        
+        }
+      }
+    }
+    #sidebar-game-link{
+      a{
+        padding: 14px 18px 14px 18px;
+      }          
+    }
+  }
+
+}
+
+
+@media (max-width: 1150px) {
+  #sidebar:lang(ka){
+    h3{
+      font-size: 14px;
+      .header-link{
+        a{
+          padding: 24px 12px 25px 12px !important;        
+          font-size: 14px !important;
+          line-height: 15px !important
+        }
+      }
+    }
+    #sidebar-game-link{
+      a{
+        padding: 32px 12px 33px 12px !important;
+      }          
+    }
+    #sidebar-game-coming{
+      div{
+        font-size: 16px !important;
+        span{
+          font-size: 21px !important;
+        }
+      }
+    }
+    #sidebar-game-explanation{
+      font-size: 12px !important;
+      line-height: 14px !important;
+    }  
+  }
+}
+
+@media (max-width: 990px) {
+  #sidebar{
+    #sidebar-stories ul li {
+      & > div:first-of-type{
+        & > div:first-of-type{
+          float: left;
+          text-align: left;
+        }  
+        & > div:last-of-type{
+          float: right;
+          text-align: right;
+        }  
+      }
+      & > div:last-of-type{
+        border-left: none;
+      }  
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  #sidebar:lang(ka){
+    h3{
+      font-size: 12px;
+      .header-link{
+        a{
+          padding: 26px 8px 27px 8px !important;        
+          font-size: 12px !important;
+          line-height: 13px !important
+        }
+      }
+    }
+    #sidebar-game-link{
+      a{
+        padding: 33px 8px 34px 8px !important;
+      }          
+    }
+    #sidebar-game-coming{
+      div{
+        font-size: 14px !important;
+        span{
+          font-size: 19px !important;
+        }
+      }
+    }
+  }
+}
+
+
+
+/*@media (max-width: 1608px) {
   #sidebar{
 
     h3{
@@ -348,5 +532,5 @@
   }
 
 }
-
+*/
 
