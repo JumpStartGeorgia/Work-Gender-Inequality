@@ -44,10 +44,10 @@ function playerObject()
 	  	}).get(0);
 		t.bgint.loop = true;
 		t.bgcat.loop = true;
-		t.bgcat.volume = 0.6;
-		t.bgint.volume = 0.6;
-		t.bgcat.muted = true;
-		t.bgint.muted = true;
+		t.bgcat.volume = 0.3;
+		t.bgint.volume = 0.3;
+		// t.bgcat.muted = true;
+		// t.bgint.muted = true;
 		$(t.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
 	};	
 	this.background_ready = function(t)

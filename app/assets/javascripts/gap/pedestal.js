@@ -2,7 +2,6 @@ function pedestalObject(p)
 {
   this.p = p;
   var treasure = p.treasure; // achievements per item in interest  
-  var fromTreasureBarToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
   this.mutation = [{},{},{},{},{},{}]; 
   this.mutation_empty = [{},{},{},{},{},{}]; 
   this.mutation_count = 0;
@@ -27,16 +26,8 @@ function pedestalObject(p)
   {
     //console.log('fill');
     var t = this;
-    var showcard = false;
-    var showcard_which = [false,false,false,false,false,false];
     if(t.p.event_by_period[gap.pos-1][0] > 0)
-    {
-      if(cardshown[0]==-3 || cardshown[0] == gap.pos-1) 
-      {
-        cardshown[0] = gap.pos-1;
-        showcard_which[0] = true; 
-        showcard = true;         
-      }  
+    {    
       for(j = 1; j <= t.p.event_by_period[gap.pos-1][0]; ++j)
       {
         t.sp.find('div.interestB[data-id=1]')
@@ -61,14 +52,7 @@ function pedestalObject(p)
       }
 
       if(t.p.event_by_period[gap.pos-1][i+1] > 0)
-      {
-        if(cardshown[i+1]==-3 || cardshown[i+1] == gap.pos-1) 
-        {
-          //console.log('here second');
-          cardshown[i+1] = gap.pos-1;
-          showcard_which[i+1] = true; 
-          showcard = true;         
-        }         
+      {       
         for(j = 1; j <= t.p.event_by_period[gap.pos-1][i+1]; ++j)
         {
           t.sp.find('div.interestB[data-id=' + (i+2) + ']')
@@ -80,11 +64,17 @@ function pedestalObject(p)
         t.p.treasure[i+1]+=t.p.event_by_period[gap.pos-1][i+1];
       }
     }
-    if(showcard)
-    {
-      t.p.card.show(showcard_which);  
+    var sh = false; 
+    var sh_a = [false,false,false,false,false,false];
+    card_moment.forEach(function(d,i){
+      if(d == gap.pos-1 && t.p.card_moment[i] == d) 
+      {
+        sh = true;
+        sh_a[i] = true;
+      }
+    });
+    if(sh)  t.p.card.show(sh_a);  
 
-    }
     this.p.queue.resume();      
   }  
   this.down = function() // go back one step calculate data based on pos

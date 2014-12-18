@@ -204,6 +204,8 @@ function game_init() {
   male.prepare_for_game();
   female.prepare_for_game();
 
+  card_moment.forEach(function(d,i){ card_moment[i] = male.card_moment[i] > female.card_moment[i] ? female.card_moment[i] : male.card_moment[i]; });
+
   start_by_time();
 
   male.pedestal.resume_by_position();
@@ -571,21 +573,13 @@ function gopast()
     }
   });
 }
-
 function card_prepare(v)
 {
   var c = gap.pos > prev_pos;
-  ///console.log(gap.pos, prev_pos);
   var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
-  if(c)
-  {
-    rew.hide();    
-    //v.card.next();
-  }
-  else
-  {
-    rew.show();         
-  }
+  if(c) rew.hide(); 
+  else res.show();  
+
   v.queue.resume();  
 }
 function prepare_for_reward(v)

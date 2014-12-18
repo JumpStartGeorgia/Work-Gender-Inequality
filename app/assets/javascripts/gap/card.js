@@ -26,9 +26,14 @@ function cardObject(p)
 	};
 	this.show = function(which)
 	{		
-		
 		var t = this;
-		prepare_for_reward(t.p);
+	  t.p.queue.push(function() { prepare_for_reward(t.p);  });
+	  t.p.queue.push(function() { t.show_process(which);  });
+	  t.p.queue.push(function() { prepare_for_work(t.p);  });
+	};
+	this.show_process = function(which)
+	{
+		var t = this;
 		var congrat = locale.general.you_can_buy;
 		t.scoins.empty();
 		for(i = 0; i < 6; ++i)
@@ -43,7 +48,9 @@ function cardObject(p)
 		t.ssubtitle.text(congrat);
 		var time = 2000;
 		this.scard.fadeIn(time);
-		this.scard.delay(time).fadeOut(time,function(){prepare_for_work(t.p);});
+		this.scard.delay(time).fadeOut(time,function(){});
+
+	  t.p.queue.resume();  
 	};
 	this.prev = function()
 	{

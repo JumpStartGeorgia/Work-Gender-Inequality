@@ -168,4 +168,4 @@ var show_jumper_prompt = false;
 var show_not_enough_prompt = false;
 var init = true;
 var cardshown = [-3,-3,-3,-3,-3,-3];
- 
+var card_moment = [999,999,999,999,999,999];

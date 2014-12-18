@@ -382,6 +382,7 @@ this.stop_counter = -2;
     }
   }; 
   this.event_by_period_sum = []; 
+  this.card_moment = [999,999,999,999,999,999];
   this.prepare_for_game = function prepare_for_game()
   {    
     var t = this;
@@ -421,6 +422,7 @@ this.stop_counter = -2;
           var mut = prevTreasureTmp[j]-tmp > 0 ? prevTreasureTmp[j]-tmp : 0;
           if(tmp >= 1)
           {
+            if(t.card_moment[j]==999) t.card_moment[j] = periodIndex;
             var tt = tmp-prevTreasureTmp[j];
             tt = tt > 0 ? tt : 0;
             t.event_by_period[periodIndex][j] = tt;
