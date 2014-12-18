@@ -48,7 +48,8 @@
                   <div><%= story.discrimination_type.name %></div>
                 </div>
                 <div class="col-sm-9">
-                  <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 250), story_path(story) %>
+                  <% cls = story.content.is_georgian? ? 'geo-text-in-en' : '' %>
+                  <%= link_to truncate(story.content, separator: ' ', omission: '...', length: 250), story_path(story), class: cls %>
                 </div>
               </li> 
             <% end %>

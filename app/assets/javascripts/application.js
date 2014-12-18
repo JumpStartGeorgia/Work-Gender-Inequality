@@ -41,4 +41,12 @@ $(document).ready(function(){
     }
   });
 
+
+  // when hover over explore box, show popup
+  $('#sidebar-explore').hover(function(){
+    $('#sidebar-explore #sidebar-explore-popup').css('visibility', 'visible');
+  }, function(){
+    $('#sidebar-explore #sidebar-explore-popup').css('visibility', 'hidden');
+  });
+
 });
