@@ -74,7 +74,7 @@ class GapController < ApplicationController
     cat = p['c']
     salary = p['s'].to_i
     int_id = p['i']
-    percent = p['p'].to_i
+    percent = p['p'].to_f
     cur_ticks = p['t'].to_i
 
     max_age = gender == 'm' ? 65 : 60
@@ -94,10 +94,16 @@ class GapController < ApplicationController
       fsalary = salary
       msalary = salary + (category[:outrun]==1 ? -1 : 1)*(salary * category[:percent] / 100);     
     end
-    msalary = msalary.round
-    fsalary = fsalary.round
+    #msalary = msalary.round
+    #fsalary = fsalary.round
+     Rails.logger.debug("#{msalary}-----------");
+    Rails.logger.debug("#{fsalary}-----------");
+    Rails.logger.debug("#{percent}-----------");
+
     msaving_for_tick = percent * msalary / 100;
     fsaving_for_tick = percent * fsalary / 100;
+    Rails.logger.debug("#{msaving_for_tick}-----------");
+    Rails.logger.debug("#{fsaving_for_tick}-----------");
 
     d[:years_passed] = (cur_ticks * tick) / 12
     d[:months_passed] = ((cur_ticks * tick) % 12) * tick
@@ -111,9 +117,9 @@ class GapController < ApplicationController
       d[:sclass] = 'female'
     end
     percentTmp  = percent*1.0 / 100
-    d[:fsalary_total] = (gender == 'm' ? msalary : fsalary) * (cur_ticks * tick)
+    d[:fsalary_total] = ((gender == 'm' ? msalary : fsalary) * (cur_ticks * tick)).floor
     d[:fsaved_total] = (d[:fsalary_total] * percentTmp).floor;
-    d[:ssalary_total] = (gender == 'm' ? fsalary : msalary) * (cur_ticks * tick)
+    d[:ssalary_total] = ((gender == 'm' ? fsalary : msalary) * (cur_ticks * tick)).floor
     d[:ssaved_total] = (d[:ssalary_total] * percentTmp).floor;
     d[:salary_total_diff] = (d[:fsalary_total] - d[:ssalary_total]).abs.floor
     d[:saved_total_diff] = (d[:fsaved_total] - d[:ssaved_total]).abs.floor
@@ -121,67 +127,91 @@ class GapController < ApplicationController
     d[:fstate] = gender == 'm' && category[:outrun] == 0 ? true : false
     d[:sstate] = gender == 'm' && category[:outrun] == 0 ? false : true
 
-    if(d[:fsaved_total] > d[:ssaved_total])
-      
-      ftmp = d[:ssaved_total]
-      d[:saward] = []
-      @interest[:items].reverse.each_with_index { |v,i|
-        tmpInt = ftmp.divmod(v[:cost])
-        if(tmpInt[0] >= 1) 
-          d[:saward][i] = tmpInt[0]
-          ftmp = tmpInt[1]
-        else 
-          d[:saward][i] = 0
-        end
-      }
-      
-      ftmp = d[:fsaved_total]
-      d[:faward] = []
-      @interest[:items].reverse.each_with_index { |v,i|
-        tmpInt = ftmp.divmod(v[:cost])
-        if tmpInt[0] > d[:saward][i] && i != 5
-          tmpInt[0] = d[:saward][i] 
-        end 
-        if(tmpInt[0] >= 1)
-          d[:faward][i] = tmpInt[0]
-          ftmp = ftmp - tmpInt[0]*v[:cost]
-        else 
-          d[:faward][i] = 0
-        end
-      }
-    else
-      ftmp = d[:fsaved_total]
-      d[:faward] = []
-      @interest[:items].reverse.each_with_index { |v,i|
-        tmpInt = ftmp.divmod(v[:cost])
-        if(tmpInt[0] >= 1) 
-          d[:faward][i] = tmpInt[0]
-          ftmp = tmpInt[1]
-        else 
-          d[:faward][i] = 0
-        end
-      }
 
-      ftmp = d[:ssaved_total]
-      d[:saward] = []
-      @interest[:items].reverse.each_with_index { |v,i|
-        tmpInt = ftmp.divmod(v[:cost])
-        if tmpInt[0] > d[:faward][i] && i != 5
-          tmpInt[0] = d[:faward][i] 
-        end 
-        if(tmpInt[0] >= 1)
-          d[:saward][i] = tmpInt[0]
-          ftmp = ftmp - tmpInt[0]*v[:cost]          
-        else 
-          d[:saward][i] = 0
-        end
-      }
-
-    end
-    d[:daward] = []
-    d[:saward].each_with_index { |v,i|
-      d[:daward][i] = (d[:saward][i] - d[:faward][i]).abs
+    ftmp = d[:fsaved_total]
+    d[:faward] = []
+    @interest[:items].reverse.each_with_index { |v,i|
+      tmpInt = ftmp.divmod(v[:cost])
+      if(tmpInt[0] >= 1) 
+        d[:faward][i] = tmpInt[0]
+        ftmp = tmpInt[1]
+      else 
+        d[:faward][i] = 0
+      end
     }
+    ftmp = d[:ssaved_total]
+    d[:saward] = []
+    @interest[:items].reverse.each_with_index { |v,i|
+      tmpInt = ftmp.divmod(v[:cost])
+      if(tmpInt[0] >= 1) 
+        d[:saward][i] = tmpInt[0]
+        ftmp = tmpInt[1]
+      else 
+        d[:saward][i] = 0
+      end
+    }
+
+    # if(d[:fsaved_total] > d[:ssaved_total])
+      
+    #   ftmp = d[:ssaved_total]
+    #   d[:saward] = []
+    #   @interest[:items].reverse.each_with_index { |v,i|
+    #     tmpInt = ftmp.divmod(v[:cost])
+    #     if(tmpInt[0] >= 1) 
+    #       d[:saward][i] = tmpInt[0]
+    #       ftmp = tmpInt[1]
+    #     else 
+    #       d[:saward][i] = 0
+    #     end
+    #   }
+      
+    #   ftmp = d[:fsaved_total]
+    #   d[:faward] = []
+    #   @interest[:items].reverse.each_with_index { |v,i|
+    #     tmpInt = ftmp.divmod(v[:cost])
+    #     if tmpInt[0] > d[:saward][i] && i != 5
+    #       tmpInt[0] = d[:saward][i] 
+    #     end 
+    #     if(tmpInt[0] >= 1)
+    #       d[:faward][i] = tmpInt[0]
+    #       ftmp = ftmp - tmpInt[0]*v[:cost]
+    #     else 
+    #       d[:faward][i] = 0
+    #     end
+    #   }
+    # else
+    #   ftmp = d[:fsaved_total]
+    #   d[:faward] = []
+    #   @interest[:items].reverse.each_with_index { |v,i|
+    #     tmpInt = ftmp.divmod(v[:cost])
+    #     if(tmpInt[0] >= 1) 
+    #       d[:faward][i] = tmpInt[0]
+    #       ftmp = tmpInt[1]
+    #     else 
+    #       d[:faward][i] = 0
+    #     end
+    #   }
+
+    #   ftmp = d[:ssaved_total]
+    #   d[:saward] = []
+    #   @interest[:items].reverse.each_with_index { |v,i|
+    #     tmpInt = ftmp.divmod(v[:cost])
+    #     if tmpInt[0] > d[:faward][i] && i != 5
+    #       tmpInt[0] = d[:faward][i] 
+    #     end 
+    #     if(tmpInt[0] >= 1)
+    #       d[:saward][i] = tmpInt[0]
+    #       ftmp = ftmp - tmpInt[0]*v[:cost]          
+    #     else 
+    #       d[:saward][i] = 0
+    #     end
+    #   }
+
+    # end
+    # d[:daward] = []
+    # d[:saward].each_with_index { |v,i|
+    #   d[:daward][i] = (d[:saward][i] - d[:faward][i]).abs
+    # }
 
     #Log.write(d[:daward],p,'asdfasdf',"#{1+5}")
 
@@ -222,7 +252,7 @@ class GapController < ApplicationController
         break
       end
     end
-    logger.debug(paramsOk)
+    #logger.debug(paramsOk)
     p.each do |k,v| # remove extra parameters if exists
         p.delete(k) if !filter.include?(k)
     end
@@ -231,7 +261,7 @@ class GapController < ApplicationController
 
   def fparse(f)
     begin
-      logger.debug(f)
+     # logger.debug(f)
       p = {}
       f = Base64.urlsafe_decode64(f)
       f.split('&').each{|s| 

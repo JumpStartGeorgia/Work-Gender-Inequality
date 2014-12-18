@@ -660,7 +660,8 @@ var locale = {
     years_forward: " წლით წინ",
     female:"ქალი",
     male:"კაცი",
-    gel: "GEL" 
+    gel: "GEL",
+    and: "და"
   },
   game:
   {

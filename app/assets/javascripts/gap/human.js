@@ -47,7 +47,10 @@ function human(selector,title,alias)
   this.working = false;
   this.distance = 0;
   this.walk_distance = 0;
-  this.initialized = false;
+  this.initialized = false; 
+  this.carpet = null;   
+  this.mutate_by_period = [];
+  this.treasure_by_period = [];
   this.frames = [
     { w:0, h:0 },
     { w:0, h:0 },
@@ -150,7 +153,7 @@ this.stop_counter = -2;
   };
   this.reset = function reset() 
   { 
-    console.log('here',this.title);
+    //console.log('here',this.title);
     this.get_dimentions();   
     this.scale();
     this.toground();
@@ -377,46 +380,64 @@ this.stop_counter = -2;
       t.working = true;
       t.rewardStarted = false;
     }
-  };  
+  }; 
+  this.event_by_period_sum = []; 
+  this.card_moment = [999,999,999,999,999,999];
   this.prepare_for_game = function prepare_for_game()
   {    
+    var t = this;
     var life = (max_age - user.age) * 12;
     var overall = 0;
-    this.event_by_month = [];
-    this.event_by_period = [];
+    t.event_by_month = [];
+    t.event_by_period = [];
+
     var periodIndex = -1;
-    var periodPush = true;
-    for (var i = 0; i <= life; ++i) 
+    var treasureTmp = [0,0,0,0,0,0];
+    var prevTreasureTmp = [0,0,0,0,0,0];
+
+
+    for (var i = 1; i <= life; ++i) 
     {
       if(i % reward_period == 0) 
       {
         ++periodIndex;
-        periodPush = true;
-      }
 
-      overall += this.saving_for_tick;   
-      //if(this.title == 'Male') console.log(overall);
-      var tmp = Math.floor10(overall / interest[0].cost);
-      if(tmp > 0)
-      {
-        this.event_by_month.push(tmp);
-        overall -= tmp*interest[0].cost;
-        if(periodPush)
+        if(typeof t.event_by_period[periodIndex] === 'undefined')
+          t.event_by_period.push([0,0,0,0,0,0]);
+
+        if(typeof t.mutate_by_period[periodIndex] === 'undefined')
+          t.mutate_by_period.push([0,0,0,0,0,0]);
+        
+
+        if(typeof t.event_by_period_sum[periodIndex] === 'undefined')
+          t.event_by_period_sum.push(0);
+
+        //t.event_by_month.push([0,0,0,0,0,0]);
+
+        var overall = i*t.saving_for_tick;
+
+        for(j = 5; j >= 0; --j)
         {
-          this.event_by_period.push(tmp);
-          periodPush = false;
+          var tmp = Math.floor10(overall / interest[j].cost);
+          var mut = prevTreasureTmp[j]-tmp > 0 ? prevTreasureTmp[j]-tmp : 0;
+          if(tmp >= 1)
+          {
+            if(t.card_moment[j]==999) t.card_moment[j] = periodIndex;
+            var tt = tmp-prevTreasureTmp[j];
+            tt = tt > 0 ? tt : 0;
+            t.event_by_period[periodIndex][j] = tt;
+            t.event_by_period_sum[periodIndex] += tt;
+            overall -= tmp*interest[j].cost;  
+          } 
+          t.mutate_by_period[periodIndex][j] = mut;
+          treasureTmp[j] = tmp; 
         }
-        else 
-          this.event_by_period[periodIndex] += tmp;
-      }
-      else 
-      {
-        if(periodPush)
-        {
-          this.event_by_period.push(0);
-          periodPush = false;
-        }
-        this.event_by_month.push(0);
+        prevTreasureTmp = treasureTmp;
+
+        t.treasure_by_period.push([0,0,0,0,0,0]);
+        for(j = 0; j < 6; ++j)
+           t.treasure_by_period[periodIndex][j] = treasureTmp[j];
+        
       }
     }
     if(this.place == 'top')
@@ -455,7 +476,7 @@ this.stop_counter = -2;
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
     $(this.selector).show().animate({"color":'white'},{ 
-      duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
+      duration: 1,//Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
       progress:function(a,b,c) 
       { 
         t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, false);
@@ -475,325 +496,16 @@ this.stop_counter = -2;
   };
   this.has_future_reward = function has_future_reward()
   {    
-    return this.event_by_period[gap.pos-1] > 0;
+    return this.event_by_period_sum[gap.pos-1] > 0;
   };
-  this.mutate = function(which,events)
-  {
-    player.play('upgrade');
-    var t = this;
-    if(typeof which === "undefined") return;
-    if(which == 1) events = t.event_by_period[gap.pos-1];
-    if (typeof events === "undefined" || events == 0) 
-    {
-      this.queue.resume();  
-      return;
-    }
-    var treasure = t.treasure;
-    var hasMutation = false;
-    var zIndex = which - 1;
-    var mutateCount = 0;
-    var tmp = 0;
-    
-    if(t.inrange(which) && events > 0)
-    { 
-
-      var ca = treasure[zIndex] + events; // all events for current steps
-      var sm = states_mutation[zIndex];
-      var mutateCount = Math.floor10(ca/sm);    
-      if(t.outrun)
-      {
-        var restrictor = t.oppenent.hasLevelMutation(which);
-        //console.log("restrictor",restrictor,mutateCount,t.title);
-
-        if(mutateCount > restrictor) { mutateCount = restrictor; }
-      }
-
-      if(mutateCount >= 1)
-      {
-        
-        hasMutation = true;
-
-        var looper = mutateCount;
-        var tca = ca;     
-        var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+']');
-
-        var eventL = treasure[zIndex];
-        var eventR = events;
-        var cnt = mutateCount;
-        var tmpCount = 1;
-        
-        var checker = sm-1;
-       
-        mutator.empty();
-        for(var i = 1; i <= eventR; ++i)
-        {
-          if(tmpCount <= cnt)
-          {
-            mutator.right.push(tmpCount);
-            ++tmpCount;
-          }
-          else 
-          {
-            if(checker != 0)
-            {
-              mutator.right.push(tmpCount-1);
-              --checker;
-            }
-            else 
-            {
-              mutator.right.unshift(0);     
-            }
-          }
-        }
-      
-        // After preparing mutator.right array, calculating count of each different items, ex: can be 1 without mutation mutator.rightCount[0] will be one ...
-        tmpCount = 1;
-        for(var i = 0; i < eventR-1; ++i)
-        {
-          if(mutator.right[i] != mutator.right[i+1])
-          {
-            mutator.rightCount.push(tmpCount);
-            tmpCount = 1;
-          }
-          else
-          {
-            ++tmpCount;
-          }
-        }
-
-        if(typeof mutator.right[0] !== undefined && mutator.right[0]!=0)  mutator.rightCount.unshift(0);
-        mutator.rightCount.push(tmpCount);
-
-        // Preparing left mutator.left
-        var mutatorRightCountIndex = mutator.rightCount.length - 1;
-        tmp = sm - mutator.rightCount[mutatorRightCountIndex];
-        treasure[zIndex]-=tmp;
-        for(var i = eventL; i >= 1; --i)
-        {
-          if(mutatorRightCountIndex  == 0) mutator.left.unshift(0);
-          else 
-          {
-            if(tmp!=0)
-            {
-              mutator.left.unshift(mutatorRightCountIndex );
-              if(tmp-1 == 0)
-              { 
-                --mutatorRightCountIndex;
-                tmp = sm - mutator.rightCount[mutatorRightCountIndex];
-              }
-              else --tmp;
-            }
-          }
-        }
-        for(var i = 1; i <= cnt; ++i)
-        {
-          var placeOnCard = 0;
-          for(var j = 0; j < eventR; ++j)
-          {
-            if(mutator.right[j] == i) 
-            {
-              placeOnCard = j;
-              break;
-            }
-          }
-          var isFirst = true;
-          var itemNumber = 0;
-          var last = {};
-          var globalItemNumber = 0;
-          var putIndex = 0;
-          for(var j = eventL-1; j >= 0; --j)
-          {
-            if(mutator.left[j] == i) 
-            {
-              if(isFirst)  
-              {
-                var lastTmp = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+which+'] div.item[data-id=' + (j+1)+ ']');
-                last.offset = lastTmp.offset();
-                last.position = lastTmp.position();
-              }
-               var mutateF = (function(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber) {
-                  return function(){ t.moveTreasureCoinToCard(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber); };
-                })(which, j, placeOnCard, isFirst, i, itemNumber, last,globalItemNumber);
-                this.queue.splice(putIndex++, mutateF,t.title);
-            
-              if(isFirst)  isFirst = false;
-              ++itemNumber;
-              ++globalItemNumber;
-            }
-          }
-          isFirst = true;
-          var first = {};
-          var firstTmp;
-          itemNumber = 0;
-          for(var j = 0; j < eventR; ++j)
-          {
-            if(mutator.right[j] == i)
-            {
-              if(isFirst) 
-              {
-                isFirst = false;
-                firtsTmp = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(j+1)+')');
-                first.offset = firtsTmp.offset();
-                first.position = firtsTmp.position();
-              }
-              else 
-              {
-                var mutateF = (function(which,j,placeOnCard,first,itemNumber,globalItemNumber) {
-                  return function(){ t.moveCardCoinToParentCardCoin(which,j,placeOnCard,first,itemNumber,globalItemNumber); };
-                })(which,j,placeOnCard,first,itemNumber,globalItemNumber);
-                this.queue.splice(putIndex++, mutateF,t.title);
-                ++globalItemNumber;
-              }
-              ++itemNumber;
-   
-            } 
-          }
-          var tmpIndex = 0;
-          var zeroCount = mutator.rightCount[0];
-
-          var mutateF = (function(zeroCount,i) 
-          {
-                  return function(){ 
-                    var convert = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(zeroCount+i)+')');
-                    convert.animate({"color":"white"},{duration:2000,
-                    progress:function(a,b,c){
-                        var val = jQuery.easing.easeOutBounce(b*0.3);
-                        $(this).css({'transform':'scale(' + (1+val)+','+(1+val) + ')',opacity:1-b})
-                     },
-                    complete:function(){ 
-                      var prevImage = interest[zIndex].class;
-                      var nextImage = interest[zIndex+1].class;
-                      $(this).removeClass(prevImage).css('transform','scale(1,1)').addClass(nextImage).css('opacity',1);
-                      console.log('change now fix');
-                      t.queue.resume();
-                    }
-                  });
-                  };
-          })(zeroCount,i);
-          this.queue.splice(putIndex++, mutateF);
-        }
-      }
-      else
-      {        
-        treasure[zIndex]+=events;
-        this.pedestal.add(which,events);
-      }
-    }
-
-    if(mutateCount > 0 && which <= 6)
-    {
-      this.queue.splice(-4, (function(w,m)
-      { 
-        return function(){ t.mutate(w,m); }; 
-      })(which+1,mutateCount));
-    }
-    this.queue.resume();
-  };
-  var fromTreasureCoinToCardPath = "M 0.0473509,55.968433 C 22.205826,24.60457 55.704178,5.2051051 100.0051,0.03123545";
-  var pathTmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  pathTmp.setAttribute('d', fromTreasureCoinToCardPath);
-  var pathTmpLength = pathTmp.getTotalLength();
-
-  this.moveTreasureCoinToCard = function(level,who,where,isFirst,parent,itemNumber,last,globalItemNumber)
-  {
-    var t = this;
-    var interestB = $('.' + t.place + ' .treasure .pedestal .interestB[data-id='+level+']');
-    var item = interestB.find('div.item[data-id='+(who+1)+']');
-    var offsetLeft = last.offset.left;
-    var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
-    var widthScaler = (cardItem.offset().left - offsetLeft)/100;
-    var hForScaler = 0;
-    if(t.place=='top') hForScaler = cardItem.offset().top - 10;// lh - cardItem.offset().top - 32 - 10;
-    else  hForScaler = cardItem.offset().top - lh - th - 10;
-    var heightScaler = hForScaler/56;
-    var dur = 200;//1500;   
-    var delay = 300 * itemNumber;
-    item.data('itemNumber',globalItemNumber);
-    if(isFirst)
-    {
-      item.animate({'color':'#ffffff'},{duration:dur,
-        progress:function(a,b,c){
-          var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
-          $(this).css({ left:coord.x, top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
-        },
-        complete:function()
-        {
-          var glb = +item.data('itemNumber');
-          item.remove();
-          cardItem.css('transform','scale('+(1+glb/10)+','+(1+(glb+1)/10)+')');
-          t.queue.resume();
-        }
-      }); 
-    }
-    else
-    {
-      item.data('ileft',item.position().left);
-      item.delay(delay).animate({left:last.position.left-item.position().left},{ duration:500,
-        complete:function()
-        {
-          $(this).animate({'color':'#ffffff'},{ duration:dur,
-            progress:function(a,b,c){
-              var coord = coordinateFromPath(b,pathTmp,pathTmpLength,widthScaler,heightScaler);
-              $(this).css({ left: coord.x + (last.position.left- +item.data('ileft')), top: (t.place=='top' ? -1 : 1) * (56*heightScaler - coord.y) });
-            },
-            complete:function()
-            {
-               var glb = +item.data('itemNumber');
-               item.remove();
-               cardItem.css('transform','scale('+(1+glb/10)+','+(1+(glb+1)/10)+')');
-               t.queue.resume();
-            }
-          }); 
-        }
-      });
-    }
-  };
-  this.moveCardCoinToParentCardCoin = function(level,who,where,first,itemNumber,globalItemNumber)
-  {
-    
-    var t = this;
-    var delay = 300 * itemNumber;
-    var cardItem = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(where+1)+')');
-    var item     = $('.' + t.place + ' .treasure .card .coins .coin:nth-child('+(who+1)+')');
-    item.data('itemNumber',globalItemNumber);
-    item.delay(delay).animate({left:item.position().left-first.position.left},{ duration:500,
-      complete:function()
-      {
-        var glb = +item.data('itemNumber');
-        item.remove();
-        cardItem.css('transform','scale('+(1+glb/10)+','+(1+(glb+1)/10)+')');
-        t.queue.resume();
-      }
-    });
-  };
-  this.hasLevelMutation = function(which,p)
-  {
-    var t = this;  
-    if(!(which>=1 && which <= 4)) return 999;
-
-    var prevTmp = 0;
-    for(var i = 0; i < gap.pos-1; ++i)
-    {
-      prevTmp += t.event_by_period[i];
-    }
-    for(var i = 4; i >= 0; --i)
-    {
-      prevTmp -= Math.floor10(prevTmp / states_mutation_based[i]) * states_mutation_based[i];
-      if(i == which-1)   break;
-    }
-    return Math.floor10((t.event_by_period[gap.pos-1] + prevTmp) / states_mutation_based[which-1]);
-  };
-  this.inrange = function(which)
-  {
-    if(which >=1 && which < 6)
-      return true;
-    return false;
-  };
+  
   this.init = function()
   {
+    var t = this;
     this.card.init();    
     this.pedestal.init();
     this.get_dimentions();
+    this.carpet = $('.' + t.place + ' .treasure .red-carpet');
     this.reset();   
   };
 }; // human object with basic properties

@@ -146,9 +146,6 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var interest_w = 50;
   var interest_w2 = interest_w/2;
   var interest_start_offset = 0;
-  var states_mutation = [0,0,0,0,0,0];
-  var states_mutation_based = [1,0,0,0,0,0];
-
  
   var index = 1;
   var current_interests_count = 0;
@@ -170,3 +167,5 @@ var jumper_threshold = 5; //  5 years
 var show_jumper_prompt = false;
 var show_not_enough_prompt = false;
 var init = true;
+var cardshown = [-3,-3,-3,-3,-3,-3];
+var card_moment = [999,999,999,999,999,999];
