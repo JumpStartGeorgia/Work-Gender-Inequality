@@ -24,7 +24,7 @@ class GameData
 
 	@@interests = 
 	[
-    { id: "gfNDXD1g", name: "Vacation",
+    { id: "gfNDXD1g", name: "Travel",
       items:
       [
         { id: "77A79Lr_", title: "3-day tour in Georgia", cost: 340, descr: "Tbilisi-Zugdidi-Mestia-Ushguli-Tbilisi, transportation, 3 meals/day, hotel, guide", klass: "vac-1" },

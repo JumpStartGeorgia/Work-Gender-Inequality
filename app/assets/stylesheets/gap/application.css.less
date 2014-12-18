@@ -205,8 +205,8 @@ body,html
                  background-position:0px;
                  position:relative;
                  top:0px;
-                 left:0px;
-              }
+                 left:0px;                                 
+              }          
             }
           }
           .red-carpet
@@ -239,18 +239,31 @@ body,html
             background-color:#fff;
             display:none;
 
+            font-family:gandhi-bi;
+            font-size:16px;
+            color:#a3af7f;
+            vertical-align:top;
+            padding-top:8px;
+            &:lang(ka){ font-size:14px; }
             > div { display:inline-block; }
 
-            > .text
+            .title 
             {
-              font-family:gandhi-bi;
-              font-size:16px;
-              color:#a3af7f;
-              vertical-align:top;
-              padding-top:8px;
-              &:lang(ka){ font-size:14px; }
-              > .data { font-family:gandhi-i; }
+              text-align: center;
+              margin-top: 10px; 
             }
+            .sub-title { text-align: center; }
+            .coins 
+            { 
+              margin-top: 10px;
+              font-family:gandhi-i;
+              .coin 
+              {
+                > div { display:inline-block; } 
+                .text { vertical-align: super; }                
+              }           
+            }
+            
             .fb
             {
               background:transparent url("/assets/gap/svg/common/fb2.svg") no-repeat;
@@ -268,7 +281,7 @@ body,html
           }
 
           .red-carpet .reward .item,
-          .card .coins .coin.item
+          .card .coins .coin .icon
           {
 
             width:50px;
@@ -374,17 +387,17 @@ body,html
              background-size:81px 30px;
              background-position:0px 0px;
           }
-          .serif
-          {
-             position:absolute;
-             top:0px;   
-             width:1px;
-             height:30px;
-             background:transparent url('/assets/gap/svg/common/timeline_tick.svg') no-repeat;
-             background-size:1px 30px;
-             background-position:0px 0px;
-             display:inline-block;
-          }
+        }
+       .serif
+        {
+           position:absolute;
+           top:0px;   
+           width:1px;
+           height:30px;
+           background:transparent url('/assets/gap/svg/common/timeline_tick.svg') no-repeat;
+           background-size:1px 30px;
+           background-position:0px 0px;
+           display:inline-block;
         }
         .time-travel
         {

@@ -45,14 +45,15 @@
 							<div class='row'>	
 								<div class='human-award'>
 									<% d[:faward].reverse.each_with_index { |x,i| %>
-										<div><div class='x'><%= "#{x}" %>x</div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div></div>
+										<div><div class='x'><%= "#{x}" %>x</div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>' title='<%=  "#{@interest[:items][i][:descr]} - #{@interest[:items][i][:cost]} GEL" %>'>
+
+										</div></div>
 									<% } %>
 								</div>
 								<div class='title-award'><div class='sumlarrow'></div><%= t('.award') %><div class='sumrarrow'></div></div>		
 								<div class='human-award'>
 									<% d[:saward].reverse.each_with_index { |x,i| %>
-									<% Rails.logger.debug(x) %>
-										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>'></div><div class='x'>x<%= "#{x}" %></div></div>
+										<div><div class='interest <%= "#{@interest[:items][i][:klass]}" %>' title='<%=  "#{@interest[:items][i][:descr]} - #{@interest[:items][i][:cost]} GEL" %>'></div><div class='x'>x<%= "#{x}" %></div></div>
 									<% } %>
 								</div>
 							</div>
