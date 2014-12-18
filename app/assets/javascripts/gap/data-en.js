@@ -261,7 +261,7 @@ var interests =
 [
     { 
         "id": "gfNDXD1g",
-        "name": "Vacation", 
+        "name": "Travel", 
         "icon":"vac",
         items:
         [
@@ -660,7 +660,8 @@ var locale = {
     years_forward: " years forward",
     female:"Female",
     male:"Male",
-    gel: "GEL" 
+    gel: "GEL",
+    and: "and"
   },
   game:
   {

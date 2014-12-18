@@ -6,7 +6,8 @@ function cardObject(p)
 	this.from_land = 168;
 	this.scard = null;
 	this.scoins = null;
-	this.stext = null;
+	this.ssubtitle = null;
+
 	this.__defineGetter__("coins", function(){
 	   return this._coins;
 	});
@@ -17,34 +18,37 @@ function cardObject(p)
 	this.init = function()
 	{
 		var treasure = $('.' + this.p.place + ' .treasure');
-		treasure.find('.card').remove();
-		$('<div class="card"><div class="coins"></div><div class="text"><div class="title">'+locale.general.congrat+'</div><div class="data"></div></div><div class="fb" title="'+locale.general.share_hint+'"></div></div>')
+		$('<div class="card"><div class="wr"><div class="title">'+locale.general.congrat+'</div><div class="sub-title"></div><div class="coins"></div></div><div class="fb" title="'+locale.general.share_hint+'"></div></div>')
 			.appendTo(treasure);
 		this.scard = treasure.find('.card');		
 		this.scoins = this.scard.find('.coins');
-		this.stext = this.scard.find('.text .data');
+		this.ssubtitle = this.scard.find('.sub-title');
 	};
-	this.next = function()
-	{
-		this.show();
-		this.text(interest[0]);
-		var cnt = this.p.event_by_period[gap.pos-1];
-		this.scoins.empty();
-		for(var i = 0; i < cnt; ++i)		
+	this.show = function(which)
+	{		
+		var t = this;
+		var congrat = locale.general.you_can_buy;
+		t.scoins.empty();
+		console.log(which);
+		for(i = 0; i < 6; ++i)
 		{
-			this.scoins.append('<div class="coin item '+interestAlias+'-1"></div>');
+			if(which[i])
+			{
+				t.scoins.append($("<div class='coin'><div class='icon "+interest[i].class+"'></div><div class='text'>"+  lg.details + ": " + interest[i].descr + "<br/>" + lg.cost + ": " + interest[i].cost + ' ' + lg.gel+"</div></div>"));
+				congrat += interest[i].title + " " + lg.and + " ";
+			}
 		}
+		congrat = congrat.substr(0,congrat.length-lg.and.length-1);
+		t.ssubtitle.text(congrat);
+		var time = 2000;
+		this.scard.fadeIn(time);
+		this.scard.delay(time).fadeOut(time);
 	};
 	this.prev = function()
 	{
 		this.hide(true);
 		this.p.pedestal.move(false,gap.pos);
-	};
-	this.text = function(text)
-	{
-		if(typeof text !== undefined)
-			this.stext.html(locale.general.you_can_buy + text.title + "<br/><br/>" + locale.general.details + ": " + text.descr + "<br/>" + locale.general.cost + ": " + text.cost + ' ' + lg.gel);
-	};
+	};	
 	this.hide = function(immediate)
 	{
 		if(typeof immediate === undefined) immediate = false;
@@ -59,19 +63,6 @@ function cardObject(p)
 				var time = 2000;
 				this.scard.delay(time).fadeOut(time);
 			}
-		}
-	};
-	this.show = function(immediate)
-	{
-		if(typeof immediate === undefined) immediate = false;		
-		if(immediate) 
-		{
-			this.scard.show();
-		}
-		else
-		{
-			var time = 1000;
-			this.scard.fadeIn(time);
 		}
 	};
 }

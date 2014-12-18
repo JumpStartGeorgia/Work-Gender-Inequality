@@ -127,7 +127,7 @@ function walk(v)
   }
   
   if(v==1 && total_scrolls % (scrolls_for_score * scroll_per_month) == 0)
-  {
+  {  
     calculate_process(v);
   }
   else if(v==-1 && total_scrolls % (scrolls_for_score * scroll_per_month-1) == 0)
@@ -412,10 +412,6 @@ function stage_redraw(v)
 }
 function timeline_point_init()
 {
-  
-  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
-  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
-
   for(var i = 0; i <= pos_max; ++i) 
   {
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
@@ -438,47 +434,30 @@ function timeline_point_init()
 
     if(i!=0)
     { 
-      var mCountTmp = 0;
-      var fCountTmp = 0;
-      var from = i * reward_period - 1;
-      var to = i*reward_period-reward_period;
-      for(var j = from; j >= to; --j)
+      humans.forEach(function(d)
       {
-        mCountTmp += male.event_by_month[j];
-        fCountTmp += female.event_by_month[j];
-      }
-      //console.log('here',prevPosition);
-      if(mCountTmp > 0)
-      {
-        var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+mCountTmp+'"></div>').appendTo(redCarpetM);
-       
-        for(var j = 0; j < mCountTmp; ++j)
-        { 
-           $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
+        if(d.event_by_period_sum[i] > 0)
+        {
+          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+d.event_by_period_sum[i]+'"></div>').appendTo(d.carpet);
+          for(j = 0; j < 6; ++j)
+          {
+            for(q = 0; q < d.event_by_period[i][j]; ++q)
+            {
+              $('<div class="item ' + interest[j].class  + '"></div>').appendTo(rew);
+            }
+          }
+          rew.css({heigth:th,line_height:th});
+          rew.css({left: prevPosition - interest_w2});
+          if(i<=gap.pos) { rew.hide();}
         }
-        rew.css({heigth:th,line_height:th});
-        rew.css({left: prevPosition - interest_w2});
-        if(i<=gap.pos) { rew.hide();}
-      }
-      if(fCountTmp > 0)
-      {
-        var rew = $('<div class="reward" data-id="'+i+'"></div>').appendTo(redCarpetF);        
-        for(var j = 0; j < fCountTmp; ++j)
-        { 
-          $('<div class="item ' + interest[0].class  + '"></div>').appendTo(rew);
-        }
-        rew.css({heigth:th,line_height:th});
-        rew.css({left: prevPosition - interest_w2}); 
-        if(i<=gap.pos) { rew.hide();}
-       
-      }
+      });    
     }
     
     if(i != pos_max)
     {
       for(var j = 0; j < reward_period-1; ++j)
       {
-        if(j% 3 == 2)
+        if(j % 3 == 2)
          $('<div class="serif"></div>').css({ left: prevPosition+(j+1)*timeline_month_w,heigth:th,line_height:th }).appendTo(timeline);
       }
     }
@@ -490,9 +469,6 @@ function timeline_point_init()
 }
 function timeline_point_redraw()
 {
-  var redCarpetM = $('.'+male.place+' .treasure .red-carpet');
-  var redCarpetF = $('.'+female.place+' .treasure .red-carpet');
-
   for(var i = 0; i <= pos_max; ++i) 
   {
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
@@ -513,16 +489,14 @@ function timeline_point_redraw()
 
     if(i!=0)
     { 
-      if(male.event_by_period[i] > 0)
+      humans.forEach(function(d)
       {
-        var rew = redCarpetM.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
-        if(i<=gap.pos) { rew.hide(); }
-      }
-      if(female.event_by_period[j] > 0)
-      {
-        var rew = redCarpetF.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});       
-        if(i<=gap.pos) { rew.hide();}
-      }
+        if(d.event_by_period_sum[i] > 0)
+        {
+          var rew = d.carpet.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
+          if(i<=gap.pos) { rew.hide(); }
+        }
+      });
     }
     
     if(i != pos_max)
@@ -543,13 +517,12 @@ function timeline_point_redraw()
 function calculate_process(v)
 {
   if(gap.pos >= 0)
-  {
-    var tmp = v* scrolls_for_score;//reward_period;
-   // console.log(gap.pos,tmp,total_scrolls);
+  {    
+    var tmp =  Math.floor10(total_scrolls/(scroll_per_month*scrolls_for_score))*scrolls_for_score;
     humans.forEach(function(d)
-    {
-      d.tsalary += tmp*d.salary;
-      d.tsaved += tmp*d.saving_for_tick;
+    {      
+      d.tsalary = tmp*d.salary;
+      d.tsaved = tmp*d.saving_for_tick;
     });     
   }  
 }
@@ -573,15 +546,15 @@ function any_reward()
 }
 function reward_process()
 {
-  //player.play('applause');  
   humans.forEach(function(d){
     if(d.has_future_reward()) 
     { 
-      d.queue.push(function() { prepare_for_reward(d); });      
+      d.queue.push(function() { d.pedestal.fill(); });
+      //d.queue.push(function() { prepare_for_reward(d); });      
       d.queue.push(function() { card_prepare(d);  });
-      d.queue.push(function() { d.mutate(1); });
-      d.queue.push(function() { hide_card(d); });
-      d.queue.push(function() { prepare_for_work(d); });
+      //d.queue.push(function() { d.mutate(1); });
+      //d.queue.push(function() { hide_card(d); });
+      //d.queue.push(function() { prepare_for_work(d); });
       d.queue.start();
     }
   });
@@ -589,7 +562,7 @@ function reward_process()
 function gopast()
 {
   humans.forEach(function(d){
-    if(d.event_by_period[gap.pos]>0) 
+    if(d.event_by_period_sum[gap.pos]>0) 
     { 
        var rew = $('.'+d.place + ' .treasure .red-carpet .reward[data-id='+(gap.pos+1)+']');
        rew.show();         
@@ -597,6 +570,7 @@ function gopast()
     }
   });
 }
+
 function card_prepare(v)
 {
   var c = gap.pos > prev_pos;
@@ -604,7 +578,7 @@ function card_prepare(v)
   if(c)
   {
     rew.hide();    
-    v.card.next();
+    //v.card.next();
   }
   else
   {

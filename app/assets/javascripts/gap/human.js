@@ -47,7 +47,9 @@ function human(selector,title,alias)
   this.working = false;
   this.distance = 0;
   this.walk_distance = 0;
-  this.initialized = false;
+  this.initialized = false; 
+  this.carpet = null; 
+  this.cardshown = [false,false,false,false,false,false];
   this.frames = [
     { w:0, h:0 },
     { w:0, h:0 },
@@ -150,7 +152,7 @@ this.stop_counter = -2;
   };
   this.reset = function reset() 
   { 
-    console.log('here',this.title);
+    //console.log('here',this.title);
     this.get_dimentions();   
     this.scale();
     this.toground();
@@ -377,47 +379,45 @@ this.stop_counter = -2;
       t.working = true;
       t.rewardStarted = false;
     }
-  };  
+  }; 
+  this.event_by_period_sum = []; 
   this.prepare_for_game = function prepare_for_game()
   {    
+    var t = this;
     var life = (max_age - user.age) * 12;
     var overall = 0;
-    this.event_by_month = [];
-    this.event_by_period = [];
+    t.event_by_month = [];
+    t.event_by_period = [];
+
     var periodIndex = -1;
-    var periodPush = true;
     for (var i = 0; i <= life; ++i) 
     {
-      if(i % reward_period == 0) 
+      if(i % reward_period == 0) ++periodIndex;
+
+      overall += t.saving_for_tick; 
+
+      if(typeof t.event_by_period[periodIndex] === 'undefined')
+        t.event_by_period.push([0,0,0,0,0,0]);
+
+      if(typeof t.event_by_period_sum[periodIndex] === 'undefined')
+        t.event_by_period_sum.push(0);
+
+      t.event_by_month.push([0,0,0,0,0,0]);
+
+      for(j = 5; j >= 0; --j)
       {
-        ++periodIndex;
-        periodPush = true;
+        //console.log(interest,j);
+        if(overall / interest[j].cost >= 1)
+        {
+          var tmp = Math.floor10(overall / interest[j].cost);
+
+          t.event_by_month[i][j] = tmp;
+          t.event_by_period[periodIndex][j] += tmp;
+          t.event_by_period_sum[periodIndex] += tmp;
+          overall -= tmp*interest[j].cost;  
+        }  
       }
 
-      overall += this.saving_for_tick;   
-      //if(this.title == 'Male') console.log(overall);
-      var tmp = Math.floor10(overall / interest[0].cost);
-      if(tmp > 0)
-      {
-        this.event_by_month.push(tmp);
-        overall -= tmp*interest[0].cost;
-        if(periodPush)
-        {
-          this.event_by_period.push(tmp);
-          periodPush = false;
-        }
-        else 
-          this.event_by_period[periodIndex] += tmp;
-      }
-      else 
-      {
-        if(periodPush)
-        {
-          this.event_by_period.push(0);
-          periodPush = false;
-        }
-        this.event_by_month.push(0);
-      }
     }
     if(this.place == 'top')
     {
@@ -455,7 +455,7 @@ this.stop_counter = -2;
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
     $(this.selector).show().animate({"color":'white'},{ 
-      duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
+      duration: 1,//Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,
       progress:function(a,b,c) 
       { 
         t.position({ x:xDistance*b, y:(lh-t.height-yDistance*b), a:0 }, false);
@@ -475,7 +475,7 @@ this.stop_counter = -2;
   };
   this.has_future_reward = function has_future_reward()
   {    
-    return this.event_by_period[gap.pos-1] > 0;
+    return this.event_by_period_sum[gap.pos-1] > 0;
   };
   this.mutate = function(which,events)
   {
@@ -791,9 +791,11 @@ this.stop_counter = -2;
   };
   this.init = function()
   {
+    var t = this;
     this.card.init();    
     this.pedestal.init();
     this.get_dimentions();
+    this.carpet = $('.' + t.place + ' .treasure .red-carpet');
     this.reset();   
   };
 }; // human object with basic properties

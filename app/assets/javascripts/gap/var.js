@@ -148,7 +148,7 @@ var hash_map = [ // for hash build from user object(simplifies creating with loo
   var interest_start_offset = 0;
   var states_mutation = [0,0,0,0,0,0];
   var states_mutation_based = [1,0,0,0,0,0];
-
+  var mutation_step = [0,0,0,0,0,0];
  
   var index = 1;
   var current_interests_count = 0;
