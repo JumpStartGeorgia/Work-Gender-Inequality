@@ -48,8 +48,9 @@ function human(selector,title,alias)
   this.distance = 0;
   this.walk_distance = 0;
   this.initialized = false; 
-  this.carpet = null; 
-  this.cardshown = [false,false,false,false,false,false];
+  this.carpet = null;   
+  this.mutate_by_period = [];
+  this.treasure_by_period = [];
   this.frames = [
     { w:0, h:0 },
     { w:0, h:0 },
@@ -390,33 +391,78 @@ this.stop_counter = -2;
     t.event_by_period = [];
 
     var periodIndex = -1;
-    for (var i = 0; i <= life; ++i) 
+    var treasureTmp = [0,0,0,0,0,0];
+    var prevTreasureTmp = [0,0,0,0,0,0];
+
+
+    for (var i = 1; i <= life; ++i) 
     {
-      if(i % reward_period == 0) ++periodIndex;
-
-      overall += t.saving_for_tick; 
-
-      if(typeof t.event_by_period[periodIndex] === 'undefined')
-        t.event_by_period.push([0,0,0,0,0,0]);
-
-      if(typeof t.event_by_period_sum[periodIndex] === 'undefined')
-        t.event_by_period_sum.push(0);
-
-      t.event_by_month.push([0,0,0,0,0,0]);
-
-      for(j = 5; j >= 0; --j)
+      if(i % reward_period == 0) 
       {
-        //console.log(interest,j);
-        if(overall / interest[j].cost >= 1)
+        ++periodIndex;
+
+        if(typeof t.event_by_period[periodIndex] === 'undefined')
+          t.event_by_period.push([0,0,0,0,0,0]);
+
+        if(typeof t.mutate_by_period[periodIndex] === 'undefined')
+          t.mutate_by_period.push([0,0,0,0,0,0]);
+        
+
+        if(typeof t.event_by_period_sum[periodIndex] === 'undefined')
+          t.event_by_period_sum.push(0);
+
+        //t.event_by_month.push([0,0,0,0,0,0]);
+
+        var overall = i*t.saving_for_tick;
+
+        for(j = 5; j >= 0; --j)
         {
           var tmp = Math.floor10(overall / interest[j].cost);
+          var mut = prevTreasureTmp[j]-tmp > 0 ? prevTreasureTmp[j]-tmp : 0;
+          if(tmp >= 1)
+          {
+            var tt = tmp-prevTreasureTmp[j];
+            tt = tt > 0 ? tt : 0;
+            t.event_by_period[periodIndex][j] = tt;
+            t.event_by_period_sum[periodIndex] += tt;
+            overall -= tmp*interest[j].cost;  
+          } 
+          t.mutate_by_period[periodIndex][j] = mut;
+          treasureTmp[j] = tmp; 
+        }
+        prevTreasureTmp = treasureTmp;
 
-          t.event_by_month[i][j] = tmp;
-          t.event_by_period[periodIndex][j] += tmp;
-          t.event_by_period_sum[periodIndex] += tmp;
-          overall -= tmp*interest[j].cost;  
-        }  
+        t.treasure_by_period.push([0,0,0,0,0,0]);
+        for(j = 0; j < 6; ++j)
+           t.treasure_by_period[periodIndex][j] = treasureTmp[j];
+        
       }
+
+
+
+      // overall += t.saving_for_tick; 
+
+      // if(typeof t.event_by_period[periodIndex] === 'undefined')
+      //   t.event_by_period.push([0,0,0,0,0,0]);
+
+      // if(typeof t.event_by_period_sum[periodIndex] === 'undefined')
+      //   t.event_by_period_sum.push(0);
+
+      // t.event_by_month.push([0,0,0,0,0,0]);
+
+      // for(j = 5; j >= 0; --j)
+      // {
+      //   //console.log(interest,j);
+      //   if(overall / interest[j].cost >= 1)
+      //   {
+      //     var tmp = Math.floor10(overall / interest[j].cost);
+
+      //     t.event_by_month[i][j] = tmp;
+      //     t.event_by_period[periodIndex][j] += tmp;
+      //     t.event_by_period_sum[periodIndex] += tmp;
+      //     overall -= tmp*interest[j].cost;  
+      //   }  
+      // }
 
     }
     if(this.place == 'top')

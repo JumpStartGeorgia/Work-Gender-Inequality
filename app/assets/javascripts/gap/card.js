@@ -26,10 +26,11 @@ function cardObject(p)
 	};
 	this.show = function(which)
 	{		
+		
 		var t = this;
+		prepare_for_reward(t.p);
 		var congrat = locale.general.you_can_buy;
 		t.scoins.empty();
-		console.log(which);
 		for(i = 0; i < 6; ++i)
 		{
 			if(which[i])
@@ -42,7 +43,7 @@ function cardObject(p)
 		t.ssubtitle.text(congrat);
 		var time = 2000;
 		this.scard.fadeIn(time);
-		this.scard.delay(time).fadeOut(time);
+		this.scard.delay(time).fadeOut(time,function(){prepare_for_work(t.p);});
 	};
 	this.prev = function()
 	{

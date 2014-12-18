@@ -11,8 +11,7 @@ function pedestalObject(p)
   this.mutationDone = true;
   this.up_stack = [];
   this.anim_counter = 0;
-  this.toShow = false;
-  this.toShowValues = [false,false,false,false,false,false];
+
   this.add = function(which,how)
   {
     var t = this;
@@ -26,83 +25,76 @@ function pedestalObject(p)
   };
   this.fill = function()
   {
+    //console.log('fill');
     var t = this;
-    t.anim_counter = 0;
-    t.toShow = false;
-    t.toShowValues = [false,false,false,false,false,false];
-    for(i = 0; i < 6; ++i)
+    var showcard = false;
+    var showcard_which = [false,false,false,false,false,false];
+    if(t.p.event_by_period[gap.pos-1][0] > 0)
     {
-      if(t.p.event_by_period[gap.pos][i] > 0)
+      if(cardshown[0]==-3 || cardshown[0] == gap.pos-1) 
       {
-        if(!t.p.cardshown[i]) 
-        {
-          t.p.cardshown[i] = true;
-          t.toShowValues[i] = true; 
-          t.toShow = true;         
-        }
-        var start = t.p.treasure[i];
-        t.p.treasure[i]+=t.p.event_by_period[gap.pos][i];
-        var parent = t.sp.find('div.interestB[data-id=' + (i+1) + ']');
-        for(j = start+1; j <= start+t.p.event_by_period[gap.pos][i]; ++j)
-        {
-          parent.append($('<div data-id=' + j + '>').addClass('tip item ' + interest[i].class).attr({'data-tip':interest[i].descr + '\n' + interest[i].cost, 'data-tip-type':'coin' }));
-          ++t.anim_counter;
-          parent.find('div[data-id=' + j + ']').hide()
-          .fadeIn({
-            duration:400,           
-            complete:function(){ t.anim_completed(); } 
-          });
-        }
-      }
-    }        
-  }
-  this.anim_completed = function()
-  {
-    var t = this;
-    --t.anim_counter;
-    if(t.anim_counter==0)
-    {
-      for(i = 0; i < 5; ++i)
-      {  
-        while(t.p.treasure[i] >= mutation_step[i])
-        {
-          if(!t.p.cardshown[i+1]) 
-          {
-            t.p.cardshown[i+1] = true;
-            t.toShowValues[i+1] = true; 
-            t.toShow = true;         
-          }  
-
-          var curCount = t.p.treasure[i];
-          for(j = 0; j < mutation_step[i]; ++j)
-          {
-            t.sp.find('div.interestB[data-id=' + (i+1) + '] div.item[data-id=' + curCount-- + ']').fadeOut(1000,function(){ $(this).remove(); });
-          } 
-          t.sp.find('div.interestB[data-id=' + (i+2) + ']')
-          .append($('<div data-id=' + (t.p.treasure[i+2]+1) + '>')
-            .addClass('tip item ' + interest[i+1].class)
-            .attr({'data-tip':interest[i+1].descr + '\n' + interest[i+1].cost, 'data-tip-type':'coin' }))
-          .hide().fadeIn(5000);    
-
-          ++t.p.treasure[i+1];
-          t.p.treasure[i]-=mutation_step[i]; // remove 
-        }
-      }
-      if(t.toShow)
+        cardshown[0] = gap.pos-1;
+        showcard_which[0] = true; 
+        showcard = true;         
+      }  
+      for(j = 1; j <= t.p.event_by_period[gap.pos-1][0]; ++j)
       {
-        t.p.card.show(t.toShowValues);      
+        t.sp.find('div.interestB[data-id=1]')
+          .append($('<div data-id=' + (t.p.treasure[0]+j) + '>')
+            .addClass('tip item ' + interest[0].class)
+            .attr({'data-tip':interest[0].descr + '\n' + interest[0].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));    
+
       }
-      this.p.queue.resume();  
+      t.p.treasure[0]+=t.p.event_by_period[gap.pos-1][0];
     }
-  }
+
+    for(i = 0; i < 5; ++i)
+    {
+      if(t.p.mutate_by_period[gap.pos-1][i] > 0)
+      {
+        //console.log('mut_count',t.p.mutate_by_period[gap.pos-1][i],t.title);
+        var mut = t.p.mutate_by_period[gap.pos-1][i];
+        for(j = t.p.treasure[i]; j > t.p.treasure[i]-mut; --j)
+        {
+          t.sp.find('div.interestB[data-id=' + (i+1) + '] div.item[data-id=' + j + ']').fadeOut(1000,function(){ $(this).remove(); });
+        }
+        t.p.treasure[i]-=mut;
+        //console.log(t.p.treasure,t.p.title);
+      }
+
+      if(t.p.event_by_period[gap.pos-1][i+1] > 0)
+      {
+        if(cardshown[i+1]==-3 || cardshown[i+1] == gap.pos-1) 
+        {
+          //console.log('here second');
+          cardshown[i+1] = gap.pos-1;
+          showcard_which[i+1] = true; 
+          showcard = true;         
+        }         
+        for(j = 1; j <= t.p.event_by_period[gap.pos-1][i+1]; ++j)
+        {
+          t.sp.find('div.interestB[data-id=' + (i+2) + ']')
+            .append($('<div data-id=' + (t.p.treasure[i+1]+j) + '>')
+              .addClass('tip item ' + interest[i+1].class)
+              .attr({'data-tip':interest[i+1].descr + '\n' + interest[i+1].cost, 'data-tip-type':'coin' }).css({ opacity: 0 }).animate({opacity:1},1000));    
+        }
+        t.p.treasure[i+1]+=t.p.event_by_period[gap.pos-1][i+1];
+      }
+    }
+    if(showcard)
+    {
+      t.p.card.show(showcard_which);      
+    }
+    this.p.queue.resume();      
+  }  
   this.down = function() // go back one step calculate data based on pos
   {
     this.resume_by_position();
   };
-  this.next = function(v)
-  {     
-    this.up(1,this.p.event_by_month[v]);
-  };
+  // this.next = function(v)
+  // {     
+  //   this.up(1,this.p.event_by_month[v]);
+  // };
   this.prev = function(v)
   {     
     this.down();
@@ -143,47 +135,44 @@ function pedestalObject(p)
       t.sp.append('<div class="interestB" data-id="'+(i+1)+'">');
     }); 
   };
-  this.resume = function(states)
+  // this.resume = function(states)
+  // {
+  //   var t = this;
+  //   if(typeof states !== Array && states.length != 6) return;
+  //   for(var i = 0; i < 6; ++i)
+  //   {
+  //     var state = states[i];
+  //     var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
+  //     for(var j = 0; j < state; ++j)
+  //     {
+  //       var item = $('<div data-id=' + (j+1) + '>').addClass('tip item ' + interest[i].class).attr({ 'data-tip': interest[i].descr + '\n' + interest[i].cost, 'data-tip-type':'coin' } ); 
+  //       parent.append(item);
+  //     }
+  //     treasure[i] = state;
+  //   }
+  // };  
+  this.resume_by_position = function()
   {
+    
     var t = this;
-    if(typeof states !== Array && states.length != 6) return;
+    var states = [0,0,0,0,0,0];
+
+    if(gap.pos >= 1)
+    {
+      //console.log('resume_by_position',gap.pos-1,t.p.treasure_by_period[gap.pos-1]);
+      states = t.p.treasure_by_period[gap.pos-1].slice();
+      //console.log('resume_by_position',t.p.treasure_by_period[gap.pos-1],gap.pos-1);
+    }
+
     for(var i = 0; i < 6; ++i)
     {
-      var state = states[i];
       var parent = t.sp.find('> div.interestB[data-id=' + (i+1) + ']').empty();
-      for(var j = 0; j < state; ++j)
+      for(var j = 0; j < states[i]; ++j)
       {
         var item = $('<div data-id=' + (j+1) + '>').addClass('tip item ' + interest[i].class).attr({ 'data-tip': interest[i].descr + '\n' + interest[i].cost, 'data-tip-type':'coin' } ); 
         parent.append(item);
       }
-      treasure[i] = state;
     }
-  };  
-  this.resume_by_position = function()
-  {
-    var t = this;
-    var p = t.p;
-    var states = [0,0,0,0,0,0];
-    var treasure_count = 0;
-    for(var i = 0; i < gap.pos; ++i)
-      treasure_count += this.p.event_by_period_sum[i];
-    for(var i = 5; i > 0; --i)
-    {
-      var tmp =  Math.floor10(treasure_count/states_mutation_based[i-1]);
-      if(p.outrun)
-      {
-        var restrictor = p.oppenent.hasLevelMutation(i-1);
-        if(tmp > restrictor) { tmp = restrictor; }
-      }
-
-      if(tmp >= 1)
-      {
-        states[i] = tmp;
-        treasure_count -= tmp * states_mutation_based[i-1];
-      }
-    }
-    states[0] = treasure_count;
-   
-    this.resume(states);
+    t.p.treasure = states;
   };  
 }

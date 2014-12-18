@@ -114,6 +114,7 @@ function walk(v)
         {
           reward_process(v); needWalk = false;
         }
+        params_time_set();
       }  
     }  
   }
@@ -157,8 +158,8 @@ function game_on_load()
 }
 function game_init() {
 
-  gap.pos = 0;
-  total_scrolls = 0;
+  //gap.pos = 0;
+  //total_scrolls = 0;
   scr_clean();
 
   sound_button();
@@ -436,12 +437,12 @@ function timeline_point_init()
     { 
       humans.forEach(function(d)
       {
-        if(d.event_by_period_sum[i] > 0)
+        if(d.event_by_period_sum[i-1] > 0)
         {
-          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+d.event_by_period_sum[i]+'"></div>').appendTo(d.carpet);
+          var rew = $('<div class="reward" data-id="'+i+'"  data-count="'+d.event_by_period_sum[i-1]+'"></div>').appendTo(d.carpet);
           for(j = 0; j < 6; ++j)
           {
-            for(q = 0; q < d.event_by_period[i][j]; ++q)
+            for(q = 0; q < d.event_by_period[i-1][j]; ++q)
             {
               $('<div class="item ' + interest[j].class  + '"></div>').appendTo(rew);
             }
@@ -491,7 +492,7 @@ function timeline_point_redraw()
     { 
       humans.forEach(function(d)
       {
-        if(d.event_by_period_sum[i] > 0)
+        if(d.event_by_period_sum[i-1] > 0)
         {
           var rew = d.carpet.find('.reward[data-id=' + i + ']').css({heigth:th, line_height:th, left: prevPosition - interest_w2});
           if(i<=gap.pos) { rew.hide(); }
@@ -574,6 +575,7 @@ function gopast()
 function card_prepare(v)
 {
   var c = gap.pos > prev_pos;
+  ///console.log(gap.pos, prev_pos);
   var rew = $('.'+v.place + ' .treasure .red-carpet .reward[data-id='+gap.pos+']');
   if(c)
   {
@@ -685,8 +687,7 @@ function params_read()
     if(hash[0]=='#') hash=hash.substr(1);
     var ahash = hash.split("&");
     for(var i = 0; i < ahash.length; ++i)
-    {
-      
+    {      
       var kv = ahash[i].split("=");
       if(kv.length==2)
       {
