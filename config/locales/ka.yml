@@ -212,7 +212,7 @@ ka:
       publications: პუბლიკაციები
       about: ჩვენ შესახებ
       stories: ისტორიები დისკრიმინაციაზე
-      game: Pay Gap Game
+      game: თამაში
       legislations: კანონმდებლობა
   sponsors:
     usaid: USAID Georgia
@@ -237,16 +237,16 @@ ka:
       header_stories: ისტორიები დისკრიმინაციაზე
       header_stories1: ისტორიები
       header_stories2: დისკრიმინაციაზე
-      header_game: Pay Gap Game
-      header_game1: Pay Gap
-      header_game2: Game
+      header_game: თამაში
+      header_game1: თამაში
+      header_game2: ''
       header_explore: კვლევის მონაცემები
       header_explore1: კვლევის
       header_explore2: მონაცემები
       header_video: ვიდეოები
       tell_story: გვიამბეთ თქვენი ისტორია
       view_stories: ყველა ამბის ნახვა
-      play: ითამაშე
+      play: დაწყება
       game:  ''
       explore: შეისწავლე
       data: მონაცემები
@@ -298,12 +298,12 @@ ka:
       header_get_involved1: ჩაერთეთ!  
       header_get_involved2: ''
       header_stories: ისტორიები დისკრიმინაციაზე
-      header_game: Pay Gap Game
+      header_game: თამაში
       header_explore: კვლევის მონაცემები
       header_video: ვიდეოები
       tell_story: გვიამბეთ თქვენი ისტორია
       view_stories: ყველა ამბის ნახვა
-      play: ითამაშეთ
+      play: დაწყება
       explore: გაეცანით მონაცემებს
       header_publications: უახლესი პუბლიკაციები
       header_news: უახლესი ამბები
@@ -419,7 +419,7 @@ ka:
       optional_explanation: ამ ველების შევსება ნებაყოფლობითია. მათი შევსებით დაგვეხმარებით გავიგოთ, თუ ვისზე ვრცელდება დისკრიმინაცია საქართველოში.
   gap:
     index:
-      title:  Pay Gap Game
+      title:  თამაში
       about_html: "დაადგინეთ თქვენი სახელფასო სხვაობა!<br />საქართველოში მამაკაცების შემოსავალი 39%-ით მეტია ქალებისაზე.<br />გამოიმუშავებთ თუ<br />კარგავთ თანხას?<br />ითამაშეთ და <br />გაიგეთ!"
       tip_logo: "<p>გაიგეთ მეტი <br />სამუშაო ადგილზე <br />გენდერული დისკრიმინაციის შესახებ</p>"
       tip_settings: "<p>ნახეთ და შეცვალეთ თქვენი მონაცემებით</p>"
@@ -501,8 +501,8 @@ ka:
       salary: ხელფასი
       saved: დანაზოგი
       loser: წაგებული
-      title_win: გილოცავთ თქვენ მოიგეთ Pay Gap Game!
-      title_lose: სამწუხაროდ თქვენ წააგეთ Pay Gap Game!
+      title_win: გილოცავთ თქვენ მოიგეთ თამაში!
+      title_lose: სამწუხაროთ თქვენ წააგეთ თამაში!
       title_score: საბოლოო ქულა
       job_sector: სამუშაო სფერო
       year_passed: თქვენ იმუშავეთ
