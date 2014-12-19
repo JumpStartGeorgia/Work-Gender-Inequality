@@ -615,7 +615,7 @@ function prepare_for_work(v)
     complete:function()
     {
       v.prepare_reward(1,false);
-      v.opponent.stand_movement();
+      v.opponent.step_left();
       v.stand_movement();
       v.queue.resume();     
     }
@@ -1098,7 +1098,7 @@ function share_button()
       });
     });
   });
-      
+
   share.show();
 }
 /***************************************************************

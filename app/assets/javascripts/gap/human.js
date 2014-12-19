@@ -476,6 +476,7 @@ this.stop_counter = -3;
     var st = $('.' + t.place + ' .stage');
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler)-t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
+    
     $(this.selector).animate({"color":'white'},{ 
       duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      
       progress:function(a,b,c) 
