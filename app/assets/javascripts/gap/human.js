@@ -230,7 +230,7 @@ this.stop_counter = -3;
           t.stopped = true; 
           t.was_stopped = true;
         }  
-        if(t.x > t.prevX) // moving right
+        else if(t.x > t.prevX) // moving right
         {
           $(this.selector).removeClass('l'); 
           if(!t.stopped) this.next_movement();
@@ -270,14 +270,16 @@ this.stop_counter = -3;
 
       t.prevX = t.prevX - wDiff;
       t.prevY = t.prevY - hDiff; 
-      t.x = category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff;
+      t.x = category.action_points[0].d == 1 
+            ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
+            : category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w;
       t.y = t.y - hDiff;
       $(t.selector).css({ left: t.x, top: t.y });  
       
 
       t.before_movement('a0');
-
-      if(category.action_points.d == -1) $(t.selector).addClass('l');  
+      
+      if(category.action_points[0].d == -1) $(t.selector).addClass('l');  
       else $(t.selector).removeClass('l');  
     }
   };
@@ -467,7 +469,7 @@ this.stop_counter = -3;
 
     var t = this;
     var st = $('.' + t.place + ' .stage');
-    var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler) - t.frames[t.movement].w;
+    var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler);
     var yDistance = category.work_point.y*img_scaler;
     $(this.selector).animate({"color":'white'},{ 
       duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      

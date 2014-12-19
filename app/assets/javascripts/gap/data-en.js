@@ -80,7 +80,7 @@ var categories =
         "action":true,
         "action_points":[{"x":630,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 179.46408,314.63557 L 866.24899,314.63557 L 866.24899,313.56415 L 178.92836,313.56415 z"},
-        "work_point":{"x":300,"y":0}     
+        "work_point":{"x":170,"y":0}     
     },
     { 
         "id": "eibtNMge",
@@ -111,7 +111,7 @@ var categories =
         "action":true,
         "action_points":[{"x":810,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 154.6976,316.08581 L 949.19303,316.08581 L 949.24039,315.3282 L 154.69759,315.3282 z"},
-        "work_point":{"x":300,"y":0}
+        "work_point":{"x":150,"y":0}
     },
     { 
         "id": "I52aZAVX",
