@@ -190,9 +190,7 @@ Game.Loader =
 			 player = new playerObject();
 
 			window.onpopstate = function(e){	
-			console.log(e);			
 			   if(e.state !== null) { hist = true;  params_init(); afterinit(); hist = false; } 
-			   //else { // no state data available,load initial page which was there at first page load }
 			};
 
 

@@ -138,7 +138,6 @@ this.stop_counter = -3;
       {
         if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;
         t.choose_movement();
-        console.log(coord.y);
         if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
 
         //if(t.working)
