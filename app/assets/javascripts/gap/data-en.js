@@ -312,8 +312,7 @@ var interests =
                 "image":"vac_5.svg",
                 "class":"vac-5",
                 "source":"http://www.flightcentre.com.au/tours/australia/3122876",
-                "source_date":"26.09.2014",
-                "descr":"Cruise of the Australian Kimberly Coast: 3 meals/day" 
+                "source_date":"26.09.2014",                "descr":"Cruise of the Australian Kimberly Coast: 3 meals/day" 
             },  
             { 
                 "id": "p_bINCPp",
@@ -323,7 +322,7 @@ var interests =
                 "class":"vac-6",
                 "source":"http://www.forbes.com/sites/forbestravelguide/2012/08/16/the-worlds-most-luxurious-cruises/",
                 "source_date":"26.09.2014",
-                "descr":"The cruise goes from New Zealand to Sydney, Bali, Hong Kong and Alaska (among others) and stops in Los Angeles." 
+                "descr":"The cruise goes from New Zealand to Sydney, Bali, Hong Kong, Alaska and Los Angeles (among others)." 
             }
         ] 
     },
