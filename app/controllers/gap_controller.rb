@@ -44,11 +44,11 @@ class GapController < ApplicationController
     end
   end
   def share
-    p = params_parse(params)
+   if Rails.env.development? || (request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")) # if facebook robot        
+      p = params_parse(params)
 
-    if p.present?
-      encodedP = Base64.urlsafe_encode64(p.to_param)
-     if Rails.env.development? || (request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")) # if facebook robot        
+      if p.present?
+        encodedP = Base64.urlsafe_encode64(p.to_param)
         require 'game_data'
 
         @url = request.original_url.split('?').first + '?f=' + encodedP     
@@ -89,8 +89,10 @@ class GapController < ApplicationController
           format.html
         end
       else 
-        redirect_to gap_summary_path(f:encodedP) and return    
+        redirect_to gap_path and return    
       end
+    else 
+      redirect_to gap_path and return    
     end
   end
 
