@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
    <head>  
-      <title><%= t('.title') %></title>
+      <title><%= "#{t('.title')} | #{t('app.common.app_name')}" %></title>
       <meta charset="utf-8">  
-      <meta property="og:title"content="<%= t('.title') %>" />
+      <meta property="og:title"content="<%= "#{t('.title')} | #{t('app.common.app_name')}" %>" />
       <meta property="og:site_name" content="<%= t('app.common.app_name') %>"/>
       <meta property="og:description" content="<%= t('.about_html') %>" />
       <meta property="og:url" content="<%= current_url %>" />

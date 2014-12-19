@@ -212,7 +212,7 @@ en:
       publications: Publications
       about: About
       stories: Discrimination Stories
-      game: Pay Gap Game
+      game: The Game
       legislations: Legislation
   sponsors:
     usaid: USAID Georgia
@@ -237,9 +237,9 @@ en:
       header_stories: Discrimination Stories
       header_stories1: Discrimination
       header_stories2: Stories
-      header_game: Pay Gap Game
-      header_game1: Pay Gap
-      header_game2: Game
+      header_game: The Game
+      header_game1: The Game
+      header_game2: ''
       header_explore: Survey Data
       header_explore1: Survey
       header_explore2: Data
@@ -298,7 +298,7 @@ en:
       header_get_involved1: Get
       header_get_involved2: Involved!
       header_stories: Discrimination Stories
-      header_game: Pay Gap Game
+      header_game: The Game
       header_explore: Survey Data
       header_video: Videos
       tell_story: Tell Your Story
@@ -419,7 +419,7 @@ en:
       optional_explanation: These fields are optional. Providing them will help us gather data about whom discrimination is affecting in Georgia.
   gap:
     index:
-      title: Pay Gap Game
+      title: The Game
       about_html: "Explore your wage gap!<br />In Georgia, men earn on average 39% more than women.<br />Are you earning or<br />are you losing?<br />Play and<br />find<br />out!"
       tip_logo: "<p>Learn more about gender<br />descrimination in the workplace</p>"
       tip_settings: "<p>View and edit your settings</p>"
@@ -501,8 +501,8 @@ en:
       salary: Salary
       saved: Saved
       loser: Loser
-      title_win: Congratulations, you have won the Pay Gap Game!
-      title_lose: So sorry, but you have lost the Pay Gap Game!
+      title_win: Congratulations, you have won the the game!
+      title_lose: So sorry, but you have lost the the game!
       title_score: Final Score
       job_sector: Job Sector
       year_passed: You worked
