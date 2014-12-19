@@ -466,10 +466,6 @@ this.stop_counter = -3;
   this.animate = function animate()
   { 
     var t = this;
-
-    this.animated = true;
-    this.working = false;
-
     //this.reset();
 
     var t = this;

@@ -149,7 +149,12 @@ function gameoff() { ingame = false; clearInterval(noscrollTimerId); canScroll= 
 function game_on_load()
 {
   setTimeout(function(){
-    animated = true;
+    animated = true;    
+    male.animated = true;
+    male.working = false;
+    female.animated = true;
+    female.working = false;
+
     male.animate();
     female.animate();
   },1000);  
