@@ -13,9 +13,9 @@ var epilogueUp = true;
 */
 function init()
 {  
-  if(!isAssetsLoaded) Game.Loader.load();
   wr = $('.wrapper');
   s = wr.find('#screen');  
+  if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
 { 

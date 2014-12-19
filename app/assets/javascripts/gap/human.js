@@ -134,12 +134,10 @@ function human(selector,title,alias)
   });
 //*************************methods**********************************
   this.position = function position(coord,scale) {   
-    //  console.log(coord); 
       var t = this;
      
       //this.prevX = this.x;
      // this.prevY = this.y;
-     // console.log(coord,noscale);
       if(typeof scale === 'undefined') scale = false;
       if(exist(coord))
       {
@@ -148,14 +146,7 @@ function human(selector,title,alias)
         t.choose_movement();
         if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
 
-        //if(t.working)
-        //{
-        //  t.x ;
-          //t.y += $('.top .stage .fg img').first().offset().top;
-        //}
-        //if(exist(coord.a)) this.angle = coord.a;
       }      
-      //else this.toground();
 
       if(!t.stopped)
       {
@@ -248,10 +239,8 @@ function human(selector,title,alias)
           $(this.selector).addClass('l');  
           if(!t.stopped) this.prev_movement();      
         }
-         console.log(t.prevX,t.prevY,t.title);
         t.prevX = t.x;
         t.prevY = t.y;
-         console.log(t.prevX,t.prevY,t.title);
       }
     }
   };
@@ -277,9 +266,6 @@ function human(selector,title,alias)
       t.movement = 3; 
       var hDiff = t.frames[t.movement].h-t.height;      
       var wDiff = t.frames[t.movement].w-t.width;
-      console.log(t.prevX,t.prevY);
-     // t.prevX = t.prevX;
-      //t.prevY = t.prevY; 
       t.x = category.action_points[0].d == 1 
             ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
             : category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w;
