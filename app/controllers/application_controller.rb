@@ -81,8 +81,6 @@ class ApplicationController < ActionController::Base
       @latest_stories = Story.sorted.is_approved.public.limit(@limit)
     end
 
-    logger.debug "//////////// conroller = #{params[:controller]}"
-
     # for loading extra css/js files    
     @css = ['variables.css', "fonts_#{I18n.locale}.css"]
     @js = []
