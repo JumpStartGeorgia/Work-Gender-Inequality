@@ -378,7 +378,7 @@ body,html
              font-size:16px;
              color:#c85752;
              &:lang(ka){ font-size:13px; }
-          }          
+          }                    
           .mask
           {
              position:relative;
@@ -403,6 +403,19 @@ body,html
            background-position:0px 0px;
            display:inline-block;
         }
+        .till-end
+        {
+          position:absolute;
+          top:0px;   
+          height:30px;
+          line-height:30px;
+          display:inline-block;
+          text-align:center;
+          font-family:hallo;
+          font-size:16px;
+          color:#8ec6cb;
+          &:lang(ka){ font-family:gandhi; font-size:13px; }
+        }      
         .time-travel
         {
           position: relative;
@@ -1402,6 +1415,7 @@ body,html
           padding:0px 15px;
           text-align:center;
           margin:0px auto;
+          max-width:115px;
 
           .key { margin-top:2px; }
           .value
@@ -1409,6 +1423,7 @@ body,html
             font-family:gandhi-i;
             font-size:18px;
             color:#efde95;
+            &:lang(ka){ font-size:14px; }
           }
           .arrow
           {
@@ -1645,7 +1660,7 @@ body,html
               top:-30px;
               margin:0px auto;
               width:30px;
-
+              height:30px;
               .text
               {
                 font-family:hallo-b;
@@ -1664,6 +1679,13 @@ body,html
                 height:5px;
                 margin: 0px auto;
               }
+            }
+            .not-you
+            {
+              position:relative;
+              top:-30px;
+              margin:0px auto;
+              width:30px;
             }
           }
 

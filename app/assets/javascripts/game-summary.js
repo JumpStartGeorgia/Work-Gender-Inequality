@@ -75,25 +75,7 @@ $(document).on('mouseenter','.tip',function(){
     custCss['top'] = t.offset().top;
     custCss['left'] = t.offset().left +  wTmp2;
     custCss['padding-left'] = wTmp2+10;
-  }
-  else if(type == 'logo')
-  {
-    custCss['top'] = t.offset().top;
-    custCss['left'] = 0;
-    custCss['padding-left'] = wTmp+10;  
-  }
-  else if (type == 'settings')
-  {
-    custCss['top'] = t.offset().top;
-    custCss['right'] = 0;
-    custCss['padding-right'] = wTmp;     
-  }
-  else if(type == 'about')
-  {
-    custCss['bottom'] = 0;
-    custCss['left'] = 0;
-    custCss['padding-left'] = wTmp;     
-  }
+  }  
   tiptip.tip.html(t.attr('data-tip')).css(custCss).show();
   tiptip.zindex = t.css('zIndex');
   t.css('zIndex',701);

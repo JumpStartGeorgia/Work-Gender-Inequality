@@ -432,7 +432,7 @@ var poll = {
       var cx = this.knobR * c + this.knobCX;
       var cy = this.knobCY - this.knobR * s;      
       $(".age-mover circle").attr("cx",cx).attr("cy",cy);       
-      poll.sublabel(user.age + "<div class='b'><span>"+(max_age-user.age)+"</span>&nbsp;"+locale.general.retirement+"</div>");
+      poll.sublabel(user.age + "<div class='b'><span>"+(max_age-user.age)+"</span>&nbsp;"+((max_age-user.age<=1) ? lg.retirement : lg.retirements) +"</div>");
   },
   agepicker_age_by_coord:function agepicker_age_by_coord(x, y){
      

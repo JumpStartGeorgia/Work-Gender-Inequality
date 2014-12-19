@@ -33,37 +33,7 @@
 									<div class='<%= d[:fclass][0] %>'><div class="you"><div class="text"><%= t('.you') %></div><div class="arrow-d"></div></div><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:fclass][0]}" %>0.svg'/></div>
 								</td>
 								<td class='grid-wrapper'>
-								<div class='grid'>
-									<div class='row'>
-										<div class='human-salary'><%=  number_with_delimiter(d[:fsalary_total]) %></div>
-										<div class='title-salary'><div class='box'><div class='sumlarrow'></div><%= t('.salary') %><div class='sumrarrow'></div></div></div>
-										<div class='human-salary'><%=  number_with_delimiter(d[:ssalary_total]) %></div>
-									</div>
-									<div class='row'>
-										<div class='dummy'></div>
-										<div class='title-diff'><%= t('.difference') %></div>
-										<div class='dummy'></div>
-									</div>
-									<div class='row'>
-										<div class='dummy'></div>
-										<div class='human-salary-diff diff-value'><%=  number_with_delimiter(d[:salary_total_diff]) %></div>
-										<div class='dummy'></div>
-									</div>
-									<div class='row'>
-										<div class='human-saved'><%=  number_with_delimiter(d[:fsaved_total]) %></div>
-										<div class='title-saved'><div class='sumlarrow'></div><%= t('.saved') %><div class='sumrarrow'></div></div>
-										<div class='human-saved'><%=  number_with_delimiter(d[:ssaved_total]) %></div>
-									</div>
-									<div class='row'>
-										<div class='dummy'></div>
-										<div class='title-diff'><%= t('.difference') %></div>
-										<div class='dummy'></div>
-									</div>
-									<div class='row'>
-										<div class='dummy'></div>
-										<div class='human-saved-diff diff-value'><%=  number_with_delimiter(d[:saved_total_diff]) %></div>
-										<div class='dummy'></div>
-									</div>					
+								<div class='grid'>								
 									<div class='row'>	
 										<div class='human-award'>
 										<% d[:faward].reverse.each_with_index { |x,i| %>
@@ -83,15 +53,13 @@
 								</div>
 								</td>
 								<td class='char'>
-										<div class='<%= d[:sclass][0] %> l'><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:sclass][0]}" %>0.svg'/></div>
+										<div class='<%= d[:sclass][0] %> l'><div class="not-you"></div><img src='/assets/gap/svg/human/<%= "#{@category[:dress]}/#{d[:sclass][0]}" %>0.svg'/></div>
 								</td>
 								</tr>
 								</table>
 							</div>
 							<div class='footer'>
 								<div class='replay btn' onclick="window.location.href='<%= gap_path %>'"><%= t('.play_again') %></div>
-								<div class='share btn'><%= t('.share') %></div>
-								<div class='share_note'><%= t('.fb_note').html_safe %></div>
 							</div>
 						</div>					
 				</div>

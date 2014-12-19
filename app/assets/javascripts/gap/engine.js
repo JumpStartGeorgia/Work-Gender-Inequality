@@ -60,7 +60,7 @@ function redraw_game()
 {            
   var t = $("#screen .top").height(lh);
 
-  $("#screen .timeline").height(th).css('top',h2-th/2);
+  $("#screen .timeline").css('top',h2-th/2);
   if(gap.pos >= 0)
   {      
     $('.canvas, .treasure .red-carpet').hide().animate({color:'transparent'},{start:function(){ $(this).css({left:-total_scrolls*(timeline_month_w/scroll_per_month)}); }, complete:function(){ $(this).show(); } });
@@ -85,8 +85,8 @@ function walk(v)
   if(!canScroll) return;
   if(!scrolled) 
   { 
-    $('.wrapper .hint').fadeOut(1000, function(){ $(this).remove(); });
-    $('.wrapper .top .character .you').fadeOut(1000, function(){ $(this).remove(); });   
+    $('.wrapper .hint').fadeOut(1000);
+    $('.wrapper .top .character .you').fadeOut(1000);   
     scrolled = true; 
   }
   
@@ -198,8 +198,6 @@ function game_init() {
 
   redraw_time_travel();
 
-  redraw_game();
-
   stage_init(0);
 
   male.init();
@@ -211,9 +209,11 @@ function game_init() {
 
   timeline_point_init();
 
+  redraw_game();
+
   player.background_play();  
 
-  $('.wrapper .hint').fadeIn(1000,'linear');
+  $('.wrapper .hint, .wrapper .top .character .you').fadeIn(1000);
 
   game_on_load();
 
@@ -226,6 +226,7 @@ function game_init() {
 }
 function game_jump(v,jumper_step) //  -1 back 1 forw
 {
+  if(!ingame) return;
   if(v === undefined) v = 1;
   var jstep = typeof jumper_step !== 'undefined' && isNumber(jumper_step) ? jumper_step : jumper;
 
@@ -241,14 +242,14 @@ function game_jump(v,jumper_step) //  -1 back 1 forw
 
       redraw_time_travel();
 
-      redraw_game();
-
       stage_redraw(0);
 
       male.pedestal.resume_by_position();
       female.pedestal.resume_by_position();
 
       timeline_point_redraw();
+
+      redraw_game();
     }    
   }
 }
@@ -393,11 +394,13 @@ function stage_redraw(v)
 function timeline_point_init()
 {
   var tt = $('.timeline .canvas');
-  var cnt = 0;
+  var cnt = 0;  
   for(var i = 0; i <= pos_max; ++i) 
   {
     var now = new Date(today.getFullYear(),today.getMonth()+i*reward_period,1,0,0,0,0); // only for declaration 
     tt.append('<div class="point-in-time" data-time="'+ now.getTime()+'"><div class="point">'+getMonthS(now)+ " " + now.getFullYear() + '</div><div class="mask"></div></div>');
+    if(i != pos_max)
+      tt.append('<div class="till-end" data-id="'+(i+1)+'">'+ (pos_max-i)+' '+ ( pos_max-i<=1 ? lg.retirement : lg.retirements) + ' </div>');
 
     if(i != pos_max)
     {
@@ -455,6 +458,11 @@ function timeline_point_redraw()
       prevPositionLeft = prevPosition - point_w2;
     }
     point.css({left: prevPositionLeft });
+    if(i != pos_max)
+    {
+      var till = $('.timeline .canvas .till-end[data-id=' + (i+1) + ']');
+      till.css({left: prevPosition+ w2/2- till.width()/2 });
+    }
 
     if(i!=0)
     { 
@@ -607,6 +615,7 @@ function prepare_for_work(v)
     complete:function()
     {
       v.prepare_reward(1,false);
+      v.opponent.stand_movement();
       v.stand_movement();
       v.queue.resume();     
     }
