@@ -508,7 +508,7 @@ var poll = {
   {
     var picker = $("<div class='interest-picker'></div>").appendTo('.poll .selector');
     var savingTmp = 0;
-    if(!init) savingTmp = user.salary * user.salary_percent / 100;
+    if(!init) savingTmp = Math.floor10(user.salary * user.salary_percent / 100);
     poll.npicker_create('.poll .selector','.percent-picker',user.salary,poll.npicker_sal_size,savingTmp,locale.poll.your_percent,'left');
 
     resizeCallback = function() {

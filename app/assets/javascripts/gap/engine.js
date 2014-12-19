@@ -196,7 +196,7 @@ function game_init() {
               '<div class="stage"><div class="bg"></div><div class="fg"></div></div>';
   s.append('<div class="top">' + tstr+'<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div></div>');
   
-  s.append('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back" onclick="timetravel_back()"><div class="text">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward"></div></div><div class="now"></div><div class="travel-point-forw" onclick="timetravel_forw()"><div class="forward"></div><div class="text">'+jumper + ' ' + locale.general.years_forward +'</div></div></div></div>');
+  s.append('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back" onclick="game_jump(-1)"><div class="text">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward"></div></div><div class="now"></div><div class="travel-point-forw" onclick="game_jump(1)"><div class="forward"></div><div class="text">'+jumper + ' ' + locale.general.years_forward +'</div></div></div></div>');
 
   s.append('<div class="bottom">' + tstr+'<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div></div>');
 
@@ -579,21 +579,20 @@ function prepare_for_reward(v)
 
   var hSteps = Math.round10(v.walk_distance/(v.width*img_scaler/2.3));
 
-  var nextSecond = 1;
+  //var nextSecond = 1;
 
   stage.animate({ "color": 'white'}, {
     duration: hSteps * 130,
     progress:function(a,b,c){
       $(this).css({'left':init_left_pos + v.distance*b});
-      if(nextSecond < (hSteps)*b)
-      {
-        ++nextSecond;
+      //if(nextSecond < (hSteps)*b)
+      //{
+       // ++nextSecond;
         v.prepare_reward(b,true);
-      }
+      //}
     },
     complete:function()
     {      
-      v.stand_movement('l');      
       v.queue.resume();  
     }
   });
@@ -605,23 +604,21 @@ function prepare_for_work(v)
   var init_left_pos = stage.offset().left;  
   var hSteps = Math.round10(v.walk_distance/(v.width*img_scaler/2.3));
 
-  var nextSecond = 1;
+  //var nextSecond = 1;
 
   stage.delay(2000).animate({  "color": 'white'},{
     duration: hSteps * 130,
     progress:function(a,b,c){
       $(this).css({'left': init_left_pos - v.distance*b});
-      if(nextSecond < (hSteps)*b)
-      {
-        ++nextSecond;
+      //if(nextSecond < (hSteps)*b)
+      //{
+      //  ++nextSecond;
         v.prepare_reward(b,false);
-      }
+      //}
     },
     complete:function()
     {
       v.prepare_reward(1,false);
-      v.opponent.step_left();
-      v.stand_movement();
       v.queue.resume();     
     }
   });
@@ -898,15 +895,6 @@ function tiptip_destroy()
 /***************************************************************
                   Tiptip module end
 ***************************************************************/
-function timetravel_back()
-{
-  game_jump(-1);
-}
-function timetravel_forw()
-{
-  game_jump(1);
-}
-
 /***************************************************************
                           Epilogue
 ***************************************************************/
@@ -1073,7 +1061,6 @@ function settings_bar_fill()
     opts.find('.option.salary > div.value').text(user.salary);
     opts.find('.option.interest > div.value').text(interests.filter(function(a){ return a.id == user.interest; })[0].name);
     opts.find('.option.saving > div.value').text(Math.floor10(user.salary*user.salary_percent/100));
-
 }
 function share_button()
 {
@@ -1112,20 +1099,20 @@ function share_button()
 
 function popup(text,lbtn,rbtn,lcallback,rcallback,klass)
 {
-  var popup = wr.find('.popup');
-  if(typeof klass !== 'undefined') popup.addClass(klass);
-  popup.find('.content .text').html(text.toUpperCase());
-  popup.find('.buttons .left span').html(lbtn.toUpperCase());
-  popup.find('.buttons .right span').html(rbtn.toUpperCase());
-  popup.find('.buttons .left').click(function(){ gameon(); popup.hide(); if(typeof klass !== 'undefined') popup.removeClass(klass); lcallback(); });
-  popup.find('.buttons .right').click(function(){ gameon(); popup.hide(); if(typeof klass !== 'undefined') popup.removeClass(klass);  rcallback(); });
-  popup.find('.shield').click(function(e){
+  var pp = wr.find('.popup');
+  if(typeof klass !== 'undefined') pp.addClass(klass);
+  pp.find('.content .text').html(text.toUpperCase());
+  pp.find('.buttons .left span').html(lbtn.toUpperCase());
+  pp.find('.buttons .right span').html(rbtn.toUpperCase());
+  pp.find('.buttons .left').off('click').click(function(){ gameon(); pp.hide(); if(typeof klass !== 'undefined') pp.removeClass(klass); lcallback(); });
+  pp.find('.buttons .right').off('click').click(function(){ gameon(); pp.hide(); if(typeof klass !== 'undefined') pp.removeClass(klass);  rcallback(); });
+  pp.find('.shield').off('click').click(function(e){
     gameon();
-    popup.hide();    
-    if(typeof klass !== 'undefined') popup.removeClass(klass);
+    pp.hide();    
+    if(typeof klass !== 'undefined') pp.removeClass(klass);
     e.stopPropagation();
   });
-  popup.fadeIn(1000);
+  pp.fadeIn(1000);
 }
 function sorry_popup()
 {

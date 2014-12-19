@@ -31,7 +31,7 @@ var categories =
         "bg2":"bg2",
         "fg":"fishing",
         "action":true,
-        "action_points":[{"x":700,"y":0,"d":-1}],
+        "action_points":[{"x":900,"y":0,"d":-1}],
         "work":{ "a":false, "loop": true, "path":"M 38.900437,182.29612 L 1033.755,182.29612 L 1033.7967,181.36887 L 38.848395,181.36887 z"},
         "work_point":{ "x":35,"y":0 }    
     },

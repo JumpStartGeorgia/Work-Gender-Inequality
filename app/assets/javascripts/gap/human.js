@@ -135,19 +135,13 @@ function human(selector,title,alias)
 //*************************methods**********************************
   this.position = function position(coord,scale) {   
       var t = this;
-     
-      //this.prevX = this.x;
-     // this.prevY = this.y;
       if(typeof scale === 'undefined') scale = false;
       if(exist(coord))
       {
-        if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;
-        if(t.step_counter) t.x = t.prevX;
+        if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;        
         t.choose_movement();
         if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
-
       }      
-
       if(!t.stopped)
       {
         $(t.selector).css({ left: t.x , top: t.y });   
@@ -262,13 +256,15 @@ function human(selector,title,alias)
   {
     var t = this;
     if(category.action)
-    { 
-      t.movement = 3; 
-      var hDiff = t.frames[t.movement].h-t.height;      
-      var wDiff = t.frames[t.movement].w-t.width;
+    {
       t.x = category.action_points[0].d == 1 
             ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
-            : category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w;
+            : t.x + t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
+      t.movement = 3; 
+
+      var hDiff = t.frames[t.movement].h-t.height;      
+      var wDiff = t.frames[t.movement].w-t.width;
+     
       t.y = t.y - hDiff;
       $(t.selector).css({ left: t.x, top: t.y });  
       
@@ -301,29 +297,42 @@ function human(selector,title,alias)
     if(v === 'l') $(t.selector).addClass('l');
     else $(t.selector).removeClass('l');
   };
+  this.stop_action = function stop_action()
+  {
+    var t = this;
+    if(t.stopped)
+    {
+      t.stopped = false;
+      t.stop_counter = -3;
+      t.x = t.x + t.width - t.frames[0].w;
+      $(t.selector).css({ left: t.x , top: t.y });   
+      this.stand_movement(category.action_points[0].d==-1?'l':'r');
+      t.prevX = -1;
+      t.prevY = -1;   
+    }
+  };
   this.step_right = function step_right()
   {    
     var t = this;
-    if(t.stop_counter-- == 0) { t.stopped = false;} 
+    if(t.stop_counter-- == 0) 
+    {
+      t.stop_action();
+      return;
+    } 
     if(!t.stopped)
     {
-      var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
-      if(this.path_loop)
-         tmp = tmp == 100 ? 100 : tmp%100;
-      else if(tmp > 100) return;
-      
+      var tmp = (this.traversed_path + 4);
+      tmp = tmp == 100 ? 100 : tmp%100;
       if(t.was_stopped && tmp < 5) t.was_stopped = false;
       this.traversed_path = tmp;
+      console.log(this.traversed_path,this.title);
       this.position(this.getpathcoordinates(this.traversed_path/100),true);
     } 
   };
   this.step_left = function step_left()
   {    
       var tmp = (this.traversed_path - 4);
-      if(this.path_loop)
-         tmp =  tmp <= 0 ? 100 : tmp%100;
-      else if(tmp <= 0) return;
-
+      tmp = tmp <= 0 ? 100 : tmp%100;
       this.traversed_path = tmp;
       this.position(this.getpathcoordinates(this.traversed_path/100),true);
   };
@@ -352,29 +361,22 @@ function human(selector,title,alias)
     if(!t.rewardStarted)
     {
       t.rewardStarted = true;
-      t.stopped = false;
-      t.stop_counter = -3;
-      t.working = false;
-      t.movement = 0;       
-      t.before_movement(); 
-      t.step_left();
-      $(t.selector).removeClass('l');
 
+      t.stop_action();
+      t.opponent.stop_action();
+
+      t.working = false;
+    
       t.initX = t.x;
       t.initY = t.y;
     }
     t.position({ x:t.initX - (t.initX - w2)*step, y:t.initY + (lh - t.initY - t.height)*step, a:0 }, false);
-
-   // if(Math.abs(t.prevXTmp-t.x) > 3 || Math.abs(t.prevYTmp-t.y) > 3)
-    //{
-      //start ? t.next_movement() : t.prev_movement();
-     // t.prevXTmp = t.x;
-     // t.prevYTmp = t.y;
-    //}    
+ 
     if(!start && istep == 1)
     {
       t.working = true;
       t.rewardStarted = false;
+      t.traversed_path = t.opponent.traversed_path;
     }
   }; 
 
@@ -389,16 +391,10 @@ function human(selector,title,alias)
     t.card_moment = [999,999,999,999,999,999];
     t.treasure_by_period = [];
 
-
-
-
-
-
     var periodIndex = -1;
     var treasureTmp = [0,0,0,0,0,0];
     var prevTreasureTmp = [0,0,0,0,0,0];
     
-
     for (var i = 1; i <= life; ++i) 
     {
       if(i % reward_period == 0) 
@@ -469,13 +465,12 @@ function human(selector,title,alias)
   this.animate = function animate()
   { 
     var t = this;
-    //this.reset();
 
     var t = this;
     var st = $('.' + t.place + ' .stage');
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler)-t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
-
+    //console.log(xDistance,yDistance,t.title,st, Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250);
     $(this.selector).animate({"color":'white'},{ 
       duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      
       progress:function(a,b,c) 
