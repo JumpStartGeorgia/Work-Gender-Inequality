@@ -160,6 +160,7 @@ function game_init() {
   {
     gap.pos = 0;
     total_scrolls = 0;
+    scrolled = false;
   }
 
   scr_clean();
