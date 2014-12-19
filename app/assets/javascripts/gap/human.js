@@ -359,6 +359,11 @@ this.stop_counter = -3;
       t.stopped = false;
       t.stop_counter = -3;
       t.working = false;
+      t.movement = 0;       
+      t.before_movement(); 
+      t.step_left();
+      $(t.selector).removeClass('l');
+
       t.initX = t.x;
       t.initY = t.y;
     }
@@ -469,7 +474,7 @@ this.stop_counter = -3;
 
     var t = this;
     var st = $('.' + t.place + ' .stage');
-    var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler);
+    var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler)-t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
     $(this.selector).animate({"color":'white'},{ 
       duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      

@@ -20,6 +20,13 @@
         <div id="screen"></div>
         <div class="black-hole"></div>
         <div class='info'><div class='triangle'></div><div class='text'><%= t('gap.index.about_html') %></div></div>
+        <div class='lang'>
+          <% if I18n.locale == :en %>
+           <%= link_to "ქა", '/ka/game' %>           
+          <% else %>
+            <%= link_to "en", '/en/game' %>
+          <% end %>  
+         </div>
         <div class="volume on"></div>
         <div class='hint'><div><%= t('.hint1') %>&nbsp;<span><%= t('.hint2') %></span></div><div class='key-scroll'></div><div><%= t('.hint3') %></div><div class='inb'><div class='key-left'></div><span class='shift'><%= t('.hint4') %></span><div class='key-right'></div></div></div>
         <a href="<%= root_path %>" class='logo tip' data-tip='<%= t('.tip_logo') %>' data-tip-type='logo'></a>
@@ -104,7 +111,7 @@
       <script src="/assets/gap/poll.js"></script>
       <script src="/assets/gap/loader.js"></script> 
       <script src="/assets/gap/main.js"></script>      
-
+      <script> var fb = '<%= gap_share_url %>';</script>
     <% if Rails.env.production? %>
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -114,7 +121,7 @@
 
         ga('create', 'UA-12801815-37', 'auto');
         ga('send', 'pageview');
-
+        var fb = '<%= gap_share_path %>';
       </script>
     <% end %>
    </body>

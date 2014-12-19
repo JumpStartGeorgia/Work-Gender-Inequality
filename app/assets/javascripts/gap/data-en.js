@@ -142,7 +142,7 @@ var categories =
         "action":true,
         "action_points":[{"x":570,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
-        "work_point":{"x":300,"y":0}
+        "work_point":{"x":200,"y":0}
     },
     { 
         "id": "EmbBcc5x",
@@ -156,7 +156,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "action":true,
-        "action_points":[{"x":780,"y":0,"d":1}],
+        "action_points":[{"x":790,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
         "work_point":{"x":200,"y":0}
     },

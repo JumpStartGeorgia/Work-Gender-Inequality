@@ -25,7 +25,7 @@ function afterinit()
 
   if(steptogo < 6) poll.show();
   else game_init(); 
-  if(steptogo == 0) $('.info').show();
+  if(steptogo == 0) $('.info, .lang').show();
   //player.mute(); //dev
 
 }
@@ -76,7 +76,7 @@ function redraw_game()
 function scr_clean(klass)
 {
   s.empty();
-  wr.find('.info,.volume,.hint,.settings,.share,.about,.settings-bar').hide(); 
+  wr.find('.info,.volume,.hint,.settings,.share,.about,.settings-bar,.lang').hide(); 
   player.background_stop();
   if(exist(klass)) s.removeClass(klass);
 }  
@@ -709,8 +709,7 @@ function params_validate()
   if(steptogo == 5 && exist(params.p) && isDecimal(params.p) && params.p >= 0 && params.p <= 100)
   {       
       steptogo = 6;
-      user.salary_percent = params.p;
-      sendUserData();
+      user.salary_percent = params.p;      
   }  
   if(steptogo == 6 &&  exist(params.t) && isNumber(params.t))
   {
@@ -854,6 +853,7 @@ $(document).on('mouseenter','.tip',function(){
 
   if(type == 'coin')
   {
+    custCss['height'] = 'auto';
     custCss['top'] = t.offset().top;
     custCss['left'] = t.offset().left +  wTmp2;
     custCss['padding-left'] = wTmp2+10;
@@ -924,7 +924,7 @@ function epilogue()
 
   $.getJSON( "game/summary?b=" + window.location.hash.substr(1), function( data ) {
     t.find('.summary .content').html(data.s).scrollTop();
-    t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
+    t.find('.whatnext .whatnext-trigger').on('click',function(){ epilogue_trigger(); });
     s.fadeOut(3000);
     t.fadeIn(3000);
   });
@@ -947,7 +947,7 @@ function epilogue_trigger()
     duration:1500,
     start:function()
     {
-      whatnext_trigger.off("mouseenter");
+      whatnext_trigger.off("click");
       epilogueTmp = true;
     },
     progress:function(a,b,c)
@@ -961,7 +961,7 @@ function epilogue_trigger()
     complete:function()
     {
       
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
+      whatnext_trigger.on('click',function(){ epilogue_trigger()});
       epilogueUp=!epilogueUp;
     }
   });
@@ -1073,35 +1073,33 @@ function settings_bar_fill()
 function share_button()
 {
   var share = $('.wrapper > .share');
-  if(init)
-  {
-    $(document).ready(function() {
-      $.ajaxSetup({ cache: true });
-      // js.src = "//connect.facebook.net/en_US/sdk/debug.js";    
-       $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
-       {
-         FB.init({
-           appId: '737141426318491',
-           xfbml      : true,
-           version    : 'v2.1'
-         });     
-        $(document).on('click','.share, .fb, .sum-share',function()
-        {
-          FB.ui({
-            method: 'share',
-            href: "http://dev-tanastsoroba.jumpstart.ge/en/game/share?b=" + window.location.hash.substr(1)
-          }, function(response){
-             if (response && !response.error_code) {
-                console.log('Posting completed.');
-             } else {
-                console.log('Error while posting.');
-             }
-          });          
-        });
+
+  $(document).ready(function() {
+    $.ajaxSetup({ cache: true });
+     $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
+     {
+       FB.init({
+         appId: '737141426318491',
+         xfbml      : true,
+         version    : 'v2.1'
+       });     
+      $(document).on('click','.share, .fb, .sum-share',function()
+      {
+        FB.ui({
+          method: 'share',
+          href: fb + "?b=" + window.location.hash.substr(1)
+        }, function(response){
+           if (response && !response.error_code) {
+              console.log('Posting completed.');
+           } else {
+              console.log('Error while posting.');
+           }
+        });          
       });
     });
-  }
-  share.show()
+  });
+      
+  share.show();
 }
 /***************************************************************
                           Buttons End

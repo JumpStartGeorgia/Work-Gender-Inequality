@@ -1089,7 +1089,28 @@ body,html
         text-align: center;
       }
     }
-
+  /* ----------- wrapper->lang #lang box ----------- */
+    .lang
+    {
+      position:fixed; 
+      top:0px;
+      right:0px;
+      background:transparent url('/assets/gap/svg/common/lang.svg') no-repeat;
+      background-size:52px 52px;
+      width:52px;
+      height:52px; 
+      display:none;   
+      a 
+      {
+        font-family: gandhi;
+        font-size: 16px;
+        color: rgb(84, 83, 82);
+        text-decoration:none;
+        left: 27px;
+        position: relative;
+        top: 5px;
+      }
+    }
     /* Custom, iPhone Retina */ 
     @media only screen and (min-width : 320px) {
       .info
@@ -1685,6 +1706,7 @@ body,html
               top:-30px;
               margin:0px auto;
               width:30px;
+              height:30px;
             }
           }
 
@@ -1856,6 +1878,7 @@ body,html
             background-size:75px 42px ;
             width:100%;
             height:42px;  
+            cursor:pointer;
           }
           &.up .arrow
           {
@@ -1943,7 +1966,7 @@ body,html
     background-color:#fffff9;
     position:fixed;
     padding:5px 15px 5px 15px;
-    white-space: pre;
+    white-space: pre-wrap;
     vertical-align:middle;
     display:none;
     font-family:gandhi-i;
@@ -1963,6 +1986,7 @@ body,html
     &.tip-logo:lang(ka) { line-height: 20px; }
     &.tip-settings:lang(ka) { line-height: 32px; }
     &.tip-about p { margin-top:5px; }
+    &.tip-coin { min-height:40px; max-width:600px; }
     &.tip-coin:lang(ka) { line-height: 21px; }
   }
 

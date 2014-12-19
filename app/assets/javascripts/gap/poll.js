@@ -30,6 +30,7 @@ var poll = {
       else 
       {
         if(!hist) history.pushState({},'',window.location.pathname);
+        $('.info, .lang').show()
         this.gender();
       }
     }
@@ -240,6 +241,7 @@ var poll = {
         $('.poll .selector .interest-picker').remove();
         $('.poll .selector .percent-picker').remove();
         params_set(6); 
+        sendUserData();
         resizeCallback = null;
         game_init();
       }

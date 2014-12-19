@@ -15,7 +15,7 @@ function redraw()
   t.find('.summary').css('height',h-62);
   t.find('.whatnext').css('height',h-42);
   t.find('.slider').css('top', epilogueUp ? 0 : -h+104);
-  $('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger()});
+  $('.whatnext .whatnext-trigger').on('click',function(){ epilogue_trigger()});
 }
 function epilogue_trigger()
 {
@@ -27,7 +27,7 @@ function epilogue_trigger()
     duration:1500,
     start:function()
     {
-      whatnext_trigger.off("mouseenter");
+      whatnext_trigger.off("click");
       epilogueTmp = true;
     },
     progress:function(a,b,c)
@@ -41,7 +41,7 @@ function epilogue_trigger()
     complete:function()
     {
       
-      whatnext_trigger.on('mouseenter',function(){ epilogue_trigger()});
+      whatnext_trigger.on('click',function(){ epilogue_trigger()});
       epilogueUp=!epilogueUp;
     }
   });
