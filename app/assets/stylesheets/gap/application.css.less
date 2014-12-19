@@ -171,7 +171,7 @@ body,html
         {
           z-index:40;
           width:100%;
-
+          visibility:hidden;
           > div { display:inline-block; }
 
           .pedestal 
@@ -359,6 +359,7 @@ body,html
            height: 30px;
            overflow: hidden; 
            transition: all 0.2s ease-out;
+           visibility:hidden;
         }
         .point-in-time
         { 
@@ -412,30 +413,45 @@ body,html
           color:rgba(218,92,57,153);
           width:100%;
 
-          > div 
+          div 
           {
             display:inline-block;
             line-height:30px;
             vertical-align:middle;
-          }
-          .backward
-          {
-            background:transparent url('/assets/gap/svg/common/backward.svg') no-repeat;
-            background-size:26px 18px;
-            width:26px;
-            height:18px;
-          }
-          .forward
-          {
-            background:transparent url('/assets/gap/svg/common/forward.svg') no-repeat;
-            background-size:26px 18px;
-            width:26px;
-            height:18px;
-          }
-          .forward:hover, .backward:hover { cursor:pointer; }
+          }          
           .now { width:175px; }
-          .travel-point-back, .travel-point-forw { background-color: rgb(255, 254, 249); width:130px; }
-          .travel-point-back { padding-right:15px; } .travel-point-forw { padding-left:15px; }
+          .travel-point-back, .travel-point-forw 
+          {           
+            background-color: rgb(255, 254, 249);
+            visibility:hidden;
+            .text
+            {  
+              width:130px;
+            }
+            &:hover { cursor:pointer; }
+          }
+          .travel-point-back
+          {
+            .text { padding-right:15px; }
+            .backward
+            {
+              background:transparent url('/assets/gap/svg/common/backward.svg') no-repeat;
+              background-size:26px 18px;
+              width:26px;
+              height:18px;
+            }
+          }
+          .travel-point-forw 
+          {
+            .text{ padding-left:15px; }
+            .forward
+            {
+              background:transparent url('/assets/gap/svg/common/forward.svg') no-repeat;
+              background-size:26px 18px;
+              width:26px;
+              height:18px;
+            }
+          }
         }
       }
 

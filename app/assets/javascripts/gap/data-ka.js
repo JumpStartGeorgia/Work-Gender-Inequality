@@ -156,7 +156,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "action":true,
-        "action_points":[{"x":870,"y":0,"d":1}],
+        "action_points":[{"x":877,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
         "work_point":{"x":200,"y":0}
     },
@@ -273,7 +273,7 @@ var interests =
                 "class":"vac-1",
                 "source":"http://taoklarjeti.com/index.php/tours/turebi-sakartveloshi/svaneti-3-days",
                 "source_date":"26.09.2014",
-                "descr":"თბილისი-ზუგდიდი-მესტია-უშგული-თბილისი, \nტრანსპორტირება, სამჯერადი კვება, სასტუმრო, გიდი" 
+                "descr":"თბილისი-ზუგდიდი-მესტია-უშგული-თბილისი, ტრანსპორტირება, სამჯერადი კვება, სასტუმრო, გიდი" 
             },
             { 
                 "id": "Pe23w2Lz",
@@ -283,7 +283,7 @@ var interests =
                 "class":"vac-2",
                 "source":"http://4travel.ge/package/barcelona-spain/",
                 "source_date":"26.09.2014",
-                "descr":"ბარსელონა, ესპანეთი: 6 დღე/5 ღამე, \nავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
+                "descr":"ბარსელონა, ესპანეთი: 6 დღე/5 ღამე, ავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
             },
             { 
                 "id": "j7hrF24w",
@@ -293,7 +293,7 @@ var interests =
                 "class":"vac-3",
                 "source":"http://discover-georgia.ge/index.php?l=2&menu=37&obj=216#.U_bwE8WSy3o",
                 "source_date":"26.09.2014",
-                "descr":"ტაიშანის მთები: 7 დღე/8 ღამე, \nავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
+                "descr":"ტაიშანის მთები: 7 დღე/8 ღამე, ავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
             },    
             { 
                 "id": "LE-xVn5T",
@@ -303,7 +303,7 @@ var interests =
                 "class":"vac-4",
                 "source":"http://bonvoyage.ge/?page=tours&cat=2&id=186",
                 "source_date":"26.09.2014",
-                "descr":"მექსიკა: 7 დღე/6 ღამე, \nავიაბილეთები, სასტუმრო, \nსამჯერადი კვება, ექსკურსიები" 
+                "descr":"მექსიკა: 7 დღე/6 ღამე, ავიაბილეთები, სასტუმრო, სამჯერადი კვება, ექსკურსიები" 
             },     
             { 
                 "id": "8BHSiiS3",
@@ -313,7 +313,7 @@ var interests =
                 "class":"vac-5",
                 "source":"http://www.flightcentre.com.au/tours/australia/3122876",
                 "source_date":"26.09.2014",
-                "descr":"კრუიზი ავსტრალიის კიმბერლის სანაპიროზე: \nსამჯერადი კვება" 
+                "descr":"კრუიზი ავსტრალიის კიმბერლის სანაპიროზე: სამჯერადი კვება" 
             },  
             { 
                 "id": "p_bINCPp",
@@ -323,7 +323,7 @@ var interests =
                 "class":"vac-6",
                 "source":"http://www.forbes.com/sites/forbestravelguide/2012/08/16/the-worlds-most-luxurious-cruises/",
                 "source_date":"26.09.2014",
-                "descr":"კრუიზი სათავეს იღებს ახალ ზელანდიაში, \nდანიშნულების ადგილებია: \nსიდნეი, ბალი, ჰონკონგი და ალიასკლა (სხვა ადგილებთან ერთად). \nკრუიზი სრულდება ლოს ანჯელესში." 
+                "descr":"კრუიზი სათავეს იღებს ახალ ზელანდიაში, დანიშნულების ადგილებია: სიდნეი, ბალი, ჰონკონგი და ალიასკლა (სხვა ადგილებთან ერთად). კრუიზი სრულდება ლოს ანჯელესში." 
             }
         ] 
     },
@@ -341,7 +341,7 @@ var interests =
                 "class":"gad-1",
                 "source":"http://pcshop.ge/index.php?page=shop.product_details&flypage=flypage-gur.tpl&product_id=1662&category_id=142&option=com_virtuemart&Itemid=6&lang=ka",
                 "source_date":"25.09.2014",
-                "descr":"სპეციალური გამოშვება \nIpod Shuffle (Product) Red" 
+                "descr":"სპეციალური გამოშვება Ipod Shuffle (Product) Red" 
             },
             { 
                 "id": "Q3eeT2j9",
@@ -391,7 +391,7 @@ var interests =
                 "class":"gad-6",
                 "source":"http://www.amazon.com/Klipsch-Theater-System-Cherry-AVR-X4000/dp/B00NSEK30W/ref=sr_1_3?s=tv&ie=UTF8&qid=1411721442&sr=1-3",
                 "source_date":"26.09.2014",
-                "descr":"Klipsch RF-7 II 5.1 სახლის კინოთეატრი \nSW-112, SW-115 Denon AVR-X4000" 
+                "descr":"Klipsch RF-7 II 5.1 სახლის კინოთეატრი SW-112, SW-115 Denon AVR-X4000" 
             }
         ]
     },   
@@ -409,7 +409,7 @@ var interests =
                 "class":"edu-1",
                 "source":"http://www.gceducentre.com/index.php?act=programs&id=9",
                 "source_date":"",
-                "descr":"ქართულ-კანადური საგანმანათლებლო ცენტრი, \n6 კვირიანი ფინანსური მენეჯმენტის კურსი" 
+                "descr":"ქართულ-კანადური საგანმანათლებლო ცენტრი, 6 კვირიანი ფინანსური მენეჯმენტის კურსი" 
             },
             { 
                 "id": "cuabVv82",
@@ -419,17 +419,17 @@ var interests =
                 "class":"edu-2",
                 "source":"http://www.britishcouncil.ge/english/courses-adults/general",
                 "source_date":"02.10.2014",
-                "descr":"ბრიტანული საბჭო, \n10 თვიანი ინგლისური ენის ზოგადი კურსი" 
+                "descr":"ბრიტანული საბჭო, 10 თვიანი ინგლისური ენის ზოგადი კურსი" 
             },
             { 
                 "id": "mE3tEvWc",
-                "title":"ბაკალავრიატის პროგრამა \nსახელმწიფო უნივერსიტეტში",
+                "title":"ბაკალავრიატის პროგრამა სახელმწიფო უნივერსიტეტში",
                 "cost":9000,
                 "image":"edu_3.svg",
                 "class":"edu-3",
                 "source":"",
                 "source_date":"",
-                "descr":"საქართველოს სახელმწიფო \nუნივერსიტეტი, ბაკალავრიატი" 
+                "descr":"საქართველოს სახელმწიფო უნივერსიტეტი, ბაკალავრიატი" 
             },
             { 
                 "id": "nGgaI1SL",
@@ -439,7 +439,7 @@ var interests =
                 "class":"edu-4",
                 "source":"http://freeuni.edu.ge/ge/node/463",
                 "source_date":"25.09.2014",
-                "descr":"თბილისის თავისუფალი \nუნივერსიტეტი ბიზნეს სკოლა (ESM)" 
+                "descr":"თბილისის თავისუფალი უნივერსიტეტი ბიზნეს სკოლა (ESM)" 
             },
             { 
                 "id": "egtsYjwP",
@@ -449,17 +449,17 @@ var interests =
                 "class":"edu-5",
                 "source":"http://www.ceu.hu/admissions/tuitionandfees/14-15",
                 "source_date":"26.09.2014",
-                "descr":"ცენტრალური ევროპის უნივერსიტეტი, \nბიზნეს ადმინისტრირების სამაგისტრო პროგრამა" 
+                "descr":"ცენტრალური ევროპის უნივერსიტეტი, ბიზნეს ადმინისტრირების სამაგისტრო პროგრამა" 
             },
             { 
                 "id": "k17y863W",
-                "title":"12-თვიანი ბიზნეს ადმინისტრირების \nსამაგისტრო პროგრამა",
+                "title":"12-თვიანი ბიზნეს ადმინისტრირების სამაგისტრო პროგრამა",
                 "cost":105000,
                 "image":"edu_6.svg",
                 "class":"edu-6",
                 "source":"http://grad-schools.usnews.rankingsandreviews.com/best-graduate-schools/top-business-schools/mba-rankings",
                 "source_date":"02.10.2014",
-                "descr":" კემბრიჯის უნივერსიტეტი, \nბიზნეს ადმინისტრირების სამაგისტრო პროგრამა, \n12 თვიანი ინტენსიური პროგრამა" 
+                "descr":" კემბრიჯის უნივერსიტეტი, ბიზნეს ადმინისტრირების სამაგისტრო პროგრამა, 12 თვიანი ინტენსიური პროგრამა" 
             }
         ] 
     },
@@ -477,7 +477,7 @@ var interests =
                 "class":"hou-1",
                 "source":"http://myhome.ge/product_info.php?product_id=6036887",
                 "source_date":"13.10.2014",
-                "descr":"1-ოთახიანი ბინა \nდიღმის მასივში, V კვარტალი." 
+                "descr":"1-ოთახიანი ბინა დიღმის მასივში, V კვარტალი." 
             },
             { 
                 "id": "FRyVRVZf",
@@ -487,7 +487,7 @@ var interests =
                 "class":"hou-2",
                 "source":"http://myhome.ge/product_info.php?product_id=5993384",
                 "source_date":"13.10.2014",
-                "descr":"2-ოთახიანი ბინა \nდიდ-დიღომში, I მკრ." 
+                "descr":"2-ოთახიანი ბინა დიდ-დიღომში, I მკრ." 
             },
             { 
                 "id": "-ke7QwpJ",
@@ -497,7 +497,7 @@ var interests =
                 "class":"hou-3",
                 "source":"http://myhome.ge/product_info.php?product_id=5993369",
                 "source_date":"13.10.2014",
-                "descr":"3-ოთახიანი ბინა \nდიდ-დიღომში, პეტრიწის ქ." 
+                "descr":"3-ოთახიანი ბინა დიდ-დიღომში, პეტრიწის ქ." 
             },
             { 
                 "id": "ODRpktbx",
@@ -507,7 +507,7 @@ var interests =
                 "class":"hou-4",
                 "source":"http://myhome.ge/product_info.php?product_id=5993386",
                 "source_date":"13.10.2014",
-                "descr":"4-ოთახიანი ბინა \nდიდ-დიღომში, III მკრ." 
+                "descr":"4-ოთახიანი ბინა დიდ-დიღომში, III მკრ." 
             },
             { 
                 "id": "2HIuYW5a",
@@ -517,7 +517,7 @@ var interests =
                 "class":"hou-5",
                 "source":"http://myhome.ge/product_info.php?product_id=6006503",
                 "source_date":"13.10.2014",
-                "descr":"5-ოთახიანი,\n 2-სართულიანი სახლი დიდ-დიღომში" 
+                "descr":"5-ოთახიანი, 2-სართულიანი სახლი დიდ-დიღომში" 
             },
             { 
                 "id": "5pTaH-Si",
@@ -527,7 +527,7 @@ var interests =
                 "class":"hou-6",
                 "source":"http://myhome.ge/product_info.php?product_id=5941408",
                 "source_date":"13.10.2014",
-                "descr":"6-ოთახიანი,\n 2-ორსართუოლიანი სახლი დიდ-დიღომში" 
+                "descr":"6-ოთახიანი, 2-ორსართუოლიანი სახლი დიდ-დიღომში" 
             }
         ] 
     },

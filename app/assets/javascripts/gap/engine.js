@@ -13,17 +13,16 @@ var epilogueUp = true;
 */
 function init()
 {  
-  redraw(); // recalculate all dimensions 
-  params_init();  
+  if(!isAssetsLoaded) Game.Loader.load();
   wr = $('.wrapper');
   s = wr.find('#screen');  
-
-  //s3 = d3.select('#screen');    
-  if(!isAssetsLoaded) Game.Loader.load();
 }
 function afterinit()
 { 
+  redraw(); // recalculate all dimensions 
+  params_init();  
   scr_clean();
+
   if(steptogo < 6) poll.show();
   else game_init(); 
   if(steptogo == 0) $('.info').show();
@@ -123,7 +122,9 @@ function walk(v)
       gopast();
     }
   }
-  
+
+  redraw_time_travel();
+
   if(v==1 && total_scrolls % (scrolls_for_score * scroll_per_month) == 0)
   {  
     calculate_process(v);
@@ -143,8 +144,8 @@ function can_scroll(v)
 }
 
 
-function gameon() { ingame = true; }
-function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
+function gameon() { ingame = true; canScroll = true; }
+function gameoff() { ingame = false; clearInterval(noscrollTimerId); canScroll= false; }
 function game_on_load()
 {
   setTimeout(function(){
@@ -160,6 +161,7 @@ function game_init() {
     gap.pos = 0;
     total_scrolls = 0;
   }
+
   scr_clean();
 
   sound_button();
@@ -188,9 +190,12 @@ function game_init() {
               '<div class="stage"><div class="bg"></div><div class="fg"></div></div>';
   s.append('<div class="top">' + tstr+'<div class="'+(male.place == "top" ? 'm' : 'f')+' character"><div class="you"><div class="text">'+locale.general.you+'</div><div class="arrow-d"></div></div></div></div>');
   
-  s.append('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward" onclick="timetravel_back()"></div><div class="now"></div><div class="forward" onclick="timetravel_forw()"></div><div class="travel-point-forw">'+jumper + ' ' + locale.general.years_forward +'</div></div></div>');
+  s.append('<div class="timeline"><div class="canvas"></div><div class="time-travel"><div class="travel-point-back" onclick="timetravel_back()"><div class="text">'+jumper + ' ' + locale.general.years_back +'</div><div class="backward"></div></div><div class="now"></div><div class="travel-point-forw" onclick="timetravel_forw()"><div class="forward"></div><div class="text">'+jumper + ' ' + locale.general.years_forward +'</div></div></div></div>');
 
   s.append('<div class="bottom">' + tstr+'<div class="'+(male.place == "top" ? 'f' : 'm')+' character"></div></div>');
+
+
+  redraw_time_travel();
 
   redraw_game();
 
@@ -232,6 +237,8 @@ function game_jump(v,jumper_step) //  -1 back 1 forw
       total_scrolls = gap.pos*scrolls_for_reward;    
 
       start_by_time();
+
+      redraw_time_travel();
 
       redraw_game();
 
@@ -422,11 +429,13 @@ function timeline_point_init()
  
   $('.treasure .red-carpet').css({width:pos_max*w}); 
   tt.css({width:pos_max*w}); 
-  setTimeout(function(){timeline_point_redraw();},2000);
+  setTimeout(function(){timeline_point_redraw();},1000);
   
 }
 function timeline_point_redraw()
 {
+  $('.treasure').css('visibility','hidden');
+  $('.timeline .canvas').css('visibility','hidden');
   var cnt = 1;
   for(var i = 0; i <= pos_max; ++i) 
   {
@@ -470,7 +479,14 @@ function timeline_point_redraw()
 
   $('.treasure .red-carpet').css({width:pos_max*w}); 
   $('.timeline .canvas').css({width:pos_max*w}); 
+  $('.timeline .canvas').css('visibility','visible');
+  $('.treasure').css('visibility','visible');
 
+}
+function redraw_time_travel()
+{
+  $('.timeline .time-travel .travel-point-back').css('visibility', (gap.pos >= (jumper*12)/reward_period) ? 'visible' : 'hidden' );
+  $('.timeline .time-travel .travel-point-forw').css('visibility', (pos_max - (jumper*12)/reward_period >= gap.pos) ? 'visible' : 'hidden' );
 }
 /***************************************************************
                         ON EACH TICK
@@ -889,7 +905,7 @@ function epilogue()
   
   var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
 
-  t.find('.whatnext .content').html($('.about-window .content').html());
+  t.find('.whatnext .content').html($('.about-window .content').html()).scrollTop();
   resizeCallback = function()
   {
     epilogue_redraw();
@@ -897,7 +913,7 @@ function epilogue()
   epilogue_redraw();
 
   $.getJSON( "game/summary?b=" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary .content').html(data.s);
+    t.find('.summary .content').html(data.s).scrollTop();
     t.find('.whatnext .whatnext-trigger').on('mouseenter',function(){ epilogue_trigger(); });
     s.fadeOut(3000);
     t.fadeIn(3000);

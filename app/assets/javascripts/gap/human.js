@@ -224,7 +224,7 @@ this.stop_counter = -3;
                t.x < category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w)))
         {
           t.action_movement();
-          t.stop_counter = 4;  
+          t.stop_counter = 8;  
           t.stopped = true; 
           t.was_stopped = true;
         }  
