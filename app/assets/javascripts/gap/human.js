@@ -37,7 +37,6 @@ function human(selector,title,alias)
   this.traversed_path = 0;
   this.path_loop = false;
   this.movement = 0;
-  this.event_by_month = []; 
   this.event_by_period = []; 
   this.place = '';
   this.card = new cardObject(this);
@@ -51,6 +50,8 @@ function human(selector,title,alias)
   this.carpet = null;   
   this.mutate_by_period = [];
   this.treasure_by_period = [];
+  this.event_by_period_sum = []; 
+  this.card_moment = [];
   this.frames = [
     { w:0, h:0 },
     { w:0, h:0 },
@@ -369,20 +370,22 @@ this.stop_counter = -3;
       t.rewardStarted = false;
     }
   }; 
-  this.event_by_period_sum = []; 
-  this.card_moment = [999,999,999,999,999,999];
+
   this.prepare_for_game = function prepare_for_game()
   {    
     var t = this;
     var life = (max_age - user.age) * 12;
     var overall = 0;
-    t.event_by_month = [];
     t.event_by_period = [];
+    t.mutate_by_period = [];
+    t.event_by_period_sum = [];
+    t.card_moment = [999,999,999,999,999,999];
+    t.treasure_by_period = [];
 
     var periodIndex = -1;
     var treasureTmp = [0,0,0,0,0,0];
     var prevTreasureTmp = [0,0,0,0,0,0];
-
+    
 
     for (var i = 1; i <= life; ++i) 
     {

@@ -647,7 +647,7 @@ var locale = {
     you_can_buy: "თქვენ შეგიძლიათ იყიდოთ ",
     you_can_buy_education: "თქვენ შეგიძლიათ დააფინანსოთ თქვენი ",
     sorry: "So sorry,\n but saving &1 a month will never\n be enough for you to afford\n something in &2.\n Do you want to start the game over?",
-    wanna_jump: "Saving &1 a month will take you \n&2 years before you can purchase \nsomething.\nDo you want to jump ahead to get your \nfirst purchase?",
+    wanna_jump: "Saving &1 GEL a month will take you \n&2 years before you can purchase \nsomething in &3.\nDo you want to jump ahead to get your \nfirst purchase?",
     another_interest: "Choose another interest",
     continue_anyway: "Continue anyway",
     yes: "კი",
@@ -665,7 +665,7 @@ var locale = {
   },
   game:
   {
-    total_salary:"ჯამური ხელფასი&nbsp;",
+    total_salary:"ჯამური ხელფასი:&nbsp;",
     total_saved:"&nbsp;|&nbsp;მთლიანი დანაზოგი:&nbsp;"
   }
 };

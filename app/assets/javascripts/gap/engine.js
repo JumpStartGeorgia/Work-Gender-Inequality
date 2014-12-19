@@ -994,7 +994,7 @@ function about_button()
     about.click(function(){
       gameoff();
       wr.find('.about-window').fadeIn(500,function(){
-        $(document).click(function(){
+        $(document).click(function(){          
           gameon();
           $(this).off('click');
           about_window.hide();
@@ -1036,9 +1036,14 @@ function settings_button()
         var togo = settings.hasClass('on') ? -sbar_w : 0;
         settings.toggleClass('on off');
         settings.animate({right:togo+sbar_w},{ duration:1000 });  
-        settings_bar.animate({right:togo},{ duration:1000 });     
+        settings_bar.animate({right:togo},{ duration:1000 });
+
     });
-    settings_bar.find('.options .edit').click(function(){ wr.find('*').clearQueue().finish();  gameoff(); poll.show(true); });
+    settings_bar.find('.options .edit').click(function(e){ wr.find('*').clearQueue().finish();  gameoff(); poll.show(true); e.stopPropagation(); });
+  }
+  else
+  {
+    if(settings.hasClass('on')) settings.trigger('click');
   }
   settings_bar_fill();
   settings_bar.show();
@@ -1129,7 +1134,7 @@ function wanna_jump_popup()
   show_jumper_prompt = false;
   gameoff();        
   popup(
-    lg.wanna_jump.replace('&1',user.salary*user.salary_percent/100).replace('&2',jumper_threshold+2),
+    lg.wanna_jump.replace('&1',user.salary*user.salary_percent/100).replace('&2',jumper_threshold+2).replace('&3',interests.filter(function(a){ return a.id == user.interest; })[0].name),
     lg.yes,
     lg.no,
     function(){ game_jump(1,jumper_threshold); },
