@@ -439,10 +439,13 @@ en:
       edit: Edit Settings
     share:
       title: "In Georgia, men earn on average 39% more than women."
-      desc1: "After working [years] years in [job], I earned [salary] GEL [more_less] than my [gender] counterpart. "
+      desc1: "After working %{years} years%{in_job}, I earned %{salary} GEL %{more_less} than my %{gender} counterpart. "
+      job: ' in %{job}'
       more: more
       less: less
-      desc2: "Imagine all the desires families could fullfil in an equal work environment."
+      m: male
+      f: female
+      desc2: "Imagine all the desires families could fullfil while working in an equal environment."
     gamedata:
       gender:
         m: Male
@@ -464,6 +467,22 @@ en:
         dJdfgktK: Health and social work
         DqFfYVGZ: Other community, social and personal service activities
         hyn3wmKk: All Jobs
+      share_category:
+        45bS4GyC: Agriculture, hunting and forestry
+        FWrgJx0N: Fishing
+        TxbZicXP: Mining and quarrying
+        Zyb2KhON: Manufacturing
+        8IkQeUfg: Production and distribution of electricity, gas and water
+        eibtNMge: Construction
+        jDYS_Z1V: Wholesale and retail trade; repair of motor vehicles and personal and household goods
+        I52aZAVX: Hotels and restaurants
+        rn4bDK0j: Transport and communication
+        EmbBcc5x: Financial intermediation
+        oxKq-H8w: Real estate, renting and business activities
+        dT-LWuT4: Public administration
+        HxhM0Ejd: Education
+        dJdfgktK: Health and social work
+        DqFfYVGZ: Other community, social and personal service activities
       interest:
         gfNDXD1g: Vacation
         Rs2Uml6w: Gadgets
