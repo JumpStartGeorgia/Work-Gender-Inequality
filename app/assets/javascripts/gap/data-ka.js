@@ -224,7 +224,7 @@ var categories =
     },
     {
         "id": "DqFfYVGZ",
-        "name": "Community, social and\n personal service activities",
+        "name": "სხვა კომუნალური, სოციალური და \nპერსონალური მომსახურების გაწევა",
         "outrun":0,
         "percent":32.51,
         "male":858.3,
@@ -240,7 +240,7 @@ var categories =
     },
     {
         "id": "hyn3wmKk",
-        "name": "All Jobs",
+        "name": "ყველა სამუშაო",
         "outrun":0,
         "percent":39.11,
         "male":1051.4,
