@@ -293,7 +293,7 @@ var interests =
                 "class":"vac-3",
                 "source":"http://discover-georgia.ge/index.php?l=2&menu=37&obj=216#.U_bwE8WSy3o",
                 "source_date":"26.09.2014",
-                "descr":"Chinese Mountains of Taishan: 7 days/8 nights, round trip flight, hotel, travel insurance" 
+                "descr":"Chinese Mountains of Taishan: 8 days/7 nights, round trip flight, hotel, travel insurance" 
             },    
             { 
                 "id": "LE-xVn5T",

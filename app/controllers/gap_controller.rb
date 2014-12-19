@@ -48,7 +48,7 @@ class GapController < ApplicationController
 
     if p.present?
       encodedP = Base64.urlsafe_encode64(p.to_param)
-#      if request.user_agent.include?("facebook") && request.user_agent.include?("externalhit") # if facebook robot        
+     if Rails.env.development? || (request.user_agent.include?("facebook") && request.user_agent.include?("externalhit")) # if facebook robot        
         require 'game_data'
 
         @url = request.original_url.split('?').first + '?f=' + encodedP     
@@ -73,19 +73,24 @@ class GapController < ApplicationController
 
         # params needed for t('.desc1') that is in the share page
         @years = ((cur_ticks * tick) / 12).to_s
-        @job = I18n.t("gap.gamedata.category.#{p['c']}")
+        @job = ''
+        if p['c'] != 'hyn3wmKk' # do not show job title for 'all jobs'
+          @job = I18n.t('gap.share.job', job: I18n.t("gap.gamedata.share_category.#{p['c']}"))
+        end
+
+        
         @salary = view_context.number_with_delimiter(salary_total_diff)
         @more_less = ((gender == 'm' && msalary > fsalary) || (gender == 'f' && fsalary > msalary)) ? t('gap.share.more') : t('gap.share.less')
-        @gender = I18n.t("gap.gamedata.gender.#{gender == 'f' ? 'm' : 'f'}").downcase
+        @gender = I18n.t("gap.share.#{gender == 'f' ? 'm' : 'f'}")
 
 
         @descr = "Gender " + I18n.t("gap.gamedata.gender.#{p['g']}") + ", Age " + p['a'] + ", Category " + I18n.t("gap.gamedata.category.#{p['c']}") + ", Salary " + p['s'] + ", Interest " +  I18n.t("gap.gamedata.interest.#{p['i']}") + ", Salary Percent " + p['p'] 
         respond_to do |format|
           format.html
         end
-      # else 
-      #   redirect_to gap_summary_path(f:encodedP) and return    
-      # end
+      else 
+        redirect_to gap_summary_path(f:encodedP) and return    
+      end
     end
   end
 
