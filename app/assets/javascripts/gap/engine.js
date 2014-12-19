@@ -22,7 +22,7 @@ function afterinit()
   redraw(); // recalculate all dimensions 
   params_init();  
   scr_clean();
-  
+
   if(steptogo < 6) poll.show();
   else game_init(); 
   if(steptogo == 0) $('.info').show();
@@ -144,8 +144,8 @@ function can_scroll(v)
 }
 
 
-function gameon() { ingame = true; }
-function gameoff() { ingame = false; clearInterval(noscrollTimerId); }
+function gameon() { ingame = true; canScroll = true; }
+function gameoff() { ingame = false; clearInterval(noscrollTimerId); canScroll= false; }
 function game_on_load()
 {
   setTimeout(function(){
