@@ -437,6 +437,12 @@ en:
       interest: Interest
       saving: Saving
       edit: Edit Settings
+    share:
+      title: "In Georgia, men earn on average 39% more than women."
+      desc1: "After working [years] years in [job], I earned [salary] GEL [more_less] than my [gender] counterpart. "
+      more: more
+      less: less
+      desc2: "Imagine all the desires families could fullfil in an equal work environment."
     gamedata:
       gender:
         m: Male

@@ -3,10 +3,18 @@
    <head>  
       <title><%= t('gap.index.title') %></title>
       <meta charset="utf-8">  
-      <meta property="og:title"content="<%= t('gap.index.title') %>" />
+      <meta property="og:title"content="<%= t('.title') %>" />
       <meta property="og:site_name" content="<%= t('gap.index.title') %>" />      
       <meta property="og:image" content="<%= full_url('/assets/gap/svg/common/fb_image.png') %>" />
-      <meta property="og:description" content="<%= @descr %>" />
+      <%
+        desc = t('.desc1').gsub('[years]', @years)
+                          .gsub('[job]', @job)
+                          .gsub('[salary]', @salary)
+                          .gsub('[more_less]', @more_less)
+                          .gsub('[gender]', @gender)
+        desc << t('.desc2')
+      %>
+      <meta property="og:description" content="<%= desc %>" />
       <meta property="og:url" content="<%= @url %>" />
       <meta property="og:type"   content="website" /> 
       <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>" />
