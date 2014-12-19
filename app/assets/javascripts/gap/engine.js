@@ -1072,7 +1072,7 @@ function settings_bar_fill()
     opts.find('.option.category > div.value').text(category.name);
     opts.find('.option.salary > div.value').text(user.salary);
     opts.find('.option.interest > div.value').text(interests.filter(function(a){ return a.id == user.interest; })[0].name);
-    opts.find('.option.saving > div.value').text(user.salary*user.salary_percent/100);
+    opts.find('.option.saving > div.value').text(Math.floor10(user.salary*user.salary_percent/100));
 
 }
 function share_button()
@@ -1132,7 +1132,7 @@ function sorry_popup()
   show_not_enough_prompt = false;
   gameoff();
   popup(
-    lg.sorry.replace('&1',user.salary*user.salary_percent/100).replace('&2',interests.filter(function(a){ return a.id == user.interest; })[0].name),
+    lg.sorry.replace('&1',Math.floor10(user.salary*user.salary_percent/100)).replace('&2',interests.filter(function(a){ return a.id == user.interest; })[0].name),
     lg.another_interest,
     lg.continue_anyway,
     function()
@@ -1147,7 +1147,7 @@ function wanna_jump_popup()
   show_jumper_prompt = false;
   gameoff();        
   popup(
-    lg.wanna_jump.replace('&1',user.salary*user.salary_percent/100).replace('&2',jumper_threshold+2).replace('&3',interests.filter(function(a){ return a.id == user.interest; })[0].name),
+    lg.wanna_jump.replace('&1',Math.floor10(user.salary*user.salary_percent/100)).replace('&2',jumper_threshold+2).replace('&3',interests.filter(function(a){ return a.id == user.interest; })[0].name),
     lg.yes,
     lg.no,
     function(){ game_jump(1,jumper_threshold); },

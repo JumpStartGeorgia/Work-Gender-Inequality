@@ -125,11 +125,18 @@ function human(selector,title,alias)
       this.treasure.forEach(function(d,i){ tmp+=d; });
      return tmp;
   });
+  this._stop_counter = -3;
+  this.__defineSetter__("stop_counter", function(val){
+     this._stop_counter = val;
+  });
+  this.__defineGetter__("stop_counter", function(){
+     return this._stop_counter;
+  });
 //*************************methods**********************************
-this.stop_counter = -3;
   this.position = function position(coord,scale) {   
     //  console.log(coord); 
       var t = this;
+     
       //this.prevX = this.x;
      // this.prevY = this.y;
      // console.log(coord,noscale);
@@ -137,6 +144,7 @@ this.stop_counter = -3;
       if(exist(coord))
       {
         if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;
+        if(t.step_counter) t.x = t.prevX;
         t.choose_movement();
         if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
 
@@ -240,8 +248,10 @@ this.stop_counter = -3;
           $(this.selector).addClass('l');  
           if(!t.stopped) this.prev_movement();      
         }
+         console.log(t.prevX,t.prevY,t.title);
         t.prevX = t.x;
         t.prevY = t.y;
+         console.log(t.prevX,t.prevY,t.title);
       }
     }
   };
@@ -267,9 +277,9 @@ this.stop_counter = -3;
       t.movement = 3; 
       var hDiff = t.frames[t.movement].h-t.height;      
       var wDiff = t.frames[t.movement].w-t.width;
-
-      t.prevX = t.prevX - wDiff;
-      t.prevY = t.prevY - hDiff; 
+      console.log(t.prevX,t.prevY);
+     // t.prevX = t.prevX;
+      //t.prevY = t.prevY; 
       t.x = category.action_points[0].d == 1 
             ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
             : category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w;
@@ -308,7 +318,7 @@ this.stop_counter = -3;
   this.step_right = function step_right()
   {    
     var t = this;
-    if(t.stop_counter-- == 0) t.stopped = false;
+    if(t.stop_counter-- == 0) { t.stopped = false;} 
     if(!t.stopped)
     {
       var tmp = (this.traversed_path + 4);//(100/scrolls_for_reward));
@@ -393,6 +403,11 @@ this.stop_counter = -3;
     t.card_moment = [999,999,999,999,999,999];
     t.treasure_by_period = [];
 
+
+
+
+
+
     var periodIndex = -1;
     var treasureTmp = [0,0,0,0,0,0];
     var prevTreasureTmp = [0,0,0,0,0,0];
@@ -445,6 +460,8 @@ this.stop_counter = -3;
     if(this.place == 'top')
     {
       jumper_threshold = 60;
+      show_jumper_prompt = false;
+        
       if(jumper_threshold*this.saving_for_tick < interest[0].cost)
       {
          for(var i = jumper_threshold+1; i <= life; ++i) 
@@ -472,7 +489,7 @@ this.stop_counter = -3;
     var st = $('.' + t.place + ' .stage');
     var xDistance = w2 - fgw/2 + bg_width/7 + (category.work_point.x*img_scaler)-t.frames[t.movement].w;
     var yDistance = category.work_point.y*img_scaler;
-    
+
     $(this.selector).animate({"color":'white'},{ 
       duration: Math.round10(xDistance/(t.frames[t.movement].w/2.3)) * 250,      
       progress:function(a,b,c) 
