@@ -86,6 +86,8 @@ class ApplicationController < ActionController::Base
     # for loading extra css/js files    
     @css = ['variables.css', "fonts_#{I18n.locale}.css"]
     @js = []
+
+    @fb_app_id = Rails.env.production? ? ENV['FACEBOOK_APP_ID'] : ENV['DEV_FACEBOOK_APP_ID']
   end
 
 	def initialize_gon
