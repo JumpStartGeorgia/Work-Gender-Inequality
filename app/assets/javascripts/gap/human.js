@@ -42,7 +42,7 @@ function human(selector,title,alias)
   this.card = new cardObject(this);
   this.pedestal = new pedestalObject(this);   
   this.queue = new queueObject({complete:queueCompleteCallback});
-  this.oppenent = null;
+  this.opponent = null;
   this.working = false;
   this.distance = 0;
   this.walk_distance = 0;
@@ -138,7 +138,9 @@ this.stop_counter = -3;
       {
         if(exist(coord.x)) t.x = scale ? coord.x*img_scaler + $('.top .stage .fg img').first().offset().left-t.width/2 : coord.x;
         t.choose_movement();
+        console.log(coord.y);
         if(exist(coord.y)) t.y = scale ? t.land - ((t.land - ($('.top .stage .fg img').first().offset().top + coord.y*img_scaler)) + t.frames[t.movement].h) : coord.y;//lh-t.frames[t.movement].h-coord.y; 
+
         //if(t.working)
         //{
         //  t.x ;
@@ -220,9 +222,9 @@ this.stop_counter = -3;
       {
         if(t.working && category.action &&  !t.was_stopped && t.stop_counter != -1 &&
                ((category.action_points[0].d == 1 && t.prevX < t.x &&
-               t.x > category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w) ||
+               t.x > category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w/2) ||
                (category.action_points[0].d == -1 && t.prevX > t.x &&
-               t.x < category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w)))
+               t.x < category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[3].w/2)))
         {
           t.action_movement();
           t.stop_counter = 8;  
@@ -269,12 +271,15 @@ this.stop_counter = -3;
 
       t.prevX = t.prevX - wDiff;
       t.prevY = t.prevY - hDiff; 
-      t.x = t.x - wDiff;
+      t.x = category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff;
       t.y = t.y - hDiff;
       $(t.selector).css({ left: t.x, top: t.y });  
       
 
       t.before_movement('a0');
+
+      if(category.action_points.d == -1) $(t.selector).addClass('l');  
+      else $(t.selector).removeClass('l');  
     }
   };
   this.before_movement = function before_movement(ext)
@@ -294,7 +299,7 @@ this.stop_counter = -3;
   this.stand_movement = function stand_movement(v)
   { 
     var t = this;
-    t.movement = 0;    
+    t.movement = 0;       
     t.before_movement(); 
     if(v === 'l') $(t.selector).addClass('l');
     else $(t.selector).removeClass('l');
@@ -476,7 +481,7 @@ this.stop_counter = -3;
       complete:function() 
       {
         t.animated = false;
-        animated = t.animated || t.oppenent.animated;
+        animated = t.animated || t.opponent.animated;
         if(animated) canScroll = true;       
         t.stand_movement();
         t.work_frame();
@@ -493,7 +498,7 @@ this.stop_counter = -3;
   this.init = function()
   {
     var t = this;
-    t.oppenent = (t.alias=='m') ? female : male;
+    t.opponent = (t.alias=='m') ? female : male;
 
     t.prepare_for_game();
     t.reset();

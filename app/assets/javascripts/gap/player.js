@@ -23,6 +23,7 @@ function playerObject()
 	};
 	this.background_play = function()
 	{
+		bgBothLoaded = 2;
 		var t = this;
 		t.bgcat = $('<audio>',
 		{
@@ -46,8 +47,6 @@ function playerObject()
 		t.bgcat.loop = true;
 		t.bgcat.volume = 0.3;
 		t.bgint.volume = 0.3;
-		// t.bgcat.muted = true;
-		// t.bgint.muted = true;
 		$(t.bgcat).on('playing', function() { t.bgint.currentTime = t.bgcat.currentTime; } );
 	};	
 	this.background_ready = function(t)

@@ -16,8 +16,8 @@ var categories =
         "bg2":"bg3",
         "fg":"agriculture",
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 59.818847,205.81734 L 1177.9035,206.39464 L 1177.9035,205.27178 L 59.818846,206.90233 z"},
-        "work_point":{ "x":60,"y":27 }   
+        "work":{ "a":false, "loop": true, "path":"M 26.390668,231.02593 L 1195.4972,231.02593 L 1194.5586,227.52296 L 23.751601,227.52296 z"},
+        "work_point":{ "x":20,"y":0 }    
     },
     { 
         "id": "FWrgJx0N",
@@ -31,9 +31,9 @@ var categories =
         "bg2":"bg2",
         "fg":"fishing",
         "action":true,
-        "action_points":[{"x":200,"y":0,"d":1}],
-        "work":{ "a":false, "loop": true, "path":"M 15.655567,182.40349 L 1056.151,182.40349 L 1056.1984,181.64588 L 15.655557,181.64588 z"},
-        "work_point":{ "x":10,"y":0 }      
+        "action_points":[{"x":700,"y":0,"d":-1}],
+        "work":{ "a":false, "loop": true, "path":"M 38.900437,182.29612 L 1033.755,182.29612 L 1033.7967,181.36887 L 38.848395,181.36887 z"},
+        "work_point":{ "x":35,"y":0 }         
     },
     { 
         "id": "TxbZicXP",
@@ -47,9 +47,9 @@ var categories =
         "bg2":"bg2",
         "fg":"mining",
         "action":true,
-        "action_points":[{"x":396,"y":0,"d":1}],
-        "work":{ "a":false, "loop": true, "path":"M 33.107821,289.61203 L 33.107821,291.27324 L 709.11961,291.27324 L 709.11961,289.95167 z"},
-        "work_point":{"x":70,"y":0}  
+        "action_points":[{"x":340,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 7.9294526,292.21723 L 732.64405,292.21723 L 732.64405,291.93403 L 7.9294526,291.93403 z"},
+        "work_point":{"x":0,"y":0}  
     },
     { 
         "id": "Zyb2KhON",
@@ -63,8 +63,8 @@ var categories =
         "bg2":"bg1",
         "fg":"manufacturing",
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 114.69192,284.55042 L 388.65288,284.55042 L 388.65288,282.33241 L 114.69192,282.73297 z"},
-        "work_point":{"x":150,"y":4}     
+        "work":{ "a":false, "loop": true, "path":"M 146.60001,287.05587 L 410.3976,287.05587 L 410.3976,287.16761 L 146.12794,287.16761 z"},
+        "work_point":{"x":140,"y": 0}     
     },
     { 
         "id": "8IkQeUfg",
@@ -156,7 +156,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "action":true,
-        "action_points":[{"x":877,"y":0,"d":1}],
+        "action_points":[{"x":790,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
         "work_point":{"x":200,"y":0}
     },
@@ -293,7 +293,7 @@ var interests =
                 "class":"vac-3",
                 "source":"http://discover-georgia.ge/index.php?l=2&menu=37&obj=216#.U_bwE8WSy3o",
                 "source_date":"26.09.2014",
-                "descr":"ტაიშანის მთები: 7 დღე/8 ღამე, ავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
+                "descr":"ტაიშანის მთები ჩინეთში: 7 დღე/8 ღამე, ავიაბილეთები, სასტუმრო, სამოგზაურო დაზღვევა" 
             },    
             { 
                 "id": "LE-xVn5T",
@@ -646,14 +646,15 @@ var locale = {
     about:"შესახებ",
     you_can_buy: "თქვენ შეგიძლიათ იყიდოთ ",
     you_can_buy_education: "თქვენ შეგიძლიათ დააფინანსოთ თქვენი ",
-    sorry: "So sorry,\n but saving &1 a month will never\n be enough for you to afford\n something in &2.\n Do you want to start the game over?",
-    wanna_jump: "Saving &1 GEL a month will take you \n&2 years before you can purchase \nsomething in &3.\nDo you want to jump ahead to get your \nfirst purchase?",
-    another_interest: "Choose another interest",
-    continue_anyway: "Continue anyway",
+    sorry: "სამწუხაროდ,\n თვეში &1 ლარიანი დანაზოგით \nთქვენ ვერ შეძლებთ დააგროვოთ \nსაკმარისი თანხა &2-სთვის. \nგსურთ, ხელახლა თამაში?",
+    wanna_jump: "თვეში &1 ლარიანი დანაზოგით \nთქვენ დაგჭირდებათ &2 წელი \nამ ინტერესიდან რაიმეს შესაძენად. \nგსურთ, პირდაპირ გადასვლა \nთქვენს პირველ შენაძენზე?",
+    another_interest: "აირჩიეთ ახალი ინტერესი",
+    continue_anyway: "გააგრძელეთ",
     yes: "კი",
     no: "არა",
     you: "შენ",
     retirement: "წელი პენსიამდე",
+    retirements: "წელი პენსიამდე",
     details: "დაწვრილებით",
     cost: "ღირებულება",
     years_back: " წლით უკან",

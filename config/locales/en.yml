@@ -437,10 +437,6 @@ en:
       interest: Interest
       saving: Saving
       edit: Edit Settings
-      another_interest: CHOOSE ANOTHER INTEREST
-      continue_anyway: CONTINUE ANYWAY      
-      yes: YES
-      no: NO
     gamedata:
       gender:
         m: Male

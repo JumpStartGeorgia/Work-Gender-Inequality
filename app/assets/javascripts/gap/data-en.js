@@ -16,8 +16,8 @@ var categories =
         "bg2":"bg3",
         "fg":"agriculture",
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 59.818847,205.81734 L 1177.9035,206.39464 L 1177.9035,205.27178 L 59.818846,206.90233 z"},
-        "work_point":{ "x":60,"y":27 }    
+        "work":{ "a":false, "loop": true, "path":"M 26.390668,231.02593 L 1195.4972,231.02593 L 1194.5586,227.52296 L 23.751601,227.52296 z"},
+        "work_point":{ "x":20,"y":0 }    
     },
     { 
         "id": "FWrgJx0N",
@@ -26,14 +26,14 @@ var categories =
         "percent":43.68,
         "male":524.9,
         "female":295.6,
-        "dress":"fisher",
+        "dress":"fisher",        
         "bg":"bg1",
         "bg2":"bg2",
         "fg":"fishing",
         "action":true,
-        "action_points":[{"x":700,"y":0,"d":1}],
-        "work":{ "a":false, "loop": true, "path":"M 15.655567,182.40349 L 1056.151,182.40349 L 1056.1984,181.64588 L 15.655557,181.64588 z"},
-        "work_point":{ "x":10,"y":0 }    
+        "action_points":[{"x":700,"y":0,"d":-1}],
+        "work":{ "a":false, "loop": true, "path":"M 38.900437,182.29612 L 1033.755,182.29612 L 1033.7967,181.36887 L 38.848395,181.36887 z"},
+        "work_point":{ "x":35,"y":0 }    
     },
     { 
         "id": "TxbZicXP",
@@ -47,9 +47,9 @@ var categories =
         "bg2":"bg2",
         "fg":"mining",
         "action":true,
-        "action_points":[{"x":396,"y":0,"d":1}],
-        "work":{ "a":false, "loop": true, "path":"M 33.107821,289.61203 L 33.107821,291.27324 L 709.11961,291.27324 L 709.11961,289.95167 z"},
-        "work_point":{"x":70,"y":0}        
+        "action_points":[{"x":340,"y":0,"d":1}],
+        "work":{ "a":false, "loop": true, "path":"M 7.9294526,292.21723 L 732.64405,292.21723 L 732.64405,291.93403 L 7.9294526,291.93403 z"},
+        "work_point":{"x":0,"y":0}        
     },
     { 
         "id": "Zyb2KhON",
@@ -63,8 +63,8 @@ var categories =
         "bg2":"bg1",
         "fg":"manufacturing",
         "action":false,
-        "work":{ "a":false, "loop": true, "path":"M 114.69192,284.55042 L 388.65288,284.55042 L 388.65288,282.33241 L 114.69192,282.73297 z"},
-        "work_point":{"x":150,"y":4}     
+        "work":{ "a":false, "loop": true, "path":"M 146.60001,287.05587 L 410.3976,287.05587 L 410.3976,287.16761 L 146.12794,287.16761 z"},
+        "work_point":{"x":140,"y": 0}     
     },
     { 
         "id": "8IkQeUfg",
@@ -156,7 +156,7 @@ var categories =
         "bg2":"bg1",        
         "fg":"financial",
         "action":true,
-        "action_points":[{"x":877,"y":0,"d":1}],
+        "action_points":[{"x":790,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 203.22005,315.7171 L 900.0101,315.7171 L 900.0101,314.43862 L 203.19904,314.47367 z"},
         "work_point":{"x":200,"y":0}
     },
@@ -653,7 +653,8 @@ var locale = {
     yes: "Yes",
     no: "No",
     you: "You",
-    retirement: "years until retirement",
+    retirement: "year until retirement",
+    retirements: "years until retirement",
     details: "Details",
     cost: "Cost",
     years_back: " years back",
