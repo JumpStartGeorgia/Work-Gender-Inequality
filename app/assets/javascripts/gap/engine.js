@@ -1066,7 +1066,7 @@ function share_button()
      $.getScript('//connect.facebook.net/en_UK/sdk.js', function()
      {
        FB.init({
-         appId: '737141426318491',
+         appId: fb_app_id,
          xfbml      : true,
          version    : 'v2.1'
        });     
