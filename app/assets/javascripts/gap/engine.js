@@ -1077,9 +1077,9 @@ function share_button()
           href: fb + "?b=" + window.location.hash.substr(1)
         }, function(response){
            if (response && !response.error_code) {
-              console.log('Posting completed.');
+//              console.log('Posting completed.');
            } else {
-              console.log('Error while posting.');
+//              console.log('Error while posting.');
            }
         });          
       });

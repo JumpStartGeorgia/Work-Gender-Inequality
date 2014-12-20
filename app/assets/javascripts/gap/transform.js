@@ -41,7 +41,7 @@ var transform = {
 					this.skew(selector,par.x,par.y);
 				break;
 			}
-			console.log(this.queue[selector].count)
+			//console.log(this.queue[selector].count)
 			if(this.queue[selector].count >= 1) 
 			{
 				this.queue[selector].waiting = true;

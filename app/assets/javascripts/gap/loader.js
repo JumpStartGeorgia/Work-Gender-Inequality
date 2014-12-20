@@ -174,7 +174,9 @@ Game.Loader =
 		      { 
 		        clearInterval(noscrollTimerId); // clear last noscroll catcher
 		        walk(delta < 0 ? 1 : -1);
-		        noscrollTimerId = setInterval(function(){ console.log("Tap"); }, noscrollEventTime); // create new noscroll interval trigger
+		        noscrollTimerId = setInterval(function(){ 
+		        	//console.log("Tap"); 
+	        	}, noscrollEventTime); // create new noscroll interval trigger
 		      }
 
 		      if(func(onscrollafter)) onscrollafter()
@@ -227,8 +229,10 @@ Game.Loader =
 			{
 	  			on: 
 	  			{
-					load: function() { t.dec(); },
-					error: function(e) { console.log(this,' - not loaded',e); }
+						load: function() { t.dec(); },
+						error: function(e) { 
+							console.log(this,' - not loaded'); 
+						}
 			  	},
 			  	"src":p
 		  	})
@@ -310,8 +314,10 @@ Game.Loader =
 				preload:'auto',
 	  			on: 
 	  			{
-					canplay: function() { t.dec(); },
-					error: function(e) { console.log(this,e,"error");}
+						canplay: function() { t.dec(); },
+						error: function(e) { 
+							console.log(this,e,"error");
+						}
 			  	},
 			  	"src":v.path + '.' +  t.sound_ext
 		  	})
