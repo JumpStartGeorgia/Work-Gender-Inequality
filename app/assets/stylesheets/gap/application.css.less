@@ -1069,7 +1069,12 @@ body,html
       -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
       transform: translateX(-50%);  
-
+     -webkit-user-select: none; /* Chrome/Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+ */
+      /* Rules below not implemented in browsers yet */
+        -o-user-select: none;
+        user-select: none;
       .triangle
       {    
         -webkit-transform: rotate(45deg);
