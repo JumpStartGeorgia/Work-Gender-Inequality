@@ -82,6 +82,9 @@ function scr_clean(klass)
 }  
 function walk(v)
 {  
+
+   if(!(ingame && !animated && !reward)) return;
+          
   if(!canScroll) return;
   if(!scrolled) 
   { 
