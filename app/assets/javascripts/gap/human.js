@@ -258,8 +258,8 @@ function human(selector,title,alias)
     if(category.action)
     {
       t.x = category.action_points[0].d == 1 
-            ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
-            : t.x + t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
+            ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left//wDiff
+            : category.action_points[0].x*img_scaler + t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
 
       t.movement = 3; 
 
