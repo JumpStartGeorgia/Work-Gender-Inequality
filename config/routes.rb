@@ -39,7 +39,7 @@ BootstrapStarter::Application.routes.draw do
 		match '/publications/:id', :to => 'root#publications_show', :as => :publications_show, :via => :get
 
 		get '/game', :to => 'gap#index', :as => 'gap'
-		post '/game/poll', :to => 'gap#poll', :as => 'gap_poll'
+		post '/game/poll', :to => 'gap#poll', :as => 'gap_poll', :via => :post
 		match '/game/share', :to => 'gap#share', :as => 'gap_share'
 		get '/game/summary', :to => 'gap#summary', :as => 'gap_summary'		
 

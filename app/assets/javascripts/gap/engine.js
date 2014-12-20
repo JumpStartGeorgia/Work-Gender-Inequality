@@ -786,7 +786,9 @@ function sendUserData(fin)
   var data = {};
   data.user = user;
   data.flag = fin;
+
   $.ajax({
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},    
     type: "POST",
     url: "game/poll",
     data: data,
