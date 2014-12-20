@@ -1,5 +1,7 @@
 class GapPoll < ActiveRecord::Base
-  	attr_accessible :age, :agent, :browser, :category, :city, :country, :gender, :interest, :ip, :lat, :lon, :mobile, :platform, :salary, :saving_percent, :finished
+	attr_accessible :age, :agent, :browser, :category, :city, :country, :gender, :interest, :ip, :lat, :lon, :mobile, :platform, :salary, :saving_percent, :finished
+
+
 	def self.to_csv
 	 CSV.generate do |csv|
 	   csv << column_names

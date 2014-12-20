@@ -903,7 +903,7 @@ function epilogue()
   
   var t = $("<div class='epilogue'><div class='slider'><div class='summary'><div class='content'></div></div><div class='whatnext'><div class='whatnext-trigger up'><div class='arrow up'></div></div><div class='content'></div></div></div></div>").appendTo(s.parent());
 
-  t.find('.whatnext .content').html($('.about-window .content').html()).scrollTop();
+  t.find('.whatnext .content').html($('.about-window .content').html()).scrollTop(0);
   resizeCallback = function()
   {
     epilogue_redraw();
@@ -911,7 +911,7 @@ function epilogue()
   epilogue_redraw();
 
   $.getJSON( "game/summary?b=" + window.location.hash.substr(1), function( data ) {
-    t.find('.summary .content').html(data.s).scrollTop();
+    t.find('.summary').html(data.s).scrollTop(0);
     t.find('.whatnext .whatnext-trigger').on('click',function(){ epilogue_trigger(); });
     s.fadeOut(3000);
     t.fadeIn(3000);
