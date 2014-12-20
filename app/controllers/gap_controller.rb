@@ -2,6 +2,7 @@ class GapController < ApplicationController
   layout false 
   def index  	
     @about_short = Page.find_by_name('about_short')
+    cookies['_game_id'] = nil
     respond_to do |format|
       format.html # index.html.erb
     end
@@ -9,7 +10,7 @@ class GapController < ApplicationController
   def poll
     game_id = cookies['_game_id']
     flag = params[:flag].to_bool
-    if game_id.blank? && !flag
+    if !flag
 
       user_agent = UserAgent.parse(request.user_agent)
       resp = GapPoll.create(
@@ -20,10 +21,10 @@ class GapController < ApplicationController
         interest:params[:user][:interest],
         saving_percent:params[:user][:salary_percent],
         ip:request.remote_ip,
-        country:request.location.country,
-        city:request.location.city,
-        lat:request.location.latitude,
-        lon:request.location.longitude,
+        country:request.location.present? ? request.location.country : nil,
+        city:request.location.present? ? request.location.city : nil,
+        lat:request.location.present? ? request.location.latitude : nil,
+        lon:request.location.present? ? request.location.longitude : nil,
         platform:user_agent.platform,
         browser:user_agent.browser,
         mobile:user_agent.mobile?,

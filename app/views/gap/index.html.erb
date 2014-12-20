@@ -13,6 +13,7 @@
       <%= favicon_link_tag '/favicon.png', :rel => 'shortcut icon' %>
       <%= stylesheet_link_tag  *( "gap/fonts_#{I18n.locale}.css" ), :media => "all" %>  
       <link rel="stylesheet" type="text/css" href="/assets/gap/application.css">
+      <%= csrf_meta_tag %>
    </head>
    <body>
       <div id="fb-root"></div>      
