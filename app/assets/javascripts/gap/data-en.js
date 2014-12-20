@@ -47,7 +47,7 @@ var categories =
         "bg2":"bg2",
         "fg":"mining",
         "action":true,
-        "action_points":[{"x":340,"y":0,"d":1}],
+        "action_points":[{"x":330,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 7.9294526,292.21723 L 732.64405,292.21723 L 732.64405,291.93403 L 7.9294526,291.93403 z"},
         "work_point":{"x":0,"y":0}        
     },

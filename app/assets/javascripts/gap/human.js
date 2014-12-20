@@ -260,14 +260,15 @@ function human(selector,title,alias)
       t.x = category.action_points[0].d == 1 
             ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - wDiff
             : t.x + t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
+
       t.movement = 3; 
 
       var hDiff = t.frames[t.movement].h-t.height;      
       var wDiff = t.frames[t.movement].w-t.width;
      
       t.y = t.y - hDiff;
+
       $(t.selector).css({ left: t.x, top: t.y });  
-      
 
       t.before_movement('a0');
       
@@ -305,6 +306,7 @@ function human(selector,title,alias)
       t.stopped = false;
       t.stop_counter = -3;
       t.x = t.x + t.width - t.frames[0].w;
+      t.y = t.y + t.height - t.frames[0].h;
       $(t.selector).css({ left: t.x , top: t.y });   
       this.stand_movement(category.action_points[0].d==-1?'l':'r');
       t.prevX = -1;
