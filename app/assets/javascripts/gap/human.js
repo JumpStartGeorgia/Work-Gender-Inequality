@@ -259,7 +259,7 @@ function human(selector,title,alias)
     {
       t.x = category.action_points[0].d == 1 
             ? category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left//wDiff
-            : category.action_points[0].x*img_scaler + t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
+            : category.action_points[0].x*img_scaler +$('.top .stage .fg img').first().offset().left ;// t.width - t.frames[3].w ;//category.action_points[0].x*img_scaler + $('.top .stage .fg img').first().offset().left - t.frames[t.movement].w; 
 
       t.movement = 3; 
 
@@ -305,10 +305,11 @@ function human(selector,title,alias)
     {
       t.stopped = false;
       t.stop_counter = -3;
-      t.x = t.x + t.width - t.frames[0].w;
+      t.x = t.x;// + t.width - t.frames[0].w;
       t.y = t.y + t.height - t.frames[0].h;
       $(t.selector).css({ left: t.x , top: t.y });   
       this.stand_movement(category.action_points[0].d==-1?'l':'r');
+      this.traversed_path+=4;
       t.prevX = -1;
       t.prevY = -1;   
     }
@@ -327,7 +328,6 @@ function human(selector,title,alias)
       tmp = tmp == 100 ? 100 : tmp%100;
       if(t.was_stopped && tmp < 5) t.was_stopped = false;
       this.traversed_path = tmp;
-      console.log(this.traversed_path,this.title);
       this.position(this.getpathcoordinates(this.traversed_path/100),true);
     } 
   };
@@ -496,8 +496,7 @@ function human(selector,title,alias)
   this.has_future_reward = function has_future_reward()
   {    
     return this.event_by_period_sum[gap.pos-1] > 0;
-  };
-  
+  };  
   this.init = function()
   {
     var t = this;

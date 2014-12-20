@@ -31,7 +31,7 @@ var categories =
         "bg2":"bg2",
         "fg":"fishing",
         "action":true,
-        "action_points":[{"x":900,"y":0,"d":-1}],
+        "action_points":[{"x":227,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 38.900437,182.29612 L 1033.755,182.29612 L 1033.7967,181.36887 L 38.848395,181.36887 z"},
         "work_point":{ "x":35,"y":0 }    
     },
@@ -47,7 +47,7 @@ var categories =
         "bg2":"bg2",
         "fg":"mining",
         "action":true,
-        "action_points":[{"x":330,"y":0,"d":1}],
+        "action_points":[{"x":317,"y":0,"d":1}],
         "work":{ "a":false, "loop": true, "path":"M 7.9294526,292.21723 L 732.64405,292.21723 L 732.64405,291.93403 L 7.9294526,291.93403 z"},
         "work_point":{"x":0,"y":0}        
     },

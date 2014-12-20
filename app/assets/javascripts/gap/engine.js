@@ -542,11 +542,7 @@ function reward_process()
     if(d.has_future_reward()) 
     { 
       d.queue.push(function() { d.pedestal.fill(); });
-      //d.queue.push(function() { prepare_for_reward(d); });      
       d.queue.push(function() { card_prepare(d);  });
-      //d.queue.push(function() { d.mutate(1); });
-      //d.queue.push(function() { hide_card(d); });
-      //d.queue.push(function() { prepare_for_work(d); });
       d.queue.start();
       player.play('award'); 
     }
@@ -626,12 +622,6 @@ function prepare_for_work(v)
     }
   });
 }
-function hide_card(v)
-{
-  v.card.hide();
-  v.queue.resume();  
-}
-
 /***************************************************************
                      ON EACH TICK END
 ***************************************************************/
