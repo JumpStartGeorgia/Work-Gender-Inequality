@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141201130753) do
+ActiveRecord::Schema.define(:version => 20150213125853) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -98,11 +98,11 @@ ActiveRecord::Schema.define(:version => 20141201130753) do
 
   create_table "law_translations", :force => true do |t|
     t.integer  "law_id"
-    t.string   "locale",     :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "locale",                         :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "title"
-    t.text     "content"
+    t.text     "content",    :limit => 16777215
     t.string   "url"
   end
 

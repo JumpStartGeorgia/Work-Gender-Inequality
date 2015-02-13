@@ -49,7 +49,7 @@ en:
         title: Title
         description: Description
         url: URL to Publication
-        pub_file: PDF File
+        pub_file: Publication File
       news_item:
         published_at: Date Published
         is_published: Is Published?

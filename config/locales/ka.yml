@@ -49,7 +49,7 @@ ka:
         title: სათაური
         description: აღწერილობა
         url: პუბლიკაცია
-        pub_file: PDF ფაილი
+        pub_file: პუბლიკაციების ფაილი
       news_item:
         published_at: გამოქვეყნების თარიღი
         is_published: გამოქვეყნებულია?
