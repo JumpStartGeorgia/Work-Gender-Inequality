@@ -7,7 +7,7 @@ class PublicationTranslation < ActiveRecord::Base
 
   validates :title, :description, :presence => true
   validates :url, :format => {:with => URI::regexp(['http','https'])}, allow_blank: true
-  validates_attachment :pub_file, :presence => true, #:content_type => { :content_type => ["application/pdf"] }
+  validates_attachment :pub_file, :presence => true#, :content_type => { :content_type => ["application/pdf"] }
 
   def required_data_provided?
     provided = false
