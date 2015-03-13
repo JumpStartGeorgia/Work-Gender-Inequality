@@ -3,17 +3,19 @@ class PublicationTranslation < ActiveRecord::Base
 
   has_attached_file :pub_file, :url => "/system/publications/:id/:filename", :use_timestamp => false
 
-  attr_accessible :publication_id, :title, :description, :url, :locale, :pub_file
+  attr_accessible :publication_id, :title, :description, :url, :locale, :pub_file, :pub_file_file_name
 
   validates :title, :description, :presence => true
   validates :url, :format => {:with => URI::regexp(['http','https'])}, allow_blank: true
   validates_attachment :pub_file, :presence => true#, :content_type => { :content_type => ["application/pdf"] }
 
+
   def required_data_provided?
+
     provided = false
     
     provided = self.title.present? && self.description.present? && self.pub_file_file_name.present?
-    
+
     return provided
   end
   

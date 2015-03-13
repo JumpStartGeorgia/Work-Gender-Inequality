@@ -1,5 +1,5 @@
 class Publication < ActiveRecord::Base
-  translates :title, :description, :url, :pub_file
+  translates :title, :description, :url#, :pub_file
 
   has_many :publication_translations, :dependent => :destroy
   accepts_nested_attributes_for :publication_translations
@@ -16,10 +16,11 @@ class Publication < ActiveRecord::Base
   end
 
   # work-around for getting paperclip file in translation
-  def pub_file
+  def translation_pub_file
     x = self.publication_translations.select{|x| x.locale == I18n.locale.to_s}.first
     if x.present?
       x.pub_file
     end
   end
+
 end
