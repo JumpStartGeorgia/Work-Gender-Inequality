@@ -318,6 +318,16 @@ en:
       title: About
       donor: Donor
       partners: Partners
+      contact:
+        header: Contact
+        explanation: "If you would like to know more about this project and activities, please contact us at:"
+        address: "Address: M.Kantaria Str. N11a, Tbilisi, 0160, Georgia"
+        tel: "Tel.: (+ 995 32) 299 88 56 ; (+995 32) 272 88 56"
+        fax: "Fax: (+ 995 32) 299 88 56"
+        email: "E-Mail: office@article42.ge"
+        working_days: "Working Days: Monday To Friday"
+        working_hours: "Working Hours: 10:30-18:00"
+        free_legal: "Free Legal Consultations Every Tuesday , Wednesday and Thursday, 10:30-18:00"
     news:
       title: News
       no_news: At this time no news has been posted.
