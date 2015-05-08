@@ -6,6 +6,7 @@
   }
 
   #into-content{
+    min-height: 320px;
     & > div:first-of-type {
       position: relative;
       & > div{
@@ -413,6 +414,14 @@
   }
 }
 
+@media (max-width: 850px) {
+  #landing{
+    #into-content{
+      min-height: 365px;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #landing{
     #into-content{
@@ -431,3 +440,4 @@
     }
   }
 }
+
