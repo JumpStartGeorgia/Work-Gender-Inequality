@@ -3,7 +3,7 @@ class Publication < ActiveRecord::Base
 
   has_many :publication_translations, :dependent => :destroy
   accepts_nested_attributes_for :publication_translations
-  attr_accessible :id, :publication_translations_attributes, :published_at
+  attr_accessible :id, :publication_translations_attributes, :published_at, :random
 
   validates :published_at, :presence => true
 

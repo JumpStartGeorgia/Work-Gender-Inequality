@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150213125853) do
+ActiveRecord::Schema.define(:version => 20150716085503) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20150213125853) do
     t.date     "published_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "random"
   end
 
   add_index "publications", ["published_at"], :name => "index_publications_on_published_at"

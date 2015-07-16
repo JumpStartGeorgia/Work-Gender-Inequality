@@ -1,11 +1,13 @@
+<% random = @publication.random.present? ? @publication.random : SecureRandom.hex(5) %>
 <%= tinymce_assets %>
-<%= tinymce %>
+<%= tinymce :alternate, uploadimage_form_url: admin_image_uploader_path(id: random), uploadimage_default_img_class: "image" %>
 
 <%= semantic_form_for([:admin, @publication], html: {:multipart => true}) do |f| %>
   <%= f.error_messages %>
 
   <%= f.inputs do %>
     <%= f.input :published_at, :as => :string, :input_html => { :size => 20 } %>
+    <%= f.hidden_field :random , :value => random %>
   <% end %>
 
   <% create_sorted_translation_objects(@publication.publication_translations).each_with_index do |trans, tindex| %>
