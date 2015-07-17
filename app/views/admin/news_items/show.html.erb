@@ -22,6 +22,9 @@
 <p><strong><%= model_class.human_attribute_name(:published_at) %>:</strong>
 <%= l @news_item.published_at if @news_item.published_at.present? %></p>
 
+<p><strong><%= model_class.human_attribute_name(:thumbnail) %>:</strong><br/>
+<%= image_tag(@news_item.thumbnail.url(:small), width: 150) %></p>
+
 <p><strong><%= model_class_trans.human_attribute_name(:title) %>:</strong>
 <%= @news_item.title %></p>
 

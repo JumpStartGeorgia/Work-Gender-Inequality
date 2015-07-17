@@ -1,8 +1,9 @@
+<%- model_class = NewsItem -%>
 <% random = @news_item.random.present? ? @news_item.random : SecureRandom.hex(5) %>
 <%= tinymce_assets %>
 <%= tinymce :alternate, uploadimage_form_url: admin_image_uploader_path(id: random), uploadimage_default_img_class: "image" %>
 
-<%= semantic_form_for([:admin, @news_item]) do |f| %>
+<%= semantic_form_for([:admin, @news_item], :html => { :multipart => true }) do |f| %>
   <%= f.error_messages %>
 
   <% create_sorted_translation_objects(@news_item.news_item_translations).each do |trans| %>
@@ -20,6 +21,14 @@
   <% end %>
 
   <%= f.inputs do %>
+    <div class="file input optional form-group" id="news_item_thumbnail_input">
+      <label class="" for="news_item_thumbnail"><%= model_class.human_attribute_name(:thumbnail) %></label>
+      <br />
+      <% if @news_item.thumbnail.exists? %>
+        <%= image_tag(@news_item.thumbnail.url(:small), width: 150) %>
+      <% end %>
+      <input id="news_item_thumbnail" name="news_item[thumbnail]" type="file">
+    </div>
     <%= f.input :is_published, :as => :radio %>
     <%= f.input :published_at, :as => :string, :input_html => { :size => 20 } %>
     <%= f.hidden_field :random , :value => random %>

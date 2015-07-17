@@ -147,32 +147,67 @@ div#stories-list{
       .story-header{
         color: @pink-color;
         font-size: 11px;
-        text-align: right;
         font-family: "main-font-italic";
-        padding-bottom: 5px;
-        margin-bottom: 5px;
       }
-      .story-title a{
-        line-height: 15px;
-        font-size: 15px;        
-        color: @text-color;
-        font-family: "main-font-bold";
-      }
-      p{
+      .story-thumbnail{
+        background-color: #f0f0f0;
+        height: 198px;
+        margin-top: 15px;
+        margin-bottom: 25px;
         a{
+          display: block;
+          width: 100%;
+          height: 100%;
+          position: relative;
+          &:hover{
+            opacity: 0.8;
+          }
+          img{
+/*            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+*/          
+            max-width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+      .story-title {
+        margin-bottom: 15px;
+        a {
           line-height: 15px;
           font-size: 15px;        
           color: @text-color;
-          font-family: "main-font";
+          font-family: "main-font-bold";
           &.geo-text-in-en{
             font-size: 14px;
             line-height: 16px;
-            font-family: "main-font-ka";
+            font-family: "main-font-bold-ka";
           }
-          &:lang(ka){
-            font-size: 14px;
-            line-height: 16px;
-          }
+        }
+      }
+      p{
+        line-height: 16px;
+        font-size: 15px;        
+        color: @text-color;
+        font-family: "main-font";
+        &.geo-text-in-en{
+          font-size: 14px;
+          line-height: 18px;
+          font-family: "main-font-ka";
+        }
+        &:lang(ka){
+          font-size: 14px;
+          line-height: 18px;
+        }
+        &.geo-text-in-en{
+          font-size: 14px;
+          line-height: 18px;
+          font-family: "main-font-ka";
         }
       }
     }

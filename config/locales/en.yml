@@ -53,6 +53,7 @@ en:
       news_item:
         published_at: Date Published
         is_published: Is Published?
+        thumbnail: Thumbnail Image
       news_item_translation:
         title: Title
         content: Content

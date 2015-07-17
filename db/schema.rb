@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150716085503) do
+ActiveRecord::Schema.define(:version => 20150717112330) do
 
   create_table "discrimination_type_translations", :force => true do |t|
     t.integer  "discrimination_type_id"
@@ -133,10 +133,14 @@ ActiveRecord::Schema.define(:version => 20150716085503) do
 
   create_table "news_items", :force => true do |t|
     t.date     "published_at"
-    t.boolean  "is_published", :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "is_published",           :default => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "random"
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
   end
 
   add_index "news_items", ["is_published"], :name => "index_news_items_on_is_published"

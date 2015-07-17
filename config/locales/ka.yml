@@ -53,6 +53,7 @@ ka:
       news_item:
         published_at: გამოქვეყნების თარიღი
         is_published: გამოქვეყნებულია?
+        thumbnail: გამოსახულება
       news_item_translation:
         title: სათაური
         content: შინაარსი

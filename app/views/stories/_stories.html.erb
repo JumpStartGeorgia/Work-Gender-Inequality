@@ -6,7 +6,7 @@
             <div class="pull-right type"><%= story.discrimination_type.name %></div>
           </div>
           <p>
-            <% cls = story.content.is_georgian? ? 'geo-text-in-en' : '' %>
+            <% cls = story.content.is_georgian? && I18n.locale == :en ? 'geo-text-in-en' : '' %>
             <%= link_to story_path(story), class: cls do %>
               <%= truncate(story.content.gsub('&nbsp;', ''), separator: ' ', omission: '...', length: 250) %>
             <% end %>

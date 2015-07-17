@@ -4,8 +4,12 @@
           <div class="clear story-header">
             <div class="date"><%= l news.published_at %></div>
           </div>
-          <div class="story-title"><%= link_to news.title, news_show_path(news) %></div>
-          <p>
+          <div class="story-thumbnail">
+            <%= link_to image_tag(news.thumbnail.url(:thumb)), news_show_path(news) %>
+          </div>
+          <% cls = news.title.is_georgian? && I18n.locale == :en ? 'geo-text-in-en' : '' %>          
+          <div class="story-title"><%= link_to news.title, news_show_path(news), class: cls %></div>
+          <p class="<%= cls %>">
             <%= truncate(strip_tags(news.content.gsub('&nbsp;', '')), separator: ' ', omission: '...', length: 250).html_safe %>
           </p>
         </div> 

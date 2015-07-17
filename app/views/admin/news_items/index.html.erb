@@ -13,6 +13,7 @@
 <table class="table table-striped display">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:thumbnail) %></th>
       <th><%= model_class_trans.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:is_published) %></th>
       <th><%= model_class.human_attribute_name(:published_at) %></th>
@@ -22,6 +23,7 @@
   <tbody>
     <% @news_items.each do |news_item| %>
       <tr>
+        <td><%= link_to image_tag(news_item.thumbnail.url(:small), width: 150), admin_news_item_path(news_item) %></td>
         <td><%= link_to news_item.title, admin_news_item_path(news_item) %></td>
         <td><%= news_item.is_published %></td>
         <td><%= l news_item.published_at if news_item.published_at.present? %></td>
