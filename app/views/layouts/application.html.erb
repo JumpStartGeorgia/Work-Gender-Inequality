@@ -161,7 +161,7 @@
                 <% if content_for?(:title) %>
                   <div class="page-header">
                     <h1>
-                      <%= yield(:title) %>
+                      <span><%= yield(:title) %></span>
                       <% if content_for?(:title_right) %>
                         <span class="pull-right"><%= yield(:title_right) %></span>
                       <% end %>
